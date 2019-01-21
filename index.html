@@ -744,7 +744,7 @@
                     }
                     // some armor effects override the name prefix
                     if (itemMinorIndex >= 0) {
-                        var minorName = effects[itemMinorIndex];
+                        var minorName = effects[itemMinorIndex].name;
                         if (minorName == "Sentinel's" || minorName == "Acrobat's") {
                             // no two 's in the name, override the previous 's only
                             if (itemNamePrefix.contains("'s")) {
@@ -755,7 +755,7 @@
                             }
                         }
                     } else if (itemMajorIndex >= 0) {
-                        var majorName = effects[itemMajorIndex];
+                        var majorName = effects[itemMajorIndex].name;
                         if (majorName == "Poisoner's") {
                             // no two 's in the name, override the previous 's only
                             if (itemPrefix.contains("'s")) {
