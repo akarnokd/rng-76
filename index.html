@@ -707,9 +707,16 @@
 
                 var itemCategory = dropItem.category;
 
+                // special case: black powder can't be double/quad
+                var isBlackpowder = dropItem.name.includes("Black Powder")
+                    || dropItem.name.includes("The Dragon");
+
                 // pick a legendary prefix, always
                 var itemPrefixIndex = pickRatiodRandom(effects, 
-                    function(v) { return v.category == itemCategory && v.level == 0; }, 
+                    function(v) { 
+                        return v.category == itemCategory && v.level == 0
+                        && !(isBlackpowder && (v.name == "Double" || v.name == "Quad")); 
+                    }, 
                     function(v) { return v.ratio; }
                 );
 
@@ -718,7 +725,9 @@
                 if (dropStars >= 1) {
 
                     // special case: default explosive weapons can't get the explosive effect again
-                    var isAlreadyExplosive = dropItem.name.includes("Launcher") || dropItem.name.includes("Fat Man");
+                    var isAlreadyExplosive = dropItem.name.includes("Launcher") 
+                        || dropItem.name.includes("Fat Man")
+                        || dropItem.name.includes("Broadsider");
 
                     itemMajorIndex = pickRatiodRandom(effects, 
                         function(v) { 
