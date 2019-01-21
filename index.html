@@ -758,7 +758,7 @@
                         var majorName = effects[itemMajorIndex].name;
                         if (majorName == "Poisoner's") {
                             // no two 's in the name, override the previous 's only
-                            if (itemPrefix.includes("'s")) {
+                            if (itemNamePrefix.includes("'s")) {
                                 itemNamePrefix = majorName;
                             } else {
                                 // prepend otherwise
