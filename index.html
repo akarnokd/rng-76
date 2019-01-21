@@ -182,803 +182,804 @@
                 </td>
             </tr>
         </table>
-    </body>
-    <script>
-        // Global statistics
-        // -----------------
-        var totalRolls = 0;
-        
-        var totalArmor = 0;
-        var totalArmor1Star = 0;
-        var totalArmor2Star = 0;
-        var totalArmor3Star = 0;
-        
-        var totalMelee = 0;
-        var totalMelee1Star = 0;
-        var totalMelee2Star = 0;
-        var totalMelee3Star = 0;
-        
-        var totalRanged = 0;
-        var totalRanged1Star = 0;
-        var totalRanged2Star = 0;
-        var totalRanged3Star = 0;
-        
-        var totalTS = 0;
-        var totalTSE = 0;
-        var totalTSE3Star = 0;
+        <!-- OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO -->
+        <script>
+            // Global statistics
+            // -----------------
+            var totalRolls = 0;
+            
+            var totalArmor = 0;
+            var totalArmor1Star = 0;
+            var totalArmor2Star = 0;
+            var totalArmor3Star = 0;
+            
+            var totalMelee = 0;
+            var totalMelee1Star = 0;
+            var totalMelee2Star = 0;
+            var totalMelee3Star = 0;
+            
+            var totalRanged = 0;
+            var totalRanged1Star = 0;
+            var totalRanged2Star = 0;
+            var totalRanged3Star = 0;
+            
+            var totalTS = 0;
+            var totalTSE = 0;
+            var totalTSE3Star = 0;
 
-        var totalTSHandmade = 0;
-        var totalTSEHandmade = 0;
-        var totalTSE3StarHandmade = 0;
+            var totalTSHandmade = 0;
+            var totalTSEHandmade = 0;
+            var totalTSE3StarHandmade = 0;
 
-        var totalEnemy1Star = 0;
-        var totalEnemy2Star = 0;
-        var totalEnemy3Star = 0;
-        var total1Star = 0;
-        var total2Star = 0;
-        var total3Star = 0;
-
-
-        // oooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo
-        // Legendary enemy chances
-        // -------------------------
-        var enemySpawnRatio = [60, 30, 10];
-
-        var legendaryDropRatios = [
-            [100],
-            [80, 20],
-            [60, 30, 10]
-        ];
-
-        var enemyNames = [
-            "Ghoul",
-            "Scorched",
-            "Wolf",
-            "Super Mutant",
-            "Mutant Hound",
-            "Protectron",
-            "Robobrain",
-            "Deathclaw",
-            "Molerat",
-            "Wendigo",
-            "Mirelurk Queen",
-            "Mirelurk King",
-            "Mirelurk",
-            "Gutsy",
-            "Nightclawler",
-            "Ant",
-            "Bloodbug",
-            "Bloatfly",
-            "Angler",
-            "Gulper",
-            "Sloth"
-        ];
-
-        // oooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo
-        // Item database
-        // -------------
-        var items = [];
-
-        function addItem(category, name, ratio) {
-            items.push({
-                category: category,
-                name: name,
-                ratio: ratio
-            });
-        }
-
-        // Melee weapons
-        addItem("Melee", "Combat Knife", 1);
-        addItem("Melee", "Super Sledge", 1);
-        addItem("Melee", "Switchblade", 1);
-        addItem("Melee", "Pickaxe", 1);
-        addItem("Melee", "Power Fist", 1);
-        addItem("Melee", "Knuckles", 1);
-        addItem("Melee", "Boxing Glove", 1);
-        addItem("Melee", "Pitchfork", 1);
-        addItem("Melee", "Shishkebab", 1);
-        addItem("Melee", "Machete", 1);
-        addItem("Melee", "Spear", 1);
-        addItem("Melee", "Ripper", 1);
-        addItem("Melee", "Mr. Handy Buzz Blade", 1);
-        addItem("Melee", "Assaultron Blade", 1);
-        addItem("Melee", "Bovie knife", 1);
-        addItem("Melee", "Chinese Officer Sword", 1);
-        addItem("Melee", "Cultist Blade", 1);
-        addItem("Melee", "Cultist Dagger", 1);
-        addItem("Melee", "Guitar Sword", 1);
-        addItem("Melee", "Lead Pipe", 1);
-        addItem("Melee", "Pipe Wrench", 1);
-        addItem("Melee", "Revolutionary Sword", 1);
-        addItem("Melee", "Rolling Pin", 1);
-        addItem("Melee", "Baton", 1);
-        addItem("Melee", "Sickle", 1);
-        addItem("Melee", "Sky Sword", 1);
-        addItem("Melee", "Black Diamond", 1);
-        addItem("Melee", "Walking Cane", 1);
-        addItem("Melee", "Tire Iron", 1);
-        addItem("Melee", "Baseball Bat", 1);
-        addItem("Melee", "Board", 1);
-        addItem("Melee", "Fire Axe", 1);
-        addItem("Melee", "Golf Club", 1);
-        addItem("Melee", "Gnorak's Axe", 1);
-        addItem("Melee", "Multi-purpose Axe", 1);
-        addItem("Melee", "Pole hook", 1);
-        addItem("Melee", "Pool cue", 1);
-        addItem("Melee", "War drum", 1);
-        addItem("Melee", "Death Tambo", 1);
-        addItem("Melee", "Deathclaw Gauntlet", 1);
-        addItem("Melee", "Mole Miner Gauntlet", 1);
-        addItem("Melee", "Meat hook", 1);
-
-        // Ranged weapons
-        addItem("Ranged", ".44 Pistol", 1);
-        addItem("Ranged", "10mm Pistol", 1);
-        addItem("Ranged", "Handmade Rifle", 1);
-        addItem("Ranged", "Hunting Rifle", 1);
-        addItem("Ranged", "10mm SMG", 1);
-        addItem("Ranged", "Submachine Gun", 1);
-        addItem("Ranged", "Gatling Plasma", 1);
-        addItem("Ranged", "Gatling Laser", 1);
-        addItem("Ranged", "Ultracite Gatling Laser", 1);
-        addItem("Ranged", "Gatling Gun", 1);
-        addItem("Ranged", "Minigun", 1);
-        addItem("Ranged", "50 cal Machine Gun", 1);
-        addItem("Ranged", "Western Revolver", 1);
-        addItem("Ranged", "Pump-action Shotgun", 1);
-        addItem("Ranged", "Combat Shotgun", 1);
-        addItem("Ranged", "Combat Rifle", 1);
-        addItem("Ranged", "Plasma Gun", 1);
-        addItem("Ranged", "Laser Pistol", 1);
-        addItem("Ranged", "Ultracite Laser Gun", 1);
-        addItem("Ranged", "Laser Rifle", 1);
-        addItem("Ranged", "Tesla Rifle", 1);
-        addItem("Ranged", "Broadsider", 1);
-        addItem("Ranged", "Single Action Revolver", 1);
-        addItem("Ranged", "Black Powder Pistol", 1);
-        addItem("Ranged", "Black Powder Rifle", 1);
-        addItem("Ranged", "Black Powder Blunderbuss", 1);
-        addItem("Ranged", "The Dragon", 1);
-        addItem("Ranged", "Harpoon Gun", 1);
-        addItem("Ranged", "Flamer", 1);
-        addItem("Ranged", "Assault Rifle", 1);
-        addItem("Ranged", "Crossbow", 1);
-        addItem("Ranged", "Gauss Rifle", 1);
-        addItem("Ranged", "Lever Action Rifle", 1);
-        addItem("Ranged", "Radium Rifle", 1);
-        addItem("Ranged", "Railway Rifle", 1);
-        addItem("Ranged", "Syringer", 1);
-        addItem("Ranged", "Double-barrel Shotgun", 1);
-        addItem("Ranged", "Pipe Gun", 1);
-        addItem("Ranged", "Pipe Bolt-action", 1);
-        addItem("Ranged", "Pipe Revolver", 1);
-        addItem("Ranged", "Light Machine Gun", 1);
-        addItem("Ranged", "Cryolator", 1);
-        addItem("Ranged", "Salvaged assaultron head", 1);
-        addItem("Ranged", "Gamma Gun", 1);
-        addItem("Ranged", "Auto Grenade Launcher", 1);
-        addItem("Ranged", "Fat Man", 1);
-        addItem("Ranged", "M79 Grenade Launcher", 1);
-        addItem("Ranged", "Missile Launcher", 1);
-
-        // oooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo
-        // Armors
-        // ------
-
-        // Leather
-        addItem("Armor", "Leather Chest Piece", 1);
-        addItem("Armor", "Leather Left Arm", 1);
-        addItem("Armor", "Leather Right Arm", 1);
-        addItem("Armor", "Leather Left Leg", 1);
-        addItem("Armor", "Leather Right Leg", 1);
-
-        addItem("Armor", "Sturdy Leather Chest Piece", 1);
-        addItem("Armor", "Sturdy Leather Left Arm", 1);
-        addItem("Armor", "Sturdy Leather Right Arm", 1);
-        addItem("Armor", "Sturdy Leather Left Leg", 1);
-        addItem("Armor", "Sturdy Leather Right Leg", 1);
-
-        addItem("Armor", "Heavy Leather Chest Piece", 1);
-        addItem("Armor", "Heavy Leather Left Arm", 1);
-        addItem("Armor", "Heavy Leather Right Arm", 1);
-        addItem("Armor", "Heavy Leather Left Leg", 1);
-        addItem("Armor", "Heavy Leather Right Leg", 1);
-
-        // Metal
-        addItem("Armor", "Metal Chest Piece", 1);
-        addItem("Armor", "Metal Left Arm", 1);
-        addItem("Armor", "Metal Right Arm", 1);
-        addItem("Armor", "Metal Left Leg", 1);
-        addItem("Armor", "Metal Right Leg", 1);
-
-        addItem("Armor", "Sturdy Metal Chest Piece", 1);
-        addItem("Armor", "Sturdy Metal Left Arm", 1);
-        addItem("Armor", "Sturdy Metal Right Arm", 1);
-        addItem("Armor", "Sturdy Metal Left Leg", 1);
-        addItem("Armor", "Sturdy Metal Right Leg", 1);
-
-        addItem("Armor", "Heavy Metal Chest Piece", 1);
-        addItem("Armor", "Heavy Metal Left Arm", 1);
-        addItem("Armor", "Heavy Metal Right Arm", 1);
-        addItem("Armor", "Heavy Metal Left Leg", 1);
-        addItem("Armor", "Heavy Metal Right Leg", 1);
-
-        // Combat
-        addItem("Armor", "Combat Armor Chest Piece", 1);
-        addItem("Armor", "Combat Armor Left Arm", 1);
-        addItem("Armor", "Combat Armor Right Arm", 1);
-        addItem("Armor", "Combat Armor Left Leg", 1);
-        addItem("Armor", "Combat Armor Right Leg", 1);
-
-        addItem("Armor", "Sturdy Combat Armor Chest Piece", 1);
-        addItem("Armor", "Sturdy Combat Armor Left Arm", 1);
-        addItem("Armor", "Sturdy Combat Armor Right Arm", 1);
-        addItem("Armor", "Sturdy Combat Armor Left Leg", 1);
-        addItem("Armor", "Sturdy Combat Armor Right Leg", 1);
-
-        addItem("Armor", "Heavy Combat Armor Chest Piece", 1);
-        addItem("Armor", "Heavy Combat Armor Left Arm", 1);
-        addItem("Armor", "Heavy Combat Armor Right Arm", 1);
-        addItem("Armor", "Heavy Combat Armor Left Leg", 1);
-        addItem("Armor", "Heavy Combat Armor Right Leg", 1);
-
-        // Robot
-        addItem("Armor", "Robot Armor Chest Piece", 1);
-        addItem("Armor", "Robot Armor Left Arm", 1);
-        addItem("Armor", "Robot Armor Right Arm", 1);
-        addItem("Armor", "Robot Armor Left Leg", 1);
-        addItem("Armor", "Robot Armor Right Leg", 1);
-
-        addItem("Armor", "Robot Sturdy Armor Chest Piece", 1);
-        addItem("Armor", "Robot Sturdy Armor Left Arm", 1);
-        addItem("Armor", "Robot Sturdy Armor Right Arm", 1);
-        addItem("Armor", "Robot Sturdy Armor Left Leg", 1);
-        addItem("Armor", "Robot Sturdy Armor Right Leg", 1);
-
-        addItem("Armor", "Robot Heavy Armor Chest Piece", 1);
-        addItem("Armor", "Robot Heavy Armor Left Arm", 1);
-        addItem("Armor", "Robot Heavy Armor Right Arm", 1);
-        addItem("Armor", "Robot Heavy Armor Left Leg", 1);
-        addItem("Armor", "Robot Heavy Armor Right Leg", 1);
-
-        // Marine
-        addItem("Armor", "Marine Armor Chest Piece", 1);
-        addItem("Armor", "Marine Armor Left Arm", 1);
-        addItem("Armor", "Marine Armor Right Arm", 1);
-        addItem("Armor", "Marine Armor Left Leg", 1);
-        addItem("Armor", "Marine Armor Right Leg", 1);
-
-        // Trapper
-        addItem("Armor", "Trapper Chest Piece", 1);
-        addItem("Armor", "Trapper Left Arm", 1);
-        addItem("Armor", "Trapper Right Arm", 1);
-        addItem("Armor", "Trapper Left Leg", 1);
-        addItem("Armor", "Trapper Right Leg", 1);
-
-        addItem("Armor", "Heavy Trapper Chest Piece", 1);
-        addItem("Armor", "Heavy Trapper Left Arm", 1);
-        addItem("Armor", "Heavy Trapper Right Arm", 1);
-        addItem("Armor", "Heavy Trapper Left Leg", 1);
-        addItem("Armor", "Heavy Trapper Right Leg", 1);
-
-        // Scout
-        addItem("Armor", "Forrest Scout Armor Chest Piece", 1);
-        addItem("Armor", "Forrest Scout Armor Left Arm", 1);
-        addItem("Armor", "Forrest Scout Armor Right Arm", 1);
-        addItem("Armor", "Forrest Scout Armor Left Leg", 1);
-        addItem("Armor", "Forrest Scout Armor Right Leg", 1);
-
-        addItem("Armor", "Urban Scout Armor Chest Piece", 1);
-        addItem("Armor", "Urban Scout Armor Left Arm", 1);
-        addItem("Armor", "Urban Scout Armor Right Arm", 1);
-        addItem("Armor", "Urban Scout Armor Left Leg", 1);
-        addItem("Armor", "Urban Scout Armor Right Leg", 1);
-
-        // Wooden
-        addItem("Armor", "Wooden Chest Piece", 1);
-        addItem("Armor", "Wooden Left Arm", 1);
-        addItem("Armor", "Wooden Right Arm", 1);
-        addItem("Armor", "Wooden Left Leg", 1);
-        addItem("Armor", "Wooden Right Leg", 1);
-
-        // Raider
-        addItem("Armor", "Raider Chest Piece", 1);
-        addItem("Armor", "Raider Left Arm", 1);
-        addItem("Armor", "Raider Right Arm", 1);
-        addItem("Armor", "Raider Left Leg", 1);
-        addItem("Armor", "Raider Right Leg", 1);
-
-        addItem("Armor", "Sturdy Raider Chest Piece", 1);
-        addItem("Armor", "Sturdy Raider Left Arm", 1);
-        addItem("Armor", "Sturdy Raider Right Arm", 1);
-        addItem("Armor", "Sturdy Raider Left Leg", 1);
-        addItem("Armor", "Sturdy Raider Right Leg", 1);
-
-        addItem("Armor", "Heavy Raider Chest Piece", 1);
-        addItem("Armor", "Heavy Raider Left Arm", 1);
-        addItem("Armor", "Heavy Raider Right Arm", 1);
-        addItem("Armor", "Heavy Raider Left Leg", 1);
-        addItem("Armor", "Heavy Raider Right Leg", 1);
-
-        // oooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo
-        // Legendary effects database
-        // --------------------------
-
-        var effects = [];
-
-        function addEffect(category, level, name, description, ratio) {
-            effects.push({
-                category: category,
-                level: level,
-                name: name,
-                description: description,
-                ratio: ratio
-            });
-        }
-
-        // Melee effects, prefixes
-        addEffect("Melee", 0, "Bloodied", "Does more damage the lower your health is", 1);
-        addEffect("Melee", 0, "Furious", "Damage increased after each consecutive hit on the same target", 1);
-        addEffect("Melee", 0, "Instigating", "Double damage if target is full health", 1);
-        addEffect("Melee", 0, "Anti-armor", "Ignores 50% of your target's armor", 1);
-        addEffect("Melee", 0, "Vampire's", "Gain brief health regeneration when you hit an enemy", 1);
-        addEffect("Melee", 0, "Berserker's", "More damage the lower your damage resistance", 1);
-        addEffect("Melee", 0, "Junkie's", "More damage the more your withdrawal effects", 1);
-        addEffect("Melee", 0, "Suppressor's", "Reduce your target's damage output by 20% for 3s", 1);
-        addEffect("Melee", 0, "Assassin's", "+10% damage to players", 1);
-        addEffect("Melee", 0, "Nocturnal", "Damage increased by the night and reduced by the day", 1);
-        addEffect("Melee", 0, "Mutant's", "Damage increased by 10% if you are mutated", 1);
-        addEffect("Melee", 0, "Stalker's", "If not in combat, 100% VATS accuracy at 50% increased AP cost", 1);
-        addEffect("Melee", 0, "Executioner's", "50% increased damage if target is below 40% health", 1);
-        addEffect("Melee", 0, "Troubleshooter's", "+30% damage to robots", 1);
-        addEffect("Melee", 0, "Ghoul slayer's", "+30% damage to robots", 1);
-        addEffect("Melee", 0, "Mutant slayer's", "+30% damage to super mutants", 1);
-        addEffect("Melee", 0, "Hunter's", "+30% damage to animals", 1);
-        addEffect("Melee", 0, "Exterminator's", "+30% damage to Mirelurks and bugs", 1);
-        addEffect("Melee", 0, "Zealot's", "+30% damage to scorched", 1);
-
-        // Melee effects, major
-        addEffect("Melee", 1, "Limb", "+50% limb damage", 1);
-        addEffect("Melee", 1, "Speed", "40% increased swing speed", 1);
-        addEffect("Melee", 1, "Power", "40% more power attack damage", 1);
-        addEffect("Melee", 1, "Reflect", "Reflect 50% of damage while blocking", 1);
-
-        // Melee effects, minor
-        addEffect("Melee", 2, "Strength", "+1 Strength", 1);
-        addEffect("Melee", 2, "Endurance", "+1 Endurance", 1);
-        addEffect("Melee", 2, "Agility", "+1 Agility", 1);
-        addEffect("Melee", 2, "Powerdamage", "Take 40% less damage while power attacking", 1);
-        addEffect("Melee", 2, "Blocking", "Take 15% less damage while blocking", 1);
-        addEffect("Melee", 2, "Weight", "90% reduced weight", 1);
-
-        // Ranged effects, prefix
-        addEffect("Ranged", 0, "Bloodied", "Does more damage the lower your health is", 1);
-        addEffect("Ranged", 0, "Furious", "Damage increased after each consecutive hit on the same target", 1);
-        addEffect("Ranged", 0, "Instigating", "Double damage if target is full health", 1);
-        addEffect("Ranged", 0, "Anti-armor", "Ignores 50% of your target's armor", 1);
-        addEffect("Ranged", 0, "Vampire's", "Gain brief health regeneration when you hit an enemy", 1);
-        addEffect("Ranged", 0, "Berserker's", "More damage the lower your damage resistance", 1);
-        addEffect("Ranged", 0, "Junkie's", "More damage the more your withdrawal effects", 1);
-        addEffect("Ranged", 0, "Suppressor's", "Reduce your target's damage output by 20% for 3s", 1);
-        addEffect("Ranged", 0, "Assassin's", "+10% damage to players", 1);
-        addEffect("Ranged", 0, "Nocturnal", "Damage increased by the night and reduced by the day", 1);
-        addEffect("Ranged", 0, "Mutant's", "Damage increased by 10% if you are mutated", 1);
-        addEffect("Ranged", 0, "Stalker's", "If not in combat 100% VATS accuracy at 50% increased AP cost", 1);
-        addEffect("Ranged", 0, "Executioner's", "50% increased damage if target is below 40% health", 1);
-        addEffect("Ranged", 0, "Troubleshooter's", "+30% damage to robots", 1);
-        addEffect("Ranged", 0, "Ghoul slayer's", "+30% damage to ghouls", 1);
-        addEffect("Ranged", 0, "Mutant slayer's", "+30% damage to super mutants", 1);
-        addEffect("Ranged", 0, "Hunter's", "+30% damage to animals", 1);
-        addEffect("Ranged", 0, "Exterminator's", "+30% damage to Mirelurks and bugs", 1);
-        addEffect("Ranged", 0, "Zealot's", "+30% damage to scorched", 1);
-        addEffect("Ranged", 0, "Medic's", "VATS criticals will heal you and your group", 1);
-        addEffect("Ranged", 0, "Two shot", "Shoots an additional projectile", 1);
-        addEffect("Ranged", 0, "Quad", "Quadruple ammo capacity", 1);
-        addEffect("Ranged", 0, "Double", "Double ammo capacity", 1);
-
-        // Ranged effects, major
-        addEffect("Ranged", 1, "VATSCritical", "VATS critical shots do +50% damage", 1);
-        addEffect("Ranged", 1, "FireRate", "25% increased fire rate", 1);
-        addEffect("Ranged", 1, "Bashing", "Bashing damage increased by 40%", 1);
-        addEffect("Ranged", 1, "AimDamage", "10% increased damage while aiming", 1);
-        addEffect("Ranged", 1, "Explosive", "Bullets explode for area damage", 1);
-        addEffect("Ranged", 1, "VATSChance", "+33% VATS hits chance", 1);
-        addEffect("Ranged", 1, "Limb", "+50% limb damage", 1);
-
-        // Ranged effects, minor
-        addEffect("Ranged", 2, "Perception", "+1 Perception", 1);
-        addEffect("Ranged", 2, "Agility", "+1 Agility", 1);
-        addEffect("Ranged", 2, "VATSAction", "25% less VATS Action Point cost", 1);
-        addEffect("Ranged", 2, "VATSCriticalMeter", "Your VATS critical meter fills 15% faster", 1);
-        addEffect("Ranged", 2, "MoveAim", "Move faster while aiming", 1);
-        addEffect("Ranged", 2, "ResistAim", "+50 damage resistance while aiming", 1);
-        addEffect("Ranged", 2, "ResistReload", "+250 damage resistance while reloading", 1);
-        addEffect("Ranged", 2, "ReloadSpeed", "15% faster reload", 1);
-        addEffect("Ranged", 2, "Weight", "90% reduced wight", 1);
-
-        // Ranged effects, prefix
-        addEffect("Armor", 0, "Auto stim", "Automatically use a Stimpack when hit while health is 25% or less, once every 60 seconds", 1);
-        addEffect("Armor", 0, "Life saving", "While incapacitated, gain 50% chance to revive yourself with a Stimpack, once every minute", 1);
-        addEffect("Armor", 0, "Weightless", "Weighs 90% less and does not count as armor for the Chameleon mutation", 1);
-        addEffect("Armor", 0, "Chameleon", "Blend with the environment while sneaking and not moving", 1);
-        addEffect("Armor", 0, "Cloacking", "Being hit in melee generates a Stealth field once per 30 seconds", 1);
-        addEffect("Armor", 0, "Regenerating", "Slowly regenerate health while out of combat", 1);
-        addEffect("Armor", 0, "Vanguard's", "Grants up to 35 Damage and Energy Resistance, the higher your health", 1);
-        addEffect("Armor", 0, "Bolstering", "Grants up to 35 Damage and Energy Resistance, the lower your health", 1);
-        addEffect("Armor", 0, "Unyielding", "Gain +3 to all stats except END when low on health", 1);
-        addEffect("Armor", 0, "Nocturnal", "Damage and Energy Resist increase with the night and decrease with the day", 1);
-        addEffect("Armor", 0, "Assassin's", "-8% damage from players", 1);
-        addEffect("Armor", 0, "Exterminator's", "-15% damage from Mirelurks and bugs", 1);
-        addEffect("Armor", 0, "Hunter's", "-15% damage from animals", 1);
-        addEffect("Armor", 0, "Troubleshooter's", "-15% damage from robots", 1);
-        addEffect("Armor", 0, "Ghoul slayer's", "-15% damage from ghouls", 1);
-        addEffect("Armor", 0, "Mutant slayer's", "-15% damage from super mutants", 1);
-        addEffect("Armor", 0, "Zealot's", "-15% damage from scorched", 1);
-        addEffect("Armor", 0, "Mutant's", "+10 Damage and Energy Resit if you are mutated", 1);
-
-        // Ranged effects, major
-        addEffect("Armor", 1, "Strength", "+1 Strength", 1);
-        addEffect("Armor", 1, "Perception", "+1 Perception", 1);
-        addEffect("Armor", 1, "Endurance", "+1 Endurance", 1);
-        addEffect("Armor", 1, "Charisma", "+1 Charisma", 1);
-        addEffect("Armor", 1, "Intelligence", "+1 Intelligence", 1);
-        addEffect("Armor", 1, "Agility", "+1 Agility", 1);
-        addEffect("Armor", 1, "Luck", "+1 Luck", 1);
-        addEffect("Armor", 1, "Powered", "Increases action point refresh speed", 1); // can be an additiona prefix
-        addEffect("Armor", 1, "RadiationResist", "+25 radiation resist", 1);
-        addEffect("Armor", 1, "Poisoner's", "+25 poison resistance", 1); // can replace a 's prefix
-
-        // Ranged effects, minor
-        addEffect("Armor", 2, "AmmoWeight", "Ammo weight reduced by 20%", 1);
-        addEffect("Armor", 2, "WeaponWeight", "Weapon weights reduced by 20%", 1);
-        addEffect("Armor", 2, "FoodWeight", "Food, drink and chem weights reduced by 20%", 1);
-        addEffect("Armor", 2, "JunkWeight", "Junk weight reduced by 20%", 1);
-        addEffect("Armor", 2, "BreatheUnderwater", "Grants the ability to breathe underwater", 1);
-        addEffect("Armor", 2, "Sneak", "Become harder to detect while sneaking", 1);
-        addEffect("Armor", 2, "Durable", "50% more durability than normal", 1);
-        addEffect("Armor", 2, "Sentinel's", "Reduces damage while standing and not moving by 15%", 1); // can replace a 's prefix
-        addEffect("Armor", 2, "BlockingDamage", "Reduces damage while blocking by 15%", 1);
-        addEffect("Armor", 2, "SprintDamage", "Reduces damage while springintg by 15%", 1);
-        addEffect("Armor", 2, "Acrobat's", "Falling damage reduced by 50%", 1); // can replace a 's prefix
-        addEffect("Armor", 2, "Lockpick", "Increases size of the sweet spot while picking locks", 1);
-
-        // oooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo
-        // Loot calculation
-        // ----------------
-
-        function lootDrop() {
-            totalRolls++;
-
-            // pick an enemy name, for
-            var enemyName = enemyNames[Math.floor(Math.random() * enemyNames.length)];
-
-            var dropHTML = "<center><u><font color='red' style='font-size: 30px; font-weight: bold;'>Legendary " + enemyName + " ";
-
-            // pick an legendary enemy level
-            var lvl = pickRatiodRandom(enemySpawnRatio, 
-                function(v) { return true; }, 
-                function(v) { return v; }
-            );
+            var totalEnemy1Star = 0;
+            var totalEnemy2Star = 0;
+            var totalEnemy3Star = 0;
+            var total1Star = 0;
+            var total2Star = 0;
+            var total3Star = 0;
 
 
-            if (lvl == 0) {
-                totalEnemy1Star++;
-                dropHTML += "&#x2605;";
-            } else if (lvl == 1) {
-                totalEnemy2Star++;
-                dropHTML += "&#x2605;&#x2605;";
-            } else {
-                totalEnemy3Star++;
-                dropHTML += "&#x2605;&#x2605;&#x2605;";
+            // oooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo
+            // Legendary enemy chances
+            // -------------------------
+            var enemySpawnRatio = [60, 30, 10];
+
+            var legendaryDropRatios = [
+                [100],
+                [80, 20],
+                [60, 30, 10]
+            ];
+
+            var enemyNames = [
+                "Ghoul",
+                "Scorched",
+                "Wolf",
+                "Super Mutant",
+                "Mutant Hound",
+                "Protectron",
+                "Robobrain",
+                "Deathclaw",
+                "Molerat",
+                "Wendigo",
+                "Mirelurk Queen",
+                "Mirelurk King",
+                "Mirelurk",
+                "Gutsy",
+                "Nightclawler",
+                "Ant",
+                "Bloodbug",
+                "Bloatfly",
+                "Angler",
+                "Gulper",
+                "Sloth"
+            ];
+
+            // oooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo
+            // Item database
+            // -------------
+            var items = [];
+
+            function addItem(category, name, ratio) {
+                items.push({
+                    category: category,
+                    name: name,
+                    ratio: ratio
+                });
             }
 
-            dropHTML += "</font></u><br/><font style='font-size: 10px'>&nbsp;</font><br/>";
+            // Melee weapons
+            addItem("Melee", "Combat Knife", 1);
+            addItem("Melee", "Super Sledge", 1);
+            addItem("Melee", "Switchblade", 1);
+            addItem("Melee", "Pickaxe", 1);
+            addItem("Melee", "Power Fist", 1);
+            addItem("Melee", "Knuckles", 1);
+            addItem("Melee", "Boxing Glove", 1);
+            addItem("Melee", "Pitchfork", 1);
+            addItem("Melee", "Shishkebab", 1);
+            addItem("Melee", "Machete", 1);
+            addItem("Melee", "Spear", 1);
+            addItem("Melee", "Ripper", 1);
+            addItem("Melee", "Mr. Handy Buzz Blade", 1);
+            addItem("Melee", "Assaultron Blade", 1);
+            addItem("Melee", "Bovie knife", 1);
+            addItem("Melee", "Chinese Officer Sword", 1);
+            addItem("Melee", "Cultist Blade", 1);
+            addItem("Melee", "Cultist Dagger", 1);
+            addItem("Melee", "Guitar Sword", 1);
+            addItem("Melee", "Lead Pipe", 1);
+            addItem("Melee", "Pipe Wrench", 1);
+            addItem("Melee", "Revolutionary Sword", 1);
+            addItem("Melee", "Rolling Pin", 1);
+            addItem("Melee", "Baton", 1);
+            addItem("Melee", "Sickle", 1);
+            addItem("Melee", "Sky Sword", 1);
+            addItem("Melee", "Black Diamond", 1);
+            addItem("Melee", "Walking Cane", 1);
+            addItem("Melee", "Tire Iron", 1);
+            addItem("Melee", "Baseball Bat", 1);
+            addItem("Melee", "Board", 1);
+            addItem("Melee", "Fire Axe", 1);
+            addItem("Melee", "Golf Club", 1);
+            addItem("Melee", "Gnorak's Axe", 1);
+            addItem("Melee", "Multi-purpose Axe", 1);
+            addItem("Melee", "Pole hook", 1);
+            addItem("Melee", "Pool cue", 1);
+            addItem("Melee", "War drum", 1);
+            addItem("Melee", "Death Tambo", 1);
+            addItem("Melee", "Deathclaw Gauntlet", 1);
+            addItem("Melee", "Mole Miner Gauntlet", 1);
+            addItem("Melee", "Meat hook", 1);
 
-            // pick the star level of the drop
-            var dropStars = pickRatiodRandom(legendaryDropRatios[lvl], 
-                function(v) { return true; }, 
-                function(v) { return v; }
-            );
+            // Ranged weapons
+            addItem("Ranged", ".44 Pistol", 1);
+            addItem("Ranged", "10mm Pistol", 1);
+            addItem("Ranged", "Handmade Rifle", 1);
+            addItem("Ranged", "Hunting Rifle", 1);
+            addItem("Ranged", "10mm SMG", 1);
+            addItem("Ranged", "Submachine Gun", 1);
+            addItem("Ranged", "Gatling Plasma", 1);
+            addItem("Ranged", "Gatling Laser", 1);
+            addItem("Ranged", "Ultracite Gatling Laser", 1);
+            addItem("Ranged", "Gatling Gun", 1);
+            addItem("Ranged", "Minigun", 1);
+            addItem("Ranged", "50 cal Machine Gun", 1);
+            addItem("Ranged", "Western Revolver", 1);
+            addItem("Ranged", "Pump-action Shotgun", 1);
+            addItem("Ranged", "Combat Shotgun", 1);
+            addItem("Ranged", "Combat Rifle", 1);
+            addItem("Ranged", "Plasma Gun", 1);
+            addItem("Ranged", "Laser Pistol", 1);
+            addItem("Ranged", "Ultracite Laser Gun", 1);
+            addItem("Ranged", "Laser Rifle", 1);
+            addItem("Ranged", "Tesla Rifle", 1);
+            addItem("Ranged", "Broadsider", 1);
+            addItem("Ranged", "Single Action Revolver", 1);
+            addItem("Ranged", "Black Powder Pistol", 1);
+            addItem("Ranged", "Black Powder Rifle", 1);
+            addItem("Ranged", "Black Powder Blunderbuss", 1);
+            addItem("Ranged", "The Dragon", 1);
+            addItem("Ranged", "Harpoon Gun", 1);
+            addItem("Ranged", "Flamer", 1);
+            addItem("Ranged", "Assault Rifle", 1);
+            addItem("Ranged", "Crossbow", 1);
+            addItem("Ranged", "Gauss Rifle", 1);
+            addItem("Ranged", "Lever Action Rifle", 1);
+            addItem("Ranged", "Radium Rifle", 1);
+            addItem("Ranged", "Railway Rifle", 1);
+            addItem("Ranged", "Syringer", 1);
+            addItem("Ranged", "Double-barrel Shotgun", 1);
+            addItem("Ranged", "Pipe Gun", 1);
+            addItem("Ranged", "Pipe Bolt-action", 1);
+            addItem("Ranged", "Pipe Revolver", 1);
+            addItem("Ranged", "Light Machine Gun", 1);
+            addItem("Ranged", "Cryolator", 1);
+            addItem("Ranged", "Salvaged assaultron head", 1);
+            addItem("Ranged", "Gamma Gun", 1);
+            addItem("Ranged", "Auto Grenade Launcher", 1);
+            addItem("Ranged", "Fat Man", 1);
+            addItem("Ranged", "M79 Grenade Launcher", 1);
+            addItem("Ranged", "Missile Launcher", 1);
 
-            if (dropStars == 0) {
-                total1Star++;
-            } else if (dropStars == 1) {
-                total2Star++;
-            } else {
-                total3Star++;
+            // oooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo
+            // Armors
+            // ------
+
+            // Leather
+            addItem("Armor", "Leather Chest Piece", 1);
+            addItem("Armor", "Leather Left Arm", 1);
+            addItem("Armor", "Leather Right Arm", 1);
+            addItem("Armor", "Leather Left Leg", 1);
+            addItem("Armor", "Leather Right Leg", 1);
+
+            addItem("Armor", "Sturdy Leather Chest Piece", 1);
+            addItem("Armor", "Sturdy Leather Left Arm", 1);
+            addItem("Armor", "Sturdy Leather Right Arm", 1);
+            addItem("Armor", "Sturdy Leather Left Leg", 1);
+            addItem("Armor", "Sturdy Leather Right Leg", 1);
+
+            addItem("Armor", "Heavy Leather Chest Piece", 1);
+            addItem("Armor", "Heavy Leather Left Arm", 1);
+            addItem("Armor", "Heavy Leather Right Arm", 1);
+            addItem("Armor", "Heavy Leather Left Leg", 1);
+            addItem("Armor", "Heavy Leather Right Leg", 1);
+
+            // Metal
+            addItem("Armor", "Metal Chest Piece", 1);
+            addItem("Armor", "Metal Left Arm", 1);
+            addItem("Armor", "Metal Right Arm", 1);
+            addItem("Armor", "Metal Left Leg", 1);
+            addItem("Armor", "Metal Right Leg", 1);
+
+            addItem("Armor", "Sturdy Metal Chest Piece", 1);
+            addItem("Armor", "Sturdy Metal Left Arm", 1);
+            addItem("Armor", "Sturdy Metal Right Arm", 1);
+            addItem("Armor", "Sturdy Metal Left Leg", 1);
+            addItem("Armor", "Sturdy Metal Right Leg", 1);
+
+            addItem("Armor", "Heavy Metal Chest Piece", 1);
+            addItem("Armor", "Heavy Metal Left Arm", 1);
+            addItem("Armor", "Heavy Metal Right Arm", 1);
+            addItem("Armor", "Heavy Metal Left Leg", 1);
+            addItem("Armor", "Heavy Metal Right Leg", 1);
+
+            // Combat
+            addItem("Armor", "Combat Armor Chest Piece", 1);
+            addItem("Armor", "Combat Armor Left Arm", 1);
+            addItem("Armor", "Combat Armor Right Arm", 1);
+            addItem("Armor", "Combat Armor Left Leg", 1);
+            addItem("Armor", "Combat Armor Right Leg", 1);
+
+            addItem("Armor", "Sturdy Combat Armor Chest Piece", 1);
+            addItem("Armor", "Sturdy Combat Armor Left Arm", 1);
+            addItem("Armor", "Sturdy Combat Armor Right Arm", 1);
+            addItem("Armor", "Sturdy Combat Armor Left Leg", 1);
+            addItem("Armor", "Sturdy Combat Armor Right Leg", 1);
+
+            addItem("Armor", "Heavy Combat Armor Chest Piece", 1);
+            addItem("Armor", "Heavy Combat Armor Left Arm", 1);
+            addItem("Armor", "Heavy Combat Armor Right Arm", 1);
+            addItem("Armor", "Heavy Combat Armor Left Leg", 1);
+            addItem("Armor", "Heavy Combat Armor Right Leg", 1);
+
+            // Robot
+            addItem("Armor", "Robot Armor Chest Piece", 1);
+            addItem("Armor", "Robot Armor Left Arm", 1);
+            addItem("Armor", "Robot Armor Right Arm", 1);
+            addItem("Armor", "Robot Armor Left Leg", 1);
+            addItem("Armor", "Robot Armor Right Leg", 1);
+
+            addItem("Armor", "Robot Sturdy Armor Chest Piece", 1);
+            addItem("Armor", "Robot Sturdy Armor Left Arm", 1);
+            addItem("Armor", "Robot Sturdy Armor Right Arm", 1);
+            addItem("Armor", "Robot Sturdy Armor Left Leg", 1);
+            addItem("Armor", "Robot Sturdy Armor Right Leg", 1);
+
+            addItem("Armor", "Robot Heavy Armor Chest Piece", 1);
+            addItem("Armor", "Robot Heavy Armor Left Arm", 1);
+            addItem("Armor", "Robot Heavy Armor Right Arm", 1);
+            addItem("Armor", "Robot Heavy Armor Left Leg", 1);
+            addItem("Armor", "Robot Heavy Armor Right Leg", 1);
+
+            // Marine
+            addItem("Armor", "Marine Armor Chest Piece", 1);
+            addItem("Armor", "Marine Armor Left Arm", 1);
+            addItem("Armor", "Marine Armor Right Arm", 1);
+            addItem("Armor", "Marine Armor Left Leg", 1);
+            addItem("Armor", "Marine Armor Right Leg", 1);
+
+            // Trapper
+            addItem("Armor", "Trapper Chest Piece", 1);
+            addItem("Armor", "Trapper Left Arm", 1);
+            addItem("Armor", "Trapper Right Arm", 1);
+            addItem("Armor", "Trapper Left Leg", 1);
+            addItem("Armor", "Trapper Right Leg", 1);
+
+            addItem("Armor", "Heavy Trapper Chest Piece", 1);
+            addItem("Armor", "Heavy Trapper Left Arm", 1);
+            addItem("Armor", "Heavy Trapper Right Arm", 1);
+            addItem("Armor", "Heavy Trapper Left Leg", 1);
+            addItem("Armor", "Heavy Trapper Right Leg", 1);
+
+            // Scout
+            addItem("Armor", "Forrest Scout Armor Chest Piece", 1);
+            addItem("Armor", "Forrest Scout Armor Left Arm", 1);
+            addItem("Armor", "Forrest Scout Armor Right Arm", 1);
+            addItem("Armor", "Forrest Scout Armor Left Leg", 1);
+            addItem("Armor", "Forrest Scout Armor Right Leg", 1);
+
+            addItem("Armor", "Urban Scout Armor Chest Piece", 1);
+            addItem("Armor", "Urban Scout Armor Left Arm", 1);
+            addItem("Armor", "Urban Scout Armor Right Arm", 1);
+            addItem("Armor", "Urban Scout Armor Left Leg", 1);
+            addItem("Armor", "Urban Scout Armor Right Leg", 1);
+
+            // Wooden
+            addItem("Armor", "Wooden Chest Piece", 1);
+            addItem("Armor", "Wooden Left Arm", 1);
+            addItem("Armor", "Wooden Right Arm", 1);
+            addItem("Armor", "Wooden Left Leg", 1);
+            addItem("Armor", "Wooden Right Leg", 1);
+
+            // Raider
+            addItem("Armor", "Raider Chest Piece", 1);
+            addItem("Armor", "Raider Left Arm", 1);
+            addItem("Armor", "Raider Right Arm", 1);
+            addItem("Armor", "Raider Left Leg", 1);
+            addItem("Armor", "Raider Right Leg", 1);
+
+            addItem("Armor", "Sturdy Raider Chest Piece", 1);
+            addItem("Armor", "Sturdy Raider Left Arm", 1);
+            addItem("Armor", "Sturdy Raider Right Arm", 1);
+            addItem("Armor", "Sturdy Raider Left Leg", 1);
+            addItem("Armor", "Sturdy Raider Right Leg", 1);
+
+            addItem("Armor", "Heavy Raider Chest Piece", 1);
+            addItem("Armor", "Heavy Raider Left Arm", 1);
+            addItem("Armor", "Heavy Raider Right Arm", 1);
+            addItem("Armor", "Heavy Raider Left Leg", 1);
+            addItem("Armor", "Heavy Raider Right Leg", 1);
+
+            // oooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo
+            // Legendary effects database
+            // --------------------------
+
+            var effects = [];
+
+            function addEffect(category, level, name, description, ratio) {
+                effects.push({
+                    category: category,
+                    level: level,
+                    name: name,
+                    description: description,
+                    ratio: ratio
+                });
             }
 
-            // pick an item
-            var dropItemIndex = pickRatiodRandom(items, 
-                function() { return true; }, 
-                function(v) { return v.ratio; }
-            );
+            // Melee effects, prefixes
+            addEffect("Melee", 0, "Bloodied", "Does more damage the lower your health is", 1);
+            addEffect("Melee", 0, "Furious", "Damage increased after each consecutive hit on the same target", 1);
+            addEffect("Melee", 0, "Instigating", "Double damage if target is full health", 1);
+            addEffect("Melee", 0, "Anti-armor", "Ignores 50% of your target's armor", 1);
+            addEffect("Melee", 0, "Vampire's", "Gain brief health regeneration when you hit an enemy", 1);
+            addEffect("Melee", 0, "Berserker's", "More damage the lower your damage resistance", 1);
+            addEffect("Melee", 0, "Junkie's", "More damage the more your withdrawal effects", 1);
+            addEffect("Melee", 0, "Suppressor's", "Reduce your target's damage output by 20% for 3s", 1);
+            addEffect("Melee", 0, "Assassin's", "+10% damage to players", 1);
+            addEffect("Melee", 0, "Nocturnal", "Damage increased by the night and reduced by the day", 1);
+            addEffect("Melee", 0, "Mutant's", "Damage increased by 10% if you are mutated", 1);
+            addEffect("Melee", 0, "Stalker's", "If not in combat, 100% VATS accuracy at 50% increased AP cost", 1);
+            addEffect("Melee", 0, "Executioner's", "50% increased damage if target is below 40% health", 1);
+            addEffect("Melee", 0, "Troubleshooter's", "+30% damage to robots", 1);
+            addEffect("Melee", 0, "Ghoul slayer's", "+30% damage to robots", 1);
+            addEffect("Melee", 0, "Mutant slayer's", "+30% damage to super mutants", 1);
+            addEffect("Melee", 0, "Hunter's", "+30% damage to animals", 1);
+            addEffect("Melee", 0, "Exterminator's", "+30% damage to Mirelurks and bugs", 1);
+            addEffect("Melee", 0, "Zealot's", "+30% damage to scorched", 1);
 
-            var dropItem = items[dropItemIndex];
+            // Melee effects, major
+            addEffect("Melee", 1, "Limb", "+50% limb damage", 1);
+            addEffect("Melee", 1, "Speed", "40% increased swing speed", 1);
+            addEffect("Melee", 1, "Power", "40% more power attack damage", 1);
+            addEffect("Melee", 1, "Reflect", "Reflect 50% of damage while blocking", 1);
 
-            var itemCategory = dropItem.category;
+            // Melee effects, minor
+            addEffect("Melee", 2, "Strength", "+1 Strength", 1);
+            addEffect("Melee", 2, "Endurance", "+1 Endurance", 1);
+            addEffect("Melee", 2, "Agility", "+1 Agility", 1);
+            addEffect("Melee", 2, "Powerdamage", "Take 40% less damage while power attacking", 1);
+            addEffect("Melee", 2, "Blocking", "Take 15% less damage while blocking", 1);
+            addEffect("Melee", 2, "Weight", "90% reduced weight", 1);
 
-            // pick a legendary prefix, always
-            var itemPrefixIndex = pickRatiodRandom(effects, 
-                function(v) { return v.category == itemCategory && v.level == 0; }, 
-                function(v) { return v.ratio; }
-            );
+            // Ranged effects, prefix
+            addEffect("Ranged", 0, "Bloodied", "Does more damage the lower your health is", 1);
+            addEffect("Ranged", 0, "Furious", "Damage increased after each consecutive hit on the same target", 1);
+            addEffect("Ranged", 0, "Instigating", "Double damage if target is full health", 1);
+            addEffect("Ranged", 0, "Anti-armor", "Ignores 50% of your target's armor", 1);
+            addEffect("Ranged", 0, "Vampire's", "Gain brief health regeneration when you hit an enemy", 1);
+            addEffect("Ranged", 0, "Berserker's", "More damage the lower your damage resistance", 1);
+            addEffect("Ranged", 0, "Junkie's", "More damage the more your withdrawal effects", 1);
+            addEffect("Ranged", 0, "Suppressor's", "Reduce your target's damage output by 20% for 3s", 1);
+            addEffect("Ranged", 0, "Assassin's", "+10% damage to players", 1);
+            addEffect("Ranged", 0, "Nocturnal", "Damage increased by the night and reduced by the day", 1);
+            addEffect("Ranged", 0, "Mutant's", "Damage increased by 10% if you are mutated", 1);
+            addEffect("Ranged", 0, "Stalker's", "If not in combat 100% VATS accuracy at 50% increased AP cost", 1);
+            addEffect("Ranged", 0, "Executioner's", "50% increased damage if target is below 40% health", 1);
+            addEffect("Ranged", 0, "Troubleshooter's", "+30% damage to robots", 1);
+            addEffect("Ranged", 0, "Ghoul slayer's", "+30% damage to ghouls", 1);
+            addEffect("Ranged", 0, "Mutant slayer's", "+30% damage to super mutants", 1);
+            addEffect("Ranged", 0, "Hunter's", "+30% damage to animals", 1);
+            addEffect("Ranged", 0, "Exterminator's", "+30% damage to Mirelurks and bugs", 1);
+            addEffect("Ranged", 0, "Zealot's", "+30% damage to scorched", 1);
+            addEffect("Ranged", 0, "Medic's", "VATS criticals will heal you and your group", 1);
+            addEffect("Ranged", 0, "Two shot", "Shoots an additional projectile", 1);
+            addEffect("Ranged", 0, "Quad", "Quadruple ammo capacity", 1);
+            addEffect("Ranged", 0, "Double", "Double ammo capacity", 1);
 
-            // if at least 2*, pick a Major
-            var itemMajorIndex = -1;
-            if (dropStars >= 1) {
+            // Ranged effects, major
+            addEffect("Ranged", 1, "VATSCritical", "VATS critical shots do +50% damage", 1);
+            addEffect("Ranged", 1, "FireRate", "25% increased fire rate", 1);
+            addEffect("Ranged", 1, "Bashing", "Bashing damage increased by 40%", 1);
+            addEffect("Ranged", 1, "AimDamage", "10% increased damage while aiming", 1);
+            addEffect("Ranged", 1, "Explosive", "Bullets explode for area damage", 1);
+            addEffect("Ranged", 1, "VATSChance", "+33% VATS hits chance", 1);
+            addEffect("Ranged", 1, "Limb", "+50% limb damage", 1);
 
-                // special case: default explosive weapons can't get the explosive effect again
-                var isAlreadyExplosive = dropItem.name.includes("Launcher") || dropItem.name.includes("Fat Man");
+            // Ranged effects, minor
+            addEffect("Ranged", 2, "Perception", "+1 Perception", 1);
+            addEffect("Ranged", 2, "Agility", "+1 Agility", 1);
+            addEffect("Ranged", 2, "VATSAction", "25% less VATS Action Point cost", 1);
+            addEffect("Ranged", 2, "VATSCriticalMeter", "Your VATS critical meter fills 15% faster", 1);
+            addEffect("Ranged", 2, "MoveAim", "Move faster while aiming", 1);
+            addEffect("Ranged", 2, "ResistAim", "+50 damage resistance while aiming", 1);
+            addEffect("Ranged", 2, "ResistReload", "+250 damage resistance while reloading", 1);
+            addEffect("Ranged", 2, "ReloadSpeed", "15% faster reload", 1);
+            addEffect("Ranged", 2, "Weight", "90% reduced wight", 1);
 
-                itemMajorIndex = pickRatiodRandom(effects, 
-                    function(v) { 
-                        return v.category == itemCategory && v.level == 1
-                            && !(isAlreadyExplosive && v.name == "Explosive"); 
-                    }, 
-                    function(v) { return v.ratio; }
+            // Ranged effects, prefix
+            addEffect("Armor", 0, "Auto stim", "Automatically use a Stimpack when hit while health is 25% or less, once every 60 seconds", 1);
+            addEffect("Armor", 0, "Life saving", "While incapacitated, gain 50% chance to revive yourself with a Stimpack, once every minute", 1);
+            addEffect("Armor", 0, "Weightless", "Weighs 90% less and does not count as armor for the Chameleon mutation", 1);
+            addEffect("Armor", 0, "Chameleon", "Blend with the environment while sneaking and not moving", 1);
+            addEffect("Armor", 0, "Cloacking", "Being hit in melee generates a Stealth field once per 30 seconds", 1);
+            addEffect("Armor", 0, "Regenerating", "Slowly regenerate health while out of combat", 1);
+            addEffect("Armor", 0, "Vanguard's", "Grants up to 35 Damage and Energy Resistance, the higher your health", 1);
+            addEffect("Armor", 0, "Bolstering", "Grants up to 35 Damage and Energy Resistance, the lower your health", 1);
+            addEffect("Armor", 0, "Unyielding", "Gain +3 to all stats except END when low on health", 1);
+            addEffect("Armor", 0, "Nocturnal", "Damage and Energy Resist increase with the night and decrease with the day", 1);
+            addEffect("Armor", 0, "Assassin's", "-8% damage from players", 1);
+            addEffect("Armor", 0, "Exterminator's", "-15% damage from Mirelurks and bugs", 1);
+            addEffect("Armor", 0, "Hunter's", "-15% damage from animals", 1);
+            addEffect("Armor", 0, "Troubleshooter's", "-15% damage from robots", 1);
+            addEffect("Armor", 0, "Ghoul slayer's", "-15% damage from ghouls", 1);
+            addEffect("Armor", 0, "Mutant slayer's", "-15% damage from super mutants", 1);
+            addEffect("Armor", 0, "Zealot's", "-15% damage from scorched", 1);
+            addEffect("Armor", 0, "Mutant's", "+10 Damage and Energy Resit if you are mutated", 1);
+
+            // Ranged effects, major
+            addEffect("Armor", 1, "Strength", "+1 Strength", 1);
+            addEffect("Armor", 1, "Perception", "+1 Perception", 1);
+            addEffect("Armor", 1, "Endurance", "+1 Endurance", 1);
+            addEffect("Armor", 1, "Charisma", "+1 Charisma", 1);
+            addEffect("Armor", 1, "Intelligence", "+1 Intelligence", 1);
+            addEffect("Armor", 1, "Agility", "+1 Agility", 1);
+            addEffect("Armor", 1, "Luck", "+1 Luck", 1);
+            addEffect("Armor", 1, "Powered", "Increases action point refresh speed", 1); // can be an additiona prefix
+            addEffect("Armor", 1, "RadiationResist", "+25 radiation resist", 1);
+            addEffect("Armor", 1, "Poisoner's", "+25 poison resistance", 1); // can replace a 's prefix
+
+            // Ranged effects, minor
+            addEffect("Armor", 2, "AmmoWeight", "Ammo weight reduced by 20%", 1);
+            addEffect("Armor", 2, "WeaponWeight", "Weapon weights reduced by 20%", 1);
+            addEffect("Armor", 2, "FoodWeight", "Food, drink and chem weights reduced by 20%", 1);
+            addEffect("Armor", 2, "JunkWeight", "Junk weight reduced by 20%", 1);
+            addEffect("Armor", 2, "BreatheUnderwater", "Grants the ability to breathe underwater", 1);
+            addEffect("Armor", 2, "Sneak", "Become harder to detect while sneaking", 1);
+            addEffect("Armor", 2, "Durable", "50% more durability than normal", 1);
+            addEffect("Armor", 2, "Sentinel's", "Reduces damage while standing and not moving by 15%", 1); // can replace a 's prefix
+            addEffect("Armor", 2, "BlockingDamage", "Reduces damage while blocking by 15%", 1);
+            addEffect("Armor", 2, "SprintDamage", "Reduces damage while springintg by 15%", 1);
+            addEffect("Armor", 2, "Acrobat's", "Falling damage reduced by 50%", 1); // can replace a 's prefix
+            addEffect("Armor", 2, "Lockpick", "Increases size of the sweet spot while picking locks", 1);
+
+            // oooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo
+            // Loot calculation
+            // ----------------
+
+            function lootDrop() {
+                totalRolls++;
+
+                // pick an enemy name, for
+                var enemyName = enemyNames[Math.floor(Math.random() * enemyNames.length)];
+
+                var dropHTML = "<center><u><font color='red' style='font-size: 30px; font-weight: bold;'>Legendary " + enemyName + " ";
+
+                // pick an legendary enemy level
+                var lvl = pickRatiodRandom(enemySpawnRatio, 
+                    function(v) { return true; }, 
+                    function(v) { return v; }
                 );
-            }
 
-            // if a 3*, pick
-            var itemMinorIndex = -1;
-            if (dropStars >= 2) {
-                itemMinorIndex = pickRatiodRandom(effects, 
-                    function(v) { return v.category == itemCategory && v.level == 2; }, 
-                    function(v) { return v.ratio; }
-                );
-            }
 
-            // prepare the item name, use the prefix name by default
-            var itemNamePrefix = effects[itemPrefixIndex].name;
-
-            if (itemCategory == "Armor") {
-                // update armor statistics
-                totalArmor++;
-                if (dropStars == 0) {
-                    totalArmor1Star++;
-                } else if (dropStars == 1) {
-                    totalArmor2Star++;
+                if (lvl == 0) {
+                    totalEnemy1Star++;
+                    dropHTML += "&#x2605;";
+                } else if (lvl == 1) {
+                    totalEnemy2Star++;
+                    dropHTML += "&#x2605;&#x2605;";
                 } else {
-                    totalArmor3Star++;
+                    totalEnemy3Star++;
+                    dropHTML += "&#x2605;&#x2605;&#x2605;";
                 }
-                // some armor effects override the name prefix
+
+                dropHTML += "</font></u><br/><font style='font-size: 10px'>&nbsp;</font><br/>";
+
+                // pick the star level of the drop
+                var dropStars = pickRatiodRandom(legendaryDropRatios[lvl], 
+                    function(v) { return true; }, 
+                    function(v) { return v; }
+                );
+
+                if (dropStars == 0) {
+                    total1Star++;
+                } else if (dropStars == 1) {
+                    total2Star++;
+                } else {
+                    total3Star++;
+                }
+
+                // pick an item
+                var dropItemIndex = pickRatiodRandom(items, 
+                    function() { return true; }, 
+                    function(v) { return v.ratio; }
+                );
+
+                var dropItem = items[dropItemIndex];
+
+                var itemCategory = dropItem.category;
+
+                // pick a legendary prefix, always
+                var itemPrefixIndex = pickRatiodRandom(effects, 
+                    function(v) { return v.category == itemCategory && v.level == 0; }, 
+                    function(v) { return v.ratio; }
+                );
+
+                // if at least 2*, pick a Major
+                var itemMajorIndex = -1;
+                if (dropStars >= 1) {
+
+                    // special case: default explosive weapons can't get the explosive effect again
+                    var isAlreadyExplosive = dropItem.name.includes("Launcher") || dropItem.name.includes("Fat Man");
+
+                    itemMajorIndex = pickRatiodRandom(effects, 
+                        function(v) { 
+                            return v.category == itemCategory && v.level == 1
+                                && !(isAlreadyExplosive && v.name == "Explosive"); 
+                        }, 
+                        function(v) { return v.ratio; }
+                    );
+                }
+
+                // if a 3*, pick
+                var itemMinorIndex = -1;
+                if (dropStars >= 2) {
+                    itemMinorIndex = pickRatiodRandom(effects, 
+                        function(v) { return v.category == itemCategory && v.level == 2; }, 
+                        function(v) { return v.ratio; }
+                    );
+                }
+
+                // prepare the item name, use the prefix name by default
+                var itemNamePrefix = effects[itemPrefixIndex].name;
+
+                if (itemCategory == "Armor") {
+                    // update armor statistics
+                    totalArmor++;
+                    if (dropStars == 0) {
+                        totalArmor1Star++;
+                    } else if (dropStars == 1) {
+                        totalArmor2Star++;
+                    } else {
+                        totalArmor3Star++;
+                    }
+                    // some armor effects override the name prefix
+                    if (itemMinorIndex >= 0) {
+                        var minorName = effects[itemMinorIndex];
+                        if (minorName == "Sentinel's" || minorName == "Acrobat's") {
+                            // no two 's in the name, override the previous 's only
+                            if (itemNamePrefix.contains("'s")) {
+                                itemNamePrefix = minorName;
+                            } else {
+                                // prepend otherwise
+                                itemNamePrefix = minorName + " " + itemNamePrefix;
+                            }
+                        }
+                    } else if (itemMajorIndex >= 0) {
+                        var majorName = effects[itemMinorIndex];
+                        if (majorName == "Poisoner's") {
+                            // no two 's in the name, override the previous 's only
+                            if (itemPrefix.contains("'s")) {
+                                itemNamePrefix = majorName;
+                            } else {
+                                // prepend otherwise
+                                itemNamePrefix = majorName + " " + itemNamePrefix;
+                            }
+                        } else if (majorName = "Powered") {
+                            // example Assassin's Powered Leather Left Leg
+                            itemNamePrefix += " " + majorName
+                        }
+                    }
+                } else if (itemCategory == "Ranged") {
+                    // update ranged statistics
+                    totalRanged++;
+                    if (dropStars == 0) {
+                        totalRanged1Star++;
+                    } else if (dropStars == 1) {
+                        totalRanged2Star++;
+                    } else {
+                        totalRanged3Star++;
+                    }
+
+                    // update special statistics
+                    var isHandmade = dropItem.name == "Handmade Rifle" ? 1 : 0;
+
+                    if (effects[itemPrefixIndex].name == "Two shot") {
+                        totalTS++;
+                        totalTSHandmade += isHandmade;
+
+                        if (dropStars >= 1 && effects[itemMajorIndex].name == "Explosive") {
+                            totalTSE++;
+                            totalTSEHandmade += isHandmade;
+
+                            if (dropStars >= 2) {
+                                totalTSE3Star++;
+                                totalTSE3StarHandmade += isHandmade;
+                            }
+                        }
+                    }
+                } else {
+                    // update melee statistics
+                    totalMelee++;
+                    if (dropStars == 0) {
+                        totalMelee1Star++;
+                    } else if (dropStars == 1) {
+                        totalMelee2Star++;
+                    } else {
+                        totalMelee3Star++;
+                    }
+                }
+
+                var stars = "\u2605".repeat(1 + dropStars);
+
+                // add the item main name
+                dropHTML += "<b>" + itemNamePrefix + " " + dropItem.name + " " + stars + "</b><br/>";
+                var historyName = itemNamePrefix + " " + dropItem.name + " " + stars;
+                
+                // show the 1* effect
+                dropHTML += effects[itemPrefixIndex].description + "<br/>";
+                historyName += "\r\n   " + effects[itemPrefixIndex].description;
+
+                // show the 2* effect if present
+                if (itemMajorIndex >= 0) {
+                    dropHTML += effects[itemMajorIndex].description + "<br/>";
+                    historyName += "\r\n   " + effects[itemMajorIndex].description;
+                }
+
+                // show the 3* effect if present
                 if (itemMinorIndex >= 0) {
-                    var minorName = effects[itemMinorIndex];
-                    if (minorName == "Sentinel's" || minorName == "Acrobat's") {
-                        // no two 's in the name, override the previous 's only
-                        if (itemNamePrefix.contains("'s")) {
-                            itemNamePrefix = minorName;
-                        } else {
-                            // prepend otherwise
-                            itemNamePrefix = minorName + " " + itemNamePrefix;
-                        }
-                    }
-                } else if (itemMajorIndex >= 0) {
-                    var majorName = effects[itemMinorIndex];
-                    if (majorName == "Poisoner's") {
-                        // no two 's in the name, override the previous 's only
-                        if (itemPrefix.contains("'s")) {
-                            itemNamePrefix = majorName;
-                        } else {
-                            // prepend otherwise
-                            itemNamePrefix = majorName + " " + itemNamePrefix;
-                        }
-                    } else if (majorName = "Powered") {
-                        // example Assassin's Powered Leather Left Leg
-                        itemNamePrefix += " " + majorName
+                    dropHTML += effects[itemMinorIndex].description;
+                    historyName += "\r\n   " + effects[itemMinorIndex].description;
+                }
+
+                // update labels
+                // ~~~~~~~~~~~~~
+                dropHTML += "</center>"
+
+                document.getElementById("txtDrop").innerHTML = dropHTML;
+                document.getElementById("txtHistory").value = historyName + "\r\n\r\n" + document.getElementById("txtHistory").value;
+
+                document.getElementById("txtTotalRolls").innerText = "" + (totalRolls);
+
+                document.getElementById("txtTotalEnemy1Star").innerText = "" + (totalEnemy1Star); 
+                document.getElementById("txtTotalEnemy1StarPercent").innerText = "" + (100.0 * totalEnemy1Star / totalRolls).toPrecision(3) + "%";
+                document.getElementById("txtTotalEnemy2Star").innerText = "" + (totalEnemy2Star);
+                document.getElementById("txtTotalEnemy2StarPercent").innerText = "" + (100.0 * totalEnemy2Star / totalRolls).toPrecision(3) + "%";
+                document.getElementById("txtTotalEnemy3Star").innerText = "" + (totalEnemy3Star);
+                document.getElementById("txtTotalEnemy3StarPercent").innerText = "" + (100.0 * totalEnemy3Star / totalRolls).toPrecision(3) + "%";
+
+                document.getElementById("txtTotal1Star").innerText = "" + (total1Star);
+                document.getElementById("txtTotal1StarPercent").innerText = "" + (100.0 * total1Star / totalRolls).toPrecision(3) + "%";
+                document.getElementById("txtTotal2Star").innerText = "" + (total2Star);
+                document.getElementById("txtTotal2StarPercent").innerText = "" + (100.0 * total2Star / totalRolls).toPrecision(3) + "%";
+                document.getElementById("txtTotal3Star").innerText = "" + (total3Star);
+                document.getElementById("txtTotal3StarPercent").innerText = "" + (100.0 * total3Star / totalRolls).toPrecision(3) + "%";
+
+                document.getElementById("txtTotalArmor").innerText = "" + (totalArmor);
+                document.getElementById("txtTotalArmorPercent").innerText = "" + (100.0 * totalArmor / totalRolls).toPrecision(3) + "%";
+                document.getElementById("txtTotalArmor1Star").innerText = "" + (totalArmor1Star);
+                document.getElementById("txtTotalArmor1StarPercent").innerText = "" + (100.0 * totalArmor1Star / totalRolls).toPrecision(3) + "%";
+                document.getElementById("txtTotalArmor2Star").innerText = "" + (totalArmor2Star);
+                document.getElementById("txtTotalArmor2StarPercent").innerText = "" + (100.0 * totalArmor2Star / totalRolls).toPrecision(3) + "%";
+                document.getElementById("txtTotalArmor3Star").innerText = "" + (totalArmor3Star);
+                document.getElementById("txtTotalArmor3StarPercent").innerText = "" + (100.0 * totalArmor3Star / totalRolls).toPrecision(3) + "%";
+
+                document.getElementById("txtTotalRanged").innerText = "" + (totalRanged);
+                document.getElementById("txtTotalRangedPercent").innerText = "" + (100.0 * totalRanged / totalRolls).toPrecision(3) + "%";
+                document.getElementById("txtTotalRanged1Star").innerText = "" + (totalRanged1Star);
+                document.getElementById("txtTotalRanged1StarPercent").innerText = "" + (100.0 * totalRanged1Star / totalRolls).toPrecision(3) + "%";
+                document.getElementById("txtTotalRanged2Star").innerText = "" + (totalRanged2Star);
+                document.getElementById("txtTotalRanged2StarPercent").innerText = "" + (100.0 * totalRanged2Star / totalRolls).toPrecision(3) + "%";
+                document.getElementById("txtTotalRanged3Star").innerText = "" + (totalRanged3Star);
+                document.getElementById("txtTotalRanged3StarPercent").innerText = "" + (100.0 * totalRanged3Star / totalRolls).toPrecision(3) + "%";
+
+                document.getElementById("txtTotalMelee").innerText = "" + (totalMelee);
+                document.getElementById("txtTotalMeleePercent").innerText = "" + (100.0 * totalMelee / totalRolls).toPrecision(3) + "%";
+                document.getElementById("txtTotalMelee1Star").innerText = "" + (totalMelee1Star);
+                document.getElementById("txtTotalMelee1StarPercent").innerText = "" + (100.0 * totalMelee1Star / totalRolls).toPrecision(3) + "%";
+                document.getElementById("txtTotalMelee2Star").innerText = "" + (totalMelee2Star);
+                document.getElementById("txtTotalMelee2StarPercent").innerText = "" + (100.0 * totalMelee2Star / totalRolls).toPrecision(3) + "%";
+                document.getElementById("txtTotalMelee3Star").innerText = "" + (totalMelee3Star);
+                document.getElementById("txtTotalMelee3StarPercent").innerText = "" + (100.0 * totalMelee3Star / totalRolls).toPrecision(3) + "%";
+
+                document.getElementById("txtTotalTS").innerText = "" + (totalTS);
+                document.getElementById("txtTotalTSPercent").innerText = "" + (100.0 * totalTS / totalRolls).toPrecision(6) + "%";
+                document.getElementById("txtTotalTSE").innerText = "" + (totalTSE);
+                document.getElementById("txtTotalTSEPercent").innerText = "" + (100.0 * totalTSE / totalRolls).toPrecision(6) + "%";
+                document.getElementById("txtTotalTSE3Star").innerText = "" + (totalTSE3Star);
+                document.getElementById("txtTotalTSE3StarPercent").innerText = "" + (100.0 * totalTSE3Star / totalRolls).toPrecision(6) + "%";
+
+                document.getElementById("txtTotalTSHandmade").innerText = "" + (totalTSHandmade);
+                document.getElementById("txtTotalTSHandmadePercent").innerText = "" + (100.0 * totalTSHandmade / totalRolls).toPrecision(6) + "%";
+                document.getElementById("txtTotalTSEHandmade").innerText = "" + (totalTSEHandmade);
+                document.getElementById("txtTotalTSEHandmadePercent").innerText = "" + (100.0 * totalTSEHandmade / totalRolls).toPrecision(6) + "%";
+                document.getElementById("txtTotalTSE3StarHandmade").innerText = "" + (totalTSE3StarHandmade);
+                document.getElementById("txtTotalTSE3StarHandmadePercent").innerText = "" + (100.0 * totalTSE3StarHandmade / totalRolls).toPrecision(6) + "%";
+            }
+
+            // pick a random item from the list based on its occurrence ratio and some filtering
+            function pickRatiodRandom(list, fnFilter, fnRatio) {
+                var totalRatio = 0;
+                for (var i = 0; i < list.length; i++) {
+                    if (fnFilter(list[i])) {
+                        totalRatio += fnRatio(list[i]);
                     }
                 }
-            } else if (itemCategory == "Ranged") {
-                // update ranged statistics
-                totalRanged++;
-                if (dropStars == 0) {
-                    totalRanged1Star++;
-                } else if (dropStars == 1) {
-                    totalRanged2Star++;
+                
+                var chance = Math.random();
+                var cumulativeRatio = 0;
+                for (var i = 0; i < list.length; i++) {
+                    if (fnFilter(list[i])) {
+                        cumulativeRatio += fnRatio(list[i]);
+                        if (1.0 * cumulativeRatio / totalRatio >= chance) {
+                            return i;
+                        }
+                    }
+                }
+                return -1;
+            }
+
+            // Animation handler for the Fo76 button
+            // -------------------------------------
+            var ignoreBtn = false;
+            var stepBtn = 0;
+
+            function rotator() {
+                var b = document.getElementById("imgRoll");
+                b.style.transform = "rotate(" + (stepBtn * 10) + "deg)";
+                stepBtn ++;
+                if (stepBtn < 37) {
+                    setTimeout(rotator, 16)
                 } else {
-                    totalRanged3Star++;
-                }
-
-                // update special statistics
-                var isHandmade = dropItem.name == "Handmade Rifle" ? 1 : 0;
-
-                if (effects[itemPrefixIndex].name == "Two shot") {
-                    totalTS++;
-                    totalTSHandmade += isHandmade;
-
-                    if (dropStars >= 1 && effects[itemMajorIndex].name == "Explosive") {
-                        totalTSE++;
-                        totalTSEHandmade += isHandmade;
-
-                        if (dropStars >= 2) {
-                            totalTSE3Star++;
-                            totalTSE3StarHandmade += isHandmade;
-                        }
-                    }
-                }
-            } else {
-                // update melee statistics
-                totalMelee++;
-                if (dropStars == 0) {
-                    totalMelee1Star++;
-                } else if (dropStars == 1) {
-                    totalMelee2Star++;
-                } else {
-                    totalMelee3Star++;
+                    lootDrop();
+                    b.style.transform = "";
+                    ignoreBtn = false;
                 }
             }
 
-            var stars = "\u2605".repeat(1 + dropStars);
-
-            // add the item main name
-            dropHTML += "<b>" + itemNamePrefix + " " + dropItem.name + " " + stars + "</b><br/>";
-            var historyName = itemNamePrefix + " " + dropItem.name + " " + stars;
-            
-            // show the 1* effect
-            dropHTML += effects[itemPrefixIndex].description + "<br/>";
-            historyName += "\r\n   " + effects[itemPrefixIndex].description;
-
-            // show the 2* effect if present
-            if (itemMajorIndex >= 0) {
-                dropHTML += effects[itemMajorIndex].description + "<br/>";
-                historyName += "\r\n   " + effects[itemMajorIndex].description;
-            }
-
-            // show the 3* effect if present
-            if (itemMinorIndex >= 0) {
-                dropHTML += effects[itemMinorIndex].description;
-                historyName += "\r\n   " + effects[itemMinorIndex].description;
-            }
-
-            // update labels
-            // ~~~~~~~~~~~~~
-            dropHTML += "</center>"
-
-            document.getElementById("txtDrop").innerHTML = dropHTML;
-            document.getElementById("txtHistory").value = historyName + "\r\n\r\n" + document.getElementById("txtHistory").value;
-
-            document.getElementById("txtTotalRolls").innerText = "" + (totalRolls);
-
-            document.getElementById("txtTotalEnemy1Star").innerText = "" + (totalEnemy1Star); 
-            document.getElementById("txtTotalEnemy1StarPercent").innerText = "" + (100.0 * totalEnemy1Star / totalRolls).toPrecision(3) + "%";
-            document.getElementById("txtTotalEnemy2Star").innerText = "" + (totalEnemy2Star);
-            document.getElementById("txtTotalEnemy2StarPercent").innerText = "" + (100.0 * totalEnemy2Star / totalRolls).toPrecision(3) + "%";
-            document.getElementById("txtTotalEnemy3Star").innerText = "" + (totalEnemy3Star);
-            document.getElementById("txtTotalEnemy3StarPercent").innerText = "" + (100.0 * totalEnemy3Star / totalRolls).toPrecision(3) + "%";
-
-            document.getElementById("txtTotal1Star").innerText = "" + (total1Star);
-            document.getElementById("txtTotal1StarPercent").innerText = "" + (100.0 * total1Star / totalRolls).toPrecision(3) + "%";
-            document.getElementById("txtTotal2Star").innerText = "" + (total2Star);
-            document.getElementById("txtTotal2StarPercent").innerText = "" + (100.0 * total2Star / totalRolls).toPrecision(3) + "%";
-            document.getElementById("txtTotal3Star").innerText = "" + (total3Star);
-            document.getElementById("txtTotal3StarPercent").innerText = "" + (100.0 * total3Star / totalRolls).toPrecision(3) + "%";
-
-            document.getElementById("txtTotalArmor").innerText = "" + (totalArmor);
-            document.getElementById("txtTotalArmorPercent").innerText = "" + (100.0 * totalArmor / totalRolls).toPrecision(3) + "%";
-            document.getElementById("txtTotalArmor1Star").innerText = "" + (totalArmor1Star);
-            document.getElementById("txtTotalArmor1StarPercent").innerText = "" + (100.0 * totalArmor1Star / totalRolls).toPrecision(3) + "%";
-            document.getElementById("txtTotalArmor2Star").innerText = "" + (totalArmor2Star);
-            document.getElementById("txtTotalArmor2StarPercent").innerText = "" + (100.0 * totalArmor2Star / totalRolls).toPrecision(3) + "%";
-            document.getElementById("txtTotalArmor3Star").innerText = "" + (totalArmor3Star);
-            document.getElementById("txtTotalArmor3StarPercent").innerText = "" + (100.0 * totalArmor3Star / totalRolls).toPrecision(3) + "%";
-
-            document.getElementById("txtTotalRanged").innerText = "" + (totalRanged);
-            document.getElementById("txtTotalRangedPercent").innerText = "" + (100.0 * totalRanged / totalRolls).toPrecision(3) + "%";
-            document.getElementById("txtTotalRanged1Star").innerText = "" + (totalRanged1Star);
-            document.getElementById("txtTotalRanged1StarPercent").innerText = "" + (100.0 * totalRanged1Star / totalRolls).toPrecision(3) + "%";
-            document.getElementById("txtTotalRanged2Star").innerText = "" + (totalRanged2Star);
-            document.getElementById("txtTotalRanged2StarPercent").innerText = "" + (100.0 * totalRanged2Star / totalRolls).toPrecision(3) + "%";
-            document.getElementById("txtTotalRanged3Star").innerText = "" + (totalRanged3Star);
-            document.getElementById("txtTotalRanged3StarPercent").innerText = "" + (100.0 * totalRanged3Star / totalRolls).toPrecision(3) + "%";
-
-            document.getElementById("txtTotalMelee").innerText = "" + (totalMelee);
-            document.getElementById("txtTotalMeleePercent").innerText = "" + (100.0 * totalMelee / totalRolls).toPrecision(3) + "%";
-            document.getElementById("txtTotalMelee1Star").innerText = "" + (totalMelee1Star);
-            document.getElementById("txtTotalMelee1StarPercent").innerText = "" + (100.0 * totalMelee1Star / totalRolls).toPrecision(3) + "%";
-            document.getElementById("txtTotalMelee2Star").innerText = "" + (totalMelee2Star);
-            document.getElementById("txtTotalMelee2StarPercent").innerText = "" + (100.0 * totalMelee2Star / totalRolls).toPrecision(3) + "%";
-            document.getElementById("txtTotalMelee3Star").innerText = "" + (totalMelee3Star);
-            document.getElementById("txtTotalMelee3StarPercent").innerText = "" + (100.0 * totalMelee3Star / totalRolls).toPrecision(3) + "%";
-
-            document.getElementById("txtTotalTS").innerText = "" + (totalTS);
-            document.getElementById("txtTotalTSPercent").innerText = "" + (100.0 * totalTS / totalRolls).toPrecision(6) + "%";
-            document.getElementById("txtTotalTSE").innerText = "" + (totalTSE);
-            document.getElementById("txtTotalTSEPercent").innerText = "" + (100.0 * totalTSE / totalRolls).toPrecision(6) + "%";
-            document.getElementById("txtTotalTSE3Star").innerText = "" + (totalTSE3Star);
-            document.getElementById("txtTotalTSE3StarPercent").innerText = "" + (100.0 * totalTSE3Star / totalRolls).toPrecision(6) + "%";
-
-            document.getElementById("txtTotalTSHandmade").innerText = "" + (totalTSHandmade);
-            document.getElementById("txtTotalTSHandmadePercent").innerText = "" + (100.0 * totalTSHandmade / totalRolls).toPrecision(6) + "%";
-            document.getElementById("txtTotalTSEHandmade").innerText = "" + (totalTSEHandmade);
-            document.getElementById("txtTotalTSEHandmadePercent").innerText = "" + (100.0 * totalTSEHandmade / totalRolls).toPrecision(6) + "%";
-            document.getElementById("txtTotalTSE3StarHandmade").innerText = "" + (totalTSE3StarHandmade);
-            document.getElementById("txtTotalTSE3StarHandmadePercent").innerText = "" + (100.0 * totalTSE3StarHandmade / totalRolls).toPrecision(6) + "%";
-        }
-
-        // pick a random item from the list based on its occurrence ratio and some filtering
-        function pickRatiodRandom(list, fnFilter, fnRatio) {
-            var totalRatio = 0;
-            for (var i = 0; i < list.length; i++) {
-                if (fnFilter(list[i])) {
-                    totalRatio += fnRatio(list[i]);
+            document.getElementById("btnRoll").onclick = function() {
+                if (document.getElementById("cbInstant").checked) {
+                    lootDrop();
+                    b.style.transform = "";
+                    ignoreBtn = false;
                 }
-            }
-            
-            var chance = Math.random();
-            var cumulativeRatio = 0;
-            for (var i = 0; i < list.length; i++) {
-                if (fnFilter(list[i])) {
-                    cumulativeRatio += fnRatio(list[i]);
-                    if (1.0 * cumulativeRatio / totalRatio >= chance) {
-                        return i;
-                    }
+
+                if (ignoreBtn) {
+                    return;
                 }
-            }
-            return -1;
-        }
+                ignoreBtn = true;
+                document.getElementById("txtDrop").innerText = "";
 
-        // Animation handler for the Fo76 button
-        // -------------------------------------
-        var ignoreBtn = false;
-        var stepBtn = 0;
+                stepBtn = 1;
 
-        function rotator() {
-            var b = document.getElementById("imgRoll");
-            b.style.transform = "rotate(" + (stepBtn * 10) + "deg)";
-            stepBtn ++;
-            if (stepBtn < 37) {
                 setTimeout(rotator, 16)
-            } else {
-                lootDrop();
-                b.style.transform = "";
-                ignoreBtn = false;
+            };
+
+            document.getElementById("btnClear").onclick = function() {
+                document.getElementById("txtHistory").value = "";
+            };
+
+            // sum up the drop pool statistics, once
+            var totalPool = items.length;
+            var totalArmorPool = 0;
+            var totalRangedPool = 0;
+            var totalMeleePool = 0;
+            for (var i = 0; i < items.length; i++) {
+                var j = items[i];
+                if (j.category == "Armor") {
+                    totalArmorPool++;
+                } else if (j.category == "Ranged") {
+                    totalRangedPool++;
+                } else {
+                    totalMeleePool++;
+                }
             }
-        }
 
-        document.getElementById("btnRoll").onclick = function() {
-            if (document.getElementById("cbInstant").checked) {
-                lootDrop();
-                b.style.transform = "";
-                ignoreBtn = false;
-            }
-
-            if (ignoreBtn) {
-                return;
-            }
-            ignoreBtn = true;
-            document.getElementById("txtDrop").innerText = "";
-
-            stepBtn = 1;
-
-            setTimeout(rotator, 16)
-        };
-
-        document.getElementById("btnClear").onclick = function() {
-            document.getElementById("txtHistory").value = "";
-        };
-
-        // sum up the drop pool statistics, once
-        var totalPool = items.length;
-        var totalArmorPool = 0;
-        var totalRangedPool = 0;
-        var totalMeleePool = 0;
-        for (var i = 0; i < items.length; i++) {
-            var j = items[i];
-            if (j.category == "Armor") {
-                totalArmorPool++;
-            } else if (j.category == "Ranged") {
-                totalRangedPool++;
-            } else {
-                totalMeleePool++;
-            }
-        }
-
-        document.getElementById("txtArmorPool").innerText = "" + (totalArmorPool);
-        document.getElementById("txtArmorPoolPercent").innerText = "" + (100.0 * totalArmorPool / totalPool).toPrecision(3) + "%";
-        document.getElementById("txtRangedPool").innerText = "" + (totalRangedPool);
-        document.getElementById("txtRangedPoolPercent").innerText = "" + (100.0 * totalRangedPool / totalPool).toPrecision(3) + "%";
-        document.getElementById("txtMeleePool").innerText = "" + (totalMeleePool);
-        document.getElementById("txtMeleePoolPercent").innerText = "" + (100.0 * totalMeleePool / totalPool).toPrecision(3) + "%";
-    </script>
+            document.getElementById("txtArmorPool").innerText = "" + (totalArmorPool);
+            document.getElementById("txtArmorPoolPercent").innerText = "" + (100.0 * totalArmorPool / totalPool).toPrecision(3) + "%";
+            document.getElementById("txtRangedPool").innerText = "" + (totalRangedPool);
+            document.getElementById("txtRangedPoolPercent").innerText = "" + (100.0 * totalRangedPool / totalPool).toPrecision(3) + "%";
+            document.getElementById("txtMeleePool").innerText = "" + (totalMeleePool);
+            document.getElementById("txtMeleePoolPercent").innerText = "" + (100.0 * totalMeleePool / totalPool).toPrecision(3) + "%";
+        </script>
+    </body>
 </html>
