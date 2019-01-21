@@ -830,7 +830,7 @@
                     }
 
                     if (dropStars >= 1 && effects[itemMajorIndex].name == "Explosive") {
-                        if (dropStars == 2) {
+                        if (dropStars == 1) {
                             totalExplosive2Star++;
                         } else {
                             totalExplosive3Star++;
@@ -954,7 +954,7 @@
                 for (var i = 0; i < list.length; i++) {
                     if (fnFilter(list[i])) {
                         cumulativeRatio += fnRatio(list[i]);
-                        if (1.0 * cumulativeRatio / totalRatio >= chance) {
+                        if (1.0 * cumulativeRatio / totalRatio > chance) {
                             return i;
                         }
                     }
