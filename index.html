@@ -178,6 +178,16 @@
                             <td id="txtTotalTSE3StarHandmade" style="text-align: right;">0</td>
                             <td id="txtTotalTSE3StarHandmadePercent" style="text-align: right;">0%</td>
                         </tr>
+                        <tr style='border-top: 1px solid black;'>
+                            <td>Explosive &#x2605;&#x2605;:</td>
+                            <td id="txtTotalExplosive2Star" style="text-align: right;">0</td>
+                            <td id="txtTotalExplosive2StarPercent" style="text-align: right;">0%</td>
+                        </tr>
+                        <tr>
+                            <td>Explosive &#x2605;&#x2605;&#x2605;:</td>
+                            <td id="txtTotalExplosive3Star" style="text-align: right;">0</td>
+                            <td id="txtTotalExplosive3StarPercent" style="text-align: right;">0%</td>
+                        </tr>
                     </table>
                 </td>
             </tr>
@@ -214,10 +224,13 @@
             var totalEnemy1Star = 0;
             var totalEnemy2Star = 0;
             var totalEnemy3Star = 0;
+
             var total1Star = 0;
             var total2Star = 0;
             var total3Star = 0;
 
+            var totalExplosive2Star = 0;
+            var totalExplosive3Star = 0;
 
             // oooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo
             // Legendary enemy chances
@@ -815,6 +828,14 @@
                             }
                         }
                     }
+
+                    if (dropStars >= 1 && effects[itemMajorIndex].name == "Explosive") {
+                        if (dropStars == 2) {
+                            totalExplosive2Star++;
+                        } else {
+                            totalExplosive3Star++;
+                        }
+                    }
                 } else {
                     // update melee statistics
                     totalMelee++;
@@ -912,6 +933,11 @@
                 document.getElementById("txtTotalTSEHandmadePercent").innerText = "" + (100.0 * totalTSEHandmade / totalRolls).toPrecision(6) + "%";
                 document.getElementById("txtTotalTSE3StarHandmade").innerText = "" + (totalTSE3StarHandmade);
                 document.getElementById("txtTotalTSE3StarHandmadePercent").innerText = "" + (100.0 * totalTSE3StarHandmade / totalRolls).toPrecision(6) + "%";
+
+                document.getElementById("txtTotalExplosive2Star").innerText = "" + (totalExplosive2Star);
+                document.getElementById("txtTotalExplosive2StarPercent").innerText = "" + (100.0 * totalExplosive2Star / totalRolls).toPrecision(4) + "%";
+                document.getElementById("txtTotalExplosive3Star").innerText = "" + (totalExplosive3Star);
+                document.getElementById("txtTotalExplosive3StarPercent").innerText = "" + (100.0 * totalExplosive3Star / totalRolls).toPrecision(4) + "%";
             }
 
             // pick a random item from the list based on its occurrence ratio and some filtering
@@ -957,8 +983,10 @@
             document.getElementById("btnRoll").onclick = function() {
                 if (document.getElementById("cbInstant").checked) {
                     lootDrop();
+                    var b = document.getElementById("imgRoll");
                     b.style.transform = "";
                     ignoreBtn = false;
+                    return;
                 }
 
                 if (ignoreBtn) {
