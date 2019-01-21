@@ -468,11 +468,13 @@
             addItem("Armor", "Forrest Scout Armor Left Leg", 1);
             addItem("Armor", "Forrest Scout Armor Right Leg", 1);
 
-            addItem("Armor", "Urban Scout Armor Chest Piece", 1);
-            addItem("Armor", "Urban Scout Armor Left Arm", 1);
-            addItem("Armor", "Urban Scout Armor Right Arm", 1);
-            addItem("Armor", "Urban Scout Armor Left Leg", 1);
-            addItem("Armor", "Urban Scout Armor Right Leg", 1);
+
+            // Urban Scout Armor doesn't seem to exist as legendary drop
+            // addItem("Armor", "Urban Scout Armor Chest Piece", 1);
+            // addItem("Armor", "Urban Scout Armor Left Arm", 1);
+            // addItem("Armor", "Urban Scout Armor Right Arm", 1);
+            // addItem("Armor", "Urban Scout Armor Left Leg", 1);
+            // addItem("Armor", "Urban Scout Armor Right Leg", 1);
 
             // Wooden
             addItem("Armor", "Wooden Chest Piece", 1);
@@ -680,6 +682,20 @@
                     function(v) { return v; }
                 );
 
+                // pick an item
+                var dropItemIndex = pickRatiodRandom(items, 
+                    function(v) { return true; }, 
+                    function(v) { return v.ratio; }
+                );
+
+                var dropItem = items[dropItemIndex];
+
+                // Wooden Armor is limited to 1*
+                if (dropItem.name.includes("Wooden")) {
+                    dropStars = 0;
+                }
+
+                // account star count for drops
                 if (dropStars == 0) {
                     total1Star++;
                 } else if (dropStars == 1) {
@@ -688,13 +704,6 @@
                     total3Star++;
                 }
 
-                // pick an item
-                var dropItemIndex = pickRatiodRandom(items, 
-                    function() { return true; }, 
-                    function(v) { return v.ratio; }
-                );
-
-                var dropItem = items[dropItemIndex];
 
                 var itemCategory = dropItem.category;
 
