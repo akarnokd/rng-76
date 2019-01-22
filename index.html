@@ -24,6 +24,7 @@
                     <br/><br/><input type="checkbox" id="cbInstant">Instant reward
                     <br/><br/><button id="btnClear">Clear history</button>
                     <br/><br/><a href="https://github.com/akarnokd/rng-76" target="_blank">GitHub repo</a>
+                    <br/><br/>Multi-roll count: <input type="text" id="txtCount" style="width: 100px; text-align: right;" value="5000"/>&nbsp;<button id="btnMultiRoll">Run</button>
                 </td>
                 <td width="75%">
                     <table style="width: 100%; height: 100%">
@@ -231,6 +232,9 @@
 
             var totalExplosive2Star = 0;
             var totalExplosive3Star = 0;
+
+            var multiRollMode = false;
+            var multiRollCount = 0;
 
             // oooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo
             // Legendary enemy chances
@@ -875,7 +879,13 @@
                 dropHTML += "</center>"
 
                 document.getElementById("txtDrop").innerHTML = dropHTML;
-                document.getElementById("txtHistory").value = historyName + "\r\n\r\n" + document.getElementById("txtHistory").value;
+
+                if (!multiRollMode 
+                        || dropStars == 2
+                        || (dropStars == 1 && effects[itemMajorIndex].name == "Explosive")
+                ) {
+                    document.getElementById("txtHistory").value = historyName + "\r\n\r\n" + document.getElementById("txtHistory").value;
+                }
 
                 document.getElementById("txtTotalRolls").innerText = "" + (totalRolls);
 
@@ -1002,6 +1012,36 @@
 
             document.getElementById("btnClear").onclick = function() {
                 document.getElementById("txtHistory").value = "";
+            };
+
+            function multiRoll() {
+                if (multiRollMode) {
+                    lootDrop();
+                    if (--multiRollCount > 0) {
+                        setTimeout(multiRoll, 0);
+                    } else {
+                        multiRollMode = false;
+                        multiRollCount = 0;
+                        document.getElementById("btnMultiRoll").innerText = "Run";
+                    }
+                }
+            }
+
+            document.getElementById("btnMultiRoll").onclick = function() {
+                if (!multiRollMode) {
+                    try {
+                        multiRollMode = true;
+                        multiRollCount = parseInt(document.getElementById("txtCount").value);
+                        document.getElementById("btnMultiRoll").innerText = "Stop";
+                        multiRoll();
+                    } catch (e) {
+                        alert("Invalid Multi-roll number!");
+                    }
+                } else {
+                    multiRollMode = false;
+                    multiRollCount = 0;
+                    document.getElementById("btnMultiRoll").innerText = "Run";
+                }
             };
 
             // sum up the drop pool statistics, once
