@@ -25,6 +25,7 @@
                     <br/><br/><button id="btnClear">Clear history</button>
                     <br/><br/><a href="https://github.com/akarnokd/rng-76" target="_blank">GitHub repo</a>
                     <br/><br/>Multi-roll count: <input type="text" id="txtCount" style="width: 100px; text-align: right;" value="5000"/>&nbsp;<button id="btnMultiRoll">Run</button>
+                    <br/><br/><a href="changes.html" target="_blank">Version History</a>
                 </td>
                 <td width="75%">
                     <table style="width: 100%; height: 100%">
@@ -371,7 +372,7 @@
             addItem("Ranged", "Pipe Revolver", 1);
             addItem("Ranged", "Light Machine Gun", 1);
             addItem("Ranged", "Cryolator", 1);
-            addItem("Ranged", "Salvaged assaultron head", 1);
+            addItem("Ranged", "Salvaged Assaultron Head", 1);
             addItem("Ranged", "Gamma Gun", 1);
             addItem("Ranged", "Auto Grenade Launcher", 1);
             addItem("Ranged", "Fat Man", 1);
@@ -742,9 +743,15 @@
                 if (dropStars >= 1) {
 
                     // special case: default explosive weapons can't get the explosive effect again
+                    // patch 5: flamers, cryolators, plasma and laser can't spawn as explosive anymore
                     var isAlreadyExplosive = dropItem.name.includes("Launcher") 
                         || dropItem.name.includes("Fat Man")
-                        || dropItem.name.includes("Broadsider");
+                        || dropItem.name.includes("Broadsider")
+                        || dropItem.name.includes("Laser")
+                        || dropItem.name.includes("Plasma")
+                        || dropItem.name.includes("Cryolator")
+                        || dropItem.name.includes("Flamer")
+                        ;
 
                     itemMajorIndex = pickRatiodRandom(effects, 
                         function(v) { 
