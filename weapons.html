@@ -1,0 +1,1110 @@
+<html>
+    <head>
+        <title>Weapon damage calculator</title>
+        <style>
+            * {
+                font-family: sans-serif;
+                font-size: 20px;
+            }
+            td {
+                padding: 1px;
+            }
+        </style>
+    </head>
+    <body style="height: 90%">
+        <center>
+            <h1 style="font-size: 36px;">Weapon Damage Calculator (v1)</h1>
+        <br/>
+        <table id="parent">
+            <tr>
+                <td style='vertical-align: top;'>
+                        <table id="table1" style="border: 1px solid black;">
+                                <tr>
+                                    <td>Weapon type</td>
+                                    <td>
+                                        <input type="radio" id="wtMelee1" name="weaponType1" value="Melee"/> Melee
+                                        &nbsp;&nbsp;&nbsp;&nbsp;
+                                        <input type="radio" id="wtRanged1" name="weaponType1" value="Ranged"/> Ranged
+                                    </td>
+                                </tr>
+                
+                            </table>            
+                </td>
+                <td style="padding-left: 50px">&nbsp;</td>
+                <td style='vertical-align: top;'>
+                    <table id="table2" style="border: 1px solid black;">
+                        <tr>
+                            <td>Weapon type</td>
+                            <td>
+                                <input type="radio" id="wtMelee2" name="weaponType2" value="Melee"/> Melee
+                                &nbsp;&nbsp;&nbsp;&nbsp;
+                                <input type="radio" id="wtRanged2" name="weaponType2" value="Ranged"/> Ranged
+                            </td>
+                        </tr>
+        
+                    </table>            
+                </td>
+            </tr>
+            <tr>
+                <td colspan="3" align='center'>
+                    <br/>
+                    <h2>Comparison</h2>
+                    </td>
+                        <table id="table3" style="border: 1px solid black; border-collapse: collapse;">
+                            <tr>
+                                <td rowspan='2' style="border: 1px solid black;">Enemy DR</td>
+                                <td colspan="3" style="border: 1px solid black;">Left weapon</td>
+                                <td colspan="3" style="border: 1px solid black;">Right weapon</td>
+                            </tr>
+                            <tr>
+                                <td style="border: 1px solid black;">Actual DR</td>
+                                <td style="border: 1px solid black;">Damage dealt</td>
+                                <td style="border: 1px solid black;">Compare Right</td>
+                                <td style="border: 1px solid black;">Actual DR</td>
+                                <td style="border: 1px solid black;">Damage dealt</td>
+                                <td style="border: 1px solid black;">Compare Left</td>
+                            </tr>
+                        </table> 
+                </td>
+            </tr>
+        </table>
+        </center>
+        <script>
+            var allWeapons = new Map();
+            var allEffects = new Map();
+            var enemyCategories = [];
+
+            var damages = [0, 0];
+            var ignores = [0, 0];
+
+            // -------------------------------------------------------------------------------
+            // Setup weapon data
+            // -------------------------------------------------------------------------------
+
+            allWeapons.set("Melee", []);
+            allWeapons.set("Ranged", [
+                {
+                    name: "Handmade",
+                    category: "Rifle",
+                    explosive: false,
+                    level: [15, 25, 35, 45],
+                    damage: [30, 35, 40, 45],
+                    mods: [
+                        {
+                            slot: "Receiver",
+                            options: [
+                                {
+                                    name: "Standard",
+                                    damageAdd: 0
+                                },
+                                {
+                                    name: "Hardened",
+                                    damageAdd: 12
+                                },
+                                {
+                                    name: "Scorch killer's",
+                                    damageMultPercent: -20,
+                                    versus: ["Scorched", "Scorchbeast", "Scorchbeast Queen"],
+                                    versusMultPercent: 50
+                                },
+                                {
+                                    name: "Prime",
+                                    damageAdd: 12,
+                                    versus: ["Scorched", "Scorchbeast", "Scorchbeast Queen"],
+                                    versusMultPercent: 30
+                                },
+                            ]
+                        },
+                        {
+                            slot: "Magazine",
+                            options: [
+                                {
+                                    name: "Standard",
+                                    ignoreDRPercent: 0
+                                },
+                                {
+                                    name: "Stinging",
+                                    ignoreDRPercent: 20
+                                },
+                                {
+                                    name: "Piercing",
+                                    ignoreDRPercent: 30
+                                },
+                                {
+                                    name: "Perforating",
+                                    ignoreDRPercent: 40
+                                }                            
+                            ]
+                        }
+                    ]
+                }
+            ]);
+
+            allEffects.set("Melee", [
+                // 1: Prefix
+                [
+
+                ],
+                // 2: Major
+                [
+
+                ],
+                // 3: minor
+                [
+
+                ]
+            ]);
+
+            allEffects.set("Ranged", [
+                // 1: Prefix
+                [
+                    {
+                        name: "Exterminator's",
+                        versus: ["Bug", "Mirelurk"],
+                        damageMultPercent: 50
+                    },
+                    {
+                        name: "Two shot",
+                        damageMultPercent: 25
+                    },
+                    {
+                        name: "Anti-armor",
+                        ignoreDRPercent: 50
+                    },
+                    {
+                        name: "Nocturnal",
+                        damageMultPercent: 30
+                    },
+                    {
+                        name: "Zealot's",
+                        versus: ["Scorched"],
+                        damageMultPercent: 30
+                    },
+                    {
+                        name: "Hunter's",
+                        versus: ["Animal"],
+                        damageMultPercent: 30
+                    },
+                    {
+                        name: "Mutant slayer's",
+                        versus: ["Mutant"],
+                        damageMultPercent: 30
+                    },
+                    {
+                        name: "Ghoul slayer's",
+                        versus: ["Ghoul"],
+                        damageMultPercent: 30
+                    },
+                    {
+                        name: "Bloodied",
+                        damageMultPercent: 60
+                    }
+                ],
+                // 2: Major
+                [
+                    {
+                        name: "Explosive",
+                        damageMultPercent: 20
+                    },
+                    {
+                        name: "Aiming",
+                        text: "+10% damage while aiming",
+                        damageMultPercent: 10
+                    }
+                ],
+                // 3: minor
+                [
+
+                ]
+            ]);
+
+            // -------------------------------------------------------------------------------------
+            enemyCategories = [];
+            addEnemy("Scorched", ["Scorched"]);
+
+            addEnemy("Feral Ghoul", ["Ghoul"]);
+
+            addEnemy("Glowing One", ["Ghoul", "Glowing"]);
+
+            addEnemy("Super Mutant", ["Mutant"]);
+
+            addEnemy("Mutant Hound", ["Mutant", "Animal"]);
+            addEnemy("Glowing Mutant Hound", ["Mutant", "Animal", "Glowing"]);
+            addEnemy("Scorched Mutant Hound", ["Mutant", "Animal", "Scorched"]);
+
+            addEnemy("Radroach", ["Bug"]);
+            addEnemy("Glowing Radroach", ["Bug", "Glowing"]);
+            addEnemy("Scorched Radroach", ["Bug", "Scorched"]);
+
+            addEnemy("Stingwing", ["Bug"]);
+            addEnemy("Glowing Stingwing", ["Bug", "Glowing"]);
+            addEnemy("Scorched Stingwing", ["Bug", "Scorched"]);
+
+            addEnemy("Bloatfly", ["Bug"]);
+            addEnemy("Glowing Bloatfly", ["Bug", "Glowing"]);
+            addEnemy("Scorched Bloatfly", ["Bug", "Scorched"]);
+
+            addEnemy("Mirelurk", ["Mirelurk"]);
+            addEnemy("Glowing Mirelurk", ["Mirelurk", "Glowing"]);
+            addEnemy("Scorched Mirelurk", ["Mirelurk", "Scorched"]);
+
+            addEnemy("Mirelurk King", ["Mirelurk"]);
+            addEnemy("Glowing Mirelurk King", ["Mirelurk", "Glowing"]);
+            addEnemy("Scorched Mirelurk King", ["Mirelurk", "Scorched"]);
+
+            addEnemy("Mirelurk Queen", ["Mirelurk"]);
+            addEnemy("Glowing Mirelurk Queen", ["Mirelurk", "Glowing"]);
+            addEnemy("Scorched Mirelurk Queen", ["Mirelurk", "Scorched"]);
+
+            addEnemy("Scorchbeast", ["Animal", "Scorchbeast"]);
+            addEnemy("Scorchbeast Queen", ["Animal", "Scorchbeast Queen"]);
+
+            addEnemy("Yao Guai", ["Animal"]);
+            addEnemy("Glowing Yao Guai", ["Animal", "Glowing"]);
+            addEnemy("Scorched Yao Guai", ["Animal", "Scorched"]);
+
+            addEnemy("Deathclaw", ["Animal"]);
+            addEnemy("Glowing Deathclaw", ["Animal", "Glowing"]);
+            addEnemy("Scorched Deathclaw", ["Animal", "Scorched"]);
+
+            addEnemy("Ant", ["Bug"]);
+            addEnemy("Glowing Ant", ["Bug", "Glowing"]);
+            addEnemy("Scorched Ant", ["Bug", "Scorched"]);
+
+            // -------------------------------------------------------------------------------------
+            
+            function addEnemy(name, keywords) {
+                enemyCategories.push({ name: name, keywords: keywords});
+            }
+
+            allWeapons.get("Melee").sort(function(a, b) {
+                return a.name.localeCompare(b.name);
+            });
+            allWeapons.get("Ranged").sort(function(a, b) {
+                return a.name.localeCompare(b.name);
+            });
+
+            enemyCategories.sort(function(a, b) {
+                return a.name.localeCompare(b.name);
+            });
+
+            allEffects.get("Melee").forEach(function(eff) {
+                eff.sort(function(a, b) {
+                    return a.name.localeCompare(b.name);
+                });
+            });
+
+            allEffects.get("Ranged").forEach(function(eff) {
+                eff.sort(function(a, b) {
+                    return a.name.localeCompare(b.name);
+                });
+            });
+
+            // -------------------------------------------------------------------------------
+            // Setup weapon data
+            // -------------------------------------------------------------------------------
+
+            function clearTable(tbl) {
+                for (var i = tbl.rows.length - 1; i > 0; i--) {
+                    tbl.deleteRow(i);
+                }
+            }
+
+            document.getElementById("wtRanged1").onclick = function() {
+                createSelectWeapon(document.getElementById("table1"), 1, "Ranged")
+            };
+
+            document.getElementById("wtMelee1").onclick = function() {
+                createSelectWeapon(document.getElementById("table1"), 1, "Melee")
+            };
+
+            document.getElementById("wtRanged2").onclick = function() {
+                createSelectWeapon(document.getElementById("table2"), 2, "Ranged")
+            };
+
+            document.getElementById("wtMelee2").onclick = function() {
+                createSelectWeapon(document.getElementById("table2"), 2, "Melee")
+            };
+
+            function createSelectWeapon(tbl, index, type) {
+                clearTable(tbl);
+                var row = tbl.insertRow(1);
+
+                var cell1 = row.insertCell(0);
+                cell1.innerText = "Weapon";
+
+                var cell2 = row.insertCell(1);
+
+
+
+                var weaps = allWeapons.get(type);
+
+                if (weaps.length == 0) {
+                    cell2.innerHTML = "No weapon data available";
+                } else {
+
+                    cell2.innerHTML = "<select id='weapon" + index + "'></select>";
+                    var selector = document.getElementById("weapon" + index);
+
+                    weaps.forEach(function(weap) {
+                        var opt = document.createElement("option");
+                        opt.text = weap.name;
+                        opt.value = weap.name;
+                        selector.add(opt);
+                    });
+                    selector.selectedIndex = -1;
+
+                    selector.onchange = function() {
+                        createSelectLevel(tbl, index, type);
+                        createSelectMods(tbl, index, type);
+                        createSelectLegendary(tbl, index, type);
+                        createSelectLegendaryParameter(tbl, index, type);
+                        createPerks(tbl, index, type);
+                        recalculate(tbl, index, type);
+                    };
+                }
+            }
+
+            function createSelectLevel(tbl, index, type) {
+                var cell2 = document.getElementById("levels" + index);
+
+                if (cell2 == null) {
+                    var row = tbl.insertRow(tbl.rows.length);
+
+                    var cell1 = row.insertCell(0);
+                    cell1.innerText = "Level";
+
+                    cell2 = row.insertCell(1);
+                    cell2.id = "levels" + index;
+                }
+
+                cell2.innerHTML = "<select id='level" + index + "'></select>"
+
+                var levelsel = document.getElementById("level" + index);
+
+                var weapIdx = document.getElementById("weapon" + index).selectedIndex;
+                var weap = allWeapons.get(type)[weapIdx];
+
+                weap.level.forEach(function(item, idx) {
+                    opt = document.createElement("option");
+                    levelsel.add(opt);
+
+                    opt.text = item;
+                    opt.value = "" + idx;
+                });
+                levelsel.selectedIndex = weap.level.length - 1;
+                levelsel.onchange = function() {
+                    recalculate(tbl, index, type);
+                };
+            }
+
+            function createSelectMods(tbl, index, type) {
+                var weapIdx = document.getElementById("weapon" + index).selectedIndex;
+                var weap = allWeapons.get(type)[weapIdx];
+
+                var row = tbl.insertRow(tbl.rows.length);
+
+                var cell1 = row.insertCell(0);
+                cell1.innerText = "Mods";
+
+                cell2 = row.insertCell(1);
+                cell2.id = "mods" + index;
+
+                weap.mods.forEach(function(item, idx) {
+
+                    var modRow = tbl.insertRow(tbl.rows.length);
+
+                    var modCell1 = modRow.insertCell(0);
+                    modCell1.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;" + item.slot;
+
+                    var modCell2 = modRow.insertCell(1);
+
+                    var modSelector = document.createElement("select");
+                    modSelector.id = "mods_" + index + "_" + idx;
+                    modCell2.appendChild(modSelector);
+
+                    item.options.forEach(function(modItem, modIdx) {
+                        var modOpt = document.createElement("option");
+                        modSelector.add(modOpt);
+                        modOpt.value = "" + modIdx;
+                        modOpt.text = modItem.name;
+                    });
+
+                    modSelector.onchange = function() {
+                        recalculate(tbl, index, type);
+                    };
+                });
+            }
+
+            function createSelectLegendary(tbl, index, type) {
+
+                var row = tbl.insertRow(tbl.rows.length);
+
+                var cell1 = row.insertCell(0);
+                cell1.innerText = "Legendary effects";
+
+                var titles = ["Prefix", "Major", "Minor"];
+
+                var effects = allEffects.get(type);
+                effects.forEach(function(effect, idx) {
+                    var effRow = tbl.insertRow(tbl.rows.length);
+
+                    var effCell1 = effRow.insertCell(0);
+                    effCell1.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;" + titles[idx];
+
+                    var effCell2 = effRow.insertCell(1);
+
+                    if (effect.length == 0) {
+                        effCell2.innerText = "No damage-related legendary effect";
+                    } else {
+                        var effSelector = document.createElement("select");
+                        effSelector.id = "effs_" + index + "_" + idx;
+                        effCell2.appendChild(effSelector);
+
+                        var effOpt = document.createElement("option");
+                            effSelector.add(effOpt);
+                            effOpt.value = "";
+                            effOpt.text = "";
+
+                        effect.forEach(function(effItem, effIdx) {
+                            effOpt = document.createElement("option");
+                            effSelector.add(effOpt);
+                            effOpt.value = "" + effIdx;
+                            if (effItem.text !== undefined) {
+                                effOpt.text = effItem.text;
+                            } else {
+                                effOpt.text = effItem.name;
+                            }
+                        });
+
+                        effSelector.onchange = function() {
+                            recalculate(tbl, index, type);
+                        };
+                    }
+                });
+            }
+
+            function createSelectLegendaryParameter(tbl, index, type) {
+                var row = tbl.insertRow(tbl.rows.length);
+                var cell1 = row.insertCell(0);
+                cell1.innerText = "Effect parameters";
+                var cell2 = row.insertCell(1);
+
+                row = tbl.insertRow(tbl.rows.length);
+                cell1 = row.insertCell(0);
+                cell1.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;Night time";
+                cell2 = row.insertCell(1);
+                cell2.innerHTML = "<input type='radio' id='nighttime" + index + "_yes' name='nighttime" + index + "' value='1'> Yes&nbsp;&nbsp;&nbsp;"
+                    + "<input type='radio' id='nighttime" + index + "_no' name='nighttime" + index + "' value='0'> No";
+
+                document.getElementById("nighttime" + index + "_yes").onchange = function() {
+                    recalculate(tbl, index, type);
+                };
+                document.getElementById("nighttime" + index + "_no").onchange = function() {
+                    recalculate(tbl, index, type);
+                };
+
+                if (type === "Ranged") {
+                    row = tbl.insertRow(tbl.rows.length);
+                    cell1 = row.insertCell(0);
+                    cell1.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;Aiming";
+                    cell2 = row.insertCell(1);
+                    cell2.innerHTML = "<input type='radio' id='aiming" + index + "_yes' name='aiming" + index + "' value='1'> Yes&nbsp;&nbsp;&nbsp;"
+                        + "<input type='radio' id='aiming" + index + "_no' name='aiming" + index + "' value='0'> No";
+
+                    document.getElementById("aiming" + index + "_yes").onchange = function() {
+                        recalculate(tbl, index, type);
+                    };
+                    document.getElementById("aiming" + index + "_no").onchange = function() {
+                        recalculate(tbl, index, type);
+                    };
+
+                }
+
+                row = tbl.insertRow(tbl.rows.length);
+                cell1 = row.insertCell(0);
+                cell1.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;Player health";
+                cell2 = row.insertCell(1);
+                cell2.innerHTML = "<input type='number' id='playerhealth" + index + "' value='100' maxlength='6' style='width: 8em;' min='1' max='100'> %";
+                document.getElementById("playerhealth" + index ).oninput = function() {
+                    recalculate(tbl, index, type);
+                };
+
+                row = tbl.insertRow(tbl.rows.length);
+                cell1 = row.insertCell(0);
+                cell1.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;Enemy health";
+                cell2 = row.insertCell(1);
+                cell2.innerHTML = "<input type='number' id='enemyhealth" + index + "' value='100' maxlength='6' style='width: 8em;' min='1' max='100'> %";
+                document.getElementById("enemyhealth" + index ).oninput = function() {
+                    recalculate(tbl, index, type);
+                };
+
+                row = tbl.insertRow(tbl.rows.length);
+                cell1 = row.insertCell(0);
+                cell1.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;Enemy type";
+                cell2 = row.insertCell(1);
+                cell2.innerHTML = "<select id='enemytype" + index + "'></select>"
+
+                var enemytypesel = document.getElementById("enemytype" + index);
+                var opt = document.createElement("option");
+                enemytypesel.add(opt);
+                opt.text = "Any";
+                opt.value = "";
+
+
+                enemyCategories.forEach(function(item, idx) {
+                    opt = document.createElement("option");
+                    enemytypesel.add(opt);
+
+                    opt.text = item.name;
+                    opt.value = item.keywords.join();
+                });
+
+                enemytypesel.onchange = function() {
+                    recalculate(tbl, index, type);
+                };
+            }
+
+            function createPerks(tbl, index, type) {
+                var row = tbl.insertRow(tbl.rows.length);
+                var cell1 = row.insertCell(0);
+                cell1.innerText = "Perks";
+                var cell2 = row.insertCell(1);
+
+                row = tbl.insertRow(tbl.rows.length);
+                cell1 = row.insertCell(0);
+                cell1.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;Bloody mess";
+                cell2 = row.insertCell(1);
+                cell2.innerHTML = "<select id='bloodymess" + index + "'></select> (level)"
+
+                var bloodymesssel = document.getElementById("bloodymess" + index);
+                var opt = document.createElement("option");
+                bloodymesssel.add(opt);
+                opt.text = "None";
+                opt.value = "0";
+
+                for (var i = 1; i < 4; i++) {
+                    opt = document.createElement("option");
+                    bloodymesssel.add(opt);
+                    opt.text = "" + i;
+                    opt.value = "" + (i * 5);
+                }
+                bloodymesssel.selectedIndex = 0;
+                bloodymesssel.onchange = function() {
+                    recalculate(tbl, index, type);
+                };
+
+                row = tbl.insertRow(tbl.rows.length);
+                cell1 = row.insertCell(0);
+                cell1.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;Adrenaline";
+                cell2 = row.insertCell(1);
+                cell2.innerHTML = "<select id='adrenaline" + index + "'></select> (level)"
+
+                var adrenalinesel = document.getElementById("adrenaline" + index);
+                opt = document.createElement("option");
+                adrenalinesel.add(opt);
+                opt.text = "None";
+                opt.value = "0";
+
+                for (var i = 1; i < 6; i++) {
+                    opt = document.createElement("option");
+                    adrenalinesel.add(opt);
+                    opt.text = "" + i;
+                    opt.value = "" + (30 + (i * 6));
+                }
+                adrenalinesel.selectedIndex = 0;
+                adrenalinesel.onchange = function() {
+                    recalculate(tbl, index, type);
+                };
+
+                /*
+                row = tbl.insertRow(tbl.rows.length);
+                cell1 = row.insertCell(0);
+                cell1.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Kills";
+                cell2 = row.insertCell(1);
+                cell2.innerHTML = "<input type='number' id='kills" + index + "' value='0' maxlength='6' style='width: 3em;'>";
+                document.getElementById("kills" + index ).oninput = function() {
+                    recalculate(tbl, index, type);
+                };
+                */
+
+                row = tbl.insertRow(tbl.rows.length);
+                cell1 = row.insertCell(0);
+                cell1.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;Weapon-specific boost";
+                cell2 = row.insertCell(1);
+                cell2.innerHTML = "<select id='boost" + index + "'></select> %"
+
+                var boost = document.getElementById("boost" + index);
+                opt = document.createElement("option");
+                boost.add(opt);
+                opt.text = "None";
+                opt.value = "0";
+
+                for (var i = 10; i < 61; i += 5) {
+                    opt = document.createElement("option");
+                    boost.add(opt);
+                    opt.text = "" + i;
+                    opt.value = "" + i;
+                }
+                boost.selectedIndex = 0;
+                boost.onchange = function() {
+                    recalculate(tbl, index, type);
+                };
+
+                // ------------------------------------------------
+
+                if (type === "Melee") {
+                    row = tbl.insertRow(tbl.rows.length);
+                    cell1 = row.insertCell(0);
+                    cell1.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;Incisor";
+                    cell2 = row.insertCell(1);
+                    cell2.innerHTML = "<select id='incisor" + index + "'></select> (level)"
+
+                    var incisor = document.getElementById("incisor" + index);
+                    opt = document.createElement("option");
+                    incisor.add(opt);
+                    opt.text = "None";
+                    opt.value = "0";
+
+                    for (var i = 1; i < 4; i++) {
+                        opt = document.createElement("option");
+                        incisor.add(opt);
+                        opt.text = "" + i;
+                        opt.value = "" + (i * 25);
+                    }
+                    incisor.selectedIndex = 0;
+                    incisor.onchange = function() {
+                        recalculate(tbl, index, type);
+                    };
+                }
+
+                if (type === "Ranged") {
+
+                    row = tbl.insertRow(tbl.rows.length);
+                    cell1 = row.insertCell(0);
+                    cell1.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;Demolition Expert";
+                    cell2 = row.insertCell(1);
+                    cell2.innerHTML = "<select id='demolition" + index + "'></select> (level)"
+
+                    var demolition = document.getElementById("demolition" + index);
+                    opt = document.createElement("option");
+                    demolition.add(opt);
+                    opt.text = "None";
+                    opt.value = "0";
+
+                    for (var i = 1; i < 6; i++) {
+                        opt = document.createElement("option");
+                        demolition.add(opt);
+                        opt.text = "" + i;
+                        opt.value = "" + (20 + (i - 1) * 10);
+                    }
+                    demolition.selectedIndex = 0;
+                    demolition.onchange = function() {
+                        recalculate(tbl, index, type);
+                    };
+
+                    var weapIdx = document.getElementById("weapon" + index).selectedIndex;
+                    if (weapIdx >= 0) {
+                        var weap = allWeapons.get(type)[weapIdx];
+
+                        if (weap.category === "Rifle") {
+                            row = tbl.insertRow(tbl.rows.length);
+                            cell1 = row.insertCell(0);
+                            cell1.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;Tank killer";
+                            cell2 = row.insertCell(1);
+                            cell2.innerHTML = "<select id='tankkiller" + index + "'></select> (level)"
+
+                            var tankkiller = document.getElementById("tankkiller" + index);
+                            opt = document.createElement("option");
+                            tankkiller.add(opt);
+                            opt.text = "None";
+                            opt.value = "0";
+
+                            for (var i = 1; i < 4; i++) {
+                                opt = document.createElement("option");
+                                tankkiller.add(opt);
+                                opt.text = "" + i;
+                                opt.value = "" + (i * 12);
+                            }
+                            tankkiller.selectedIndex = 0;
+                            tankkiller.onchange = function() {
+                                recalculate(tbl, index, type);
+                            };
+                        }
+                        if (weap.category == "Heavy") {
+                            row = tbl.insertRow(tbl.rows.length);
+                            cell1 = row.insertCell(0);
+                            cell1.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;Stabilized";
+                            cell2 = row.insertCell(1);
+                            cell2.innerHTML = "<select id='stabilized" + index + "'></select> (level)"
+
+                            var stabilized = document.getElementById("stabilized" + index);
+                            opt = document.createElement("option");
+                            stabilized.add(opt);
+                            opt.text = "None";
+                            opt.value = "0";
+
+                            for (var i = 1; i < 4; i++) {
+                                opt = document.createElement("option");
+                                stabilized.add(opt);
+                                opt.text = "" + i;
+                                opt.value = "" + (i * 15);
+                            }
+                            stabilized.selectedIndex = 0;
+                            stabilized.onchange = function() {
+                                recalculate(tbl, index, type);
+                            };
+                        }
+                    }
+                }
+
+                row = tbl.insertRow(tbl.rows.length);
+                    cell1 = row.insertCell(0);
+                    cell1.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;Exterminator";
+                    cell2 = row.insertCell(1);
+                    cell2.innerHTML = "<select id='exterminator" + index + "'></select> (level)"
+
+                    var exterminator = document.getElementById("exterminator" + index);
+                    opt = document.createElement("option");
+                    exterminator.add(opt);
+                    opt.text = "None";
+                    opt.value = "0";
+
+                    for (var i = 1; i < 3; i++) {
+                        opt = document.createElement("option");
+                        exterminator.add(opt);
+                        opt.text = "" + i;
+                        opt.value = "" + (25 * i);
+                    }
+                    exterminator.selectedIndex = 0;
+                    exterminator.onchange = function() {
+                        recalculate(tbl, index, type);
+                    };
+
+                row = tbl.insertRow(tbl.rows.length);
+                    cell1 = row.insertCell(0);
+                    cell1.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;Glow sight";
+                    cell2 = row.insertCell(1);
+                    cell2.innerHTML = "<select id='glowsight" + index + "'></select> (level)"
+
+                    var glowsight = document.getElementById("glowsight" + index);
+                    opt = document.createElement("option");
+                    glowsight.add(opt);
+                    opt.text = "None";
+                    opt.value = "0";
+
+                    for (var i = 1; i < 4; i++) {
+                        opt = document.createElement("option");
+                        glowsight.add(opt);
+                        opt.text = "" + i;
+                        opt.value = "" + (20 * i);
+                    }
+                    glowsight.selectedIndex = 0;
+                    glowsight.onchange = function() {
+                        recalculate(tbl, index, type);
+                    };
+            }
+
+            function recalculate(tbl, index, type) {
+                var cell2 = document.getElementById("totaldamage" + index);
+                var cell4 = document.getElementById("totalarmorignore" + index);
+
+                if (cell2 == null) {
+                    var row = tbl.insertRow(tbl.rows.length);
+
+                    var cell1 = row.insertCell(0);
+                    cell1.innerText = "Total damage";
+                    cell1.style = "border-top: 1px solid black;";
+
+                    cell2 = row.insertCell(1);
+                    cell2.id = "totaldamage" + index;
+                    cell2.style = "border-top: 1px solid black; font-size: 30px;";
+
+                    row = tbl.insertRow(tbl.rows.length);
+                    cell1 = row.insertCell(0);
+                    cell1.innerText = "Total armor ignore";
+                    cell1.style = "border-top: 1px solid black;";
+
+                    cell4 = row.insertCell(1);
+                    cell4.id = "totalarmorignore" + index;
+                    cell4.style = "border-top: 1px solid black; font-size: 30px;";
+                }
+
+                cell2.innerText = "";
+                cell4.innerText = "";
+
+                var weapIdx = document.getElementById("weapon" + index).selectedIndex;
+                if (weapIdx < 0) {
+                    return;
+                }
+                var levelIdx = document.getElementById("level" + index).selectedIndex;
+                if (levelIdx < 0) {
+                    return;
+                }
+
+                var weap = allWeapons.get(type)[weapIdx];
+
+                var baseDamage = weap.damage[levelIdx];
+
+                var totalDamageAdditive = [];
+                var totalDamageMultiply = [];
+                var totalArmorIgnoreArray = [];
+
+                weap.mods.forEach(function(mod, idx) {
+                    var modTypeIdx = document.getElementById("mods_" + index + "_" + idx).selectedIndex;
+                    
+                    if (modTypeIdx >= 0) {
+                        var modInfo = mod.options[modTypeIdx];
+
+                        if (modInfo.damageAdd !== undefined) {
+                            totalDamageAdditive.push(modInfo.damageAdd);
+                            if (modInfo.versus !== undefined) {
+                                var enemytypes = valueOf(document.getElementById("enemytype" + index)).split(",");
+
+                                for (var i = 0; i < enemytypes.length; i++) {
+                                    if (modInfo.versus.indexOf(enemytypes[i]) >= 0) {
+                                        totalDamageAdditive.push(baseDamage * (modInfo.versusMultPercent / 100.0));
+                                        break;
+                                    }
+                                }
+                            }
+                            
+                        }
+                        if (modInfo.damageMultPercent !== undefined) {
+                            var multiplier = modInfo.damageMultPercent;
+                            if (modInfo.versus !== undefined) {
+                                var enemytypes = valueOf(document.getElementById("enemytype" + index)).split(",");
+
+                                for (var i = 0; i < enemytypes.length; i++) {
+                                    if (modInfo.versus.indexOf(enemytypes[i]) >= 0) {
+                                        multiplier = modInfo.versusMultPercent;
+                                        break;
+                                    }
+                                }
+                            }
+                            totalDamageAdditive.push(baseDamage * (multiplier / 100.0));
+                        }
+                        if (modInfo.ignoreDRPercent !== undefined) {
+                            totalArmorIgnoreArray.push(modInfo.ignoreDRPercent);
+                        }
+                    }
+                });
+
+                var effects = allEffects.get(type);
+                effects.forEach(function(effect, idx) {
+                    var effectSel = document.getElementById("effs_" + index + "_" + idx);
+                    if (effectSel != null && effectSel.selectedIndex > 0) {
+                        var effInfo = effects[idx][effectSel.selectedIndex - 1];
+                        
+                        if (effInfo.damageAdd !== undefined) {
+                            totalDamageAdditive.push(effInfo.damageAdd);
+                        }
+                        if (effInfo.damageMultPercent !== undefined) {
+                            var perc = effInfo.damageMultPercent;
+                            if (type === "Ranged") {
+                                if (effInfo.name === "Explosive") {
+                                    var demolitionsel = document.getElementById("demolition" + index);
+                                    if (demolitionsel.selectedIndex > 0) {
+                                        perc *= 1 + parseFloat(valueOf(demolitionsel)) / 100.0
+                                    }
+                                }
+                                if (effInfo.name === "Aiming") {
+                                    if (!document.getElementById("aiming" + index + "_yes").checked) {
+                                        perc = 0;
+                                    }
+                                }
+                            }
+                            if (effInfo.name === "Nocturnal") {
+                                if (!document.getElementById("nighttime" + index + "_yes").checked) {
+                                    perc = 0;
+                                }
+                            }
+                            if (effInfo.name === "Exterminator's") {
+                                if (parseFloat(document.getElementById("enemyhealth" + index).value) > 40) {
+                                    perc = 0;
+                                }
+                            }
+                            if (effInfo.name === "Bloodied") {
+                                var health = parseFloat(document.getElementById("playerhealth" + index).value);
+                                if (health >= 60) {
+                                    perc = 0;
+                                } else {
+                                    perc = 60 - health;
+                                }
+                            }
+                            // Versus enemy effect
+                            if (effect.versus !== undefined) {
+                                var enemytypes = valueOf(document.getElementById("enemytype" + index)).split(",");
+
+                                var found = false;
+                                for (var i = 0; i < enemytypes.length; i++) {
+                                    if (effInfo.versus.indexOf(enemytypes[i]) >= 0) {
+                                        found = true;
+                                        break;
+                                    }
+                                }
+                                if (!found) {
+                                    perc = 0;
+                                }
+                            }
+                            totalDamageAdditive.push(baseDamage * (perc / 100.0))
+                        }
+                        if (effInfo.ignoreDRPercent !== undefined) {
+                            totalArmorIgnoreArray.push(effInfo.ignoreDRPercent);
+                        }
+                    }
+                });
+
+                var tankkiller = document.getElementById("tankkiller" + index);
+                if (tankkiller != null && tankkiller.selectedIndex > 0) {
+                    totalArmorIgnoreArray.push(parseFloat(valueOf(tankkiller.selectedIndex)));
+                }
+
+                var incisor = document.getElementById("incisor" + index);
+                if (incisor != null && incisor.selectedIndex > 0) {
+                    totalArmorIgnoreArray.push(parseFloat(valueOf(incisor.selectedIndex)));
+                }
+
+                var stabilized = document.getElementById("stabilized" + index);
+                if (stabilized != null && stabilized.selectedIndex > 0) {
+                    totalArmorIgnoreArray.push(parseFloat(valueOf(stabilized)));
+                }
+
+                var exterminator = document.getElementById("exterminator" + index);
+                if (exterminator != null && exterminator.selectedIndex > 0) {
+                    var enemytypes = valueOf(document.getElementById("enemytype" + index)).split(",");
+                    if (enemytypes.indexOf("Bug") >= 0 || enemytypes.indexof("Mirelurk") >= 0) {
+                        totalDamageMultiply.push(parseFloat(valueOf(exterminator)));
+                    }
+                }
+
+                var glowsight = document.getElementById("glowsight" + index);
+                if (glowsight != null && glowsight.selectedIndex > 0) {
+                    var enemytypes = valueOf(document.getElementById("enemytype" + index)).split(",");
+                    if (enemytypes.indexOf("Glowing") >= 0) {
+                        totalDamageMultiply.push(parseFloat(valueOf(glowsight)));
+                    }
+                }
+
+                var boost = document.getElementById("boost" + index);
+                if (boost != null && boost.selectedIndex > 0) {
+                    totalDamageMultiply.push(parseFloat(valueOf(boost)));
+                }
+                var bloodymess = document.getElementById("bloodymess" + index);
+                if (bloodymess != null && bloodymess.selectedIndex > 0) {
+                    totalDamageMultiply.push(parseFloat(valueOf(bloodymess)));
+                }
+
+                var adrenaline = document.getElementById("adrenaline" + index);
+                if (adrenaline != null && adrenaline.selectedIndex > 0) {
+                    totalDamageMultiply.push(parseFloat(valueOf(adrenaline)));
+                }
+
+                var totalDamage = baseDamage;
+                totalDamageAdditive.forEach(function(v) {
+                    totalDamage += v;
+                });
+                totalDamageMultiply.forEach(function(v) {
+                    totalDamage *= 1.0 + v / 100.0;
+                });
+
+
+                var totalArmorIgnore = 0;
+                if (totalArmorIgnoreArray.length != 0) {
+                    totalArmorIgnore = 1.0;
+                    totalArmorIgnoreArray.forEach(function(v) {
+                        totalArmorIgnore *= (1.0 - v / 100.0);
+                    });
+                    totalArmorIgnore = Math.min(95, 100 * (1 - totalArmorIgnore));
+                }
+
+                cell2.innerText = totalDamage.toFixed(2);
+                cell4.innerText = totalArmorIgnore.toFixed(2) + " %";
+
+                damages[index] = totalDamage;
+                ignores[index] = totalArmorIgnore;
+
+                recalculateDiff();
+            }
+
+            function recalculateDiff() {
+                var tbl = document.getElementById("table3");
+                for (var i = tbl.rows.length - 1; i > 1; i--) {
+                    tbl.deleteRow(i);
+                }
+
+                var a = [10, 20, 30, 40, 50, 75, 100, 125, 150, 200, 250, 300];
+                for (var i in a) {
+                    var row = tbl.insertRow(tbl.rows.length);
+
+                    var dr = a[i];
+                    var leftDr = dr * (1 - Math.min(0.95, (ignores[1] / 100.0)));
+                    var leftDmg = damageFormula(damages[1], leftDr);
+
+                    var rightDr = dr * (1 - Math.min(0.95, (ignores[2] / 100.0)));
+                    var rightDmg = damageFormula(damages[2], rightDr);
+
+                    var cell = row.insertCell(0);
+                    cell.innerText = "" + dr;
+                    cell.style = "border: 1px solid black; text-align: right;";
+
+                    if (damages[1] > 0) {
+                        cell = row.insertCell(1);
+                        cell.innerText = leftDr.toFixed(1);
+                        cell.style = "border: 1px solid black; text-align: right;";
+
+                        cell = row.insertCell(2);
+                        cell.innerText = leftDmg.toFixed(2);
+                        cell.style = "border: 1px solid black; text-align: right;";
+                    } else {
+                        cell = row.insertCell(1);
+                        cell = row.insertCell(2);
+                        cell.style = "border: 1px solid black; text-align: right;";
+                    }
+
+                    if (damages[1] > 0 && damages[2] > 0) {
+                        cell = row.insertCell(3);
+                        cell.innerText = (100 - (rightDmg / leftDmg) * 100).toFixed(2) + " %";
+                        cell.style = "border: 1px solid black; text-align: right;";
+                    } else {
+                        cell = row.insertCell(3);
+                        cell.style = "border: 1px solid black; text-align: right;";
+                    }
+
+                    if (damages[2] > 0) {
+                        cell = row.insertCell(4);
+                        cell.innerText = rightDr.toFixed(1);
+                        cell.style = "border: 1px solid black; text-align: right;";
+
+                        cell = row.insertCell(5);
+                        cell.innerText = rightDmg.toFixed(2);
+                        cell.style = "border: 1px solid black; text-align: right;";
+                    } else {
+                        cell = row.insertCell(4);
+                        cell.style= "border: 1px solid black; text-align: right;";
+                        cell = row.insertCell(5);
+                        cell.style = "border: 1px solid black; text-align: right;";
+                    }
+
+                    if (damages[1] > 0 && damages[2] > 0) {
+                        cell = row.insertCell(6);
+                        cell.innerText = (100 - (leftDmg / rightDmg) * 100).toFixed(2) + " %";
+                        cell.style = "border: 1px solid black; text-align: right;";
+                    } else {
+                        cell = row.insertCell(6);
+                        cell.style = "border: 1px solid black; text-align: right;";
+                    }
+
+                }
+            }
+
+            function damageFormula(damage, dr) {
+                return damage * Math.min(0.99, 0.5 * Math.pow(damage / dr, 0.366));
+            }
+
+            function valueOf(select) {
+                return select.options[select.selectedIndex].value;
+            }
+        </script>
+    </body>
+</html>
