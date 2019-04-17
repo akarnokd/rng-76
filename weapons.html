@@ -159,6 +159,10 @@
                 // 1: Prefix
                 [
                     {
+                        name: "Executioner's",
+                        damageMultPercent: 50
+                    },
+                    {
                         name: "Exterminator's",
                         versus: ["Bug", "Mirelurk"],
                         damageMultPercent: 50
@@ -770,7 +774,7 @@
                     opt.text = "None";
                     opt.value = "0";
 
-                    for (var i = 1; i < 3; i++) {
+                    for (var i = 1; i < 4; i++) {
                         opt = document.createElement("option");
                         exterminator.add(opt);
                         opt.text = "" + i;
@@ -919,7 +923,7 @@
                                     perc = 0;
                                 }
                             }
-                            if (effInfo.name === "Exterminator's") {
+                            if (effInfo.name === "Executioner's") {
                                 if (parseFloat(document.getElementById("enemyhealth" + index).value) > 40) {
                                     perc = 0;
                                 }
@@ -957,12 +961,12 @@
 
                 var tankkiller = document.getElementById("tankkiller" + index);
                 if (tankkiller != null && tankkiller.selectedIndex > 0) {
-                    totalArmorIgnoreArray.push(parseFloat(valueOf(tankkiller.selectedIndex)));
+                    totalArmorIgnoreArray.push(parseFloat(valueOf(tankkiller)));
                 }
 
                 var incisor = document.getElementById("incisor" + index);
                 if (incisor != null && incisor.selectedIndex > 0) {
-                    totalArmorIgnoreArray.push(parseFloat(valueOf(incisor.selectedIndex)));
+                    totalArmorIgnoreArray.push(parseFloat(valueOf(incisor)));
                 }
 
                 var stabilized = document.getElementById("stabilized" + index);
@@ -973,8 +977,8 @@
                 var exterminator = document.getElementById("exterminator" + index);
                 if (exterminator != null && exterminator.selectedIndex > 0) {
                     var enemytypes = valueOf(document.getElementById("enemytype" + index)).split(",");
-                    if (enemytypes.indexOf("Bug") >= 0 || enemytypes.indexof("Mirelurk") >= 0) {
-                        totalDamageMultiply.push(parseFloat(valueOf(exterminator)));
+                    if (enemytypes.indexOf("Bug") >= 0 || enemytypes.indexOf("Mirelurk") >= 0) {
+                        totalArmorIgnoreArray.push(parseFloat(valueOf(exterminator)));
                     }
                 }
 
