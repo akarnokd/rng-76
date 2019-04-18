@@ -22,9 +22,9 @@
                                 <tr>
                                     <td>Weapon type</td>
                                     <td>
-                                        <input type="radio" id="wtMelee1" name="weaponType1" value="Melee"/> Melee
+                                        <input type="radio" id="wtMelee1" name="weaponType1" value="Melee"/><span id="spMelee1" style="cursor: pointer;"> Melee</span>
                                         &nbsp;&nbsp;&nbsp;&nbsp;
-                                        <input type="radio" id="wtRanged1" name="weaponType1" value="Ranged"/> Ranged
+                                        <input type="radio" id="wtRanged1" name="weaponType1" value="Ranged"/><span id="spRanged1" style="cursor: pointer;"> Ranged</span>
                                     </td>
                                 </tr>
                 
@@ -36,9 +36,9 @@
                         <tr>
                             <td>Weapon type</td>
                             <td>
-                                <input type="radio" id="wtMelee2" name="weaponType2" value="Melee"/> Melee
+                                <input type="radio" id="wtMelee2" name="weaponType2" value="Melee"/><span id="spMelee2" style="cursor: pointer;"> Melee</span>
                                 &nbsp;&nbsp;&nbsp;&nbsp;
-                                <input type="radio" id="wtRanged2" name="weaponType2" value="Ranged"/> Ranged
+                                <input type="radio" id="wtRanged2" name="weaponType2" value="Ranged"/><span id="spRanged2" style="cursor: pointer;"> Ranged</span>
                             </td>
                         </tr>
         
@@ -115,7 +115,7 @@
                 },
                 {
                     name: "Deathclaw Gauntlet",
-                    category: "One-handed",
+                    category: "Unarmed",
                     level: [30, 40, 50],
                     damage: [45, 50, 55],
                     mods: [
@@ -133,8 +133,89 @@
                             ]
                         }
                     ]
-                }
+                },
+                {
+                    name: "Super Sledge",
+                    category: "Two-handed",
+                    level: [30, 40, 50],
+                    damage: [65, 75, 85],
+                    mods: []
+                },
+                {
+                    name: "Power Fist",
+                    category: "Unarmed",
+                    level: [30, 40, 50],
+                    damage: [48, 53, 58],
+                    mods: [
+                        {
+                            slot: "Main",
+                            options: [
+                                {
+                                    name: "Standard",
+                                    damageAdd: 0
+                                },
+                                {
+                                    name: "Puncturing",
+                                    ignoreDRPercent: 20,
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    name: "Mole Miner Gauntlet",
+                    category: "Unarmed",
+                    level: [20, 30, 40, 50],
+                    damage: [30, 35, 40, 45],
+                    mods: [
+                        {
+                            slot: "Main",
+                            options: [
+                                {
+                                    name: "Standard",
+                                    damageAdd: 0
+                                },
+                                {
+                                    name: "Third Blade",
+                                    damageMultPercent: 15,
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    name: "Death Tambo",
+                    category: "Unarmed",
+                    level: [15, 25, 35, 45],
+                    damage: [30, 35, 40, 45],
+                    mods: []
+                },
             ]);
+            // xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+
+            // the default magazine selection for typical weapons
+            var standardAPMagazines = {
+                            slot: "Magazine",
+                            options: [
+                                {
+                                    name: "Standard",
+                                    ignoreDRPercent: 0
+                                },
+                                {
+                                    name: "Stinging",
+                                    ignoreDRPercent: 20
+                                },
+                                {
+                                    name: "Piercing",
+                                    ignoreDRPercent: 20
+                                },
+                                {
+                                    name: "Perforating",
+                                    ignoreDRPercent: 40
+                                }                            
+                            ]
+                        }
+
             allWeapons.set("Ranged", [
                 {
                     name: "Handmade",
@@ -155,6 +236,10 @@
                                     damageAdd: 11
                                 },
                                 {
+                                    name: "Automatic",
+                                    damageAdd: -6
+                                },
+                                {
                                     name: "Scorch killer's",
                                     damageMultPercent: -20,
                                     versus: ["Scorched", "Scorchbeast", "Scorchbeast Queen"],
@@ -166,6 +251,601 @@
                                     versus: ["Scorched", "Scorchbeast", "Scorchbeast Queen"],
                                     versusMultPercent: 30
                                 },
+                                {
+                                    name: "Prime Automatic",
+                                    damageAdd: 6,
+                                    versus: ["Scorched", "Scorchbeast", "Scorchbeast Queen"],
+                                    versusMultPercent: 30
+                                },
+                            ]
+                        },
+                        standardAPMagazines
+                    ]
+                },
+                {
+                    name: "Hunting Rifle",
+                    category: "Rifle",
+                    explosive: false,
+                    level: [1, 5, 10, 20, 30, 40, 50],
+                    damage: [40, 45, 50, 55, 60, 65, 70],
+                    mods: [
+                        {
+                            slot: "Receiver",
+                            options: [
+                                {
+                                    name: "Standard",
+                                    damageAdd: 0
+                                },
+                                {
+                                    name: "Hardened",
+                                    damageAdd: 12
+                                },
+                                {
+                                    name: "Scorch killer's",
+                                    damageMultPercent: -20,
+                                    versus: ["Scorched", "Scorchbeast", "Scorchbeast Queen"],
+                                    versusMultPercent: 50
+                                },
+                                {
+                                    name: "Prime",
+                                    damageAdd: 12,
+                                    versus: ["Scorched", "Scorchbeast", "Scorchbeast Queen"],
+                                    versusMultPercent: 30
+                                },
+                            ]
+                        },
+                        standardAPMagazines
+                    ]
+                },
+                {
+                    name: "Lever Action Rifle",
+                    category: "Rifle",
+                    explosive: false,
+                    level: [25, 35, 45],
+                    damage: [65, 70, 75],
+                    mods: [
+                        {
+                            slot: "Receiver",
+                            options: [
+                                {
+                                    name: "Standard",
+                                    damageAdd: 0
+                                },
+                                {
+                                    name: "Hardened",
+                                    damageAdd: 18
+                                },
+                                {
+                                    name: "Scorch killer's",
+                                    damageMultPercent: -20,
+                                    versus: ["Scorched", "Scorchbeast", "Scorchbeast Queen"],
+                                    versusMultPercent: 50
+                                },
+                                {
+                                    name: "Prime",
+                                    damageAdd: 18,
+                                    versus: ["Scorched", "Scorchbeast", "Scorchbeast Queen"],
+                                    versusMultPercent: 30
+                                },
+                            ]
+                        }
+                    ]
+                },
+                {
+                    name: "Black Powder Rifle",
+                    category: "Rifle",
+                    explosive: false,
+                    level: [15, 25, 35, 45],
+                    damage: [150, 160, 170, 180],
+                    mods: [ ]
+                },
+                {
+                    name: "The Dragon",
+                    category: "Rifle",
+                    explosive: false,
+                    level: [35, 45],
+                    damage: [200, 220],
+                    mods: [ ]
+                },
+                {
+                    name: "Assault Rifle",
+                    category: "Rifle",
+                    explosive: false,
+                    level: [30, 40, 50],
+                    damage: [25, 29, 33],
+                    mods: [
+                        {
+                            slot: "Receiver",
+                            options: [
+                                {
+                                    name: "Standard",
+                                    damageAdd: 0
+                                },
+                                {
+                                    name: "Automatic",
+                                    damageAdd: -4
+                                },
+                                {
+                                    name: "Hardened",
+                                    damageAdd: 8
+                                },
+                                {
+                                    name: "Scorch killer's",
+                                    damageMultPercent: -20,
+                                    versus: ["Scorched", "Scorchbeast", "Scorchbeast Queen"],
+                                    versusMultPercent: 50
+                                },
+                                {
+                                    name: "Prime",
+                                    damageAdd: 8,
+                                    versus: ["Scorched", "Scorchbeast", "Scorchbeast Queen"],
+                                    versusMultPercent: 30
+                                },
+                                {
+                                    name: "Prime Automatic",
+                                    damageAdd: 4,
+                                    versus: ["Scorched", "Scorchbeast", "Scorchbeast Queen"],
+                                    versusMultPercent: 30
+                                }
+                            ]
+                        },
+                        standardAPMagazines
+                    ]
+                },
+                {
+                    name: "Gatling Gun",
+                    category: "Heavy",
+                    explosive: false,
+                    level: [20, 30, 40, 50],
+                    damage: [36, 48, 60, 72],
+                    mods: [
+                        {
+                            slot: "Receiver",
+                            options: [
+                                {
+                                    name: "Standard",
+                                    damageAdd: 0
+                                },
+                                {
+                                    name: "Prime",
+                                    damageAdd: 0,
+                                    versus: ["Scorched", "Scorchbeast", "Scorchbeast Queen"],
+                                    versusMultPercent: 30
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    name: "Railway Rifle",
+                    category: "Rifle",
+                    explosive: false,
+                    level: [30, 40, 50],
+                    damage: [75, 85, 95],
+                    mods: [
+                        {
+                            slot: "Receiver",
+                            options: [
+                                {
+                                    name: "Standard",
+                                    damageAdd: 0
+                                },
+                                {
+                                    name: "Automatic",
+                                    damageAdd: -11
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    name: "50 Cal Machine Gun",
+                    category: "Heavy",
+                    explosive: false,
+                    level: [25, 35, 45],
+                    damage: [24, 30, 36],
+                    mods: [
+                        {
+                            slot: "Receiver",
+                            options: [
+                                {
+                                    name: "Standard",
+                                    damageAdd: 0
+                                },
+                                {
+                                    name: "Prime",
+                                    damageAdd: 0,
+                                    versus: ["Scorched", "Scorchbeast", "Scorchbeast Queen"],
+                                    versusMultPercent: 30
+                                },
+                            ]
+                        },
+                        {
+                            slot: "Barrel",
+                            options: [
+                                {
+                                    name: "Standard",
+                                    ignoreDRPercent: 0
+                                },
+                                {
+                                    name: "Heavy",
+                                    damageAdd: 4,
+                                }                           
+                            ]
+                        }
+                    ]
+                },
+                {
+                    name: "Light Machine Gun",
+                    category: "Heavy",
+                    explosive: false,
+                    level: [30, 40, 50],
+                    damage: [11, 13, 16],
+                    mods: [
+                        {
+                            slot: "Receiver",
+                            options: [
+                                {
+                                    name: "Standard",
+                                    damageAdd: 0
+                                },
+                                {
+                                    name: "Prime",
+                                    damageAdd: 3,
+                                    versus: ["Scorched", "Scorchbeast", "Scorchbeast Queen"],
+                                    versusMultPercent: 30
+                                },
+                            ]
+                        }
+                    ]
+                },
+                {
+                    name: "Minigun",
+                    category: "Heavy",
+                    explosive: false,
+                    level: [35, 45],
+                    damage: [12, 14],
+                    mods: [
+                        {
+                            slot: "Barrel",
+                            options: [
+                                {
+                                    name: "Standard",
+                                    damageAdd: 0
+                                },
+                                ,
+                                {
+                                    name: "Accelerated",
+                                    damageAdd: 2,
+                                },
+                                ,
+                                {
+                                    name: "Tri",
+                                    damageAdd: 4,
+                                },
+                                {
+                                    name: "Prime",
+                                    damageAdd: 3,
+                                    versus: ["Scorched", "Scorchbeast", "Scorchbeast Queen"],
+                                    versusMultPercent: 30
+                                },
+                            ]
+                        }
+                    ]
+                },
+                {
+                    name: "Combat Rifle",
+                    category: "Rifle",
+                    explosive: false,
+                    level: [20, 30, 40, 50],
+                    damage: [28, 32, 36, 40],
+                    mods: [
+                        {
+                            slot: "Receiver",
+                            options: [
+                                {
+                                    name: "Standard",
+                                    damageAdd: 0
+                                },
+                                {
+                                    name: "Automatic",
+                                    damageAdd: -4
+                                },
+                                {
+                                    name: "Hardened",
+                                    damageAdd: 7
+                                },
+                                {
+                                    name: "Scorch killer's",
+                                    damageMultPercent: -20,
+                                    versus: ["Scorched", "Scorchbeast", "Scorchbeast Queen"],
+                                    versusMultPercent: 50
+                                },
+                                {
+                                    name: "Prime",
+                                    damageAdd: 7,
+                                    versus: ["Scorched", "Scorchbeast", "Scorchbeast Queen"],
+                                    versusMultPercent: 30
+                                },
+                                {
+                                    name: "Prime Automatic",
+                                    damageAdd: 3,
+                                    versus: ["Scorched", "Scorchbeast", "Scorchbeast Queen"],
+                                    versusMultPercent: 30
+                                }
+                            ]
+                        },
+                        standardAPMagazines
+                    ]
+                },
+                {
+                    name: "Combat Shotgun",
+                    category: "Shotgun",
+                    explosive: false,
+                    level: [20, 30, 40, 50],
+                    damage: [60, 70, 80, 90],
+                    mods: [
+                        {
+                            slot: "Receiver",
+                            options: [
+                                {
+                                    name: "Standard",
+                                    damageAdd: 0
+                                },
+                                {
+                                    name: "Automatic",
+                                    damageAdd: -6
+                                },
+                                {
+                                    name: "Powerful Automatic",
+                                    damageAdd: 1
+                                },
+                                {
+                                    name: "Hardened",
+                                    damageAdd: 15
+                                },
+                                {
+                                    name: "Scorch killer's",
+                                    damageMultPercent: -20,
+                                    versus: ["Scorched", "Scorchbeast", "Scorchbeast Queen"],
+                                    versusMultPercent: 50
+                                },
+                                {
+                                    name: "Prime",
+                                    damageAdd: 15,
+                                    versus: ["Scorched", "Scorchbeast", "Scorchbeast Queen"],
+                                    versusMultPercent: 30
+                                },
+                                {
+                                    name: "Prime Automatic",
+                                    damageAdd: 9,
+                                    versus: ["Scorched", "Scorchbeast", "Scorchbeast Queen"],
+                                    versusMultPercent: 30
+                                }
+                            ]
+                        },
+                        standardAPMagazines
+                    ]
+                },
+                {
+                    name: "Pump Action Shotgun",
+                    category: "Shotgun",
+                    explosive: false,
+                    level: [5, 15, 25, 35, 45],
+                    damage: [55, 65, 75, 85, 95],
+                    mods: [
+                        {
+                            slot: "Receiver",
+                            options: [
+                                {
+                                    name: "Standard",
+                                    damageAdd: 0
+                                },
+                                {
+                                    name: "Hardened",
+                                    damageAdd: 23
+                                },
+                                {
+                                    name: "Scorch killer's",
+                                    damageMultPercent: -20,
+                                    versus: ["Scorched", "Scorchbeast", "Scorchbeast Queen"],
+                                    versusMultPercent: 50
+                                },
+                                {
+                                    name: "Prime",
+                                    damageAdd: 23,
+                                    versus: ["Scorched", "Scorchbeast", "Scorchbeast Queen"],
+                                    versusMultPercent: 30
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    name: "Double-barrel Shotgun",
+                    category: "Shotgun",
+                    explosive: false,
+                    level: [15, 25, 35, 45],
+                    damage: [80, 90, 100, 115],
+                    mods: [
+                        {
+                            slot: "Receiver",
+                            options: [
+                                {
+                                    name: "Standard",
+                                    damageAdd: 0
+                                },
+                                {
+                                    name: "Powerful",
+                                    damageAdd: 11
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    name: "Crossbow",
+                    category: "Rifle",
+                    explosive: false,
+                    level: [15, 25, 35, 45],
+                    damage: [55, 60, 65, 70],
+                    mods: [
+                        {
+                            slot: "Frame",
+                            options: [
+                                {
+                                    name: "Standard",
+                                    damageAdd: 0
+                                },
+                                {
+                                    name: "Prime",
+                                    damageAdd: 0,
+                                    versus: ["Scorched", "Scorchbeast", "Scorchbeast Queen"],
+                                    versusMultPercent: 30
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    name: "10mm Pistol",
+                    category: "Pistol",
+                    explosive: false,
+                    level: [5, 15, 25, 35, 45],
+                    damage: [15, 18, 21, 24, 28],
+                    mods: [
+                        {
+                            slot: "Receiver",
+                            options: [
+                                {
+                                    name: "Standard",
+                                    damageAdd: 0
+                                },
+                                {
+                                    name: "Automatic",
+                                    damageAdd: -1
+                                },
+                                {
+                                    name: "Powerful Automatic",
+                                    damageAdd: 1
+                                },
+                                {
+                                    name: "Hardened",
+                                    damageAdd: 3
+                                },
+                                {
+                                    name: "Scorch killer's",
+                                    damageMultPercent: -20,
+                                    versus: ["Scorched", "Scorchbeast", "Scorchbeast Queen"],
+                                    versusMultPercent: 50
+                                },
+                                {
+                                    name: "Prime",
+                                    damageAdd: 3,
+                                    versus: ["Scorched", "Scorchbeast", "Scorchbeast Queen"],
+                                    versusMultPercent: 30
+                                },
+                                {
+                                    name: "Prime Automatic",
+                                    damageAdd: 2,
+                                    versus: ["Scorched", "Scorchbeast", "Scorchbeast Queen"],
+                                    versusMultPercent: 30
+                                }
+                            ]
+                        },
+                        standardAPMagazines
+                    ]
+                },
+                {
+                    name: "Western Revolver",
+                    category: "Pistol",
+                    explosive: false,
+                    level: [20, 30, 40, 50],
+                    damage: [50, 55, 60, 65],
+                    mods: [
+                        {
+                            slot: "Receiver",
+                            options: [
+                                {
+                                    name: "Standard",
+                                    damageAdd: 0
+                                },
+                                {
+                                    name: "Hardened",
+                                    damageAdd: 12
+                                },
+                            ]
+                        }
+                    ]
+                },
+                {
+                    name: "Submachine Gun",
+                    category: "Rifle",
+                    explosive: false,
+                    level: [15, 25, 35, 45],
+                    damage: [18, 22, 25, 29],
+                    mods: [
+                        {
+                            slot: "Receiver",
+                            options: [
+                                {
+                                    name: "Standard",
+                                    damageAdd: 0
+                                },
+                                {
+                                    name: "Armor-piercing",
+                                    ignoreDRPercent: 40
+                                },
+                                {
+                                    name: "Hardened",
+                                    damageAdd: 4
+                                },
+                                {
+                                    name: "Scorch killer's",
+                                    damageMultPercent: -20,
+                                    versus: ["Scorched", "Scorchbeast", "Scorchbeast Queen"],
+                                    versusMultPercent: 50
+                                },
+                                {
+                                    name: "Prime",
+                                    damageAdd: 4,
+                                    versus: ["Scorched", "Scorchbeast", "Scorchbeast Queen"],
+                                    versusMultPercent: 30
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    name: "10mm SMG",
+                    category: "Pistol",
+                    explosive: false,
+                    level: [10, 20, 30, 40, 50],
+                    damage: [17, 19, 23, 28, 34],
+                    mods: [
+                        {
+                            slot: "Receiver",
+                            options: [
+                                {
+                                    name: "Standard",
+                                    damageAdd: 0
+                                },
+                                {
+                                    name: "Hardened",
+                                    damageAdd: 5
+                                },
+                                {
+                                    name: "Scorch killer's",
+                                    damageMultPercent: -20,
+                                    versus: ["Scorched", "Scorchbeast", "Scorchbeast Queen"],
+                                    versusMultPercent: 50
+                                },
+                                {
+                                    name: "Prime",
+                                    damageAdd: 5,
+                                    versus: ["Scorched", "Scorchbeast", "Scorchbeast Queen"],
+                                    versusMultPercent: 30
+                                }
                             ]
                         },
                         {
@@ -176,22 +856,24 @@
                                     ignoreDRPercent: 0
                                 },
                                 {
-                                    name: "Stinging",
+                                    name: "Piercing",
                                     ignoreDRPercent: 20
                                 },
-                                {
-                                    name: "Piercing",
-                                    ignoreDRPercent: 30
-                                },
-                                {
-                                    name: "Perforating",
-                                    ignoreDRPercent: 40
-                                }                            
                             ]
                         }
                     ]
-                }
+                },
+                {
+                    name: "Broadsider",
+                    category: "Heavy",
+                    explosive: true,
+                    level: [25, 35, 45],
+                    damage: [95, 115, 135],
+                    mods: []
+                },
             ]);
+
+            // vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
 
             allEffects.set("Melee", [
                 // 1: Prefix
@@ -279,6 +961,10 @@
                         damageMultPercent: 25
                     },
                     {
+                        name: "Two shot (pre nerf)",
+                        damageMultPercent: 100
+                    },
+                    {
                         name: "Anti-armor",
                         ignoreDRPercent: 50
                     },
@@ -325,6 +1011,11 @@
                     {
                         name: "Explosive",
                         damageMultPercent: 20
+                    },
+                    {
+                        name: "ExplosiveOld",
+                        text: "Explosive (pre nerf)",
+                        damageMultPercent: 100
                     },
                     {
                         name: "Aiming",
@@ -427,8 +1118,43 @@
             });
 
             // -------------------------------------------------------------------------------
-            // Setup weapon data
+            // Setup main selection
             // -------------------------------------------------------------------------------
+
+            document.getElementById("wtRanged1").onclick = function() {
+                createSelectWeapon(document.getElementById("table1"), 1, "Ranged")
+            };
+            document.getElementById("spRanged1").onclick = function() {
+                document.getElementById("wtRanged1").checked = true;
+                createSelectWeapon(document.getElementById("table1"), 1, "Ranged")
+            };
+
+            document.getElementById("wtMelee1").onclick = function() {
+                createSelectWeapon(document.getElementById("table1"), 1, "Melee")
+            };
+            document.getElementById("spMelee1").onclick = function() {
+                document.getElementById("wtMelee1").checked = true;
+                createSelectWeapon(document.getElementById("table1"), 1, "Melee")
+            };
+
+            document.getElementById("wtRanged2").onclick = function() {
+                createSelectWeapon(document.getElementById("table2"), 2, "Ranged")
+            };
+            document.getElementById("spRanged2").onclick = function() {
+                document.getElementById("wtRanged2").checked = true;
+                createSelectWeapon(document.getElementById("table2"), 2, "Ranged")
+            };
+
+            document.getElementById("wtMelee2").onclick = function() {
+                createSelectWeapon(document.getElementById("table2"), 2, "Melee")
+            };
+            document.getElementById("spMelee2").onclick = function() {
+                document.getElementById("wtMelee2").checked = true;
+                createSelectWeapon(document.getElementById("table2"), 2, "Melee")
+            };
+
+
+            // ----------------------------------------------------------------------
 
             function clearTable(tbl) {
                 for (var i = tbl.rows.length - 1; i > 0; i--) {
@@ -441,21 +1167,6 @@
                 }
             }
 
-            document.getElementById("wtRanged1").onclick = function() {
-                createSelectWeapon(document.getElementById("table1"), 1, "Ranged")
-            };
-
-            document.getElementById("wtMelee1").onclick = function() {
-                createSelectWeapon(document.getElementById("table1"), 1, "Melee")
-            };
-
-            document.getElementById("wtRanged2").onclick = function() {
-                createSelectWeapon(document.getElementById("table2"), 2, "Ranged")
-            };
-
-            document.getElementById("wtMelee2").onclick = function() {
-                createSelectWeapon(document.getElementById("table2"), 2, "Melee")
-            };
 
             function createSelectWeapon(tbl, index, type) {
                 clearTable(tbl);
@@ -545,6 +1256,10 @@
                 cell2 = row.insertCell(1);
                 cell2.id = "mods" + index;
 
+                if (weap.mods.length == 0) {
+                    cell2.innerText = "No damage-related mods";
+                }
+
                 weap.mods.forEach(function(item, idx) {
 
                     var modRow = tbl.insertRow(tbl.rows.length);
@@ -604,7 +1319,7 @@
                             effOpt.text = "";
 
                             effect.forEach(function(effItem, effIdx) {
-                                if (!(effItem.name === "Explosive" && weap.explosive)) {
+                                if (!(effItem.name.includes("Explosive") && weap.explosive)) {
                                     effOpt = document.createElement("option");
                                     effSelector.add(effOpt);
                                     effOpt.value = "" + effIdx;
@@ -635,7 +1350,7 @@
                 cell1.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;Night time";
                 cell2 = row.insertCell(1);
                 cell2.innerHTML = "<input type='radio' id='nighttime" + index + "_yes' name='nighttime" + index + "' value='1'> Yes&nbsp;&nbsp;&nbsp;"
-                    + "<input type='radio' id='nighttime" + index + "_no' name='nighttime" + index + "' value='0'> No";
+                    + "<input type='radio' id='nighttime" + index + "_no' name='nighttime" + index + "' value='0' checked='checked'> No";
 
                 document.getElementById("nighttime" + index + "_yes").onchange = function() {
                     recalculate(tbl, index, type);
@@ -650,7 +1365,7 @@
                     cell1.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;Aiming";
                     cell2 = row.insertCell(1);
                     cell2.innerHTML = "<input type='radio' id='aiming" + index + "_yes' name='aiming" + index + "' value='1'> Yes&nbsp;&nbsp;&nbsp;"
-                        + "<input type='radio' id='aiming" + index + "_no' name='aiming" + index + "' value='0'> No";
+                        + "<input type='radio' id='aiming" + index + "_no' name='aiming" + index + "' value='0' checked='checked'> No";
 
                     document.getElementById("aiming" + index + "_yes").onchange = function() {
                         recalculate(tbl, index, type);
@@ -674,7 +1389,7 @@
                 cell1 = row.insertCell(0);
                 cell1.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;Enemy health";
                 cell2 = row.insertCell(1);
-                cell2.innerHTML = "<input type='number' id='enemyhealth" + index + "' value='100' maxlength='6' style='width: 8em;' min='1' max='100'> %";
+                cell2.innerHTML = "<input type='number' id='enemyhealth" + index + "' value='99' maxlength='6' style='width: 8em;' min='1' max='100'> %";
                 document.getElementById("enemyhealth" + index ).oninput = function() {
                     recalculate(tbl, index, type);
                 };
@@ -857,6 +1572,16 @@
                         opt.text = "" + i;
                         opt.value = "" + (20 + (i - 1) * 10);
                     }
+                    // pre nerf available options
+                    opt = document.createElement("option");
+                    demolition.add(opt);
+                    opt.text = "4 (pre nerf)";
+                    opt.value = "80";
+                    opt = document.createElement("option");
+                    demolition.add(opt);
+                    opt.text = "5 (pre nerf)";
+                    opt.value = "100";
+
                     demolition.selectedIndex = 0;
                     demolition.onchange = function() {
                         recalculate(tbl, index, type);
@@ -1092,7 +1817,15 @@
                         if (effInfo.damageMultPercent !== undefined) {
                             var perc = effInfo.damageMultPercent;
                             if (type === "Ranged") {
-                                if (effInfo.name === "Explosive") {
+                                if (effInfo.name.includes("Explosive")) {
+                                    var pref = document.getElementById("effs_" + index + "_0");
+                                    if (pref != null && pref.selectedIndex > 0) {
+                                        if (pref.options[pref.selectedIndex].text.includes("Two shot")) {
+                                            var effInfo = effects[0][pref.selectedIndex - 1];
+                                            perc *= 1 + effInfo.damageMultPercent / 100;
+                                        }
+                                    }
+
                                     var demolitionsel = document.getElementById("demolition" + index);
                                     if (demolitionsel.selectedIndex > 0) {
                                         perc *= 1 + parseFloat(valueOf(demolitionsel)) / 100.0
@@ -1205,6 +1938,11 @@
                     if (v > 0) {
                         totalDamageMultiply.push(v);
                     }
+                }
+
+                var demolitionsel = document.getElementById("demolition" + index);
+                if (demolitionsel != null && demolitionsel.selectedIndex > 0 && weap.explosive) {
+                    totalDamageMultiply.push(parseFloat(valueOf(demolitionsel)));
                 }
 
                 var totalDamage = baseDamage;
