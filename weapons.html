@@ -81,7 +81,60 @@
             // Setup weapon data
             // -------------------------------------------------------------------------------
 
-            allWeapons.set("Melee", []);
+            allWeapons.set("Melee", [
+                {
+                    name: "Board",
+                    category: "One-handed",
+                    level: [1, 5, 15, 25, 35, 45],
+                    damage: [14, 18, 22, 26, 30, 33],
+                    mods: [
+                        {
+                            slot: "Main",
+                            options: [
+                                {
+                                    name: "Standard",
+                                    damageAdd: 0
+                                },
+                                {
+                                    name: "Spiked",
+                                    damageAdd: 4,
+                                    ignoreDRPercent: 10
+                                },
+                                {
+                                    name: "Puncturing",
+                                    damageAdd: 7,
+                                    ignoreDRPercent: 20
+                                },
+                                {
+                                    name: "Bladed",
+                                    damageAdd: 10
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    name: "Deathclaw Gauntlet",
+                    category: "One-handed",
+                    level: [30, 40, 50],
+                    damage: [45, 50, 55],
+                    mods: [
+                        {
+                            slot: "Main",
+                            options: [
+                                {
+                                    name: "Standard",
+                                    damageAdd: 0
+                                },
+                                {
+                                    name: "Extra claw",
+                                    damageMultPercent: 20,
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]);
             allWeapons.set("Ranged", [
                 {
                     name: "Handmade",
@@ -99,7 +152,7 @@
                                 },
                                 {
                                     name: "Hardened",
-                                    damageAdd: 12
+                                    damageAdd: 11
                                 },
                                 {
                                     name: "Scorch killer's",
@@ -109,7 +162,7 @@
                                 },
                                 {
                                     name: "Prime",
-                                    damageAdd: 12,
+                                    damageAdd: 11,
                                     versus: ["Scorched", "Scorchbeast", "Scorchbeast Queen"],
                                     versusMultPercent: 30
                                 },
@@ -143,6 +196,56 @@
             allEffects.set("Melee", [
                 // 1: Prefix
                 [
+                    {
+                        name: "Executioner's",
+                        damageMultPercent: 50
+                    },
+                    {
+                        name: "Exterminator's",
+                        versus: ["Bug", "Mirelurk"],
+                        damageMultPercent: 50
+                    },
+                    {
+                        name: "Anti-armor",
+                        ignoreDRPercent: 50
+                    },
+                    {
+                        name: "Nocturnal",
+                        damageMultPercent: 30
+                    },
+                    {
+                        name: "Zealot's",
+                        versus: ["Scorched"],
+                        damageMultPercent: 30
+                    },
+                    {
+                        name: "Hunter's",
+                        versus: ["Animal"],
+                        damageMultPercent: 30
+                    },
+                    {
+                        name: "Mutant slayer's",
+                        versus: ["Mutant"],
+                        damageMultPercent: 30
+                    },
+                    {
+                        name: "Ghoul slayer's",
+                        versus: ["Ghoul"],
+                        damageMultPercent: 30
+                    },
+                    {
+                        name: "Bloodied",
+                        damageMultPercent: 60
+                    },
+                    {
+                        name: "Troubleshooter's",
+                        versus: ["Robot"],
+                        damageMultPercent: 30
+                    },
+                    {
+                        name: "Instigating",
+                        damageMultPercent: 100
+                    },
 
                 ],
                 // 2: Major
@@ -151,7 +254,11 @@
                 ],
                 // 3: minor
                 [
-
+                    {
+                        name: "Strength",
+                        text: "+1 Strength"
+                        // no multiplier, considered with the base calculation
+                    }
                 ]
             ]);
 
@@ -202,6 +309,15 @@
                     {
                         name: "Bloodied",
                         damageMultPercent: 60
+                    },
+                    {
+                        name: "Instigating",
+                        damageMultPercent: 100
+                    },
+                    {
+                        name: "Troubleshooter's",
+                        versus: ["Robot"],
+                        damageMultPercent: 30
                     }
                 ],
                 // 2: Major
@@ -275,6 +391,12 @@
             addEnemy("Glowing Ant", ["Bug", "Glowing"]);
             addEnemy("Scorched Ant", ["Bug", "Scorched"]);
 
+            addEnemy("Protectron", ["Robot"]);
+            addEnemy("Robobrain", ["Robot"]);
+            addEnemy("Sentrybot", ["Robot"]);
+            addEnemy("Assaultron", ["Robot"]);
+            addEnemy("Eyebot", ["Robot"]);
+
             // -------------------------------------------------------------------------------------
             
             function addEnemy(name, keywords) {
@@ -310,6 +432,11 @@
 
             function clearTable(tbl) {
                 for (var i = tbl.rows.length - 1; i > 0; i--) {
+                    tbl.deleteRow(i);
+                }
+            }
+            function clearTable2(tbl) {
+                for (var i = tbl.rows.length - 1; i > 1; i--) {
                     tbl.deleteRow(i);
                 }
             }
@@ -359,11 +486,13 @@
                     selector.selectedIndex = -1;
 
                     selector.onchange = function() {
+                        clearTable2(tbl);
                         createSelectLevel(tbl, index, type);
                         createSelectMods(tbl, index, type);
                         createSelectLegendary(tbl, index, type);
                         createSelectLegendaryParameter(tbl, index, type);
                         createPerks(tbl, index, type);
+                        createOther(tbl, index, type);
                         recalculate(tbl, index, type);
                     };
                 }
@@ -377,9 +506,11 @@
 
                     var cell1 = row.insertCell(0);
                     cell1.innerText = "Level";
+                    cell1.style = "border-top: 1px solid black;"
 
                     cell2 = row.insertCell(1);
                     cell2.id = "levels" + index;
+                    cell2.style = "border-top: 1px solid black;"
                 }
 
                 cell2.innerHTML = "<select id='level" + index + "'></select>"
@@ -441,6 +572,8 @@
             }
 
             function createSelectLegendary(tbl, index, type) {
+                var weapIdx = document.getElementById("weapon" + index).selectedIndex;
+                var weap = allWeapons.get(type)[weapIdx];
 
                 var row = tbl.insertRow(tbl.rows.length);
 
@@ -470,16 +603,19 @@
                             effOpt.value = "";
                             effOpt.text = "";
 
-                        effect.forEach(function(effItem, effIdx) {
-                            effOpt = document.createElement("option");
-                            effSelector.add(effOpt);
-                            effOpt.value = "" + effIdx;
-                            if (effItem.text !== undefined) {
-                                effOpt.text = effItem.text;
-                            } else {
-                                effOpt.text = effItem.name;
-                            }
-                        });
+                            effect.forEach(function(effItem, effIdx) {
+                                if (!(effItem.name === "Explosive" && weap.explosive)) {
+                                    effOpt = document.createElement("option");
+                                    effSelector.add(effOpt);
+                                    effOpt.value = "" + effIdx;
+                                    if (effItem.text !== undefined) {
+                                        effOpt.text = effItem.text;
+                                    } else {
+                                        effOpt.text = effItem.name;
+                                    }
+                                }
+                            });
+                        
 
                         effSelector.onchange = function() {
                             recalculate(tbl, index, type);
@@ -555,6 +691,25 @@
                 opt.text = "Any";
                 opt.value = "";
 
+                if (type === "Melee") {
+                    row = tbl.insertRow(tbl.rows.length);
+                    cell1 = row.insertCell(0);
+                    cell1.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;Weapon condition";
+                    cell2 = row.insertCell(1);
+                    cell2.innerHTML = "<input type='number' id='condition" + index + "' value='100' maxlength='6' style='width: 8em;' min='1' max='200'> %";
+                    document.getElementById("condition" + index ).oninput = function() {
+                        recalculate(tbl, index, type);
+                    };
+
+                    row = tbl.insertRow(tbl.rows.length);
+                    cell1 = row.insertCell(0);
+                    cell1.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;Strength";
+                    cell2 = row.insertCell(1);
+                    cell2.innerHTML = "<input type='number' id='strength" + index + "' value='1' maxlength='6' style='width: 8em;' min='1' max='50'> (points)";
+                    document.getElementById("strength" + index ).oninput = function() {
+                        recalculate(tbl, index, type);
+                    };
+                }
 
                 enemyCategories.forEach(function(item, idx) {
                     opt = document.createElement("option");
@@ -809,6 +964,22 @@
                     };
             }
 
+            function createOther(tbl, index, type) {
+                var row = tbl.insertRow(tbl.rows.length);
+                var cell1 = row.insertCell(0);
+                cell1.innerText = "Other";
+                var cell2 = row.insertCell(1);
+
+                row = tbl.insertRow(tbl.rows.length);
+                cell1 = row.insertCell(0);
+                cell1.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;Buffs/chems boost";
+                cell2 = row.insertCell(1);
+                cell2.innerHTML = "<input type='number' id='otherboost" + index + "' value='0' maxlength='6' style='width: 8em;' min='0' max='1000'> %";
+                document.getElementById("otherboost" + index ).oninput = function() {
+                    recalculate(tbl, index, type);
+                };
+            }
+
             function recalculate(tbl, index, type) {
                 var cell2 = document.getElementById("totaldamage" + index);
                 var cell4 = document.getElementById("totalarmorignore" + index);
@@ -849,6 +1020,21 @@
                 var weap = allWeapons.get(type)[weapIdx];
 
                 var baseDamage = weap.damage[levelIdx];
+
+                // Not sure: strength and condition change the base damage before mods/effects?
+                var strength = document.getElementById("strength" + index);
+                if (strength != null) {
+                    var v = parseFloat(strength.value);
+                    baseDamage *= 1 + ((v - 1) * 0.05);
+                }
+
+                var condition = document.getElementById("condition" + index);
+                if (condition != null) {
+                    var v = parseFloat(condition.value);
+                    if (v > 100) {
+                        baseDamage *= 1 + (v - 100) * 0.005;
+                    }
+                }
 
                 var totalDamageAdditive = [];
                 var totalDamageMultiply = [];
@@ -923,6 +1109,11 @@
                                     perc = 0;
                                 }
                             }
+                            if (effInfo.name === "Instigating") {
+                                if (parseFloat(document.getElementById("enemyhealth" + index).value) < 100) {
+                                    perc = 0;
+                                }
+                            }
                             if (effInfo.name === "Executioner's") {
                                 if (parseFloat(document.getElementById("enemyhealth" + index).value) > 40) {
                                     perc = 0;
@@ -952,6 +1143,11 @@
                                 }
                             }
                             totalDamageAdditive.push(baseDamage * (perc / 100.0))
+                        }
+                        if (type === "Melee") {
+                            if (effInfo.name === "Strength") {
+                                baseDamage *= 1.05;
+                            }
                         }
                         if (effInfo.ignoreDRPercent !== undefined) {
                             totalArmorIgnoreArray.push(effInfo.ignoreDRPercent);
@@ -1002,6 +1198,13 @@
                 var adrenaline = document.getElementById("adrenaline" + index);
                 if (adrenaline != null && adrenaline.selectedIndex > 0) {
                     totalDamageMultiply.push(parseFloat(valueOf(adrenaline)));
+                }
+                var otherboost = document.getElementById("otherboost" + index);
+                if (otherboost != null) {
+                    var v = parseFloat(otherboost.value);
+                    if (v > 0) {
+                        totalDamageMultiply.push(v);
+                    }
                 }
 
                 var totalDamage = baseDamage;
