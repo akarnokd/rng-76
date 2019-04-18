@@ -13,7 +13,7 @@
     </head>
     <body style="height: 90%">
         <center>
-            <h1 style="font-size: 36px;">Weapon Damage Calculator (v1.2.3)</h1>
+            <h1 style="font-size: 36px;">Weapon Damage Calculator (v1.2.4)</h1>
         <br/>
         <table id="parent">
             <tr>
@@ -85,6 +85,7 @@
                 {
                     name: "Board",
                     category: "One-handed",
+                    strengthFactor: 0.1,
                     level: [1, 5, 15, 25, 35, 45],
                     damage: [14, 18, 22, 26, 30, 33],
                     mods: [
@@ -144,6 +145,7 @@
                 {
                     name: "Power Fist",
                     category: "Unarmed",
+                    strengthFactor: 0.1,
                     level: [30, 40, 50],
                     damage: [48, 53, 58],
                     mods: [
@@ -165,6 +167,7 @@
                 {
                     name: "Mole Miner Gauntlet",
                     category: "Unarmed",
+                    strengthFactor: 0.1,
                     level: [20, 30, 40, 50],
                     damage: [30, 35, 40, 45],
                     mods: [
@@ -564,6 +567,7 @@
                 {
                     name: "Walking Cane",
                     category: "One-handed",
+                    strengthFactor: 0.1,
                     level: [1, 5, 10, 20, 30, 40, 50],
                     damage: [17, 19, 22, 27, 32, 37, 42],
                     mods: [
@@ -2547,12 +2551,18 @@
                 var weap = allWeapons.get(type)[weapIdx];
 
                 var baseDamage = weap.damage[levelIdx];
+                var strengthEffect = 1;
+                var strengthFactor = 0.05;
+
+                if (weap.strengthFactor !== undefined) {
+                    strengthFactor = weap.strengthFactor;
+                }
 
                 // Not sure: strength and condition change the base damage before mods/effects?
                 var strength = document.getElementById("strength" + index);
                 if (strength != null) {
                     var v = parseFloat(strength.value);
-                    baseDamage *= 1 + ((v - 1) * 0.05);
+                    strengthEffect += v * strengthFactor;
                 }
 
                 var condition = document.getElementById("condition" + index);
@@ -2680,7 +2690,7 @@
                         }
                         if (type === "Melee") {
                             if (effInfo.name === "Strength") {
-                                baseDamage *= 1.05;
+                                strengthEffect += strengthFactor;
                             }
                         }
                         if (effInfo.ignoreDRPercent !== undefined) {
@@ -2746,7 +2756,7 @@
                     totalDamageMultiply.push(parseFloat(valueOf(demolitionsel)));
                 }
 
-                var totalDamage = baseDamage;
+                var totalDamage = baseDamage * strengthEffect;
                 totalDamageAdditive.forEach(function(v) {
                     totalDamage += v;
                 });
