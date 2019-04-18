@@ -13,7 +13,7 @@
     </head>
     <body style="height: 90%">
         <center>
-            <h1 style="font-size: 36px;">Weapon Damage Calculator (v1.1.1)</h1>
+            <h1 style="font-size: 36px;">Weapon Damage Calculator (v1.1.2)</h1>
         <br/>
         <table id="parent">
             <tr>
@@ -1613,6 +1613,42 @@
                             ]
                         },
                         standardAPMagazines
+                    ]
+                },
+                {
+                    name: "Gauss Rifle",
+                    category: "Rifle",
+                    explosive: false,
+                    level: [35, 45],
+                    damage: [125, 140],
+                    mods: [
+                        {
+                            slot: "Capacitors",
+                            options: [
+                                {
+                                    name: "Standard",
+                                    damageAdd: 0
+                                },
+                                {
+                                    name: "Stinging",
+                                    ignoreDRPercent: 20
+                                },
+                                {
+                                    name: "Piercing",
+                                    ignoreDRPercent: 20
+                                },
+                                {
+                                    name: "Perforating",
+                                    ignoreDRPercent: 40
+                                },
+                                {
+                                    name: "Prime",
+                                    damageAdd: 0,
+                                    versus: ["Scorched", "Scorchbeast", "Scorchbeast Queen"],
+                                    versusMultPercent: 30
+                                },
+                            ]
+                        }
                     ]
                 },
             ]);
