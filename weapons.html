@@ -13,7 +13,7 @@
     </head>
     <body style="height: 90%">
         <center>
-            <h1 style="font-size: 36px;">Weapon Damage Calculator (v1.1.5)</h1>
+            <h1 style="font-size: 36px;">Weapon Damage Calculator (v1.2.1)</h1>
         <br/>
         <table id="parent">
             <tr>
@@ -702,6 +702,13 @@
                             ]
                         }
                     ]
+                },
+                {
+                    name: "Grognak's Axe",
+                    category: "Two-handed",
+                    level: [30, 40, 50],
+                    damage: [60, 70, 80],
+                    mods: []
                 },
             ]);
             // xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
@@ -2580,18 +2587,17 @@
                             
                         }
                         if (modInfo.damageMultPercent !== undefined) {
-                            var multiplier = modInfo.damageMultPercent;
+                            totalDamageMultiply.push(modInfo.damageMultPercent);
                             if (modInfo.versus !== undefined) {
                                 var enemytypes = valueOf(document.getElementById("enemytype" + index)).split(",");
 
                                 for (var i = 0; i < enemytypes.length; i++) {
                                     if (modInfo.versus.indexOf(enemytypes[i]) >= 0) {
-                                        multiplier = modInfo.versusMultPercent;
+                                        totalDamageMultiply.push(modInfo.versusMultPercent);
                                         break;
                                     }
                                 }
                             }
-                            totalDamageAdditive.push(baseDamage * (multiplier / 100.0));
                         }
                         if (modInfo.ignoreDRPercent !== undefined) {
                             totalArmorIgnoreArray.push(modInfo.ignoreDRPercent);
