@@ -13,7 +13,7 @@
     </head>
     <body style="height: 90%">
         <center>
-            <h1 style="font-size: 36px;">Weapon Damage Calculator (v1.2.1)</h1>
+            <h1 style="font-size: 36px;">Weapon Damage Calculator (v1.2.2)</h1>
         <br/>
         <table id="parent">
             <tr>
@@ -1540,7 +1540,8 @@
                                     versusMultPercent: 30
                                 }
                             ]
-                        }
+                        },
+                        standardAPMagazines
                     ]
                 },
                 {
@@ -2500,7 +2501,7 @@
                 cell1 = row.insertCell(0);
                 cell1.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;Buffs/chems boost";
                 cell2 = row.insertCell(1);
-                cell2.innerHTML = "<input type='number' id='otherboost" + index + "' value='0' maxlength='6' style='width: 8em;' min='0' max='1000'> %";
+                cell2.innerHTML = "<input type='number' id='otherboost" + index + "' value='0' maxlength='6' style='width: 8em;' min='-1000' max='1000'> %";
                 document.getElementById("otherboost" + index ).oninput = function() {
                     recalculate(tbl, index, type);
                 };
@@ -2654,7 +2655,7 @@
                             }
                             if (effInfo.name === "Bloodied") {
                                 var health = parseFloat(document.getElementById("playerhealth" + index).value);
-                                perc = Math.min(90, (100 - health));
+                                perc = Math.min(95, Math.floor((100 - health) / 5) * 5);
                             }
                             // Versus enemy effect
                             if (effect.versus !== undefined) {
