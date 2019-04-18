@@ -13,7 +13,7 @@
     </head>
     <body style="height: 90%">
         <center>
-            <h1 style="font-size: 36px;">Weapon Damage Calculator (v1)</h1>
+            <h1 style="font-size: 36px;">Weapon Damage Calculator (v1.1)</h1>
         <br/>
         <table id="parent">
             <tr>
@@ -644,6 +644,60 @@
                                     name: "Puncturing",
                                     damageAdd: 1,
                                     ignoreDRPercent: 20
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    name: "Ripper",
+                    category: "One-handed",
+                    level: [40],
+                    damage: [3],
+                    mods: [
+                        {
+                            slot: "Blade",
+                            options: [
+                                {
+                                    name: "Standard",
+                                    damageAdd: 0
+                                },
+                                {
+                                    name: "Extended",
+                                    damageAdd: 2,
+                                },
+                                {
+                                    name: "Curved",
+                                    damageAdd: 1,
+                                    ignoreDRPercent: 20
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    name: "Mr. Handy Buzz Blade",
+                    category: "One-handed",
+                    level: [15, 25, 35, 45],
+                    damage: [4, 5, 6, 7],
+                    mods: []
+                },
+                {
+                    name: "Chinese Officer Sword",
+                    category: "One-handed",
+                    level: [5, 15, 25, 35, 45],
+                    damage: [16, 21, 26, 31, 36],
+                    mods: [
+                        {
+                            slot: "Blade",
+                            options: [
+                                {
+                                    name: "Standard",
+                                    damageAdd: 0
+                                },
+                                {
+                                    name: "Serrated",
+                                    damageAdd: 2,
                                 }
                             ]
                         }
