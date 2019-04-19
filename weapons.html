@@ -13,7 +13,7 @@
     </head>
     <body style="height: 90%">
         <center>
-            <h1 style="font-size: 36px;">Weapon Damage Calculator (v1.2.6)</h1>
+            <h1 style="font-size: 36px;">Weapon Damage Calculator (v1.3)</h1>
         <br/>
         <table id="parent">
             <tr>
@@ -807,7 +807,7 @@
                                 },
                                 {
                                     name: "Powerful Automatic",
-                                    damageMultPercent: 12.5
+                                    damageMultPercent: 11.11
                                 },
                                 {
                                     name: "Scorch killer's",
@@ -937,7 +937,7 @@
                                 },
                                 {
                                     name: "Powerful Automatic",
-                                    damageMultPercent: 12.5
+                                    damageMultPercent: 11.11
                                 },
                                 {
                                     name: "Hardened",
@@ -1133,7 +1133,7 @@
                                 },
                                 {
                                     name: "Powerful Automatic",
-                                    damageMultPercent: 12.5
+                                    damageMultPercent: 11.11
                                 },
                                 {
                                     name: "Hardened",
@@ -1182,7 +1182,7 @@
                                 },
                                 {
                                     name: "Powerful Automatic",
-                                    damageMultPercent: 12.5
+                                    damageMultPercent: 11.11
                                 },
                                 {
                                     name: "Hardened",
@@ -1311,7 +1311,7 @@
                                 },
                                 {
                                     name: "Powerful Automatic",
-                                    damageMultPercent: 12.5
+                                    damageMultPercent: 11.11
                                 },
                                 {
                                     name: "Hardened",
@@ -1565,7 +1565,7 @@
                                 },
                                 {
                                     name: "Powerful Automatic",
-                                    damageMultPercent: 12.5
+                                    damageMultPercent: 11.11
                                 },
                                 {
                                     name: "Scorch killer's",
@@ -1670,7 +1670,7 @@
                                 },
                                 {
                                     name: "Powerful Automatic",
-                                    damageMultPercent: 12.5
+                                    damageMultPercent: 11.11
                                 },
                                 {
                                     name: "Prime Automatic",
@@ -2051,6 +2051,7 @@
                         createSelectLegendary(tbl, index, type);
                         createSelectLegendaryParameter(tbl, index, type);
                         createPerks(tbl, index, type);
+                        createMutations(tbl, index, type);
                         createOther(tbl, index, type);
                         recalculate(tbl, index, type);
                     };
@@ -2535,6 +2536,51 @@
                     glowsight.onchange = function() {
                         recalculate(tbl, index, type);
                     };
+
+                row = tbl.insertRow(tbl.rows.length);
+                cell1 = row.insertCell(0);
+                cell1.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;Nerd Rage";
+                cell2 = row.insertCell(1);
+                cell2.innerHTML = "<select id='nerdrage" + index + "'></select> (level)"
+
+                var nerdragesel = document.getElementById("nerdrage" + index);
+                opt = document.createElement("option");
+                nerdragesel.add(opt);
+                opt.text = "None";
+                opt.value = "0";
+
+                for (var i = 1; i < 4; i++) {
+                    opt = document.createElement("option");
+                    nerdragesel.add(opt);
+                    opt.text = "" + i;
+                    opt.value = "" + (5 + i * 5);
+                }
+                nerdragesel.selectedIndex = 0;
+                nerdragesel.onchange = function() {
+                    recalculate(tbl, index, type);
+                };
+            }
+
+            function createMutations(tbl, index, type) {
+                var row = tbl.insertRow(tbl.rows.length);
+                var cell1 = row.insertCell(0);
+                cell1.innerText = "Mutations";
+                var cell2 = row.insertCell(1);
+
+                row = tbl.insertRow(tbl.rows.length);
+                cell1 = row.insertCell(0);
+                cell1.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;Adrenal reaction";
+                cell2 = row.insertCell(1);
+                cell2.innerHTML = "<input type='radio' id='adrenalreaction" + index + "_yes' name='adrenalreaction" + index + "' value='1'> Yes&nbsp;&nbsp;&nbsp;"
+                    + "<input type='radio' id='adrenalreaction" + index + "_no' name='adrenalreaction" + index + "' value='0' checked='checked'> No";
+
+                document.getElementById("adrenalreaction" + index + "_yes").onchange = function() {
+                    recalculate(tbl, index, type);
+                };
+                document.getElementById("adrenalreaction" + index + "_no").onchange = function() {
+                    recalculate(tbl, index, type);
+                };
+
             }
 
             function createOther(tbl, index, type) {
@@ -2778,13 +2824,40 @@
                 }
                 var bloodymess = document.getElementById("bloodymess" + index);
                 if (bloodymess != null && bloodymess.selectedIndex > 0) {
-                    totalDamageMultiply.push(parseFloat(valueOf(bloodymess)));
+                    //totalDamageMultiply.push(parseFloat(valueOf(bloodymess)));
+                    totalDamageAdditive.push(baseDamage * parseFloat(valueOf(bloodymess)) / 100.0);
                 }
 
                 var adrenaline = document.getElementById("adrenaline" + index);
                 if (adrenaline != null && adrenaline.selectedIndex > 0) {
-                    totalDamageMultiply.push(parseFloat(valueOf(adrenaline)));
+                    // totalDamageMultiply.push(parseFloat(valueOf(adrenaline)));
+                    totalDamageAdditive.push(baseDamage * parseFloat(valueOf(adrenaline)) / 100.0);
                 }
+
+                if (document.getElementById("adrenalreaction" + index + "_yes").checked) {
+                    var health = parseFloat(document.getElementById("playerhealth" + index).value);
+                    if (health < 90) {
+                        var perc = 0;
+                        if (health < 20) {
+                            perc = 50;
+                        } else 
+                        if (health < 90) {
+                            perc = (9 - Math.floor(health / 10)) * 50 / 8;
+                        }
+                        // totalDamageMultiply.push(perc);
+                        totalDamageAdditive.push(baseDamage * perc / 100.0);
+                    }
+                }
+
+                var nerdrage = document.getElementById("nerdrage" + index);
+                if (nerdrage.selectedIndex > 0) {
+                    var health = parseFloat(document.getElementById("playerhealth" + index).value);
+                    if (health < 20) {
+                        totalDamageMultiply.push(valueOf(nerdrage));
+                    }
+                }
+
+
                 var otherboost = document.getElementById("otherboost" + index);
                 if (otherboost != null) {
                     var v = parseFloat(otherboost.value);
