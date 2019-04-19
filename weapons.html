@@ -13,7 +13,7 @@
     </head>
     <body style="height: 90%">
         <center>
-            <h1 style="font-size: 36px;">Weapon Damage Calculator (v1.2.5)</h1>
+            <h1 style="font-size: 36px;">Weapon Damage Calculator (v1.2.6)</h1>
         <br/>
         <table id="parent">
             <tr>
@@ -711,7 +711,7 @@
                     name: "Grognak's Axe",
                     category: "Two-handed",
                     level: [30, 40, 50],
-                    damage: [60, 70, 80],
+                    damage: [65, 75, 85],
                     mods: []
                 },
                 {
@@ -720,6 +720,41 @@
                     level: [35, 45],
                     damage: [22, 27],
                     mods: []
+                },
+                {
+                    name: "Sledgehammer",
+                    category: "Two-handed",
+                    strengthFactor: 0.1,
+                    level: [10, 20, 30, 40, 50],
+                    damage: [43, 50, 57, 65, 71],
+                    mods: [
+                        {
+                            slot: "Main",
+                            options: [
+                                {
+                                    name: "Standard",
+                                    damageAdd: 0
+                                },
+                                {
+                                    name: "Sharp",
+                                    damageMultPercent: 15,
+                                },
+                                {
+                                    name: "Heavy Rocket",
+                                    damageMultPercent: 20,
+                                },
+                                {
+                                    name: "Heavy Spiked Rocket",
+                                    damageMultPercent: 25,
+                                },
+                                {
+                                    name: "Heavy Spiked",
+                                    damageMultPercent: 25,
+                                    ignoreDRPercent: 20
+                                }
+                            ]
+                        }
+                    ]
                 },
             ]);
             // xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
