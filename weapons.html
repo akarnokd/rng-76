@@ -13,7 +13,7 @@
     </head>
     <body style="height: 90%">
         <center>
-            <h1 style="font-size: 36px;">Weapon Damage Calculator (v1.4)</h1>
+            <h1 style="font-size: 36px;">Weapon Damage Calculator (v1.4.1)</h1>
         <br/>
         <table id="parent">
             <tr>
@@ -2666,7 +2666,7 @@
 
                         if (modInfo.damageMultPercent !== undefined) {
                             //totalDamageMultiply.push(modInfo.damageMultPercent);
-                            totalDamageAdditive.push(baseDamage * modInfo.damageMultPercent / 100);
+                            totalDamageAdditive.push(Math.floor(baseDamage * modInfo.damageMultPercent / 100));
 
                             if (modInfo.versus !== undefined) {
                                 var enemytypes = valueOf(document.getElementById("enemytype" + index)).split(",");
@@ -2705,6 +2705,12 @@
                                     if (!document.getElementById("aiming" + index + "_yes").checked) {
                                         perc = 0;
                                     }
+                                }
+                                if (effInfo.name.includes("Two shot")) {
+                                    // two shot appears to ignore the receiver modification
+                                    totalDamageAdditive.push(Math.floor(baseDamage * perc / 100));
+                                    // do not add it as a flat boost
+                                    perc = 0;
                                 }
                             }
                             if (effInfo.name === "Nocturnal") {
