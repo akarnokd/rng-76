@@ -13,7 +13,7 @@
     </head>
     <body style="height: 90%">
         <center>
-            <h1 style="font-size: 36px;">Weapon Damage Calculator (v1.3)</h1>
+            <h1 style="font-size: 36px;">Weapon Damage Calculator (v1.3.1)</h1>
         <br/>
         <table id="parent">
             <tr>
@@ -145,7 +145,6 @@
                 {
                     name: "Power Fist",
                     category: "Unarmed",
-                    strengthFactor: 0.1,
                     level: [30, 40, 50],
                     damage: [48, 53, 58],
                     mods: [
@@ -2639,31 +2638,42 @@
                 var weap = allWeapons.get(type)[weapIdx];
 
                 var baseDamage = weap.damage[levelIdx];
-                var strengthEffect = 1;
                 var strengthFactor = 0.05;
+                var strengthBoost = 1;
+                var repairFactor = 1;
 
-                if (weap.strengthFactor !== undefined) {
-                    strengthFactor = weap.strengthFactor;
-                }
+                var totalDamageAdditive = [];
+                var totalDamageMultiply = [];
+                var totalArmorIgnoreArray = [];
 
                 // Not sure: strength and condition change the base damage before mods/effects?
                 var strength = document.getElementById("strength" + index);
                 if (strength != null) {
                     var v = parseFloat(strength.value);
-                    strengthEffect += v * strengthFactor;
+                    strengthBoost += v * strengthFactor;
                 }
-
                 var condition = document.getElementById("condition" + index);
                 if (condition != null) {
                     var v = parseFloat(condition.value);
                     if (v > 100) {
-                        baseDamage *= 1 + (v - 100) * 0.005;
+                        repairFactor += ((v - 100) * 0.003);
                     }
                 }
 
-                var totalDamageAdditive = [];
-                var totalDamageMultiply = [];
-                var totalArmorIgnoreArray = [];
+                var effects = allEffects.get(type);
+                effects.forEach(function(effect, idx) {
+                    var effectSel = document.getElementById("effs_" + index + "_" + idx);
+                    if (effectSel != null && effectSel.selectedIndex > 0) {
+                        var effInfo = effects[idx][effectSel.selectedIndex - 1];
+                        if (effInfo.name === "Strength") {
+                            strengthBoost += strengthFactor;
+                        }
+                    }
+                });
+
+                if (type === "Melee") {
+                    baseDamage *= strengthBoost * repairFactor;
+                }
 
                 weap.mods.forEach(function(mod, idx) {
                     var modTypeIdx = document.getElementById("mods_" + index + "_" + idx).selectedIndex;
@@ -2686,7 +2696,9 @@
                             
                         }
                         if (modInfo.damageMultPercent !== undefined) {
-                            totalDamageMultiply.push(modInfo.damageMultPercent);
+                            //totalDamageMultiply.push(modInfo.damageMultPercent);
+                            totalDamageAdditive.push(Math.floor(baseDamage * modInfo.damageMultPercent / 100));
+
                             if (modInfo.versus !== undefined) {
                                 var enemytypes = valueOf(document.getElementById("enemytype" + index)).split(",");
 
@@ -2704,7 +2716,6 @@
                     }
                 });
 
-                var effects = allEffects.get(type);
                 effects.forEach(function(effect, idx) {
                     var effectSel = document.getElementById("effs_" + index + "_" + idx);
                     if (effectSel != null && effectSel.selectedIndex > 0) {
@@ -2774,12 +2785,8 @@
                             }
                             // totalDamageAdditive.push(baseDamage * (perc / 100.0))
                             // effect damage does consider mods
-                            totalDamageMultiply.push(perc)
-                        }
-                        if (type === "Melee") {
-                            if (effInfo.name === "Strength") {
-                                strengthEffect += strengthFactor;
-                            }
+                            totalDamageMultiply.push(perc);
+                            //totalDamageAdditive.push(Math.floor(baseDamage * (perc / 100.0)));
                         }
                         if (effInfo.ignoreDRPercent !== undefined) {
                             totalArmorIgnoreArray.push(effInfo.ignoreDRPercent);
@@ -2857,11 +2864,10 @@
                     }
                 }
 
-
                 var otherboost = document.getElementById("otherboost" + index);
                 if (otherboost != null) {
                     var v = parseFloat(otherboost.value);
-                    if (v > 0) {
+                    if (v > 0 || v < 0) {
                         totalDamageMultiply.push(v);
                     }
                 }
@@ -2871,7 +2877,7 @@
                     totalDamageMultiply.push(parseFloat(valueOf(demolitionsel)));
                 }
 
-                var totalDamage = baseDamage * strengthEffect;
+                var totalDamage = baseDamage;
                 totalDamageAdditive.forEach(function(v) {
                     totalDamage += v;
                 });
