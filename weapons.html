@@ -13,7 +13,7 @@
     </head>
     <body style="height: 90%">
         <center>
-            <h1 style="font-size: 36px;">Weapon Damage Calculator (v1.4.1)</h1>
+            <h1 style="font-size: 36px;">Weapon Damage Calculator (v1.4.2)</h1>
         <br/>
         <table id="parent">
             <tr>
@@ -2626,6 +2626,7 @@
                     });
                     baseDamage *= strengthBoost * repairFactor;
                 }
+
                 // apply bloody mess, adrenaline and adrenal reaction
                 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -2666,7 +2667,7 @@
 
                         if (modInfo.damageMultPercent !== undefined) {
                             //totalDamageMultiply.push(modInfo.damageMultPercent);
-                            totalDamageAdditive.push(Math.floor(baseDamage * modInfo.damageMultPercent / 100));
+                            totalDamageAdditive.push((baseDamage * modInfo.damageMultPercent / 100.0));
 
                             if (modInfo.versus !== undefined) {
                                 var enemytypes = valueOf(document.getElementById("enemytype" + index)).split(",");
@@ -2708,7 +2709,7 @@
                                 }
                                 if (effInfo.name.includes("Two shot")) {
                                     // two shot appears to ignore the receiver modification
-                                    totalDamageAdditive.push(Math.floor(baseDamage * perc / 100));
+                                    totalDamageAdditive.push(Math.floor(baseDamage * perc / 100.0));
                                     // do not add it as a flat boost
                                     perc = 0;
                                 }
