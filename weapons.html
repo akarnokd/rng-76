@@ -13,7 +13,7 @@
     </head>
     <body style="height: 90%">
         <center>
-            <h1 style="font-size: 36px;">Weapon Damage Calculator (v1.4.2)</h1>
+            <h1 style="font-size: 36px;">Weapon Damage Calculator (v1.4.3)</h1>
         <br/>
         <table id="parent">
             <tr>
@@ -502,6 +502,7 @@
                 {
                     name: "Pitchfork",
                     category: "Two-handed",
+                    strengthFactor: 0.1,
                     level: [1, 5, 15, 25, 35, 45],
                     damage: [22, 27, 32, 37, 42, 47],
                     mods: [
@@ -513,7 +514,11 @@
                                 },
                                 {
                                     name: "Barbed",
-                                    damageMultPercent: 10
+                                    damageMultPercent: 15
+                                },
+                                {
+                                    name: "Barbed Flaming",
+                                    damageMultPercent: 15
                                 }
                             ]
                         }
@@ -701,7 +706,6 @@
                 {
                     name: "Sledgehammer",
                     category: "Two-handed",
-                    strengthFactor: 0.1,
                     level: [10, 20, 30, 40, 50],
                     damage: [43, 50, 57, 65, 71],
                     mods: [
@@ -727,6 +731,45 @@
                                     name: "Heavy Spiked",
                                     damageMultPercent: 25,
                                     ignoreDRPercent: 20
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    name: "Baseball Bat",
+                    category: "Two-handed",
+                    strengthFactor: 0.1,
+                    level: [1, 5, 15, 25, 35, 45],
+                    damage: [28, 35, 40, 45, 50, 55],
+                    mods: [
+                        {
+                            slot: "Main",
+                            options: [
+                                {
+                                    name: "Standard"
+                                },
+                                {
+                                    name: "Barbed Wire",
+                                    damageMultPercent: 20,
+                                    ignoreDRPercent: 20
+                                },
+                                {
+                                    name: "Nails",
+                                    damageMultPercent: 25,
+                                    ignoreDRPercent: 20
+                                },
+                                {
+                                    name: "Razors",
+                                    damageMultPercent: 25
+                                },
+                                {
+                                    name: "Chains",
+                                    damageMultPercent: 50
+                                },
+                                {
+                                    name: "Saw Blades",
+                                    damageMultPercent: 25
                                 }
                             ]
                         }
