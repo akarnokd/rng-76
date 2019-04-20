@@ -22,7 +22,7 @@
     </head>
     <body style="height: 90%">
         <center>
-            <h1 style="font-size: 36px;">Fallout 76 Weapon Damage Calculator (v1.7)</h1>
+            <h1 style="font-size: 36px;">Fallout 76 Weapon Damage Calculator (v1.8)</h1>
         <br/>
         <table id="parent">
             <tr>
@@ -58,22 +58,27 @@
                 <td colspan="3" align='center'>
                     <br/>
                     <h2>Comparison</h2>
-                    </td>
-                        <table id="table3" style="border: 1px solid black; border-collapse: collapse;">
-                            <tr>
-                                <td rowspan='2' style="border: 1px solid black;">Enemy DR</td>
-                                <td colspan="3" style="border: 1px solid black;">Left weapon</td>
-                                <td colspan="3" style="border: 1px solid black;">Right weapon</td>
-                            </tr>
-                            <tr>
-                                <td style="border: 1px solid black;">Actual DR</td>
-                                <td style="border: 1px solid black;">Damage dealt</td>
-                                <td style="border: 1px solid black;">Compare Right</td>
-                                <td style="border: 1px solid black;">Actual DR</td>
-                                <td style="border: 1px solid black;">Damage dealt</td>
-                                <td style="border: 1px solid black;">Compare Left</td>
-                            </tr>
-                        </table> 
+                    <div>
+                        <input type='radio' name='comparemode' id='damagemode' checked='checked'/><span id='spdamagemode' style='cursor: pointer;'> Single hit damage</span>&nbsp;&nbsp;&nbsp;&nbsp;
+                        <input type='radio' name='comparemode' id='dpsmode'/><span id='spdpsmode' style='cursor: pointer;'> Damage per second</span>
+                    </div>
+                    <br/>
+                    
+                    <table id="table3" style="border: 1px solid black; border-collapse: collapse;">
+                        <tr>
+                            <td rowspan='2' style="border: 1px solid black;">Enemy DR</td>
+                            <td colspan="3" style="border: 1px solid black;">Left weapon</td>
+                            <td colspan="3" style="border: 1px solid black;">Right weapon</td>
+                        </tr>
+                        <tr>
+                            <td style="border: 1px solid black;">Actual DR</td>
+                            <td style="border: 1px solid black;">Damage dealt</td>
+                            <td style="border: 1px solid black;">Compare Right</td>
+                            <td style="border: 1px solid black;">Actual DR</td>
+                            <td style="border: 1px solid black;">Damage dealt</td>
+                            <td style="border: 1px solid black;">Compare Left</td>
+                        </tr>
+                    </table> 
                 </td>
             </tr>
         </table>
@@ -83,18 +88,25 @@
             var allEffects = new Map();
             var enemyCategories = [];
 
-            var damages = [0, 0];
-            var ignores = [0, 0];
+            var damages = [0, 0, 0];
+            var ignores = [0, 0, 0];
+            var speeds = [1, 1, 1];
 
             // -------------------------------------------------------------------------------
             // Setup weapon data
             // -------------------------------------------------------------------------------
 
+            var speedSlow = 0.7;
+            var speedMedium = 1.4;
+            var speedFast = 2.1;
+            var speedVFast = 4.2;
+            
             allWeapons.set("Melee", [
                 {
                     name: "Board",
                     category: "One-handed",
                     strengthFactor: 0.1,
+                    speed: speedSlow,
                     level: [1, 5, 15, 25, 35, 45],
                     damage: [14, 18, 22, 26, 30, 33],
                     mods: [
@@ -125,6 +137,7 @@
                 {
                     name: "Deathclaw Gauntlet",
                     category: "Unarmed",
+                    speed: speedMedium,
                     level: [30, 40, 50],
                     damage: [45, 50, 55],
                     mods: [
@@ -145,6 +158,7 @@
                 {
                     name: "Super Sledge",
                     category: "Two-handed",
+                    speed: speedSlow,
                     level: [30, 40, 50],
                     damage: [65, 75, 85],
                     mods: []
@@ -152,6 +166,7 @@
                 {
                     name: "Power Fist",
                     category: "Unarmed",
+                    speed: speedMedium,
                     level: [30, 40, 50],
                     damage: [48, 53, 58],
                     mods: [
@@ -173,6 +188,7 @@
                     name: "Mole Miner Gauntlet",
                     category: "Unarmed",
                     strengthFactor: 0.1,
+                    speed: speedMedium,
                     level: [20, 30, 40, 50],
                     damage: [30, 35, 40, 45],
                     mods: [
@@ -193,6 +209,7 @@
                 {
                     name: "Death Tambo",
                     category: "Unarmed",
+                    speed: speedMedium,
                     level: [15, 25, 35, 45],
                     damage: [30, 35, 40, 45],
                     mods: []
@@ -200,6 +217,7 @@
                 {
                     name: "Machete",
                     category: "One-handed",
+                    speed: speedMedium,
                     level: [1, 5, 10, 20, 30, 40, 50],
                     damage: [15, 17, 20, 25, 30, 35, 40],
                     mods: [
@@ -224,6 +242,7 @@
                 {
                     name: "Bowie Knife",
                     category: "One-handed",
+                    speed: speedFast,
                     level: [10, 15, 25, 35, 45],
                     damage: [10, 15, 20, 25, 30],
                     mods: []
@@ -231,6 +250,7 @@
                 {
                     name: "Boxing Glove",
                     category: "Unarmed",
+                    speed: speedMedium,
                     level: [5, 15, 25, 35, 45],
                     damage: [13, 18, 23, 28, 34],
                     mods: [
@@ -259,6 +279,7 @@
                 {
                     name: "Cultist Blade",
                     category: "One-handed",
+                    speed: speedMedium,
                     level: [10, 20, 30, 40, 50],
                     damage: [15, 20, 25, 30, 35],
                     mods: []
@@ -266,6 +287,7 @@
                 {
                     name: "Cultist Dagger",
                     category: "One-handed",
+                    speed: speedFast,
                     level: [15, 25, 35, 45],
                     damage: [20, 25, 28, 32],
                     mods: []
@@ -273,6 +295,7 @@
                 {
                     name: "Multi-purpose Axe",
                     category: "One-handed",
+                    speed: speedSlow,
                     level: [1, 5, 15, 25, 35, 45],
                     damage: [26, 32, 42, 52, 62, 69],
                     mods: []
@@ -280,6 +303,7 @@
                 {
                     name: "Combat Knife",
                     category: "One-handed",
+                    speed: speedFast,
                     level: [1, 5, 10, 20, 30, 40, 50],
                     damage: [9, 13, 17, 21, 25, 29, 33],
                     mods: [
@@ -300,6 +324,7 @@
                 {
                     name: "Hatchet",
                     category: "One-handed",
+                    speed: speedMedium,
                     level: [1, 5, 10, 20, 30, 40, 50],
                     damage: [15, 17, 20, 25, 30, 35, 40],
                     mods: []
@@ -307,6 +332,7 @@
                 {
                     name: "Pickaxe",
                     category: "Two-handed",
+                    speed: speedSlow,
                     level: [5, 15, 25, 35, 45],
                     damage: [32, 41, 48, 55, 60],
                     mods: [
@@ -327,6 +353,7 @@
                 {
                     name: "Ski Sword",
                     category: "One-handed",
+                    speed: speedMedium,
                     level: [15, 25, 35, 45],
                     damage: [35, 40, 45, 50],
                     mods: [
@@ -351,6 +378,7 @@
                 {
                     name: "Rolling pin",
                     category: "One-handed",
+                    speed: speedMedium,
                     level: [1, 5, 10, 20, 30, 40, 50],
                     damage: [9, 12, 15, 19, 22, 25, 28],
                     mods: [
@@ -379,6 +407,7 @@
                 {
                     name: "Knuckles",
                     category: "Unarmed",
+                    speed: speedMedium,
                     level: [1, 5, 10, 20, 30, 40, 50],
                     damage: [8, 10, 15, 20, 25, 30, 35],
                     mods: [
@@ -412,6 +441,7 @@
                 {
                     name: "Lead Pipe",
                     category: "One-handed",
+                    speed: speedMedium,
                     level: [1, 5, 10, 20, 30, 40, 50],
                     damage: [14, 16, 19, 24, 29, 34, 39],
                     mods: [
@@ -437,6 +467,7 @@
                 {
                     name: "Tire Iron",
                     category: "One-handed",
+                    speed: speedMedium,
                     level: [1, 5, 10, 20, 30, 40, 50],
                     damage: [12, 14, 17, 20, 23, 26, 29],
                     mods: [
@@ -457,6 +488,7 @@
                 {
                     name: "Blade of Bastet",
                     category: "One-handed",
+                    speed: speedMedium,
                     level: [25, 35, 45],
                     damage: [42, 46, 52],
                     mods: [
@@ -477,6 +509,7 @@
                 {
                     name: "Fire Axe",
                     category: "Two-handed",
+                    speed: speedSlow,
                     level: [5, 15, 25, 35, 45],
                     damage: [35, 45, 55, 65, 72],
                     mods: [
@@ -497,6 +530,7 @@
                 {
                     name: "Guitar Sword",
                     category: "One-handed",
+                    speed: speedMedium,
                     level: [15, 25, 35, 45],
                     damage: [35, 40, 45, 50],
                     mods: []
@@ -504,6 +538,7 @@
                 {
                     name: "Assaultron Blade",
                     category: "One-handed",
+                    speed: speedMedium,
                     level: [25, 35, 45],
                     damage: [28, 33, 40],
                     mods: []
@@ -512,6 +547,7 @@
                     name: "Pitchfork",
                     category: "Two-handed",
                     strengthFactor: 0.1,
+                    speed: speedMedium,
                     level: [1, 5, 15, 25, 35, 45],
                     damage: [22, 27, 32, 37, 42, 47],
                     mods: [
@@ -536,6 +572,7 @@
                 {
                     name: "Revolutionary Sword",
                     category: "One-handed",
+                    speed: speedMedium,
                     level: [10, 20, 30, 40, 50],
                     damage: [24, 29, 34, 39, 44],
                     mods: [
@@ -556,6 +593,7 @@
                 {
                     name: "War Drum",
                     category: "Two-handed",
+                    speed: speedMedium,
                     level: [15, 25, 35, 45],
                     damage: [48, 58, 68, 78],
                     mods: []
@@ -564,6 +602,7 @@
                     name: "Walking Cane",
                     category: "One-handed",
                     strengthFactor: 0.1,
+                    speed: speedMedium,
                     level: [1, 5, 10, 20, 30, 40, 50],
                     damage: [17, 19, 22, 27, 32, 37, 42],
                     mods: [
@@ -589,6 +628,7 @@
                 {
                     name: "Security Baton",
                     category: "One-handed",
+                    speed: speedMedium,
                     level: [5, 15, 25, 35, 45],
                     damage: [15, 25, 30, 35, 40],
                     mods: []
@@ -596,6 +636,7 @@
                 {
                     name: "Meat Hook",
                     category: "Unarmed",
+                    speed: speedMedium,
                     level: [5, 15, 25, 35, 45],
                     damage: [14, 19, 24, 29, 34],
                     mods: [
@@ -616,6 +657,7 @@
                 {
                     name: "Pipe Wrench",
                     category: "One-handed",
+                    speed: speedMedium,
                     level: [1, 5, 10, 20, 30, 40, 50],
                     damage: [13, 15, 18, 21, 24, 27, 30],
                     mods: [
@@ -649,6 +691,7 @@
                 {
                     name: "Ripper",
                     category: "One-handed",
+                    speed: speedVFast,
                     level: [40],
                     damage: [3],
                     mods: [
@@ -674,6 +717,7 @@
                 {
                     name: "Mr. Handy Buzz Blade",
                     category: "One-handed",
+                    speed: speedVFast,
                     level: [15, 25, 35, 45],
                     damage: [4, 5, 6, 7],
                     mods: []
@@ -681,6 +725,7 @@
                 {
                     name: "Chinese Officer Sword",
                     category: "One-handed",
+                    speed: speedMedium,
                     level: [5, 15, 25, 35, 45],
                     damage: [16, 21, 26, 31, 36],
                     mods: [
@@ -701,6 +746,7 @@
                 {
                     name: "Grognak's Axe",
                     category: "Two-handed",
+                    speed: speedSlow,
                     level: [30, 40, 50],
                     damage: [65, 75, 85],
                     mods: []
@@ -708,6 +754,7 @@
                 {
                     name: "Shishkebab",
                     category: "One-handed",
+                    speed: speedMedium,
                     level: [35, 45],
                     damage: [22, 27],
                     mods: []
@@ -715,6 +762,7 @@
                 {
                     name: "Sledgehammer",
                     category: "Two-handed",
+                    speed: speedSlow,
                     level: [10, 20, 30, 40, 50],
                     damage: [43, 50, 57, 65, 71],
                     mods: [
@@ -749,6 +797,7 @@
                     name: "Baseball Bat",
                     category: "Two-handed",
                     strengthFactor: 0.1,
+                    speed: speedSlow,
                     level: [1, 5, 15, 25, 35, 45],
                     damage: [28, 35, 40, 45, 50, 55],
                     mods: [
@@ -784,7 +833,31 @@
                         }
                     ]
                 },
+                {
+                    name: "Drill",
+                    category: "One-handed",
+                    strengthFactor: 0.1,
+                    speed: speedVFast,
+                    level: [20],
+                    damage: [14],
+                    mods: [
+                        {
+                            slot: "Main",
+                            options: [
+                                {
+                                    name: "Standard"
+                                },
+                                {
+                                    name: "Piercing",
+                                    damageMultPercent: 15,
+                                    ignoreDRPercent: 20
+                                }
+                            ]
+                        }
+                    ]
+                },
             ]);
+
             // xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 
             // the default magazine selection for typical weapons
@@ -829,6 +902,7 @@
                     category: "Rifle",
                     explosive: false,
                     silencer: true,
+                    speed: 4,
                     level: [15, 25, 35, 45],
                     damage: [30, 35, 40, 45],
                     mods: [
@@ -844,11 +918,13 @@
                                 },
                                 {
                                     name: "Automatic",
-                                    damageMultPercent: -10
+                                    damageMultPercent: -10,
+                                    speedMultPercent: 87.5
                                 },
                                 {
                                     name: "Powerful Automatic",
-                                    damageMultPercent: 11.11
+                                    damageMultPercent: 11.11,
+                                    speedMultPercent: 87.5
                                 },
                                 {
                                     name: "Scorch killer's",
@@ -865,6 +941,7 @@
                                 {
                                     name: "Prime Automatic",
                                     damageMultPercent: 15,
+                                    speedMultPercent: 87.5,
                                     versus: ["Scorched", "Scorchbeast", "Scorchbeast Queen"],
                                     versusMultPercent: 30
                                 },
@@ -879,6 +956,7 @@
                     category: "Rifle",
                     explosive: false,
                     silencer: true,
+                    speed: 0.3,
                     level: [1, 5, 10, 20, 30, 40, 50],
                     damage: [40, 45, 50, 55, 60, 65, 70],
                     mods: [
@@ -915,6 +993,7 @@
                     category: "Rifle",
                     explosive: false,
                     silencer: true,
+                    speed: 0.5,
                     level: [25, 35, 45],
                     damage: [65, 70, 75],
                     mods: [
@@ -949,6 +1028,7 @@
                     name: "Black Powder Rifle",
                     category: "Rifle",
                     explosive: false,
+                    speed: 0.1,
                     level: [15, 25, 35, 45],
                     damage: [150, 160, 170, 180],
                     mods: [ ]
@@ -957,6 +1037,7 @@
                     name: "The Dragon",
                     category: "Rifle",
                     explosive: false,
+                    speed: 0.1,
                     level: [35, 45],
                     damage: [200, 225],
                     mods: [ ]
@@ -966,6 +1047,7 @@
                     category: "Rifle",
                     explosive: false,
                     silencer: true,
+                    speed: 4,
                     level: [30, 40, 50],
                     damage: [25, 29, 33],
                     mods: [
@@ -977,11 +1059,13 @@
                                 },
                                 {
                                     name: "Automatic",
-                                    damageMultPercent: -10
+                                    damageMultPercent: -10,
+                                    speedMultPercent: 87.5
                                 },
                                 {
                                     name: "Powerful Automatic",
-                                    damageMultPercent: 11.11
+                                    damageMultPercent: 11.11,
+                                    speedMultPercent: 87.5
                                 },
                                 {
                                     name: "Hardened",
@@ -1002,6 +1086,7 @@
                                 {
                                     name: "Prime Automatic",
                                     damageMultPercent: 15,
+                                    speedMultPercent: 87.5,
                                     versus: ["Scorched", "Scorchbeast", "Scorchbeast Queen"],
                                     versusMultPercent: 30
                                 }
@@ -1015,6 +1100,7 @@
                     name: "Gatling Gun",
                     category: "Heavy",
                     explosive: false,
+                    speed: 2,
                     level: [20, 30, 40, 50],
                     damage: [43, 57, 72, 86],
                     mods: [
@@ -1023,6 +1109,10 @@
                             options: [
                                 {
                                     name: "Standard"
+                                },
+                                {
+                                    name: "Speedy",
+                                    speedMultPercent: 50
                                 },
                                 {
                                     name: "Prime",
@@ -1038,6 +1128,7 @@
                     name: "Railway Rifle",
                     category: "Rifle",
                     explosive: false,
+                    speed: 1,
                     level: [30, 40, 50],
                     damage: [75, 85, 95],
                     mods: [
@@ -1049,7 +1140,8 @@
                                 },
                                 {
                                     name: "Automatic",
-                                    damageMultPercent: -10
+                                    damageMultPercent: -10,
+                                    speedMultPercent: 50
                                 },
                                 {
                                     name: "Prime",
@@ -1065,6 +1157,7 @@
                     name: "50 Cal Machine Gun",
                     category: "Heavy",
                     explosive: false,
+                    speed: 91,
                     level: [25, 35, 45],
                     damage: [29, 36, 43],
                     mods: [
@@ -1101,6 +1194,7 @@
                     name: "Light Machine Gun",
                     category: "Heavy",
                     explosive: false,
+                    speed: 15.9,
                     level: [30, 40, 50],
                     damage: [29, 34, 42],
                     mods: [
@@ -1124,6 +1218,7 @@
                     name: "Minigun",
                     category: "Heavy",
                     explosive: false,
+                    speed: 18.2,
                     level: [35, 45],
                     damage: [20, 24],
                     mods: [
@@ -1137,11 +1232,13 @@
                                 {
                                     name: "Accelerated",
                                     damageMultPercent: 10,
+                                    speedMultPercent: 25
                                 },
                                 ,
                                 {
                                     name: "Tri",
                                     damageMultPercent: 20,
+                                    speedMultPercent: -25
                                 },
                                 {
                                     name: "Prime",
@@ -1158,6 +1255,7 @@
                     category: "Rifle",
                     explosive: false,
                     silencer: true,
+                    speed: 3.3,
                     level: [20, 30, 40, 50],
                     damage: [28, 32, 36, 40],
                     mods: [
@@ -1208,6 +1306,7 @@
                     category: "Shotgun",
                     explosive: false,
                     silencer: true,
+                    speed: 2,
                     level: [20, 30, 40, 50],
                     damage: [60, 70, 80, 90],
                     mods: [
@@ -1219,11 +1318,13 @@
                                 },
                                 {
                                     name: "Automatic",
-                                    damageMultPercent: -10
+                                    damageMultPercent: -10,
+                                    speedMultPercent: 87.5
                                 },
                                 {
                                     name: "Powerful Automatic",
-                                    damageMultPercent: 11.11
+                                    damageMultPercent: 11.11,
+                                    speedMultPercent: 87.5
                                 },
                                 {
                                     name: "Hardened",
@@ -1244,6 +1345,7 @@
                                 {
                                     name: "Prime Automatic",
                                     damageMultPercent: 15,
+                                    speedMultPercent: 87.5,
                                     versus: ["Scorched", "Scorchbeast", "Scorchbeast Queen"],
                                     versusMultPercent: 30
                                 }
@@ -1258,6 +1360,7 @@
                     category: "Shotgun",
                     explosive: false,
                     silencer: true,
+                    speed: 3.6,
                     level: [5, 15, 25, 35, 45],
                     damage: [55, 65, 75, 85, 95],
                     mods: [
@@ -1292,6 +1395,7 @@
                     name: "Double-barrel Shotgun",
                     category: "Shotgun",
                     explosive: false,
+                    speed: 3.6,
                     level: [15, 25, 35, 45],
                     damage: [80, 90, 100, 115],
                     mods: [
@@ -1313,6 +1417,7 @@
                     name: "Crossbow",
                     category: "Rifle",
                     explosive: false,
+                    speed: 0.4,
                     level: [15, 25, 35, 45],
                     damage: [55, 60, 65, 70],
                     mods: [
@@ -1337,6 +1442,7 @@
                     category: "Pistol",
                     explosive: false,
                     silencer: true,
+                    speed: 4.3,
                     level: [5, 15, 25, 35, 45],
                     damage: [15, 18, 21, 24, 28],
                     mods: [
@@ -1348,11 +1454,13 @@
                                 },
                                 {
                                     name: "Automatic",
-                                    damageMultPercent: -10
+                                    damageMultPercent: -10,
+                                    speedMultPercent: 87.5
                                 },
                                 {
                                     name: "Powerful Automatic",
-                                    damageMultPercent: 11.11
+                                    damageMultPercent: 11.11,
+                                    speedMultPercent: 87.5
                                 },
                                 {
                                     name: "Hardened",
@@ -1373,6 +1481,7 @@
                                 {
                                     name: "Prime Automatic",
                                     damageMultPercent: 15,
+                                    speedMultPercent: 87.5,
                                     versus: ["Scorched", "Scorchbeast", "Scorchbeast Queen"],
                                     versusMultPercent: 30
                                 }
@@ -1386,6 +1495,7 @@
                     name: "Western Revolver",
                     category: "Pistol",
                     explosive: false,
+                    speed: 0.6,
                     level: [20, 30, 40, 50],
                     damage: [50, 55, 60, 65],
                     mods: [
@@ -1408,6 +1518,7 @@
                     category: "Rifle",
                     explosive: false,
                     silencer: true,
+                    speed: 7.5,
                     level: [15, 25, 35, 45],
                     damage: [18, 22, 25, 29],
                     mods: [
@@ -1447,6 +1558,7 @@
                     category: "Pistol",
                     explosive: false,
                     silencer: true,
+                    speed: 9.1,
                     level: [10, 20, 30, 40, 50],
                     damage: [17, 19, 23, 28, 34],
                     mods: [
@@ -1494,6 +1606,7 @@
                     name: "Broadsider",
                     category: "Heavy",
                     explosive: true,
+                    speed: 0.3,
                     level: [25, 35, 45],
                     damage: [95, 115, 135],
                     mods: []
@@ -1502,6 +1615,7 @@
                     name: "Harpoon Gun",
                     category: "Heavy",
                     explosive: false,
+                    speed: 0.2,
                     level: [30, 40, 50],
                     damage: [125, 150, 175],
                     mods: []
@@ -1510,6 +1624,7 @@
                     name: ".44 Pistol",
                     category: "Pistol",
                     explosive: false,
+                    speed: 0.6,
                     level: [5, 15, 25, 35, 45],
                     damage: [40, 45, 50, 55, 60],
                     mods: [
@@ -1531,6 +1646,7 @@
                     name: "Black Powder Pistol",
                     category: "Pistol",
                     explosive: false,
+                    speed: 0.2,
                     level: [10, 20, 30, 40, 50],
                     damage: [115, 130, 145, 160, 175],
                     mods: []
@@ -1539,6 +1655,7 @@
                     name: "Black Powder Blunderbuss",
                     category: "Pistol",
                     explosive: false,
+                    speeD: 0.2,
                     level: [10, 20, 30, 40, 50],
                     damage: [115, 130, 145, 160, 175],
                     mods: []
@@ -1547,6 +1664,7 @@
                     name: "Pipe Bolt-action Pistol",
                     category: "Pistol",
                     explosive: false,
+                    speed: 0.3,
                     level: [1, 5, 10, 20, 30, 40, 50],
                     damage: [40, 45, 50, 55, 60, 65, 70],
                     mods: [
@@ -1568,6 +1686,7 @@
                     name: "Pipe Bolt-action Rifle",
                     category: "Rifle",
                     explosive: false,
+                    speed: 0.3,
                     level: [1, 5, 10, 20, 30, 40, 50],
                     damage: [40, 45, 50, 55, 60, 65, 70],
                     mods: [
@@ -1589,6 +1708,7 @@
                     name: "Pipe Pistol",
                     category: "Pistol",
                     explosive: false,
+                    speed: 6,
                     level: [1, 5, 10, 20, 30, 40, 50],
                     damage: [12, 13, 15, 18, 21, 23, 26],
                     mods: [
@@ -1604,7 +1724,8 @@
                                 },
                                 {
                                     name: "Powerful Automatic",
-                                    damageMultPercent: 11.11
+                                    damageMultPercent: 11.11,
+                                    speedMultPercent: 50
                                 },
                                 {
                                     name: "Scorch killer's",
@@ -1621,6 +1742,7 @@
                                 {
                                     name: "Prime Automatic",
                                     damageMultPercent: 15,
+                                    speedMultPercent: 50,
                                     versus: ["Scorched", "Scorchbeast", "Scorchbeast Queen"],
                                     versusMultPercent: 30
                                 }
@@ -1633,6 +1755,7 @@
                     name: "Pipe Revolver Pistol",
                     category: "Pistol",
                     explosive: false,
+                    speed: 0.5,
                     level: [1, 5, 10, 20, 30, 40, 50],
                     damage: [27, 31, 36, 40, 45, 50, 55],
                     mods: [
@@ -1660,6 +1783,7 @@
                     name: "Pipe Revolver Rifle",
                     category: "Rifle",
                     explosive: false,
+                    speed: 0.4,
                     level: [1, 5, 10, 20, 30, 40, 50],
                     damage: [27, 31, 36, 40, 45, 50, 55],
                     mods: [
@@ -1687,6 +1811,7 @@
                     name: "Pipe Rifle",
                     category: "Rifle",
                     explosive: false,
+                    speed: 6,
                     level: [1, 5, 10, 20, 30, 40, 50],
                     damage: [12, 13, 15, 18, 21, 23, 26],
                     mods: [
@@ -1702,15 +1827,18 @@
                                 },
                                 {
                                     name: "Automatic",
-                                    damageMultPercent: -10
+                                    damageMultPercent: -10,
+                                    speedMultPercent: 50
                                 },
                                 {
                                     name: "Powerful Automatic",
-                                    damageMultPercent: 11.11
+                                    damageMultPercent: 11.11,
+                                    speedMultPercent: 50
                                 },
                                 {
                                     name: "Prime Automatic",
                                     damageMultPercent: 15,
+                                    speedMultPercent: 50,
                                     versus: ["Scorched", "Scorchbeast", "Scorchbeast Queen"],
                                     versusMultPercent: 30
                                 }
@@ -1724,6 +1852,7 @@
                     category: "Rifle",
                     explosive: false,
                     silencer: true,
+                    speed: 6.7,
                     level: [35, 45],
                     damage: [125, 140],
                     mods: [
@@ -1819,7 +1948,10 @@
                 ],
                 // 2: Major
                 [
-
+                    {
+                        name: "40% increased swing speed",
+                        speedMultPercent: 40
+                    }
                 ],
                 // 3: minor
                 [
@@ -1911,6 +2043,10 @@
                         name: "Aiming",
                         text: "+10% damage while aiming",
                         damageMultPercent: 10
+                    },
+                    {
+                        name: "25% increased fire rate",
+                        speedMultPercent: 25
                     }
                 ],
                 // 3: minor
@@ -2043,6 +2179,24 @@
                 createSelectWeapon(document.getElementById("table2"), 2, "Melee")
             };
 
+            // ......................................
+
+            document.getElementById("damagemode").onclick = function() {
+                recalculateDiff();
+            };
+            document.getElementById("spdamagemode").onclick = function() {
+                document.getElementById("damagemode").checked = true;
+                recalculateDiff();
+            };
+
+            document.getElementById("dpsmode").onclick = function() {
+                recalculateDiff();
+            };
+            document.getElementById("spdpsmode").onclick = function() {
+                document.getElementById("dpsmode").checked = true;
+                recalculateDiff();
+            };
+
             // ======================================================================
 
             var infoMap = new Map();
@@ -2161,6 +2315,8 @@
                 + "<br>is not +75% boost but 1.5 * 1.25 = 1.875 or 87.5%."
 
             );
+
+            infoMap.set("martialartist", "Melee weapons only. Each level increases swing speed by 10% and up to 30% total.");
 
             // add HTML explanation marker
             function info(name) {
@@ -2617,6 +2773,29 @@
 
                     row = tbl.insertRow(tbl.rows.length);
                     cell1 = row.insertCell(0);
+                    cell1.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;Martial Artist" + info("martialartist");
+                    cell2 = row.insertCell(1);
+                    cell2.innerHTML = "<select id='martialartist" + index + "'></select> (level)"
+
+                    var martialartist = document.getElementById("martialartist" + index);
+                    opt = document.createElement("option");
+                    martialartist.add(opt);
+                    opt.text = "None";
+                    opt.value = "0";
+
+                    for (var i = 1; i < 4; i++) {
+                        opt = document.createElement("option");
+                        martialartist.add(opt);
+                        opt.text = "" + i;
+                        opt.value = "" + (i * 10);
+                    }
+                    martialartist.selectedIndex = 0;
+                    martialartist.onchange = function() {
+                        recalculate(tbl, index, type);
+                    };
+
+                    row = tbl.insertRow(tbl.rows.length);
+                    cell1 = row.insertCell(0);
                     cell1.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;Ninja" + info("ninja");
                     cell2 = row.insertCell(1);
                     cell2.innerHTML = "<select id='ninja" + index + "'></select> (level)"
@@ -2921,6 +3100,8 @@
             function recalculate(tbl, index, type) {
                 var cell2 = document.getElementById("totaldamage" + index);
                 var cell4 = document.getElementById("totalarmorignore" + index);
+                var cell6 = document.getElementById("totalspeed" + index);
+                var cell8 = document.getElementById("totaldps" + index);
 
                 if (cell2 == null) {
                     var row = tbl.insertRow(tbl.rows.length);
@@ -2931,20 +3112,40 @@
 
                     cell2 = row.insertCell(1);
                     cell2.id = "totaldamage" + index;
-                    cell2.style = "border-top: 1px solid black; font-size: 30px;";
+                    cell2.style = "border-top: 1px solid black; font-weight: bold; font-size: 26px;";
 
                     row = tbl.insertRow(tbl.rows.length);
                     cell1 = row.insertCell(0);
                     cell1.innerText = "Total armor ignore";
-                    cell1.style = "border-top: 1px solid black;";
+                    //cell1.style = "border-top: 1px solid black;";
 
                     cell4 = row.insertCell(1);
                     cell4.id = "totalarmorignore" + index;
-                    cell4.style = "border-top: 1px solid black; font-size: 30px;";
+                    cell4.style = "font-weight: bold; font-size: 26px;";
+
+                    row = tbl.insertRow(tbl.rows.length);
+                    cell1 = row.insertCell(0);
+                    cell1.innerText = "Speed (hits per second)";
+                    //cell1.style = "border-top: 1px solid black;";
+
+                    cell6 = row.insertCell(1);
+                    cell6.id = "totalspeed" + index;
+                    cell6.style = "font-weight: bold; font-size: 26px;";
+
+                    row = tbl.insertRow(tbl.rows.length);
+                    cell1 = row.insertCell(0);
+                    cell1.innerText = "Total damage per second";
+                    //cell1.style = "border-top: 1px solid black;";
+
+                    cell8 = row.insertCell(1);
+                    cell8.id = "totaldps" + index;
+                    cell8.style = "font-weight: bold; font-size: 26px;";
                 }
 
                 cell2.innerText = "";
                 cell4.innerText = "";
+                cell6.innerText = "";
+                cell8.innerText = "";
 
                 var weapIdx = document.getElementById("weapon" + index).selectedIndex;
                 if (weapIdx < 0) {
@@ -2961,12 +3162,18 @@
                 var strengthFactor = 0.05;
                 var strengthBoost = 1;
                 var repairFactor = 1;
+                var speed = 1;
 
                 var totalDamageAdditive = [];
                 var totalDamageMultiply = [];
                 var totalArmorIgnoreArray = [];
+                var totalSpeedMultiply = [];
 
                 var effects = allEffects.get(type);
+
+                if (weap.speed !== undefined) {
+                    speed = weap.speed;
+                }
 
                 // adjust for melee strength
                 // ~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -3060,6 +3267,9 @@
                         if (modInfo.silencer !== undefined && modInfo.silencer) {
                             isSilenced = true;
                         }
+                        if (modInfo.speedMultPercent !== undefined) {
+                            totalSpeedMultiply.push(modInfo.speedMultPercent);
+                        }
                     }
                 });
 
@@ -3142,6 +3352,9 @@
                         if (effInfo.silencer !== undefined && effInfo.silencer) {
                             isSilenced = true;
                         }
+                        if (effInfo.speedMultPercent !== undefined) {
+                            totalSpeedMultiply.push(effInfo.speedMultPercent);
+                        }
                     }
                 });
 
@@ -3153,6 +3366,11 @@
                 var incisor = document.getElementById("incisor" + index);
                 if (incisor != null && incisor.selectedIndex > 0) {
                     totalArmorIgnoreArray.push(parseFloat(valueOf(incisor)));
+                }
+
+                var martialartist = document.getElementById("martialartist" + index);
+                if (martialartist != null && martialartist.selectedIndex > 0) {
+                    totalSpeedMultiply.push(parseFloat(valueOf(martialartist)));
                 }
 
                 var stabilized = document.getElementById("stabilized" + index);
@@ -3239,6 +3457,10 @@
                     totalDamage *= 1.0 + v / 100.0;
                 });
 
+                totalSpeedMultiply.forEach(function(v) {
+                    speed *= 1.0 + v / 100.0;
+                });
+
 
                 var totalArmorIgnore = 0;
                 if (totalArmorIgnoreArray.length != 0) {
@@ -3251,9 +3473,12 @@
 
                 cell2.innerText = totalDamage.toFixed(2);
                 cell4.innerText = totalArmorIgnore.toFixed(2) + " %";
+                cell6.innerText = speed.toFixed(2);
+                cell8.innerText = (totalDamage * speed).toFixed(2);
 
                 damages[index] = totalDamage;
                 ignores[index] = totalArmorIgnore;
+                speeds[index] = speed;
 
                 recalculateDiff();
             }
@@ -3264,16 +3489,24 @@
                     tbl.deleteRow(i);
                 }
 
+                var speedFactorLeft = 1;
+                var speedFactorRight = 1;
+
+                if (document.getElementById("dpsmode").checked) {
+                    speedFactorLeft = speeds[1]; 
+                    speedFactorRight = speeds[2]; 
+                }
+
                 var a = [10, 20, 30, 40, 50, 75, 100, 125, 150, 200, 250, 300];
                 for (var i in a) {
                     var row = tbl.insertRow(tbl.rows.length);
 
                     var dr = a[i];
                     var leftDr = dr * (1 - Math.min(0.95, (ignores[1] / 100.0)));
-                    var leftDmg = damageFormula(damages[1], leftDr);
+                    var leftDmg = damageFormula(damages[1], leftDr) * speedFactorLeft;
 
                     var rightDr = dr * (1 - Math.min(0.95, (ignores[2] / 100.0)));
-                    var rightDmg = damageFormula(damages[2], rightDr);
+                    var rightDmg = damageFormula(damages[2], rightDr) * speedFactorRight;
 
                     var cell = row.insertCell(0);
                     cell.innerText = "" + dr;
@@ -3289,6 +3522,7 @@
                         cell.style = "border: 1px solid black; text-align: right;";
                     } else {
                         cell = row.insertCell(1);
+                        cell.style = "border: 1px solid black; text-align: right;";
                         cell = row.insertCell(2);
                         cell.style = "border: 1px solid black; text-align: right;";
                     }
