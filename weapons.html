@@ -22,7 +22,7 @@
     </head>
     <body style="height: 90%">
         <center>
-            <h1 style="font-size: 36px;">Fallout 76 Weapon Damage Calculator (v1.8.1)</h1>
+            <h1 style="font-size: 36px;">Fallout 76 Weapon Damage Calculator (v1.8.2)</h1>
         <br/>
         <table id="parent">
             <tr>
@@ -96,9 +96,9 @@
             // Setup weapon data
             // -------------------------------------------------------------------------------
 
-            var speedSlow = 0.7;
-            var speedMedium = 1.4;
-            var speedFast = 2.1;
+            var speedSlow = 0.55;
+            var speedMedium = 0.88;
+            var speedFast = 1.26;
             var speedVFast = 4.2;
             
             allWeapons.set("Melee", [
@@ -854,6 +854,16 @@
                                 }
                             ]
                         }
+                    ]
+                },
+                {
+                    name: "Spear",
+                    category: "One-handed",
+                    strengthFactor: 0.1,
+                    speed: 0.62,
+                    level: [15, 25, 35, 45],
+                    damage: [43, 48, 53, 58],
+                    mods: [
                     ]
                 },
             ]);
