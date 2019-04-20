@@ -22,7 +22,7 @@
     </head>
     <body style="height: 90%">
         <center>
-            <h1 style="font-size: 36px;">Fallout 76 Weapon Damage Calculator (v1.8)</h1>
+            <h1 style="font-size: 36px;">Fallout 76 Weapon Damage Calculator (v1.8.1)</h1>
         <br/>
         <table id="parent">
             <tr>
@@ -1925,6 +1925,10 @@
                         damageMultPercent: 30
                     },
                     {
+                        name: "Mutant's",
+                        damageMultPercent: 10
+                    },
+                    {
                         name: "Ghoul slayer's",
                         versus: ["Ghoul"],
                         damageMultPercent: 30
@@ -2008,6 +2012,10 @@
                         name: "Mutant slayer's",
                         versus: ["Mutant"],
                         damageMultPercent: 30
+                    },
+                    {
+                        name: "Mutant's",
+                        damageMultPercent: 10
                     },
                     {
                         name: "Ghoul slayer's",
@@ -2317,6 +2325,14 @@
             );
 
             infoMap.set("martialartist", "Melee weapons only. Each level increases swing speed by 10% and up to 30% total.");
+
+            infoMap.set("mutation", 
+                "Enables the following effects/mods/perks when the player is mutated:"
+                + "<ul>"
+                    + "<li>Mutant's (legendary prefix): bonus damage when mutated</li>"
+                + "</ul>"
+            );
+
 
             // add HTML explanation marker
             function info(name) {
@@ -3079,6 +3095,20 @@
                 document.getElementById("adrenalreaction" + index + "_no").onchange = function() {
                     recalculate(tbl, index, type);
                 };
+
+                row = tbl.insertRow(tbl.rows.length);
+                cell1 = row.insertCell(0);
+                cell1.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;Any other mutation" + info("mutation");
+                cell2 = row.insertCell(1);
+                cell2.innerHTML = "<input type='radio' id='mutation" + index + "_yes' name='mutation" + index + "' value='1'> Yes&nbsp;&nbsp;&nbsp;"
+                    + "<input type='radio' id='mutation" + index + "_no' name='mutation" + index + "' value='0' checked='checked'> No";
+
+                document.getElementById("mutation" + index + "_yes").onchange = function() {
+                    recalculate(tbl, index, type);
+                };
+                document.getElementById("mutation" + index + "_no").onchange = function() {
+                    recalculate(tbl, index, type);
+                };
             }
 
             function createOther(tbl, index, type) {
@@ -3335,6 +3365,11 @@
                                     perc = 0;
                                 }
                             }
+                            if (effInfo.name === "Mutant's") {
+                                if (!hasMutation(index)) {
+                                    perc = 0;
+                                }
+                            }
                             // totalDamageAdditive.push(baseDamage * (perc / 100.0))
                             // effect damage does consider mods
                             totalDamageMultiply.push(perc);
@@ -3481,6 +3516,12 @@
                 speeds[index] = speed;
 
                 recalculateDiff();
+            }
+
+            function hasMutation(index) {
+                var adrenalreaction = document.getElementById("adrenalreaction" + index + "_yes").checked;
+                var anymutation = document.getElementById("mutation" + index + "_yes").checked;
+                return adrenalreaction || anymutation;
             }
 
             function recalculateDiff() {
