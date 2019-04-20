@@ -1,6 +1,6 @@
 <html>
     <head>
-        <title>Weapon damage calculator</title>
+        <title>Fallout 76 Weapon damage calculator</title>
         <style>
             * {
                 font-family: sans-serif;
@@ -10,10 +10,11 @@
                 padding: 1px;
             }
         </style>
+        <meta name="keywords" content="Fallout,Fallout 76,Weapons,Damage,Calculation,Comparison,Comparator">
     </head>
     <body style="height: 90%">
         <center>
-            <h1 style="font-size: 36px;">Weapon Damage Calculator (v1.4.3)</h1>
+            <h1 style="font-size: 36px;">Fallout 76 Weapon Damage Calculator (v1.5)</h1>
         <br/>
         <table id="parent">
             <tr>
@@ -1769,7 +1770,9 @@
                         name: "Instigating",
                         damageMultPercent: 100
                     },
-
+                    {
+                        name: "Furious"
+                    },
                 ],
                 // 2: Major
                 [
@@ -1791,6 +1794,9 @@
                     {
                         name: "Executioner's",
                         damageMultPercent: 50
+                    },
+                    {
+                        name: "Furious",
                     },
                     {
                         name: "Exterminator's",
@@ -2279,6 +2285,15 @@
                 enemytypesel.onchange = function() {
                     recalculate(tbl, index, type);
                 };
+
+                row = tbl.insertRow(tbl.rows.length);
+                    cell1 = row.insertCell(0);
+                    cell1.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;Furious hit count";
+                    cell2 = row.insertCell(1);
+                    cell2.innerHTML = "<input type='number' id='furioushits" + index + "' value='0' maxlength='6' style='width: 8em;' min='1' max='30'>";
+                    document.getElementById("furioushits" + index ).oninput = function() {
+                        recalculate(tbl, index, type);
+                    };
             }
 
             function createPerks(tbl, index, type) {
@@ -2333,16 +2348,14 @@
                     recalculate(tbl, index, type);
                 };
 
-                /*
                 row = tbl.insertRow(tbl.rows.length);
                 cell1 = row.insertCell(0);
                 cell1.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Kills";
                 cell2 = row.insertCell(1);
-                cell2.innerHTML = "<input type='number' id='kills" + index + "' value='0' maxlength='6' style='width: 3em;'>";
+                cell2.innerHTML = "<input type='number' id='kills" + index + "' value='6' maxlength='6' style='width: 3em;' min='0' max='10'>";
                 document.getElementById("kills" + index ).oninput = function() {
                     recalculate(tbl, index, type);
                 };
-                */
 
                 row = tbl.insertRow(tbl.rows.length);
                 cell1 = row.insertCell(0);
@@ -2681,7 +2694,11 @@
 
                 var adrenaline = document.getElementById("adrenaline" + index);
                 if (adrenaline != null && adrenaline.selectedIndex > 0) {
-                    additiveBoosts += baseDamage * parseFloat(valueOf(adrenaline)) / 100.0;
+                    var kills = document.getElementById("kills" + index);
+                    var v = Math.min(6, parseFloat(kills.value));
+                    if (v > 0) {
+                        additiveBoosts += baseDamage * parseFloat(valueOf(adrenaline) * v / 6.0) / 100.0;
+                    }
                 }
 
                 if (document.getElementById("adrenalreaction" + index + "_yes").checked) {
@@ -2796,6 +2813,12 @@
                             totalDamageMultiply.push(perc);
                             //totalDamageAdditive.push(Math.floor(baseDamage * (perc / 100.0)));
                         }
+                        if (effInfo.name === "Furious") {
+                            var furioushits = document.getElementById("furioushits" + index);
+                            var perc = 15 * Math.min(15, parseFloat(furioushits.value));
+                            totalDamageMultiply.push(perc);
+                        }
+
                         if (effInfo.ignoreDRPercent !== undefined) {
                             totalArmorIgnoreArray.push(effInfo.ignoreDRPercent);
                         }
