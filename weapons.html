@@ -14,7 +14,7 @@
     </head>
     <body style="height: 90%">
         <center>
-            <h1 style="font-size: 36px;">Fallout 76 Weapon Damage Calculator (v1.5.1)</h1>
+            <h1 style="font-size: 36px;">Fallout 76 Weapon Damage Calculator (v1.6)</h1>
         <br/>
         <table id="parent">
             <tr>
@@ -801,12 +801,26 @@
                                 }                            
                             ]
                         }
+            
+            var standardMuzzle = {
+                slot: "Muzzle",
+                options: [
+                    {
+                        name: "Standard",
+                    },
+                    {
+                        name: "Suppressor",
+                        silencer: true
+                    }
+                ]  
+            };
 
             allWeapons.set("Ranged", [
                 {
                     name: "Handmade",
                     category: "Rifle",
                     explosive: false,
+                    silencer: true,
                     level: [15, 25, 35, 45],
                     damage: [30, 35, 40, 45],
                     mods: [
@@ -848,13 +862,15 @@
                                 },
                             ]
                         },
-                        standardAPMagazines
+                        standardAPMagazines,
+                        standardMuzzle
                     ]
                 },
                 {
                     name: "Hunting Rifle",
                     category: "Rifle",
                     explosive: false,
+                    silencer: true,
                     level: [1, 5, 10, 20, 30, 40, 50],
                     damage: [40, 45, 50, 55, 60, 65, 70],
                     mods: [
@@ -882,13 +898,15 @@
                                 },
                             ]
                         },
-                        standardAPMagazines
+                        standardAPMagazines,
+                        standardMuzzle
                     ]
                 },
                 {
                     name: "Lever Action Rifle",
                     category: "Rifle",
                     explosive: false,
+                    silencer: true,
                     level: [25, 35, 45],
                     damage: [65, 70, 75],
                     mods: [
@@ -915,7 +933,8 @@
                                     versusMultPercent: 30
                                 },
                             ]
-                        }
+                        },
+                        standardMuzzle
                     ]
                 },
                 {
@@ -938,6 +957,7 @@
                     name: "Assault Rifle",
                     category: "Rifle",
                     explosive: false,
+                    silencer: true,
                     level: [30, 40, 50],
                     damage: [25, 29, 33],
                     mods: [
@@ -979,7 +999,8 @@
                                 }
                             ]
                         },
-                        standardAPMagazines
+                        standardAPMagazines,
+                        standardMuzzle
                     ]
                 },
                 {
@@ -1128,6 +1149,7 @@
                     name: "Combat Rifle",
                     category: "Rifle",
                     explosive: false,
+                    silencer: true,
                     level: [20, 30, 40, 50],
                     damage: [28, 32, 36, 40],
                     mods: [
@@ -1169,13 +1191,15 @@
                                 }
                             ]
                         },
-                        standardAPMagazines
+                        standardAPMagazines,
+                        standardMuzzle
                     ]
                 },
                 {
                     name: "Combat Shotgun",
                     category: "Shotgun",
                     explosive: false,
+                    silencer: true,
                     level: [20, 30, 40, 50],
                     damage: [60, 70, 80, 90],
                     mods: [
@@ -1217,13 +1241,15 @@
                                 }
                             ]
                         },
-                        standardAPMagazines
+                        standardAPMagazines,
+                        standardMuzzle
                     ]
                 },
                 {
                     name: "Pump Action Shotgun",
                     category: "Shotgun",
                     explosive: false,
+                    silencer: true,
                     level: [5, 15, 25, 35, 45],
                     damage: [55, 65, 75, 85, 95],
                     mods: [
@@ -1250,7 +1276,8 @@
                                     versusMultPercent: 30
                                 }
                             ]
-                        }
+                        },
+                        standardMuzzle
                     ]
                 },
                 {
@@ -1301,6 +1328,7 @@
                     name: "10mm Pistol",
                     category: "Pistol",
                     explosive: false,
+                    silencer: true,
                     level: [5, 15, 25, 35, 45],
                     damage: [15, 18, 21, 24, 28],
                     mods: [
@@ -1342,7 +1370,8 @@
                                 }
                             ]
                         },
-                        standardAPMagazines
+                        standardAPMagazines,
+                        standardMuzzle
                     ]
                 },
                 {
@@ -1370,6 +1399,7 @@
                     name: "Submachine Gun",
                     category: "Rifle",
                     explosive: false,
+                    silencer: true,
                     level: [15, 25, 35, 45],
                     damage: [18, 22, 25, 29],
                     mods: [
@@ -1400,13 +1430,15 @@
                                     versusMultPercent: 30
                                 }
                             ]
-                        }
+                        },
+                        standardMuzzle
                     ]
                 },
                 {
                     name: "10mm SMG",
                     category: "Pistol",
                     explosive: false,
+                    silencer: true,
                     level: [10, 20, 30, 40, 50],
                     damage: [17, 19, 23, 28, 34],
                     mods: [
@@ -1446,7 +1478,8 @@
                                     ignoreDRPercent: 20
                                 },
                             ]
-                        }
+                        },
+                        standardMuzzle
                     ]
                 },
                 {
@@ -1682,6 +1715,7 @@
                     name: "Gauss Rifle",
                     category: "Rifle",
                     explosive: false,
+                    silencer: true,
                     level: [35, 45],
                     damage: [125, 140],
                     mods: [
@@ -1710,7 +1744,8 @@
                                     versusMultPercent: 30
                                 },
                             ]
-                        }
+                        },
+                        standardMuzzle
                     ]
                 },
             ]);
@@ -2207,6 +2242,20 @@
                     recalculate(tbl, index, type);
                 };
 
+                row = tbl.insertRow(tbl.rows.length);
+                cell1 = row.insertCell(0);
+                cell1.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;Sneaking";
+                cell2 = row.insertCell(1);
+                cell2.innerHTML = "<input type='radio' id='sneaking" + index + "_yes' name='sneaking" + index + "' value='1'> Yes&nbsp;&nbsp;&nbsp;"
+                    + "<input type='radio' id='sneaking" + index + "_no' name='sneaking" + index + "' value='0' checked='checked'> No";
+
+                document.getElementById("sneaking" + index + "_yes").onchange = function() {
+                    recalculate(tbl, index, type);
+                };
+                document.getElementById("sneaking" + index + "_no").onchange = function() {
+                    recalculate(tbl, index, type);
+                };
+
                 if (type === "Ranged") {
                     row = tbl.insertRow(tbl.rows.length);
                     cell1 = row.insertCell(0);
@@ -2297,6 +2346,9 @@
             }
 
             function createPerks(tbl, index, type) {
+                var weapIdx = document.getElementById("weapon" + index).selectedIndex;
+                var weap = allWeapons.get(type)[weapIdx];
+
                 var row = tbl.insertRow(tbl.rows.length);
                 var cell1 = row.insertCell(0);
                 cell1.innerText = "Perks";
@@ -2329,7 +2381,8 @@
                 cell1 = row.insertCell(0);
                 cell1.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;Adrenaline";
                 cell2 = row.insertCell(1);
-                cell2.innerHTML = "<select id='adrenaline" + index + "'></select> (level)"
+                cell2.innerHTML = "<select id='adrenaline" + index + "'></select> (level)&nbsp;&nbsp;&nbsp;Kills&nbsp;"
+                    + "<input type='number' id='kills" + index + "' value='6' maxlength='6' style='width: 3em;' min='0' max='10'>";
 
                 var adrenalinesel = document.getElementById("adrenaline" + index);
                 opt = document.createElement("option");
@@ -2348,11 +2401,6 @@
                     recalculate(tbl, index, type);
                 };
 
-                row = tbl.insertRow(tbl.rows.length);
-                cell1 = row.insertCell(0);
-                cell1.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Kills";
-                cell2 = row.insertCell(1);
-                cell2.innerHTML = "<input type='number' id='kills" + index + "' value='6' maxlength='6' style='width: 3em;' min='0' max='10'>";
                 document.getElementById("kills" + index ).oninput = function() {
                     recalculate(tbl, index, type);
                 };
@@ -2405,6 +2453,36 @@
                     incisor.onchange = function() {
                         recalculate(tbl, index, type);
                     };
+
+                    row = tbl.insertRow(tbl.rows.length);
+                    cell1 = row.insertCell(0);
+                    cell1.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;Ninja";
+                    cell2 = row.insertCell(1);
+                    cell2.innerHTML = "<select id='ninja" + index + "'></select> (level)"
+
+                    var ninja = document.getElementById("ninja" + index);
+                    opt = document.createElement("option");
+                    ninja.add(opt);
+                    opt.text = "None";
+                    opt.value = "0";
+
+                    opt = document.createElement("option");
+                        ninja.add(opt);
+                        opt.text = "1";
+                        opt.value = "30";
+                    opt = document.createElement("option");
+                        ninja.add(opt);
+                        opt.text = "2";
+                        opt.value = "60";
+                    opt = document.createElement("option");
+                        ninja.add(opt);
+                        opt.text = "3";
+                        opt.value = "100";
+
+                    ninja.selectedIndex = 0;
+                    ninja.onchange = function() {
+                        recalculate(tbl, index, type);
+                    };
                 }
 
                 if (type === "Ranged") {
@@ -2442,59 +2520,87 @@
                         recalculate(tbl, index, type);
                     };
 
-                    var weapIdx = document.getElementById("weapon" + index).selectedIndex;
-                    if (weapIdx >= 0) {
-                        var weap = allWeapons.get(type)[weapIdx];
+                    if (weap.category === "Rifle") {
+                        row = tbl.insertRow(tbl.rows.length);
+                        cell1 = row.insertCell(0);
+                        cell1.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;Tank killer";
+                        cell2 = row.insertCell(1);
+                        cell2.innerHTML = "<select id='tankkiller" + index + "'></select> (level)"
 
-                        if (weap.category === "Rifle") {
-                            row = tbl.insertRow(tbl.rows.length);
-                            cell1 = row.insertCell(0);
-                            cell1.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;Tank killer";
-                            cell2 = row.insertCell(1);
-                            cell2.innerHTML = "<select id='tankkiller" + index + "'></select> (level)"
+                        var tankkiller = document.getElementById("tankkiller" + index);
+                        opt = document.createElement("option");
+                        tankkiller.add(opt);
+                        opt.text = "None";
+                        opt.value = "0";
 
-                            var tankkiller = document.getElementById("tankkiller" + index);
+                        for (var i = 1; i < 4; i++) {
                             opt = document.createElement("option");
                             tankkiller.add(opt);
-                            opt.text = "None";
-                            opt.value = "0";
-
-                            for (var i = 1; i < 4; i++) {
-                                opt = document.createElement("option");
-                                tankkiller.add(opt);
-                                opt.text = "" + i;
-                                opt.value = "" + (i * 12);
-                            }
-                            tankkiller.selectedIndex = 0;
-                            tankkiller.onchange = function() {
-                                recalculate(tbl, index, type);
-                            };
+                            opt.text = "" + i;
+                            opt.value = "" + (i * 12);
                         }
-                        if (weap.category == "Heavy") {
-                            row = tbl.insertRow(tbl.rows.length);
-                            cell1 = row.insertCell(0);
-                            cell1.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;Stabilized";
-                            cell2 = row.insertCell(1);
-                            cell2.innerHTML = "<select id='stabilized" + index + "'></select> (level)"
+                        tankkiller.selectedIndex = 0;
+                        tankkiller.onchange = function() {
+                            recalculate(tbl, index, type);
+                        };
+                    }
+                    if (weap.category == "Heavy") {
+                        row = tbl.insertRow(tbl.rows.length);
+                        cell1 = row.insertCell(0);
+                        cell1.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;Stabilized";
+                        cell2 = row.insertCell(1);
+                        cell2.innerHTML = "<select id='stabilized" + index + "'></select> (level)"
 
-                            var stabilized = document.getElementById("stabilized" + index);
+                        var stabilized = document.getElementById("stabilized" + index);
+                        opt = document.createElement("option");
+                        stabilized.add(opt);
+                        opt.text = "None";
+                        opt.value = "0";
+
+                        for (var i = 1; i < 4; i++) {
                             opt = document.createElement("option");
                             stabilized.add(opt);
-                            opt.text = "None";
-                            opt.value = "0";
-
-                            for (var i = 1; i < 4; i++) {
-                                opt = document.createElement("option");
-                                stabilized.add(opt);
-                                opt.text = "" + i;
-                                opt.value = "" + (i * 15);
-                            }
-                            stabilized.selectedIndex = 0;
-                            stabilized.onchange = function() {
-                                recalculate(tbl, index, type);
-                            };
+                            opt.text = "" + i;
+                            opt.value = "" + (i * 15);
                         }
+                        stabilized.selectedIndex = 0;
+                        stabilized.onchange = function() {
+                            recalculate(tbl, index, type);
+                        };
                     }
+
+                    row = tbl.insertRow(tbl.rows.length);
+                    cell1 = row.insertCell(0);
+                    cell1.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;Covert operative";
+                    cell2 = row.insertCell(1);
+                    cell2.innerHTML = "<select id='covertop" + index + "'></select> (level)"
+
+                    var covertop = document.getElementById("covertop" + index);
+                    opt = document.createElement("option");
+                    covertop.add(opt);
+                    opt.text = "None";
+                    opt.value = "0";
+
+                    opt = document.createElement("option");
+                    covertop.add(opt);
+                    opt.text = "1";
+                    opt.value = "" + 15;
+
+                    opt = document.createElement("option");
+                    covertop.add(opt);
+                    opt.text = "2";
+                    opt.value = "" + 30;
+                    
+                    opt = document.createElement("option");
+                    covertop.add(opt);
+                    opt.text = "3";
+                    opt.value = "" + 50;
+
+                    covertop.selectedIndex = 0;
+                    covertop.onchange = function() {
+                        recalculate(tbl, index, type);
+                    };
+                    
                 }
 
                 row = tbl.insertRow(tbl.rows.length);
@@ -2565,6 +2671,53 @@
                 nerdragesel.onchange = function() {
                     recalculate(tbl, index, type);
                 };
+
+                row = tbl.insertRow(tbl.rows.length);
+                cell1 = row.insertCell(0);
+                cell1.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;Revenant";
+                cell2 = row.insertCell(1);
+                cell2.innerHTML = "<select id='revenant" + index + "'></select> (level)"
+                
+                var revenantsel = document.getElementById("revenant" + index);
+                opt = document.createElement("option");
+                revenantsel.add(opt);
+                opt.text = "None";
+                opt.value = "0";
+
+                for (var i = 1; i < 3; i++) {
+                    opt = document.createElement("option");
+                    revenantsel.add(opt);
+                    opt.text = "" + i;
+                    opt.value = "" + (i * 25);
+                }
+                revenantsel.selectedIndex = 0;
+                revenantsel.onchange = function() {
+                    recalculate(tbl, index, type);
+                };
+
+                if (weap.silencer) {
+                    row = tbl.insertRow(tbl.rows.length);
+                    cell1 = row.insertCell(0);
+                    cell1.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;Sandman";
+                    cell2 = row.insertCell(1);
+                    cell2.innerHTML = "<select id='sandman" + index + "'></select> (level)"
+                    var sandmansel = document.getElementById("sandman" + index);
+                    opt = document.createElement("option");
+                    sandmansel.add(opt);
+                    opt.text = "None";
+                    opt.value = "0";
+
+                    for (var i = 1; i < 3; i++) {
+                        opt = document.createElement("option");
+                        sandmansel.add(opt);
+                        opt.text = "" + i;
+                        opt.value = "" + (i * 25);
+                    }
+                    sandmansel.selectedIndex = 0;
+                    sandmansel.onchange = function() {
+                        recalculate(tbl, index, type);
+                    };
+                }
             }
 
             function createMutations(tbl, index, type) {
@@ -2717,6 +2870,7 @@
                 }
                 baseDamage += additiveBoosts;
 
+                var isSilenced = false;
                 // apply mod effects
                 // ~~~~~~~~~~~~~~~~~
                 weap.mods.forEach(function(mod, idx) {
@@ -2742,6 +2896,9 @@
                         }
                         if (modInfo.ignoreDRPercent !== undefined) {
                             totalArmorIgnoreArray.push(modInfo.ignoreDRPercent);
+                        }
+                        if (modInfo.silencer !== undefined && modInfo.silencer) {
+                            isSilenced = true;
                         }
                     }
                 });
@@ -2822,6 +2979,9 @@
                         if (effInfo.ignoreDRPercent !== undefined) {
                             totalArmorIgnoreArray.push(effInfo.ignoreDRPercent);
                         }
+                        if (effInfo.silencer !== undefined && effInfo.silencer) {
+                            isSilenced = true;
+                        }
                     }
                 });
 
@@ -2880,6 +3040,35 @@
                 var demolitionsel = document.getElementById("demolition" + index);
                 if (demolitionsel != null && demolitionsel.selectedIndex > 0 && weap.explosive) {
                     totalDamageMultiply.push(parseFloat(valueOf(demolitionsel)));
+                }
+
+                var revenantsel = document.getElementById("revenant" + index);
+                if (revenantsel != null && revenantsel.selectedIndex > 0) {
+                    totalDamageMultiply.push(parseFloat(valueOf(revenantsel)));
+                }
+
+                if (document.getElementById("sneaking" + index + "_yes").checked) {
+                    var mult = 100;
+
+                    var ninja = document.getElementById("ninja" + index);
+                    if (ninja != null && ninja.selectedIndex > 0) {
+                        mult += parseFloat(valueOf(ninja));
+                    }
+
+                    var covertop = document.getElementById("covertop" + index);
+                    if (covertop != null && covertop.selectedIndex > 0) {
+                        mult += parseFloat(valueOf(covertop));
+                    }
+                    totalDamageMultiply.push(mult);
+                }
+
+                if (document.getElementById("nighttime" + index + "_yes").checked) {
+                    var sandman = document.getElementById("sandman" + index);
+                    if (sandman != null && sandman.selectedIndex > 0) {
+                        if (isSilenced) {
+                            totalDamageMultiply.push(parseFloat(valueOf(sandman)));
+                        }
+                    }
                 }
 
                 var totalDamage = baseDamage;
