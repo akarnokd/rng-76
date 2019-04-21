@@ -22,7 +22,7 @@
     </head>
     <body style="height: 90%">
         <center>
-            <h1 style="font-size: 36px;">Fallout 76 Weapon Damage Calculator (v1.8.2)</h1>
+            <h1 style="font-size: 36px;">Fallout 76 Weapon Damage Calculator (v1.8.3)</h1>
         <br/>
         <table id="parent">
             <tr>
@@ -3263,13 +3263,32 @@
 
                 if (document.getElementById("adrenalreaction" + index + "_yes").checked) {
                     var health = parseFloat(document.getElementById("playerhealth" + index).value);
-                    if (health < 90) {
+                    if (health <= 90) {
                         var perc = 0;
-                        if (health < 20) {
-                            perc = 50;
+                        // ESM indicates a super version, not sure where
+                        var superVersion = false;
+                        if (health <= 20) {
+                            perc = superVersion ? 63 : 50;
                         } else 
-                        if (health < 90) {
-                            perc = (9 - Math.floor(health / 10)) * 50 / 8;
+                        if (health <= 30) {
+                            perc = superVersion ? 55 : 44;
+                        } else 
+                        if (health <= 40) {
+                            perc = superVersion ? 48 : 38;
+                        } else 
+                        if (health <= 50) {
+                            perc = superVersion ? 39 : 31;
+                        } else 
+                        if (health <= 60) {
+                            perc = superVersion ? 31 : 25;
+                        } else 
+                        if (health <= 70) {
+                            perc = superVersion ? 24 : 19;
+                        } else 
+                        if (health <= 80) {
+                            perc = superVersion ? 16 : 13;
+                        } else {
+                            perc = superVersion ? 8 : 6;
                         }
                         
                         additiveBoosts += baseDamage * perc / 100.0;
