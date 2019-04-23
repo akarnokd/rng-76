@@ -22,7 +22,7 @@
     </head>
     <body style="height: 90%">
         <center>
-            <h1 style="font-size: 36px;">Fallout 76 Weapon Damage Calculator (v1.8.6)</h1>
+            <h1 style="font-size: 36px;">Fallout 76 Weapon Damage Calculator (v1.8.7)</h1>
         <br/>
         <table id="parent">
             <tr>
@@ -593,7 +593,7 @@
                 {
                     name: "War Drum",
                     category: "Two-handed",
-                    speed: speedMedium,
+                    speed: speedSlow,
                     level: [15, 25, 35, 45],
                     damage: [48, 58, 68, 78],
                     mods: []
@@ -777,17 +777,22 @@
                                     damageMultPercent: 15,
                                 },
                                 {
-                                    name: "Heavy Rocket",
+                                    name: "Heavy",
                                     damageMultPercent: 20,
+                                    ignoreDRPercent: 15
                                 },
                                 {
-                                    name: "Heavy Spiked Rocket",
+                                    name: "Heavy Rocket",
                                     damageMultPercent: 25,
                                 },
                                 {
                                     name: "Heavy Spiked",
                                     damageMultPercent: 25,
-                                    ignoreDRPercent: 20
+                                    ignoreDRPercent: 15
+                                },
+                                {
+                                    name: "Heavy Sharp",
+                                    damageMultPercent: 25,
                                 }
                             ]
                         }
@@ -827,7 +832,37 @@
                                 },
                                 {
                                     name: "Saw Blades",
-                                    damageMultPercent: 25
+                                    damageMultPercent: 75
+                                },
+                                {
+                                    name: "Bladed Rocket",
+                                    damageMultPercent: 75
+                                },
+                                {
+                                    name: "Heated Rocket",
+                                    damageMultPercent: 20
+                                },
+                                {
+                                    name: "Spiked Rocket",
+                                    damageMultPercent: 25,
+                                    ignoreDRPercent: 20
+                                },
+                                {
+                                    name: "Puncturing Rocket",
+                                    damageMultPercent: 25,
+                                    ignoreDRPercent: 20
+                                }
+                            ]
+                        },
+                        {
+                            slot: "Material",
+                            options: [
+                                {
+                                    name: "Wood"
+                                },
+                                {
+                                    name: "All Star",
+                                    damageMultPercent: 20
                                 }
                             ]
                         }
@@ -864,6 +899,28 @@
                     level: [15, 25, 35, 45],
                     damage: [43, 48, 53, 58],
                     mods: [
+                    ]
+                },
+                {
+                    name: "Pole Hook",
+                    category: "Two-handed",
+                    speed: speedSlow,
+                    level: [10, 20, 30, 40, 50],
+                    damage: [43, 50, 57, 65, 71],
+                    mods: [
+                        {
+                            slot: "Main",
+                            options: [
+                                {
+                                    name: "Standard"
+                                },
+                                {
+                                    name: "Multihook",
+                                    damageMultPercent: 50,
+                                    ignoreDRPercent: 20
+                                }
+                            ]
+                        }
                     ]
                 },
             ]);
