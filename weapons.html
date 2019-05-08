@@ -22,7 +22,7 @@
     </head>
     <body style="height: 90%">
         <center>
-            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Weapon Damage Calculator (v2.0.5)</span><br/>
+            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Weapon Damage Calculator (v2.0.6)</span><br/>
             <!-- <sup style='font-size: 16px;'>* Only ballistic damage; energy damage and resistances are not fully explored yet.</sup> -->
         <br/>
         <table id="parent">
@@ -2479,7 +2479,7 @@
                     category: "Pistol",
                     explosive: false,
                     silencer: false,
-                    speed: 6,
+                    speed: 6.7,
                     level: [15, 25, 35, 45],
                     damage: [38, 45, 52, 60],
                     damageRadiation: [50, 50, 50, 50],
@@ -2505,6 +2505,10 @@
                                 {
                                     name: "Electric signal carrier",
                                     addDamageEnergyLeveled: [40, 40, 40, 40]
+                                },
+                                {
+                                    name: "Signal Repeater",
+                                    speedMultPercent: speedMult(9.1, 6.7)
                                 }
                             ]
                         }
