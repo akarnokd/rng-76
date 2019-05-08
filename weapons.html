@@ -22,7 +22,7 @@
     </head>
     <body style="height: 90%">
         <center>
-            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Weapon Damage Calculator (v2.0)</span><br/>
+            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Weapon Damage Calculator (v2.0.1)</span><br/>
             <!-- <sup style='font-size: 16px;'>* Only ballistic damage; energy damage and resistances are not fully explored yet.</sup> -->
         <br/>
         <table id="parent">
@@ -2444,7 +2444,7 @@
                     damage: [24, 28, 32],
                     damageEnergy: [24, 28, 32],
                     mods: [
-                    {
+                        {
                             slot: "Barrel",
                             options: [
                                 {
@@ -2482,6 +2482,35 @@
                     damageRadiation: [38, 45, 52, 60],
                     mods: [
                     
+                    ]
+                },
+                {
+                    name: "Tesla Rifle",
+                    category: "Rifle",
+                    explosive: false,
+                    silencer: false,
+                    speed: 2,
+                    level: [40, 50],
+                    damage: [0, 0],
+                    damageEnergy: [66, 78],
+                    mods: [
+                        {
+                            slot: "Receiver",
+                            options: [
+                                {
+                                    name: "Standard"
+                                },
+                                {
+                                    name: "Automatic",
+                                    damageMultPercent: -15,
+                                    speedMultPercent: speedMult(9.1, 2)
+                                },
+                                {
+                                    name: "Charging",
+                                    damageMultPercent: 30
+                                },
+                            ]
+                        }
                     ]
                 },
             ]);
@@ -4386,8 +4415,19 @@
                     speedFactorRight = speeds[2]; 
                 }
 
+                var evenOdd = false;
+                var lastDr = null;
+
                 enemyResistances.forEach(function(res) {
                     var row = tbl.insertRow(tbl.rows.length);
+
+                    if (lastDr == null || lastDr != res.dr) {
+                        evenOdd = !evenOdd;
+                        lastDr = res.dr
+                    }
+                    if (evenOdd) {
+                        row.style.backgroundColor = "#C0FFC0";
+                    }
 
                     var dr = res.dr;
                     var leftDr = dr * (1 - Math.min(0.95, (ignores[1] / 100.0)));
