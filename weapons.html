@@ -22,7 +22,7 @@
     </head>
     <body style="height: 90%">
         <center>
-            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Weapon Damage* Calculator (v1.8.10)</span><br/>
+            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Weapon Damage* Calculator (v1.8.11)</span><br/>
             <sup style='font-size: 16px;'>* Only ballistic damage; energy damage and resistances are not fully explored yet.</sup>
         <br/>
         <table id="parent">
@@ -2445,16 +2445,11 @@
                 + "</ul>"
             );
 
-            infoMap.set("weaponcondition", 
-                "Repairing melee weapons above 100% condtion grants a linear damage bonus up to 30% total."
-                + "<br>For example. 130% condition adds ~10% damage, 160% condition adds ~20% and 200% condition adds +30% damage."
-            );
-
             infoMap.set("strength", 
                 "Each point in the Strength attribute of the player adds 5% damage."
                 + "<br>Armor, chems, mutations and legendary effects can increase player strength beyond 15."
                 + "<br>This damage boost is additive and proportional to the base weapon damage and is considered before "
-                + "<br>weapon condition, mods, effects, perks, chems and other player conditions not related to strength."
+                + "<br>weapon mods, effects, perks, chems and other player conditions not related to strength."
             );
 
             infoMap.set("ninja", "Melee weapons only. Sets the sneak attack multiplier 2.3x, 2.6x and 3.x.");
@@ -2779,15 +2774,6 @@
                 opt.value = "";
 
                 if (type === "Melee") {
-                    row = tbl.insertRow(tbl.rows.length);
-                    cell1 = row.insertCell(0);
-                    cell1.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;Weapon condition" + info("weaponcondition");
-                    cell2 = row.insertCell(1);
-                    cell2.innerHTML = "<input type='number' id='condition" + index + "' value='100' maxlength='6' style='width: 8em;' min='1' max='200'> %";
-                    document.getElementById("condition" + index ).oninput = function() {
-                        recalculate(tbl, index, type);
-                    };
-
                     row = tbl.insertRow(tbl.rows.length);
                     cell1 = row.insertCell(0);
                     cell1.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;Strength" + info("strength");
@@ -3354,13 +3340,6 @@
                     if (strength != null) {
                         var v = parseFloat(strength.value);
                         strengthBoost += v * strengthFactor;
-                    }
-                    var condition = document.getElementById("condition" + index);
-                    if (condition != null) {
-                        var v = parseFloat(condition.value);
-                        if (v > 100) {
-                            repairFactor += ((v - 100) * 0.003);
-                        }
                     }
 
                     effects.forEach(function(effect, idx) {
