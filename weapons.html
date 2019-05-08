@@ -4142,6 +4142,8 @@
                                 if (effInfo.name.includes("Two shot")) {
                                     // two shot appears to ignore the receiver modification
                                     totalDamageAdditive.push(Math.floor(baseDamage * perc / 100.0));
+                                    totalDamageEnergyAdditive.push(Math.floor(baseDamageEnergy * perc / 100.0));
+                                    totalDamageRadiationAdditive.push(Math.floor(baseDamageRadiation * perc / 100.0));
                                     // do not add it as a flat boost
                                     perc = 0;
                                 }
