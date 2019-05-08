@@ -22,8 +22,8 @@
     </head>
     <body style="height: 90%">
         <center>
-            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Weapon Damage* Calculator (v1.8.11)</span><br/>
-            <sup style='font-size: 16px;'>* Only ballistic damage; energy damage and resistances are not fully explored yet.</sup>
+            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Weapon Damage Calculator (v2.0)</span><br/>
+            <!-- <sup style='font-size: 16px;'>* Only ballistic damage; energy damage and resistances are not fully explored yet.</sup> -->
         <br/>
         <table id="parent">
             <tr>
@@ -67,15 +67,18 @@
                     
                     <table id="table3" style="border: 1px solid black; border-collapse: collapse;">
                         <tr>
-                            <td rowspan='2' style="border: 1px solid black;">Enemy DR</td>
+                            <td colspan='3' style="border: 1px solid black;">Enemy</td>
                             <td colspan="3" style="border: 1px solid black;">Left weapon</td>
                             <td colspan="3" style="border: 1px solid black;">Right weapon</td>
                         </tr>
                         <tr>
-                            <td style="border: 1px solid black;">Actual DR</td>
+                            <td style="border: 1px solid black;">DR</td>
+                            <td style="border: 1px solid black;">ER</td>
+                            <td style="border: 1px solid black;">RR</td>
+                            <td style="border: 1px solid black;" id='ActualDRLeft'>Actual DR</td>
                             <td style="border: 1px solid black;">Damage dealt</td>
                             <td style="border: 1px solid black;">Compare Right</td>
-                            <td style="border: 1px solid black;">Actual DR</td>
+                            <td style="border: 1px solid black;" id='ActualDRRight'>Actual DR</td>
                             <td style="border: 1px solid black;">Damage dealt</td>
                             <td style="border: 1px solid black;">Compare Left</td>
                         </tr>
@@ -90,6 +93,8 @@
             var enemyCategories = [];
 
             var damages = [0, 0, 0];
+            var damagesEnergy = [0, 0, 0];
+            var damagesRadiation = [0, 0, 0];
             var ignores = [0, 0, 0];
             var speeds = [1, 1, 1];
 
@@ -162,7 +167,20 @@
                     speed: speedSlow,
                     level: [30, 40, 50],
                     damage: [65, 75, 85],
-                    mods: []
+                    mods: [
+                    {
+                            slot: "Main",
+                            options: [
+                                {
+                                    name: "Standard"
+                                },
+                                {
+                                    name: "Heating coil",
+                                    addDamageEnergyLeveled: [5, 7.5, 10]
+                                }
+                            ]
+                        }
+                    ]
                 },
                 {
                     name: "Power Fist",
@@ -563,8 +581,14 @@
                                     damageMultPercent: 15
                                 },
                                 {
+                                    name: "Flaming",
+                                    damageMultPercent: 15,
+                                    addDamageEnergyLeveled: [2, 3.5, 5, 6.5, 8, 9.5]
+                                },
+                                {
                                     name: "Barbed Flaming",
-                                    damageMultPercent: 15
+                                    damageMultPercent: 15,
+                                    addDamageEnergyLeveled: [2, 3.5, 5, 6.5, 8, 9.5]
                                 }
                             ]
                         }
@@ -586,6 +610,10 @@
                                 {
                                     name: "Serrated",
                                     damageMultPercent: 10
+                                },
+                                {
+                                    name: "Electrified",
+                                    addDamageEnergyPercentLeveled: [10, 15, 20, 25, 30]
                                 }
                             ]
                         }
@@ -721,7 +749,18 @@
                     speed: speedVFast,
                     level: [15, 25, 35, 45],
                     damage: [4, 5, 6, 7],
-                    mods: []
+                    mods: [ {
+                            slot: "Blade",
+                            options: [
+                                {
+                                    name: "Standard"
+                                },
+                                {
+                                    name: "Electrified",
+                                    addDamageEnergyPercentLeveled: [10, 15, 20, 25]
+                                }
+                            ]
+                        }]
                 },
                 {
                     name: "Chinese Officer Sword",
@@ -739,6 +778,10 @@
                                 {
                                     name: "Serrated",
                                     damageMultPercent: 10,
+                                },
+                                {
+                                    name: "Electrified",
+                                    addDamageEnergyPercentLeveled: [5, 10, 15, 20, 25]
                                 }
                             ]
                         }
@@ -758,7 +801,21 @@
                     speed: speedMedium,
                     level: [35, 45],
                     damage: [22, 27],
-                    mods: []
+                    damageEnergy: [22, 27],
+                    mods: [
+                    {
+                            slot: "Main",
+                            options: [
+                                {
+                                    name: "Standard"
+                                },
+                                {
+                                    name: "Extra Flame Jets",
+                                    addDamageEnergyLeveled: [8, 9.5]
+                                }
+                            ]
+                        }
+                    ]
                 },
                 {
                     name: "Sledgehammer",
@@ -1247,7 +1304,7 @@
                     name: "50 Cal Machine Gun",
                     category: "Heavy",
                     explosive: false,
-                    speed: 91,
+                    speed: 9.1,
                     level: [25, 35, 45],
                     damage: [29, 36, 43],
                     mods: [
@@ -2017,7 +2074,527 @@
                         standardMuzzle
                     ]
                 },
+                {
+                    name: "Radium Rifle",
+                    category: "Rifle",
+                    explosive: false,
+                    silencer: true,
+                    speed: 4,
+                    level: [40, 50],
+                    damage: [33, 37],
+                    damageRadiation: [13, 15],
+                    mods: [
+                        {
+                            slot: "Receiver",
+                            options: [
+                                {
+                                    name: "Standard"
+                                },
+                                {
+                                    name: "Hardened",
+                                    damageMultPercent: 25,
+                                },
+                                {
+                                    name: "Prime",
+                                    damageMultPercent: 25,
+                                    versus: ["Scorched", "Scorchbeast", "Scorchbeast Queen"],
+                                    versusMultPercent: 25
+                                },
+                            ]
+                        },
+                        standardAPMagazines,
+                        standardMuzzle
+                    ]
+                },
+                {
+                    name: "Laser Pistol",
+                    category: "Pistol",
+                    explosive: false,
+                    silencer: false,
+                    speed: 4,
+                    level: [5, 15, 25, 35, 45],
+                    damage: [0, 0, 0, 0, 0],
+                    damageEnergy: [21, 26, 31, 36, 44],
+                    mods: [
+                        {
+                            slot: "Capacitor",
+                            options: [
+                                {
+                                    name: "Standard"
+                                },
+                                {
+                                    name: "Prime",
+                                    damageMultPercent: 25,
+                                    versus: ["Scorched", "Scorchbeast", "Scorchbeast Queen"],
+                                    versusMultPercent: 25
+                                },
+                            ]
+                        },
+                        {
+                            slot: "Barrel",
+                            options: [
+                                {
+                                    name: "Standard"
+                                },
+                                {
+                                    name: "Sniper",
+                                    damageMultPercent: 25
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    name: "Laser Rifle",
+                    category: "Rifle",
+                    explosive: false,
+                    silencer: false,
+                    speed: 5,
+                    level: [5, 15, 25, 35, 45],
+                    damage: [0, 0, 0, 0, 0],
+                    damageEnergy: [21, 26, 31, 36, 44],
+                    mods: [
+                        {
+                            slot: "Capacitor",
+                            options: [
+                                {
+                                    name: "Standard"
+                                },
+                                {
+                                    name: "Prime",
+                                    damageMultPercent: 25,
+                                    versus: ["Scorched", "Scorchbeast", "Scorchbeast Queen"],
+                                    versusMultPercent: 25
+                                },
+                            ]
+                        },
+                        {
+                            slot: "Barrel",
+                            options: [
+                                {
+                                    name: "Standard"
+                                },
+                                {
+                                    name: "Sniper",
+                                    damageMultPercent: 25
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    name: "Ultracite Laser Pistol",
+                    category: "Pistol",
+                    explosive: false,
+                    silencer: false,
+                    speed: 4,
+                    level: [30, 40, 50],
+                    damage: [0, 0, 0],
+                    damageEnergy: [28, 31, 34],
+                    mods: [
+                        {
+                            slot: "Capacitor",
+                            options: [
+                                {
+                                    name: "Standard"
+                                },
+                                {
+                                    name: "Prime",
+                                    damageMultPercent: 25,
+                                    versus: ["Scorched", "Scorchbeast", "Scorchbeast Queen"],
+                                    versusMultPercent: 25
+                                },
+                            ]
+                        },
+                        {
+                            slot: "Barrel",
+                            options: [
+                                {
+                                    name: "Standard"
+                                },
+                                {
+                                    name: "Sniper",
+                                    damageMultPercent: 25
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    name: "Ultracite Laser Rifle",
+                    category: "Rifle",
+                    explosive: false,
+                    silencer: false,
+                    speed: 5,
+                    level: [30, 40, 50],
+                    damage: [0, 0, 0, 0, 0],
+                    damageEnergy: [28, 31, 34],
+                    mods: [
+                        {
+                            slot: "Capacitor",
+                            options: [
+                                {
+                                    name: "Standard"
+                                },
+                                {
+                                    name: "Prime",
+                                    damageMultPercent: 25,
+                                    versus: ["Scorched", "Scorchbeast", "Scorchbeast Queen"],
+                                    versusMultPercent: 25
+                                },
+                            ]
+                        },
+                        {
+                            slot: "Barrel",
+                            options: [
+                                {
+                                    name: "Standard"
+                                },
+                                {
+                                    name: "Sniper",
+                                    damageMultPercent: 25
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    name: "Gatling Laser",
+                    category: "Heavy",
+                    explosive: false,
+                    silencer: false,
+                    speed: 9.1,
+                    level: [25, 35, 45],
+                    damage: [0, 0, 0],
+                    damageEnergy: [18, 21, 25],
+                    mods: [
+                        {
+                            slot: "Capacitor",
+                            options: [
+                                {
+                                    name: "Standard"
+                                },
+                                {
+                                    name: "Prime",
+                                    damageMultPercent: 25,
+                                    versus: ["Scorched", "Scorchbeast", "Scorchbeast Queen"],
+                                    versusMultPercent: 25
+                                },
+                            ]
+                        }
+                    ]
+                },
+                {
+                    name: "Ultracite Gatling Laser",
+                    category: "Heavy",
+                    explosive: false,
+                    silencer: false,
+                    speed: 9.1,
+                    level: [35, 45],
+                    damage: [0, 0, 0],
+                    damageEnergy: [25, 28],
+                    mods: [
+                        {
+                            slot: "Capacitor",
+                            options: [
+                                {
+                                    name: "Standard"
+                                },
+                                {
+                                    name: "Prime",
+                                    damageMultPercent: 25,
+                                    versus: ["Scorched", "Scorchbeast", "Scorchbeast Queen"],
+                                    versusMultPercent: 25
+                                },
+                            ]
+                        }
+                    ]
+                },
+                {
+                    name: "Plasma Pistol",
+                    category: "Pistol",
+                    explosive: false,
+                    silencer: false,
+                    speed: 3.3,
+                    level: [15, 25, 35, 45],
+                    damage: [15, 21, 25, 29],
+                    damageEnergy: [15, 21, 25, 29],
+                    mods: [
+                        {
+                            slot: "Barrel",
+                            options: [
+                                {
+                                    name: "Standard"
+                                },
+                                {
+                                    name: "Flamer",
+                                    damageMultPercent: 25
+                                },
+                                {
+                                    name: "Splitter",
+                                    damageMultPercent: 10
+                                },
+                                {
+                                    name: "Sniper",
+                                    damageMultPercent: 50
+                                }
+                                ,
+                                {
+                                    name: "Automatic",
+                                    damageMultPercent: -15
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    name: "Plasma Rifle",
+                    category: "Rifle",
+                    explosive: false,
+                    silencer: false,
+                    speed: 3.3,
+                    level: [15, 25, 35, 45],
+                    damage: [15, 21, 25, 29],
+                    damageEnergy: [15, 21, 25, 29],
+                    mods: [
+                    {
+                            slot: "Barrel",
+                            options: [
+                                {
+                                    name: "Standard"
+                                },
+                                {
+                                    name: "Flamer",
+                                    damageMultPercent: 25
+                                },
+                                {
+                                    name: "Splitter",
+                                    damageMultPercent: 10
+                                },
+                                {
+                                    name: "Sniper",
+                                    damageMultPercent: 50
+                                }
+                                ,
+                                {
+                                    name: "Automatic",
+                                    damageMultPercent: -15
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    name: "Gatling Plasma",
+                    category: "Heavy",
+                    explosive: false,
+                    silencer: false,
+                    speed: 9.1,
+                    level: [30, 40, 50],
+                    damage: [43, 50, 58],
+                    damageEnergy: [43, 50, 58],
+                    mods: [
+                    
+                    ]
+                },
+                {
+                    name: "Enclave Plasma Pistol",
+                    category: "Pistol",
+                    explosive: false,
+                    silencer: false,
+                    speed: 3.3,
+                    level: [25, 35, 45],
+                    damage: [24, 28, 32],
+                    damageEnergy: [24, 28, 32],
+                    mods: [
+                        {
+                            slot: "Barrel",
+                            options: [
+                                {
+                                    name: "Standard"
+                                },
+                                {
+                                    name: "Flamer",
+                                    damageMultPercent: 25
+                                },
+                                {
+                                    name: "Splitter",
+                                    damageMultPercent: 10
+                                },
+                                {
+                                    name: "Sniper",
+                                    damageMultPercent: 50
+                                }
+                                ,
+                                {
+                                    name: "Automatic",
+                                    damageMultPercent: -15
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    name: "Enclave Plasma Rifle",
+                    category: "Rifle",
+                    explosive: false,
+                    silencer: false,
+                    speed: 3.3,
+                    level: [25, 35, 45],
+                    damage: [24, 28, 32],
+                    damageEnergy: [24, 28, 32],
+                    mods: [
+                    {
+                            slot: "Barrel",
+                            options: [
+                                {
+                                    name: "Standard"
+                                },
+                                {
+                                    name: "Flamer",
+                                    damageMultPercent: 25
+                                },
+                                {
+                                    name: "Splitter",
+                                    damageMultPercent: 10
+                                },
+                                {
+                                    name: "Sniper",
+                                    damageMultPercent: 50
+                                }
+                                ,
+                                {
+                                    name: "Automatic",
+                                    damageMultPercent: -15
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    name: "Gamma Gun",
+                    category: "Pistol",
+                    explosive: false,
+                    silencer: false,
+                    speed: 6,
+                    level: [15, 25, 35, 45],
+                    damage: [38, 45, 52, 60],
+                    damageRadiation: [38, 45, 52, 60],
+                    mods: [
+                    
+                    ]
+                },
             ]);
+
+            // uuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu
+
+            var enemyResistances = [
+                { dr: 1, er: 1, rr: 1 },
+                { dr: 5, er: 5, rr: 5 },
+                { dr: 5, er: 5, rr: 250 },
+                { dr: 5, er: 20, rr: 150 },
+                { dr: 10, er: 5, rr: 10 },
+                { dr: 10, er: 10, rr: 10 },
+                { dr: 10, er: 20, rr: 1000 },
+                { dr: 10, er: 20, rr: 250 },
+                { dr: 10, er: 20, rr: 150 },
+                { dr: 15, er: 10, rr: 15 },
+                { dr: 15, er: 15, rr: 15 },
+                { dr: 20, er: 20, rr: 20 },
+                { dr: 20, er: 20, rr: 150 },
+                { dr: 20, er: 30, rr: 1000 },
+                { dr: 25, er: 15, rr: 15 },
+                { dr: 25, er: 15, rr: 25 },
+                { dr: 25, er: 25, rr: 25 },
+                { dr: 25, er: 25, rr: 250 },
+                { dr: 30, er: 30, rr: 250 },
+                { dr: 30, er: 40, rr: 250 },
+                { dr: 30, er: 45, rr: 1000 },
+                { dr: 40, er: 30, rr: 40 },
+                { dr: 40, er: 50, rr: 250 },
+                { dr: 40, er: 60, rr: 1000 },
+                { dr: 40, er: 65, rr: 150 },
+                { dr: 45, er: 40, rr: 200 },
+                { dr: 50, er: 25, rr: 250 },
+                { dr: 50, er: 25, rr: 50 },
+                { dr: 50, er: 35, rr: 350 },
+                { dr: 50, er: 50, rr: 1 },
+                { dr: 50, er: 50, rr: 50 },
+                { dr: 50, er: 60, rr: 250 },
+                { dr: 50, er: 65, rr: 150 },
+                { dr: 50, er: 75, rr: 250 },
+                { dr: 50, er: 75, rr: 1000 },
+                { dr: 50, er: 100, rr: 250 },
+                { dr: 60, er: 30, rr: 60 },
+                { dr: 60, er: 65, rr: 150 },
+                { dr: 60, er: 90, rr: 1000 },
+                { dr: 70, er: 100, rr: 150 },
+                { dr: 75, er: 50, rr: 75 },
+                { dr: 75, er: 75, rr: 250 },
+                { dr: 80, er: 70, rr: 80 },
+                { dr: 80, er: 100, rr: 150 },
+                { dr: 85, er: 140, rr: 1000 },
+                { dr: 90, er: 50, rr: 250 },
+                { dr: 90, er: 90, rr: 250 },
+                { dr: 90, er: 100, rr: 150 },
+                { dr: 90, er: 250, rr: 250 },
+                { dr: 100, er: 50, rr: 100 },
+                { dr: 100, er: 75, rr: 250 },
+                { dr: 100, er: 100, rr: 100 },
+                { dr: 100, er: 100, rr: 250 },
+                { dr: 100, er: 100, rr: 150 },
+                { dr: 100, er: 250, rr: 250 },
+                { dr: 110, er: 60, rr: 250 },
+                { dr: 110, er: 100, rr: 110 },
+                { dr: 110, er: 250, rr: 250 },
+                { dr: 115, er: 230, rr: 1000 },
+                { dr: 120, er: 250, rr: 250 },
+                { dr: 125, er: 100, rr: 125 },
+                { dr: 125, er: 125, rr: 250 },
+                { dr: 125, er: 125, rr: 125 },
+                { dr: 130, er: 70, rr: 250 },
+                { dr: 130, er: 75, rr: 130 },
+                { dr: 135, er: 70, rr: 135 },
+                { dr: 135, er: 80, rr: 135 },
+                { dr: 135, er: 135, rr: 135 },
+                { dr: 150, er: 75, rr: 75 },
+                { dr: 150, er: 100, rr: 150 },
+                { dr: 150, er: 125, rr: 350 },
+                { dr: 150, er: 150, rr: 150 },
+                { dr: 150, er: 150, rr: 250 },
+                { dr: 150, er: 250, rr: 250 },
+                { dr: 175, er: 100, rr: 175 },
+                { dr: 175, er: 175, rr: 250 },
+                { dr: 200, er: 100, rr: 250 },
+                { dr: 200, er: 150, rr: 250 },
+                { dr: 200, er: 200, rr: 200 },
+                { dr: 250, er: 200, rr: 250 },
+                { dr: 250, er: 250, rr: 250 },
+                { dr: 300, er: 150, rr: 150 },
+                { dr: 300, er: 300, rr: 300 },
+            ];
+
+            enemyResistances.sort(function(a, b) {
+                if (a.dr < b.dr) {
+                    return -1;
+                }
+                if (a.dr > b.dr) {
+                    return 1;
+                }
+                if (a.er < b.er) {
+                    return -1;
+                }
+                if (a.er > b.er) {
+                    return 1;
+                }
+                if (a.rr < b.rr) {
+                    return -1;
+                }
+                if (a.rr > b.rr) {
+                    return 1;
+                }
+                return 0;
+            });
 
             // vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
 
@@ -2260,6 +2837,13 @@
             addEnemy("Assaultron", ["Robot"]);
             addEnemy("Eyebot", ["Robot"]);
 
+            // some enemies are immune to radiation or even heal off it
+            var enemyRadiationEffect = new Map();
+
+            enemyRadiationEffect.set("Feral Ghoul", -10);
+            enemyRadiationEffect.set("Glowing One", -10);
+            enemyRadiationEffect.set("Scorchbeast Queen", 0);
+
             // -------------------------------------------------------------------------------------
             
             function addEnemy(name, keywords) {
@@ -2469,6 +3053,10 @@
                     + "<li>Mutant's (legendary prefix): bonus damage when mutated</li>"
                 + "</ul>"
             );
+            infoMap.set("ActualDR", 
+                "Shows the Damage Resistance (against ballistic damage) after all Ignore Armor mods/effects/perks have been applied to the target."
+                + " Note that Ignore Armor does not currently work with energy and radiation weapons and against their respective resistances."
+            );
 
 
             // add HTML explanation marker
@@ -2503,6 +3091,12 @@
                     target.parentElement.removeChild(div);
                 }
             }
+
+
+            document.getElementById("ActualDRLeft").innerHTML =
+                document.getElementById("ActualDRLeft").innerHTML + info("ActualDR");
+            document.getElementById("ActualDRRight").innerHTML =
+                document.getElementById("ActualDRRight").innerHTML + info("ActualDR");
 
 
             // ----------------------------------------------------------------------
@@ -3317,6 +3911,9 @@
                 var weap = allWeapons.get(type)[weapIdx];
 
                 var baseDamage = weap.damage[levelIdx];
+                var baseDamageEnergy = weap.damageEnergy !== undefined ? weap.damageEnergy[levelIdx] : 0;
+                var baseDamageRadiation = weap.damageRadiation !== undefined ? weap.damageRadiation[levelIdx] : 0;
+
                 var strengthFactor = 0.05;
                 var strengthBoost = 1;
                 var repairFactor = 1;
@@ -3324,6 +3921,13 @@
 
                 var totalDamageAdditive = [];
                 var totalDamageMultiply = [];
+
+                var totalDamageEnergyAdditive = [];
+                var totalDamageEnergyMultiply = [];
+
+                var totalDamageRadiationAdditive = [];
+                var totalDamageRadiationMultiply = [];
+
                 var totalArmorIgnoreArray = [];
                 var totalSpeedMultiply = [];
 
@@ -3354,13 +3958,36 @@
                     baseDamage *= strengthBoost * repairFactor;
                 }
 
+                // add damage types from mods
+                weap.mods.forEach(function(mod, idx) {
+                    var modTypeIdx = document.getElementById("mods_" + index + "_" + idx).selectedIndex;
+                    
+                    if (modTypeIdx >= 0) {
+                        var modInfo = mod.options[modTypeIdx];
+                        if (modInfo.addDamageEnergyLeveled !== undefined) {
+                            baseDamageEnergy += modInfo.addDamageEnergyLeveled[levelIdx];
+                        }
+                        if (modInfo.addDamageEnergyPercentLeveled !== undefined) {
+                            baseDamageEnergy += (1 + modInfo.addDamageEnergyPercentLeveled[levelIdx] / 100.0) * baseDamage;
+                        }
+                        if (modInfo.addDamageRadiationLeveled !== undefined) {
+                            baseDamageRadiation += modInfo.addRadiationDamageLeveled[levelIdx];
+                        }
+                    }
+                });
+
                 // apply bloody mess, adrenaline and adrenal reaction
                 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
                 var additiveBoosts = 0;
+                var additiveEnergyBoosts = 0;
+                var additiveRadiationBoosts = 0;
+
                 var bloodymess = document.getElementById("bloodymess" + index);
                 if (bloodymess != null && bloodymess.selectedIndex > 0) {
                     additiveBoosts += baseDamage * parseFloat(valueOf(bloodymess)) / 100.0;
+                    additiveEnergyBoosts += baseDamageEnergy * parseFloat(valueOf(bloodymess)) / 100.0;
+                    additiveRadiationBoosts += baseDamageRadiation * parseFloat(valueOf(bloodymess)) / 100.0;
                 }
 
                 var adrenaline = document.getElementById("adrenaline" + index);
@@ -3369,6 +3996,8 @@
                     var v = Math.min(6, parseFloat(kills.value));
                     if (v > 0) {
                         additiveBoosts += baseDamage * parseFloat(valueOf(adrenaline) * v / 6.0) / 100.0;
+                        additiveEnergyBoosts += baseDamageEnergy * parseFloat(valueOf(adrenaline) * v / 6.0) / 100.0;
+                        additiveRadiationBoosts += baseDamageRadiation * parseFloat(valueOf(adrenaline) * v / 6.0) / 100.0;
                     }
                 }
 
@@ -3403,9 +4032,13 @@
                         }
                         
                         additiveBoosts += baseDamage * perc / 100.0;
+                        additiveEnergyBoosts += baseDamageEnergy * perc / 100.0;
+                        additiveRadiationBoosts += baseDamageRadiation * perc / 100.0;
                     }
                 }
                 baseDamage += additiveBoosts;
+                baseDamageEnergy += additiveEnergyBoosts;
+                baseDamageRadiation += additiveRadiationBoosts;
 
                 var isSilenced = false;
 
@@ -3420,9 +4053,11 @@
                         var modInfo = mod.options[modTypeIdx];
 
                         if (modInfo.damageMultPercent !== undefined) {
-                            //totalDamageMultiply.push(modInfo.damageMultPercent);
                             totalDamageAdditive.push((baseDamage * modInfo.damageMultPercent / 100.0));
+                            totalDamageEnergyAdditive.push((baseDamageEnergy * modInfo.damageMultPercent / 100.0));
+                            totalDamageRadiationAdditive.push((baseDamageRadiation * modInfo.damageMultPercent / 100.0));
                         }
+
                         if (modInfo.ignoreDRPercent !== undefined) {
                             totalArmorIgnoreArray.push(modInfo.ignoreDRPercent);
                         }
@@ -3443,8 +4078,11 @@
                                     } else 
                                     if (modInfo.versusMultPercent !== undefined) {
                                         totalDamageMultiply.push(modInfo.versusMultPercent);
+                                        totalDamageEnergyMultiply.push(modInfo.versusMultPercent);
+                                        totalDamageRadiationMultiply.push(modInfo.versusMultPercent);
                                         break;
                                     }
+
                                 }
                             }
                         }
@@ -3506,12 +4144,16 @@
                             // totalDamageAdditive.push(baseDamage * (perc / 100.0))
                             // effect damage does consider mods
                             totalDamageMultiply.push(perc);
+                            totalDamageEnergyMultiply.push(perc);
+                            totalDamageRadiationMultiply.push(perc);
                             //totalDamageAdditive.push(Math.floor(baseDamage * (perc / 100.0)));
                         }
                         if (effInfo.name === "Furious") {
                             var furioushits = document.getElementById("furioushits" + index);
                             var perc = 5 * Math.min(30, parseFloat(furioushits.value));
                             totalDamageMultiply.push(perc);
+                            totalDamageEnergyMultiply.push(perc);
+                            totalDamageRadiationMultiply.push(perc);
                         }
                         // Versus enemy effect
                         if (effInfo.versus !== undefined) {
@@ -3525,6 +4167,8 @@
                                     } else 
                                     if (effInfo.versusMultPercent !== undefined) {
                                         totalDamageMultiply.push(effInfo.versusMultPercent);
+                                        totalDamageEnergyMultiply.push(effInfo.versusMultPercent);
+                                        totalDamageRadiationMultiply.push(effInfo.versusMultPercent);
                                         break;
                                     }
                                 }
@@ -3565,6 +4209,8 @@
 
                 if (versusMultiplier > 0) {
                     totalDamageMultiply.push(versusMultiplier);
+                    totalDamageEnergyMultiply.push(versusMultiplier);
+                    totalDamageRadiationMultiply.push(versusMultiplier);
                 }
 
                 var exterminator = document.getElementById("exterminator" + index);
@@ -3580,12 +4226,16 @@
                     var enemytypes = valueOf(document.getElementById("enemytype" + index)).split(",");
                     if (enemytypes.indexOf("Glowing") >= 0) {
                         totalDamageMultiply.push(parseFloat(valueOf(glowsight)));
+                        totalDamageEnergyMultiply.push(parseFloat(valueOf(glowsight)));
+                        totalDamageRadiationMultiply.push(parseFloat(valueOf(glowsight)));
                     }
                 }
 
                 var boost = document.getElementById("boost" + index);
                 if (boost != null && boost.selectedIndex > 0) {
                     totalDamageMultiply.push(parseFloat(valueOf(boost)));
+                    totalDamageEnergyMultiply.push(parseFloat(valueOf(boost)));
+                    totalDamageRadiationMultiply.push(parseFloat(valueOf(boost)));
                 }
 
                 var nerdrage = document.getElementById("nerdrage" + index);
@@ -3593,6 +4243,8 @@
                     var health = parseFloat(document.getElementById("playerhealth" + index).value);
                     if (health < 20) {
                         totalDamageMultiply.push(valueOf(nerdrage));
+                        totalDamageEnergyMultiply.push(valueOf(nerdrage));
+                        totalDamageRadiationMultiply.push(valueOf(nerdrage));
                     }
                 }
 
@@ -3601,6 +4253,8 @@
                     var v = parseFloat(otherboost.value);
                     if (v > 0 || v < 0) {
                         totalDamageMultiply.push(v);
+                        totalDamageEnergyMultiply.push(v);
+                        totalDamageRadiationMultiply.push(v);
                     }
                 }
 
@@ -3612,6 +4266,8 @@
                 var revenantsel = document.getElementById("revenant" + index);
                 if (revenantsel != null && revenantsel.selectedIndex > 0) {
                     totalDamageMultiply.push(parseFloat(valueOf(revenantsel)));
+                    totalDamageEnergyMultiply.push(parseFloat(valueOf(revenantsel)));
+                    totalDamageRadiationMultiply.push(parseFloat(valueOf(revenantsel)));
                 }
 
                 if (document.getElementById("sneaking" + index + "_yes").checked) {
@@ -3627,6 +4283,8 @@
                         mult += parseFloat(valueOf(covertop));
                     }
                     totalDamageMultiply.push(mult);
+                    totalDamageEnergyMultiply.push(mult);
+                    totalDamageRadiationMultiply.push(mult);
                 }
 
                 if (document.getElementById("nighttime" + index + "_yes").checked) {
@@ -3634,6 +4292,8 @@
                     if (sandman != null && sandman.selectedIndex > 0) {
                         if (isSilenced) {
                             totalDamageMultiply.push(parseFloat(valueOf(sandman)));
+                            totalDamageEnergyMultiply.push(parseFloat(valueOf(sandman)));
+                            totalDamageRadiationMultiply.push(parseFloat(valueOf(sandman)));
                         }
                     }
                 }
@@ -3646,9 +4306,35 @@
                     totalDamage *= 1.0 + v / 100.0;
                 });
 
+                var totalDamageEnergy = baseDamageEnergy;
+                totalDamageEnergyAdditive.forEach(function(v) {
+                    totalDamageEnergy += v;
+                });
+                totalDamageEnergyMultiply.forEach(function(v) {
+                    totalDamageEnergy *= 1.0 + v / 100.0;
+                });
+                var totalDamageRadiation = baseDamageRadiation;
+                totalDamageRadiationAdditive.forEach(function(v) {
+                    totalDamageRadiation += v;
+                });
+                totalDamageRadiationMultiply.forEach(function(v) {
+                    totalDamageRadiation *= 1.0 + v / 100.0;
+                });
+
                 totalSpeedMultiply.forEach(function(v) {
                     speed *= 1.0 + v / 100.0;
                 });
+
+                // enemy immunities
+                var enemyTypeSel = document.getElementById("enemytype" + index);
+                if (enemyTypeSel.selectedIndex > 0) {
+                    var enemyType = enemyCategories[enemyTypeSel.selectedIndex - 1];
+
+                    var enemyEffect = enemyRadiationEffect.get(enemyType.name);
+                    if (enemyEffect != null) {
+                        totalDamageRadiation *= enemyEffect / 100.0;
+                    }
+                }
 
 
                 var totalArmorIgnore = 0;
@@ -3660,12 +4346,18 @@
                     totalArmorIgnore = Math.min(95, 100 * (1 - totalArmorIgnore));
                 }
 
-                cell2.innerText = totalDamage.toFixed(2);
+                cell2.innerHTML = "\u2316&nbsp;" + totalDamage.toFixed(2) 
+                    + "&nbsp;&nbsp;&nbsp;\u21AF&nbsp;" + totalDamageEnergy.toFixed(2) 
+                    + "&nbsp;&nbsp;&nbsp;\u2622&nbsp;" + totalDamageRadiation.toFixed(2);
                 cell4.innerText = totalArmorIgnore.toFixed(2) + " %";
                 cell6.innerText = speed.toFixed(2);
-                cell8.innerText = (totalDamage * speed).toFixed(2);
+                cell8.innerHTML = "\u2316&nbsp;" + (totalDamage * speed).toFixed(2) 
+                    + "&nbsp;&nbsp;&nbsp;\u21AF&nbsp;" + (totalDamageEnergy * speed).toFixed(2) 
+                    + "&nbsp;&nbsp;&nbsp;\u2622&nbsp;" + (totalDamageRadiation * speed).toFixed(2);
 
                 damages[index] = totalDamage;
+                damagesEnergy[index] = totalDamageEnergy;
+                damagesRadiation[index] = totalDamageRadiation;
                 ignores[index] = totalArmorIgnore;
                 speeds[index] = speed;
 
@@ -3677,6 +4369,8 @@
                 var anymutation = document.getElementById("mutation" + index + "_yes").checked;
                 return adrenalreaction || anymutation;
             }
+
+
 
             function recalculateDiff() {
                 var tbl = document.getElementById("table3");
@@ -3692,73 +4386,95 @@
                     speedFactorRight = speeds[2]; 
                 }
 
-                var a = [10, 20, 30, 40, 50, 75, 100, 125, 150, 200, 250, 300];
-                for (var i in a) {
+                enemyResistances.forEach(function(res) {
                     var row = tbl.insertRow(tbl.rows.length);
 
-                    var dr = a[i];
+                    var dr = res.dr;
                     var leftDr = dr * (1 - Math.min(0.95, (ignores[1] / 100.0)));
                     var leftDmg = damageFormula(damages[1], leftDr) * speedFactorLeft;
+                    var leftDmgEnergy = damageFormula(damagesEnergy[1], res.er) * speedFactorLeft;
+                    var leftDmgRadiation = damageFormula(damagesRadiation[1], res.rr) * speedFactorLeft;
 
                     var rightDr = dr * (1 - Math.min(0.95, (ignores[2] / 100.0)));
                     var rightDmg = damageFormula(damages[2], rightDr) * speedFactorRight;
+                    var rightDmgEnergy = damageFormula(damagesEnergy[2], res.er) * speedFactorRight;
+                    var rightDmgRadiation = damageFormula(damagesRadiation[2], res.rr) * speedFactorRight;
 
                     var cell = row.insertCell(0);
                     cell.innerText = "" + dr;
                     cell.style = "border: 1px solid black; text-align: right;";
 
-                    if (damages[1] > 0) {
-                        cell = row.insertCell(1);
+                    cell = row.insertCell(1);
+                    cell.innerText = "" + res.er;
+                    cell.style = "border: 1px solid black; text-align: right;";
+
+                    cell = row.insertCell(2);
+                    cell.innerText = "" + res.rr;
+                    cell.style = "border: 1px solid black; text-align: right;";
+
+                    if (damages[1] > 0 || damagesEnergy[1] > 0 || damagesRadiation[1] > 0) {
+                        cell = row.insertCell(3);
                         cell.innerText = leftDr.toFixed(1);
                         cell.style = "border: 1px solid black; text-align: right;";
 
-                        cell = row.insertCell(2);
-                        cell.innerText = leftDmg.toFixed(2);
-                        cell.style = "border: 1px solid black; text-align: right;";
-                    } else {
-                        cell = row.insertCell(1);
-                        cell.style = "border: 1px solid black; text-align: right;";
-                        cell = row.insertCell(2);
-                        cell.style = "border: 1px solid black; text-align: right;";
-                    }
-
-                    if (damages[1] > 0 && damages[2] > 0) {
-                        cell = row.insertCell(3);
-                        cell.innerText = (100 - (rightDmg / leftDmg) * 100).toFixed(2) + " %";
-                        cell.style = "border: 1px solid black; text-align: right;";
-                    } else {
-                        cell = row.insertCell(3);
-                        cell.style = "border: 1px solid black; text-align: right;";
-                    }
-
-                    if (damages[2] > 0) {
                         cell = row.insertCell(4);
+                        cell.innerText = (leftDmg + leftDmgEnergy + leftDmgRadiation).toFixed(2);
+                        cell.title = "\u2316 " + leftDmg.toFixed(2) 
+                            + "    \u21AF " + leftDmgEnergy.toFixed(2) 
+                            + "    \u2622 " + leftDmgRadiation.toFixed(2);
+                        cell.style = "border: 1px solid black; text-align: right;";
+                    } else {
+                        cell = row.insertCell(3);
+                        cell.style = "border: 1px solid black; text-align: right;";
+                        cell = row.insertCell(4);
+                        cell.style = "border: 1px solid black; text-align: right;";
+                    }
+
+                    if ((damages[1] > 0 || damagesEnergy[1] > 0 || damagesRadiation[1] > 0) 
+                            && (damages[2] > 0 || damagesEnergy[2] > 0 || damagesRadiation[2] > 0) > 0) {
+                        cell = row.insertCell(5);
+                        cell.innerText = (100 - ((rightDmg + rightDmgEnergy + rightDmgRadiation) / (leftDmg + leftDmgEnergy + leftDmgRadiation)) * 100).toFixed(2) + " %";
+                        cell.style = "border: 1px solid black; text-align: right;";
+                    } else {
+                        cell = row.insertCell(5);
+                        cell.style = "border: 1px solid black; text-align: right;";
+                    }
+
+                    if (damages[2] > 0 || damagesEnergy[2] > 0 || damagesRadiation[2] > 0) {
+                        cell = row.insertCell(6);
                         cell.innerText = rightDr.toFixed(1);
                         cell.style = "border: 1px solid black; text-align: right;";
 
-                        cell = row.insertCell(5);
-                        cell.innerText = rightDmg.toFixed(2);
+                        cell = row.insertCell(7);
+                        cell.innerText = (rightDmg + rightDmgEnergy + rightDmgRadiation).toFixed(2);
+                        cell.title = "\u2316 " + rightDmg.toFixed(2) 
+                            + "    \u21AF " + rightDmgEnergy.toFixed(2) 
+                            + "    \u2622 " + rightDmgRadiation.toFixed(2);
                         cell.style = "border: 1px solid black; text-align: right;";
                     } else {
-                        cell = row.insertCell(4);
+                        cell = row.insertCell(6);
                         cell.style= "border: 1px solid black; text-align: right;";
-                        cell = row.insertCell(5);
+                        cell = row.insertCell(7);
                         cell.style = "border: 1px solid black; text-align: right;";
                     }
 
-                    if (damages[1] > 0 && damages[2] > 0) {
-                        cell = row.insertCell(6);
-                        cell.innerText = (100 - (leftDmg / rightDmg) * 100).toFixed(2) + " %";
+                    if ((damages[1] > 0 || damagesEnergy[1] > 0 || damagesRadiation[1] > 0) 
+                            && (damages[2] > 0 || damagesEnergy[2] > 0 || damagesRadiation[2] > 0) > 0) {
+                        cell = row.insertCell(8);
+                        cell.innerText = (100 - ((leftDmg + leftDmgEnergy + leftDmgRadiation) / (rightDmg + rightDmgEnergy + rightDmgRadiation)) * 100).toFixed(2) + " %";
                         cell.style = "border: 1px solid black; text-align: right;";
                     } else {
-                        cell = row.insertCell(6);
+                        cell = row.insertCell(8);
                         cell.style = "border: 1px solid black; text-align: right;";
                     }
 
-                }
+                });
             }
 
             function damageFormula(damage, dr) {
+                if (damage <= 0) {
+                    return damage;
+                }
                 return damage * Math.min(0.99, 0.5 * Math.pow(damage / dr, 0.366));
             }
 
