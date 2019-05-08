@@ -4064,13 +4064,11 @@
 
                 var additiveBoosts = 0;
                 var additiveEnergyBoosts = 0;
-                var additiveRadiationBoosts = 0;
 
                 var bloodymess = document.getElementById("bloodymess" + index);
                 if (bloodymess != null && bloodymess.selectedIndex > 0) {
                     additiveBoosts += baseDamage * parseFloat(valueOf(bloodymess)) / 100.0;
                     additiveEnergyBoosts += baseDamageEnergy * parseFloat(valueOf(bloodymess)) / 100.0;
-                    additiveRadiationBoosts += baseDamageRadiation * parseFloat(valueOf(bloodymess)) / 100.0;
                 }
 
                 var adrenaline = document.getElementById("adrenaline" + index);
@@ -4080,7 +4078,6 @@
                     if (v > 0) {
                         additiveBoosts += baseDamage * parseFloat(valueOf(adrenaline) * v / 6.0) / 100.0;
                         additiveEnergyBoosts += baseDamageEnergy * parseFloat(valueOf(adrenaline) * v / 6.0) / 100.0;
-                        additiveRadiationBoosts += baseDamageRadiation * parseFloat(valueOf(adrenaline) * v / 6.0) / 100.0;
                     }
                 }
 
@@ -4116,12 +4113,10 @@
                         
                         additiveBoosts += baseDamage * perc / 100.0;
                         additiveEnergyBoosts += baseDamageEnergy * perc / 100.0;
-                        additiveRadiationBoosts += baseDamageRadiation * perc / 100.0;
                     }
                 }
                 baseDamage += additiveBoosts;
                 baseDamageEnergy += additiveEnergyBoosts;
-                baseDamageRadiation += additiveRadiationBoosts;
 
                 var isSilenced = false;
 
@@ -4138,7 +4133,6 @@
                         if (modInfo.damageMultPercent !== undefined) {
                             totalDamageAdditive.push((baseDamage * modInfo.damageMultPercent / 100.0));
                             totalDamageEnergyAdditive.push((baseDamageEnergy * modInfo.damageMultPercent / 100.0));
-                            totalDamageRadiationAdditive.push((baseDamageRadiation * modInfo.damageMultPercent / 100.0));
                         }
 
                         if (modInfo.ignoreDRPercent !== undefined) {
@@ -4162,7 +4156,6 @@
                                     if (modInfo.versusMultPercent !== undefined) {
                                         totalDamageMultiply.push(modInfo.versusMultPercent);
                                         totalDamageEnergyMultiply.push(modInfo.versusMultPercent);
-                                        totalDamageRadiationMultiply.push(modInfo.versusMultPercent);
                                         break;
                                     }
 
@@ -4230,7 +4223,6 @@
                             // effect damage does consider mods
                             totalDamageMultiply.push(perc);
                             totalDamageEnergyMultiply.push(perc);
-                            totalDamageRadiationMultiply.push(perc);
                             //totalDamageAdditive.push(Math.floor(baseDamage * (perc / 100.0)));
                         }
                         if (effInfo.name === "Furious") {
@@ -4238,7 +4230,6 @@
                             var perc = 5 * Math.min(30, parseFloat(furioushits.value));
                             totalDamageMultiply.push(perc);
                             totalDamageEnergyMultiply.push(perc);
-                            totalDamageRadiationMultiply.push(perc);
                         }
                         // Versus enemy effect
                         if (effInfo.versus !== undefined) {
@@ -4253,7 +4244,6 @@
                                     if (effInfo.versusMultPercent !== undefined) {
                                         totalDamageMultiply.push(effInfo.versusMultPercent);
                                         totalDamageEnergyMultiply.push(effInfo.versusMultPercent);
-                                        totalDamageRadiationMultiply.push(effInfo.versusMultPercent);
                                         break;
                                     }
                                 }
@@ -4295,7 +4285,6 @@
                 if (versusMultiplier > 0) {
                     totalDamageMultiply.push(versusMultiplier);
                     totalDamageEnergyMultiply.push(versusMultiplier);
-                    totalDamageRadiationMultiply.push(versusMultiplier);
                 }
 
                 var exterminator = document.getElementById("exterminator" + index);
@@ -4312,7 +4301,6 @@
                     if (enemytypes.indexOf("Glowing") >= 0) {
                         totalDamageMultiply.push(parseFloat(valueOf(glowsight)));
                         totalDamageEnergyMultiply.push(parseFloat(valueOf(glowsight)));
-                        totalDamageRadiationMultiply.push(parseFloat(valueOf(glowsight)));
                     }
                 }
 
@@ -4320,7 +4308,6 @@
                 if (boost != null && boost.selectedIndex > 0) {
                     totalDamageMultiply.push(parseFloat(valueOf(boost)));
                     totalDamageEnergyMultiply.push(parseFloat(valueOf(boost)));
-                    totalDamageRadiationMultiply.push(parseFloat(valueOf(boost)));
                 }
 
                 var nerdrage = document.getElementById("nerdrage" + index);
@@ -4329,7 +4316,6 @@
                     if (health < 20) {
                         totalDamageMultiply.push(valueOf(nerdrage));
                         totalDamageEnergyMultiply.push(valueOf(nerdrage));
-                        totalDamageRadiationMultiply.push(valueOf(nerdrage));
                     }
                 }
 
@@ -4339,7 +4325,6 @@
                     if (v > 0 || v < 0) {
                         totalDamageMultiply.push(v);
                         totalDamageEnergyMultiply.push(v);
-                        totalDamageRadiationMultiply.push(v);
                     }
                 }
 
@@ -4352,7 +4337,6 @@
                 if (revenantsel != null && revenantsel.selectedIndex > 0) {
                     totalDamageMultiply.push(parseFloat(valueOf(revenantsel)));
                     totalDamageEnergyMultiply.push(parseFloat(valueOf(revenantsel)));
-                    totalDamageRadiationMultiply.push(parseFloat(valueOf(revenantsel)));
                 }
 
                 if (document.getElementById("sneaking" + index + "_yes").checked) {
@@ -4369,7 +4353,6 @@
                     }
                     totalDamageMultiply.push(mult);
                     totalDamageEnergyMultiply.push(mult);
-                    totalDamageRadiationMultiply.push(mult);
                 }
 
                 if (document.getElementById("nighttime" + index + "_yes").checked) {
@@ -4378,7 +4361,6 @@
                         if (isSilenced) {
                             totalDamageMultiply.push(parseFloat(valueOf(sandman)));
                             totalDamageEnergyMultiply.push(parseFloat(valueOf(sandman)));
-                            totalDamageRadiationMultiply.push(parseFloat(valueOf(sandman)));
                         }
                     }
                 }
