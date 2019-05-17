@@ -22,7 +22,7 @@
     </head>
     <body style="height: 90%">
         <center>
-            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Weapon Damage Calculator (v2.0.9)</span><br/>
+            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Weapon Damage Calculator (v2.0.10)</span><br/>
             <!-- <sup style='font-size: 16px;'>* Only ballistic damage; energy damage and resistances are not fully explored yet.</sup> -->
         <br/>
         <table id="parent">
@@ -1810,7 +1810,20 @@
                     speed: 0.2,
                     level: [30, 40, 50],
                     damage: [125, 150, 175],
-                    mods: []
+                    mods: [
+                    {
+                            slot: "Ammunition",
+                            options: [
+                                {
+                                    name: "Standard"
+                                },
+                                {
+                                    name: "Flechette",
+                                    damageMultPercent: 100
+                                }
+                            ]
+                        }
+                    ]
                 },
                 {
                     name: ".44 Pistol",
@@ -2564,6 +2577,70 @@
                                     damageMultPercent: -25,
                                     speedMultPercent: -25,
                                     addDamageBallisticLeveled: [25 / 0.75, 25 / 0.75, 25 / 0.75]
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    name: "Fat Man",
+                    category: "Heavy",
+                    explosive: true,
+                    speed: 0.2,
+                    level: [25, 35, 45],
+                    damage: [355, 405, 455],
+                    mods: [
+                        {
+                            slot: "Barrel",
+                            options: [
+                                {
+                                    name: "Standard"
+                                },
+                                {
+                                    name: "MIRV",
+                                    addDamageBallisticLeveled: [145, 145, 145]
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    name: "Missile Launcher",
+                    category: "Heavy",
+                    explosive: true,
+                    speed: 0.2,
+                    level: [20, 30, 40, 50],
+                    damage: [105, 125, 145, 155],
+                    mods: [
+                    ]
+                },
+                {
+                    name: "M79 Grenade Launcher",
+                    category: "Heavy",
+                    explosive: true,
+                    speed: 0.2,
+                    level: [15, 25, 35, 45],
+                    damage: [90, 100, 110, 120],
+                    mods: [
+                    ]
+                },
+                {
+                    name: "Auto Grenade Launcher",
+                    category: "Heavy",
+                    explosive: true,
+                    speed: 10,
+                    level: [50],
+                    damage: [75],
+                    mods: [
+                    {
+                            slot: "Barrel",
+                            options: [
+                                {
+                                    name: "Standard"
+                                },
+                                {
+                                    name: "Heavy",
+                                    damageMultPercent: 10,
                                 }
                             ]
                         }
