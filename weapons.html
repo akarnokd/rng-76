@@ -22,7 +22,7 @@
     </head>
     <body style="height: 90%">
         <center>
-            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Weapon Damage Calculator (v2.0.10)</span><br/>
+            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Weapon Damage Calculator (v2.0.11)</span><br/>
             <!-- <sup style='font-size: 16px;'>* Only ballistic damage; energy damage and resistances are not fully explored yet.</sup> -->
         <br/>
         <table id="parent">
@@ -3097,7 +3097,7 @@
 
             var infoMap = new Map();
 
-            infoMap.set("furious", "With the <b>Furious</b> legendary prefix on a weapon, each consecutive hit increases the damage by 5% up to 150%.");
+            infoMap.set("furious", "With the <b>Furious</b> legendary prefix on a weapon, each consecutive hit increases the damage by 5% up to 50% total.");
             infoMap.set("bloodymess", "Each level adds 5% damage and 5% chance of enemies exploding into bits.");
             infoMap.set("adrenaline", 
                 "Kills increases damage up to a maximum percentage."
@@ -3565,7 +3565,7 @@
                     cell1 = row.insertCell(0);
                     cell1.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;Furious hit count" + info("furious");
                     cell2 = row.insertCell(1);
-                    cell2.innerHTML = "<input type='number' id='furioushits" + index + "' value='0' maxlength='6' style='width: 8em;' min='1' max='30'>";
+                    cell2.innerHTML = "<input type='number' id='furioushits" + index + "' value='0' maxlength='6' style='width: 8em;' min='0' max='30'>";
                     document.getElementById("furioushits" + index ).oninput = function() {
                         recalculate(tbl, index, type);
                     };
@@ -4331,7 +4331,7 @@
                         }
                         if (effInfo.name === "Furious") {
                             var furioushits = document.getElementById("furioushits" + index);
-                            var perc = 5 * Math.min(30, parseFloat(furioushits.value));
+                            var perc = 5 * Math.min(10, parseFloat(furioushits.value));
                             totalDamageMultiply.push(perc);
                             totalDamageEnergyMultiply.push(perc);
                         }
