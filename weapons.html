@@ -22,7 +22,7 @@
     </head>
     <body style="height: 90%">
         <center>
-            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Weapon Damage Calculator (v2.0.11)</span><br/>
+            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Weapon Damage Calculator (v2.0.12)</span><br/>
             <!-- <sup style='font-size: 16px;'>* Only ballistic damage; energy damage and resistances are not fully explored yet.</sup> -->
         <br/>
         <table id="parent">
@@ -3097,7 +3097,7 @@
 
             var infoMap = new Map();
 
-            infoMap.set("furious", "With the <b>Furious</b> legendary prefix on a weapon, each consecutive hit increases the damage by 5% up to 50% total.");
+            infoMap.set("furious", "With the <b>Furious</b> legendary prefix on a weapon, each consecutive hit increases the damage by 5% up to 45% total.");
             infoMap.set("bloodymess", "Each level adds 5% damage and 5% chance of enemies exploding into bits.");
             infoMap.set("adrenaline", 
                 "Kills increases damage up to a maximum percentage."
@@ -4331,7 +4331,7 @@
                         }
                         if (effInfo.name === "Furious") {
                             var furioushits = document.getElementById("furioushits" + index);
-                            var perc = 5 * Math.min(10, parseFloat(furioushits.value));
+                            var perc = 5 * Math.min(9, parseFloat(furioushits.value));
                             totalDamageMultiply.push(perc);
                             totalDamageEnergyMultiply.push(perc);
                         }
