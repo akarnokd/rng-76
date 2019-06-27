@@ -16,39 +16,713 @@
             }
             table.infoTable td {
                border: 1px solid black;
+               padding: 4px; 
+            }
+
+            .setupInput {
+                background-color: lightyellow;
+                text-align: right;
             }
         </style>
         <meta name="keywords" content="Fallout,Fallout 76,RNG,Random number generator,loot,chance">
     </head>
     <body style="height: 90%">
         <center>
-            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Loot Drop Simulation (v0.1)</span><br/>
-            Number of tries: <input type="number" min="1" id="txtTries">&nbsp;<button id="btnRun">Run</button>
+            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Loot Drop Simulation (v0.1)</span>
+            <br/><br/>
+            Number of tries: <input type="number" min="1" id="txtTries" value="10000" class="setupInput">&nbsp;<button id="btnRun">Run</button>
+            <br/>
+            <table>
+                <tr>
+                    <td>Progress:</td>
+                    <td>
+                        <div style="width: 1000px; height: 20px; background-color: #CCCCCC">
+                            <div id="txtProgress" style="background-color: blue; height: 20px; width: 0%"></div>
+                        </div>
+                    </td>
+                    <td id="txtProgressText">0.000%</td>
+                </tr>
+            </table>
+            <br/>
+            <br/>
+            <table class="infoTable">
+                <tr>
+                    <td id="btnSetupTab" style="padding: 4px; cursor: pointer;">
+                        Setup
+                    </td>
+                    <td id="btnStarDrops" style="padding: 4px; cursor: pointer;">
+                        Star drop stats
+                    </td>
+                    <td id="btnEffectDrops" style="padding: 4px; cursor: pointer;">
+                            Effect drop stats
+                    </td>
+                    <td id="btnItemDrops" style="padding: 4px; cursor: pointer;">
+                            Item drop stats
+                    </td>
+                </tr>
+            </table>
+            <div id="tabSetup" style="display: block; border: 1px solid black; border-collapse: collapse;">
+                <br>
+                <center><span style="font-size: 26px; font-weight: bold;">Simulation setup</span></center>
+                <br/>
+                <br/>
+                <b>Legendary enemy and drop chances matrix</b>
+                <table class="infoTable">
+                    <tr>
+                        <td>Enemy star level</td>
+                        <td>Enemy occurrence chance</td>
+                        <td>1* drop chance</td>
+                        <td>2* drop chance</td>
+                        <td>3* drop chance</td>
+                    </tr>
+                    <tr>
+                        <td style="font-weight: bold;">1</td>
+                        <td><input type="number" id="enemy1chance" value="75" min="0" max="100" class="setupInput"> %</td>
+                        <td>100 %</td>
+                        <td>-</td>
+                        <td>-</td>
+                    </tr>
+                    <tr>
+                        <td style="font-weight: bold;">2</td>
+                        <td><input type="number" id="enemy2chance" value="5" min="0" max="100" class="setupInput"> %</td>
+                        <td><input type="number" id="enemy2drop1chance" value="55" min="0" max="100" class="setupInput"> %</td>
+                        <td><input type="number" id="enemy2drop2chance" value="45" min="0" max="100" class="setupInput"> %</td>
+                        <td>-</td>
+                    </tr>
+                    <tr>
+                        <td style="font-weight: bold;">3</td>
+                        <td><input type="number" id="enemy3chance" value="20" min="0" max="100" class="setupInput"> %</td>
+                        <td><input type="number" id="enemy3drop1chance" value="40" min="0" max="100" class="setupInput"> %</td>
+                        <td><input type="number" id="enemy3drop2chance" value="35" min="0" max="100" class="setupInput"> %</td>
+                        <td><input type="number" id="enemy3drop3chance" value="25" min="0" max="100" class="setupInput"> %</td>
+                    </tr>
+                    <tr>
+                        <td>Presets</td>
+                        <td colspan="4">
+                            <button id="presetDefault">Default</button>&nbsp;
+                            <button id="presetMaxLevel">Max star only</button>&nbsp;
+                        </td>
+                    </tr>
+                </table>
+                <br/>
+                <br/>
+                <b>Disallowed drop handling mode:</b><br>
+                <table style="border: 1px solid black; border-collapse: collapse;">
+                    <tr>
+                        <td>
+                            <input type="radio" name="disallowedDrop" id="disallowedDropPrefilter" value="Prefilter" checked="checked"><label for="disallowedDropPrefilter">Filter out items/effects upfront.</label>
+                        </td>
+                        <td>
+                            (Example: If RNG rolls a 2* Broadsider, the Explosive effect will be removed from the possible rolls for the major effect.)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input type="radio" name="disallowedDrop" id="disallowedDropOverride" value="Override"><label for="disallowedDropOverride"> Override properties.</label>
+                        </td>
+                        <td>
+                            (Example: If RNG rolls a 2* Broadsider and RNG rolls for Explosive, the drop is turned into a 1* drop.)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input type="radio" name="disallowedDrop" id="disallowedDropRetryEffect" value="Retry Effect"><label for="disallowedDropRetryEffect"> Keep retrying the effect.</label>
+                        </td>
+                        <td>
+                            (Example: If RNG rolls a 2* Broadsider and RNG rolls for Explosive, the major effect is re-rolled until it gives something else.)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input type="radio" name="disallowedDrop" id="disallowedDropRetryItem" value="Retry Item"><label for="disallowedDropRetryItem"> Keep retrying the item.</label>
+                        </td>
+                        <td>
+                            (Example: If RNG rolls a 2* Broadsider and RNG rolls for Explosive, the entire drop is re-rolled until it gives a valid item+effect combo.)
+                        </td>
+                    </tr>
+                </table>
+                <br>
+                <br>
+                <b>Wood armor can roll as multi-star:</b><br>
+                <table style="border: 1px solid black; border-collapse: collapse;">
+                    <tr>
+                        <td>
+                            <input type="radio" name="woodMultistar" id="woodMultistarYes" value="Yes"><label for="woodMultistarYes"> Yes</label>
+                        </td>
+                        <td>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input type="radio" name="woodMultistar" id="woodMultistarNo" value="No" checked="checked"><label for="woodMultistarNo"> No</label>
+                        </td>
+                        <td>
+                            (Not sure, but up until Patch 10.5, Wood armor still can't drop as 2-3* from legendaries, only from the Purveyor.)
+                        </td>
+                    </tr>
+                </table>
+                <br>
+                <br>
+                <b>Assaultron Head can roll as multi-star:</b><br>
+                <table style="border: 1px solid black; border-collapse: collapse;">
+                    <tr>
+                        <td>
+                            <input type="radio" name="assaultronMultistar" id="assaultronMultistarYes" value="Yes"><label for="assaultronMultistarYes"> Yes</label>
+                        </td>
+                        <td>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input type="radio" name="assaultronMultistar" id="assaultronMultistarNo" value="No" checked="checked"><label for="assaultronMultistarNo"> No</label>
+                        </td>
+                        <td>
+                            (Not sure, but up until Patch 10.5, Assaultron Head still can't drop as 2-3* from legendaries, only from the Purveyor.)
+                        </td>
+                    </tr>
+                </table>
+                <br>
+                <br>
+                <b>Energy weapons can drop as Explosive:</b><br>
+                <table style="border: 1px solid black; border-collapse: collapse;">
+                    <tr>
+                        <td>
+                            <input type="radio" name="energyExplosive" id="energyExplosiveYes" value="Yes"><label for="energyExplosiveYes"> Yes</label>
+                        </td>
+                        <td>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input type="radio" name="energyExplosive" id="energyExplosiveNo" value="No" checked="checked"><label for="energyExplosiveNo"> No</label>
+                        </td>
+                        <td>
+                            (One of the recent patches disabled this type of drop until they figure out what to do)
+                        </td>
+                    </tr>
+                </table>
+                <br>
+                <br>
+                <b>Energy weapons can drop as Anti-armor:</b><br>
+                <table style="border: 1px solid black; border-collapse: collapse;">
+                    <tr>
+                        <td>
+                            <input type="radio" name="energyAntiArmor" id="energyAntiArmorYes" value="Yes" checked="checked"><label for="energyAntiArmorYes"> Yes</label>
+                        </td>
+                        <td>
+                            (Currently, the Anti-armor legendary effect does not reduce any resistance on enemies; a longstanding incomplete design remnant from Fallout 4.)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input type="radio" name="energyAntiArmor" id="energyAntiArmorNo" value="No"><label for="energyAntiArmorNo"> No</label>
+                        </td>
+                        <td>
+                        </td>
+                    </tr>
+                </table>
+                <br>
+                <br>
+                <b>Progress bar update frequency:</b><br>
+                Every <input type="number" id="progressUpdateItems" value="100" min="1" class="setupInput"> drops.
+
+                <br>&nbsp;
+            </div>
         </center>
 
         <script>
-            
-        var lootpool = [];
-        var effectpool = new Map();
 
-        function addItem(category, name, isExplosive) {
-            lootpool.push({ category: category, name: name, isExplosive: isExplosive });
-        }
+            var lootpool = [];
+            var effectpool = new Map();
 
-        function addEffect(category, level, name) {
-            var levelpool = effectpool.get(category);
-            if (levelpool == null) {
-                levelpool = new Map();
-                effectpool.set(category, levelpool);
+            // helper functions
+
+            function addItem(category, name, disableExplosive) {
+                lootpool.push({ category: category, name: name, disableExplosive: disableExplosive });
             }
-            var effects = levelpool.get(level);
-            if (effects == null) {
-                effects = [];
-                levelpool.set(level, effects);
-            }
-            effects.push(name);
-        }
 
+            function addEffect(category, level, name, description) {
+                var levelpool = effectpool.get(category);
+                if (levelpool == null) {
+                    levelpool = new Map();
+                    effectpool.set(category, levelpool);
+                }
+                var effects = levelpool.get(level);
+                if (effects == null) {
+                    effects = [];
+                    levelpool.set(level, effects);
+                }
+                effects.push({name: name, description: description});
+            }
+
+            // Melee weapons
+            addItem("Melee", "Combat Knife", false);
+            addItem("Melee", "Super Sledge", false);
+            addItem("Melee", "Switchblade", false);
+            addItem("Melee", "Pickaxe", false);
+            addItem("Melee", "Power Fist", false);
+            addItem("Melee", "Knuckles", false);
+            addItem("Melee", "Boxing Glove", false);
+            addItem("Melee", "Pitchfork", false);
+            addItem("Melee", "Shishkebab", false);
+            addItem("Melee", "Machete", false);
+            addItem("Melee", "Spear", false);
+            addItem("Melee", "Ripper", false);
+            addItem("Melee", "Mr. Handy Buzz Blade", false);
+            addItem("Melee", "Assaultron Blade", false);
+            addItem("Melee", "Bovie knife", false);
+            addItem("Melee", "Chinese Officer Sword", false);
+            addItem("Melee", "Cultist Blade", false);
+            addItem("Melee", "Cultist Dagger", false);
+            addItem("Melee", "Guitar Sword", false);
+            addItem("Melee", "Lead Pipe", false);
+            addItem("Melee", "Pipe Wrench", false);
+            addItem("Melee", "Revolutionary Sword", false);
+            addItem("Melee", "Rolling Pin", false);
+            addItem("Melee", "Baton", false);
+            addItem("Melee", "Sickle", false);
+            addItem("Melee", "Ski Sword", false);
+            addItem("Melee", "Black Diamond", false);
+            addItem("Melee", "Walking Cane", false);
+            addItem("Melee", "Tire Iron", false);
+            addItem("Melee", "Baseball Bat", false);
+            addItem("Melee", "Board", false);
+            addItem("Melee", "Fire Axe", false);
+            addItem("Melee", "Golf Club", false);
+            addItem("Melee", "Grognak's Axe", false);
+            addItem("Melee", "Multi-purpose Axe", false);
+            addItem("Melee", "Pole hook", false);
+            addItem("Melee", "Pool cue", false);
+            addItem("Melee", "War drum", false);
+            addItem("Melee", "Death Tambo", false);
+            addItem("Melee", "Deathclaw Gauntlet", false);
+            addItem("Melee", "Mole Miner Gauntlet", false);
+            addItem("Melee", "Meat hook", false);
+
+            // Ranged weapons
+            addItem("Ranged", ".44 Pistol", false);
+            addItem("Ranged", "10mm Pistol", false);
+            addItem("Ranged", "Handmade Rifle", false);
+            addItem("Ranged", "Hunting Rifle", false);
+            addItem("Ranged", "10mm SMG", false);
+            addItem("Ranged", "Submachine Gun", false);
+            addItem("Ranged", "Gatling Gun", false);
+            addItem("Ranged", "Minigun", false);
+            addItem("Ranged", "50 cal Machine Gun", false);
+            addItem("Ranged", "Western Revolver", false);
+            addItem("Ranged", "Pump-action Shotgun", false);
+            addItem("Ranged", "Combat Shotgun", false);
+            addItem("Ranged", "Combat Rifle", false);
+            addItem("Ranged", "Single Action Revolver", false);
+            addItem("Ranged", "Black Powder Pistol", false);
+            addItem("Ranged", "Black Powder Rifle", false);
+            addItem("Ranged", "Black Powder Blunderbuss", false);
+            addItem("Ranged", "The Dragon", false);
+            addItem("Ranged", "Harpoon Gun", false);
+            addItem("Ranged", "Assault Rifle", false);
+            addItem("Ranged", "Crossbow", false);
+            addItem("Ranged", "Gauss Rifle", false);
+            addItem("Ranged", "Lever Action Rifle", false);
+            addItem("Ranged", "Radium Rifle", false);
+            addItem("Ranged", "Railway Rifle", false);
+            addItem("Ranged", "Syringer", false);
+            addItem("Ranged", "Double-barrel Shotgun", false);
+            addItem("Ranged", "Pipe Gun", false);
+            addItem("Ranged", "Pipe Bolt-action", false);
+            addItem("Ranged", "Pipe Revolver", false);
+            addItem("Ranged", "Light Machine Gun", false);
+
+            // Ranged weapons that can't spawn as Explosive
+
+            addItem("Ranged", "Gatling Plasma", true);
+            addItem("Ranged", "Gatling Laser", true);
+            addItem("Ranged", "Ultracite Gatling Laser", true);
+            addItem("Ranged", "Plasma Gun", true);
+            addItem("Ranged", "Laser Pistol", true);
+            addItem("Ranged", "Ultracite Laser Gun", true);
+            addItem("Ranged", "Laser Rifle", true);
+            addItem("Ranged", "Tesla Rifle", true);
+            addItem("Ranged", "Broadsider", true);
+            addItem("Ranged", "Auto Grenade Launcher", true);
+            addItem("Ranged", "Fat Man", true);
+            addItem("Ranged", "M79 Grenade Launcher", true);
+            addItem("Ranged", "Missile Launcher", true);
+            addItem("Ranged", "Gamma Gun", true);
+            addItem("Ranged", "Cryolator", true);
+            addItem("Ranged", "Salvaged Assaultron Head", true);
+            addItem("Ranged", "Flamer", true);
+
+            // oooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo
+            // Armors
+            // ------
+
+            // Leather
+            addItem("Armor", "Leather Chest Piece", false);
+            addItem("Armor", "Leather Left Arm", false);
+            addItem("Armor", "Leather Right Arm", false);
+            addItem("Armor", "Leather Left Leg", false);
+            addItem("Armor", "Leather Right Leg", false);
+
+            addItem("Armor", "Sturdy Leather Chest Piece", false);
+            addItem("Armor", "Sturdy Leather Left Arm", false);
+            addItem("Armor", "Sturdy Leather Right Arm", false);
+            addItem("Armor", "Sturdy Leather Left Leg", false);
+            addItem("Armor", "Sturdy Leather Right Leg", false);
+
+            addItem("Armor", "Heavy Leather Chest Piece", false);
+            addItem("Armor", "Heavy Leather Left Arm", false);
+            addItem("Armor", "Heavy Leather Right Arm", false);
+            addItem("Armor", "Heavy Leather Left Leg", false);
+            addItem("Armor", "Heavy Leather Right Leg", false);
+
+            // Metal
+            addItem("Armor", "Metal Chest Piece", false);
+            addItem("Armor", "Metal Left Arm", false);
+            addItem("Armor", "Metal Right Arm", false);
+            addItem("Armor", "Metal Left Leg", false);
+            addItem("Armor", "Metal Right Leg", false);
+
+            addItem("Armor", "Sturdy Metal Chest Piece", false);
+            addItem("Armor", "Sturdy Metal Left Arm", false);
+            addItem("Armor", "Sturdy Metal Right Arm", false);
+            addItem("Armor", "Sturdy Metal Left Leg", false);
+            addItem("Armor", "Sturdy Metal Right Leg", false);
+
+            addItem("Armor", "Heavy Metal Chest Piece", false);
+            addItem("Armor", "Heavy Metal Left Arm", false);
+            addItem("Armor", "Heavy Metal Right Arm", false);
+            addItem("Armor", "Heavy Metal Left Leg", false);
+            addItem("Armor", "Heavy Metal Right Leg", false);
+
+            // Combat
+            addItem("Armor", "Combat Armor Chest Piece", false);
+            addItem("Armor", "Combat Armor Left Arm", false);
+            addItem("Armor", "Combat Armor Right Arm", false);
+            addItem("Armor", "Combat Armor Left Leg", false);
+            addItem("Armor", "Combat Armor Right Leg", false);
+
+            addItem("Armor", "Sturdy Combat Armor Chest Piece", false);
+            addItem("Armor", "Sturdy Combat Armor Left Arm", false);
+            addItem("Armor", "Sturdy Combat Armor Right Arm", false);
+            addItem("Armor", "Sturdy Combat Armor Left Leg", false);
+            addItem("Armor", "Sturdy Combat Armor Right Leg", false);
+
+            addItem("Armor", "Heavy Combat Armor Chest Piece", false);
+            addItem("Armor", "Heavy Combat Armor Left Arm", false);
+            addItem("Armor", "Heavy Combat Armor Right Arm", false);
+            addItem("Armor", "Heavy Combat Armor Left Leg", false);
+            addItem("Armor", "Heavy Combat Armor Right Leg", false);
+
+            // Robot
+            addItem("Armor", "Robot Armor Chest Piece", false);
+            addItem("Armor", "Robot Armor Left Arm", false);
+            addItem("Armor", "Robot Armor Right Arm", false);
+            addItem("Armor", "Robot Armor Left Leg", false);
+            addItem("Armor", "Robot Armor Right Leg", false);
+
+            addItem("Armor", "Robot Sturdy Armor Chest Piece", false);
+            addItem("Armor", "Robot Sturdy Armor Left Arm", false);
+            addItem("Armor", "Robot Sturdy Armor Right Arm", false);
+            addItem("Armor", "Robot Sturdy Armor Left Leg", false);
+            addItem("Armor", "Robot Sturdy Armor Right Leg", false);
+
+            addItem("Armor", "Robot Heavy Armor Chest Piece", false);
+            addItem("Armor", "Robot Heavy Armor Left Arm", false);
+            addItem("Armor", "Robot Heavy Armor Right Arm", false);
+            addItem("Armor", "Robot Heavy Armor Left Leg", false);
+            addItem("Armor", "Robot Heavy Armor Right Leg", false);
+
+            // Marine
+            addItem("Armor", "Marine Armor Chest Piece", false);
+            addItem("Armor", "Marine Armor Left Arm", false);
+            addItem("Armor", "Marine Armor Right Arm", false);
+            addItem("Armor", "Marine Armor Left Leg", false);
+            addItem("Armor", "Marine Armor Right Leg", false);
+
+            // Trapper
+            addItem("Armor", "Trapper Chest Piece", false);
+            addItem("Armor", "Trapper Left Arm", false);
+            addItem("Armor", "Trapper Right Arm", false);
+            addItem("Armor", "Trapper Left Leg", false);
+            addItem("Armor", "Trapper Right Leg", false);
+
+            addItem("Armor", "Heavy Trapper Chest Piece", false);
+            addItem("Armor", "Heavy Trapper Left Arm", false);
+            addItem("Armor", "Heavy Trapper Right Arm", false);
+            addItem("Armor", "Heavy Trapper Left Leg", false);
+            addItem("Armor", "Heavy Trapper Right Leg", false);
+
+            // Scout
+            addItem("Armor", "Forrest Scout Armor Chest Piece", false);
+            addItem("Armor", "Forrest Scout Armor Left Arm", false);
+            addItem("Armor", "Forrest Scout Armor Right Arm", false);
+            addItem("Armor", "Forrest Scout Armor Left Leg", false);
+            addItem("Armor", "Forrest Scout Armor Right Leg", false);
+
+
+            // Urban Scout Armor doesn't seem to exist as legendary drop
+            // addItem("Armor", "Urban Scout Armor Chest Piece", false);
+            // addItem("Armor", "Urban Scout Armor Left Arm", false);
+            // addItem("Armor", "Urban Scout Armor Right Arm", false);
+            // addItem("Armor", "Urban Scout Armor Left Leg", false);
+            // addItem("Armor", "Urban Scout Armor Right Leg", false);
+
+            // Wooden
+            addItem("Armor", "Wooden Chest Piece", false);
+            addItem("Armor", "Wooden Left Arm", false);
+            addItem("Armor", "Wooden Right Arm", false);
+            addItem("Armor", "Wooden Left Leg", false);
+            addItem("Armor", "Wooden Right Leg", false);
+
+            // Raider
+            addItem("Armor", "Raider Chest Piece", false);
+            addItem("Armor", "Raider Left Arm", false);
+            addItem("Armor", "Raider Right Arm", false);
+            addItem("Armor", "Raider Left Leg", false);
+            addItem("Armor", "Raider Right Leg", false);
+
+            addItem("Armor", "Sturdy Raider Chest Piece", false);
+            addItem("Armor", "Sturdy Raider Left Arm", false);
+            addItem("Armor", "Sturdy Raider Right Arm", false);
+            addItem("Armor", "Sturdy Raider Left Leg", false);
+            addItem("Armor", "Sturdy Raider Right Leg", false);
+
+            addItem("Armor", "Heavy Raider Chest Piece", false);
+            addItem("Armor", "Heavy Raider Left Arm", false);
+            addItem("Armor", "Heavy Raider Right Arm", false);
+            addItem("Armor", "Heavy Raider Left Leg", false);
+            addItem("Armor", "Heavy Raider Right Leg", false);
+
+
+            // Melee effects, prefixes
+            addEffect("Melee", 0, "Bloodied", "Does more damage the lower your health is");
+            addEffect("Melee", 0, "Furious", "Damage increased after each consecutive hit on the same target");
+            addEffect("Melee", 0, "Instigating", "Double damage if target is full health");
+            addEffect("Melee", 0, "Anti-armor", "Ignores 50% of your target's armor");
+            addEffect("Melee", 0, "Vampire's", "Gain brief health regeneration when you hit an enemy");
+            addEffect("Melee", 0, "Berserker's", "More damage the lower your damage resistance");
+            addEffect("Melee", 0, "Junkie's", "More damage the more your withdrawal effects");
+            addEffect("Melee", 0, "Suppressor's", "Reduce your target's damage output by 20% for 3s");
+            addEffect("Melee", 0, "Assassin's", "+10% damage to players");
+            addEffect("Melee", 0, "Nocturnal", "Damage increased by the night and reduced by the day");
+            addEffect("Melee", 0, "Mutant's", "Damage increased by 10% if you are mutated");
+            addEffect("Melee", 0, "Stalker's", "If not in combat, false00% VATS accuracy at 50% increased AP cost");
+            addEffect("Melee", 0, "Executioner's", "50% increased damage if target is below 40% health");
+            addEffect("Melee", 0, "Troubleshooter's", "+30% damage to robots");
+            addEffect("Melee", 0, "Ghoul slayer's", "+30% damage to ghouls");
+            addEffect("Melee", 0, "Mutant slayer's", "+30% damage to super mutants");
+            addEffect("Melee", 0, "Hunter's", "+30% damage to animals");
+            addEffect("Melee", 0, "Exterminator's", "+30% damage to Mirelurks and bugs");
+            addEffect("Melee", 0, "Zealot's", "+30% damage to scorched");
+
+            // Melee effects, major
+            addEffect("Melee", 1, "Limb", "+50% limb damage");
+            addEffect("Melee", 1, "Speed", "40% increased swing speed");
+            addEffect("Melee", 1, "Power", "40% more power attack damage");
+            addEffect("Melee", 1, "Reflect", "Reflect 50% of damage while blocking");
+
+            // Melee effects, minor
+            addEffect("Melee", 2, "Strength", "+1 Strength");
+            addEffect("Melee", 2, "Endurance", "+1 Endurance");
+            addEffect("Melee", 2, "Agility", "+1 Agility");
+            addEffect("Melee", 2, "Powerdamage", "Take 40% less damage while power attacking");
+            addEffect("Melee", 2, "Blocking", "Take 15% less damage while blocking");
+            addEffect("Melee", 2, "Weight", "90% reduced weight");
+
+            // Ranged effects, prefix
+            addEffect("Ranged", 0, "Bloodied", "Does more damage the lower your health is");
+            addEffect("Ranged", 0, "Furious", "Damage increased after each consecutive hit on the same target");
+            addEffect("Ranged", 0, "Instigating", "Double damage if target is full health");
+            addEffect("Ranged", 0, "Anti-armor", "Ignores 50% of your target's armor");
+            addEffect("Ranged", 0, "Vampire's", "Gain brief health regeneration when you hit an enemy");
+            addEffect("Ranged", 0, "Berserker's", "More damage the lower your damage resistance");
+            addEffect("Ranged", 0, "Junkie's", "More damage the more your withdrawal effects");
+            addEffect("Ranged", 0, "Suppressor's", "Reduce your target's damage output by 20% for 3s");
+            addEffect("Ranged", 0, "Assassin's", "+10% damage to players");
+            addEffect("Ranged", 0, "Nocturnal", "Damage increased by the night and reduced by the day");
+            addEffect("Ranged", 0, "Mutant's", "Damage increased by 10% if you are mutated");
+            addEffect("Ranged", 0, "Stalker's", "If not in combat 100% VATS accuracy at 50% increased AP cost");
+            addEffect("Ranged", 0, "Executioner's", "50% increased damage if target is below 40% health");
+            addEffect("Ranged", 0, "Troubleshooter's", "+30% damage to robots");
+            addEffect("Ranged", 0, "Ghoul slayer's", "+30% damage to ghouls");
+            addEffect("Ranged", 0, "Mutant slayer's", "+30% damage to super mutants");
+            addEffect("Ranged", 0, "Hunter's", "+30% damage to animals");
+            addEffect("Ranged", 0, "Exterminator's", "+30% damage to Mirelurks and bugs");
+            addEffect("Ranged", 0, "Zealot's", "+30% damage to scorched");
+            addEffect("Ranged", 0, "Medic's", "VATS criticals will heal you and your group");
+            addEffect("Ranged", 0, "Two shot", "Shoots an additional projectile");
+            addEffect("Ranged", 0, "Quad", "Quadruple ammo capacity");
+            addEffect("Ranged", 0, "Double", "Double ammo capacity");
+
+            // Ranged effects, major
+            addEffect("Ranged", 1, "VATSCritical", "VATS critical shots do +50% damage");
+            addEffect("Ranged", 1, "FireRate", "25% increased fire rate");
+            addEffect("Ranged", 1, "Bashing", "Bashing damage increased by 40%");
+            addEffect("Ranged", 1, "AimDamage", "10% increased damage while aiming");
+            addEffect("Ranged", 1, "Explosive", "Bullets explode for area damage");
+            addEffect("Ranged", 1, "VATSChance", "+33% VATS hits chance");
+            addEffect("Ranged", 1, "Limb", "+50% limb damage");
+
+            // Ranged effects, minor
+            addEffect("Ranged", 2, "Perception", "+1 Perception");
+            addEffect("Ranged", 2, "Agility", "+1 Agility");
+            addEffect("Ranged", 2, "VATSAction", "25% less VATS Action Point cost");
+            addEffect("Ranged", 2, "VATSCriticalMeter", "Your VATS critical meter fills 15% faster");
+            addEffect("Ranged", 2, "MoveAim", "Move faster while aiming");
+            addEffect("Ranged", 2, "ResistAim", "+50 damage resistance while aiming");
+            addEffect("Ranged", 2, "ResistReload", "+250 damage resistance while reloading");
+            addEffect("Ranged", 2, "ReloadSpeed", "15% faster reload");
+            addEffect("Ranged", 2, "Weight", "90% reduced wight");
+
+            // Ranged effects, prefix
+            addEffect("Armor", 0, "Auto stim", "Automatically use a Stimpak when hit while health is 25% or less, once every 60 seconds");
+            addEffect("Armor", 0, "Life saving", "While incapacitated, gain 50% chance to revive yourself with a Stimpak, once every minute");
+            addEffect("Armor", 0, "Weightless", "Weighs 90% less and does not count as armor for the Chameleon mutation");
+            addEffect("Armor", 0, "Chameleon", "Blend with the environment while sneaking and not moving");
+            addEffect("Armor", 0, "Cloaking", "Being hit in melee generates a Stealth field once per 30 seconds");
+            addEffect("Armor", 0, "Regenerating", "Slowly regenerate health while out of combat");
+            addEffect("Armor", 0, "Vanguard's", "Grants up to 35 Damage and Energy Resistance, the higher your health");
+            addEffect("Armor", 0, "Bolstering", "Grants up to 35 Damage and Energy Resistance, the lower your health");
+            addEffect("Armor", 0, "Unyielding", "Gain +3 to all stats except END when low on health");
+            addEffect("Armor", 0, "Nocturnal", "Damage and Energy Resist increase with the night and decrease with the day");
+            addEffect("Armor", 0, "Assassin's", "-8% damage from players");
+            addEffect("Armor", 0, "Exterminator's", "-15% damage from Mirelurks and bugs");
+            addEffect("Armor", 0, "Hunter's", "-15% damage from animals");
+            addEffect("Armor", 0, "Troubleshooter's", "-15% damage from robots");
+            addEffect("Armor", 0, "Ghoul slayer's", "-15% damage from ghouls");
+            addEffect("Armor", 0, "Mutant slayer's", "-15% damage from super mutants");
+            addEffect("Armor", 0, "Zealot's", "-15% damage from scorched");
+            addEffect("Armor", 0, "Mutant's", "+10 Damage and Energy Resist if you are mutated");
+
+            // Ranged effects, major
+            addEffect("Armor", 1, "Strength", "+1 Strength");
+            addEffect("Armor", 1, "Perception", "+1 Perception");
+            addEffect("Armor", 1, "Endurance", "+1 Endurance");
+            addEffect("Armor", 1, "Charisma", "+1 Charisma");
+            addEffect("Armor", 1, "Intelligence", "+1 Intelligence");
+            addEffect("Armor", 1, "Agility", "+1 Agility");
+            addEffect("Armor", 1, "Luck", "+1 Luck");
+            addEffect("Armor", 1, "Powered", "Increases action point refresh speed"); // can be an additiona prefix
+            addEffect("Armor", 1, "RadiationResist", "+25 radiation resist");
+            addEffect("Armor", 1, "Poisoner's", "+25 poison resistance"); // can replace a 's prefix
+
+            // Ranged effects, minor
+            addEffect("Armor", 2, "AmmoWeight", "Ammo weight reduced by 20%");
+            addEffect("Armor", 2, "WeaponWeight", "Weapon weights reduced by 20%");
+            addEffect("Armor", 2, "FoodWeight", "Food, drink and chem weights reduced by 20%");
+            addEffect("Armor", 2, "JunkWeight", "Junk weight reduced by 20%");
+            addEffect("Armor", 2, "BreatheUnderwater", "Grants the ability to breathe underwater");
+            addEffect("Armor", 2, "Sneak", "Become harder to detect while sneaking");
+            addEffect("Armor", 2, "Durable", "50% more durability than normal");
+            addEffect("Armor", 2, "Sentinel's", "Reduces damage while standing and not moving by 15%"); // can replace a 's prefix
+            addEffect("Armor", 2, "BlockingDamage", "Reduces damage while blocking by 15%");
+            addEffect("Armor", 2, "SprintDamage", "Reduces damage while sprinting by 15%");
+            addEffect("Armor", 2, "Acrobat's", "Falling damage reduced by 50%"); // can replace a 's prefix
+            addEffect("Armor", 2, "Lockpick", "Increases size of the sweet spot while picking locks");
+
+            // setup variables
+
+            var setup = {
+                tries: 10000,
+                progressUpdateItems: 100,
+                energyAntiArmor: true,
+                energyExplosive: false,
+                assaultronMultistar: false,
+                woodMultistar: false,
+                disallowedDrop: "Prefilter",
+                enemyChances: [75, 5, 20],
+                enemyDropMatrix: [
+                    [100, 0, 0],
+                    [55, 45, 0],
+                    [40, 35, 25]
+                ],
+                running: false,
+                progress: 0
+            }
+
+            function updateSetup() {
+                setup.tries = parseInt(document.getElementById("txtTries").value);
+
+                setup.progressUpdateItems = parseInt(document.getElementById("progressUpdateItems").value);
+                setup.energyAntiArmor = document.getElementById("energyAntiArmorYes").checked;
+                setup.energyExplosive = document.getElementById("energyExplosiveYes").checked;
+                setup.assaultronMultistar = document.getElementById("assaultronMultistarYes").checked;
+                setup.woodMultistar = document.getElementById("woodMultistarYes").checked;
+                var disallowedDrops = document.getElementsByName("disallowedDrop");
+
+                for (var dd in disallowedDrops) {
+                    if (dd.checked) {
+                        setup.disallowedDrop = dd.value;
+                    }
+                }
+                
+                var enemy1chanceValue = parseFloat(document.getElementById("enemy1chance").value);
+                var enemy2chanceValue = parseFloat(document.getElementById("enemy2chance").value);
+                var enemy3chanceValue = parseFloat(document.getElementById("enemy3chance").value);
+
+                var sumChance = enemy1chanceValue + enemy2chanceValue + enemy3chanceValue;
+
+                setup.enemyChances = [100 * enemy1chanceValue / sumChance, 100 * enemy2chanceValue / sumChance, 100 * enemy3chanceValue / sumChance];
+
+                var enemy2drop1Value = parseFloat(document.getElementById("enemy2drop1chance").value);
+                var enemy2drop2Value = parseFloat(document.getElementById("enemy2drop2chance").value);
+
+                var sum2Chance = enemy2drop1Value + enemy2drop2Value;
+
+                setup.enemyDropMatrix[1] = [100 * enemy2drop1Value / sum2Chance, 100 * enemy2drop2Value / sum2Chance, 0];
+
+                var enemy3drop1Value = parseFloat(document.getElementById("enemy3drop1chance").value);
+                var enemy3drop2Value = parseFloat(document.getElementById("enemy3drop2chance").value);
+                var enemy3drop3Value = parseFloat(document.getElementById("enemy3drop3chance").value);
+
+                var sum3Chance = enemy3drop1Value + enemy3drop2Value + enemy3drop3Value;
+
+                setup.enemyDropMatrix[2] = [100 * enemy3drop1Value / sum3Chance, 100 * enemy3drop2Value / sum3Chance, 100 * enemy3drop3Value / sum3Chance];
+            }
+
+            document.getElementById("btnRun").onclick = function() {
+                if (setup.running) {
+                    clearInterval(setup.handle);
+                    setup.running = false;
+                    setup.handle = undefined;
+                    document.getElementById("btnRun").innerText = "Run";
+                } else {
+                    updateSetup();
+
+                    setup.running = true;
+                    setup.progress = 0;
+                    document.getElementById("btnRun").innerText = "Stop";
+                    setup.handle = setInterval(rollLoot, 1);
+
+                    updateStatisticsPanels();
+                }
+            }
+
+            function rollLoot() {
+                for (var batch = 0; batch < setup.progressUpdateItems; batch++) {
+                    if (setup.tries <= setup.progress) {
+                        break;
+                    }
+
+                    setup.progress++;
+                }
+
+                updateStatisticsPanels();
+
+                if (setup.tries <= setup.progress) {
+                    clearInterval(setup.handle);
+                    setup.running = false;
+                    setup.handle = undefined;
+                    document.getElementById("btnRun").innerText = "Run";
+                }
+            }
+
+            function updateStatisticsPanels() {
+                // update the progress bar
+                var percent = (setup.progress * 100.0 / setup.tries);
+                document.getElementById("txtProgress").style.width = percent + "%";
+                document.getElementById("txtProgressText").innerHTML = percent.toFixed(3) + "%";
+            }
         </script>
     </body>
 </html>
