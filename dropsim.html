@@ -118,14 +118,6 @@
                     </tr>
                     <tr>
                         <td>
-                            <input type="radio" name="disallowedDrop" id="disallowedDropOverride" value="Override"><label for="disallowedDropOverride"> Override properties.</label>
-                        </td>
-                        <td>
-                            (Example: If RNG rolls a 2* Broadsider and RNG rolls for Explosive, the drop is turned into a 1* drop.)
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
                             <input type="radio" name="disallowedDrop" id="disallowedDropRetryEffect" value="Retry Effect"><label for="disallowedDropRetryEffect"> Keep retrying the effect.</label>
                         </td>
                         <td>
@@ -231,14 +223,102 @@
             <div id="tabStars" style="display: none; border: 1px solid black; border-collapse: collapse;">
                 <br>
                 <center><span style="font-size: 26px; font-weight: bold;">Star drop statistics</span></center>
+                <br>
+                <br>
+                <table class="infoTable">
+                    <tr>
+                        <td rowspan="2">Enemy star</td>
+                        <td colspan="3">0 star drops</td>
+                        <td colspan="3">1 star drops</td>
+                        <td colspan="3">2 star drops</td>
+                        <td colspan="3">3 star drops</td>
+                        <td colspan="2">Total</td>
+                    </tr>
+                    <tr>
+                        <td>Count</td>
+                        <td>% row</td>
+                        <td>% total</td>
+                        <td>Count</td>
+                        <td>% row</td>
+                        <td>% total</td>
+                        <td>Count</td>
+                        <td>% row</td>
+                        <td>% total</td>
+                        <td>Count</td>
+                        <td>% row</td>
+                        <td>% total</td>
+                        <td>Count</td>
+                        <td>% total</td>
+                    </tr>
+                    <tr style="border-top: 2px solid black;">
+                        <td>1</td>
+                        <td style='text-align: right' id='statenemy1drop0count'>0</td>
+                        <td style='text-align: right' id='statenemy1drop0percent'>0</td>
+                        <td style='text-align: right' id='statenemy1drop0percenttotal'>0</td>
+                        <td style='text-align: right' id='statenemy1drop1count'>0</td>
+                        <td style='text-align: right' id='statenemy1drop1percent'>0</td>
+                        <td style='text-align: right' id='statenemy1drop1percenttotal'>0</td>
+                        <td colspan='6' style="text-align: center;">N/A</td>
+                        <td style='text-align: right' id='statenemy1count'>0</td>
+                        <td style='text-align: right' id='statenemy1percent'>0</td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td style='text-align: right' id='statenemy2drop0count'>0</td>
+                        <td style='text-align: right' id='statenemy2drop0percent'>0</td>
+                        <td style='text-align: right' id='statenemy2drop0percenttotal'>0</td>
+                        <td style='text-align: right' id='statenemy2drop1count'>0</td>
+                        <td style='text-align: right' id='statenemy2drop1percent'>0</td>
+                        <td style='text-align: right' id='statenemy2drop1percenttotal'>0</td>
+                        <td style='text-align: right' id='statenemy2drop2count'>0</td>
+                        <td style='text-align: right' id='statenemy2drop2percent'>0</td>
+                        <td style='text-align: right' id='statenemy2drop2percenttotal'>0</td>
+                        <td colspan='3' style="text-align: center;">N/A</td>
+                        <td style='text-align: right' id='statenemy2count'>0</td>
+                        <td style='text-align: right' id='statenemy2percent'>0</td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td style='text-align: right' id='statenemy3drop0count'>0</td>
+                        <td style='text-align: right' id='statenemy3drop0percent'>0</td>
+                        <td style='text-align: right' id='statenemy3drop0percenttotal'>0</td>
+                        <td style='text-align: right' id='statenemy3drop1count'>0</td>
+                        <td style='text-align: right' id='statenemy3drop1percent'>0</td>
+                        <td style='text-align: right' id='statenemy3drop1percenttotal'>0</td>
+                        <td style='text-align: right' id='statenemy3drop2count'>0</td>
+                        <td style='text-align: right' id='statenemy3drop2percent'>0</td>
+                        <td style='text-align: right' id='statenemy3drop2percenttotal'>0</td>
+                        <td style='text-align: right' id='statenemy3drop3count'>0</td>
+                        <td style='text-align: right' id='statenemy3drop3percent'>0</td>
+                        <td style='text-align: right' id='statenemy3drop3percenttotal'>0</td>
+                        <td style='text-align: right' id='statenemy3count'>0</td>
+                        <td style='text-align: right' id='statenemy3percent'>0</td>
+                    </tr>
+                    <tr style="border-top: 2px solid black;">
+                        <td>Total</td>
+                        <td style='text-align: right' id='statdrop0count'>0</td>
+                        <td style='text-align: right' id='statdrop0percent' colspan="2">0</td>
+                        <td style='text-align: right' id='statdrop1count'>0</td>
+                        <td style='text-align: right' id='statdrop1percent' colspan="2">0</td>
+                        <td style='text-align: right' id='statdrop2count'>0</td>
+                        <td style='text-align: right' id='statdrop2percent' colspan="2">0</td>
+                        <td style='text-align: right' id='statdrop3count'>0</td>
+                        <td style='text-align: right' id='statdrop3percent' colspan="2">0</td>
+                        <td style='text-align: right' id='statcount'>0</td>
+                        <td style='text-align: right' id='statpercent'>100</td>
+                    </tr>
+                </table>
+                <br>&nbsp;
             </div>
             <div id="tabEffects" style="display: none; border: 1px solid black; border-collapse: collapse;">
                 <br>
                 <center><span style="font-size: 26px; font-weight: bold;">Effect drop statistics</span></center>
+                <br>&nbsp;
             </div>
             <div id="tabItems" style="display: none; border: 1px solid black; border-collapse: collapse;">
                 <br>
                 <center><span style="font-size: 26px; font-weight: bold;">Item drop statistics</span></center>
+                <br>&nbsp;
             </div>
             </center>
 
@@ -820,13 +900,6 @@
                 }
             }
 
-            function updateStatisticsPanels() {
-                // update the progress bar
-                var percent = (setup.progress * 100.0 / setup.tries);
-                document.getElementById("txtProgress").style.width = percent + "%";
-                document.getElementById("txtProgressText").innerHTML = percent.toFixed(3) + "%";
-            }
-
             function addDrop(category, itemName, enemyStar, itemStar, prefix, major, minor) {
                 setup.statItems.push({
                     category: category, 
@@ -908,7 +981,7 @@
 
                     if (enemyStarRNG < setup.enemyChances[0]) {
                         enemyStar = 1;
-                    } else if (enemyStarRNG < setup.enemyChances[1]) {
+                    } else if (enemyStarRNG < setup.enemyChances[0] + setup.enemyChances[1]) {
                         enemyStar = 2;
                     } else {
                         enemyStar = 3;
@@ -919,14 +992,14 @@
                     var itemStarRNG = Math.random() * 100.0;
 
                     var itemStar = 0;
-                    if (itemStarRNG < setup.enemyDropMatrix[enemyStar - 1][0]) {
+                    var enemyDropMatrixRow = setup.enemyDropMatrix[enemyStar - 1];
+                    if (itemStarRNG < enemyDropMatrixRow[0]) {
                         itemStar = 1;
-                    } else if (itemStarRNG < setup.enemyDropMatrix[enemyStar - 1][1]) {
+                    } else if (itemStarRNG < enemyDropMatrixRow[0] + enemyDropMatrixRow[1]) {
                         itemStar = 2;
                     } else {
                         itemStar = 3;
                     }
-
 
                     // roll for an item
                     var itemIndex = Math.floor(Math.random() * lootpool.length);
@@ -1020,6 +1093,53 @@
                     addItemMap(item.name, 1, prefix.name, major.name, minor.name);
                 }
             }
+
+            function sumOf(array) {
+                var sum = 0.0;
+                for (var idx in array) {
+                    sum += array[idx];
+                }
+                return sum;
+            }
+            
+            function updateStatisticsPanels() {
+                // update the progress bar
+                var percent = (setup.progress * 100.0 / setup.tries);
+                document.getElementById("txtProgress").style.width = percent + "%";
+                document.getElementById("txtProgressText").innerHTML = percent.toFixed(3) + "%";
+
+                // update the Stars Panel
+
+                document.getElementById("statcount").innerText = "" + setup.progress;
+
+                for (var lvl = 1; lvl < 4; lvl++) {
+                    document.getElementById("statenemy" + lvl + "count").innerText = "" + setup.statEnemyStars[lvl - 1];
+                    document.getElementById("statenemy" + lvl + "percent").innerText = "" + (setup.statEnemyStars[lvl - 1] * 100.0 / setup.progress).toFixed(3) + " %";
+
+                    for (var drp = 0; drp <= lvl; drp++) {
+                        var key = "statenemy" + lvl + "drop" + drp;
+
+                        var cnt = setup.statEnemyDropStars[lvl - 1][drp];
+
+                        document.getElementById(key + "count").innerText = "" + cnt;
+                        document.getElementById(key + "percent").innerText = "" + (cnt * 100.0 / sumOf(setup.statEnemyDropStars[lvl - 1])).toFixed(3) + " %";
+                        document.getElementById(key + "percenttotal").innerText = "" + (cnt * 100.0 / setup.progress).toFixed(3) + " %";
+                    }
+                }
+
+                for (var drp = 0; drp <= lvl; drp++) {
+                    var key = "statdrop" + drp;
+
+                    var cnt = 0;
+                    for (var lvl = 0; lvl < 3; lvl ++) {
+                        cnt += setup.statEnemyDropStars[lvl][drp];
+                    }
+
+                    document.getElementById(key + "count").innerText = "" + cnt;
+                    document.getElementById(key + "percent").innerText = "" + (cnt * 100.0 / setup.progress).toFixed(3) + " %";
+                }
+            }
+
         </script>
     </body>
 </html>
