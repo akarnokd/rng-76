@@ -34,29 +34,32 @@
             <br/>
             <table>
                 <tr>
-                    <td>Progress:</td>
-                    <td>
+                    <td style="width: 250px; text-align: right;">Progress:</td>
+                    <td style="width: 1002px;">
                         <div style="width: 1000px; height: 20px; background-color: #CCCCCC">
                             <div id="txtProgress" style="background-color: blue; height: 20px; width: 0%"></div>
                         </div>
                     </td>
-                    <td id="txtProgressText">0.000%</td>
+                    <td id="txtProgressText" style="width: 250px; text-align: left;">0.000%</td>
                 </tr>
             </table>
             <br/>
             <br/>
             <table class="infoTable">
                 <tr>
-                    <td id="btnSetupTab" style="padding: 4px; cursor: pointer;">
+                    <td id="tabSetupBtn" style="padding: 4px; cursor: pointer; background-color: lightgreen;">
                         Setup
                     </td>
-                    <td id="btnStarDrops" style="padding: 4px; cursor: pointer;">
+                    <td id="tabOverviewBtn" style="padding: 4px; cursor: pointer;">
+                        Overview
+                    </td>
+                    <td id="tabStarsBtn" style="padding: 4px; cursor: pointer;">
                         Star drop stats
                     </td>
-                    <td id="btnEffectDrops" style="padding: 4px; cursor: pointer;">
+                    <td id="tabEffectsBtn" style="padding: 4px; cursor: pointer;">
                             Effect drop stats
                     </td>
-                    <td id="btnItemDrops" style="padding: 4px; cursor: pointer;">
+                    <td id="tabItemsBtn" style="padding: 4px; cursor: pointer;">
                             Item drop stats
                     </td>
                 </tr>
@@ -110,7 +113,7 @@
                 <table style="border: 1px solid black; border-collapse: collapse;">
                     <tr>
                         <td>
-                            <input type="radio" name="disallowedDrop" id="disallowedDropPrefilter" value="Prefilter" checked="checked"><label for="disallowedDropPrefilter">Filter out items/effects upfront.</label>
+                            <input type="radio" name="disallowedDrop" id="disallowedDropPrefilter" value="Prefilter" checked="checked"><label for="disallowedDropPrefilter"> Filter out items/effects upfront.</label>
                         </td>
                         <td>
                             (Example: If RNG rolls a 2* Broadsider, the Explosive effect will be removed from the possible rolls for the major effect.)
@@ -228,7 +231,23 @@
 
                 <br>&nbsp;
             </div>
-        </center>
+            <div id="tabOverview" style="display: none; border: 1px solid black; border-collapse: collapse;">
+                <br>
+                <center><span style="font-size: 26px; font-weight: bold;">Overview</span></center>
+            </div>
+            <div id="tabStars" style="display: none; border: 1px solid black; border-collapse: collapse;">
+                <br>
+                <center><span style="font-size: 26px; font-weight: bold;">Star drop statistics</span></center>
+            </div>
+            <div id="tabEffects" style="display: none; border: 1px solid black; border-collapse: collapse;">
+                <br>
+                <center><span style="font-size: 26px; font-weight: bold;">Effect drop statistics</span></center>
+            </div>
+            <div id="tabItems" style="display: none; border: 1px solid black; border-collapse: collapse;">
+                <br>
+                <center><span style="font-size: 26px; font-weight: bold;">Item drop statistics</span></center>
+            </div>
+            </center>
 
         <script>
 
@@ -237,8 +256,8 @@
 
             // helper functions
 
-            function addItem(category, name, disableExplosive) {
-                lootpool.push({ category: category, name: name, disableExplosive: disableExplosive });
+            function addItem(category, name, tags) {
+                lootpool.push({ category: category, name: name, tags: tags });
             }
 
             function addEffect(category, level, name, description) {
@@ -256,242 +275,245 @@
             }
 
             // Melee weapons
-            addItem("Melee", "Combat Knife", false);
-            addItem("Melee", "Super Sledge", false);
-            addItem("Melee", "Switchblade", false);
-            addItem("Melee", "Pickaxe", false);
-            addItem("Melee", "Power Fist", false);
-            addItem("Melee", "Knuckles", false);
-            addItem("Melee", "Boxing Glove", false);
-            addItem("Melee", "Pitchfork", false);
-            addItem("Melee", "Shishkebab", false);
-            addItem("Melee", "Machete", false);
-            addItem("Melee", "Spear", false);
-            addItem("Melee", "Ripper", false);
-            addItem("Melee", "Mr. Handy Buzz Blade", false);
-            addItem("Melee", "Assaultron Blade", false);
-            addItem("Melee", "Bovie knife", false);
-            addItem("Melee", "Chinese Officer Sword", false);
-            addItem("Melee", "Cultist Blade", false);
-            addItem("Melee", "Cultist Dagger", false);
-            addItem("Melee", "Guitar Sword", false);
-            addItem("Melee", "Lead Pipe", false);
-            addItem("Melee", "Pipe Wrench", false);
-            addItem("Melee", "Revolutionary Sword", false);
-            addItem("Melee", "Rolling Pin", false);
-            addItem("Melee", "Baton", false);
-            addItem("Melee", "Sickle", false);
-            addItem("Melee", "Ski Sword", false);
-            addItem("Melee", "Black Diamond", false);
-            addItem("Melee", "Walking Cane", false);
-            addItem("Melee", "Tire Iron", false);
-            addItem("Melee", "Baseball Bat", false);
-            addItem("Melee", "Board", false);
-            addItem("Melee", "Fire Axe", false);
-            addItem("Melee", "Golf Club", false);
-            addItem("Melee", "Grognak's Axe", false);
-            addItem("Melee", "Multi-purpose Axe", false);
-            addItem("Melee", "Pole hook", false);
-            addItem("Melee", "Pool cue", false);
-            addItem("Melee", "War drum", false);
-            addItem("Melee", "Death Tambo", false);
-            addItem("Melee", "Deathclaw Gauntlet", false);
-            addItem("Melee", "Mole Miner Gauntlet", false);
-            addItem("Melee", "Meat hook", false);
+            addItem("Melee", "Combat Knife", "");
+            addItem("Melee", "Super Sledge", "");
+            addItem("Melee", "Switchblade", "");
+            addItem("Melee", "Pickaxe", "");
+            addItem("Melee", "Power Fist", "");
+            addItem("Melee", "Knuckles", "");
+            addItem("Melee", "Boxing Glove", "");
+            addItem("Melee", "Pitchfork", "");
+            addItem("Melee", "Shishkebab", "");
+            addItem("Melee", "Machete", "");
+            addItem("Melee", "Spear", "");
+            addItem("Melee", "Ripper", "");
+            addItem("Melee", "Mr. Handy Buzz Blade", "");
+            addItem("Melee", "Assaultron Blade", "");
+            addItem("Melee", "Bovie knife", "");
+            addItem("Melee", "Chinese Officer Sword", "");
+            addItem("Melee", "Cultist Blade", "");
+            addItem("Melee", "Cultist Dagger", "");
+            addItem("Melee", "Guitar Sword", "");
+            addItem("Melee", "Lead Pipe", "");
+            addItem("Melee", "Pipe Wrench", "");
+            addItem("Melee", "Revolutionary Sword", "");
+            addItem("Melee", "Rolling Pin", "");
+            addItem("Melee", "Baton", "");
+            addItem("Melee", "Sickle", "");
+            addItem("Melee", "Ski Sword", "");
+            addItem("Melee", "Black Diamond", "");
+            addItem("Melee", "Walking Cane", "");
+            addItem("Melee", "Tire Iron", "");
+            addItem("Melee", "Baseball Bat", "");
+            addItem("Melee", "Board", "");
+            addItem("Melee", "Fire Axe", "");
+            addItem("Melee", "Golf Club", "");
+            addItem("Melee", "Grognak's Axe", "");
+            addItem("Melee", "Multi-purpose Axe", "");
+            addItem("Melee", "Pole hook", "");
+            addItem("Melee", "Pool cue", "");
+            addItem("Melee", "War drum", "");
+            addItem("Melee", "Death Tambo", "");
+            addItem("Melee", "Deathclaw Gauntlet", "");
+            addItem("Melee", "Mole Miner Gauntlet", "");
+            addItem("Melee", "Meat hook", "");
+            addItem("Melee", "Drill", "nostar");
 
             // Ranged weapons
-            addItem("Ranged", ".44 Pistol", false);
-            addItem("Ranged", "10mm Pistol", false);
-            addItem("Ranged", "Handmade Rifle", false);
-            addItem("Ranged", "Hunting Rifle", false);
-            addItem("Ranged", "10mm SMG", false);
-            addItem("Ranged", "Submachine Gun", false);
-            addItem("Ranged", "Gatling Gun", false);
-            addItem("Ranged", "Minigun", false);
-            addItem("Ranged", "50 cal Machine Gun", false);
-            addItem("Ranged", "Western Revolver", false);
-            addItem("Ranged", "Pump-action Shotgun", false);
-            addItem("Ranged", "Combat Shotgun", false);
-            addItem("Ranged", "Combat Rifle", false);
-            addItem("Ranged", "Single Action Revolver", false);
-            addItem("Ranged", "Black Powder Pistol", false);
-            addItem("Ranged", "Black Powder Rifle", false);
-            addItem("Ranged", "Black Powder Blunderbuss", false);
-            addItem("Ranged", "The Dragon", false);
-            addItem("Ranged", "Harpoon Gun", false);
-            addItem("Ranged", "Assault Rifle", false);
-            addItem("Ranged", "Crossbow", false);
-            addItem("Ranged", "Gauss Rifle", false);
-            addItem("Ranged", "Lever Action Rifle", false);
-            addItem("Ranged", "Radium Rifle", false);
-            addItem("Ranged", "Railway Rifle", false);
-            addItem("Ranged", "Syringer", false);
-            addItem("Ranged", "Double-barrel Shotgun", false);
-            addItem("Ranged", "Pipe Gun", false);
-            addItem("Ranged", "Pipe Bolt-action", false);
-            addItem("Ranged", "Pipe Revolver", false);
-            addItem("Ranged", "Light Machine Gun", false);
+            addItem("Ranged", ".44 Pistol", "");
+            addItem("Ranged", "10mm Pistol", "");
+            addItem("Ranged", "Handmade Rifle", "");
+            addItem("Ranged", "Hunting Rifle", "");
+            addItem("Ranged", "10mm SMG", "");
+            addItem("Ranged", "Submachine Gun", "");
+            addItem("Ranged", "Gatling Gun", "");
+            addItem("Ranged", "Minigun", "");
+            addItem("Ranged", "50 cal Machine Gun", "");
+            addItem("Ranged", "Western Revolver", "");
+            addItem("Ranged", "Pump-action Shotgun", "");
+            addItem("Ranged", "Combat Shotgun", "");
+            addItem("Ranged", "Combat Rifle", "");
+            addItem("Ranged", "Single Action Revolver", "");
+            addItem("Ranged", "Harpoon Gun", "");
+            addItem("Ranged", "Assault Rifle", "");
+            addItem("Ranged", "Crossbow", "");
+            addItem("Ranged", "Gauss Rifle", "");
+            addItem("Ranged", "Lever Action Rifle", "");
+            addItem("Ranged", "Radium Rifle", "");
+            addItem("Ranged", "Railway Rifle", "");
+            addItem("Ranged", "Syringer", "nostar");
+            addItem("Ranged", "Double-barrel Shotgun", "");
+            addItem("Ranged", "Pipe Gun", "");
+            addItem("Ranged", "Pipe Bolt-action", "");
+            addItem("Ranged", "Pipe Revolver", "");
+            addItem("Ranged", "Light Machine Gun", "");
+
+            // black powder can't spawn as Double/Quad
+            addItem("Ranged", "Black Powder Pistol", "blackpowder");
+            addItem("Ranged", "Black Powder Rifle", "blackpowder");
+            addItem("Ranged", "Black Powder Blunderbuss", "blackpowder");
+            addItem("Ranged", "The Dragon", "blackpowder");
 
             // Ranged weapons that can't spawn as Explosive
 
-            addItem("Ranged", "Gatling Plasma", true);
-            addItem("Ranged", "Gatling Laser", true);
-            addItem("Ranged", "Ultracite Gatling Laser", true);
-            addItem("Ranged", "Plasma Gun", true);
-            addItem("Ranged", "Laser Pistol", true);
-            addItem("Ranged", "Ultracite Laser Gun", true);
-            addItem("Ranged", "Laser Rifle", true);
-            addItem("Ranged", "Tesla Rifle", true);
-            addItem("Ranged", "Broadsider", true);
-            addItem("Ranged", "Auto Grenade Launcher", true);
-            addItem("Ranged", "Fat Man", true);
-            addItem("Ranged", "M79 Grenade Launcher", true);
-            addItem("Ranged", "Missile Launcher", true);
-            addItem("Ranged", "Gamma Gun", true);
-            addItem("Ranged", "Cryolator", true);
-            addItem("Ranged", "Salvaged Assaultron Head", true);
-            addItem("Ranged", "Flamer", true);
+            addItem("Ranged", "Gatling Plasma", "energy");
+            addItem("Ranged", "Gatling Laser", "energy");
+            addItem("Ranged", "Ultracite Gatling Laser", "energy");
+            addItem("Ranged", "Plasma Gun", "energy");
+            addItem("Ranged", "Laser Pistol", "energy");
+            addItem("Ranged", "Ultracite Laser Gun", "energy");
+            addItem("Ranged", "Laser Rifle", "energy");
+            addItem("Ranged", "Tesla Rifle", "energy");
+            addItem("Ranged", "Broadsider", "explosive");
+            addItem("Ranged", "Auto Grenade Launcher", "explosive");
+            addItem("Ranged", "Fat Man", "explosive");
+            addItem("Ranged", "M79 Grenade Launcher", "explosive");
+            addItem("Ranged", "Missile Launcher", "explosive");
+            addItem("Ranged", "Gamma Gun", "energy");
+            addItem("Ranged", "Cryolator", "energy");
+            addItem("Ranged", "Salvaged Assaultron Head", "energy,assaultronhead");
+            addItem("Ranged", "Flamer", "energy");
 
             // oooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo
             // Armors
             // ------
 
             // Leather
-            addItem("Armor", "Leather Chest Piece", false);
-            addItem("Armor", "Leather Left Arm", false);
-            addItem("Armor", "Leather Right Arm", false);
-            addItem("Armor", "Leather Left Leg", false);
-            addItem("Armor", "Leather Right Leg", false);
+            addItem("Armor", "Leather Chest Piece", "");
+            addItem("Armor", "Leather Left Arm", "");
+            addItem("Armor", "Leather Right Arm", "");
+            addItem("Armor", "Leather Left Leg", "");
+            addItem("Armor", "Leather Right Leg", "");
 
-            addItem("Armor", "Sturdy Leather Chest Piece", false);
-            addItem("Armor", "Sturdy Leather Left Arm", false);
-            addItem("Armor", "Sturdy Leather Right Arm", false);
-            addItem("Armor", "Sturdy Leather Left Leg", false);
-            addItem("Armor", "Sturdy Leather Right Leg", false);
+            addItem("Armor", "Sturdy Leather Chest Piece", "");
+            addItem("Armor", "Sturdy Leather Left Arm", "");
+            addItem("Armor", "Sturdy Leather Right Arm", "");
+            addItem("Armor", "Sturdy Leather Left Leg", "");
+            addItem("Armor", "Sturdy Leather Right Leg", "");
 
-            addItem("Armor", "Heavy Leather Chest Piece", false);
-            addItem("Armor", "Heavy Leather Left Arm", false);
-            addItem("Armor", "Heavy Leather Right Arm", false);
-            addItem("Armor", "Heavy Leather Left Leg", false);
-            addItem("Armor", "Heavy Leather Right Leg", false);
+            addItem("Armor", "Heavy Leather Chest Piece", "");
+            addItem("Armor", "Heavy Leather Left Arm", "");
+            addItem("Armor", "Heavy Leather Right Arm", "");
+            addItem("Armor", "Heavy Leather Left Leg", "");
+            addItem("Armor", "Heavy Leather Right Leg", "");
 
             // Metal
-            addItem("Armor", "Metal Chest Piece", false);
-            addItem("Armor", "Metal Left Arm", false);
-            addItem("Armor", "Metal Right Arm", false);
-            addItem("Armor", "Metal Left Leg", false);
-            addItem("Armor", "Metal Right Leg", false);
+            addItem("Armor", "Metal Chest Piece", "");
+            addItem("Armor", "Metal Left Arm", "");
+            addItem("Armor", "Metal Right Arm", "");
+            addItem("Armor", "Metal Left Leg", "");
+            addItem("Armor", "Metal Right Leg", "");
 
-            addItem("Armor", "Sturdy Metal Chest Piece", false);
-            addItem("Armor", "Sturdy Metal Left Arm", false);
-            addItem("Armor", "Sturdy Metal Right Arm", false);
-            addItem("Armor", "Sturdy Metal Left Leg", false);
-            addItem("Armor", "Sturdy Metal Right Leg", false);
+            addItem("Armor", "Sturdy Metal Chest Piece", "");
+            addItem("Armor", "Sturdy Metal Left Arm", "");
+            addItem("Armor", "Sturdy Metal Right Arm", "");
+            addItem("Armor", "Sturdy Metal Left Leg", "");
+            addItem("Armor", "Sturdy Metal Right Leg", "");
 
-            addItem("Armor", "Heavy Metal Chest Piece", false);
-            addItem("Armor", "Heavy Metal Left Arm", false);
-            addItem("Armor", "Heavy Metal Right Arm", false);
-            addItem("Armor", "Heavy Metal Left Leg", false);
-            addItem("Armor", "Heavy Metal Right Leg", false);
+            addItem("Armor", "Heavy Metal Chest Piece", "");
+            addItem("Armor", "Heavy Metal Left Arm", "");
+            addItem("Armor", "Heavy Metal Right Arm", "");
+            addItem("Armor", "Heavy Metal Left Leg", "");
+            addItem("Armor", "Heavy Metal Right Leg", "");
 
             // Combat
-            addItem("Armor", "Combat Armor Chest Piece", false);
-            addItem("Armor", "Combat Armor Left Arm", false);
-            addItem("Armor", "Combat Armor Right Arm", false);
-            addItem("Armor", "Combat Armor Left Leg", false);
-            addItem("Armor", "Combat Armor Right Leg", false);
+            addItem("Armor", "Combat Armor Chest Piece", "");
+            addItem("Armor", "Combat Armor Left Arm", "");
+            addItem("Armor", "Combat Armor Right Arm", "");
+            addItem("Armor", "Combat Armor Left Leg", "");
+            addItem("Armor", "Combat Armor Right Leg", "");
 
-            addItem("Armor", "Sturdy Combat Armor Chest Piece", false);
-            addItem("Armor", "Sturdy Combat Armor Left Arm", false);
-            addItem("Armor", "Sturdy Combat Armor Right Arm", false);
-            addItem("Armor", "Sturdy Combat Armor Left Leg", false);
-            addItem("Armor", "Sturdy Combat Armor Right Leg", false);
+            addItem("Armor", "Sturdy Combat Armor Chest Piece", "");
+            addItem("Armor", "Sturdy Combat Armor Left Arm", "");
+            addItem("Armor", "Sturdy Combat Armor Right Arm", "");
+            addItem("Armor", "Sturdy Combat Armor Left Leg", "");
+            addItem("Armor", "Sturdy Combat Armor Right Leg", "");
 
-            addItem("Armor", "Heavy Combat Armor Chest Piece", false);
-            addItem("Armor", "Heavy Combat Armor Left Arm", false);
-            addItem("Armor", "Heavy Combat Armor Right Arm", false);
-            addItem("Armor", "Heavy Combat Armor Left Leg", false);
-            addItem("Armor", "Heavy Combat Armor Right Leg", false);
+            addItem("Armor", "Heavy Combat Armor Chest Piece", "");
+            addItem("Armor", "Heavy Combat Armor Left Arm", "");
+            addItem("Armor", "Heavy Combat Armor Right Arm", "");
+            addItem("Armor", "Heavy Combat Armor Left Leg", "");
+            addItem("Armor", "Heavy Combat Armor Right Leg", "");
 
             // Robot
-            addItem("Armor", "Robot Armor Chest Piece", false);
-            addItem("Armor", "Robot Armor Left Arm", false);
-            addItem("Armor", "Robot Armor Right Arm", false);
-            addItem("Armor", "Robot Armor Left Leg", false);
-            addItem("Armor", "Robot Armor Right Leg", false);
+            addItem("Armor", "Robot Armor Chest Piece", "");
+            addItem("Armor", "Robot Armor Left Arm", "");
+            addItem("Armor", "Robot Armor Right Arm", "");
+            addItem("Armor", "Robot Armor Left Leg", "");
+            addItem("Armor", "Robot Armor Right Leg", "");
 
-            addItem("Armor", "Robot Sturdy Armor Chest Piece", false);
-            addItem("Armor", "Robot Sturdy Armor Left Arm", false);
-            addItem("Armor", "Robot Sturdy Armor Right Arm", false);
-            addItem("Armor", "Robot Sturdy Armor Left Leg", false);
-            addItem("Armor", "Robot Sturdy Armor Right Leg", false);
+            addItem("Armor", "Robot Sturdy Armor Chest Piece", "");
+            addItem("Armor", "Robot Sturdy Armor Left Arm", "");
+            addItem("Armor", "Robot Sturdy Armor Right Arm", "");
+            addItem("Armor", "Robot Sturdy Armor Left Leg", "");
+            addItem("Armor", "Robot Sturdy Armor Right Leg", "");
 
-            addItem("Armor", "Robot Heavy Armor Chest Piece", false);
-            addItem("Armor", "Robot Heavy Armor Left Arm", false);
-            addItem("Armor", "Robot Heavy Armor Right Arm", false);
-            addItem("Armor", "Robot Heavy Armor Left Leg", false);
-            addItem("Armor", "Robot Heavy Armor Right Leg", false);
+            addItem("Armor", "Robot Heavy Armor Chest Piece", "");
+            addItem("Armor", "Robot Heavy Armor Left Arm", "");
+            addItem("Armor", "Robot Heavy Armor Right Arm", "");
+            addItem("Armor", "Robot Heavy Armor Left Leg", "");
+            addItem("Armor", "Robot Heavy Armor Right Leg", "");
 
             // Marine
-            addItem("Armor", "Marine Armor Chest Piece", false);
-            addItem("Armor", "Marine Armor Left Arm", false);
-            addItem("Armor", "Marine Armor Right Arm", false);
-            addItem("Armor", "Marine Armor Left Leg", false);
-            addItem("Armor", "Marine Armor Right Leg", false);
+            addItem("Armor", "Marine Armor Chest Piece", "");
+            addItem("Armor", "Marine Armor Left Arm", "");
+            addItem("Armor", "Marine Armor Right Arm", "");
+            addItem("Armor", "Marine Armor Left Leg", "");
+            addItem("Armor", "Marine Armor Right Leg", "");
 
             // Trapper
-            addItem("Armor", "Trapper Chest Piece", false);
-            addItem("Armor", "Trapper Left Arm", false);
-            addItem("Armor", "Trapper Right Arm", false);
-            addItem("Armor", "Trapper Left Leg", false);
-            addItem("Armor", "Trapper Right Leg", false);
+            addItem("Armor", "Trapper Chest Piece", "");
+            addItem("Armor", "Trapper Left Arm", "");
+            addItem("Armor", "Trapper Right Arm", "");
+            addItem("Armor", "Trapper Left Leg", "");
+            addItem("Armor", "Trapper Right Leg", "");
 
-            addItem("Armor", "Heavy Trapper Chest Piece", false);
-            addItem("Armor", "Heavy Trapper Left Arm", false);
-            addItem("Armor", "Heavy Trapper Right Arm", false);
-            addItem("Armor", "Heavy Trapper Left Leg", false);
-            addItem("Armor", "Heavy Trapper Right Leg", false);
+            addItem("Armor", "Heavy Trapper Chest Piece", "");
+            addItem("Armor", "Heavy Trapper Left Arm", "");
+            addItem("Armor", "Heavy Trapper Right Arm", "");
+            addItem("Armor", "Heavy Trapper Left Leg", "");
+            addItem("Armor", "Heavy Trapper Right Leg", "");
 
             // Scout
-            addItem("Armor", "Forrest Scout Armor Chest Piece", false);
-            addItem("Armor", "Forrest Scout Armor Left Arm", false);
-            addItem("Armor", "Forrest Scout Armor Right Arm", false);
-            addItem("Armor", "Forrest Scout Armor Left Leg", false);
-            addItem("Armor", "Forrest Scout Armor Right Leg", false);
+            addItem("Armor", "Forrest Scout Armor Chest Piece", "");
+            addItem("Armor", "Forrest Scout Armor Left Arm", "");
+            addItem("Armor", "Forrest Scout Armor Right Arm", "");
+            addItem("Armor", "Forrest Scout Armor Left Leg", "");
+            addItem("Armor", "Forrest Scout Armor Right Leg", "");
 
 
             // Urban Scout Armor doesn't seem to exist as legendary drop
-            // addItem("Armor", "Urban Scout Armor Chest Piece", false);
-            // addItem("Armor", "Urban Scout Armor Left Arm", false);
-            // addItem("Armor", "Urban Scout Armor Right Arm", false);
-            // addItem("Armor", "Urban Scout Armor Left Leg", false);
-            // addItem("Armor", "Urban Scout Armor Right Leg", false);
+            // addItem("Armor", "Urban Scout Armor Chest Piece", "");
+            // addItem("Armor", "Urban Scout Armor Left Arm", "");
+            // addItem("Armor", "Urban Scout Armor Right Arm", "");
+            // addItem("Armor", "Urban Scout Armor Left Leg", "");
+            // addItem("Armor", "Urban Scout Armor Right Leg", "");
 
             // Wooden
-            addItem("Armor", "Wooden Chest Piece", false);
-            addItem("Armor", "Wooden Left Arm", false);
-            addItem("Armor", "Wooden Right Arm", false);
-            addItem("Armor", "Wooden Left Leg", false);
-            addItem("Armor", "Wooden Right Leg", false);
+            addItem("Armor", "Wooden Chest Piece", "wood");
+            addItem("Armor", "Wooden Left Arm", "wood");
+            addItem("Armor", "Wooden Right Arm", "wood");
+            addItem("Armor", "Wooden Left Leg", "wood");
+            addItem("Armor", "Wooden Right Leg", "wood");
 
             // Raider
-            addItem("Armor", "Raider Chest Piece", false);
-            addItem("Armor", "Raider Left Arm", false);
-            addItem("Armor", "Raider Right Arm", false);
-            addItem("Armor", "Raider Left Leg", false);
-            addItem("Armor", "Raider Right Leg", false);
+            addItem("Armor", "Raider Chest Piece", "");
+            addItem("Armor", "Raider Left Arm", "");
+            addItem("Armor", "Raider Right Arm", "");
+            addItem("Armor", "Raider Left Leg", "");
+            addItem("Armor", "Raider Right Leg", "");
 
-            addItem("Armor", "Sturdy Raider Chest Piece", false);
-            addItem("Armor", "Sturdy Raider Left Arm", false);
-            addItem("Armor", "Sturdy Raider Right Arm", false);
-            addItem("Armor", "Sturdy Raider Left Leg", false);
-            addItem("Armor", "Sturdy Raider Right Leg", false);
+            addItem("Armor", "Sturdy Raider Chest Piece", "");
+            addItem("Armor", "Sturdy Raider Left Arm", "");
+            addItem("Armor", "Sturdy Raider Right Arm", "");
+            addItem("Armor", "Sturdy Raider Left Leg", "");
+            addItem("Armor", "Sturdy Raider Right Leg", "");
 
-            addItem("Armor", "Heavy Raider Chest Piece", false);
-            addItem("Armor", "Heavy Raider Left Arm", false);
-            addItem("Armor", "Heavy Raider Right Arm", false);
-            addItem("Armor", "Heavy Raider Left Leg", false);
-            addItem("Armor", "Heavy Raider Right Leg", false);
+            addItem("Armor", "Heavy Raider Chest Piece", "");
+            addItem("Armor", "Heavy Raider Left Arm", "");
+            addItem("Armor", "Heavy Raider Right Arm", "");
+            addItem("Armor", "Heavy Raider Left Leg", "");
+            addItem("Armor", "Heavy Raider Right Leg", "");
 
 
             // Melee effects, prefixes
@@ -530,10 +552,11 @@
             addEffect("Melee", 2, "Weight", "90% reduced weight");
 
             // Ranged effects, prefix
+            // anti-armor should be first so that energy can filter it out
+            addEffect("Ranged", 0, "Anti-armor", "Ignores 50% of your target's armor");
             addEffect("Ranged", 0, "Bloodied", "Does more damage the lower your health is");
             addEffect("Ranged", 0, "Furious", "Damage increased after each consecutive hit on the same target");
             addEffect("Ranged", 0, "Instigating", "Double damage if target is full health");
-            addEffect("Ranged", 0, "Anti-armor", "Ignores 50% of your target's armor");
             addEffect("Ranged", 0, "Vampire's", "Gain brief health regeneration when you hit an enemy");
             addEffect("Ranged", 0, "Berserker's", "More damage the lower your damage resistance");
             addEffect("Ranged", 0, "Junkie's", "More damage the more your withdrawal effects");
@@ -551,6 +574,7 @@
             addEffect("Ranged", 0, "Zealot's", "+30% damage to scorched");
             addEffect("Ranged", 0, "Medic's", "VATS criticals will heal you and your group");
             addEffect("Ranged", 0, "Two shot", "Shoots an additional projectile");
+            // these should be the last so that black powder can filter it out
             addEffect("Ranged", 0, "Quad", "Quadruple ammo capacity");
             addEffect("Ranged", 0, "Double", "Double ammo capacity");
 
@@ -559,9 +583,10 @@
             addEffect("Ranged", 1, "FireRate", "25% increased fire rate");
             addEffect("Ranged", 1, "Bashing", "Bashing damage increased by 40%");
             addEffect("Ranged", 1, "AimDamage", "10% increased damage while aiming");
-            addEffect("Ranged", 1, "Explosive", "Bullets explode for area damage");
             addEffect("Ranged", 1, "VATSChance", "+33% VATS hits chance");
             addEffect("Ranged", 1, "Limb", "+50% limb damage");
+            // this should be the last so that Energy/Explosive weapons can filter this out.
+            addEffect("Ranged", 1, "Explosive", "Bullets explode for area damage");
 
             // Ranged effects, minor
             addEffect("Ranged", 2, "Perception", "+1 Perception");
@@ -637,7 +662,27 @@
                     [40, 35, 25]
                 ],
                 running: false,
-                progress: 0
+                progress: 0,
+
+                // ------------------------------------------------
+                // statistics counter
+                // ------------------------------------------------
+
+                statDisallowedDropCount: 0,
+                statEffectRetries: 0,
+                statItemRetries: 0,
+                statEnemyStars: [0, 0, 0],
+                statEnemyDropStars: [[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]],
+
+                // aggregated item/effect stats
+                // category -> level: Map(int -> { count: int, effects: Map(effect name -> count) })
+                statEffectMap: new Map(),
+
+                // itemName -> { count: int, level: Map(int -> { count: int, effects: Map(prefix+major+minor -> count) })}
+                statItemMap: new Map(),
+
+                // each generated item log, use addDrop()
+                statItems: [],
             }
 
             function updateSetup() {
@@ -678,6 +723,62 @@
                 var sum3Chance = enemy3drop1Value + enemy3drop2Value + enemy3drop3Value;
 
                 setup.enemyDropMatrix[2] = [100 * enemy3drop1Value / sum3Chance, 100 * enemy3drop2Value / sum3Chance, 100 * enemy3drop3Value / sum3Chance];
+
+                setup.statDisallowedDropCount = 0;
+                setup.statEffectRetries = 0;
+                setup.statItemRetries = 0;
+                setup.statEnemyStars = [0, 0, 0];
+                setup.statEnemyDropStars = [[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]];
+                setup.statEffectMap = new Map();
+                setup.statItemMap = new Map();
+                setup.statItems = [];
+            }
+
+            document.getElementById("presetDefault").onclick = function() {
+                document.getElementById("enemy1chance").value = "75";
+                document.getElementById("enemy2chance").value = "5";
+                document.getElementById("enemy3chance").value = "20";
+
+                document.getElementById("enemy2drop1chance").value = "55";
+                document.getElementById("enemy2drop2chance").value = "45";
+
+                document.getElementById("enemy3drop1chance").value = "40";
+                document.getElementById("enemy3drop2chance").value = "35";
+                document.getElementById("enemy3drop3chance").value = "25";
+            };
+            document.getElementById("presetMaxLevel").onclick = function() {
+                document.getElementById("enemy2drop1chance").value = "0";
+                document.getElementById("enemy2drop2chance").value = "100";
+
+                document.getElementById("enemy3drop1chance").value = "0";
+                document.getElementById("enemy3drop2chance").value = "0";
+                document.getElementById("enemy3drop3chance").value = "100";
+            };
+
+            var tabNames = ["tabSetup", "tabOverview", "tabStars", "tabEffects", "tabItems"];
+
+            function switchTab(tabId) {
+                for (var idIdx in tabNames) {
+                    var id = tabNames[idIdx];
+                    var tabDiv = document.getElementById(id);
+                    var tabBtn = document.getElementById(id + "Btn");
+                    if (tabId == id) {
+                        tabDiv.style.display = "block";
+                        tabBtn.style.backgroundColor = "lightgreen";
+                    } else {
+                        tabDiv.style.display = "none";
+                        tabBtn.style.backgroundColor = "";
+                    }
+                }
+            }
+
+            for (var idIdx in tabNames) {
+                var id = tabNames[idIdx];
+                var tabBtn = document.getElementById(id + "Btn");
+                let idl = id;
+                tabBtn.onclick = function() {
+                    switchTab(idl);
+                };
             }
 
             document.getElementById("btnRun").onclick = function() {
@@ -694,26 +795,35 @@
                     document.getElementById("btnRun").innerText = "Stop";
                     setup.handle = setInterval(rollLoot, 1);
 
-                    updateStatisticsPanels();
-                }
-            }
-
-            function rollLoot() {
-                for (var batch = 0; batch < setup.progressUpdateItems; batch++) {
-                    if (setup.tries <= setup.progress) {
-                        break;
+                    // switch to the overview tab
+                    if (document.getElementById("tabSetup").style.display == "block") {
+                        switchTab("tabOverview");
                     }
 
-                    setup.progress++;
+                    updateStatisticsPanels();
                 }
+            };
 
-                updateStatisticsPanels();
+            function rollLoot() {
+                try {
+                    for (var batch = 0; batch < setup.progressUpdateItems; batch++) {
+                        if (setup.tries <= setup.progress) {
+                            break;
+                        }
+                        setup.progress++;
 
-                if (setup.tries <= setup.progress) {
-                    clearInterval(setup.handle);
-                    setup.running = false;
-                    setup.handle = undefined;
-                    document.getElementById("btnRun").innerText = "Run";
+                        rollStep();
+
+                    }
+                } finally {
+                    updateStatisticsPanels();
+
+                    if (setup.tries <= setup.progress) {
+                        clearInterval(setup.handle);
+                        setup.running = false;
+                        setup.handle = undefined;
+                        document.getElementById("btnRun").innerText = "Run";
+                    }
                 }
             }
 
@@ -722,6 +832,200 @@
                 var percent = (setup.progress * 100.0 / setup.tries);
                 document.getElementById("txtProgress").style.width = percent + "%";
                 document.getElementById("txtProgressText").innerHTML = percent.toFixed(3) + "%";
+            }
+
+            function addDrop(category, itemName, enemyStar, itemStar, prefix, major, minor) {
+                setup.statItems.push({
+                    category: category, 
+                    itemName: itemName, 
+                    enemyStar: enemyStar, 
+                    itemStar: itemStar, 
+                    prefix: prefix, 
+                    major: major, 
+                    minor: minor
+                });
+            }
+
+            function addEffectMap(category, level, effectName) {
+                var levelObj = setup.statEffectMap.get(category);
+                if (levelObj == null) {
+                    levelObj = { count: 0, effects: new Map() };
+                    setup.statEffectMap.set(category, levelObj);
+                }
+
+                levelObj.count++;
+
+                var effectsCount = levelObj.effects.get(effectName);
+                if (effectsCount == null) {
+                    levelObj.effects.set(effectName, 1);
+                } else {
+                    levelObj.effects.set(effectName, effectsCount + 1);
+                }
+            }
+
+            function addItemMap(itemName, stars, prefix, major, minor) {
+                var itemObj = setup.statItemMap.get(itemName);
+                if (itemObj == null) {
+                    itemObj = { count: 0, stars: new Map() };
+                    setup.statItemMap.set(itemName, itemObj);
+                }
+                itemObj.count++;
+
+                var starsObj = itemObj.stars.get(stars);
+                if (starsObj == null) {
+                    starsObj = { count: 0, effects: new Map() };
+                    itemObj.stars.set(stars, starsObj);
+                }
+                starsObj.count++;
+
+                var effectCount = starsObj.effects.get(prefix);
+                if (effectCount == null) {
+                    starsObj.effects.set(prefix, 1);
+                } else {
+                    starsObj.effects.set(prefix, effectCount + 1);
+                }
+
+                if (major !== "") {
+                    var key = prefix + "," + major;
+                    effectCount = starsObj.effects.get(key);
+                    if (effectCount == null) {
+                        starsObj.effects.set(key, 1);
+                    } else {
+                        starsObj.effects.set(key, effectCount + 1);
+                    }
+
+                    if (minor !== "") {
+                        key = prefix + "," + major + "," + minor;
+                        effectCount = starsObj.effects.get(key);
+                        if (effectCount == null) {
+                            starsObj.effects.set(key, 1);
+                        } else {
+                            starsObj.effects.set(key, effectCount + 1);
+                        }
+                    }
+                }
+            }
+
+            function rollStep() {
+                if (setup.disallowedDrop == "Prefilter") {
+                    // roll for enemy star
+                    var enemyStarRNG = Math.random() * 100.0;
+
+                    var enemyStar = 0;
+
+                    if (enemyStarRNG < setup.enemyChances[0]) {
+                        enemyStar = 1;
+                    } else if (enemyStarRNG < setup.enemyChances[1]) {
+                        enemyStar = 2;
+                    } else {
+                        enemyStar = 3;
+                    }
+                    setup.statEnemyStars[enemyStar - 1]++;
+
+                    // roll for item star
+                    var itemStarRNG = Math.random() * 100.0;
+
+                    var itemStar = 0;
+                    if (itemStarRNG < setup.enemyDropMatrix[enemyStar - 1][0]) {
+                        itemStar = 1;
+                    } else if (itemStarRNG < setup.enemyDropMatrix[enemyStar - 1][1]) {
+                        itemStar = 2;
+                    } else {
+                        itemStar = 3;
+                    }
+
+
+                    // roll for an item
+                    var itemIndex = Math.floor(Math.random() * lootpool.length);
+
+                    var item = lootpool[itemIndex];
+
+                    // nostar items have no legendary effect
+                    if (item.tags.includes("nostar")) {
+                        setup.statEnemyDropStars[enemyStar - 1][0]++;
+                        addDrop(item.category, item.name, enemyStar, 0, "", "", "");
+                        // nothing to roll further
+                        return;
+                    }
+
+                    // wood may not be more than 1 star based on setup
+                    if ((item.tags.includes("wood") && !setup.woodMultistar)
+                            || (item.tags.includes("assaultronhead") && !setup.assaultronMultistar)) {
+                        itemStar = 1;
+                    }
+
+                    setup.statEnemyDropStars[enemyStar - 1][itemStar]++;
+
+                    var prefixPool = effectpool.get(item.category).get(0);
+
+                    var prefixPoolLen = prefixPool.length;
+                    var prefixOffset = 0;
+
+                    // energy weapons may not drop as Anti-armor based on setup
+                    if (item.tags.includes("energy") && !setup.energyAntiArmor) {
+                        prefixOffset++;
+                        prefixPoolLen--;
+                    }
+
+                    // black powder can't roll as Double/Quad
+                    if (item.tags.includes("blackpowder")) {
+                        prefixPoolLen -= 2;
+                    }
+
+                    // roll for prefix
+                    var prefixIndex = Math.floor(Math.random() * prefixPoolLen);
+
+                    var prefix = prefixPool[prefixIndex + prefixOffset];
+
+                    if (itemStar == 1) {
+                        addDrop(item.category, item.name, enemyStar, 1, prefix.name, "", "");
+                        addEffectMap(item.category, 1, prefix.name);
+                        addItemMap(item.name, 1, prefix.name, "", "");
+
+                        return;
+                    }
+
+                    // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~11
+
+                    var majorPool = effectpool.get(item.category).get(1);
+                    var majorPoolLen = majorPool.length;
+
+                    // explosive can't drop with Explosive prefix
+                    if (item.tags.includes("explosive")) {
+                        majorPoolLen--;
+                    } else 
+                    // energy weapons may not drop as explosive based on setup
+                    if (item.tags.includes("energy") && !setup.energyExplosive) {
+                        majorPoolLen--;
+                    }
+
+                    var majorIndex = Math.floor(Math.random() * majorPoolLen);
+
+                    var major = majorPool[majorIndex];
+
+                    if (itemStar == 2) {
+                        addDrop(item.category, item.name, enemyStar, 2, prefix.name, major.name, "");
+                        addEffectMap(item.category, 2, major.name);
+                        addItemMap(item.name, 1, prefix.name, major.name, "");
+
+                        return;
+                    }
+
+                    // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~11
+
+                    var minorPool = effectpool.get(item.category).get(2);
+                    var minorPoolLen = minorPool.length;
+
+                    // Not aware of any minor effect eclusion
+
+                    var minorIndex = Math.floor(Math.random() * minorPoolLen);
+
+                    var minor = minorPool[minorIndex];
+
+                    addDrop(item.category, item.name, enemyStar, 2, prefix.name, major.name, minor.name);
+                    addEffectMap(item.category, 3, minor.name);
+                    addItemMap(item.name, 1, prefix.name, major.name, minor.name);
+                }
             }
         </script>
     </body>
