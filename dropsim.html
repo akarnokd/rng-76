@@ -50,9 +50,6 @@
                     <td id="tabSetupBtn" style="padding: 4px; cursor: pointer; background-color: lightgreen;">
                         Setup
                     </td>
-                    <td id="tabOverviewBtn" style="padding: 4px; cursor: pointer;">
-                        Overview
-                    </td>
                     <td id="tabStarsBtn" style="padding: 4px; cursor: pointer;">
                         Star drop stats
                     </td>
@@ -230,10 +227,6 @@
                 Every <input type="number" id="progressUpdateItems" value="100" min="1" class="setupInput"> drops.
 
                 <br>&nbsp;
-            </div>
-            <div id="tabOverview" style="display: none; border: 1px solid black; border-collapse: collapse;">
-                <br>
-                <center><span style="font-size: 26px; font-weight: bold;">Overview</span></center>
             </div>
             <div id="tabStars" style="display: none; border: 1px solid black; border-collapse: collapse;">
                 <br>
@@ -755,7 +748,7 @@
                 document.getElementById("enemy3drop3chance").value = "100";
             };
 
-            var tabNames = ["tabSetup", "tabOverview", "tabStars", "tabEffects", "tabItems"];
+            var tabNames = ["tabSetup", "tabStars", "tabEffects", "tabItems"];
 
             function switchTab(tabId) {
                 for (var idIdx in tabNames) {
@@ -797,7 +790,7 @@
 
                     // switch to the overview tab
                     if (document.getElementById("tabSetup").style.display == "block") {
-                        switchTab("tabOverview");
+                        switchTab("tabStars");
                     }
 
                     updateStatisticsPanels();
