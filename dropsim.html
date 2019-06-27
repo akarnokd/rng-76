@@ -226,7 +226,7 @@
                 <br>
                 <br>
                 <table class="infoTable">
-                    <tr>
+                    <tr style='font-weight: bold;'>
                         <td rowspan="2">Enemy star</td>
                         <td colspan="3">0 star drops</td>
                         <td colspan="3">1 star drops</td>
@@ -234,7 +234,7 @@
                         <td colspan="3">3 star drops</td>
                         <td colspan="2">Total</td>
                     </tr>
-                    <tr>
+                    <tr style='font-weight: bold;'>
                         <td>Count</td>
                         <td>% row</td>
                         <td>% total</td>
@@ -312,7 +312,101 @@
             </div>
             <div id="tabEffects" style="display: none; border: 1px solid black; border-collapse: collapse;">
                 <br>
-                <center><span style="font-size: 26px; font-weight: bold;">Effect drop statistics</span></center>
+                <center>
+                    <span style="font-size: 26px; font-weight: bold;">Effect drop statistics</span>
+                    &nbsp;&nbsp;<button id="effectsSort">Sort by percent</button>
+                </center>
+                <table width='100%'>
+                    <tr>
+                        <td style='text-align: center;' width='33%' valign='top'>
+                            <b>Armor</b><br/>
+                            <table class='infoTable' id='statArmorPrefix'>
+                                <tr style='font-weight: bold;'>
+                                    <td>Prefix</td>
+                                    <td style="text-align: right" id="statArmorPrefixCount">0</td>
+                                    <td style="text-align: right" id="statArmorPrefixPercent">0</td>
+                                </tr>
+                                <tr style='font-weight: bold;'><td>Name</td><td>Count</td><td>Percent</td></tr>
+                            </table>
+                            <br>
+                            <table class='infoTable' id='statArmorMajor'>
+                                <tr style='font-weight: bold;'>
+                                    <td>Major</td>
+                                    <td style="text-align: right" id="statArmorMajorCount">0</td>
+                                    <td style="text-align: right" id="statArmorMajorPercent">0</td>
+                                </tr>
+                                <tr style='font-weight: bold;'><td>Name</td><td>Count</td><td>Percent</td></tr>
+                            </table>
+                            <br>
+                            <table class='infoTable' id='statArmorMinor'>
+                                <tr style='font-weight: bold;'>
+                                    <td>Minor</td>
+                                    <td style="text-align: right" id="statArmorMinorCount">0</td>
+                                    <td style="text-align: right" id="statArmorMinorPercent">0</td>
+                                </tr>
+                                <tr style='font-weight: bold;'><td>Name</td><td>Count</td><td>Percent</td></tr>
+                            </table>
+                        </td>
+                        <td style='text-align: center' width='33%' valign='top'>
+                            <b>Melee</b>
+                            <table class='infoTable' id='statMeleePrefix'>
+                                <tr style='font-weight: bold;'>
+                                    <td>Prefix</td>
+                                    <td style="text-align: right" id="statMeleePrefixCount">0</td>
+                                    <td style="text-align: right" id="statMeleePrefixPercent">0</td>
+                                </tr>
+                                <tr style='font-weight: bold;'><td>Name</td><td>Count</td><td>Percent</td></tr>
+                            </table>
+                            <br>
+                            <table class='infoTable' id='statMeleeMajor'>
+                                <tr style='font-weight: bold;'>
+                                    <td>Major</td>
+                                    <td style="text-align: right" id="statMeleeMajorCount">0</td>
+                                    <td style="text-align: right" id="statMeleeMajorPercent">0</td>
+                                </tr>
+                                <tr style='font-weight: bold;'><td>Name</td><td>Count</td><td>Percent</td></tr>
+                            </table>
+                            <br>
+                            <table class='infoTable' id='statMeleeMinor'>
+                                <tr style='font-weight: bold;'>
+                                    <td>Minor</td>
+                                    <td style="text-align: right" id="statMeleeMinorCount">0</td>
+                                    <td style="text-align: right" id="statMeleeMinorPercent">0</td>
+                                </tr>
+                                <tr><td>Name</td><td>Count</td><td>Percent</td></tr>
+                            </table>
+                        </td>
+                        <td style='text-align: center' width='33%' valign='top'>
+                            <b>Ranged</b>
+                            <table class='infoTable' id='statRangedPrefix'>
+                                <tr style='font-weight: bold;'>
+                                    <td>Prefix</td>
+                                    <td style="text-align: right" id="statRangedPrefixCount">0</td>
+                                    <td style="text-align: right" id="statRangedPrefixPercent">0</td>
+                                </tr>
+                                <tr style='font-weight: bold;'><td>Name</td><td>Count</td><td>Percent</td></tr>
+                            </table>
+                            <br>
+                            <table class='infoTable' id='statRangedMajor'>
+                                <tr style='font-weight: bold;'>
+                                    <td>Major</td>
+                                    <td style="text-align: right" id="statRangedMajorCount">0</td>
+                                    <td style="text-align: right" id="statRangedMajorPercent">0</td>
+                                </tr>
+                                <tr style='font-weight: bold;'><td>Name</td><td>Count</td><td>Percent</td></tr>
+                            </table>
+                            <br>
+                            <table class='infoTable' id='statRangedMinor'>
+                                <tr style='font-weight: bold;'>
+                                    <td>Minor</td>
+                                    <td style="text-align: right" id="statRangedMinorCount">0</td>
+                                    <td style="text-align: right" id="statRangedMinorPercent">0</td>
+                                </tr>
+                                <tr style='font-weight: bold;'><td>Name</td><td>Count</td><td>Percent</td></tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
                 <br>&nbsp;
             </div>
             <div id="tabItems" style="display: none; border: 1px solid black; border-collapse: collapse;">
@@ -748,7 +842,7 @@
                 statEnemyDropStars: [[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]],
 
                 // aggregated item/effect stats
-                // category -> level: Map(int -> { count: int, effects: Map(effect name -> count) })
+                // category -> Map(level: int -> { count: int, effects: Map(effect name -> count) })
                 statEffectMap: new Map(),
 
                 // itemName -> { count: int, level: Map(int -> { count: int, effects: Map(prefix+major+minor -> count) })}
@@ -913,10 +1007,16 @@
             }
 
             function addEffectMap(category, level, effectName) {
-                var levelObj = setup.statEffectMap.get(category);
+                var categoryObj = setup.statEffectMap.get(category);
+                if (categoryObj == null) {
+                    categoryObj = new Map();
+                    setup.statEffectMap.set(category, categoryObj);
+                }
+
+                var levelObj = categoryObj.get(level);
                 if (levelObj == null) {
                     levelObj = { count: 0, effects: new Map() };
-                    setup.statEffectMap.set(category, levelObj);
+                    categoryObj.set(level, levelObj);
                 }
 
                 levelObj.count++;
@@ -1102,6 +1202,66 @@
                 return sum;
             }
             
+            function prepareEffectStatsTable() {
+                var categories = ["Armor", "Melee", "Ranged"];
+                var levels = ["Prefix", "Major", "Minor"];
+
+                for (var cat in categories) {
+                    for (var lvl in levels) {
+
+                        var leveledeffects = effectpool.get(categories[cat]).get(parseInt(lvl));
+
+                        leveledeffects = leveledeffects.slice();
+
+                        leveledeffects.sort(function(a, b) {
+                            if (a.name < b.name) {
+                                return -1;
+                            }
+                            if (a.name > b.name) {
+                                return 1;
+                            }
+                            return 0;
+                        });
+
+                        document.getElementById("stat" + categories[cat] + levels[lvl] + "Count").innerText = "" + leveledeffects.length;
+                        document.getElementById("stat" + categories[cat] + levels[lvl] + "Percent").innerText = "" + (100.0 / leveledeffects.length).toFixed(3) + " %";
+
+                        var table = document.getElementById("stat" + categories[cat] + levels[lvl]);
+
+                        for (var leidx in leveledeffects) {
+                            var le = leveledeffects[leidx];
+
+                            var row = table.insertRow(table.rows.length);
+
+                            var cell0 = row.insertCell(0);
+                            cell0.innerText = le.name;
+                            cell0.title = le.description;
+
+                            var cell1 = row.insertCell(1);
+                            cell1.style.textAlign = 'right';
+                            cell1.id = "stat" + categories[cat] + levels[lvl] + le.name + "DropCount";
+                            cell1.innerText = "0";
+
+                            var cell2 = row.insertCell(2);
+                            cell2.style.textAlign = 'right';
+                            cell2.id = "stat" + categories[cat] + levels[lvl] + le.name + "DropPercent";
+                        }
+
+                        var rowlast = table.insertRow(table.rows.length);
+                        var celllast0 = rowlast.insertCell(0);
+                        celllast0.innerText = "Total";
+                        celllast0.style.fontWeight = "bold";
+
+                        var celllast1 = rowlast.insertCell(1);
+                        celllast1.style.textAlign = "right";
+                        celllast1.id = "stat" + categories[cat] + levels[lvl] + "TotalCount";
+
+                        var celllast2 = rowlast.insertCell(2);
+                        celllast2.style.textAlign = "right";
+                    }
+                }
+            }
+
             function updateStatisticsPanels() {
                 // update the progress bar
                 var percent = (setup.progress * 100.0 / setup.tries);
@@ -1138,8 +1298,104 @@
                     document.getElementById(key + "count").innerText = "" + cnt;
                     document.getElementById(key + "percent").innerText = "" + (cnt * 100.0 / setup.progress).toFixed(3) + " %";
                 }
+
+                // update effects panel
+                var categories = ["Armor", "Melee", "Ranged"];
+                var levels = ["Prefix", "Major", "Minor"];
+
+                for (var cat in categories) {
+                    for (var lvl in levels) {
+                        var catStat = setup.statEffectMap.get(categories[cat]);
+                        var catLevelStat = null;
+                        if (catStat != null) {
+                            catLevelStat = catStat.get(parseInt(lvl) + 1);
+                        }
+
+                        var leveledeffects = effectpool.get(categories[cat]).get(parseInt(lvl));
+                        for (var eff in leveledeffects) {
+                            var effect = leveledeffects[eff];
+
+                            var cellCount = document.getElementById("stat" + categories[cat] + levels[lvl] + effect.name + "DropCount");
+                            var cellPercent = document.getElementById("stat" + categories[cat] + levels[lvl] + effect.name + "DropPercent");
+
+                            cellCount.innerText = "0";
+                            cellPercent.innerText = "0.000 %";
+
+                            if (catLevelStat != null) {
+                                var effectStat = catLevelStat.effects.get(effect.name);
+                                if (effectStat != null) {
+                                    cellCount.innerText = "" + effectStat;
+                                    cellPercent.innerText = "" + (effectStat * 100.0 / catLevelStat.count).toFixed(3) + " %";
+                                }
+                            }
+                        }
+
+                        var totalCount = document.getElementById("stat" + categories[cat] + levels[lvl] + "TotalCount");
+                        if (catLevelStat != null) {
+                            totalCount.innerText = "" + catLevelStat.count;
+                        } else {
+                            totalCount.innerText = "0";
+                        }
+                    }
+                }
             }
 
+            document.getElementById("effectsSort").onclick = function() {
+                var categories = ["Armor", "Melee", "Ranged"];
+                var levels = ["Prefix", "Major", "Minor"];
+
+                for (var cat in categories) {
+                    for (var lvl in levels) {
+                        var table = document.getElementById("stat" + categories[cat] + levels[lvl]);
+
+                        var data = [];
+                        for (var row = table.rows.length - 2; row >= 2; row--) {
+                            var tr = table.rows[row].cells;
+
+                            data.push({
+                                name: tr[0].innerText, 
+                                description: tr[0].title,
+                                count: parseInt(tr[1].innerText), 
+                                percent: tr[2].innerText});
+
+                            table.deleteRow(row);
+                        }
+
+                        data.sort(function(a, b) {
+                            if (a.count < b.count) {
+                                return 1;
+                            }
+                            if (a.count > b.count) {
+                                return -1;
+                            }
+                            return 0;
+                        });
+
+                        var targetIdx = 2;
+                        for (var entry in data) {
+                            var row = data[entry];
+
+                            var tr = table.insertRow(targetIdx++);
+
+                            var cell0 = tr.insertCell(0);
+                            cell0.innerText = row.name;
+                            cell0.title = row.description;
+
+                            var cell1 = tr.insertCell(1);
+                            cell1.style.textAlign = 'right';
+                            cell1.id = "stat" + categories[cat] + levels[lvl] + row.name + "DropCount";
+                            cell1.innerText = "" + row.count;
+
+                            var cell2 = tr.insertCell(2);
+                            cell2.style.textAlign = 'right';
+                            cell2.id = "stat" + categories[cat] + levels[lvl] + row.name + "DropPercent";
+                            cell2.innerText = row.percent;
+                        }
+                    }
+                }
+            };
+
+            prepareEffectStatsTable();
         </script>
     </body>
 </html>
