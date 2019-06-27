@@ -1,0 +1,54 @@
+<html>
+    <head>
+        <title>Fallout 76 Purveyor</title>
+        <style>
+            * {
+                font-family: sans-serif;
+                font-size: 20px;
+            }
+            td {
+                padding: 1px;
+            }
+            
+            table.infoTable {
+               border: 1px solid black;
+               border-collapse: collapse;
+            }
+            table.infoTable td {
+               border: 1px solid black;
+            }
+        </style>
+        <meta name="keywords" content="Fallout,Fallout 76,RNG,Random number generator,loot,chance">
+    </head>
+    <body style="height: 90%">
+        <center>
+            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Loot Drop Simulation (v0.1)</span><br/>
+            Number of tries: <input type="number" min="1" id="txtTries">&nbsp;<button id="btnRun">Run</button>
+        </center>
+
+        <script>
+            
+        var lootpool = [];
+        var effectpool = new Map();
+
+        function addItem(category, name, isExplosive) {
+            lootpool.push({ category: category, name: name, isExplosive: isExplosive });
+        }
+
+        function addEffect(category, level, name) {
+            var levelpool = effectpool.get(category);
+            if (levelpool == null) {
+                levelpool = new Map();
+                effectpool.set(category, levelpool);
+            }
+            var effects = levelpool.get(level);
+            if (effects == null) {
+                effects = [];
+                levelpool.set(level, effects);
+            }
+            effects.push(name);
+        }
+
+        </script>
+    </body>
+</html>

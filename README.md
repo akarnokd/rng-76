@@ -6,3 +6,5 @@ Rng 76 - Hunt for the TSE
 [Damage Calculator](https://akarnokd.github.io/rng-76/weapons.html) 
 
 [Purveyor](https://akarnokd.github.io/rng-76/purveyor.html) 
+
+[Drop Simulator](https://akarnokd.github.io/rng-76/dropsim.html)
