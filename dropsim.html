@@ -65,7 +65,10 @@
                     <td id="tabRangedBtn" style="padding: 4px; cursor: pointer;">
                         Ranged drop stats
                     </td>
-                    <td id="tabStreaksBtn" style="padding: 4px; cursor: pointer;">
+                    <td id="tabItemBtn" style="padding: 4px; cursor: pointer;">
+                        Item effect stats
+                    </td>
+                    <td id="tabStreaksBtn" style="padding: 4px; cursor: pointer; display: none;">
                         Streak stats
                     </td>
                 </tr>
@@ -127,7 +130,7 @@
                     </tr>
                     <tr>
                         <td>
-                            <input type="radio" name="disallowedDrop" id="disallowedDropRetryEffect" value="Retry Effect"><label for="disallowedDropRetryEffect"> Keep retrying the effect.</label>
+                            <input type="radio" name="disallowedDrop" id="disallowedDropRetryEffect" value="Retry Effect" disabled="disabled" title="Not implemented yet."><label for="disallowedDropRetryEffect" title="Not implemented yet."> Keep retrying the effect.</label>
                         </td>
                         <td>
                             (Example: If RNG rolls a 2* Broadsider and RNG rolls for Explosive, the major effect is re-rolled until it gives something else.)
@@ -135,7 +138,7 @@
                     </tr>
                     <tr>
                         <td>
-                            <input type="radio" name="disallowedDrop" id="disallowedDropRetryItem" value="Retry Item"><label for="disallowedDropRetryItem"> Keep retrying the item.</label>
+                            <input type="radio" name="disallowedDrop" id="disallowedDropRetryItem" value="Retry Item" disabled="disabled" title="Not implemented yet."><label for="disallowedDropRetryItem" title="Not implemented yet."> Keep retrying the item.</label>
                         </td>
                         <td>
                             (Example: If RNG rolls a 2* Broadsider and RNG rolls for Explosive, the entire drop is re-rolled until it gives a valid item+effect combo.)
@@ -515,6 +518,39 @@
                 </table>
                 <br>&nbsp;
             </div>
+            <div id="tabItem" style="display: none; border: 1px solid black; border-collapse: collapse;">
+                <br>
+                <center><span style="font-size: 26px; font-weight: bold;">Item effect statistics</span></center>
+                <br>
+                <br>
+                Select an item: 
+                <select id="selItem">
+                    <option value="">-</option>
+                </select>
+                &nbsp;&nbsp;(<span id="selCount">0</span>)
+                <br>
+                <br>
+                <input type="radio" name="selItemSort" id="selItemSortByName" value="Name" checked="checked"><label for="selItemSortByName"> Sort by effect name</label>
+                &nbsp;&nbsp;&nbsp;<input type="radio" name="selItemSort" id="selItemSortByCount" value="Count"><label for="selItemSortByCount"> Sort by count</label>
+                <br>
+                <br>
+                <table class='infoTable' id="selItemTable">
+                    <tr style='font-weight: bold;'>
+                        <td>Prefix</td>
+                        <td>Major</td>
+                        <td>Minor</td>
+                        <td>Count</td>
+                        <td>% item</td>
+                        <td>% total</td>
+                    </tr>
+                    <tr style='font-weight: bold;'>
+                        <td colspan="3">Total</td>
+                        <td id='selItemTotal' style="text-align: right;">0</td>
+                        <td id='selItemTotalPercent' colspan="2" style="text-align: right;">0.000%</td>
+                    </tr>
+                </table>
+                <br>&nbsp;
+            </div>
             <div id="tabStreaks" style="display: none; border: 1px solid black; border-collapse: collapse;">
                 <br>
                 <center><span style="font-size: 26px; font-weight: bold;">Streaks statistics</span></center>
@@ -526,6 +562,7 @@
 
             var lootpool = [];
             var effectpool = new Map();
+            var effectpoolLookup = new Map()
 
             // helper functions
 
@@ -538,13 +575,16 @@
                 if (levelpool == null) {
                     levelpool = new Map();
                     effectpool.set(category, levelpool);
+                    effectpoolLookup.set(category, new Map());
                 }
                 var effects = levelpool.get(level);
                 if (effects == null) {
                     effects = [];
                     levelpool.set(level, effects);
+                    effectpoolLookup.get(category).set(level, new Map());
                 }
                 effects.push({name: name, description: description});
+                effectpoolLookup.get(category).get(level).set(name, description);
             }
 
             // Melee weapons
@@ -849,7 +889,7 @@
             addEffect("Ranged", 0, "Two shot", "Shoots an additional projectile");
             // these should be the last so that black powder can filter it out
             addEffect("Ranged", 0, "Quad", "Quadruple ammo capacity");
-            addEffect("Ranged", 0, "Double", "Double ammo capacity");
+            // addEffect("Ranged", 0, "Double", "Double ammo capacity"); // <---------- can no longer drop apparently
 
             // Ranged effects, major
             addEffect("Ranged", 1, "VATSCritical", "VATS critical shots do +50% damage");
@@ -951,7 +991,7 @@
                 // category -> Map(level: int -> { count: int, effects: Map(effect name -> count) })
                 statEffectMap: new Map(),
 
-                // itemName -> { count: int, level: Map(int -> { count: int, effects: Map(prefix+major+minor -> count) })}
+                // itemName -> { count: int, category, level: Map(int -> { count: int, effects: Map(prefix+major+minor -> count) })}
                 statItemMap: new Map(),
 
                 // category -> count
@@ -1032,7 +1072,7 @@
                 document.getElementById("enemy3drop3chance").value = "100";
             };
 
-            var tabNames = ["tabSetup", "tabStars", "tabEffects", "tabArmor", "tabMelee", "tabRanged", "tabStreaks"];
+            var tabNames = ["tabSetup", "tabStars", "tabEffects", "tabArmor", "tabMelee", "tabRanged", "tabItem", "tabStreaks"];
 
             function switchTab(tabId) {
                 for (var idIdx in tabNames) {
@@ -1154,13 +1194,15 @@
                 }
                 starsObj.count++;
 
-                var effectCount = starsObj.effects.get(prefix);
-                if (effectCount == null) {
-                    starsObj.effects.set(prefix, 1);
-                } else {
-                    starsObj.effects.set(prefix, effectCount + 1);
-                }
-
+                if (minor !== "") {
+                    key = prefix + "," + major + "," + minor;
+                    effectCount = starsObj.effects.get(key);
+                    if (effectCount == null) {
+                        starsObj.effects.set(key, 1);
+                    } else {
+                        starsObj.effects.set(key, effectCount + 1);
+                    }
+                } else
                 if (major !== "") {
                     var key = prefix + "," + major;
                     effectCount = starsObj.effects.get(key);
@@ -1169,15 +1211,12 @@
                     } else {
                         starsObj.effects.set(key, effectCount + 1);
                     }
-
-                    if (minor !== "") {
-                        key = prefix + "," + major + "," + minor;
-                        effectCount = starsObj.effects.get(key);
-                        if (effectCount == null) {
-                            starsObj.effects.set(key, 1);
-                        } else {
-                            starsObj.effects.set(key, effectCount + 1);
-                        }
+                } else {
+                    var effectCount = starsObj.effects.get(prefix);
+                    if (effectCount == null) {
+                        starsObj.effects.set(prefix, 1);
+                    } else {
+                        starsObj.effects.set(prefix, effectCount + 1);
                     }
                 }
 
@@ -1259,7 +1298,7 @@
 
                     // black powder can't roll as Double/Quad
                     if (item.tags.includes("blackpowder")) {
-                        prefixPoolLen -= 2;
+                        prefixPoolLen -= 1;
                     }
 
                     // roll for prefix
@@ -1512,6 +1551,9 @@
                         document.getElementById(key + "Percent").innerText = "0.000 %";
                     }
                 }
+
+                // update currently selected item details table
+                updateSelectedItemTables();
             }
 
             function resortItemTable(comparator, tableName) {
@@ -1805,8 +1847,170 @@
                 }
             }
 
+            function prepareSelectItem() {
+                var sel = document.getElementById("selItem");
+
+                var lootpoolCopy = lootpool.slice();
+
+                lootpoolCopy.sort(function(a, b) {
+                    if (a.name < b.name) {
+                        return -1;
+                    }
+                    if (a.name > b.name) {
+                        return 1;
+                    }
+                    return 0;
+                });
+
+                for (var i in lootpoolCopy) {
+                    var option = document.createElement("option");
+                    var e = lootpoolCopy[i];
+                    option.text = e.name;
+                    option.value = e.name;
+                    sel.add(option);
+                }
+
+                sel.oninput = updateSelectedItemTables;
+
+                document.getElementById("selCount").innerText = "" + lootpoolCopy.length;
+            }
+
+            function updateSelectedItemTables() {
+                var sel = document.getElementById("selItem");
+
+                var selItemTable = document.getElementById("selItemTable");
+
+                for (var i = selItemTable.rows.length - 2; i >= 1; i--) {
+                    selItemTable.deleteRow(i);
+                }
+
+                var sortByName = document.getElementById("selItemSortByName").checked;
+
+                var fnSortByName = function(a, b) {
+                                        if (a.key.length < b.key.length) {
+                                            return -1;
+                                        }
+                                        if (a.key.length > b.key.length) {
+                                            return 1;
+                                        }
+                                        for (var j = 0; j < a.key.length; j++) {
+                                            if (a.key[j] < b.key[j]) {
+                                                return -1;
+                                            }
+                                            if (a.key[j] > b.key[j]) {
+                                                return 1;
+                                            }
+                                        }
+                                        return 0;
+                                    };
+
+                if (sel.selectedIndex > 0) {
+                    var opt = sel.options[sel.selectedIndex].value;
+
+                    // itemName -> { count: int, category, stars: Map(int -> { count: int, effects: Map(prefix+major+minor -> count) })}
+                    var item = setup.statItemMap.get(opt);
+
+                    if (item != null) {
+                        var insertIdx = 1;
+
+                        for (var star = 0; star < 4; star++) {
+                            var starInfo = item.stars.get(star);
+                            if (starInfo != null) {
+
+                                // group header
+                                var tr0 = selItemTable.insertRow(insertIdx++);
+                                tr0.style.fontWeight = "bolder";
+                                var c0 = tr0.insertCell(0);
+                                c0.colSpan = "3"
+
+                                if (star == 0) {
+                                    c0.innerText = "No stars";
+                                } else {
+                                    for (var k = 0; k < star; k++) {
+                                        c0.innerText = c0.innerText + "\u2605";
+                                    }
+                                }
+                                c0.style.textAlign = "center";
+
+                                c0 = tr0.insertCell(1);
+                                c0.innerText = "" + starInfo.count;
+                                c0.style.textAlign = "right";
+
+                                c0 = tr0.insertCell(2);
+                                c0.innerText = "" + (starInfo.count * 100.0 / item.count).toFixed(3) + " %";
+                                c0.style.textAlign = "right";
+
+                                c0 = tr0.insertCell(3);
+                                c0.innerText = "" + (starInfo.count * 100.0 / setup.progress).toFixed(3) + " %";
+                                c0.style.textAlign = "right";
+
+
+                                // items
+                                var effects = [];
+                                for (var [key, count] of starInfo.effects) {
+                                    effects.push({ key: key.split(","), count: count });
+                                }
+
+                                if (sortByName) {
+                                    effects.sort(fnSortByName);
+                                } else {
+                                    effects.sort(function(a, b) {
+                                        if (a.count < b.count) {
+                                            return 1;
+                                        }
+                                        if (a.count > b.count) {
+                                            return -1;
+                                        }
+                                        return fnSortByName(a, b);
+                                    });
+                                }
+
+                                for (var e in effects) {
+                                    var eff = effects[e];
+
+                                    var tr = selItemTable.insertRow(insertIdx++);
+
+                                    for (var i = 0; i < 3; i++) {
+                                        var c = tr.insertCell(i);
+                                        if (eff.key.length > i) {
+                                            c.innerText = eff.key[i];
+                                            c.title = effectpoolLookup.get(item.category).get(i).get(eff.key[i]);
+                                        } else {
+                                            c.innerText = "-";
+                                        }
+                                    }
+
+                                    var c = tr.insertCell(3);
+                                    c.style.textAlign = "right";
+                                    c.innerText = "" + eff.count;
+
+                                    c = tr.insertCell(4);
+                                    c.style.textAlign = "right";
+                                    c.innerText = "" + (100.0 * eff.count / item.count).toFixed(3) + " %";
+
+                                    c = tr.insertCell(5);
+                                    c.style.textAlign = "right";
+                                    c.innerText = "" + (100.0 * eff.count / setup.progress).toFixed(3) + " %";
+                                }
+                            }
+                        }
+
+                        document.getElementById("selItemTotal").innerText = "" + item.count;
+                        document.getElementById("selItemTotalPercent").innerText = "" + (100.0 * item.count / setup.progress).toFixed(3) + " %";
+                        return;
+                    }
+                }
+                document.getElementById("selItemTotal").innerText = "0";
+                document.getElementById("selItemTotalPercent").innerText = "0.000%";
+            }
+
+
             prepareEffectStatsTable();
             prepareItemStatsTables();
+            prepareSelectItem();
+
+            document.getElementById("selItemSortByName").oninput = updateSelectedItemTables;
+            document.getElementById("selItemSortByCount").oninput = updateSelectedItemTables;
         </script>
     </body>
 </html>
