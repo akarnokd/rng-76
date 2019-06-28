@@ -1,6 +1,6 @@
 <html>
     <head>
-        <title>Fallout 76 Purveyor</title>
+        <title>Fallout 76 Loot Drop Simulator and Evaluator</title>
         <style>
             * {
                 font-family: sans-serif;
@@ -28,7 +28,7 @@
     </head>
     <body style="height: 90%">
         <center>
-            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Loot Drop Simulation (v0.1)</span>
+            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Loot Drop Simulation (v0.2)</span>
             <br/><br/>
             Number of tries: <input type="number" min="1" id="txtTries" value="10000" class="setupInput">&nbsp;<button id="btnRun">Run</button>
             <br/>
@@ -171,14 +171,14 @@
                 <table style="border: 1px solid black; border-collapse: collapse;">
                     <tr>
                         <td>
-                            <input type="radio" name="assaultronMultistar" id="assaultronMultistarYes" value="Yes"><label for="assaultronMultistarYes"> Yes</label>
+                            <input type="radio" name="assaultronMultistar" id="assaultronMultistarYes" value="Yes" checked="checked"><label for="assaultronMultistarYes"> Yes</label>
                         </td>
                         <td>
                         </td>
                     </tr>
                     <tr>
                         <td>
-                            <input type="radio" name="assaultronMultistar" id="assaultronMultistarNo" value="No" checked="checked"><label for="assaultronMultistarNo"> No</label>
+                            <input type="radio" name="assaultronMultistar" id="assaultronMultistarNo" value="No"><label for="assaultronMultistarNo"> No</label>
                         </td>
                         <td>
                             (Not sure, but up until Patch 10.5, Assaultron Head still can't drop as 2-3* from legendaries, only from the Purveyor.)
@@ -525,7 +525,10 @@
                 <br>
                 Select an item: 
                 <select id="selItem">
-                    <option value="">-</option>
+                    <option value="-">-</option>
+                    <option value="Armor">Armor aggregated</option>
+                    <option value="Melee">Melee aggregated</option>
+                    <option value="Ranged">Ranged aggregated</option>
                 </select>
                 &nbsp;&nbsp;(<span id="selCount">0</span>)
                 <br>
@@ -1133,7 +1136,6 @@
 
                     }
                 } finally {
-                    updateStatisticsPanels();
 
                     if (setup.tries <= setup.progress) {
                         clearInterval(setup.handle);
@@ -1141,6 +1143,8 @@
                         setup.handle = undefined;
                         document.getElementById("btnRun").innerText = "Run";
                     }
+
+                    updateStatisticsPanels();
                 }
             }
 
@@ -1180,6 +1184,11 @@
             }
 
             function addItemMap(itemName, category, stars, prefix, major, minor) {
+                addItemMapSpecific(category, category, stars, prefix, major, minor);
+                addItemMapSpecific(itemName, category, stars, prefix, major, minor);
+            }
+
+            function addItemMapSpecific(itemName, category, stars, prefix, major, minor) {
                 var itemObj = setup.statItemMap.get(itemName);
                 if (itemObj == null) {
                     itemObj = { count: 0, category: category, stars: new Map() };
@@ -1507,6 +1516,10 @@
 
                 // itemName -> { count: int, category, stars: Map(int -> { count: int, effects: Map(prefix+major+minor -> count) })}
                 for (var [itemName, itemStats] of setup.statItemMap) {
+
+                    if (itemName == "Armor" || itemName == "Melee" || itemName == "Ranged") {
+                        continue;
+                    }
 
                     var categorySum = setup.statCategories.get(itemStats.category);
 
