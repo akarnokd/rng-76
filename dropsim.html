@@ -56,8 +56,17 @@
                     <td id="tabEffectsBtn" style="padding: 4px; cursor: pointer;">
                             Effect drop stats
                     </td>
-                    <td id="tabItemsBtn" style="padding: 4px; cursor: pointer;">
-                            Item drop stats
+                    <td id="tabArmorBtn" style="padding: 4px; cursor: pointer;">
+                            Armor drop stats
+                    </td>
+                    <td id="tabMeleeBtn" style="padding: 4px; cursor: pointer;">
+                        Melee drop stats
+                    </td>
+                    <td id="tabRangedBtn" style="padding: 4px; cursor: pointer;">
+                        Ranged drop stats
+                    </td>
+                    <td id="tabStreaksBtn" style="padding: 4px; cursor: pointer;">
+                        Streak stats
                     </td>
                 </tr>
             </table>
@@ -410,12 +419,108 @@
                 </table>
                 <br>&nbsp;
             </div>
-            <div id="tabItems" style="display: none; border: 1px solid black; border-collapse: collapse;">
+            <div id="tabArmor" style="display: none; border: 1px solid black; border-collapse: collapse;">
                 <br>
-                <center><span style="font-size: 26px; font-weight: bold;">Item drop statistics</span></center>
+                <center><span style="font-size: 26px; font-weight: bold;">Armor drop statistics</span>
+                    &nbsp;&nbsp;<button id="armorsSortByPercent">Re-sort by percent</button>
+                    &nbsp;&nbsp;<button id="armorsSortByName">Re-sort by name</button>
+                </center>
+                <br>
+                <br>
+                <table class='infoTable' id='statArmorItems'>
+                    <tr style="font-weight: bold;">
+                        <td rowspan="2" id="statArmorItemsOverview">Name</td>
+                        <td colspan="3">1* drop</td>
+                        <td colspan="3">2* drop</td>
+                        <td colspan="3">3* drop</td>
+                        <td colspan="2">Total</td>
+                    </tr>
+                    <tr style="font-weight: bold;">
+                        <td>Count</td>
+                        <td>% row</td>
+                        <td>% total</td>
+                        <td>Count</td>
+                        <td>% row</td>
+                        <td>% total</td>
+                        <td>Count</td>
+                        <td>% row</td>
+                        <td>% total</td>
+                        <td>Count</td>
+                        <td>%</td>
+                    </tr>
+                </table>
                 <br>&nbsp;
             </div>
-            </center>
+            <div id="tabMelee" style="display: none; border: 1px solid black; border-collapse: collapse;">
+                <br>
+                <center><span style="font-size: 26px; font-weight: bold;">Melee drop statistics</span>
+                    &nbsp;&nbsp;<button id="meleesSortByPercent">Re-sort by percent</button>
+                    &nbsp;&nbsp;<button id="meleesSortByName">Re-sort by name</button>
+                </center>
+                <br>
+                <br>
+                <table class='infoTable' id='statMeleeItems'>
+                    <tr style="font-weight: bold;">
+                        <td rowspan="2" id="statMeleeItemsOverview">Name</td>
+                        <td colspan="3">1* drop</td>
+                        <td colspan="3">2* drop</td>
+                        <td colspan="3">3* drop</td>
+                        <td colspan="2">Total</td>
+                    </tr>
+                    <tr style="font-weight: bold;">
+                        <td>Count</td>
+                        <td>% row</td>
+                        <td>% total</td>
+                        <td>Count</td>
+                        <td>% row</td>
+                        <td>% total</td>
+                        <td>Count</td>
+                        <td>% row</td>
+                        <td>% total</td>
+                        <td>Count</td>
+                        <td>%</td>
+                    </tr>
+                </table>
+                <br>&nbsp;
+            </div>
+            <div id="tabRanged" style="display: none; border: 1px solid black; border-collapse: collapse;">
+                <br>
+                <center><span style="font-size: 26px; font-weight: bold;">Ranged drop statistics</span>
+                    &nbsp;&nbsp;<button id="rangedsSortByPercent">Re-sort by percent</button>
+                    &nbsp;&nbsp;<button id="rangedsSortByName">Re-sort by name</button>
+                </center>
+                <br>
+                <br>
+                <table class='infoTable' id='statRangedItems'>
+                    <tr style="font-weight: bold;">
+                        <td rowspan="2" id="statRangedItemsOverview">Name</td>
+                        <td colspan="3">1* drop</td>
+                        <td colspan="3">2* drop</td>
+                        <td colspan="3">3* drop</td>
+                        <td colspan="2">Total</td>
+                    </tr>
+                    <tr style="font-weight: bold;">
+                        <td>Count</td>
+                        <td>% row</td>
+                        <td>% total</td>
+                        <td>Count</td>
+                        <td>% row</td>
+                        <td>% total</td>
+                        <td>Count</td>
+                        <td>% row</td>
+                        <td>% total</td>
+                        <td>Count</td>
+                        <td>%</td>
+                    </tr>
+                </table>
+                <br>&nbsp;
+            </div>
+            <div id="tabStreaks" style="display: none; border: 1px solid black; border-collapse: collapse;">
+                <br>
+                <center><span style="font-size: 26px; font-weight: bold;">Streaks statistics</span></center>
+                <br>&nbsp;
+            </div>
+        </center>
 
         <script>
 
@@ -849,6 +954,9 @@
                 // itemName -> { count: int, level: Map(int -> { count: int, effects: Map(prefix+major+minor -> count) })}
                 statItemMap: new Map(),
 
+                // category -> count
+                statCategories: new Map(),
+
                 // each generated item log, use addDrop()
                 statItems: [],
             }
@@ -900,6 +1008,7 @@
                 setup.statEffectMap = new Map();
                 setup.statItemMap = new Map();
                 setup.statItems = [];
+                setup.statCategories = new Map();
             }
 
             document.getElementById("presetDefault").onclick = function() {
@@ -923,7 +1032,7 @@
                 document.getElementById("enemy3drop3chance").value = "100";
             };
 
-            var tabNames = ["tabSetup", "tabStars", "tabEffects", "tabItems"];
+            var tabNames = ["tabSetup", "tabStars", "tabEffects", "tabArmor", "tabMelee", "tabRanged", "tabStreaks"];
 
             function switchTab(tabId) {
                 for (var idIdx in tabNames) {
@@ -1030,10 +1139,10 @@
                 }
             }
 
-            function addItemMap(itemName, stars, prefix, major, minor) {
+            function addItemMap(itemName, category, stars, prefix, major, minor) {
                 var itemObj = setup.statItemMap.get(itemName);
                 if (itemObj == null) {
-                    itemObj = { count: 0, stars: new Map() };
+                    itemObj = { count: 0, category: category, stars: new Map() };
                     setup.statItemMap.set(itemName, itemObj);
                 }
                 itemObj.count++;
@@ -1070,6 +1179,19 @@
                             starsObj.effects.set(key, effectCount + 1);
                         }
                     }
+                }
+
+                var catCount = setup.statCategories.get(category);
+                if (catCount == null) {
+                    setup.statCategories.set(category, 1);
+                } else {
+                    setup.statCategories.set(category, catCount + 1);
+                }
+                catCount = setup.statCategories.get(category + stars);
+                if (catCount == null) {
+                    setup.statCategories.set(category + stars, 1);
+                } else {
+                    setup.statCategories.set(category + stars, catCount + 1);
                 }
             }
 
@@ -1111,6 +1233,7 @@
                     if (item.tags.includes("nostar")) {
                         setup.statEnemyDropStars[enemyStar - 1][0]++;
                         addDrop(item.category, item.name, enemyStar, 0, "", "", "");
+                        addItemMap(item.name, item.category, 0, "", "", "");
                         // nothing to roll further
                         return;
                     }
@@ -1147,7 +1270,7 @@
                     if (itemStar == 1) {
                         addDrop(item.category, item.name, enemyStar, 1, prefix.name, "", "");
                         addEffectMap(item.category, 1, prefix.name);
-                        addItemMap(item.name, 1, prefix.name, "", "");
+                        addItemMap(item.name, item.category, 1, prefix.name, "", "");
 
                         return;
                     }
@@ -1173,7 +1296,7 @@
                     if (itemStar == 2) {
                         addDrop(item.category, item.name, enemyStar, 2, prefix.name, major.name, "");
                         addEffectMap(item.category, 2, major.name);
-                        addItemMap(item.name, 1, prefix.name, major.name, "");
+                        addItemMap(item.name, item.category, 2, prefix.name, major.name, "");
 
                         return;
                     }
@@ -1191,7 +1314,7 @@
 
                     addDrop(item.category, item.name, enemyStar, 2, prefix.name, major.name, minor.name);
                     addEffectMap(item.category, 3, minor.name);
-                    addItemMap(item.name, 1, prefix.name, major.name, minor.name);
+                    addItemMap(item.name, item.category, 3, prefix.name, major.name, minor.name);
                 }
             }
 
@@ -1203,6 +1326,7 @@
                 return sum;
             }
             
+
             function prepareEffectStatsTable() {
                 var categories = ["Armor", "Melee", "Ranged"];
                 var levels = ["Prefix", "Major", "Minor"];
@@ -1339,6 +1463,99 @@
                         }
                     }
                 }
+
+                // update items panel
+
+                // itemName -> { count: int, category, stars: Map(int -> { count: int, effects: Map(prefix+major+minor -> count) })}
+                for (var [itemName, itemStats] of setup.statItemMap) {
+
+                    var categorySum = setup.statCategories.get(itemStats.category);
+
+                    for (var [star, itemEffects] of itemStats.stars) {
+                        if (star > 0) {
+                            var itemStarKey = "stat" + itemStats.category + "Items" + itemName + "Drop" + star;
+
+                            document.getElementById(itemStarKey + "Count").innerText = "" + itemEffects.count;
+                            document.getElementById(itemStarKey + "Percent").innerText = "" + (itemEffects.count * 100.0 / itemStats.count).toFixed(3) + " %";
+                            document.getElementById(itemStarKey + "PercentTotal").innerText = "" + (itemEffects.count * 100.0 / categorySum).toFixed(3) + " %";
+                        }
+                    }
+
+                    var itemStarKey = "stat" + itemStats.category + "Items" + itemName + "Drop";
+
+                    document.getElementById(itemStarKey + "Count").innerText = "" + itemStats.count;
+                    document.getElementById(itemStarKey + "Percent").innerText = "" + (itemStats.count * 100.0 / categorySum).toFixed(3) + " %";
+                }
+
+                for (var cat in categories) {
+                    var category = categories[cat];
+                    var categorySum = setup.statCategories.get(category);
+
+                    for (var lvl = 1; lvl < 4; lvl++) {
+                        var key = "stat" + category + "ItemsDrop" + lvl;
+                        var val = setup.statCategories.get(category + lvl);
+                        if (val != null) {
+                            document.getElementById(key + "Count").innerText = "" + val;
+                            document.getElementById(key + "Percent").innerText = "" + (val * 100.0 / categorySum).toFixed(3) + " %";
+                        } else {
+                            document.getElementById(key + "Count").innerText = "0";
+                            document.getElementById(key + "Percent").innerText = "0.000 %";
+                        }
+                    }
+
+                    var key = "stat" + category + "ItemsDrop";
+                    if (categorySum > 0) {
+                        document.getElementById(key + "Count").innerText = "" + categorySum;
+                        document.getElementById(key + "Percent").innerText = "" + (categorySum * 100.0 / setup.progress).toFixed(3) + " %";
+                    } else {
+                        document.getElementById(key + "Count").innerText = "0";
+                        document.getElementById(key + "Percent").innerText = "0.000 %";
+                    }
+                }
+            }
+
+            function resortItemTable(comparator, tableName) {
+                var table = document.getElementById(tableName);
+
+                var oldRows = [];
+
+                for (var i = table.rows.length - 2; i >= 2; i--) {
+                    var cellIds = [];
+                    var cellTexts = [];
+
+                    var tr = table.rows[i];
+
+                    for (var j = 0; j < tr.cells.length; j++) {
+                        cellIds.push(tr.cells[j].id);
+                        cellTexts.push(tr.cells[j].innerText);
+                    }
+                    
+                    oldRows.push({
+                        name: tr.cells[0].innerText,
+                        count: parseInt(tr.cells[10].innerText),
+                        ids: cellIds,
+                        texts: cellTexts
+                    });
+
+                    table.deleteRow(i);
+                }
+
+                oldRows.sort(comparator);
+
+                for (var i = 0; i < oldRows.length; i++) {
+                    var tr = table.insertRow(i + 2);
+
+                    var r = oldRows[i];
+
+                    for (var j = 0; j < r.ids.length; j++) {
+                        c = tr.insertCell(j);
+                        c.id = r.ids[j];
+                        c.innerText = r.texts[j];
+                        if (j != 0) {
+                            c.style.textAlign = "right";
+                        }
+                    }
+                }
             }
 
             function resortEffectsTable(comparator) {
@@ -1412,7 +1629,184 @@
                 });
             };
 
+            document.getElementById("armorsSortByPercent").onclick = function() {
+                resortItemTable(function(a, b) {
+                    if (a.count < b.count) {
+                        return 1;
+                    }
+                    if (a.count > b.count) {
+                        return -1;
+                    }
+                    return 0;
+                }, "statArmorItems");
+            };
+
+            document.getElementById("armorsSortByName").onclick = function() {
+                resortItemTable(function(a, b) {
+                    if (a.name < b.name) {
+                        return -1;
+                    }
+                    if (a.name > b.name) {
+                        return 1;
+                    }
+                    return 0;
+                }, "statArmorItems");
+            };
+
+            document.getElementById("meleesSortByPercent").onclick = function() {
+                resortItemTable(function(a, b) {
+                    if (a.count < b.count) {
+                        return 1;
+                    }
+                    if (a.count > b.count) {
+                        return -1;
+                    }
+                    return 0;
+                }, "statMeleeItems");
+            };
+
+            document.getElementById("meleesSortByName").onclick = function() {
+                resortItemTable(function(a, b) {
+                    if (a.name < b.name) {
+                        return -1;
+                    }
+                    if (a.name > b.name) {
+                        return 1;
+                    }
+                    return 0;
+                }, "statMeleeItems");
+            };
+
+            document.getElementById("rangedsSortByPercent").onclick = function() {
+                resortItemTable(function(a, b) {
+                    if (a.count < b.count) {
+                        return 1;
+                    }
+                    if (a.count > b.count) {
+                        return -1;
+                    }
+                    return 0;
+                }, "statRangedItems");
+            };
+
+            document.getElementById("rangedsSortByName").onclick = function() {
+                resortItemTable(function(a, b) {
+                    if (a.name < b.name) {
+                        return -1;
+                    }
+                    if (a.name > b.name) {
+                        return 1;
+                    }
+                    return 0;
+                }, "statRangedItems");
+            };
+
+            function prepareItemStatsTables() {
+                var categories = ["Armor", "Melee", "Ranged"];
+
+                for (var cat in categories) {
+                    var category = categories[cat];
+
+                    var items = [];
+
+                    for (var poolItemIdx in lootpool) {
+                        var poolItem = lootpool[poolItemIdx];
+                        if (poolItem.category == category) {
+                            items.push(poolItem.name);
+                        }
+                    }
+
+                    items.sort(function(a, b) {
+                        if (a < b) {
+                            return -1;
+                        }
+                        if (a > b) {
+                            return 1;
+                        }
+                        return 0;
+                    });
+
+                    var overview = document.getElementById("stat" + categories[cat] + "ItemsOverview");
+                    overview.innerHTML = "<b>Name</b><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"
+                     + items.length + " (" + (items.length * 100.0 / lootpool.length).toFixed(3) + " % pool, " 
+                     + (100.0 / items.length).toFixed(3) + "% an item)";
+                     overview.style.fontWeight = "normal";
+                    
+
+                    var key = "stat" + categories[cat] + "Items";
+                    var table = document.getElementById(key);
+
+                    for (var poolItemIdx in items) {
+                        var poolItem = items[poolItemIdx];
+
+                        var row = table.insertRow(table.rows.length);
+
+                        var cell = row.insertCell(row.cells.length);
+                        cell.innerText = poolItem;
+                        cell.id = key + poolItem
+
+                        for (var j = 1; j < 4; j++) {
+                            cell = row.insertCell(row.cells.length);
+                            cell.innerText = "0";
+                            cell.style.textAlign = "right";
+                            cell.id = key + poolItem + "Drop" + j + "Count";
+
+                            cell = row.insertCell(row.cells.length);
+                            cell.innerText = "0.000 %";
+                            cell.style.textAlign = "right";
+                            cell.id = key + poolItem + "Drop" + j + "Percent";
+
+                            cell = row.insertCell(row.cells.length);
+                            cell.innerText = "0.000 %";
+                            cell.style.textAlign = "right";
+                            cell.id = key + poolItem + "Drop" + j + "PercentTotal";
+                        }
+
+                        cell = row.insertCell(row.cells.length);
+                        cell.innerText = "0";
+                        cell.style.textAlign = "right";
+                        cell.id = key + poolItem + "DropCount";
+
+                        cell = row.insertCell(row.cells.length);
+                        cell.innerText = "0.000 %";
+                        cell.style.textAlign = "right";
+                        cell.id = key + poolItem + "DropPercent";
+                    }
+
+                    var row = table.insertRow(table.rows.length);
+                    
+                    var cell = row.insertCell(row.cells.length);
+                    cell.innerText = "Total";
+                    row.style.fontWeight = "bold";
+
+                    for (var j = 1; j < 4; j++) {
+                        cell = row.insertCell(row.cells.length);
+                        cell.innerText = "0";
+                        cell.style.textAlign = "right";
+                        cell.id = key + "Drop" + j + "Count";
+
+                        cell = row.insertCell(row.cells.length);
+                        cell.innerText = "0.000 %";
+                        cell.colSpan = "2";
+                        cell.style.textAlign = "right";
+                        cell.id = key + "Drop" + j + "Percent";
+                    }
+
+                    cell = row.insertCell(row.cells.length);
+                    cell.innerText = "0";
+                    cell.style.textAlign = "right";
+                    cell.id = key + "DropCount";
+
+                    cell = row.insertCell(row.cells.length);
+                    cell.innerText = "0.000 %";
+                    cell.style.textAlign = "right";
+                    cell.id = key + "DropPercent";
+
+                }
+            }
+
             prepareEffectStatsTable();
+            prepareItemStatsTables();
         </script>
     </body>
 </html>
