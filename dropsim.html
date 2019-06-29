@@ -28,7 +28,7 @@
     </head>
     <body style="height: 90%">
         <center>
-            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Loot Drop Simulation (v0.6)</span>
+            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Loot Drop Simulation (v0.7)</span>
             <br/><br/>
             Number of tries: <input type="number" min="1" id="txtTries" value="10000" class="setupInput">&nbsp;<button id="btnRun">Run</button>
             <br/>
@@ -219,21 +219,38 @@
                 </table>
                 <br>
                 <br>
-                <b>Assaultron Head can roll as multi-star:</b><br>
+                <b>Some specific drop chance multipliers:</b><br>
                 <table style="border: 1px solid black; border-collapse: collapse;">
                     <tr>
                         <td>
-                            <input type="radio" name="assaultronMultistar" id="assaultronMultistarYes" value="Yes" checked="checked"><label for="assaultronMultistarYes"> Yes</label>
+                            Handmade drop chance:
                         </td>
                         <td>
+                            <input class='setupInput' type="number" min='1' value='1' id="handmadeChance">
                         </td>
                     </tr>
                     <tr>
                         <td>
-                            <input type="radio" name="assaultronMultistar" id="assaultronMultistarNo" value="No"><label for="assaultronMultistarNo"> No</label>
+                            Anti-armor drop chance:
                         </td>
                         <td>
-                            (Not sure, but up until Patch 10.5, Assaultron Head still can't drop as 2-3* from legendaries, only from the Purveyor.)
+                            <input class='setupInput' type="number" min='1' value='1' id="antiArmorChance">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Explosive drop chance:
+                        </td>
+                        <td>
+                            <input class='setupInput' type="number" min='1' value='1' id="explosiveChance">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Faster fire rate chance:
+                        </td>
+                        <td>
+                            <input class='setupInput' type="number" min='1' value='1' id="ffrChance">
                         </td>
                     </tr>
                 </table>
@@ -322,7 +339,7 @@
                         <td style='text-align: right' id='statenemy1drop1count'>0</td>
                         <td style='text-align: right' id='statenemy1drop1percent'>0</td>
                         <td style='text-align: right' id='statenemy1drop1percenttotal'>0</td>
-                        <td colspan='6' style="text-align: center;">N/A</td>
+                        <td colspan='6' style="text-align: center;">&nbsp;</td>
                         <td style='text-align: right' id='statenemy1count'>0</td>
                         <td style='text-align: right' id='statenemy1percent'>0</td>
                     </tr>
@@ -337,7 +354,7 @@
                         <td style='text-align: right' id='statenemy2drop2count'>0</td>
                         <td style='text-align: right' id='statenemy2drop2percent'>0</td>
                         <td style='text-align: right' id='statenemy2drop2percenttotal'>0</td>
-                        <td colspan='3' style="text-align: center;">N/A</td>
+                        <td colspan='3' style="text-align: center;">&nbsp;</td>
                         <td style='text-align: right' id='statenemy2count'>0</td>
                         <td style='text-align: right' id='statenemy2percent'>0</td>
                     </tr>
@@ -673,6 +690,7 @@
             var lootpool = [];
             var lootpoolbase = [];
             var effectpool = new Map();
+            var effectpoolbase = new Map();
             var effectpoolLookup = new Map()
 
             // helper functions
@@ -684,10 +702,15 @@
             }
 
             function addEffect(category, level, name, description) {
-                var levelpool = effectpool.get(category);
+                addEffectSpecific(effectpoolbase, category, level, name, description);
+                addEffectSpecific(effectpool, category, level, name, description);
+            }
+
+            function addEffectSpecific(pool, category, level, name, description) {
+                var levelpool = pool.get(category);
                 if (levelpool == null) {
                     levelpool = new Map();
-                    effectpool.set(category, levelpool);
+                    pool.set(category, levelpool);
                     effectpoolLookup.set(category, new Map());
                 }
                 var effects = levelpool.get(level);
@@ -797,7 +820,7 @@
             addItem("Ranged", "Missile Launcher", "explosive");
             addItem("Ranged", "Gamma Gun", "energy");
             addItem("Ranged", "Cryolator", "energy");
-            addItem("Ranged", "Salvaged Assaultron Head", "energy,assaultronhead");
+            addItem("Ranged", "Salvaged Assaultron Head", "energy");
             addItem("Ranged", "Flamer", "energy");
 
             // oooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo
@@ -1078,7 +1101,6 @@
                 progressUpdateItems: 100,
                 energyAntiArmor: true,
                 energyExplosive: false,
-                assaultronMultistar: false,
                 woodMultistar: false,
                 disallowedDrop: "Prefilter",
                 enemyChances: [75, 5, 20],
@@ -1089,6 +1111,8 @@
                 ],
                 running: false,
                 progress: 0,
+                antiArmorChance: 1,
+                explosiveChance: 1,
 
                 // ------------------------------------------------
                 // statistics counter
@@ -1123,7 +1147,6 @@
                 setup.progressUpdateItems = parseInt(document.getElementById("progressUpdateItems").value);
                 setup.energyAntiArmor = document.getElementById("energyAntiArmorYes").checked;
                 setup.energyExplosive = document.getElementById("energyExplosiveYes").checked;
-                setup.assaultronMultistar = document.getElementById("assaultronMultistarYes").checked;
                 setup.woodMultistar = document.getElementById("woodMultistarYes").checked;
                 var disallowedDrops = document.getElementsByName("disallowedDrop");
 
@@ -1172,6 +1195,13 @@
                 var canRanged = document.getElementById("categoryPurveyorRanged").checked;
                 var canDrillSyringe = document.getElementById("categoryPurveyorDrillSyringer").checked;
 
+                var handmadeChance = parseInt(document.getElementById("handmadeChance").value);
+                var antiArmorChance = parseInt(document.getElementById("antiArmorChance").value);
+                setup.antiArmorChance = antiArmorChance;
+                var explosiveChance = parseInt(document.getElementById("explosiveChance").value);
+                setup.explosiveChance = explosiveChance;
+                var ffrChance = parseInt(document.getElementById("ffrChance").value);
+
                 lootpool = [];
 
                 if (canArmor && canMelee && canRanged && canDrillSyringe) {
@@ -1194,6 +1224,40 @@
                         }
 
                         lootpool.push(entry);
+                    }
+                }
+
+                for (var i = 1; i < handmadeChance; i++) {
+                    lootpool.push({ category: "Ranged", name: "Handmade Rifle", tags: "" });
+                }
+
+                if (antiArmorChance == 1 && explosiveChance == 1 && ffrChance == 1) {
+                    effectpool = effectpoolbase;
+                } else {
+                    effectpool = new Map();
+
+                    for (var [k, v] of effectpoolbase) {
+                        var m = new Map();
+                        effectpool.set(k, m);
+                        for (var [k1, v1] of v) {
+                            m.set(k1, v1.slice());
+                        }
+                    }
+
+                    for (var i = 1; i < ffrChance; i++) {
+
+                    }
+
+                    for (var i = 1; i < antiArmorChance; i++) {
+                        effectpool.get("Ranged").get(0).unshift({ name: "Anti-armor", description: "Ignores 50% of your target's armor" });
+                    }
+
+                    for (var i = 1; i < ffrChance; i++) {
+                        effectpool.get("Ranged").get(1).unshift({ name: "FireRate", description: "25% increased fire rate"});
+                    }
+
+                    for (var i = 1; i < explosiveChance; i++) {
+                        effectpool.get("Ranged").get(1).push({ name: "Explosive", description: "Bullets explode for area damage" });
                     }
                 }
 
@@ -1501,8 +1565,7 @@
                     }
 
                     // wood may not be more than 1 star based on setup
-                    if ((item.tags.includes("wood") && !setup.woodMultistar)
-                            || (item.tags.includes("assaultronhead") && !setup.assaultronMultistar)) {
+                    if ((item.tags.includes("wood") && !setup.woodMultistar)) {
                         itemStar = 1;
                     }
 
@@ -1515,8 +1578,8 @@
 
                     // energy weapons may not drop as Anti-armor based on setup
                     if (item.tags.includes("energy") && !setup.energyAntiArmor) {
-                        prefixOffset++;
-                        prefixPoolLen--;
+                        prefixOffset += 1;
+                        prefixPoolLen -= setup.antiArmorChance;
                     }
 
                     // black powder can't roll as Double/Quad
@@ -1544,11 +1607,11 @@
 
                     // explosive can't drop with Explosive prefix
                     if (item.tags.includes("explosive")) {
-                        majorPoolLen--;
+                        majorPoolLen -= setup.explosiveChance;
                     } else 
                     // energy weapons may not drop as explosive based on setup
                     if (item.tags.includes("energy") && !setup.energyExplosive) {
-                        majorPoolLen--;
+                        majorPoolLen -= setup.explosiveChance;
                     }
 
                     var majorIndex = Math.floor(Math.random() * majorPoolLen);
