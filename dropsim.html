@@ -28,7 +28,7 @@
     </head>
     <body style="height: 90%">
         <center>
-            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Loot Drop Simulation (v0.2)</span>
+            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Loot Drop Simulation (v0.3)</span>
             <br/><br/>
             Number of tries: <input type="number" min="1" id="txtTries" value="10000" class="setupInput">&nbsp;<button id="btnRun">Run</button>
             <br/>
@@ -67,6 +67,9 @@
                     </td>
                     <td id="tabItemBtn" style="padding: 4px; cursor: pointer;">
                         Item effect stats
+                    </td>
+                    <td id="tabFilterBtn" style="padding: 4px; cursor: pointer;">
+                        Filter items
                     </td>
                     <td id="tabStreaksBtn" style="padding: 4px; cursor: pointer; display: none;">
                         Streak stats
@@ -554,6 +557,59 @@
                 </table>
                 <br>&nbsp;
             </div>
+            <div id="tabFilter" style="display: none; border: 1px solid black; border-collapse: collapse;">
+                <br>
+                <center><span style="font-size: 26px; font-weight: bold;">Items by filter</span></center>
+                <br>
+                Prefix: <select id="filterPrefix">
+                    <option value="*">Any</option>
+                    <option value="-">None</option>
+                </select>
+                &nbsp;&nbsp;&nbsp;
+                Major: <select id="filterMajor">
+                    <option value="*">Any</option>
+                    <option value="-">None</option>
+                </select>
+                &nbsp;&nbsp;&nbsp;
+                Minor: <select id="filterMinor">
+                    <option value="*">Any</option>
+                    <option value="-">None</option>
+                </select>
+                &nbsp;&nbsp;&nbsp;
+                Category: <select id="filterCategory">
+                    <option value="*">Any</option>
+                    <option value="Armor">Armor</option>
+                    <option value="Melee">Melee</option>
+                    <option value="Ranged">Ranged</option>
+                </select>
+                &nbsp;&nbsp;&nbsp;
+                Name contains: <input type="text" id="filterExpression">
+                &nbsp;&nbsp;&nbsp;<button id="btnFilter">Filter</button>
+                <br>
+                <br>
+                <input type="radio" name="filterSort" id="filterSortByName" value="Name" checked="checked"><label for="filterSortByName"> Sort by name</label>
+                &nbsp;&nbsp;&nbsp;<input type="radio" name="filterSort" id="filterSortByCount" value="Count"><label for="filterSortByCount"> Sort by count</label>
+                <br>
+                <br>
+                Entries found: <span style="font-weight: bold;" id="filterEntryCount">0</span>
+                &nbsp;&nbsp;&nbsp;
+                Drop count: <span style="font-weight: bold;" id="filterDropCount">0</span>
+                &nbsp;&nbsp;&nbsp;
+                Drop percent: <span style="font-weight: bold;" id="filterDropPercent">0.000 %</span>
+                <br>
+                <br>
+                <table class="infoTable" id="tableFiltered">
+                    <tr style="font-weight: bold;">
+                        <td>Name</td>
+                        <td>Prefix</td>
+                        <td>Major</td>
+                        <td>Minor</td>
+                        <td>Count</td>
+                        <td>%</td>
+                    </tr>
+                </table>
+                <br>&nbsp;
+            </div>
             <div id="tabStreaks" style="display: none; border: 1px solid black; border-collapse: collapse;">
                 <br>
                 <center><span style="font-size: 26px; font-weight: bold;">Streaks statistics</span></center>
@@ -856,7 +912,7 @@
             // Melee effects, major
             addEffect("Melee", 1, "Limb", "+50% limb damage");
             addEffect("Melee", 1, "Speed", "40% increased swing speed");
-            addEffect("Melee", 1, "Power", "40% more power attack damage");
+            addEffect("Melee", 1, "Powerattack", "40% more power attack damage");
             addEffect("Melee", 1, "Reflect", "Reflect 50% of damage while blocking");
 
             // Melee effects, minor
@@ -1002,6 +1058,9 @@
 
                 // each generated item log, use addDrop()
                 statItems: [],
+
+                // (prefix,major,minor -> { item -> { category, count } })
+                statEffectItemMap: new Map(),
             }
 
             function updateSetup() {
@@ -1052,6 +1111,7 @@
                 setup.statItemMap = new Map();
                 setup.statItems = [];
                 setup.statCategories = new Map();
+                setup.statEffectItemMap = new Map();
             }
 
             document.getElementById("presetDefault").onclick = function() {
@@ -1075,7 +1135,7 @@
                 document.getElementById("enemy3drop3chance").value = "100";
             };
 
-            var tabNames = ["tabSetup", "tabStars", "tabEffects", "tabArmor", "tabMelee", "tabRanged", "tabItem", "tabStreaks"];
+            var tabNames = ["tabSetup", "tabStars", "tabEffects", "tabArmor", "tabMelee", "tabRanged", "tabItem", "tabFilter", "tabStreaks"];
 
             function switchTab(tabId) {
                 for (var idIdx in tabNames) {
@@ -1149,6 +1209,8 @@
             }
 
             function addDrop(category, itemName, enemyStar, itemStar, prefix, major, minor) {
+                // ignore for now, no need for the specific list of items
+                /* 
                 setup.statItems.push({
                     category: category, 
                     itemName: itemName, 
@@ -1158,6 +1220,7 @@
                     major: major, 
                     minor: minor
                 });
+                */
             }
 
             function addEffectMap(category, level, effectName) {
@@ -1240,6 +1303,28 @@
                     setup.statCategories.set(category + stars, 1);
                 } else {
                     setup.statCategories.set(category + stars, catCount + 1);
+                }
+
+                var effItemKey = prefix;
+                if (major != "") {
+                    effItemKey += "," + major;
+                }
+                if (minor != "") {
+                    effItemKey += "," + minor;
+                }
+
+                var effItemEntry = setup.statEffectItemMap.get(effItemKey);
+                if (effItemEntry == null) {
+                    effItemEntry = new Map();
+                    setup.statEffectItemMap.set(effItemKey, effItemEntry);
+                }
+
+                var itemInfo = effItemEntry.get(itemName);
+                if (itemInfo == null) {
+                    itemInfo = { category: category, count: 1};
+                    effItemEntry.set(itemName, itemInfo);
+                } else {
+                    itemInfo.count++;
                 }
             }
 
@@ -1950,11 +2035,11 @@
                                 c0.style.textAlign = "right";
 
                                 c0 = tr0.insertCell(2);
-                                c0.innerText = "" + (starInfo.count * 100.0 / item.count).toFixed(3) + " %";
+                                c0.innerText = "" + (starInfo.count * 100.0 / item.count).toFixed(5) + " %";
                                 c0.style.textAlign = "right";
 
                                 c0 = tr0.insertCell(3);
-                                c0.innerText = "" + (starInfo.count * 100.0 / setup.progress).toFixed(3) + " %";
+                                c0.innerText = "" + (starInfo.count * 100.0 / setup.progress).toFixed(5) + " %";
                                 c0.style.textAlign = "right";
 
 
@@ -1999,17 +2084,17 @@
 
                                     c = tr.insertCell(4);
                                     c.style.textAlign = "right";
-                                    c.innerText = "" + (100.0 * eff.count / item.count).toFixed(3) + " %";
+                                    c.innerText = "" + (100.0 * eff.count / item.count).toFixed(5) + " %";
 
                                     c = tr.insertCell(5);
                                     c.style.textAlign = "right";
-                                    c.innerText = "" + (100.0 * eff.count / setup.progress).toFixed(3) + " %";
+                                    c.innerText = "" + (100.0 * eff.count / setup.progress).toFixed(5) + " %";
                                 }
                             }
                         }
 
                         document.getElementById("selItemTotal").innerText = "" + item.count;
-                        document.getElementById("selItemTotalPercent").innerText = "" + (100.0 * item.count / setup.progress).toFixed(3) + " %";
+                        document.getElementById("selItemTotalPercent").innerText = "" + (100.0 * item.count / setup.progress).toFixed(5) + " %";
                         return;
                     }
                 }
@@ -2024,6 +2109,213 @@
 
             document.getElementById("selItemSortByName").oninput = updateSelectedItemTables;
             document.getElementById("selItemSortByCount").oninput = updateSelectedItemTables;
+
+            function prepareFilterOptions() {
+                var prefixOpt = document.getElementById("filterPrefix");
+                var majorOpt = document.getElementById("filterMajor");
+                var minorOpt = document.getElementById("filterMinor");
+
+                var sels = [ prefixOpt, majorOpt, minorOpt ];
+                var opts = [ [], [], [] ];
+
+                for (var [category, effects] of effectpool) {
+                    for (var [level, effect] of effects) {
+                        for (var i = 0; i < effect.length; i++) {
+                            if (opts[level].indexOf(effect[i].name) < 0) {
+                                opts[level].push(effect[i].name);
+                            }
+                        }
+                    }
+                }
+
+                for (var i = 0; i < 3; i++) {
+                    opts[i].sort();
+
+                    for (var j = 0; j < opts[i].length; j++) {
+                        var option = document.createElement("option");
+                        var effect = opts[i][j];
+                        option.text = effect;
+                        option.value = effect;
+                        sels[i].add(option);
+                    }
+                }
+            }
+
+            function valueOf(element) {
+                var idx = element.selectedIndex;
+                if (idx < 0) {
+                    return "";
+                }
+                return element.options[idx].value;
+            }
+
+            function effectComparator(a, b) {
+                if (a.prefix < b.prefix) {
+                    return -1;
+                }
+                if (a.prefix > b.prefix) {
+                    return 1;
+                }
+                if (a.major < b.major) {
+                    return -1;
+                }
+                if (a.major > b.major) {
+                    return 1;
+                }
+                if (a.minor < b.minor) {
+                    return -1;
+                }
+                if (a.minor > b.minor) {
+                    return 1;
+                }
+
+                return 0;
+            }
+
+            function applyFilter() {
+                var table = document.getElementById("tableFiltered");
+
+                for (var i = table.rows.length - 1; i > 0; i--) {
+                    table.deleteRow(i);
+                }
+
+                var prefix = valueOf(document.getElementById("filterPrefix"));
+                var major = valueOf(document.getElementById("filterMajor"));
+                var minor = valueOf(document.getElementById("filterMinor"));
+                var category = valueOf(document.getElementById("filterCategory"));
+                var name = document.getElementById("filterExpression").value;
+
+                var found = [];
+                var foundTotalCount = 0;
+
+                for (var [effects, items] of setup.statEffectItemMap) {
+                    var effectsArray = effects.split(",");
+
+                    if (prefix == "-" && effectsArray.length > 0) {
+                        continue;
+                    }
+
+                    if (major == "-" && effectsArray.length > 1) {
+                        continue;
+                    }
+
+                    if (minor == "-" && effectsArray.length > 2) {
+                        continue;
+                    }
+
+                    if (prefix != "*" && effectsArray.length > 0 && effectsArray[0] != prefix) {
+                        continue;
+                    }
+
+                    if (major != "*" && 
+                            (effectsArray.length < 2
+                                || (effectsArray.length > 1 && effectsArray[1] != major))) {
+                        continue;
+                    }
+
+                    if (minor != "*" &&
+                            (effectsArray.length < 3
+                                || (effectsArray.length > 2 && effectsArray[2] != minor))) {
+                        continue;
+                    }
+
+                    for (var [item, itemInfo] of items) {
+
+                        if (item == "Armor" || item == "Melee" || item == "Ranged") {
+                            continue;
+                        }
+
+                        if (!item.includes(name)) {
+                            continue;
+                        }
+
+                        if (category != "*" && category != itemInfo.category) {
+                            continue;
+                        }
+
+                        found.push({
+                            name: item,
+                            category: itemInfo.category,
+                            count: itemInfo.count,
+                            prefix: effectsArray[0],
+                            major: effectsArray.length > 1 ? effectsArray[1] : "-",
+                            minor: effectsArray.length > 2 ? effectsArray[2] : "-",
+                        });
+
+                        foundTotalCount += itemInfo.count;
+                    }
+                }
+
+                if (document.getElementById("filterSortByName").checked) {
+                    found.sort(function(a, b) {
+                        if (a.name < b.name) {
+                            return -1;
+                        }
+                        if (a.name > b.name) {
+                            return 1;
+                        }
+                        return effectComparator(a, b);
+                    });
+                }
+
+                if (document.getElementById("filterSortByCount").checked) {
+                    found.sort(function(a, b) {
+                        if (a.count < b.count) {
+                            return 1;
+                        }
+                        if (a.count > b.count) {
+                            return -1;
+                        }
+                        if (a.name < b.name) {
+                            return -1;
+                        }
+                        if (a.name > b.name) {
+                            return 1;
+                        }
+                        return effectComparator(a, b);
+                    });
+                }
+
+                var foundCount = document.getElementById("filterEntryCount");
+                foundCount.innerText = "" + found.length;
+                if (found.length > 1000) {
+                    foundCount.innerText += " (top 1000 shown)";
+                    found = found.slice(0, 1000);
+                }
+
+                for (var i = 0; i < found.length; i++) {
+                    var e = found[i];
+
+                    var tr = table.insertRow(1 + i);
+
+                    var td = tr.insertCell(0);
+                    td.innerText = e.name;
+
+                    td = tr.insertCell(1);
+                    td.innerText = e.prefix;
+                    td = tr.insertCell(2);
+                    td.innerText = e.major;
+                    td = tr.insertCell(3);
+                    td.innerText = e.minor;
+
+                    td = tr.insertCell(4);
+                    td.innerText = "" + e.count;
+                    td.style.textAlign = "right";
+
+                    td = tr.insertCell(5);
+                    td.innerText = "" + (e.count * 100.0 / setup.progress).toFixed(5) + " %";
+                    td.style.textAlign = "right";
+                }
+
+                document.getElementById("filterDropCount").innerText = "" + foundTotalCount;
+                document.getElementById("filterDropPercent").innerText = "" + (foundTotalCount * 100.0 / setup.progress).toFixed(5) + " %";
+            }
+
+            document.getElementById("btnFilter").onclick = applyFilter;
+            document.getElementById("filterSortByName").oninput = applyFilter;
+            document.getElementById("filterSortByCount").oninput = applyFilter;
+
+            prepareFilterOptions();
         </script>
     </body>
 </html>
