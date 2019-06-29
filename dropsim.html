@@ -2196,7 +2196,11 @@
                 var foundTotalCount = 0;
 
                 for (var [effects, items] of setup.statEffectItemMap) {
-                    var effectsArray = effects.split(",");
+                    var effectsArray = [];
+                    
+                    if (effects.length > 0) {
+                        effectsArray = effects.split(",");
+                    }
 
                     if (prefix == "-" && effectsArray.length > 0) {
                         continue;
