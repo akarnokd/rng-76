@@ -2258,7 +2258,7 @@
                             name: item,
                             category: itemInfo.category,
                             count: itemInfo.count,
-                            prefix: effectsArray[0],
+                            prefix: effectsArray.length > 0 ? effectsArray[0] : "-",
                             major: effectsArray.length > 1 ? effectsArray[1] : "-",
                             minor: effectsArray.length > 2 ? effectsArray[2] : "-",
                         });
