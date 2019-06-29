@@ -231,7 +231,7 @@
                 <br>
                 <br>
                 <b>Progress bar update frequency:</b><br>
-                Every <input type="number" id="progressUpdateItems" value="100" min="1" class="setupInput"> drops.
+                Every <input type="number" id="progressUpdateItems" value="50" min="1" class="setupInput"> drops.
 
                 <br>&nbsp;
             </div>
@@ -1173,7 +1173,7 @@
                     setup.running = true;
                     setup.progress = 0;
                     document.getElementById("btnRun").innerText = "Stop";
-                    setup.handle = setInterval(rollLoot, 1);
+                    setup.handle = setInterval(rollLoot, 0);
 
                     // switch to the overview tab
                     if (document.getElementById("tabSetup").style.display == "block") {
@@ -1183,6 +1183,11 @@
                     updateStatisticsPanels();
                 }
             };
+            document.getElementById("txtTries").oninput = function() {
+                var val = parseInt(document.getElementById("txtTries").value);
+
+                document.getElementById("progressUpdateItems").value = "" + (Math.max(1, Math.floor(val / 200)));
+            }
 
             function rollLoot() {
                 try {
