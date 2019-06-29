@@ -28,7 +28,7 @@
     </head>
     <body style="height: 90%">
         <center>
-            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Loot Drop Simulation (v0.4)</span>
+            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Loot Drop Simulation (v0.5)</span>
             <br/><br/>
             Number of tries: <input type="number" min="1" id="txtTries" value="10000" class="setupInput">&nbsp;<button id="btnRun">Run</button>
             <br/>
@@ -1114,6 +1114,8 @@
                 setup.statItems = [];
                 setup.statCategories = new Map();
                 setup.statEffectItemMap = new Map();
+
+                cleanupTables();
             }
 
             document.getElementById("presetDefault").onclick = function() {
@@ -2339,6 +2341,49 @@
                 }
             }
             prepareFilterOptions();
+
+            function cleanupTables() {
+                // zero out the effects tables
+                var tableCats = ["Armor", "Melee", "Ranged"];
+                var tableStars = ["Prefix", "Major", "Minor"];
+
+                for (var tableCat of tableCats) {
+                    for (var tableStar of tableStars) {
+                        var table = document.getElementById("stat" + tableCat + tableStar);
+
+                        for (var i = 1; i < table.rows.length; i++) {
+                            var tr = table.rows[i];
+
+                            tr.cells[1].innerText = "0";
+                            tr.cells[2].innerText = "0.000%";
+                        }
+                    }
+                }
+
+                // zero out the category tables
+                for (var tableCat of tableCats) {
+                    var table = document.getElementById("stat" + tableCat + "Items");
+                    for (var i = 2; i < table.rows.length - 1; i++) {
+                        var tr = table.rows[i];
+
+                        var cid = 1;
+                        tr.cells[cid++].innerText = "0";
+                        tr.cells[cid++].innerText = "0.000%";
+                        tr.cells[cid++].innerText = "0.000%";
+
+                        tr.cells[cid++].innerText = "0";
+                        tr.cells[cid++].innerText = "0.000%";
+                        tr.cells[cid++].innerText = "0.000%";
+
+                        tr.cells[cid++].innerText = "0";
+                        tr.cells[cid++].innerText = "0.000%";
+                        tr.cells[cid++].innerText = "0.000%";
+
+                        tr.cells[cid++].innerText = "0";
+                        tr.cells[cid++].innerText = "0.000%";
+                    }
+                }
+            }
         </script>
     </body>
 </html>
