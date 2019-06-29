@@ -2190,7 +2190,7 @@
                 var major = valueOf(document.getElementById("filterMajor"));
                 var minor = valueOf(document.getElementById("filterMinor"));
                 var category = valueOf(document.getElementById("filterCategory"));
-                var name = document.getElementById("filterExpression").value;
+                var name = document.getElementById("filterExpression").value.toLowerCase();
 
                 var found = [];
                 var foundTotalCount = 0;
@@ -2240,7 +2240,7 @@
                             continue;
                         }
 
-                        if (!item.includes(name)) {
+                        if (!item.toLowerCase().includes(name)) {
                             continue;
                         }
 
@@ -2329,7 +2329,11 @@
             document.getElementById("btnFilter").onclick = applyFilter;
             document.getElementById("filterSortByName").oninput = applyFilter;
             document.getElementById("filterSortByCount").oninput = applyFilter;
-
+            document.getElementById("filterExpression").onkeydown = function(evt) {
+                if (evt.keyCode == 13) {
+                    applyFilter();
+                }
+            }
             prepareFilterOptions();
         </script>
     </body>
