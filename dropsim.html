@@ -1677,10 +1677,11 @@
                         });
 
                         document.getElementById("stat" + categories[cat] + levels[lvl] + "Count").innerText = "" + leveledeffects.length;
-                        document.getElementById("stat" + categories[cat] + levels[lvl] + "Percent").innerText = "" + (100.0 / leveledeffects.length).toFixed(3) + " %";
+                        var baseMean = (100.0 / leveledeffects.length);
+                        document.getElementById("stat" + categories[cat] + levels[lvl] + "Percent").innerText = "" + baseMean.toFixed(3) + " %"; // " % \u00B1 " + baseStdDev.toFixed(3);
 
                         var table = document.getElementById("stat" + categories[cat] + levels[lvl]);
-
+                        
                         for (var leidx in leveledeffects) {
                             var le = leveledeffects[leidx];
 
@@ -1711,9 +1712,33 @@
 
                         var celllast2 = rowlast.insertCell(2);
                         celllast2.style.textAlign = "right";
+                        celllast2.id = "stat" + categories[cat] + levels[lvl] + "TotalChiTest";
                     }
                 }
             }
+
+            var chiUpperTail = [0.0, 
+              2.706,  4.605,  6.251,  7.779,  9.236,
+             10.645, 12.017, 13.362, 14.684, 15.987,
+             17.275, 18.549, 19.812, 21.064, 22.307,
+             23.542, 24.769, 25.989, 27.204, 28.412,
+             29.615, 30.813, 32.007, 33.196, 34.382,
+             35.563, 36.741, 37.916, 39.087, 40.256,
+             41.422, 42.585, 43.745, 44.903, 46.059,
+             47.212, 48.363, 49.513, 50.660, 51.805,
+             52.949, 54.090, 55.230, 56.369, 57.505,
+             58.641, 59.774, 60.907, 62.038, 63.167,
+             64.295, 65.422, 66.548, 67.673, 68.796,
+             69.919, 71.040, 72.160, 73.279, 74.397,
+             75.514, 76.630, 77.745, 78.860, 79.973,
+             81.085, 82.197, 83.308, 84.418, 85.527,
+             86.635, 87.743, 88.850, 89.956, 91.061,
+             92.166, 93.270, 94.374, 95.476, 96.578,
+             97.680, 98.780, 99.880,100.980,102.079,
+             103.177,104.275,105.372,106.469,107.565,
+             108.661,109.756,110.850,111.944,113.038,
+             114.131,115.223,116.315,117.407,118.498
+            ];
 
             function updateStatisticsPanels() {
                 // update the progress bar
@@ -1786,6 +1811,27 @@
                         var totalCount = document.getElementById("stat" + categories[cat] + levels[lvl] + "TotalCount");
                         if (catLevelStat != null) {
                             totalCount.innerText = "" + catLevelStat.count;
+
+                            var chiExpected = catLevelStat.count / leveledeffects.length;
+                            var chiSum = 0.0;
+
+                            for (var eff of leveledeffects) {
+                                var observed = catLevelStat.effects.get(eff.name);
+
+                                chiSum += (chiExpected - observed) * (chiExpected - observed) / chiExpected;
+                            }
+
+                            var dof = leveledeffects.length - 1;
+
+                            var chiTxt = document.getElementById("stat" + categories[cat] + levels[lvl] + "TotalChiTest");
+                            chiTxt.innerText = "" + chiSum.toFixed(3) + " vs. " + chiUpperTail[dof].toFixed(3);
+                            if (chiSum > chiUpperTail[dof]) {
+                                chiTxt.style.backgroundColor = "#FFCCCC";
+                                chiTxt.title = "ChiSquare indicates this is not uniform distribution at 90% significance"
+                            } else {
+                                chiTxt.style.backgroundColor = "";
+                                chiTxt.title = "";
+                            }
                         } else {
                             totalCount.innerText = "0";
                         }
