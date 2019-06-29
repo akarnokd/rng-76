@@ -28,7 +28,7 @@
     </head>
     <body style="height: 90%">
         <center>
-            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Loot Drop Simulation (v0.3)</span>
+            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Loot Drop Simulation (v0.4)</span>
             <br/><br/>
             Number of tries: <input type="number" min="1" id="txtTries" value="10000" class="setupInput">&nbsp;<button id="btnRun">Run</button>
             <br/>
@@ -567,12 +567,14 @@
                 </select>
                 &nbsp;&nbsp;&nbsp;
                 Major: <select id="filterMajor">
-                    <option value="*">Any</option>
+                    <option value="*">Any (optional)</option>
+                    <option value="+">Any (required)</option>
                     <option value="-">None</option>
                 </select>
                 &nbsp;&nbsp;&nbsp;
                 Minor: <select id="filterMinor">
-                    <option value="*">Any</option>
+                    <option value="*">Any (optional)</option>
+                    <option value="+">Any (required)</option>
                     <option value="-">None</option>
                 </select>
                 &nbsp;&nbsp;&nbsp;
@@ -2208,17 +2210,25 @@
                         continue;
                     }
 
+                    if (major == "+" && effectsArray.length < 2) {
+                        continue;
+                    }
+
+                    if (minor == "+" && effectsArray.length < 3) {
+                        continue;
+                    }
+
                     if (prefix != "*" && effectsArray.length > 0 && effectsArray[0] != prefix) {
                         continue;
                     }
 
-                    if (major != "*" && 
+                    if (major != "*" && major != "-" && major != "+" &&
                             (effectsArray.length < 2
                                 || (effectsArray.length > 1 && effectsArray[1] != major))) {
                         continue;
                     }
 
-                    if (minor != "*" &&
+                    if (minor != "*" && minor != "-" && minor != "+" &&
                             (effectsArray.length < 3
                                 || (effectsArray.length > 2 && effectsArray[2] != minor))) {
                         continue;
@@ -2308,12 +2318,12 @@
                     td.style.textAlign = "right";
 
                     td = tr.insertCell(5);
-                    td.innerText = "" + (e.count * 100.0 / setup.progress).toFixed(5) + " %";
+                    td.innerText = "" + (e.count * 100.0 / setup.progress).toFixed(6) + " %";
                     td.style.textAlign = "right";
                 }
 
                 document.getElementById("filterDropCount").innerText = "" + foundTotalCount;
-                document.getElementById("filterDropPercent").innerText = "" + (foundTotalCount * 100.0 / setup.progress).toFixed(5) + " %";
+                document.getElementById("filterDropPercent").innerText = "" + (foundTotalCount * 100.0 / setup.progress).toFixed(6) + " %";
             }
 
             document.getElementById("btnFilter").onclick = applyFilter;
