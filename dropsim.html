@@ -28,7 +28,7 @@
     </head>
     <body style="height: 90%">
         <center>
-            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Loot Drop Simulation (v0.5)</span>
+            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Loot Drop Simulation (v0.6)</span>
             <br/><br/>
             Number of tries: <input type="number" min="1" id="txtTries" value="10000" class="setupInput">&nbsp;<button id="btnRun">Run</button>
             <br/>
@@ -116,11 +116,60 @@
                         <td colspan="4">
                             <button id="presetDefault">Default</button>&nbsp;
                             <button id="presetMaxLevel">Max star only</button>&nbsp;
+                            <button id="preset1Star">1* only</button>&nbsp;
+                            <button id="preset2Star">2* only</button>&nbsp;
+                            <button id="preset3Star">3* only</button>&nbsp;
                         </td>
                     </tr>
                 </table>
                 <br/>
                 <br/>
+                <b>Purveyor presets:</b><br>
+                <table>
+                    <tr>
+                        <td rowspan='3'><button id="presetAnything">Anything</button></td>
+                        <td><button id="preset1StarArmor" style="width: 100%">Legendary Armor &#x2605;</button></td>
+                        <td><button id="preset2StarArmor" style="width: 100%">Legendary Armor &#x2605;&#x2605;</button></td>
+                        <td><button id="preset3StarArmor" style="width: 100%">Legendary Armor &#x2605;&#x2605;&#x2605;</button></td>
+                    </tr>
+                    <tr>
+                        <td><button id="preset1StarMelee" style="width: 100%">Legendary Melee &#x2605;</button></td>
+                        <td><button id="preset2StarMelee" style="width: 100%">Legendary Melee &#x2605;&#x2605;</button></td>
+                        <td><button id="preset3StarMelee" style="width: 100%">Legendary Melee &#x2605;&#x2605;&#x2605;</button></td>
+                    </tr>
+                    <tr>
+                        <td><button id="preset1StarRanged" style="width: 100%">Legendary Ranged &#x2605;</button></td>
+                        <td><button id="preset2StarRanged" style="width: 100%">Legendary Ranged &#x2605;&#x2605;</button></td>
+                        <td><button id="preset3StarRanged" style="width: 100%">Legendary Ranged &#x2605;&#x2605;&#x2605;</button></td>
+                    </tr>
+                </table>
+                <br/>
+                <br/>
+                <b>Categories that can drop:</b><br>
+                <table style="border: 1px solid black; border-collapse: collapse;">
+                    <tr>
+                        <td>
+                            <input type="checkbox" name="categoryPurveyor" id="categoryPurveyorArmor" value="Armor" checked="checked"><label for="categoryPurveyorArmor"> Armor</label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input type="checkbox" name="categoryPurveyor" id="categoryPurveyorMelee" value="Melee" checked="checked"><label for="categoryPurveyorMelee"> Melee</label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input type="checkbox" name="categoryPurveyor" id="categoryPurveyorRanged" value="Ranged" checked="checked"><label for="categoryPurveyorRanged"> Ranged</label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input type="checkbox" name="categoryPurveyor" id="categoryPurveyorDrillSyringer" value="DrillSyringe" checked="checked"><label for="categoryPurveyorDrillSyringer"> Drill/Syringer</label>
+                        </td>
+                    </tr>
+                </table>
+                <br>
+                <br>
                 <b>Disallowed drop handling mode:</b><br>
                 <table style="border: 1px solid black; border-collapse: collapse;">
                     <tr>
@@ -377,8 +426,8 @@
                             <table class='infoTable' id='statMeleeMajor'>
                                 <tr style='font-weight: bold;'>
                                     <td>Major</td>
-                                    <td style="text-align: right" id="statMeleeMajorCount">0</td>
-                                    <td style="text-align: right" id="statMeleeMajorPercent">0</td>
+                                    <td style="text-align: right;" id="statMeleeMajorCount">0</td>
+                                    <td style="text-align: right;" id="statMeleeMajorPercent">0</td>
                                 </tr>
                                 <tr style='font-weight: bold;'><td>Name</td><td>Count</td><td>Percent</td></tr>
                             </table>
@@ -386,8 +435,8 @@
                             <table class='infoTable' id='statMeleeMinor'>
                                 <tr style='font-weight: bold;'>
                                     <td>Minor</td>
-                                    <td style="text-align: right" id="statMeleeMinorCount">0</td>
-                                    <td style="text-align: right" id="statMeleeMinorPercent">0</td>
+                                    <td style="text-align: right;" id="statMeleeMinorCount">0</td>
+                                    <td style="text-align: right;" id="statMeleeMinorPercent">0</td>
                                 </tr>
                                 <tr><td>Name</td><td>Count</td><td>Percent</td></tr>
                             </table>
@@ -397,8 +446,8 @@
                             <table class='infoTable' id='statRangedPrefix'>
                                 <tr style='font-weight: bold;'>
                                     <td>Prefix</td>
-                                    <td style="text-align: right" id="statRangedPrefixCount">0</td>
-                                    <td style="text-align: right" id="statRangedPrefixPercent">0</td>
+                                    <td style="text-align: right;" id="statRangedPrefixCount">0</td>
+                                    <td style="text-align: right;" id="statRangedPrefixPercent">0</td>
                                 </tr>
                                 <tr style='font-weight: bold;'><td>Name</td><td>Count</td><td>Percent</td></tr>
                             </table>
@@ -622,13 +671,16 @@
         <script>
 
             var lootpool = [];
+            var lootpoolbase = [];
             var effectpool = new Map();
             var effectpoolLookup = new Map()
 
             // helper functions
 
             function addItem(category, name, tags) {
-                lootpool.push({ category: category, name: name, tags: tags });
+                var e = { category: category, name: name, tags: tags };
+                lootpool.push(e);
+                lootpoolbase.push(e);
             }
 
             function addEffect(category, level, name, description) {
@@ -1115,6 +1167,36 @@
                 setup.statCategories = new Map();
                 setup.statEffectItemMap = new Map();
 
+                var canArmor = document.getElementById("categoryPurveyorArmor").checked;
+                var canMelee = document.getElementById("categoryPurveyorMelee").checked;
+                var canRanged = document.getElementById("categoryPurveyorRanged").checked;
+                var canDrillSyringe = document.getElementById("categoryPurveyorDrillSyringer").checked;
+
+                lootpool = [];
+
+                if (canArmor && canMelee && canRanged && canDrillSyringe) {
+                    lootpool = lootpoolbase;
+                } else {
+
+                    for (var entry of lootpoolbase) {
+
+                        if (entry.category == "Armor" && !canArmor) {
+                            continue;
+                        }
+                        if (entry.category == "Melee" && !canMelee) {
+                            continue;
+                        }
+                        if (entry.category == "Ranged" && !canRanged) {
+                            continue;
+                        }
+                        if (entry.tags.includes("nostar") && !canDrillSyringe) {
+                            continue;
+                        }
+
+                        lootpool.push(entry);
+                    }
+                }
+
                 cleanupTables();
             }
 
@@ -1133,6 +1215,45 @@
             document.getElementById("presetMaxLevel").onclick = function() {
                 document.getElementById("enemy2drop1chance").value = "0";
                 document.getElementById("enemy2drop2chance").value = "100";
+
+                document.getElementById("enemy3drop1chance").value = "0";
+                document.getElementById("enemy3drop2chance").value = "0";
+                document.getElementById("enemy3drop3chance").value = "100";
+            };
+
+            document.getElementById("preset1Star").onclick = function() {
+                document.getElementById("enemy1chance").value = "100";
+                document.getElementById("enemy2chance").value = "0";
+                document.getElementById("enemy3chance").value = "0";
+
+                document.getElementById("enemy2drop1chance").value = "100";
+                document.getElementById("enemy2drop2chance").value = "0";
+
+                document.getElementById("enemy3drop1chance").value = "100";
+                document.getElementById("enemy3drop2chance").value = "0";
+                document.getElementById("enemy3drop3chance").value = "0";
+            };
+
+            document.getElementById("preset2Star").onclick = function() {
+                document.getElementById("enemy1chance").value = "0";
+                document.getElementById("enemy2chance").value = "100";
+                document.getElementById("enemy3chance").value = "0";
+
+                document.getElementById("enemy2drop1chance").value = "0";
+                document.getElementById("enemy2drop2chance").value = "100";
+
+                document.getElementById("enemy3drop1chance").value = "0";
+                document.getElementById("enemy3drop2chance").value = "100";
+                document.getElementById("enemy3drop3chance").value = "0";
+            };
+
+            document.getElementById("preset3Star").onclick = function() {
+                document.getElementById("enemy1chance").value = "0";
+                document.getElementById("enemy2chance").value = "0";
+                document.getElementById("enemy3chance").value = "100";
+
+                document.getElementById("enemy2drop1chance").value = "0";
+                document.getElementById("enemy2drop2chance").value = "1";
 
                 document.getElementById("enemy3drop1chance").value = "0";
                 document.getElementById("enemy3drop2chance").value = "0";
@@ -1202,7 +1323,6 @@
                         setup.progress++;
 
                         rollStep();
-
                     }
                 } finally {
 
@@ -1437,6 +1557,7 @@
 
                     if (itemStar == 2) {
                         addDrop(item.category, item.name, enemyStar, 2, prefix.name, major.name, "");
+                        addEffectMap(item.category, 1, prefix.name);
                         addEffectMap(item.category, 2, major.name);
                         addItemMap(item.name, item.category, 2, prefix.name, major.name, "");
 
@@ -1455,6 +1576,8 @@
                     var minor = minorPool[minorIndex];
 
                     addDrop(item.category, item.name, enemyStar, 2, prefix.name, major.name, minor.name);
+                    addEffectMap(item.category, 1, prefix.name);
+                    addEffectMap(item.category, 2, major.name);
                     addEffectMap(item.category, 3, minor.name);
                     addItemMap(item.name, item.category, 3, prefix.name, major.name, minor.name);
                 }
@@ -2351,12 +2474,13 @@
                     for (var tableStar of tableStars) {
                         var table = document.getElementById("stat" + tableCat + tableStar);
 
-                        for (var i = 1; i < table.rows.length; i++) {
+                        for (var i = 2; i < table.rows.length - 1; i++) {
                             var tr = table.rows[i];
 
                             tr.cells[1].innerText = "0";
                             tr.cells[2].innerText = "0.000%";
                         }
+                        table.rows[table.rows.length - 1].cells[1].innerText = "0";
                     }
                 }
 
@@ -2384,6 +2508,40 @@
                     }
                 }
             }
+
+            function purveyorPreset(starLevel, category) {
+                document.getElementById("enemy1chance").value = starLevel == 1 ? "100" : "0";
+                document.getElementById("enemy2chance").value = starLevel == 2 ? "100" : "0";
+                document.getElementById("enemy3chance").value = starLevel == 3 ? "100" : "0";
+
+                document.getElementById("enemy2drop1chance").value = starLevel != 2 ? "100" : "0";
+                document.getElementById("enemy2drop2chance").value = starLevel == 2 ? "100" : "0";
+
+                document.getElementById("enemy3drop1chance").value = starLevel == 1 ? "100" : "0";
+                document.getElementById("enemy3drop2chance").value = starLevel == 2 ? "100" : "0";
+                document.getElementById("enemy3drop3chance").value = starLevel == 3 ? "100" : "0";
+
+                document.getElementById("categoryPurveyorArmor").checked = category == "Armor";
+                document.getElementById("categoryPurveyorMelee").checked = category == "Melee";
+                document.getElementById("categoryPurveyorRanged").checked = category == "Ranged";
+                document.getElementById("categoryPurveyorDrillSyringer").checked = false;
+            }
+
+            for (let i = 1; i < 4; i++) {
+                for (let cat of ["Armor", "Melee", "Ranged"]) {
+                    document.getElementById("preset" + i + "Star" + cat).onclick = function() {
+                        purveyorPreset(i, cat);
+                    };
+                }
+            }
+
+            document.getElementById("presetAnything").onclick = function() {
+                document.getElementById("presetDefault").click();
+                document.getElementById("categoryPurveyorArmor").checked = true;
+                document.getElementById("categoryPurveyorMelee").checked = true;
+                document.getElementById("categoryPurveyorRanged").checked = true;
+                document.getElementById("categoryPurveyorDrillSyringer").checked = true;
+            };
         </script>
     </body>
 </html>
