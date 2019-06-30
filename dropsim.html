@@ -28,7 +28,7 @@
     </head>
     <body style="height: 90%">
         <center>
-            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Loot Drop Simulation (v0.7.1)</span>
+            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Loot Drop Simulation (v0.7.2)</span>
             <br/><br/>
             Number of tries: <input type="number" min="1" id="txtTries" value="10000" class="setupInput">&nbsp;<button id="btnRun">Run</button>
             <br/>
@@ -1817,6 +1817,9 @@
 
                             for (var eff of leveledeffects) {
                                 var observed = catLevelStat.effects.get(eff.name);
+                                if (observed == null) {
+                                    observed = 0.0;
+                                }
 
                                 chiSum += (chiExpected - observed) * (chiExpected - observed) / chiExpected;
                             }
