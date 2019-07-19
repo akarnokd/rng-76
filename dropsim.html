@@ -28,7 +28,7 @@
     </head>
     <body style="height: 90%">
         <center>
-            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Loot Drop Simulation (v0.7.3)</span>
+            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Loot Drop Simulation (v0.7.4)</span>
             <br/><br/>
             Number of tries: <input type="number" min="1" id="txtTries" value="10000" class="setupInput">&nbsp;<button id="btnRun">Run</button>
             <br/>
@@ -930,13 +930,12 @@
             addItem("Armor", "Forrest Scout Armor Left Leg", "");
             addItem("Armor", "Forrest Scout Armor Right Leg", "");
 
-
-            // Urban Scout Armor doesn't seem to exist as legendary drop
-            // addItem("Armor", "Urban Scout Armor Chest Piece", "");
-            // addItem("Armor", "Urban Scout Armor Left Arm", "");
-            // addItem("Armor", "Urban Scout Armor Right Arm", "");
-            // addItem("Armor", "Urban Scout Armor Left Leg", "");
-            // addItem("Armor", "Urban Scout Armor Right Leg", "");
+            // Urban Scout since Patch 11
+            addItem("Armor", "Urban Scout Armor Chest Piece", "");
+            addItem("Armor", "Urban Scout Armor Left Arm", "");
+            addItem("Armor", "Urban Scout Armor Right Arm", "");
+            addItem("Armor", "Urban Scout Armor Left Leg", "");
+            addItem("Armor", "Urban Scout Armor Right Leg", "");
 
             // Wooden
             addItem("Armor", "Wooden Chest Piece", "wood");
