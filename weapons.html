@@ -2828,6 +2828,9 @@
                     {
                         name: "Furious"
                     },
+                    {
+                        name: "Junkie's"
+                    },
                 ],
                 // 2: Major
                 [
@@ -2913,7 +2916,10 @@
                         name: "Troubleshooter's",
                         versus: ["Robot"],
                         versusAddPercent: 30
-                    }
+                    },
+                    {
+                        name: "Junkie's"
+                    },
                 ],
                 // 2: Major
                 [
@@ -3236,6 +3242,7 @@
                 "Shows the Damage Resistance (against ballistic damage) after all Ignore Armor mods/effects/perks have been applied to the target."
                 + " Note that Ignore Armor does not currently work with energy and radiation weapons and against their respective resistances."
             );
+            infoMap.set("junkies", "With the <b>Junkie's</b> legendary prefix on a weapon, each addiction results in a +10% damage bonus up to +50% total.");
 
 
             // add HTML explanation marker
@@ -3575,6 +3582,15 @@
                     cell2 = row.insertCell(1);
                     cell2.innerHTML = "<input type='number' id='furioushits" + index + "' value='0' maxlength='6' style='width: 8em;' min='0' max='30'>";
                     document.getElementById("furioushits" + index ).oninput = function() {
+                        recalculate(tbl, index, type);
+                    };
+
+                row = tbl.insertRow(tbl.rows.length);
+                    cell1 = row.insertCell(0);
+                    cell1.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;Addictions" + info("junkies");
+                    cell2 = row.insertCell(1);
+                    cell2.innerHTML = "<input type='number' id='junkiescount" + index + "' value='0' maxlength='6' style='width: 8em;' min='0' max='30'>";
+                    document.getElementById("junkiescount" + index ).oninput = function() {
                         recalculate(tbl, index, type);
                     };
             }
@@ -4340,6 +4356,12 @@
                         if (effInfo.name === "Furious") {
                             var furioushits = document.getElementById("furioushits" + index);
                             var perc = 5 * Math.min(9, parseFloat(furioushits.value));
+                            totalDamageMultiply.push(perc);
+                            totalDamageEnergyMultiply.push(perc);
+                        }
+                        if (effInfo.name === "Junkie's") {
+                            var junkiescount = document.getElementById("junkiescount" + index);
+                            var perc = 10 * Math.min(5, parseFloat(junkiescount.value));
                             totalDamageMultiply.push(perc);
                             totalDamageEnergyMultiply.push(perc);
                         }
