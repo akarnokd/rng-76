@@ -22,7 +22,7 @@
     </head>
     <body style="height: 90%">
         <center>
-            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Weapon Damage Calculator (v2.0.14)</span><br/>
+            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Weapon Damage Calculator (v2.0.15)</span><br/>
             <!-- <sup style='font-size: 16px;'>* Only ballistic damage; energy damage and resistances are not fully explored yet.</sup> -->
         <br/>
         <table id="parent">
@@ -180,6 +180,16 @@
                                 }
                             ]
                         }
+                    ]
+                },
+                {
+                    name: "Tenderizer",
+                    category: "Two-handed",
+                    speed: speedSlow,
+                    level: [10, 20, 30, 40, 50],
+                    damage: [35, 45, 55, 67, 75],
+                    mods: [
+                    
                     ]
                 },
                 {
@@ -1499,6 +1509,136 @@
                         },
                         standardAPMagazines,
                         standardMuzzle
+                    ]
+                },
+                {
+                    name: "The Fixer",
+                    category: "Rifle",
+                    explosive: false,
+                    silencer: true,
+                    speed: 3.3,
+                    level: [20, 30, 40, 50],
+                    damage: [33, 38, 43, 48],
+                    mods: [
+                        {
+                            slot: "Receiver",
+                            options: [
+                                {
+                                    name: "Standard"
+                                },
+                                {
+                                    name: "Automatic",
+                                    damageMultPercent: -10,
+                                    speedMultPercent: speedMult(7.5, 3.3),
+                                },
+                                {
+                                    name: "Powerful Automatic",
+                                    damageMultPercent: 11.11,
+                                    speedMultPercent: speedMult(7.5, 3.3),
+                                },
+                                {
+                                    name: "Hair Triggered",
+                                    speedMultPercent: speedMult(5, 3.3),
+                                },
+                                {
+                                    name: "Focused",
+                                    speedMultPercent: speedMult(7.5, 3.3),
+                                },
+                                {
+                                    name: "Hasty .38",
+                                    damageMultPercent: -25,
+                                    speedMultPercent: speedMult(4, 3.3),
+                                },
+                                {
+                                    name: "Refined .38",
+                                    damageMultPercent: -8.75,
+                                },
+                                {
+                                    name: "Severe",
+                                    damageMultPercent: 8.75,
+                                },
+                                {
+                                    name: "Steadfast",
+                                    speedMultPercent: speedMult(4, 3.3),
+                                },
+                                {
+                                    name: "Tweaked Automatic",
+                                    speedMultPercent: speedMult(7.5, 3.3),
+                                },
+                                {
+                                    name: "True"
+                                },
+                                {
+                                   name: "Vicious"
+                                },
+                                {
+                                   name: "Calibrated",
+                                   preinstalled: true
+                                },
+                                {
+                                   name: "Vigorous",
+                                   speedMultPercent: speedMult(4, 3.3),
+                                },
+                                {
+                                    name: "Hardened",
+                                    damageMultPercent: 25
+                                },
+                                {
+                                    name: "Scorch killer's",
+                                    damageMultPercent: -20,
+                                    versus: ["Scorched", "Scorchbeast", "Scorchbeast Queen"],
+                                    versusAddPercent: 50
+                                },
+                                {
+                                    name: "Prime",
+                                    damageMultPercent: 25,
+                                    versus: ["Scorched", "Scorchbeast", "Scorchbeast Queen"],
+                                    versusMultPercent: 25
+                                },
+                                {
+                                    name: "Prime Automatic",
+                                    damageMultPercent: 15,
+                                    speedMultPercent: speedMult(7.5, 3.3),
+                                    versus: ["Scorched", "Scorchbeast", "Scorchbeast Queen"],
+                                    versusMultPercent: 25
+                                }
+                            ]
+                        },
+                        {
+                            slot: "Magazine",
+                            options: [
+                                {
+                                    name: "Standard",
+                                    ignoreDRPercent: 0
+                                },
+                                {
+                                    name: "Stinging",
+                                    ignoreDRPercent: 20
+                                },
+                                {
+                                    name: "Piercing",
+                                    ignoreDRPercent: 20
+                                },
+                                {
+                                    name: "Perforating",
+                                    ignoreDRPercent: 40,
+                                    preinstalled: true
+                                }                            
+                            ]
+                        },
+                        {
+                            slot: "Muzzle",
+                            options: [
+                                {
+                                    name: "Standard",
+                                },
+                                {
+                                    name: "Suppressor",
+                                    silencer: true,
+                                    preinstalled: true
+                                }
+                            ]  
+                        }
                     ]
                 },
                 {
@@ -3406,12 +3546,17 @@
                     modSelector.id = "mods_" + index + "_" + idx;
                     modCell2.appendChild(modSelector);
 
+                    var selIdx = 0;
                     item.options.forEach(function(modItem, modIdx) {
                         var modOpt = document.createElement("option");
                         modSelector.add(modOpt);
                         modOpt.value = "" + modIdx;
                         modOpt.text = modItem.name;
+                        if (modItem.preinstalled) {
+                            selIdx = modIdx;
+                        }
                     });
+                    modSelector.selectedIndex = selIdx;
 
                     modSelector.onchange = function() {
                         recalculate(tbl, index, type);
