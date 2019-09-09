@@ -4777,7 +4777,7 @@
                     var leftDmgRadiation = damageFormula(damagesRadiation[1], res.rr) * speedFactorLeft;
 
                     var rightDr = dr * (1 - Math.min(0.95, (ignores[2] / 100.0)));
-                    var rightEr = aaEnergy ? er * (1 - Math.min(0.95, (ignores[1] / 100.0))) : er;
+                    var rightEr = aaEnergy ? er * (1 - Math.min(0.95, (ignores[2] / 100.0))) : er;
                     var rightDmg = damageFormula(damages[2], rightDr) * speedFactorRight;
                     var rightDmgEnergy = damageFormula(damagesEnergy[2], rightEr) * speedFactorRight;
                     var rightDmgRadiation = damageFormula(damagesRadiation[2], res.rr) * speedFactorRight;
