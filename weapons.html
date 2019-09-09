@@ -22,7 +22,7 @@
     </head>
     <body style="height: 90%">
         <center>
-            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Weapon Damage Calculator (v2.0.15)</span><br/>
+            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Weapon Damage Calculator (v2.0.16)</span><br/>
             <!-- <sup style='font-size: 16px;'>* Only ballistic damage; energy damage and resistances are not fully explored yet.</sup> -->
         <br/>
         <table id="parent">
@@ -40,7 +40,11 @@
                 
                             </table>            
                 </td>
-                <td style="padding-left: 50px">&nbsp;</td>
+                <td style="padding-left: 20px; padding-right:20px; text-align: center; vertical-align: top; width: 100px;">
+                    <button id="copyright" title="Copy Right">&gt;&gt;</button>
+                    <br/>
+                    <button id="copyleft" title="Copy left">&lt;&lt;</button>
+                </td>
                 <td style='vertical-align: top;'>
                     <table id="table2" style="border: 1px solid black;">
                         <tr>
@@ -62,23 +66,27 @@
                     <div>
                         <input type='radio' name='comparemode' id='damagemode' checked='checked'/><span id='spdamagemode' style='cursor: pointer;'> Single hit damage</span>&nbsp;&nbsp;&nbsp;&nbsp;
                         <input type='radio' name='comparemode' id='dpsmode'/><span id='spdpsmode' style='cursor: pointer;'> Damage per second</span>
+                        &nbsp;&nbsp;&nbsp;
+                        <input type='checkbox' name='energyantiarmor' id="energyantiarmor" checked="checked"><label for="energyantiarmor">Anti-armor affects Energy resistance (Patch 13)</label>
                     </div>
                     <br/>
                     
                     <table id="table3" style="border: 1px solid black; border-collapse: collapse;">
                         <tr>
                             <td colspan='3' style="border: 1px solid black;">Enemy</td>
-                            <td colspan="3" style="border: 1px solid black;">Left weapon</td>
-                            <td colspan="3" style="border: 1px solid black;">Right weapon</td>
+                            <td colspan="4" style="border: 1px solid black;">Left weapon</td>
+                            <td colspan="4" style="border: 1px solid black;">Right weapon</td>
                         </tr>
                         <tr>
                             <td style="border: 1px solid black;">DR</td>
                             <td style="border: 1px solid black;">ER</td>
                             <td style="border: 1px solid black;">RR</td>
                             <td style="border: 1px solid black;" id='ActualDRLeft'>Actual DR</td>
+                            <td style="border: 1px solid black;" id='ActualERLeft'>Actual ER</td>
                             <td style="border: 1px solid black;">Damage dealt</td>
                             <td style="border: 1px solid black;">Compare Right</td>
                             <td style="border: 1px solid black;" id='ActualDRRight'>Actual DR</td>
+                            <td style="border: 1px solid black;" id='ActualERRight'>Actual ER</td>
                             <td style="border: 1px solid black;">Damage dealt</td>
                             <td style="border: 1px solid black;">Compare Left</td>
                         </tr>
@@ -3246,6 +3254,9 @@
                 document.getElementById("dpsmode").checked = true;
                 recalculateDiff();
             };
+            document.getElementById("energyantiarmor").onclick = function() {
+                recalculateDiff();
+            };
 
             // ======================================================================
 
@@ -3379,8 +3390,12 @@
                 + "</ul>"
             );
             infoMap.set("ActualDR", 
-                "Shows the Damage Resistance (against ballistic damage) after all Ignore Armor mods/effects/perks have been applied to the target."
-                + " Note that Ignore Armor does not currently work with energy and radiation weapons and against their respective resistances."
+                "Shows the Damage Resistance against ballistic damage after all Ignore Armor mods/effects/perks have been applied to the target."
+                + " Note that Ignore Armor does not currently work with radiation weapons and against radiation resistance."
+            );
+            infoMap.set("ActualER", 
+                "Shows the Damage Resistance against energy damage after all Ignore Armor mods/effects/perks have been applied to the target."
+                + " Note that Ignore Armor does not currently work with radiation weapons and against radiation resistance."
             );
             infoMap.set("junkies", "With the <b>Junkie's</b> legendary prefix on a weapon, each addiction results in a +10% damage bonus up to +50% total.");
 
@@ -3421,8 +3436,13 @@
 
             document.getElementById("ActualDRLeft").innerHTML =
                 document.getElementById("ActualDRLeft").innerHTML + info("ActualDR");
+            document.getElementById("ActualERLeft").innerHTML =
+                document.getElementById("ActualERLeft").innerHTML + info("ActualER");
+
             document.getElementById("ActualDRRight").innerHTML =
                 document.getElementById("ActualDRRight").innerHTML + info("ActualDR");
+            document.getElementById("ActualERRight").innerHTML =
+                document.getElementById("ActualERRight").innerHTML + info("ActualER");
 
 
             // ----------------------------------------------------------------------
@@ -4734,6 +4754,7 @@
 
                 var evenOdd = false;
                 var lastDr = null;
+                var aaEnergy = document.getElementById("energyantiarmor").checked;
 
                 enemyResistances.forEach(function(res) {
                     var row = tbl.insertRow(tbl.rows.length);
@@ -4747,81 +4768,99 @@
                     }
 
                     var dr = res.dr;
+                    var er = res.er;
                     var leftDr = dr * (1 - Math.min(0.95, (ignores[1] / 100.0)));
+                    var leftEr = aaEnergy ? er * (1 - Math.min(0.95, (ignores[1] / 100.0))) : er;
+                    
                     var leftDmg = damageFormula(damages[1], leftDr) * speedFactorLeft;
-                    var leftDmgEnergy = damageFormula(damagesEnergy[1], res.er) * speedFactorLeft;
+                    var leftDmgEnergy = damageFormula(damagesEnergy[1], leftEr) * speedFactorLeft;
                     var leftDmgRadiation = damageFormula(damagesRadiation[1], res.rr) * speedFactorLeft;
 
                     var rightDr = dr * (1 - Math.min(0.95, (ignores[2] / 100.0)));
+                    var rightEr = aaEnergy ? er * (1 - Math.min(0.95, (ignores[1] / 100.0))) : er;
                     var rightDmg = damageFormula(damages[2], rightDr) * speedFactorRight;
-                    var rightDmgEnergy = damageFormula(damagesEnergy[2], res.er) * speedFactorRight;
+                    var rightDmgEnergy = damageFormula(damagesEnergy[2], rightEr) * speedFactorRight;
                     var rightDmgRadiation = damageFormula(damagesRadiation[2], res.rr) * speedFactorRight;
 
-                    var cell = row.insertCell(0);
+                    var cidx = 0;
+
+                    var cell = row.insertCell(cidx++);
                     cell.innerText = "" + dr;
                     cell.style = "border: 1px solid black; text-align: right;";
 
-                    cell = row.insertCell(1);
+                    cell = row.insertCell(cidx++);
                     cell.innerText = "" + res.er;
                     cell.style = "border: 1px solid black; text-align: right;";
 
-                    cell = row.insertCell(2);
+                    cell = row.insertCell(cidx++);
                     cell.innerText = "" + res.rr;
                     cell.style = "border: 1px solid black; text-align: right;";
 
                     if (damages[1] > 0 || damagesEnergy[1] > 0 || damagesRadiation[1] > 0) {
-                        cell = row.insertCell(3);
+                        cell = row.insertCell(cidx++);
                         cell.innerText = leftDr.toFixed(1);
                         cell.style = "border: 1px solid black; text-align: right;";
 
-                        cell = row.insertCell(4);
+                        cell = row.insertCell(cidx++);
+                        cell.innerText = leftEr.toFixed(1);
+                        cell.style = "border: 1px solid black; text-align: right;";
+
+                        cell = row.insertCell(cidx++);
                         cell.innerText = (leftDmg + leftDmgEnergy + leftDmgRadiation).toFixed(2);
                         cell.title = "\u2316 " + leftDmg.toFixed(2) 
                             + "    \u21AF " + leftDmgEnergy.toFixed(2) 
                             + "    \u2622 " + leftDmgRadiation.toFixed(2);
                         cell.style = "border: 1px solid black; text-align: right;";
                     } else {
-                        cell = row.insertCell(3);
+                        cell = row.insertCell(cidx++);
                         cell.style = "border: 1px solid black; text-align: right;";
-                        cell = row.insertCell(4);
+                        cell = row.insertCell(cidx++);
+                        cell.style = "border: 1px solid black; text-align: right;";
+                        cell = row.insertCell(cidx++);
                         cell.style = "border: 1px solid black; text-align: right;";
                     }
 
                     if ((damages[1] > 0 || damagesEnergy[1] > 0 || damagesRadiation[1] > 0) 
                             && (damages[2] > 0 || damagesEnergy[2] > 0 || damagesRadiation[2] > 0) > 0) {
-                        cell = row.insertCell(5);
+                        cell = row.insertCell(cidx++);
                         cell.innerText = (100 - ((rightDmg + rightDmgEnergy + rightDmgRadiation) / (leftDmg + leftDmgEnergy + leftDmgRadiation)) * 100).toFixed(2) + " %";
                         cell.style = "border: 1px solid black; text-align: right;";
                     } else {
-                        cell = row.insertCell(5);
+                        cell = row.insertCell(cidx++);
                         cell.style = "border: 1px solid black; text-align: right;";
                     }
 
                     if (damages[2] > 0 || damagesEnergy[2] > 0 || damagesRadiation[2] > 0) {
-                        cell = row.insertCell(6);
+                        cell = row.insertCell(cidx++);
                         cell.innerText = rightDr.toFixed(1);
                         cell.style = "border: 1px solid black; text-align: right;";
 
-                        cell = row.insertCell(7);
+                        cell = row.insertCell(cidx++);
+                        cell.innerText = rightEr.toFixed(1);
+                        cell.style = "border: 1px solid black; text-align: right;";
+
+                        cell = row.insertCell(cidx++);
                         cell.innerText = (rightDmg + rightDmgEnergy + rightDmgRadiation).toFixed(2);
                         cell.title = "\u2316 " + rightDmg.toFixed(2) 
                             + "    \u21AF " + rightDmgEnergy.toFixed(2) 
                             + "    \u2622 " + rightDmgRadiation.toFixed(2);
                         cell.style = "border: 1px solid black; text-align: right;";
                     } else {
-                        cell = row.insertCell(6);
+                        cell = row.insertCell(cidx++);
                         cell.style= "border: 1px solid black; text-align: right;";
-                        cell = row.insertCell(7);
+                        cell = row.insertCell(cidx++);
+                        cell.style= "border: 1px solid black; text-align: right;";
+                        cell = row.insertCell(cidx++);
                         cell.style = "border: 1px solid black; text-align: right;";
                     }
 
                     if ((damages[1] > 0 || damagesEnergy[1] > 0 || damagesRadiation[1] > 0) 
                             && (damages[2] > 0 || damagesEnergy[2] > 0 || damagesRadiation[2] > 0) > 0) {
-                        cell = row.insertCell(8);
+                        cell = row.insertCell(cidx++);
                         cell.innerText = (100 - ((leftDmg + leftDmgEnergy + leftDmgRadiation) / (rightDmg + rightDmgEnergy + rightDmgRadiation)) * 100).toFixed(2) + " %";
                         cell.style = "border: 1px solid black; text-align: right;";
                     } else {
-                        cell = row.insertCell(8);
+                        cell = row.insertCell(cidx++);
                         cell.style = "border: 1px solid black; text-align: right;";
                     }
 
@@ -4837,6 +4876,49 @@
 
             function valueOf(select) {
                 return select.options[select.selectedIndex].value;
+            }
+
+            document.getElementById("copyright").onclick = function() {
+                copyPanels(1, 2);
+            };
+            document.getElementById("copyleft").onclick = function() {
+                copyPanels(2, 1);
+            };
+
+            function copyPanels(fromIdx, toIdx) {
+                var wtype = "";
+                if (document.getElementById("wtMelee" + fromIdx).checked) {
+                    document.getElementById("wtMelee" + toIdx).click();
+                    wtype = "Melee";
+                } else {
+                    document.getElementById("wtRanged" + toIdx).click();
+                    wtype = "Ranged";
+                }
+                var selOther = document.getElementById("weapon" + toIdx);
+                selOther.selectedIndex = document.getElementById("weapon" + fromIdx).selectedIndex;
+                selOther.dispatchEvent(new Event('change'));
+
+                var srcTable = document.getElementById("table" + fromIdx);
+                var list = srcTable.querySelectorAll("input,select");
+                list.forEach(function(node) {
+                    var i = node.id.indexOf("" + fromIdx);
+                    if (i >= 0) {
+                        var newId = node.id.substring(0, i) + toIdx + node.id.substring(i + 1);
+                        var nodeOther = document.getElementById(newId);
+
+                        if (nodeOther.selectedIndex !== undefined) {
+                            nodeOther.selectedIndex = node.selectedIndex;
+                        }
+                        if (nodeOther.checked !== undefined) {
+                            nodeOther.checked = node.checked;
+                        }
+                        if (nodeOther.value !== undefined) {
+                            nodeOther.value = node.value;
+                        }
+                    }
+                });
+
+                recalculate(document.getElementById("table" + toIdx), toIdx, wtype);
             }
         </script>
     </body>

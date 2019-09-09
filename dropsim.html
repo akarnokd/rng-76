@@ -775,9 +775,9 @@
             addItem("Ranged", "Hunting Rifle", "");
             addItem("Ranged", "10mm SMG", "");
             addItem("Ranged", "Submachine Gun", "");
-            addItem("Ranged", "Gatling Gun", "");
-            addItem("Ranged", "Minigun", "");
-            addItem("Ranged", "50 cal Machine Gun", "");
+            addItem("Ranged", "Gatling Gun", "noquad");
+            addItem("Ranged", "Minigun", "noquad");
+            addItem("Ranged", "50 cal Machine Gun", "noquad");
             addItem("Ranged", "Western Revolver", "");
             addItem("Ranged", "Pump-action Shotgun", "");
             addItem("Ranged", "Combat Shotgun", "");
@@ -795,13 +795,13 @@
             addItem("Ranged", "Pipe Gun", "");
             addItem("Ranged", "Pipe Bolt-action", "");
             addItem("Ranged", "Pipe Revolver", "");
-            addItem("Ranged", "Light Machine Gun", "");
+            addItem("Ranged", "Light Machine Gun", "noquad");
 
             // black powder can't spawn as Double/Quad
-            addItem("Ranged", "Black Powder Pistol", "blackpowder");
-            addItem("Ranged", "Black Powder Rifle", "blackpowder");
-            addItem("Ranged", "Black Powder Blunderbuss", "blackpowder");
-            addItem("Ranged", "The Dragon", "blackpowder");
+            addItem("Ranged", "Black Powder Pistol", "noquad");
+            addItem("Ranged", "Black Powder Rifle", "noquad");
+            addItem("Ranged", "Black Powder Blunderbuss", "noquad");
+            addItem("Ranged", "The Dragon", "noquad");
 
             // Ranged weapons that can't spawn as Explosive
 
@@ -1581,8 +1581,8 @@
                         prefixPoolLen -= setup.antiArmorChance;
                     }
 
-                    // black powder can't roll as Double/Quad
-                    if (item.tags.includes("blackpowder")) {
+                    // heavies & black powder can't roll as Double/Quad
+                    if (item.tags.includes("noquad")) {
                         prefixPoolLen -= 1;
                     }
 
