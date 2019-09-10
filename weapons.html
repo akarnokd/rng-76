@@ -22,7 +22,7 @@
     </head>
     <body style="height: 90%">
         <center>
-            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Weapon Damage Calculator (v2.0.21)</span><br/>
+            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Weapon Damage Calculator (v2.0.22)</span><br/>
         <br/>
         <table id="parent">
             <tr>
@@ -173,7 +173,7 @@
                     level: [30, 40, 50],
                     damage: [65, 75, 85],
                     mods: [
-                    {
+                        {
                             slot: "Main",
                             options: [
                                 {
@@ -194,10 +194,41 @@
                     level: [10, 20, 30, 40, 50],
                     damage: [35, 45, 55, 67, 75],
                     mods: [
-                    
+                    {
+                            slot: "Main",
+                            options: [
+                                {
+                                    name: "Standard"
+                                },
+                                {
+                                    name: "Peppered",
+                                    damageMultPercent: 4
+                                },
+                                {
+                                    name: "Salty",
+                                    damageMultPercent: 16
+                                }
+                            ]
+                        }
                     ]
                 },
                 {
+                    name: "Sheepsquatch Staff",
+                    category: "Two-handed",
+                    speed: speedSlow,
+                    level: [10, 20, 30, 40, 50],
+                    damage: [30, 35, 40, 45, 50],
+                    mods: [
+                    {
+                            slot: "Main",
+                            options: [
+                                {
+                                    name: "Standard"
+                                }
+                            ]
+                        }
+                    ]
+                },{
                     name: "Power Fist",
                     category: "Unarmed",
                     speed: speedMedium,
