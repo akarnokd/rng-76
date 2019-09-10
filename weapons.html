@@ -22,7 +22,7 @@
     </head>
     <body style="height: 90%">
         <center>
-            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Weapon Damage Calculator (v2.0.17)</span><br/>
+            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Weapon Damage Calculator (v2.0.18)</span><br/>
             <!-- <sup style='font-size: 16px;'>* Only ballistic damage; energy damage and resistances are not fully explored yet.</sup> -->
         <br/>
         <table id="parent">
@@ -2433,7 +2433,7 @@
                     category: "Heavy",
                     explosive: false,
                     silencer: false,
-                    speed: 9.1,
+                    speed: 20.4,
                     level: [25, 35, 45],
                     damage: [0, 0, 0],
                     damageEnergy: [18, 21, 25],
@@ -2459,7 +2459,7 @@
                     category: "Heavy",
                     explosive: false,
                     silencer: false,
-                    speed: 9.1,
+                    speed: 20.4,
                     level: [35, 45],
                     damage: [0, 0, 0],
                     damageEnergy: [25, 28],
@@ -2559,12 +2559,25 @@
                     category: "Heavy",
                     explosive: false,
                     silencer: false,
-                    speed: 9.1,
+                    speed: 20.4,
                     level: [30, 40, 50],
                     damage: [43, 50, 58],
                     damageEnergy: [43, 50, 58],
                     mods: [
-                    
+                    {
+                            slot: "Capacitor",
+                            options: [
+                                {
+                                    name: "Standard"
+                                },
+                                {
+                                    name: "Prime",
+                                    damageMultPercent: 25,
+                                    versus: ["Scorched", "Scorchbeast", "Scorchbeast Queen"],
+                                    versusMultPercent: 35
+                                },
+                            ]
+                        }
                     ]
                 },
                 {
