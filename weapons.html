@@ -22,7 +22,7 @@
     </head>
     <body style="height: 90%">
         <center>
-            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Weapon Damage Calculator (v2.0.25)</span><br/>
+            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Weapon Damage Calculator (v2.0.26)</span><br/>
         <br/>
         <table id="parent">
             <tr>
@@ -3479,6 +3479,8 @@
             );
             infoMap.set("junkies", "With the <b>Junkie's</b> legendary prefix on a weapon, each addiction results in a +10% damage bonus up to +50% total.");
 
+            infoMap.set("twistedmuscles", "Grants +25% melee damage (unarmed, one- and two-handed) for -50% accuracy with ranged weapons (not affecting ranged damage).");
+
 
             // add HTML explanation marker
             function info(name) {
@@ -4272,6 +4274,22 @@
                     recalculate(tbl, index, type);
                 };
 
+                if (type === "Melee") {
+                    row = tbl.insertRow(tbl.rows.length);
+                    cell1 = row.insertCell(0);
+                    cell1.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;Twisted Muscles" + info("twistedmuscles");
+                    cell2 = row.insertCell(1);
+                    cell2.innerHTML = "<input type='radio' id='twistedmuscles" + index + "_yes' name='twistedmuscles" + index + "' value='1'> Yes&nbsp;&nbsp;&nbsp;"
+                        + "<input type='radio' id='twistedmuscles" + index + "_no' name='twistedmuscles" + index + "' value='0' checked='checked'> No";
+
+                    document.getElementById("twistedmuscles" + index + "_yes").onchange = function() {
+                        recalculate(tbl, index, type);
+                    };
+                    document.getElementById("twistedmuscles" + index + "_no").onchange = function() {
+                        recalculate(tbl, index, type);
+                    };                    
+                }
+
                 row = tbl.insertRow(tbl.rows.length);
                 cell1 = row.insertCell(0);
                 cell1.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;Any other mutation" + info("mutation");
@@ -4285,6 +4303,7 @@
                 document.getElementById("mutation" + index + "_no").onchange = function() {
                     recalculate(tbl, index, type);
                 };
+
             }
 
             function createOther(tbl, index, type) {
@@ -4698,6 +4717,12 @@
                     }
                 }
 
+                var twistedMuscles = document.getElementById("twistedmuscles" + index + "_yes");
+                if (twistedMuscles != null && twistedMuscles.checked) {
+                    totalDamageMultiply.push(25);
+                    totalDamageEnergyMultiply.push(25);
+                }
+
                 var otherboost = document.getElementById("otherboost" + index);
                 if (otherboost != null) {
                     var v = parseFloat(otherboost.value);
@@ -4813,7 +4838,9 @@
             function hasMutation(index) {
                 var adrenalreaction = document.getElementById("adrenalreaction" + index + "_yes").checked;
                 var anymutation = document.getElementById("mutation" + index + "_yes").checked;
-                return adrenalreaction || anymutation;
+                var tw = document.getElementById("twistedmuscles" + index + "_yes");
+                var twistedmuscles = tw != null && tw.checked;
+                return adrenalreaction || anymutation || twistedmuscles;
             }
 
 
