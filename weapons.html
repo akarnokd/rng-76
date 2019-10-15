@@ -22,7 +22,7 @@
     </head>
     <body style="height: 90%">
         <center>
-            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Weapon Damage Calculator (v2.0.26)</span><br/>
+            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Weapon Damage Calculator (v2.0.27)</span><br/>
         <br/>
         <table id="parent">
             <tr>
@@ -2973,6 +2973,7 @@
                 { dr: 250, er: 250, rr: 250 },
                 { dr: 300, er: 150, rr: 150 },
                 { dr: 300, er: 300, rr: 300 },
+                { dr: 300, er: 300, rr: 300, queen: true },
             ];
 
             enemyResistances.sort(function(a, b) {
@@ -4874,34 +4875,45 @@
                         row.style.backgroundColor = "#C0FFC0";
                     }
 
+                    var damageMitigation = 1;
+                    if (res.queen) {
+                        damageMitigation = 0.3;
+                    }
                     var dr = res.dr;
                     var er = res.er;
                     var leftDr = dr * (1 - Math.min(0.95, (ignores[1] / 100.0)));
                     var leftEr = aaEnergy ? er * (1 - Math.min(0.95, (ignores[1] / 100.0))) : er;
                     
-                    var leftDmg = damageFormula(damages[1], leftDr) * speedFactorLeft;
-                    var leftDmgEnergy = damageFormula(damagesEnergy[1], leftEr) * speedFactorLeft;
-                    var leftDmgRadiation = damageFormula(damagesRadiation[1], res.rr) * speedFactorLeft;
+                    var leftDmg = damageFormula(damages[1], leftDr) * speedFactorLeft * damageMitigation;
+                    var leftDmgEnergy = damageFormula(damagesEnergy[1], leftEr) * speedFactorLeft * damageMitigation;
+                    var leftDmgRadiation = damageFormula(damagesRadiation[1], res.rr) * speedFactorLeft * damageMitigation;
 
                     var rightDr = dr * (1 - Math.min(0.95, (ignores[2] / 100.0)));
                     var rightEr = aaEnergy ? er * (1 - Math.min(0.95, (ignores[2] / 100.0))) : er;
-                    var rightDmg = damageFormula(damages[2], rightDr) * speedFactorRight;
-                    var rightDmgEnergy = damageFormula(damagesEnergy[2], rightEr) * speedFactorRight;
-                    var rightDmgRadiation = damageFormula(damagesRadiation[2], res.rr) * speedFactorRight;
+                    var rightDmg = damageFormula(damages[2], rightDr) * speedFactorRight * damageMitigation;
+                    var rightDmgEnergy = damageFormula(damagesEnergy[2], rightEr) * speedFactorRight * damageMitigation;
+                    var rightDmgRadiation = damageFormula(damagesRadiation[2], res.rr) * speedFactorRight * damageMitigation;
 
                     var cidx = 0;
 
                     var cell = row.insertCell(cidx++);
-                    cell.innerText = "" + dr;
-                    cell.style = "border: 1px solid black; text-align: right;";
+                    if (res.queen) {
+                        cell.innerText = "Scorchbeast Queen";
+                        cell.style = "border: 1px solid black; text-align: right;";
+                        cell.colSpan = 3;
+                        cell.title = "DR: " + dr + ", ER: " + res.er + ", RR: " + res.rr + "\r\n70% of all damage ignored"; 
+                    } else {
+                        cell.innerText = "" + dr;
+                        cell.style = "border: 1px solid black; text-align: right;";
 
-                    cell = row.insertCell(cidx++);
-                    cell.innerText = "" + res.er;
-                    cell.style = "border: 1px solid black; text-align: right;";
+                        cell = row.insertCell(cidx++);
+                        cell.innerText = "" + res.er;
+                        cell.style = "border: 1px solid black; text-align: right;";
 
-                    cell = row.insertCell(cidx++);
-                    cell.innerText = "" + res.rr;
-                    cell.style = "border: 1px solid black; text-align: right;";
+                        cell = row.insertCell(cidx++);
+                        cell.innerText = "" + res.rr;
+                        cell.style = "border: 1px solid black; text-align: right;";
+                    }
 
                     if (damages[1] > 0 || damagesEnergy[1] > 0 || damagesRadiation[1] > 0) {
                         cell = row.insertCell(cidx++);
