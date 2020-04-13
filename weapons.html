@@ -22,7 +22,7 @@
     </head>
     <body style="height: 90%">
         <center>
-            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Weapon Damage Calculator (v2.0.32)</span><br/>
+            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Weapon Damage Calculator (v2.1.0)</span><br/>
         <br/>
         <table id="parent">
             <tr>
@@ -148,6 +148,7 @@
                 {
                     name: "Deathclaw Gauntlet",
                     category: "Unarmed",
+                    kind: "unarmed",
                     speed: speedMedium,
                     level: [30, 40, 50],
                     damage: [45, 50, 55],
@@ -247,6 +248,7 @@
                 },{
                     name: "Power Fist",
                     category: "Unarmed",
+                    kind: "unarmed",
                     speed: speedMedium,
                     level: [30, 40, 50],
                     damage: [48, 53, 58],
@@ -268,6 +270,7 @@
                 {
                     name: "Mole Miner Gauntlet",
                     category: "Unarmed",
+                    kind: "unarmed",
                     strengthFactor: 0.1,
                     speed: speedMedium,
                     level: [20, 30, 40, 50],
@@ -290,6 +293,7 @@
                 {
                     name: "Death Tambo",
                     category: "Unarmed",
+                    kind: "unarmed",
                     speed: speedMedium,
                     level: [15, 25, 35, 45],
                     damage: [30, 35, 40, 45],
@@ -323,6 +327,7 @@
                 {
                     name: "Bowie Knife",
                     category: "One-handed",
+                    kind: "knife",
                     speed: speedFast,
                     level: [10, 15, 25, 35, 45],
                     damage: [10, 15, 20, 25, 30],
@@ -331,6 +336,7 @@
                 {
                     name: "Boxing Glove",
                     category: "Unarmed",
+                    kind: "unarmed",
                     speed: speedMedium,
                     level: [5, 15, 25, 35, 45],
                     damage: [13, 18, 23, 28, 34],
@@ -368,6 +374,7 @@
                 {
                     name: "Cultist Dagger",
                     category: "One-handed",
+                    kind: "knife",
                     speed: speedFast,
                     level: [15, 25, 35, 45],
                     damage: [20, 25, 28, 32],
@@ -384,6 +391,7 @@
                 {
                     name: "Combat Knife",
                     category: "One-handed",
+                    kind: "knife",
                     speed: speedFast,
                     level: [1, 5, 10, 20, 30, 40, 50],
                     damage: [9, 13, 17, 21, 25, 29, 33],
@@ -488,6 +496,7 @@
                 {
                     name: "Knuckles",
                     category: "Unarmed",
+                    kind: "unarmed",
                     speed: speedMedium,
                     level: [1, 5, 10, 20, 30, 40, 50],
                     damage: [8, 10, 15, 20, 25, 30, 35],
@@ -727,6 +736,7 @@
                 {
                     name: "Meat Hook",
                     category: "Unarmed",
+                    kind: "unarmed",
                     speed: speedMedium,
                     level: [5, 15, 25, 35, 45],
                     damage: [14, 19, 24, 29, 34],
@@ -1089,6 +1099,7 @@
                 {
                     name: "Bear Arm",
                     category: "Unarmed",
+                    kind: "unarmed",
                     speed: speedSlow,
                     level: [20, 30, 40, 50],
                     damage: [35, 40, 45, 50],
@@ -1150,10 +1161,45 @@
                 ]  
             };
 
+            var standardSights = {
+                slot: "Sights",
+                options: [
+                    {
+                        name: "Standard"
+                    },
+                    {
+                        name: "Short scope",
+                        scope: true
+                    },
+                    {
+                        name: "Medium scope",
+                        scope: true
+                    },
+                    {
+                        name: "Long scope",
+                        scope: true
+                    },
+                    {
+                        name: "Short night vision scope",
+                        scope: true
+                    },
+                    {
+                        name: "Medium night vision scope",
+                        scope: true
+                    },
+                    {
+                        name: "Long night vision scope",
+                        scope: true
+                    },
+                ]
+            }
+
+
             allWeapons.set("Ranged", [
                 {
                     name: "Handmade",
                     category: "Rifle",
+                    kind: "ballistic",
                     explosive: false,
                     silencer: true,
                     speed: 4,
@@ -1202,12 +1248,14 @@
                             ]
                         },
                         standardAPMagazines,
-                        standardMuzzle
+                        standardMuzzle,
+                        standardSights
                     ]
                 },
                 {
                     name: "Hunting Rifle",
                     category: "Rifle",
+                    kind: "ballistic",
                     explosive: false,
                     silencer: true,
                     speed: 0.3,
@@ -1247,12 +1295,14 @@
                             ]
                         },
                         standardAPMagazines,
-                        standardMuzzle
+                        standardMuzzle,
+                        standardSights
                     ]
                 },
                 {
                     name: "Lever Action Rifle",
                     category: "Rifle",
+                    kind: "ballistic",
                     explosive: false,
                     silencer: true,
                     speed: 0.5,
@@ -1283,12 +1333,14 @@
                                 },
                             ]
                         },
-                        standardMuzzle
+                        standardMuzzle,
+                        standardSights
                     ]
                 },
                 {
                     name: "Black Powder Rifle",
                     category: "Rifle",
+                    kind: "ballistic",
                     explosive: false,
                     speed: 0.1,
                     level: [15, 25, 35, 45],
@@ -1298,6 +1350,7 @@
                 {
                     name: "The Dragon",
                     category: "Rifle",
+                    kind: "ballistic",
                     explosive: false,
                     speed: 0.1,
                     level: [35, 45],
@@ -1307,6 +1360,7 @@
                 {
                     name: "Assault Rifle",
                     category: "Rifle",
+                    kind: "ballistic",
                     explosive: false,
                     silencer: true,
                     speed: 4,
@@ -1355,12 +1409,14 @@
                             ]
                         },
                         standardAPMagazines,
-                        standardMuzzle
+                        standardMuzzle,
+                        standardSights
                     ]
                 },
                 {
                     name: "Gatling Gun",
                     category: "Heavy",
+                    kind: "ballistic",
                     explosive: false,
                     speed: 2,
                     level: [20, 30, 40, 50],
@@ -1389,6 +1445,7 @@
                 {
                     name: "Railway Rifle",
                     category: "Rifle",
+                    kind: "ballistic",
                     explosive: false,
                     speed: 1,
                     level: [30, 40, 50],
@@ -1418,6 +1475,7 @@
                 {
                     name: "50 Cal Machine Gun",
                     category: "Heavy",
+                    kind: "ballistic",
                     explosive: false,
                     speed: 9.1,
                     level: [25, 35, 45],
@@ -1455,6 +1513,7 @@
                 {
                     name: "Light Machine Gun",
                     category: "Heavy",
+                    kind: "ballistic",
                     explosive: false,
                     speed: 15.9,
                     level: [30, 40, 50],
@@ -1479,6 +1538,7 @@
                 {
                     name: "Minigun",
                     category: "Heavy",
+                    kind: "ballistic",
                     explosive: false,
                     speed: 18.2,
                     level: [35, 45],
@@ -1513,6 +1573,7 @@
                 {
                     name: "Combat Rifle",
                     category: "Rifle",
+                    kind: "ballistic",
                     explosive: false,
                     silencer: true,
                     speed: 3.3,
@@ -1606,6 +1667,7 @@
                 {
                     name: "The Fixer",
                     category: "Rifle",
+                    kind: "ballistic",
                     explosive: false,
                     silencer: true,
                     speed: 3.3,
@@ -1736,6 +1798,7 @@
                 {
                     name: "Combat Shotgun",
                     category: "Shotgun",
+                    kind: "ballistic",
                     explosive: false,
                     silencer: true,
                     speed: 2,
@@ -1790,6 +1853,7 @@
                 {
                     name: "Pump Action Shotgun",
                     category: "Shotgun",
+                    kind: "ballistic",
                     explosive: false,
                     silencer: true,
                     speed: 3.6,
@@ -1826,6 +1890,7 @@
                 {
                     name: "Double-barrel Shotgun",
                     category: "Shotgun",
+                    kind: "ballistic",
                     explosive: false,
                     speed: 3.6,
                     level: [15, 25, 35, 45],
@@ -1848,6 +1913,7 @@
                 {
                     name: "Crossbow",
                     category: "Rifle",
+                    kind: "ballistic",
                     explosive: false,
                     speed: 0.4,
                     level: [15, 25, 35, 45],
@@ -1872,6 +1938,7 @@
                 {
                     name: "10mm Pistol",
                     category: "Pistol",
+                    kind: "ballistic",
                     explosive: false,
                     silencer: true,
                     speed: 4.3,
@@ -1926,6 +1993,7 @@
                 {
                     name: "Western Revolver",
                     category: "Pistol",
+                    kind: "ballistic",
                     explosive: false,
                     speed: 0.6,
                     level: [20, 30, 40, 50],
@@ -1948,6 +2016,7 @@
                 {
                     name: "Submachine Gun",
                     category: "Rifle",
+                    kind: "ballistic",
                     explosive: false,
                     silencer: true,
                     speed: 7.5,
@@ -1988,6 +2057,7 @@
                 {
                     name: "10mm SMG",
                     category: "Rifle",
+                    kind: "ballistic",
                     explosive: false,
                     silencer: true,
                     speed: 9.1,
@@ -2037,6 +2107,7 @@
                 {
                     name: "Broadsider",
                     category: "Heavy",
+                    kind: "ballistic",
                     explosive: true,
                     speed: 0.3,
                     level: [25, 35, 45],
@@ -2046,6 +2117,7 @@
                 {
                     name: "Harpoon Gun",
                     category: "Heavy",
+                    kind: "ballistic",
                     explosive: false,
                     speed: 0.2,
                     level: [30, 40, 50],
@@ -2068,6 +2140,7 @@
                 {
                     name: ".44 Pistol",
                     category: "Pistol",
+                    kind: "ballistic",
                     explosive: false,
                     speed: 0.6,
                     level: [5, 15, 25, 35, 45],
@@ -2090,6 +2163,7 @@
                 {
                     name: "Black Powder Pistol",
                     category: "Pistol",
+                    kind: "ballistic",
                     explosive: false,
                     speed: 0.2,
                     level: [10, 20, 30, 40, 50],
@@ -2099,6 +2173,7 @@
                 {
                     name: "Black Powder Blunderbuss",
                     category: "Pistol",
+                    kind: "ballistic",
                     explosive: false,
                     speeD: 0.2,
                     level: [10, 20, 30, 40, 50],
@@ -2108,6 +2183,7 @@
                 {
                     name: "Pipe Bolt-action Pistol",
                     category: "Pistol",
+                    kind: "ballistic",
                     explosive: false,
                     speed: 0.3,
                     level: [1, 5, 10, 20, 30, 40, 50],
@@ -2130,6 +2206,7 @@
                 {
                     name: "Pipe Bolt-action Rifle",
                     category: "Rifle",
+                    kind: "ballistic",
                     explosive: false,
                     speed: 0.3,
                     level: [1, 5, 10, 20, 30, 40, 50],
@@ -2152,6 +2229,7 @@
                 {
                     name: "Pipe Pistol",
                     category: "Pistol",
+                    kind: "ballistic",
                     explosive: false,
                     speed: 6,
                     level: [1, 5, 10, 20, 30, 40, 50],
@@ -2199,6 +2277,7 @@
                 {
                     name: "Pipe Revolver Pistol",
                     category: "Pistol",
+                    kind: "ballistic",
                     explosive: false,
                     speed: 0.5,
                     level: [1, 5, 10, 20, 30, 40, 50],
@@ -2227,6 +2306,7 @@
                 {
                     name: "Pipe Revolver Rifle",
                     category: "Rifle",
+                    kind: "ballistic",
                     explosive: false,
                     speed: 0.4,
                     level: [1, 5, 10, 20, 30, 40, 50],
@@ -2255,6 +2335,7 @@
                 {
                     name: "Pipe Rifle",
                     category: "Rifle",
+                    kind: "ballistic",
                     explosive: false,
                     speed: 6,
                     level: [1, 5, 10, 20, 30, 40, 50],
@@ -2295,6 +2376,7 @@
                 {
                     name: "Gauss Rifle",
                     category: "Rifle",
+                    kind: "energy",
                     explosive: false,
                     silencer: true,
                     speed: 6.7,
@@ -2333,6 +2415,7 @@
                 {
                     name: "Radium Rifle",
                     category: "Rifle",
+                    kind: "ballistic",
                     explosive: false,
                     silencer: true,
                     speed: 4,
@@ -2365,6 +2448,7 @@
                 {
                     name: "Laser Pistol",
                     category: "Pistol",
+                    kind: "laser",
                     explosive: false,
                     silencer: false,
                     speed: 4,
@@ -2403,6 +2487,7 @@
                 {
                     name: "Laser Rifle",
                     category: "Rifle",
+                    kind: "laser",
                     explosive: false,
                     silencer: false,
                     speed: 5,
@@ -2441,6 +2526,7 @@
                 {
                     name: "Ultracite Laser Pistol",
                     category: "Pistol",
+                    kind: "laser",
                     explosive: false,
                     silencer: false,
                     speed: 4,
@@ -2479,6 +2565,7 @@
                 {
                     name: "Ultracite Laser Rifle",
                     category: "Rifle",
+                    kind: "laser",
                     explosive: false,
                     silencer: false,
                     speed: 5,
@@ -2517,6 +2604,7 @@
                 {
                     name: "Gatling Laser",
                     category: "Heavy",
+                    kind: "laser",
                     explosive: false,
                     silencer: false,
                     speed: 18.2,
@@ -2556,6 +2644,7 @@
                 {
                     name: "Ultracite Gatling Laser",
                     category: "Heavy",
+                    kind: "laser",
                     explosive: false,
                     silencer: false,
                     speed: 18.2,
@@ -2595,6 +2684,7 @@
                 {
                     name: "Plasma Pistol",
                     category: "Pistol",
+                    kind: "plasma",
                     explosive: false,
                     silencer: false,
                     speed: 3.3,
@@ -2632,6 +2722,7 @@
                 {
                     name: "Plasma Rifle",
                     category: "Rifle",
+                    kind: "plasma",
                     explosive: false,
                     silencer: false,
                     speed: 3.3,
@@ -2669,6 +2760,7 @@
                 {
                     name: "Gatling Plasma",
                     category: "Heavy",
+                    kind: "plasma",
                     explosive: false,
                     silencer: false,
                     speed: 9.1,
@@ -2695,6 +2787,7 @@
                 {
                     name: "Enclave Plasma Pistol",
                     category: "Pistol",
+                    kind: "plasma",
                     explosive: false,
                     silencer: false,
                     speed: 3.3,
@@ -2732,6 +2825,7 @@
                 {
                     name: "Enclave Plasma Rifle",
                     category: "Rifle",
+                    kind: "plasma",
                     explosive: false,
                     silencer: false,
                     speed: 3.3,
@@ -2769,6 +2863,7 @@
                 {
                     name: "Gamma Gun",
                     category: "Pistol",
+                    kind: "energy",
                     explosive: false,
                     silencer: false,
                     speed: 6.7,
@@ -2809,6 +2904,7 @@
                 {
                     name: "Tesla Rifle",
                     category: "Rifle",
+                    kind: "energy",
                     explosive: false,
                     silencer: false,
                     speed: 2,
@@ -2838,6 +2934,7 @@
                 {
                     name: "Cryolator",
                     category: "Heavy",
+                    kind: "energy",
                     explosive: false,
                     silencer: false,
                     speed: 9.1,
@@ -2924,6 +3021,52 @@
                             ]
                         }
                     ]
+                },
+                {
+                    name: "Alien Blaster",
+                    category: "Pistol",
+                    kind: "energy",
+                    explosive: true,
+                    speed: 10,
+                    level: [20,30,40,50],
+                    damage: [15,29,22,25],
+                    mods: []
+                },
+                {
+                    name: "Tomahawk",
+                    category: "Thrown",
+                    kind: "ballistic",
+                    speed: speedSlow,
+                    level: [1],
+                    damage: [100],
+                    mods: []
+                },
+                {
+                    name: "Throwing Knife",
+                    category: "Thrown",
+                    kind: "ballistic",
+                    speed: speedSlow,
+                    level: [1],
+                    damage: [75],
+                    mods: []
+                },
+                {
+                    name: "Sheepsquatch Shard",
+                    category: "Thrown",
+                    kind: "ballistic",
+                    speed: speedSlow,
+                    level: [1],
+                    damage: [75],
+                    mods: []
+                },
+                {
+                    name: "Meat Cleaver",
+                    category: "Thrown",
+                    kind: "ballistic",
+                    speed: speedSlow,
+                    level: [1],
+                    damage: [60],
+                    mods: []
                 },
             ]);
 
@@ -3044,6 +3187,11 @@
                 // 1: Prefix
                 [
                     {
+                        name: "Assassin's",
+                        versus: ["Player"],
+                        versusAddPercent: 10
+                    },
+                    {
                         name: "Executioner's",
                         damageMultPercent: 50
                     },
@@ -3124,6 +3272,11 @@
             allEffects.set("Ranged", [
                 // 1: Prefix
                 [
+                    {
+                        name: "Assassin's",
+                        versus: ["Player"],
+                        versusAddPercent: 10
+                    },
                     {
                         name: "Executioner's",
                         damageMultPercent: 50
@@ -3267,9 +3420,9 @@
             addEnemy("Scorchbeast", ["Animal", "Scorchbeast"]);
             addEnemy("Scorchbeast Queen", ["Animal", "Scorchbeast", "Scorchbeast Queen"]);
 
-            addEnemy("Yao Guai", ["Animal"]);
-            addEnemy("Glowing Yao Guai", ["Animal", "Glowing"]);
-            addEnemy("Scorched Yao Guai", ["Animal", "Scorched"]);
+            addEnemy("Yao Guai", ["Animal", "Yao Guai"]);
+            addEnemy("Glowing Yao Guai", ["Animal", "Glowing", "Yao Guai"]);
+            addEnemy("Scorched Yao Guai", ["Animal", "Scorched", "Yao Guai"]);
 
             addEnemy("Deathclaw", ["Animal"]);
             addEnemy("Glowing Deathclaw", ["Animal", "Glowing"]);
@@ -3284,6 +3437,34 @@
             addEnemy("Sentrybot", ["Robot"]);
             addEnemy("Assaultron", ["Robot"]);
             addEnemy("Eyebot", ["Robot"]);
+            addEnemy("Liberator", ["Robot", "Liberator"]);
+
+            addEnemy("Flatwoods Monster", ["Alien", "Cryptid", "Robot", "Flatwoods Monster"]);
+
+            addEnemy("Snallygaster", ["Cryptid", "Snallygaster"]);
+            addEnemy("Glowing Snallygaster", ["Cryptid", "Snallygaster", "Glowing"]);
+            addEnemy("Scorched Snallygaster", ["Cryptid", "Snallygaster", "Scorched"]);
+
+            addEnemy("Gulper", []);
+            addEnemy("Glowing Gulper", ["Glowing"]);
+            addEnemy("Scorched Gulper", ["Scorched"]);
+
+            addEnemy("Grafton Monster", ["Cryptid", "Grafton Monster"]);
+            addEnemy("Scorched Grafton Monster", ["Cryptid", "Grafton Monster", "Scorched"]);
+
+            addEnemy("Angler", ["Cryptid"]);
+            addEnemy("Glowing Angler", ["Cryptid", "Glowing"]);
+            addEnemy("Scorched Angler", ["Cryptid", "Scorched"]);
+
+            addEnemy("Sheepsquatch", ["Cryptid", "Sheepsquatch"]);
+            addEnemy("Mothman", ["Cryptid", "Mothman"]);
+            addEnemy("Glowing Mothman", ["Cryptid", "Mothman", "Glowing"]);
+
+            addEnemy("Wendigo", ["Cryptid", "Wendigo"]);
+            addEnemy("Glowing Wendigo", ["Cryptid", "Wendigo", "Glowing"]);
+            addEnemy("Scorched Wendigo", ["Cryptid", "Wendigo", "Scorched"]);
+
+            addEnemy("Player", ["Player"]);
 
             // some enemies are immune to radiation or even heal off it
             var enemyRadiationEffect = new Map();
@@ -3438,7 +3619,8 @@
                     desc: "Nukashine (+100% unarmed DMG)",
                     mode: "Melee",
                     unarmedDamage: 100,
-                    cola: true
+                    cola: true,
+                    only: "Unarmed"
                 },
                 createStrengthOnly("OakHollerLager", "Oak Holler Lager"),
                 createStrengthOnly("OldPossum", "Old Possum"),
@@ -3490,6 +3672,372 @@
                 return a.desc.localeCompare(b.desc);
             });
 
+            // bobbleheads
+            var bobbleheads = [
+                {
+                    id: "BigGuns",
+                    type: "bobblehead",
+                    desc: "Big Guns (+20% heavy DMG)",
+                    mode: "Ranged",
+                    damage: 20,
+                    only: "Heavy"
+                },
+                {
+                    id: "Energy",
+                    type: "bobblehead",
+                    desc: "Energy (+20% energy DMG)",
+                    mode: "Ranged,Melee",
+                    energyDamage: 20
+                },
+                {
+                    id: "Explosive",
+                    type: "bobblehead",
+                    desc: "Explosive (+30% explosive DMG)",
+                    mode: "Ranged",
+                    explosiveDamage: 30
+                },
+                {
+                    id: "Melee",
+                    type: "bobblehead",
+                    desc: "Melee (+20% melee DMG)",
+                    mode: "Melee",
+                    damage: 20
+                },
+                {
+                    id: "SmallGuns",
+                    type: "bobblehead",
+                    desc: "Small Guns (+20% ballistic DMG)",
+                    mode: "Ranged",
+                    ballisticDamage: 20,
+                },
+                {
+                    id: "Strength",
+                    type: "bobblehead",
+                    desc: "Strength (+2 STR)",
+                    mode: "Melee",
+                    strength: 2,
+                },
+                {
+                    id: "Unarmed",
+                    type: "bobblehead",
+                    desc: "Unarmed (+25% unarmed DMG)",
+                    mode: "Melee",
+                    unarmedDamage: 25,
+                    only: "Unarmed"
+                }
+            ];
+            bobbleheads.sort(function(a, b) {
+                return a.desc.localeCompare(b.desc);
+            });
+
+            // magazines
+            var magazines = [
+                {
+                    id: "AstoundingleAwesomeTales1",
+                    type: "magazine",
+                    desc: "Astound... # 1 (+15% DMG vs mirelurks)",
+                    mode: "Ranged,Melee",
+                    versus: ["Mirelurk"],
+                    versusDamage: 15
+                },
+                {
+                    id: "AstoundingleAwesomeTales2",
+                    type: "magazine",
+                    desc: "Astound... # 2 (+15% DMG vs super m.)",
+                    mode: "Ranged,Melee",
+                    versus: ["Mutant"],
+                    versusDamage: 15
+                },
+                {
+                    id: "AstoundingleAwesomeTales4",
+                    type: "magazine",
+                    desc: "Astound... # 4 (+25% DMG w/ Alien Blaster)",
+                    mode: "Ranged",
+                    damage: 25,
+                    weapon: "Alien Blaster"
+                },
+                {
+                    id: "AstoundingleAwesomeTales5",
+                    type: "magazine",
+                    desc: "Astound... # 5 (+25% DMG w/ Cryolator)",
+                    mode: "Ranged",
+                    damage: 25,
+                    weapon: "Cryolator"
+                },
+                {
+                    id: "AstoundingleAwesomeTales10",
+                    type: "magazine",
+                    desc: "Astound... #10 (+15% DMG w/ scope)",
+                    mode: "Ranged",
+                    scopedDamage: 15
+                },
+                {
+                    id: "AstoundingleAwesomeTales11",
+                    type: "magazine",
+                    desc: "Astound... #11 (+15% DMG vs ghouls)",
+                    mode: "Ranged,Melee",
+                    versus: ["Ghoul"],
+                    versusDamage: 15
+                },
+                // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+                {
+                    id: "Blackwoodsman2",
+                    type: "magazine",
+                    desc: "Blackwood... # 2 (+25% DMG w/ Tomahawk)",
+                    mode: "Melee,Ranged",
+                    damage: 25,
+                    weapon: "Tomahawk"
+                },
+                {
+                    id: "Blackwoodsman5",
+                    type: "magazine",
+                    desc: "Blackwood... # 5 (+15% DMG vs animals)",
+                    mode: "Melee,Ranged",
+                    versus: ["Animal"],
+                    versusDamage: 15
+                },
+                // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+                {
+                    id: "Grognak1",
+                    type: "magazine",
+                    desc: "Grognak... # 1 (+15% melee DMG)",
+                    mode: "Melee",
+                    damage: 15
+                },
+                /*
+                {
+                    id: "Grognak4",
+                    type: "magazine",
+                    desc: "Grognak... # 4 (+30% crit DMG)",
+                    mode: "Melee",
+                    criticalDamage: 30
+                },
+                */
+                {
+                    id: "Grognak5",
+                    type: "magazine",
+                    desc: "Grognak... # 5 (+15% DMG vs scorched)",
+                    mode: "Melee,Ranged",
+                    versus: ["Scorched", "Scorchbeast", "Scorchbeast Queen"],
+                    versusDamage: 15
+                },
+                // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+                {
+                    id: "GunsAndBullets1",
+                    type: "magazine",
+                    desc: "Guns... # 1 (+15% DMG vs robots)",
+                    mode: "Melee,Ranged",
+                    versus: ["Robot"],
+                    versusDamage: 15
+                },
+                /*
+                {
+                    id: "GunsAndBullets2",
+                    type: "magazine",
+                    desc: "Guns... # 2 (+30% crit DMG w/ lasers)",
+                    mode: "Ranged",
+                    kind: "laser",
+                    criticalDamage: 30
+                },
+                */
+                /*
+                {
+                    id: "GunsAndBullets3",
+                    type: "magazine",
+                    desc: "Guns & Bullets... # 3 (+30% crit DMG w/ ballistic)",
+                    mode: "Ranged",
+                    kind: "ballistic"
+                    criticalDamage: 30
+                },
+                */
+                {
+                    id: "GunsAndBullets7",
+                    type: "magazine",
+                    desc: "Guns... # 7 (+10% DMG w/o scope)",
+                    mode: "Ranged",
+                    noscopeDamage: 10
+                },
+                {
+                    id: "GunsAndBullets8",
+                    type: "magazine",
+                    desc: "Guns... # 8 (+15% DMG vs yao guai)",
+                    mode: "Melee,Ranged",
+                    versus: ["Yao Guai"],
+                    versusDamage: 15
+                },
+                /*
+                {
+                    id: "GunsAndBullets9",
+                    type: "magazine",
+                    desc: "Guns... # 9 (+30% crit DMG w/ plasma)",
+                    mode: "Ranged",
+                    kind: "plasma",
+                    criticalDamage: 30
+                },
+                */
+                {
+                    id: "GunsAndBullets10",
+                    type: "magazine",
+                    desc: "Guns... #10 (+15% DMG vs liberators)",
+                    mode: "Melee,Ranged",
+                    versus: ["Liberator"],
+                    versusDamage: 15
+                },
+                // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+                {
+                    id: "LiveAndLove2",
+                    type: "magazine",
+                    desc: "Live... # 2 (+5% DMG w/ team)",
+                    mode: "Melee,Ranged",
+                    teamDamage: 5
+                },
+                // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+                {
+                    id: "TalesFromWVHills1",
+                    type: "magazine",
+                    desc: "Tales... # 1 (+15% DMG vs mothmen)",
+                    mode: "Melee,Ranged",
+                    versus: ["Mothman"],
+                    versusDamage: 15
+                },
+                {
+                    id: "TalesFromWVHills2",
+                    type: "magazine",
+                    desc: "Tales... # 2 (+15% DMG vs grafton m.)",
+                    mode: "Melee,Ranged",
+                    versus: ["Grafton Monster"],
+                    versusDamage: 15
+                },
+                {
+                    id: "TalesFromWVHills3",
+                    type: "magazine",
+                    desc: "Tales... # 3 (+15% DMG vs snallygasters)",
+                    mode: "Melee,Ranged",
+                    versus: ["Snallygaster"],
+                    versusDamage: 15
+                },
+                {
+                    id: "TalesFromWVHills4",
+                    type: "magazine",
+                    desc: "Tales... # 4 (+15% DMG vs flatwoods m.)",
+                    mode: "Melee,Ranged",
+                    versus: ["Flatwoods Monster"],
+                    versusDamage: 15
+                },
+                {
+                    id: "TalesFromWVHills5",
+                    type: "magazine",
+                    desc: "Tales... # 5 (+15% DMG vs wendigos)",
+                    mode: "Melee,Ranged",
+                    versus: ["Wendigo"],
+                    versusDamage: 15
+                },
+                // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+                {
+                    id: "TeslaScience6",
+                    type: "magazine",
+                    desc: "Tesla... # 6 (+15% DMG vs mothmen)",
+                    mode: "Melee,Ranged",
+                    versus: ["Mothman"],
+                    versusDamage: 15
+                },
+                /*
+                {
+                    id: "TeslaScience7",
+                    type: "magazine",
+                    desc: "Tesla... # 7 (+15% crit DMG w/ energy)",
+                    mode: "Ranged",
+                    criticalDamage: 15,
+                    kind: "energy"
+                },
+                {
+                    id: "TeslaScience8",
+                    type: "magazine",
+                    desc: "Tesla... # 8 (+15% crit DMG)",
+                    mode: "Melee,Ranged",
+                    criticalDamage: 15
+                },
+                {
+                    id: "TeslaScience9",
+                    type: "magazine",
+                    desc: "Tesla... # 9 (+15% crit DMG w/ heavy)",
+                    mode: "Ranged",
+                    criticalDamage: 15,
+                    only: "heavy"
+                },
+                */
+               // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+               {
+                    id: "USCovertOps4",
+                    type: "magazine",
+                    desc: "US... # 4 (+10% DMG vs players)",
+                    mode: "Melee,Ranged",
+                    versus: ["Player"],
+                    versusDamage: 15
+                },
+                {
+                    id: "USCovertOps8",
+                    type: "magazine",
+                    desc: "US... # 8 (+25% DMG w/ unarmed & knives)",
+                    mode: "Melee",
+                    damage: 25,
+                    kind: "knife,unarmed"
+                },
+
+            ];
+            magazines.sort(function(a, b) {
+                return a.desc.localeCompare(b.desc);
+            });
+
+            // Queen of the hunt bonuses
+            var queenhunt = [
+                {
+                    id: "QueenOfTheHunt1",
+                    type: "quest",
+                    desc: "+15 DMG vs flatwoods monsters",
+                    mode: "Ranged,Melee",
+                    versus: ["Flatwoods Monster"],
+                    versusDamage: 15
+                },
+                {
+                    id: "QueenOfTheHunt2",
+                    type: "quest",
+                    desc: "+15 DMG vs mothmen",
+                    mode: "Ranged,Melee",
+                    versus: ["Mothman"],
+                    versusDamage: 15
+                },
+                {
+                    id: "QueenOfTheHunt3",
+                    type: "quest",
+                    desc: "+15 DMG vs grafton monsters",
+                    mode: "Ranged,Melee",
+                    versus: ["Grafton Monster"],
+                    versusDamage: 15
+                },
+                {
+                    id: "QueenOfTheHunt4",
+                    type: "quest",
+                    desc: "+15 DMG vs snallygasters",
+                    mode: "Ranged,Melee",
+                    versus: ["Snallygaster"],
+                    versusDamage: 15
+                },
+                {
+                    id: "QueenOfTheHunt5",
+                    type: "quest",
+                    desc: "+15 DMG vs wendigos",
+                    mode: "Ranged,Melee",
+                    versus: ["Wendigo"],
+                    versusDamage: 15
+                },
+            ];
+            queenhunt.sort(function(a, b) {
+                return a.desc.localeCompare(b.desc);
+            });
+
+            // X_X_X_X_X_X_X_X_X_X_X_X_X_X_X_X_X_X_X_X_X_X_X_X_X_X_X_X_X_X_X_X_X_X_X_X_X_X_X_X_
+            // create a mapping of the buffs
 
             var buffMap = new Map();
             for (var chm of chems) {
@@ -3497,6 +4045,15 @@
             }
             for (var alc of alcohols) {
                 buffMap.set(alc.id, alc);
+            }
+            for (var bh of bobbleheads) {
+                buffMap.set(bh.id, bh);
+            }
+            for (var mg of magazines) {
+                buffMap.set(mg.id, mg);
+            }
+            for (var qh of queenhunt) {
+                buffMap.set(qh.id, qh);
             }
 
             // -------------------------------------------------------------------------------------
@@ -3646,6 +4203,7 @@
                 + "<ul>"
                     + "<li>Adrenal Reaction</li>"
                 + "</ul>"
+                + "<br>Enable <b>Team</b> to enable this perk."
             );
             infoMap.set("nighttime", 
                 "Enables the following effects/mods/perks when at night:"
@@ -3665,6 +4223,13 @@
                 "Enables the effects/mods/perks when aiming down the sights:"
                 + "<ul>"
                     + "<li>+10% damage while aiming (legendary major)</li>"
+                + "</ul>"
+            );
+            infoMap.set("team", 
+                "Enables the following effects/mods/perks when in team:"
+                + "<ul>"
+                    + "<li>Strange in numbers (perk)</li>"
+                    + "<li>Live and Love #2</li>"
                 + "</ul>"
             );
 
@@ -3740,13 +4305,13 @@
             infoMap.set("chems", 
                 "Select a chem to apply extra bonuses."
                 + "<br>Chems are mutually exlusive and you can have only one active at a time."
-                + "<br>Chems not affecting damage output are not listed."
+                + "<br>Chems not affecting the current weapon or not related to damage output are not listed."
                 + "<br>Effects of the individual chems not related to damage are not displayed."
             );
             infoMap.set("alcohols", 
                 "Select an alcohol to apply extra bonuses."
                 + "<br>Alcohols are mutually exlusive and you can have only one active at a time."
-                + "<br>Alcohols not affecting damage output are not listed."
+                + "<br>Alcohols not affecting the current weapon or not related to damage output are not listed."
                 + "<br>Effects of the individual alcohols not related to damage are not displayed."
                 + "<br>Some alcohol types do not affect certain weapon types (example: Ballistic Bock vs. Heavy guns)."
             );
@@ -3757,7 +4322,21 @@
                 "Effects of Nuka Cola products doubles (rank 1) or triples (rank 2)."
                 + "<br>Affects <b>Nuka Cola Dark</b> and <b>Nukashine</b> only."
             );
-
+            infoMap.set("bobblehead", 
+                "Select a bobblehead to apply extra bonuses."
+                + "<br>Bobbleheads are mutually exlusive and you can have only one active at a time."
+                + "<br>Bobbleheads not affecting the current weapon or not related to damage output are not listed."
+                + "<br>Effects of the individual bobbleheads not related to damage are not displayed."
+            );
+            infoMap.set("magazine", 
+                "Select a magazine to apply extra bonuses."
+                + "<br>Magazines are mutually exlusive and you can have only one active at a time."
+                + "<br>Magazines not affecting the current weapon or not related to damage output are not listed."
+                + "<br>Effects of the individual magazines not related to damage are not displayed."
+            );
+            infoMap.set("queenhunt", 
+                "Select the bonus received from the Daily: Queen of the Hunt."
+            );
 
             // add HTML explanation marker
             function info(name) {
@@ -4046,6 +4625,20 @@
                     };
 
                 }
+
+                row = tbl.insertRow(tbl.rows.length);
+                cell1 = row.insertCell(0);
+                cell1.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;Team" + info("team");
+                cell2 = row.insertCell(1);
+                cell2.innerHTML = "<input type='radio' id='team" + index + "_yes' name='team" + index + "' value='1'> Yes&nbsp;&nbsp;&nbsp;"
+                    + "<input type='radio' id='team" + index + "_no' name='team" + index + "' value='0' checked='checked'> No";
+
+                document.getElementById("team" + index + "_yes").onchange = function() {
+                    recalculate(tbl, index, type);
+                };
+                document.getElementById("team" + index + "_no").onchange = function() {
+                    recalculate(tbl, index, type);
+                };
 
                 row = tbl.insertRow(tbl.rows.length);
                 cell1 = row.insertCell(0);
@@ -4703,6 +5296,9 @@
                         if (alc.except !== undefined && alc.except.includes(weap.category)) {
                             continue;
                         }
+                        if (alc.only !== undefined && !alc.only.includes(weap.category)) {
+                            continue;
+                        }
                         opt = document.createElement("option");
                         alcoholsel.add(opt);
                         opt.text = alc.desc;
@@ -4711,6 +5307,99 @@
                 }
                 alcoholsel.selectedIndex = 0;
                 alcoholsel.onchange = function() {
+                    recalculate(tbl, index, type);
+                };
+
+                // bobbleheads
+                row = tbl.insertRow(tbl.rows.length);
+                cell1 = row.insertCell(0);
+                cell1.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;Bobblehead" + info("bobblehead");
+                cell2 = row.insertCell(1);
+                cell2.innerHTML = "<select id='bobblehead" + index + "'></select>"
+                var bobbleheadsel = document.getElementById("bobblehead" + index);
+                opt = document.createElement("option");
+                bobbleheadsel.add(opt);
+                opt.text = "None";
+                opt.value = "";
+
+                for (var bh of bobbleheads) {
+                    if (bh.mode.includes(type)) {
+                        if (bh.except !== undefined && bh.except.includes(weap.category)) {
+                            continue;
+                        }
+                        if (bh.only !== undefined && !bh.only.includes(weap.category)) {
+                            continue;
+                        }
+                        opt = document.createElement("option");
+                        bobbleheadsel.add(opt);
+                        opt.text = bh.desc;
+                        opt.value = bh.id;
+                    }
+                }
+                bobbleheadsel.selectedIndex = 0;
+                bobbleheadsel.onchange = function() {
+                    recalculate(tbl, index, type);
+                };
+
+                // magazines
+                row = tbl.insertRow(tbl.rows.length);
+                cell1 = row.insertCell(0);
+                cell1.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;Magazine" + info("magazine");
+                cell2 = row.insertCell(1);
+                cell2.innerHTML = "<select id='magazine" + index + "'></select>"
+                var magazinesel = document.getElementById("magazine" + index);
+                opt = document.createElement("option");
+                magazinesel.add(opt);
+                opt.text = "None";
+                opt.value = "";
+
+                for (var mag of magazines) {
+                    if (mag.mode.includes(type)) {
+                        if (mag.except !== undefined && mag.except.includes(weap.category)) {
+                            continue;
+                        }
+                        if (mag.only !== undefined && !mag.only.includes(weap.category)) {
+                            continue;
+                        }
+                        if (mag.weapon !== undefined && !mag.weapon.includes(weap.name)) {
+                            continue;
+                        }
+                        if (mag.kind !== undefined && weap.kind !== undefined && !mag.kind.includes(weap.kind)) {
+                            continue;
+                        }
+                        opt = document.createElement("option");
+                        magazinesel.add(opt);
+                        opt.text = mag.desc;
+                        opt.value = mag.id;
+                    }
+                }
+                magazinesel.selectedIndex = 0;
+                magazinesel.onchange = function() {
+                    recalculate(tbl, index, type);
+                };
+
+                // queen of the hunt bonus
+                row = tbl.insertRow(tbl.rows.length);
+                cell1 = row.insertCell(0);
+                cell1.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;Queen of the hunt" + info("queenhunt");
+                cell2 = row.insertCell(1);
+                cell2.innerHTML = "<select id='queenhunt" + index + "'></select>"
+                var queenhuntsel = document.getElementById("queenhunt" + index);
+                opt = document.createElement("option");
+                queenhuntsel.add(opt);
+                opt.text = "None";
+                opt.value = "";
+
+                for (var qh of queenhunt) {
+                    if (qh.mode.includes(type)) {
+                        opt = document.createElement("option");
+                        queenhuntsel.add(opt);
+                        opt.text = qh.desc;
+                        opt.value = qh.id;
+                    }
+                }
+                queenhuntsel.selectedIndex = 0;
+                queenhuntsel.onchange = function() {
                     recalculate(tbl, index, type);
                 };
 
@@ -4816,11 +5505,28 @@
                 var buffOpts = [];
                 var chemsel = document.getElementById("chem" + index);
                 if (chemsel.selectedIndex > 0) {
-                    buffOpts.push(buffMap.get(chemsel.options[chemsel.selectedIndex].value));
+                    buffOpts.push(buffMap.get(valueOf(chemsel)));
                 }
                 var alcsel = document.getElementById("alcohol" + index);
                 if (alcsel.selectedIndex > 0) {
-                    buffOpts.push(buffMap.get(alcsel.options[alcsel.selectedIndex].value));
+                    buffOpts.push(buffMap.get(valueOf(alcsel)));
+                }
+                var explosiveBobbleheadPercent = 0;
+                var bhsel = document.getElementById("bobblehead" + index);
+                if (bhsel.selectedIndex > 0) {
+                    var bhItem = buffMap.get(valueOf(bhsel));
+                    buffOpts.push(bhItem);
+                    if (bhItem.explosiveDamage !== undefined) {
+                        explosiveBobbleheadPercent = bhItem.explosiveDamage;
+                    }
+                }
+                var magsel = document.getElementById("magazine" + index);
+                if (magsel.selectedIndex > 0) {
+                    buffOpts.push(buffMap.get(valueOf(magsel)));
+                }
+                var qhsel = document.getElementById("queenhunt" + index);
+                if (qhsel.selectedIndex > 0) {
+                    buffOpts.push(buffMap.get(valueOf(qhsel)));
                 }
 
                 // party boy/girl multiplier for alcohols
@@ -4839,6 +5545,10 @@
 
                 // enemy type selected
                 var enemytypes = valueOf(document.getElementById("enemytype" + index)).split(",");
+
+                // team mode
+                var isTeam = document.getElementById("team" + index + "_yes").checked;
+                var isStrangeInNumbers = isTeam && document.getElementById("strangeinnumbers" + index + "_yes").checked;
 
                 // adjust for melee strength
                 // ~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -4934,7 +5644,7 @@
                     var health = parseFloat(document.getElementById("playerhealth" + index).value);
                     if (health <= 90) {
                         var perc = 0;
-                        var superVersion = document.getElementById("strangeinnumbers" + index + "_yes").checked;
+                        var superVersion = isStrangeInNumbers;
                         if (health <= 20) {
                             perc = superVersion ? 63 : 50;
                         } else 
@@ -4967,6 +5677,7 @@
                 baseDamageEnergy += additiveEnergyBoosts;
 
                 var isSilenced = false;
+                var isScoped = false;
 
                 var versusMultiplier = 0;
 
@@ -4988,6 +5699,9 @@
                         }
                         if (modInfo.silencer !== undefined && modInfo.silencer) {
                             isSilenced = true;
+                        }
+                        if (modInfo.scope !== undefined && modInfo.scope) {
+                            isScoped = true;
                         }
                         if (modInfo.speedMultPercent !== undefined) {
                             totalSpeedMultiply.push(modInfo.speedMultPercent);
@@ -5026,6 +5740,7 @@
                                     if (demolitionsel.selectedIndex > 0) {
                                         perc *= 1 + parseFloat(valueOf(demolitionsel)) / 100.0
                                     }
+                                    perc *= 1 + (explosiveBobbleheadPercent / 100.0);
                                 }
                                 if (effInfo.name === "Aiming") {
                                     if (!document.getElementById("aiming" + index + "_yes").checked) {
@@ -5185,8 +5900,27 @@
                         totalDamageEnergyMultiply.push(buff.damage * pmult);
                     }
 
+                    if (buff.ballisticDamage !== undefined) {
+                        totalDamageMultiply.push(buff.ballisticDamage * pmult);
+                    }
+
                     if (buff.energyDamage !== undefined) {
                         totalDamageEnergyMultiply.push(buff.energyDamage * pmult);
+                    }
+
+                    if (buff.scopedDamage !== undefined && isScoped) {
+                        totalDamageMultiply.push(buff.scopedDamage * pmult);
+                        totalDamageEnergyMultiply.push(buff.scopedDamage * pmult);
+                    }
+
+                    if (buff.noscopeDamage !== undefined && !isScoped && type === "Ranged") {
+                        totalDamageMultiply.push(buff.noscopeDamage * pmult);
+                        totalDamageEnergyMultiply.push(buff.noscopeDamage * pmult);
+                    }
+
+                    if (buff.teamDamage && isTeam) {
+                        totalDamageMultiply.push(buff.teamDamage * pmult);
+                        totalDamageEnergyMultiply.push(buff.teamDamage * pmult);
                     }
 
                     if (document.getElementById("sneaking" + index + "_yes").checked
@@ -5230,9 +5964,13 @@
                     }
                 }
 
-                var demolitionsel = document.getElementById("demolition" + index);
-                if (demolitionsel != null && demolitionsel.selectedIndex > 0 && weap.explosive) {
-                    totalDamageMultiply.push(parseFloat(valueOf(demolitionsel)));
+                if (weap.explosive) {
+                    totalDamageMultiply.push(explosiveBobbleheadPercent);
+
+                    var demolitionsel = document.getElementById("demolition" + index);
+                    if (demolitionsel != null && demolitionsel.selectedIndex > 0) {
+                        totalDamageMultiply.push(parseFloat(valueOf(demolitionsel)));
+                    }
                 }
 
                 var revenantsel = document.getElementById("revenant" + index);
