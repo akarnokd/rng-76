@@ -22,7 +22,7 @@
     </head>
     <body style="height: 90%">
         <center>
-            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Weapon Damage Calculator (v2.0.31)</span><br/>
+            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Weapon Damage Calculator (v2.0.32)</span><br/>
         <br/>
         <table id="parent">
             <tr>
@@ -1085,6 +1085,30 @@
                     level: [15, 25, 35, 45],
                     damage: [50, 60, 70, 80],
                     mods: []
+                },
+                {
+                    name: "Bear Arm",
+                    category: "Unarmed",
+                    speed: speedSlow,
+                    level: [20, 30, 40, 50],
+                    damage: [35, 40, 45, 50],
+                    mods: [
+                        {
+                            slot: "Main",
+                            options: [
+                                {
+                                    name: "Standard"
+                                },
+                                {
+                                    name: "Heavy",
+                                    damageMultPercent: 10,
+                                },
+                                {
+                                    name: "Puncturing",
+                                    ignoreDRPercent: 20
+                                }
+                            ]
+                        }]
                 },
             ]);
 
@@ -3274,48 +3298,56 @@
             var chems = [
                     {
                         id: "Buffout",
+                        type: "chem",
                         desc: "Buffout (+2 STR)",
                         mode: "Melee",
                         strength: 2
                     },
                     {
                         id: "Bufftats",
+                        type: "chem",
                         desc: "Bufftats (+3 STR)",
                         mode: "Melee",
                         strength: 3
                     },
                     {
                         id: "Calmex",
+                        type: "chem",
                         desc: "Calmex (+15% sneak DMG)",
                         mode: "Melee,Ranged",
                         sneakDamage: 15
                     },
                     {
                         id: "Daytripper",
+                        type: "chem",
                         desc: "Daytripper (-2 STR)",
                         mode: "Melee",
                         strength: -2
                     },
                     {
                         id: "Fury",
+                        type: "chem",
                         desc: "Fury (+30% DMG)",
                         mode: "Melee,Ranged",
                         damage: 30
                     },
                     {
                         id: "Overdrive",
+                        type: "chem",
                         desc: "Overdrive (+15% DMG)",
                         mode: "Melee,Ranged",
                         damage: 15
                     },
                     {
                         id: "Psycho",
+                        type: "chem",
                         desc: "Psycho (+15% DMG)",
                         mode: "Melee,Ranged",
                         damage: 15
                     },
                     {
                         id: "Psychobuff",
+                        type: "chem",
                         desc: "Psychobuff (+3 STR, +25% DMG)",
                         mode: "Melee,Ranged",
                         damage: 25,
@@ -3323,21 +3355,148 @@
                     },
                     {
                         id: "Psychotats",
+                        type: "chem",
                         desc: "Psychotats (+25% DMG)",
                         mode: "Melee,Ranged",
                         damage: 25,
                     },
                     {
                         id: "X-cell",
+                        type: "chem",
                         desc: "X-cell (+2 STR)",
                         mode: "Melee",
                         strength: 2
                     },
             ];
+            chems.sort(function(a, b) {
+                return a.desc.localeCompare(b.desc);
+            });
 
-            var chemMap = new Map();
+            function createStrengthOnly(id, desc) {
+                return {
+                    id: id,
+                    type: "alcohol",
+                    desc: desc + " (+1 STR)",
+                    mode: "Melee",
+                    strength: 1
+                }
+            }
+
+            // alcohol configurations
+
+            var alcohols = [
+                {
+                    id: "BallisticBock",
+                    type: "alcohol",
+                    desc: "Ballistic Bock (+15% ranged DMG)",
+                    mode: "Ranged",
+                    except: "Heavy",
+                    damage: 15
+                },
+                createStrengthOnly("Beer", "Beer"),
+                createStrengthOnly("BlackwaterBrew", "Blackwater Brew"),
+                createStrengthOnly("Bourbon", "Bourbon"),
+                createStrengthOnly("ChallysMilk", "Chally's Milk"),
+                createStrengthOnly("CranberryMoonshine", "Cranberry Moonshine"),
+                /*
+                {
+                    id: "FirecrackerBerryJuice",
+                    type: "alcohol",
+                    desc: "Firecracker Berry Juice (+15% crit DMG)",
+                    mode: "Melee,Ranged",
+                    criticalDamage: 15
+                },
+                */
+                {
+                    id: "HighVoltageHefe",
+                    type: "alcohol",
+                    desc: "High Voltage Hefe (+15% energy DMG)",
+                    mode: "Ranged",
+                    energyDamage: 15,
+                },
+                {
+                    id: "HoppyHunterIPA",
+                    type: "alcohol",
+                    desc: "Hoppy Hunter IPA (+15% DMG vs animals)",
+                    mode: "Ranged",
+                    versusDamage: 15,
+                    versus: ["Animal"]
+                },
+                createStrengthOnly("MountainHoney", "Mountain Honey"),
+                createStrengthOnly("NewRiverRedAle", "New River Red Ale"),
+                {
+                    id: "NukaColaDark",
+                    type: "alcohol",
+                    desc: "Nuka Cola Dark (+1 STR)",
+                    mode: "Melee",
+                    strength: 1,
+                    cola: true
+                },
+                {
+                    id: "Nukashine",
+                    type: "alcohol",
+                    desc: "Nukashine (+100% unarmed DMG)",
+                    mode: "Melee",
+                    unarmedDamage: 100,
+                    cola: true
+                },
+                createStrengthOnly("OakHollerLager", "Oak Holler Lager"),
+                createStrengthOnly("OldPossum", "Old Possum"),
+                createStrengthOnly("PickaxePilsner", "Pickaxe Pilsner"),
+                {
+                    id: "RodgersReserveBeer",
+                    type: "alcohol",
+                    desc: "Rodgers' Reserve Beer (+2 STR)",
+                    mode: "Melee",
+                    strength: 2
+                },
+                createStrengthOnly("SimpleFernFlowerTea", "Simple Fern Flower Tea"),
+                {
+                    id: "SteepedFernFlowerTea",
+                    type: "alcohol",
+                    desc: "Steeped Fern Flower Tea (+2 STR)",
+                    mode: "Melee",
+                    strength: 2
+                },
+                /*
+                {
+                    id: "SteepedThistleTea",
+                    type: "alcohol",
+                    desc: "Steeped Thistle Tea (+20% crit DMG)",
+                    mode: "Melee,Ranged",
+                    criticalDamage: 20
+                },
+                */
+                /*
+                {
+                    id: "SweetMutfruitTea",
+                    type: "alcohol",
+                    desc: "Sweet Mutfruit Tea (+20% crit DMG)",
+                    mode: "Melee,Ranged",
+                    criticalDamage: 20
+                },
+                */
+                createStrengthOnly("Vodka", "Vodka"),
+                {
+                    id: "Whiskey",
+                    type: "alcohol",
+                    desc: "Whiskey (+2 STR)",
+                    mode: "Melee",
+                    strength: 2
+                },
+                createStrengthOnly("Wine", "Wine"),
+            ];
+            alcohols.sort(function(a, b) {
+                return a.desc.localeCompare(b.desc);
+            });
+
+
+            var buffMap = new Map();
             for (var chm of chems) {
-                chemMap.set(chm.id, chm);
+                buffMap.set(chm.id, chm);
+            }
+            for (var alc of alcohols) {
+                buffMap.set(alc.id, alc);
             }
 
             // -------------------------------------------------------------------------------------
@@ -3583,6 +3742,20 @@
                 + "<br>Chems are mutually exlusive and you can have only one active at a time."
                 + "<br>Chems not affecting damage output are not listed."
                 + "<br>Effects of the individual chems not related to damage are not displayed."
+            );
+            infoMap.set("alcohols", 
+                "Select an alcohol to apply extra bonuses."
+                + "<br>Alcohols are mutually exlusive and you can have only one active at a time."
+                + "<br>Alcohols not affecting damage output are not listed."
+                + "<br>Effects of the individual alcohols not related to damage are not displayed."
+                + "<br>Some alcohol types do not affect certain weapon types (example: Ballistic Bock vs. Heavy guns)."
+            );
+            infoMap.set("partyperson", 
+                "Effects of alcohol doubles (rank 1) or triples (rank 2)."
+            );
+            infoMap.set("colanut", 
+                "Effects of Nuka Cola products doubles (rank 1) or triples (rank 2)."
+                + "<br>Affects <b>Nuka Cola Dark</b> and <b>Nukashine</b> only."
             );
 
 
@@ -3962,7 +4135,7 @@
                 cell1 = row.insertCell(0);
                 cell1.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;Bloody mess" + info("bloodymess");
                 cell2 = row.insertCell(1);
-                cell2.innerHTML = "<select id='bloodymess" + index + "'></select> (level)"
+                cell2.innerHTML = "<select id='bloodymess" + index + "'></select> (rank)"
 
                 var bloodymesssel = document.getElementById("bloodymess" + index);
                 var opt = document.createElement("option");
@@ -3989,7 +4162,7 @@
                 cell1 = row.insertCell(0);
                 cell1.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;Adrenaline" + info("adrenaline");
                 cell2 = row.insertCell(1);
-                cell2.innerHTML = "<select id='adrenaline" + index + "'></select> (level)&nbsp;&nbsp;&nbsp;Kills&nbsp;"
+                cell2.innerHTML = "<select id='adrenaline" + index + "'></select> (rank)&nbsp;&nbsp;&nbsp;Kills&nbsp;"
                     + "<input type='number' id='kills" + index + "' value='6' maxlength='6' style='width: 3em;' min='0' max='10'>";
 
                 var adrenalinesel = document.getElementById("adrenaline" + index);
@@ -4047,7 +4220,7 @@
                     cell1 = row.insertCell(0);
                     cell1.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;Incisor" + info("incisor");
                     cell2 = row.insertCell(1);
-                    cell2.innerHTML = "<select id='incisor" + index + "'></select> (level)"
+                    cell2.innerHTML = "<select id='incisor" + index + "'></select> (rank)"
 
                     var incisor = document.getElementById("incisor" + index);
                     opt = document.createElement("option");
@@ -4070,7 +4243,7 @@
                     cell1 = row.insertCell(0);
                     cell1.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;Martial Artist" + info("martialartist");
                     cell2 = row.insertCell(1);
-                    cell2.innerHTML = "<select id='martialartist" + index + "'></select> (level)"
+                    cell2.innerHTML = "<select id='martialartist" + index + "'></select> (rank)"
 
                     var martialartist = document.getElementById("martialartist" + index);
                     opt = document.createElement("option");
@@ -4093,7 +4266,7 @@
                     cell1 = row.insertCell(0);
                     cell1.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;Ninja" + info("ninja");
                     cell2 = row.insertCell(1);
-                    cell2.innerHTML = "<select id='ninja" + index + "'></select> (level)"
+                    cell2.innerHTML = "<select id='ninja" + index + "'></select> (rank)"
 
                     var ninja = document.getElementById("ninja" + index);
                     opt = document.createElement("option");
@@ -4126,7 +4299,7 @@
                     cell1 = row.insertCell(0);
                     cell1.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;Demolition Expert" + info("demolitionexpert");
                     cell2 = row.insertCell(1);
-                    cell2.innerHTML = "<select id='demolition" + index + "'></select> (level)"
+                    cell2.innerHTML = "<select id='demolition" + index + "'></select> (rank)"
 
                     var demolition = document.getElementById("demolition" + index);
                     opt = document.createElement("option");
@@ -4170,7 +4343,7 @@
                         cell1 = row.insertCell(0);
                         cell1.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;Tank killer" + info("tankkiller");
                         cell2 = row.insertCell(1);
-                        cell2.innerHTML = "<select id='tankkiller" + index + "'></select> (level)"
+                        cell2.innerHTML = "<select id='tankkiller" + index + "'></select> (rank)"
 
                         var tankkiller = document.getElementById("tankkiller" + index);
                         opt = document.createElement("option");
@@ -4194,7 +4367,7 @@
                         cell1 = row.insertCell(0);
                         cell1.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;Stabilized" + info("stabilized");
                         cell2 = row.insertCell(1);
-                        cell2.innerHTML = "<select id='stabilized" + index + "'></select> (level)"
+                        cell2.innerHTML = "<select id='stabilized" + index + "'></select> (rank)"
 
                         var stabilized = document.getElementById("stabilized" + index);
                         opt = document.createElement("option");
@@ -4218,7 +4391,7 @@
                     cell1 = row.insertCell(0);
                     cell1.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;Covert operative" + info("covertoperative");
                     cell2 = row.insertCell(1);
-                    cell2.innerHTML = "<select id='covertop" + index + "'></select> (level)"
+                    cell2.innerHTML = "<select id='covertop" + index + "'></select> (rank)"
 
                     var covertop = document.getElementById("covertop" + index);
                     opt = document.createElement("option");
@@ -4252,7 +4425,7 @@
                     cell1 = row.insertCell(0);
                     cell1.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;Exterminator" + info("exterminator");
                     cell2 = row.insertCell(1);
-                    cell2.innerHTML = "<select id='exterminator" + index + "'></select> (level)"
+                    cell2.innerHTML = "<select id='exterminator" + index + "'></select> (rank)"
 
                     var exterminator = document.getElementById("exterminator" + index);
                     opt = document.createElement("option");
@@ -4275,7 +4448,7 @@
                     cell1 = row.insertCell(0);
                     cell1.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;Glow sight" + info("glowsight");
                     cell2 = row.insertCell(1);
-                    cell2.innerHTML = "<select id='glowsight" + index + "'></select> (level)"
+                    cell2.innerHTML = "<select id='glowsight" + index + "'></select> (rank)"
 
                     var glowsight = document.getElementById("glowsight" + index);
                     opt = document.createElement("option");
@@ -4298,7 +4471,7 @@
                 cell1 = row.insertCell(0);
                 cell1.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;Nerd Rage" + info("nerdrage");
                 cell2 = row.insertCell(1);
-                cell2.innerHTML = "<select id='nerdrage" + index + "'></select> (level)"
+                cell2.innerHTML = "<select id='nerdrage" + index + "'></select> (rank)"
 
                 var nerdragesel = document.getElementById("nerdrage" + index);
                 opt = document.createElement("option");
@@ -4321,7 +4494,7 @@
                 cell1 = row.insertCell(0);
                 cell1.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;Revenant" + info("revenant");
                 cell2 = row.insertCell(1);
-                cell2.innerHTML = "<select id='revenant" + index + "'></select> (level)"
+                cell2.innerHTML = "<select id='revenant" + index + "'></select> (rank)"
                 
                 var revenantsel = document.getElementById("revenant" + index);
                 opt = document.createElement("option");
@@ -4345,7 +4518,7 @@
                     cell1 = row.insertCell(0);
                     cell1.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;Mister Sandman" + info("sandman");
                     cell2 = row.insertCell(1);
-                    cell2.innerHTML = "<select id='sandman" + index + "'></select> (level)"
+                    cell2.innerHTML = "<select id='sandman" + index + "'></select> (rank)"
                     var sandmansel = document.getElementById("sandman" + index);
                     opt = document.createElement("option");
                     sandmansel.add(opt);
@@ -4377,6 +4550,54 @@
                 document.getElementById("strangeinnumbers" + index + "_no").onchange = function() {
                     recalculate(tbl, index, type);
                 };
+
+                row = tbl.insertRow(tbl.rows.length);
+                cell1 = row.insertCell(0);
+                cell1.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;Party boy/girl" + info("partyperson");
+                cell2 = row.insertCell(1);
+                cell2.innerHTML = "<select id='partyperson" + index + "'></select> (rank)"
+                
+                var partypersonsel = document.getElementById("partyperson" + index);
+                opt = document.createElement("option");
+                partypersonsel.add(opt);
+                opt.text = "None";
+                opt.value = "0";
+
+                for (var i = 1; i < 3; i++) {
+                    opt = document.createElement("option");
+                    partypersonsel.add(opt);
+                    opt.text = "" + i;
+                    opt.value = "" + i; // calculated with (1 + value)
+                }
+                partypersonsel.selectedIndex = 0;
+                partypersonsel.onchange = function() {
+                    recalculate(tbl, index, type);
+                };
+
+                if (type === "Melee") {
+                    row = tbl.insertRow(tbl.rows.length);
+                    cell1 = row.insertCell(0);
+                    cell1.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;Cola nut" + info("colanut");
+                    cell2 = row.insertCell(1);
+                    cell2.innerHTML = "<select id='colanut" + index + "'></select> (rank)"
+                    
+                    var colanutsel = document.getElementById("colanut" + index);
+                    opt = document.createElement("option");
+                    colanutsel.add(opt);
+                    opt.text = "None";
+                    opt.value = "0";
+
+                    for (var i = 1; i < 3; i++) {
+                        opt = document.createElement("option");
+                        colanutsel.add(opt);
+                        opt.text = "" + i;
+                        opt.value = "" + i; // calculated with (1 + value)
+                    }
+                    colanutsel.selectedIndex = 0;
+                    colanutsel.onchange = function() {
+                        recalculate(tbl, index, type);
+                    };
+                }
             }
 
             function createMutations(tbl, index, type) {
@@ -4432,6 +4653,9 @@
             }
 
             function createOther(tbl, index, type) {
+                var weapIdx = document.getElementById("weapon" + index).selectedIndex;
+                var weap = allWeapons.get(type)[weapIdx];
+
                 var row = tbl.insertRow(tbl.rows.length);
                 var cell1 = row.insertCell(0);
                 cell1.innerText = "Other";
@@ -4459,6 +4683,34 @@
                 }
                 chemsel.selectedIndex = 0;
                 chemsel.onchange = function() {
+                    recalculate(tbl, index, type);
+                };
+
+                // alcohol
+                row = tbl.insertRow(tbl.rows.length);
+                cell1 = row.insertCell(0);
+                cell1.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;Alcohol" + info("alcohols");
+                cell2 = row.insertCell(1);
+                cell2.innerHTML = "<select id='alcohol" + index + "'></select>"
+                var alcoholsel = document.getElementById("alcohol" + index);
+                opt = document.createElement("option");
+                alcoholsel.add(opt);
+                opt.text = "None";
+                opt.value = "";
+
+                for (var alc of alcohols) {
+                    if (alc.mode.includes(type)) {
+                        if (alc.except !== undefined && alc.except.includes(weap.category)) {
+                            continue;
+                        }
+                        opt = document.createElement("option");
+                        alcoholsel.add(opt);
+                        opt.text = alc.desc;
+                        opt.value = alc.id;
+                    }
+                }
+                alcoholsel.selectedIndex = 0;
+                alcoholsel.onchange = function() {
                     recalculate(tbl, index, type);
                 };
 
@@ -4560,6 +4812,34 @@
                     speed = weap.speed;
                 }
 
+                // prepare selectable buffs
+                var buffOpts = [];
+                var chemsel = document.getElementById("chem" + index);
+                if (chemsel.selectedIndex > 0) {
+                    buffOpts.push(buffMap.get(chemsel.options[chemsel.selectedIndex].value));
+                }
+                var alcsel = document.getElementById("alcohol" + index);
+                if (alcsel.selectedIndex > 0) {
+                    buffOpts.push(buffMap.get(alcsel.options[alcsel.selectedIndex].value));
+                }
+
+                // party boy/girl multiplier for alcohols
+                var partyMultiplier = 0;
+                var partypersonsel = document.getElementById("partyperson" + index);
+                if (partypersonsel.selectedIndex > 0) {
+                    partyMultiplier = parseInt(valueOf(partypersonsel));
+                }
+
+                // cola nut
+                var colanutMultiplier = 0;
+                var colanutsel = document.getElementById("colanut" + index);
+                if (colanutsel != null && colanutsel.selectedIndex > 0) {
+                    colanutMultiplier = parseInt(valueOf(colanutsel));
+                }
+
+                // enemy type selected
+                var enemytypes = valueOf(document.getElementById("enemytype" + index)).split(",");
+
                 // adjust for melee strength
                 // ~~~~~~~~~~~~~~~~~~~~~~~~~
                 if (type === "Melee") {
@@ -4572,12 +4852,16 @@
                         strengthPointsBase += sp;
                     }
                     // chem adjust
-                    var chemsel = document.getElementById("chem" + index);
-                    if (chemsel.selectedIndex > 0) {
-                        var chemopt = chemsel.options[chemsel.selectedIndex];
-                        var chemEntry = chemMap.get(chemopt.value);
-                        if (chemEntry.strength !== undefined) {
-                            strengthPoints += chemEntry.strength;
+                    for (var buff of buffOpts) {
+                        if (buff.strength !== undefined) {
+                            strengthPoints += buff.strength;
+
+                            if (buff.type === "alcohol") {
+                                strengthPoints += buff.strength * partyMultiplier;
+                                if (buff.cola) {
+                                    strengthPoints += buff.strength * colanutMultiplier;
+                                }
+                            }
                         }
                     }
 
@@ -4709,8 +4993,6 @@
                             totalSpeedMultiply.push(modInfo.speedMultPercent);
                         }
                         if (modInfo.versus !== undefined) {
-                            var enemytypes = valueOf(document.getElementById("enemytype" + index)).split(",");
-
                             for (var i = 0; i < enemytypes.length; i++) {
                                 if (modInfo.versus.indexOf(enemytypes[i]) >= 0) {
                                     if (modInfo.versusAddPercent !== undefined) {
@@ -4803,8 +5085,6 @@
                         }
                         // Versus enemy effect
                         if (effInfo.versus !== undefined) {
-                            var enemytypes = valueOf(document.getElementById("enemytype" + index)).split(",");
-
                             for (var i = 0; i < enemytypes.length; i++) {
                                 if (effInfo.versus.indexOf(enemytypes[i]) >= 0) {
                                     if (effInfo.versusAddPercent !== undefined) {
@@ -4859,7 +5139,6 @@
 
                 var exterminator = document.getElementById("exterminator" + index);
                 if (exterminator != null && exterminator.selectedIndex > 0) {
-                    var enemytypes = valueOf(document.getElementById("enemytype" + index)).split(",");
                     if (enemytypes.indexOf("Bug") >= 0 || enemytypes.indexOf("Mirelurk") >= 0) {
                         totalArmorIgnoreArray.push(parseFloat(valueOf(exterminator)));
                     }
@@ -4867,7 +5146,6 @@
 
                 var glowsight = document.getElementById("glowsight" + index);
                 if (glowsight != null && glowsight.selectedIndex > 0) {
-                    var enemytypes = valueOf(document.getElementById("enemytype" + index)).split(",");
                     if (enemytypes.indexOf("Glowing") >= 0) {
                         totalDamageMultiply.push(parseFloat(valueOf(glowsight)));
                         totalDamageEnergyMultiply.push(parseFloat(valueOf(glowsight)));
@@ -4895,21 +5173,50 @@
                     totalDamageEnergyMultiply.push(25);
                 }
 
-                // apply chems
-
-                var chemsel = document.getElementById("chem" + index);
-                if (chemsel.selectedIndex > 0) {
-                    var chemselopt = chemsel.options[chemsel.selectedIndex];
-                    var chemopt = chemMap.get(chemselopt.value);
-
-                    if (chemopt.damage !== undefined) {
-                        totalDamageMultiply.push(chemopt.damage);
-                        totalDamageEnergyMultiply.push(chemopt.damage);
+                // apply selectable buffs
+                for (var buff of buffOpts) {
+                    var pmult = partyMultiplier;
+                    if (buff.type !== "alcohol") {
+                        pmult = 1;
                     }
+
+                    if (buff.damage !== undefined) {
+                        totalDamageMultiply.push(buff.damage * pmult);
+                        totalDamageEnergyMultiply.push(buff.damage * pmult);
+                    }
+
+                    if (buff.energyDamage !== undefined) {
+                        totalDamageEnergyMultiply.push(buff.energyDamage * pmult);
+                    }
+
                     if (document.getElementById("sneaking" + index + "_yes").checked
-                            && chemopt.sneakDamage !== undefined) {
-                        totalDamageMultiply.push(chemopt.sneakDamage);
-                        totalDamageEnergyMultiply.push(chemopt.sneakDamage);
+                            && buff.sneakDamage !== undefined) {
+                        totalDamageMultiply.push(buff.sneakDamage * pmult);
+                        totalDamageEnergyMultiply.push(buff.sneakDamage * pmult);
+                    }
+
+                    if (buff.versusDamage !== undefined) {
+                        for (var vs of buff.versus) {
+                            if (enemytypes.indexOf(vs) >= 0) {
+                                totalDamageMultiply.push(buff.versusDamage * pmult);
+                                totalDamageEnergyMultiply.push(buff.versusDamage * pmult);
+                                break;
+                            }
+                        }
+                    }
+
+                    if (buff.unarmedDamage !== undefined &&  weap.category === "Unarmed") {
+                        var udmg = buff.unarmedDamage;
+
+                        if (buff.type === "alcohol") {
+                            udmg += buff.unarmedDamage * partyMultiplier;
+                            if (buff.cola) {
+                                udmg += buff.unarmedDamage * colanutMultiplier;
+                            }
+                        }
+
+                        totalDamageMultiply.push(udmg);
+                        totalDamageEnergyMultiply.push(udmg);
                     }
                 }
 
