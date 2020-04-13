@@ -22,7 +22,7 @@
     </head>
     <body style="height: 90%">
         <center>
-            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Weapon Damage Calculator (v2.0.30)</span><br/>
+            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Weapon Damage Calculator (v2.0.31)</span><br/>
         <br/>
         <table id="parent">
             <tr>
@@ -3268,6 +3268,78 @@
             enemyRadiationEffect.set("Glowing One", -10);
             enemyRadiationEffect.set("Scorchbeast Queen", 0);
 
+            // xoxoxoxoxoxoxoxoxoxoxoxoxoxoxoxoxoxoxoxoxoxoxoxoxoxoxoxoxoxoxoxoxoxoxoxoxoxoxoxoxoxo
+
+            // chem configurations
+            var chems = [
+                    {
+                        id: "Buffout",
+                        desc: "Buffout (+2 STR)",
+                        mode: "Melee",
+                        strength: 2
+                    },
+                    {
+                        id: "Bufftats",
+                        desc: "Bufftats (+3 STR)",
+                        mode: "Melee",
+                        strength: 3
+                    },
+                    {
+                        id: "Calmex",
+                        desc: "Calmex (+15% sneak DMG)",
+                        mode: "Melee,Ranged",
+                        sneakDamage: 15
+                    },
+                    {
+                        id: "Daytripper",
+                        desc: "Daytripper (-2 STR)",
+                        mode: "Melee",
+                        strength: -2
+                    },
+                    {
+                        id: "Fury",
+                        desc: "Fury (+30% DMG)",
+                        mode: "Melee,Ranged",
+                        damage: 30
+                    },
+                    {
+                        id: "Overdrive",
+                        desc: "Overdrive (+15% DMG)",
+                        mode: "Melee,Ranged",
+                        damage: 15
+                    },
+                    {
+                        id: "Psycho",
+                        desc: "Psycho (+15% DMG)",
+                        mode: "Melee,Ranged",
+                        damage: 15
+                    },
+                    {
+                        id: "Psychobuff",
+                        desc: "Psychobuff (+3 STR, +25% DMG)",
+                        mode: "Melee,Ranged",
+                        damage: 25,
+                        strength: 3,
+                    },
+                    {
+                        id: "Psychotats",
+                        desc: "Psychotats (+25% DMG)",
+                        mode: "Melee,Ranged",
+                        damage: 25,
+                    },
+                    {
+                        id: "X-cell",
+                        desc: "X-cell (+2 STR)",
+                        mode: "Melee",
+                        strength: 2
+                    },
+            ];
+
+            var chemMap = new Map();
+            for (var chm of chems) {
+                chemMap.set(chm.id, chm);
+            }
+
             // -------------------------------------------------------------------------------------
             
             function addEnemy(name, keywords) {
@@ -3472,6 +3544,7 @@
 
             infoMap.set("strength", 
                 "Each point in the Strength attribute of the player adds 5% damage."
+                + "<br>If the strength is affected by some other settings, the calculated strength is displayed as bold text next to the input."
                 + "<br>Armor, chems, mutations and legendary effects can increase player strength beyond 15."
                 + "<br>This damage boost is additive and proportional to the base weapon damage and is considered before "
                 + "<br>weapon mods, effects, perks, chems and other player conditions not related to strength."
@@ -3480,10 +3553,9 @@
             infoMap.set("ninja", "Melee weapons only. Sets the sneak attack multiplier 2.3x, 2.6x and 3.x.");
 
             infoMap.set("buff", 
-                "Set positive or negative damage boosts coming from chems, equipment or other effects."
+                "Set positive or negative damage boosts coming from other effects."
                 + "<br>Note that boosts are typically multiplicative, thus a +50% and a +25% damage boost"
                 + "<br>is not +75% boost but 1.5 * 1.25 = 1.875 or 87.5%."
-
             );
 
             infoMap.set("martialartist", "Melee weapons only. Each level increases swing speed by 10% and up to 30% total.");
@@ -3505,6 +3577,13 @@
             infoMap.set("junkies", "With the <b>Junkie's</b> legendary prefix on a weapon, each addiction results in a +10% damage bonus up to +50% total.");
 
             infoMap.set("twistedmuscles", "Grants +25% melee damage (unarmed, one- and two-handed) for -50% accuracy with ranged weapons (not affecting ranged damage).");
+
+            infoMap.set("chems", 
+                "Select a chem to apply extra bonuses."
+                + "<br>Chems are mutually exlusive and you can have only one active at a time."
+                + "<br>Chems not affecting damage output are not listed."
+                + "<br>Effects of the individual chems not related to damage are not displayed."
+            );
 
 
             // add HTML explanation marker
@@ -3830,7 +3909,10 @@
                     cell1 = row.insertCell(0);
                     cell1.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;Strength" + info("strength");
                     cell2 = row.insertCell(1);
-                    cell2.innerHTML = "<input type='number' id='strength" + index + "' value='1' maxlength='6' style='width: 8em;' min='1' max='50'> (points)";
+                    cell2.innerHTML = "<input type='number' id='strength" + index 
+                        + "' value='1' maxlength='6' style='width: 3em;' min='1' max='100'> (points)"
+                        + "&nbsp;<span id='strengthactual" + index + "'></span>"
+                        ;
                     document.getElementById("strength" + index ).oninput = function() {
                         recalculate(tbl, index, type);
                     };
@@ -4355,9 +4437,35 @@
                 cell1.innerText = "Other";
                 var cell2 = row.insertCell(1);
 
+                // chems
                 row = tbl.insertRow(tbl.rows.length);
                 cell1 = row.insertCell(0);
-                cell1.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;Buffs/chems boost" + info("buff");
+                cell1.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;Chem" + info("chems");
+                cell2 = row.insertCell(1);
+                cell2.innerHTML = "<select id='chem" + index + "'></select>"
+                var chemsel = document.getElementById("chem" + index);
+                opt = document.createElement("option");
+                chemsel.add(opt);
+                opt.text = "None";
+                opt.value = "";
+
+                for (var chm of chems) {
+                    if (chm.mode.includes(type)) {
+                        opt = document.createElement("option");
+                        chemsel.add(opt);
+                        opt.text = chm.desc;
+                        opt.value = chm.id;
+                    }
+                }
+                chemsel.selectedIndex = 0;
+                chemsel.onchange = function() {
+                    recalculate(tbl, index, type);
+                };
+
+                // other damage boost
+                row = tbl.insertRow(tbl.rows.length);
+                cell1 = row.insertCell(0);
+                cell1.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;Other bonus damage" + info("buff");
                 cell2 = row.insertCell(1);
                 cell2.innerHTML = "<input type='number' id='otherboost" + index + "' value='0' maxlength='6' style='width: 8em;' min='-1000' max='1000'> %";
                 document.getElementById("otherboost" + index ).oninput = function() {
@@ -4431,7 +4539,6 @@
                 var baseDamageRadiation = weap.damageRadiation !== undefined ? weap.damageRadiation[levelIdx] : 0;
 
                 var strengthFactor = 0.05;
-                var strengthBoost = 1;
                 var repairFactor = 1;
                 var speed = 1;
 
@@ -4457,9 +4564,21 @@
                 // ~~~~~~~~~~~~~~~~~~~~~~~~~
                 if (type === "Melee") {
                     var strength = document.getElementById("strength" + index);
+                    var strengthPoints = 0;
+                    var strengthPointsBase = 0;
                     if (strength != null) {
-                        var v = parseFloat(strength.value);
-                        strengthBoost += v * strengthFactor;
+                        var sp = parseFloat(strength.value);
+                        strengthPoints += sp;
+                        strengthPointsBase += sp;
+                    }
+                    // chem adjust
+                    var chemsel = document.getElementById("chem" + index);
+                    if (chemsel.selectedIndex > 0) {
+                        var chemopt = chemsel.options[chemsel.selectedIndex];
+                        var chemEntry = chemMap.get(chemopt.value);
+                        if (chemEntry.strength !== undefined) {
+                            strengthPoints += chemEntry.strength;
+                        }
                     }
 
                     effects.forEach(function(effect, idx) {
@@ -4467,11 +4586,21 @@
                         if (effectSel != null && effectSel.selectedIndex > 0) {
                             var effInfo = effects[idx][effectSel.selectedIndex - 1];
                             if (effInfo.name === "Strength") {
-                                strengthBoost += strengthFactor;
+                                strengthPoints++;
                             }
                         }
                     });
-                    baseDamage *= strengthBoost * repairFactor;
+
+                    strengthPoints = Math.max(1, strengthPoints);
+
+                    var strLabel = document.getElementById("strengthactual" + index);
+                    if (strengthPoints != strengthPointsBase) {
+                        strLabel.innerHTML = "<b>(" + strengthPoints + ")</b>";
+                    } else {
+                        strLabel.innerHTML = "";
+                    }
+
+                    baseDamage *= (1 + strengthPoints * strengthFactor) * repairFactor;
                 }
 
                 // add damage types from mods
@@ -4766,6 +4895,25 @@
                     totalDamageEnergyMultiply.push(25);
                 }
 
+                // apply chems
+
+                var chemsel = document.getElementById("chem" + index);
+                if (chemsel.selectedIndex > 0) {
+                    var chemselopt = chemsel.options[chemsel.selectedIndex];
+                    var chemopt = chemMap.get(chemselopt.value);
+
+                    if (chemopt.damage !== undefined) {
+                        totalDamageMultiply.push(chemopt.damage);
+                        totalDamageEnergyMultiply.push(chemopt.damage);
+                    }
+                    if (document.getElementById("sneaking" + index + "_yes").checked
+                            && chemopt.sneakDamage !== undefined) {
+                        totalDamageMultiply.push(chemopt.sneakDamage);
+                        totalDamageEnergyMultiply.push(chemopt.sneakDamage);
+                    }
+                }
+
+                // apply other boost
                 var otherboost = document.getElementById("otherboost" + index);
                 if (otherboost != null) {
                     var v = parseFloat(otherboost.value);
