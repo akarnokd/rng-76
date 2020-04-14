@@ -22,7 +22,7 @@
     </head>
     <body style="height: 90%">
         <center>
-            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Weapon Damage Calculator (v2.1.0)</span><br/>
+            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Weapon Damage Calculator (v3.0.0)</span><br/>
         <br/>
         <table id="parent">
             <tr>
@@ -368,7 +368,7 @@
                     category: "One-handed",
                     speed: speedMedium,
                     level: [10, 20, 30, 40, 50],
-                    damage: [15, 20, 25, 30, 35],
+                    damage: [21, 26, 31, 36, 41],
                     mods: []
                 },
                 {
@@ -1121,6 +1121,22 @@
                             ]
                         }]
                 },
+                {
+                    name: "Cattle Prod",
+                    category: "One-handed",
+                    speed: speedSlow,
+                    level: [5,15,25,35,45],
+                    damage: [18,30,36,42,48],
+                    mods: []
+                },
+                {
+                    name: "Auto-axe",
+                    category: "One-handed",
+                    speed: speedMedium,
+                    level: [30,40,50],
+                    damage: [10,18,26],
+                    mods: []
+                },
             ]);
 
             // xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
@@ -1193,6 +1209,35 @@
                     },
                 ]
             }
+
+            var standardArrows = {
+                slot: "Arrow",
+                options: [
+                    {
+                        name: "Standard"
+                    },
+                    {
+                        name: "Plasma",
+                        addDamageEnergyLeveled: [20,20,20,20,20,20,20]
+                    },
+                    {
+                        name: "Cryo-slow",
+                        addDamageEnergyLeveled: [60,60,60,60,60,60,60]
+                    },
+                    {
+                        name: "Explosive",
+                        addDamageExplosiveLeveled: [15,15,15,15,15,15,15],
+                    },
+                    {
+                        name: "Flaming",
+                        addDamageEnergyLeveled: [2,2,2,2,2,2,2]
+                    },
+                    {
+                        name: "Poison",
+                        addDamageBallisticLeveled: [2,2,2,2,2,2,2]
+                    },
+                ]
+            };
 
 
             allWeapons.set("Ranged", [
@@ -3068,6 +3113,70 @@
                     damage: [60],
                     mods: []
                 },
+                {
+                    name: "Gauss Shotgun",
+                    category: "Shotgun",
+                    kind: "energy",
+                    explosive: false,
+                    speed: 4,
+                    level: [5,15,25,35,45],
+                    damage: [60,70,80,90,100],
+                    mods: []
+                },
+                {
+                    name: "Gauss Minigun",
+                    category: "Heavy",
+                    kind: "energy",
+                    explosive: false,
+                    speed: 20,
+                    level: [35,45],
+                    damage: [25,48],
+                    mods: []
+                },
+                {
+                    name: "Gauss Pistol",
+                    category: "Pistol",
+                    kind: "energy",
+                    explosive: false,
+                    speed: 5,
+                    level: [15,25,35,45],
+                    damage: [62,76,92,108],
+                    mods: []
+                },
+                {
+                    name: "Plasma Caster",
+                    category: "Heavy",
+                    kind: "plasma",
+                    explosive: false,
+                    speed: 5,
+                    level: [35,45],
+                    damage: [60,76],
+                    mods: []
+                },
+                {
+                    name: "Compound Bow",
+                    category: "Bow",
+                    kind: "ballistic",
+                    explosive: false,
+                    speed: 1,
+                    level: [1,5,10,20,30,40,50],
+                    damage: [50,55,60,70,80,90,100],
+                    mods: [
+                        standardArrows
+                    ]
+                },
+                {
+                    name: "Regular Bow",
+                    category: "Bow",
+                    kind: "ballistic",
+                    explosive: false,
+                    speed: 1,
+                    level: [1,5,10,20,30,40,50],
+                    damage: [40,45,50,60,70,80,90],
+                    mods: [
+                        standardArrows
+                    ]
+                },
             ]);
 
             // uuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu
@@ -3994,7 +4103,7 @@
                 {
                     id: "QueenOfTheHunt1",
                     type: "quest",
-                    desc: "+15 DMG vs flatwoods monsters",
+                    desc: "+15% DMG vs flatwoods monsters",
                     mode: "Ranged,Melee",
                     versus: ["Flatwoods Monster"],
                     versusDamage: 15
@@ -4002,7 +4111,7 @@
                 {
                     id: "QueenOfTheHunt2",
                     type: "quest",
-                    desc: "+15 DMG vs mothmen",
+                    desc: "+15% DMG vs mothmen",
                     mode: "Ranged,Melee",
                     versus: ["Mothman"],
                     versusDamage: 15
@@ -4010,7 +4119,7 @@
                 {
                     id: "QueenOfTheHunt3",
                     type: "quest",
-                    desc: "+15 DMG vs grafton monsters",
+                    desc: "+15% DMG vs grafton monsters",
                     mode: "Ranged,Melee",
                     versus: ["Grafton Monster"],
                     versusDamage: 15
@@ -4018,7 +4127,7 @@
                 {
                     id: "QueenOfTheHunt4",
                     type: "quest",
-                    desc: "+15 DMG vs snallygasters",
+                    desc: "+15% DMG vs snallygasters",
                     mode: "Ranged,Melee",
                     versus: ["Snallygaster"],
                     versusDamage: 15
@@ -4026,7 +4135,7 @@
                 {
                     id: "QueenOfTheHunt5",
                     type: "quest",
-                    desc: "+15 DMG vs wendigos",
+                    desc: "+15% DMG vs wendigos",
                     mode: "Ranged,Melee",
                     versus: ["Wendigo"],
                     versusDamage: 15
@@ -5721,6 +5830,16 @@
 
                                 }
                             }
+                        }
+                        if (modInfo.addDamageExplosiveLeveled) {
+                            var perc = 1;
+                            var demolitionsel = document.getElementById("demolition" + index);
+                            if (demolitionsel.selectedIndex > 0) {
+                                perc *= 1 + parseFloat(valueOf(demolitionsel)) / 100.0
+                            }
+                            perc *= 1 + (explosiveBobbleheadPercent / 100.0);
+                            var dmg = modInfo.addDamageExplosiveLeveled[levelIdx];
+                            totalDamageAdditive.push(dmg * perc);
                         }
                     }
                 });
