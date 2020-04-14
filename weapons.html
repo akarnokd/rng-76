@@ -22,7 +22,7 @@
     </head>
     <body style="height: 90%">
         <center>
-            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Weapon Damage Calculator (v3.0.1)</span><br/>
+            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Weapon Damage Calculator (v3.0.2)</span><br/>
         <br/>
         <table id="parent">
             <tr>
@@ -1957,7 +1957,7 @@
                 },
                 {
                     name: "Crossbow",
-                    category: "Rifle",
+                    category: "Bow",
                     kind: "ballistic",
                     explosive: false,
                     speed: 0.4,
@@ -4293,6 +4293,7 @@
                 + "<br>In addition, teammates each can share their perk card (+20% .. +60%), increasing the percentage bonus to 240%"
             );
             infoMap.set("tankkiller", "Rifles only. Each level ignores 12% more armor up to 36% total.");
+            infoMap.set("bowbeforeme", "Bows and Crossbows only. Each level ignores 12% more armor up to 36% total.");
             infoMap.set("stabilized", "Heavy ballistic weapons only. Each level ignores 15% more armor up to 45% total.");
             infoMap.set("incisor", "Melee weapons only. Each level ignores 25% more armor up to 75% total.");
             infoMap.set("covertoperative", "Ranged weapons only. Sets the sneak attack multiplier to 2.15x, 2.3x and 2.5x.");
@@ -5072,6 +5073,30 @@
                         }
                         tankkiller.selectedIndex = 0;
                         tankkiller.onchange = function() {
+                            recalculate(tbl, index, type);
+                        };
+                    }
+                    if (weap.category === "Bow") {
+                        row = tbl.insertRow(tbl.rows.length);
+                        cell1 = row.insertCell(0);
+                        cell1.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;Bow before me" + info("bowbeforeme");
+                        cell2 = row.insertCell(1);
+                        cell2.innerHTML = "<select id='bowbeforeme" + index + "'></select> (rank)"
+
+                        var bowbeforeme = document.getElementById("bowbeforeme" + index);
+                        opt = document.createElement("option");
+                        bowbeforeme.add(opt);
+                        opt.text = "None";
+                        opt.value = "0";
+
+                        for (var i = 1; i < 4; i++) {
+                            opt = document.createElement("option");
+                            bowbeforeme.add(opt);
+                            opt.text = "" + i;
+                            opt.value = "" + (i * 12);
+                        }
+                        bowbeforeme.selectedIndex = 0;
+                        bowbeforeme.onchange = function() {
                             recalculate(tbl, index, type);
                         };
                     }
@@ -5960,6 +5985,10 @@
                 var tankkiller = document.getElementById("tankkiller" + index);
                 if (tankkiller != null && tankkiller.selectedIndex > 0) {
                     totalArmorIgnoreArray.push(parseFloat(valueOf(tankkiller)));
+                }
+                var bowbeforeme = document.getElementById("bowbeforeme" + index);
+                if (bowbeforeme != null && bowbeforeme.selectedIndex > 0) {
+                    totalArmorIgnoreArray.push(parseFloat(valueOf(bowbeforeme)));
                 }
 
                 var incisor = document.getElementById("incisor" + index);
