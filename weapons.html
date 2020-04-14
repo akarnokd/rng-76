@@ -22,7 +22,7 @@
     </head>
     <body style="height: 90%">
         <center>
-            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Weapon Damage Calculator (v3.0.0)</span><br/>
+            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Weapon Damage Calculator (v3.0.1)</span><br/>
         <br/>
         <table id="parent">
             <tr>
@@ -1218,23 +1218,23 @@
                     },
                     {
                         name: "Plasma",
-                        addDamageEnergyLeveled: [20,20,20,20,20,20,20]
+                        addDamageEnergyLeveled: [20,20,20,20,20,20,20,20,20,20,20]
                     },
                     {
                         name: "Cryo-slow",
-                        addDamageEnergyLeveled: [60,60,60,60,60,60,60]
+                        addDamageEnergyLeveled: [60,60,60,60,60,60,60,60,60,60,60]
                     },
                     {
                         name: "Explosive",
-                        addDamageExplosiveLeveled: [15,15,15,15,15,15,15],
+                        addDamageExplosiveLeveled: [15,15,15,15,15,15,15,15,15,15,15],
                     },
                     {
                         name: "Flaming",
-                        addDamageEnergyLeveled: [2,2,2,2,2,2,2]
+                        addDamageEnergyLeveled: [ 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2]
                     },
                     {
                         name: "Poison",
-                        addDamageBallisticLeveled: [2,2,2,2,2,2,2]
+                        addDamageBallisticLeveled: [ 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2]
                     },
                 ]
             };
@@ -3159,20 +3159,20 @@
                     kind: "ballistic",
                     explosive: false,
                     speed: 1,
-                    level: [1,5,10,20,30,40,50],
-                    damage: [50,55,60,70,80,90,100],
+                    level:  [ 1, 5,10,15,20,25,30,35,40,45,50],
+                    damage: [50,55,60,65,70,75,80,85,90,95,100],
                     mods: [
                         standardArrows
                     ]
                 },
                 {
-                    name: "Regular Bow",
+                    name: "Bow",
                     category: "Bow",
                     kind: "ballistic",
                     explosive: false,
                     speed: 1,
-                    level: [1,5,10,20,30,40,50],
-                    damage: [40,45,50,60,70,80,90],
+                    level:  [ 1, 5,10,15,20,25,30,35,40,45,50],
+                    damage: [40,45,50,55,60,65,70,75,80,85,90],
                     mods: [
                         standardArrows
                     ]
@@ -3265,10 +3265,18 @@
                 { dr: 250, er: 250, rr: 250 },
                 { dr: 300, er: 150, rr: 150 },
                 { dr: 300, er: 300, rr: 300 },
+                { dr: 300, er: 300, rr: 400 },
+                { dr: 400, er: 400, rr: 500 },
                 { dr: 300, er: 300, rr: 300, queen: true },
             ];
 
             enemyResistances.sort(function(a, b) {
+                if (a.queen !== undefined && b.queen === undefined) {
+                    return 1;
+                }
+                if (a.queen === undefined && b.queen !== undefined) {
+                    return -1;
+                }
                 if (a.dr < b.dr) {
                     return -1;
                 }
@@ -3574,6 +3582,9 @@
             addEnemy("Scorched Wendigo", ["Cryptid", "Wendigo", "Scorched"]);
 
             addEnemy("Player", ["Player"]);
+
+            addEnemy("Floater", []);
+            addEnemy("Wendigo Colossus", ["Cryptid", "Wendigo"]);
 
             // some enemies are immune to radiation or even heal off it
             var enemyRadiationEffect = new Map();
