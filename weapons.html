@@ -22,7 +22,7 @@
     </head>
     <body style="height: 90%">
         <center>
-            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Weapon Damage Calculator (v3.0.4)</span><br/>
+            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Weapon Damage Calculator (v3.0.5)</span><br/>
         <br/>
         <table id="parent">
             <tr>
@@ -1570,6 +1570,47 @@
                             ]
                         }
                     ]
+                },
+                {
+                    name: "Final Word",
+                    category: "Heavy",
+                    kind: "ballistic",
+                    explosive: false,
+                    speed: 9.1,
+                    level: [25, 35, 45],
+                    damage: [29, 36, 43],
+                    mods: [
+                        {
+                            slot: "Receiver",
+                            options: [
+                                {
+                                    name: "Standard"
+                                },
+                                {
+                                    name: "Prime",
+                                    damageMultPercent: 25,
+                                    versus: ["Scorched", "Scorchbeast", "Scorchbeast Queen"],
+                                    versusMultPercent: 35
+                                },
+                            ]
+                        },
+                        {
+                            slot: "Barrel",
+                            options: [
+                                {
+                                    name: "Standard",
+                                    ignoreDRPercent: 0
+                                },
+                                {
+                                    name: "Heavy",
+                                    damageMultPercent: 15,
+                                    preinstalled: true
+                                }                           
+                            ]
+                        }
+                    ],
+                    legendaryPrefix: "Anti-armor",
+                    legendaryMajor: "25% increased fire rate"
                 },
                 {
                     name: "Light Machine Gun",
@@ -4705,6 +4746,16 @@
                                         effOpt.text = effItem.text;
                                     } else {
                                         effOpt.text = effItem.name;
+                                    }
+
+                                    if (weap.legendaryPrefix === effItem.name) {
+                                        effOpt.selected = true;
+                                    }
+                                    if (weap.legendaryMajor === effItem.name) {
+                                        effOpt.selected = true;
+                                    }
+                                    if (weap.legendaryMinor === effItem.name) {
+                                        effOpt.selected = true;
                                     }
                                 }
                             });
