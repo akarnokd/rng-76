@@ -22,7 +22,7 @@
     </head>
     <body style="height: 90%">
         <center>
-            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Weapon Damage Calculator (v3.0.9)</span><br/>
+            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Weapon Damage Calculator (v3.0.10)</span><br/>
         <br/>
         <table id="parent">
             <tr>
@@ -1252,8 +1252,8 @@
                         addDamageEnergyLeveled: [20,20,20,20,20,20,20,20,20,20,20]
                     },
                     {
-                        name: "Cryo-slow",
-                        addDamageEnergyLeveled: [60,60,60,60,60,60,60,60,60,60,60]
+                        name: "Cryo",
+                        addDamageEnergyLeveled: [ 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2]
                     },
                     {
                         name: "Explosive",
@@ -2048,6 +2048,26 @@
                             options: [
                                 {
                                     name: "Standard"
+                                },
+                                {
+                                    name: "Plasma",
+                                    addDamageEnergyLeveled: [20,20,20,20]
+                                },
+                                {
+                                    name: "Cryo",
+                                    addDamageEnergyLeveled: [ 2, 2, 2, 2]
+                                },
+                                {
+                                    name: "Explosive",
+                                    addDamageExplosiveLeveled: [15,15,15,15],
+                                },
+                                {
+                                    name: "Flaming",
+                                    addDamageEnergyLeveled: [ 2, 2, 2, 2]
+                                },
+                                {
+                                    name: "Poison",
+                                    addDamageBallisticLeveled: [ 2, 2, 2, 2]
                                 },
                                 {
                                     name: "Prime",
