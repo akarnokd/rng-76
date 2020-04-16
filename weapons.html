@@ -22,7 +22,7 @@
     </head>
     <body style="height: 90%">
         <center>
-            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Weapon Damage Calculator (v3.0.7)</span><br/>
+            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Weapon Damage Calculator (v3.0.8)</span><br/>
         <br/>
         <table id="parent">
             <tr>
@@ -1251,6 +1251,12 @@
                     {
                         name: "Poison",
                         addDamageBallisticLeveled: [ 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2]
+                    },
+                    {
+                        name: "Ultracite",
+                        addDamageBallisticLeveled: [25,25,25,25,25,25,25,25,25,25,25],
+                        versusAddPercent: 35,
+                        versus: ["Scorched", "Scorcbeast", "Scorcbeast Queen"]
                     },
                 ]
             };
@@ -5832,7 +5838,7 @@
                         if (modInfo.addDamageRadiationLeveled !== undefined) {
                             baseDamageRadiation += modInfo.addDamageRadiationLeveled[levelIdx];
                         }
-                    }
+                   }
                 });
 
                 // apply bloody mess, adrenaline and adrenal reaction
@@ -5840,11 +5846,14 @@
 
                 var additiveBoosts = 0;
                 var additiveEnergyBoosts = 0;
+                var bloodyBoost = 1.0;
 
                 var bloodymess = document.getElementById("bloodymess" + index);
                 if (bloodymess != null && bloodymess.selectedIndex > 0) {
-                    additiveBoosts += baseDamage * parseFloat(valueOf(bloodymess)) / 100.0;
-                    additiveEnergyBoosts += baseDamageEnergy * parseFloat(valueOf(bloodymess)) / 100.0;
+                    var vbloodyMess = parseFloat(valueOf(bloodymess)) / 100;
+                    bloodyBoost += vbloodyMess;
+                    additiveBoosts += baseDamage * vbloodyMess;
+                    additiveEnergyBoosts += baseDamageEnergy * vbloodyMess;
                 }
 
                 var adrenaline = document.getElementById("adrenaline" + index);
@@ -5852,8 +5861,10 @@
                     var kills = document.getElementById("kills" + index);
                     var v = Math.min(6, parseFloat(kills.value));
                     if (v > 0) {
-                        additiveBoosts += baseDamage * parseFloat(valueOf(adrenaline) * v / 6.0) / 100.0;
-                        additiveEnergyBoosts += baseDamageEnergy * parseFloat(valueOf(adrenaline) * v / 6.0) / 100.0;
+                        var vadrenaline = parseFloat(valueOf(adrenaline) * v / 6.0) / 100.0;
+                        additiveBoosts += baseDamage * vadrenaline;
+                        additiveEnergyBoosts += baseDamageEnergy * vadrenaline;
+                        bloodyBoost += vadrenaline;
                     }
                 }
 
@@ -5947,7 +5958,7 @@
                             }
                             perc *= 1 + (explosiveBobbleheadPercent / 100.0);
                             var dmg = modInfo.addDamageExplosiveLeveled[levelIdx];
-                            totalDamageAdditive.push(dmg * perc);
+                            totalDamageAdditive.push(dmg * perc * bloodyBoost);
                         }
                     }
                 });
