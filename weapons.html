@@ -22,7 +22,7 @@
     </head>
     <body style="height: 90%">
         <center>
-            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Weapon Damage Calculator (v3.0.8)</span><br/>
+            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Weapon Damage Calculator (v3.0.9)</span><br/>
         <br/>
         <table id="parent">
             <tr>
@@ -1129,6 +1129,7 @@
                     damage: [18,22,30,33,36,39,42,45,48,54],
                     mods: []
                 },
+                /*
                 {
                     name: "Auto-axe",
                     category: "One-handed",
@@ -1137,13 +1138,27 @@
                     damage: [10,18,26],
                     mods: []
                 },
+                */
                 {
                     name: "Gauntlet",
                     category: "Unarmed",
                     speed: speedMedium,
                     level: [40,50],
                     damage: [45,50],
-                    mods: []
+                    mods: [
+                        {
+                            slot: "Main",
+                            options: [
+                                {
+                                    name: "Standard"
+                                },
+                                {
+                                    name: "Shock Pads",
+                                    addDamageEnergyLeveled: [15, 15]
+                                }
+                            ]
+                        }
+                    ]
                 },
                 {
                     name: "Shovel",
