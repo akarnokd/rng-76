@@ -22,7 +22,7 @@
     </head>
     <body style="height: 90%">
         <center>
-            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Weapon Damage Calculator (v3.0.10)</span><br/>
+            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Weapon Damage Calculator (v3.0.11)</span><br/>
         <br/>
         <table id="parent">
             <tr>
@@ -3252,7 +3252,22 @@
                     level: [40,45,50],
                     damage: [60,68,76],
                     damageEnergy: [60,68,76],
-                    mods: []
+                    mods: [
+                        {
+                            slot: "Capacitor",
+                            options: [
+                                {
+                                    name: "Standard"
+                                },
+                                {
+                                    name: "Prime",
+                                    damageMultPercent: 5,
+                                    versus: ["Scorched", "Scorchbeast", "Scorchbeast Queen"],
+                                    versusMultPercent: 35
+                                }
+                            ]
+                        }
+                    ]
                 },
                 {
                     name: "Compound Bow",
