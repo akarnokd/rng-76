@@ -22,7 +22,7 @@
     </head>
     <body style="height: 90%">
         <center>
-            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Weapon Damage Calculator (v3.0.11)</span><br/>
+            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Weapon Damage Calculator (v3.0.12)</span><br/>
         <br/>
         <table id="parent">
             <tr>
@@ -1127,7 +1127,20 @@
                     speed: speedMedium,
                     level:  [ 5,10,15,20,25,30,35,40,45,50],
                     damage: [18,22,30,33,36,39,42,45,48,54],
-                    mods: []
+                    mods: [
+                        {
+                            slot: "Main",
+                            options: [
+                                {
+                                    name: "Standard"
+                                },
+                                {
+                                    name: "Electrified",
+                                    addDamageEnergyLeveled: [20,20,20,20,20,20,20,20,20,20]
+                                }
+                            ]
+                        }
+                    ]
                 },
                 /*
                 {
@@ -1153,8 +1166,12 @@
                                     name: "Standard"
                                 },
                                 {
+                                    name: "Bladed",
+                                    damageMultPercent: 15
+                                },
+                                {
                                     name: "Shock Pads",
-                                    addDamageEnergyLeveled: [15, 15]
+                                    addDamageEnergyLeveled: [20, 20]
                                 }
                             ]
                         }
@@ -1269,7 +1286,7 @@
                     },
                     {
                         name: "Ultracite",
-                        addDamageBallisticLeveled: [22,22,22,22,22,22,22,22,22,22,22],
+                        damageMultPercent: 25,
                         versusMultPercent: 35,
                         versus: ["Scorched", "Scorchbeast", "Scorchbeast Queen"]
                     },
@@ -2071,7 +2088,7 @@
                                 },
                                 {
                                     name: "Prime",
-                                    damageMultPercent: 15,
+                                    damageMultPercent: 25,
                                     versus: ["Scorched", "Scorchbeast", "Scorchbeast Queen"],
                                     versusMultPercent: 35
                                 }
@@ -3221,7 +3238,43 @@
                     speed: 4,
                     level: [25,30,35,40,45,50],
                     damage: [80,85,90,95,100,105],
-                    mods: []
+                    mods: [
+                        {
+                            slot: "Receiver",
+                            options: [
+                                {
+                                    name: "Standard"
+                                },
+                                {
+                                    name: "Hardened",
+                                    damageMultPercent: 25
+                                },
+                                {
+                                    name: "Refined",
+                                    damageMultPercent: 12.5
+                                },
+                                {
+                                    name: "Prime",
+                                    damageMultPercent: 25,
+                                    versus: ["Scorched", "Scorchbeast", "Scorchbeast Queen"],
+                                    versusMultPercent: 35
+                                }
+                            ]
+                        },
+                        {
+                            slot: "Magazine",
+                            options: [
+                                {
+                                    name: "Standard",
+                                },
+                                {
+                                    name: "Perforating",
+                                    ignoreDRPercent: 40
+                                }
+
+                            ]
+                        }
+                    ]
                 },
                 {
                     name: "Gauss Minigun",
@@ -3231,7 +3284,47 @@
                     speed: 20,
                     level: [45,50],
                     damage: [48,50],
-                    mods: []
+                    mods: [
+                        {
+                            slot: "Barrel",
+                            options: [
+                                {
+                                    name: "Standard"
+                                },
+                                {
+                                    name: "Tri",
+                                    speedMultPercent: 20
+                                },
+                                {
+                                    name: "Penta",
+                                    damageMultPercent: -15,
+                                    speedMultPercent: 35
+                                }
+                            ]
+                        },
+                        {
+                            slot: "Tesla",
+                            options: [
+                                {
+                                    name: "None"
+                                },
+                                {
+                                    name: "Prime",
+                                    damageMultPercent: 25,
+                                    versus: ["Scorched", "Scorchbeast", "Scorchbeast Queen"],
+                                    versusMultPercent: 35
+                                },
+                                {
+                                    name: "Dynamo",
+                                    addDamageEnergyLeveled: [3, 3]
+                                },
+                                {
+                                    name: "Capacitor",
+                                    addDamageEnergyLeveled: [6, 6]
+                                }
+                            ]
+                        }
+                    ]
                 },
                 {
                     name: "Gauss Pistol",
@@ -3241,7 +3334,42 @@
                     speed: 6.7,
                     level:  [15,20,25,30,35, 40, 45, 50],
                     damage: [62,70,76,85,92,100,108,115],
-                    mods: []
+                    mods: [
+                    {
+                            slot: "Barrel",
+                            options: [
+                                {
+                                    name: "Standard"
+                                },
+                                {
+                                    name: "Suppressed",
+                                    silencer: true
+                                }
+                            ]
+                        },
+                        {
+                            slot: "Receiver",
+                            options: [
+                                {
+                                    name: "Standard"
+                                },
+                                {
+                                    name: "Refined",
+                                    damageMultPercent: 12.5
+                                },
+                                {
+                                    name: "Hardened",
+                                    damageMultPercent: 25
+                                },
+                                {
+                                    name: "Prime",
+                                    damageMultPercent: 25,
+                                    versus: ["Scorched", "Scorchbeast", "Scorchbeast Queen"],
+                                    versusMultPercent: 35
+                                }
+                            ]
+                        }
+                    ]
                 },
                 {
                     name: "Plasma Caster",
@@ -3254,14 +3382,18 @@
                     damageEnergy: [60,68,76],
                     mods: [
                         {
-                            slot: "Capacitor",
+                            slot: "Receiver",
                             options: [
                                 {
                                     name: "Standard"
                                 },
                                 {
+                                    name: "Pulse",
+                                    damageMultPercent: -15
+                                },
+                                {
                                     name: "Prime",
-                                    damageMultPercent: 5,
+                                    damageMultPercent: 25,
                                     versus: ["Scorched", "Scorchbeast", "Scorchbeast Queen"],
                                     versusMultPercent: 35
                                 }
