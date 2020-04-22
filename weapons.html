@@ -22,7 +22,7 @@
     </head>
     <body style="height: 90%">
         <center>
-            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Weapon Damage Calculator (v3.0.12)</span><br/>
+            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Weapon Damage Calculator (v3.0.13)</span><br/>
         <br/>
         <table id="parent">
             <tr>
@@ -2232,6 +2232,10 @@
                                     name: "Standard"
                                 },
                                 {
+                                    name: "Refined",
+                                    damageMultPercent: 12.5,
+                                },
+                                {
                                     name: "Hardened",
                                     damageMultPercent: 25
                                 },
@@ -2264,6 +2268,63 @@
                         },
                         standardMuzzle
                     ]
+                },
+                {
+                    name: "Old Guard's 10mm SMG",
+                    category: "Rifle",
+                    kind: "ballistic",
+                    explosive: false,
+                    silencer: true,
+                    speed: 100,
+                    level: [10, 20, 30, 40, 50],
+                    damage: [17, 19, 23, 28, 34],
+                    mods: [
+                        {
+                            slot: "Receiver",
+                            options: [
+                                {
+                                    name: "Standard"
+                                },
+                                {
+                                    name: "Refined",
+                                    damageMultPercent: 12.5,
+                                    preinstalled: true
+                                },
+                                {
+                                    name: "Hardened",
+                                    damageMultPercent: 25
+                                },
+                                {
+                                    name: "Scorch killer's",
+                                    damageMultPercent: -20,
+                                    versus: ["Scorched", "Scorchbeast", "Scorchbeast Queen"],
+                                    versusAddPercent: 50
+                                },
+                                {
+                                    name: "Prime",
+                                    damageMultPercent: 25,
+                                    versus: ["Scorched", "Scorchbeast", "Scorchbeast Queen"],
+                                    versusMultPercent: 35
+                                }
+                            ]
+                        },
+                        {
+                            slot: "Magazine",
+                            options: [
+                                {
+                                    name: "Standard",
+                                    ignoreDRPercent: 0
+                                },
+                                {
+                                    name: "Piercing",
+                                    ignoreDRPercent: 20,
+                                    preinstalled: true
+                                },
+                            ]
+                        },
+                        standardMuzzle
+                    ],
+                    legendaryPrefix: "Anti-armor"
                 },
                 {
                     name: "Broadsider",
@@ -3185,6 +3246,17 @@
                 },
                 {
                     name: "Alien Blaster",
+                    category: "Pistol",
+                    kind: "energy",
+                    explosive: true,
+                    speed: 10,
+                    level: [20,30,40,50],
+                    damage: [0, 0, 0, 0],
+                    damadamageEnergy: [15,29,22,25],
+                    mods: []
+                },
+                {
+                    name: "The V.A.T.S. Unknown",
                     category: "Pistol",
                     kind: "energy",
                     explosive: true,
