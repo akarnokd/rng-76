@@ -22,7 +22,7 @@
     </head>
     <body style="height: 90%">
         <center>
-            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Weapon Damage Calculator (v3.0.15)</span><br/>
+            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Weapon Damage Calculator (v3.0.16)</span><br/>
         <br/>
         <table id="parent">
             <tr>
@@ -5917,6 +5917,21 @@
                 };
             }
 
+            function getAlcoholAndColaBuff(partyMultiplier, colanutMultiplier, buff) {
+                if (buff.type === "alcohol") {
+                    if (partyMultiplier != 0 && (colanutMultiplier == 0 || !buff.cola)) {
+                        return partyMultiplier + 1;
+                    } else
+                    if (partyMultiplier == 0 && buff.cola && colanutMultiplier != 0) {
+                        return colanutMultiplier + 1;
+                    } else
+                    if (partyMultiplier != 0 && buff.cola && colanutMultiplier != 0) {
+                        return 2 + partyMultiplier + colanutMultiplier;
+                    }
+                }
+                return 1;
+            }
+
             function recalculate(tbl, index, type) {
                 var cell2 = document.getElementById("totaldamage" + index);
                 var cell4 = document.getElementById("totalarmorignore" + index);
@@ -6071,14 +6086,10 @@
                     // chem adjust
                     for (var buff of buffOpts) {
                         if (buff.strength !== undefined) {
-                            strengthPoints += buff.strength;
 
-                            if (buff.type === "alcohol") {
-                                strengthPoints += buff.strength * partyMultiplier;
-                                if (buff.cola) {
-                                    strengthPoints += buff.strength * colanutMultiplier;
-                                }
-                            }
+                            var buffMultiply = getAlcoholAndColaBuff(partyMultiplier, colanutMultiplier, buff);
+
+                            strengthPoints += buff.strength * buffMultiply;
                         }
                     }
 
@@ -6477,17 +6488,12 @@
                     }
 
                     if (buff.unarmedDamage !== undefined &&  weap.category === "Unarmed") {
+
+                        var buffMultiply = getAlcoholAndColaBuff(partyMultiplier, colanutMultiplier, buff);
                         var udmg = buff.unarmedDamage;
 
-                        if (buff.type === "alcohol") {
-                            udmg += buff.unarmedDamage * partyMultiplier;
-                            if (buff.cola) {
-                                udmg += buff.unarmedDamage * colanutMultiplier;
-                            }
-                        }
-
-                        totalDamageMultiply.push(udmg);
-                        totalDamageEnergyMultiply.push(udmg);
+                        totalDamageMultiply.push(udmg * buffMultiply);
+                        totalDamageEnergyMultiply.push(udmg * buffMultiply);
                     }
                 }
 
