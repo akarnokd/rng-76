@@ -22,7 +22,7 @@
     </head>
     <body style="height: 90%">
         <center>
-            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Weapon Damage Calculator (v3.0.14)</span><br/>
+            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Weapon Damage Calculator (v3.0.15)</span><br/>
         <br/>
         <table id="parent">
             <tr>
@@ -2601,6 +2601,7 @@
                     kind: "energy",
                     explosive: false,
                     silencer: true,
+                    chargetime: 1,
                     speed: 6.7,
                     level: [35, 45],
                     damage: [125, 140],
@@ -3307,7 +3308,8 @@
                     category: "Shotgun",
                     kind: "energy",
                     explosive: false,
-                    speed: 4,
+                    speed: 6.7,
+                    chargetime: 1,
                     level: [25,30,35,40,45,50],
                     damage: [80,85,90,95,100,105],
                     mods: [
@@ -3404,6 +3406,7 @@
                     kind: "energy",
                     explosive: false,
                     speed: 6.7,
+                    chargetime: 1,
                     level:  [15,20,25,30,35, 40, 45, 50],
                     damage: [62,70,76,85,92,100,108,115],
                     mods: [
@@ -3479,7 +3482,7 @@
                     kind: "ballistic",
                     explosive: false,
                     silencer: true,
-                    speed: 0.75,
+                    speed: 0.5,
                     level:  [ 1, 5,10,15,20,25,30,35,40,45,50],
                     damage: [50,55,60,65,70,75,80,85,90,95,100],
                     mods: [
@@ -4780,6 +4783,10 @@
             infoMap.set("queenhunt", 
                 "Select the bonus received from the Daily: Queen of the Hunt."
             );
+            infoMap.set("charge", 
+                "Gauss weapons only. Firing without charging the weapon is fast but 50% less damage."
+                + "<br>Charging does full listed damage at the cost of firerate."
+            );
 
             // add HTML explanation marker
             function info(name) {
@@ -5166,6 +5173,25 @@
                     document.getElementById("junkiescount" + index ).oninput = function() {
                         recalculate(tbl, index, type);
                     };
+
+                var weapIdx = document.getElementById("weapon" + index).selectedIndex;
+                var weap = allWeapons.get(type)[weapIdx];
+
+                if (weap.chargetime !== undefined) {
+                    row = tbl.insertRow(tbl.rows.length);
+                    cell1 = row.insertCell(0);
+                    cell1.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;Charged" + info("charge");
+                    cell2 = row.insertCell(1);
+                    cell2.innerHTML = "<input type='radio' id='charge" + index + "_yes' name='charge" + index + "' value='1'> Yes&nbsp;&nbsp;&nbsp;"
+                        + "<input type='radio' id='charge" + index + "_no' name='charge" + index + "' value='0' checked='checked'> No";
+
+                    document.getElementById("charge" + index + "_yes").onchange = function() {
+                        recalculate(tbl, index, type);
+                    };
+                    document.getElementById("charge" + index + "_no").onchange = function() {
+                        recalculate(tbl, index, type);
+                    };
+                }
             }
 
             function createPerks(tbl, index, type) {
@@ -6026,6 +6052,10 @@
                 // team mode
                 var isTeam = document.getElementById("team" + index + "_yes").checked;
                 var isStrangeInNumbers = isTeam && document.getElementById("strangeinnumbers" + index + "_yes").checked;
+                
+                // gauss weapon is charged
+                var charged = document.getElementById("charge" + index + "_yes");
+                var isCharged = charged != null && charged.checked;
 
                 // adjust for melee strength
                 // ~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -6094,6 +6124,17 @@
                         }
                    }
                 });
+
+                // uncharged shots have default speed but 50% less damage
+                if (weap.chargetime !== undefined) {
+                    if (isCharged) {
+                        speed *= 0.5;
+                    } else {
+                        baseDamage *= 0.5;
+                        baseDamageEnergy *= 0.5;
+                        baseDamageRadiation *= 0.5;
+                    }
+                }
 
                 // apply bloody mess, adrenaline and adrenal reaction
                 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
