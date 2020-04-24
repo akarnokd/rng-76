@@ -22,7 +22,7 @@
     </head>
     <body style="height: 90%">
         <center>
-            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Weapon Damage Calculator (v3.0.16)</span><br/>
+            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Weapon Damage Calculator (v3.0.17)</span><br/>
         <br/>
         <table id="parent">
             <tr>
@@ -3500,6 +3500,36 @@
                     damage: [40,45,50,55,60,65,70,75,80,85,90],
                     mods: [
                         standardArrows
+                    ]
+                },
+                {
+                    name: "Single Action Revolver",
+                    category: "Pistol",
+                    kind: "ballistic",
+                    explosive: false,
+                    silencer: false,
+                    speed: 0.6,
+                    level:  [10,20,30,40,50],
+                    damage: [42,48,52,58,62],
+                    mods: [
+                        {
+                            slot: "Receiver",
+                            options: [
+                                {
+                                    name: "Standard"
+                                },
+                                {
+                                    name: "Fancy",
+                                    speedMultPercent: 30
+                                },
+                                {
+                                    name: "Prime",
+                                    damageMultPercent: 25,
+                                    versus: ["Scorched", "Scorchbeast", "Scorchbeast Queen"],
+                                    versusMultPercent: 35
+                                }
+                            ]
+                        }
                     ]
                 },
             ]);
