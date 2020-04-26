@@ -22,7 +22,7 @@
     </head>
     <body style="height: 90%">
         <center>
-            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Weapon Damage Calculator (v3.0.17)</span><br/>
+            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Weapon Damage Calculator (v3.0.18)</span><br/>
         <br/>
         <table id="parent">
             <tr>
@@ -1614,6 +1614,8 @@
                     category: "Heavy",
                     kind: "ballistic",
                     explosive: false,
+                    special: true,
+                    info: "WeaponFinalWord",
                     speed: 9.1,
                     level: [25, 35, 45],
                     damage: [29, 36, 43],
@@ -2275,6 +2277,8 @@
                     kind: "ballistic",
                     explosive: false,
                     silencer: true,
+                    special: true,
+                    info: "WeaponOldGuard",
                     speed: 100,
                     level: [10, 20, 30, 40, 50],
                     damage: [17, 19, 23, 28, 34],
@@ -2981,6 +2985,63 @@
                     ]
                 },
                 {
+                    name: "Slug Buster",
+                    category: "Rifle",
+                    kind: "plasma",
+                    info: "WeaponSlugBuster",
+                    special: true,
+                    explosive: false,
+                    silencer: false,
+                    speed: 3.3,
+                    level: [15, 25, 35, 45],
+                    damage: [15, 21, 25, 29],
+                    damageEnergy: [15, 21, 25, 29],
+                    mods: [
+                        {
+                            slot: "Barrel",
+                            options: [
+                                {
+                                    name: "Standard"
+                                },
+                                {
+                                    name: "Flamer",
+                                    damageMultPercent: 25
+                                },
+                                {
+                                    name: "Splitter",
+                                    damageMultPercent: 10
+                                },
+                                {
+                                    name: "Sniper",
+                                    damageMultPercent: 50,
+                                    preinstalled: true
+                                }
+                                ,
+                                {
+                                    name: "Automatic",
+                                    damageMultPercent: -15
+                                }
+                            ]
+                        },
+                        {
+                            slot: "Scope",
+                            options: [
+                                {
+                                    name: "None"
+                                },
+                                {
+                                    name: "Medium Night Vision Scope",
+                                    scope: true,
+                                    preinstalled: true
+                                }
+                            ]
+                        }
+                    ],
+                    legendaryPrefix: "Anti-armor",
+                    // legendaryMajor: "VATS Crits do +50% damage",
+                    // legendaryMinor: "90% reduced weight"
+                },
+                {
                     name: "Gatling Plasma",
                     category: "Heavy",
                     kind: "plasma",
@@ -3261,6 +3322,8 @@
                     category: "Pistol",
                     kind: "energy",
                     explosive: true,
+                    special: true,
+                    info: "WeaponVATSUnknown",
                     speed: 10,
                     level: [20,30,40,50],
                     damage: [0, 0, 0, 0],
@@ -4818,6 +4881,40 @@
                 + "<br>Charging does full listed damage at the cost of firerate."
             );
 
+            // Unique weapon information
+            // ~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o
+            infoMap.set("WeaponSlugBuster",
+                "<b>Unique Plasma Rifle from Wastelanders</b>" 
+                + "<br>Legendary: <i>Anti-armor, VATS Crit +50% dmg, 90% reduced weight</i>"
+                + "<br>Premodded: Sniper Barrel, Medium NV Scope"
+                + "<br>Hidden mod: -20% AP cost"
+                + "<br>Form ID: <a href='https://nukacrypt.com/database/json/005A366E' target='_blank'>005A366E</a>"
+                );
+
+            infoMap.set("WeaponFinalWord",
+                "<b>Unique 50 Cal from Wastelanders</b>" 
+                + "<br>Legendary: <i>Anti-armor, 25% faster firerate, 250 DR while reloading</i>"
+                + "<br>Premodded: Heavy Barrel"
+                + "<br>Form ID: <a href='https://nukacrypt.com/database/json/005A21E4' target='_blank'>005A21E4</a>"
+                );
+
+            infoMap.set("WeaponVATSUnknown",
+                "<b>Unique Alien Blaster from Wastelanders</b>" 
+                + "<br>Legendary: <i>Medic's, VATS Crit +50% dmg, VATS Crit fills 15% faster</i>"
+                + "<br>Premodded: Sharpshooter's Grip, Long Barrel"
+                + "<br>Form ID: <a href='https://nukacrypt.com/database/json/005A21A2' target='_blank'>005A21A2</a>"
+                );
+
+            infoMap.set("WeaponOldGuard",
+                "<b>Unique 10mm SMG from Wastelanders</b>" 
+                + "<br>Legendary: <i>Anti-armor</i>"
+                + "<br>Premodded: Refined receiver, Piercing Magazine"
+                + "<br>Hidden effect: better firerate than the default 10mm SMG"
+                + "<br>Form ID: <a href='https://nukacrypt.com/database/json/0059A82F' target='_blank'>0059A82F</a>"
+                );
+
+            // ~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o
+
             // add HTML explanation marker
             function info(name) {
                 return "&nbsp;<sup><a href='#' style='font-size: 14; font-weight: bold;' onclick='showinfo(this, \"" + name + "\"); return false;'>?</a></sup>";
@@ -4895,13 +4992,18 @@
                 } else {
 
                     cell2.innerHTML = "<select id='weapon" + index + "'></select> ("
-                    + weaps.length + ")";
+                    + weaps.length + ") <span id='weaponinfo'></span>";
                     var selector = document.getElementById("weapon" + index);
 
                     weaps.forEach(function(weap) {
                         var opt = document.createElement("option");
-                        opt.text = weap.name;
+                        if (weap.special) {
+                            opt.text = weap.name + " *";
+                        } else {
+                            opt.text = weap.name;
+                        }
                         opt.value = weap.name;
+                        opt.info = weap.info;
                         selector.add(opt);
                     });
                     selector.selectedIndex = -1;
@@ -4916,6 +5018,15 @@
                         createMutations(tbl, index, type);
                         createOther(tbl, index, type);
                         recalculate(tbl, index, type);
+
+                        var weapInfoSpan = document.getElementById("weaponinfo");
+                        weapInfoSpan.innerHTML = "";
+                        if (selector.selectedIndex > 0) {
+                            var infoLink = selector.options[selector.selectedIndex].info;
+                            if (infoLink !== undefined) {
+                                weapInfoSpan.innerHTML = info(infoLink);
+                            }
+                        }
                     };
                 }
             }
