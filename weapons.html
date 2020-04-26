@@ -4992,7 +4992,7 @@
                 } else {
 
                     cell2.innerHTML = "<select id='weapon" + index + "'></select> ("
-                    + weaps.length + ") <span id='weaponinfo'></span>";
+                    + weaps.length + ") <span id='weaponinfo" + index + "'></span>";
                     var selector = document.getElementById("weapon" + index);
 
                     weaps.forEach(function(weap) {
@@ -5019,7 +5019,7 @@
                         createOther(tbl, index, type);
                         recalculate(tbl, index, type);
 
-                        var weapInfoSpan = document.getElementById("weaponinfo");
+                        var weapInfoSpan = document.getElementById("weaponinfo" + index);
                         weapInfoSpan.innerHTML = "";
                         if (selector.selectedIndex > 0) {
                             var infoLink = selector.options[selector.selectedIndex].info;
