@@ -22,7 +22,7 @@
     </head>
     <body style="height: 90%">
         <center>
-            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Weapon Damage Calculator (v3.0.18)</span><br/>
+            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Weapon Damage Calculator (v3.1.0)</span><br/>
         <br/>
         <table id="parent">
             <tr>
@@ -43,6 +43,16 @@
                     <button id="copyright" title="Copy Right">&gt;&gt;</button>
                     <br/>
                     <button id="copyleft" title="Copy left">&lt;&lt;</button>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <a id='linkleftleft' href="#" title='Link to the left weapon' target='_blank'>&lt; Link</a>
+                    <br/>
+                    <br/>
+                    <a id='linkrightright' href="#" title='Link to the right weapon' target='_blank'>Link &gt;</a>
+                    <br/>
+                    <br/>
+                    <a id='linkboth' href="#" title='Link to both weapons' target='_blank'>&lt; Link &gt;</a>
                 </td>
                 <td style='vertical-align: top;'>
                     <table id="table2" style="border: 1px solid black;">
@@ -125,7 +135,7 @@
                             slot: "Main",
                             options: [
                                 {
-                                    name: "Standard"
+                                    name: "Standard",
                                 },
                                 {
                                     name: "Spiked",
@@ -3791,6 +3801,7 @@
                 [
                     {
                         name: "40% increased swing speed",
+                        linkId: "SS",
                         speedMultPercent: 40
                     }
                 ],
@@ -3830,6 +3841,7 @@
                     },
                     {
                         name: "Two shot (pre nerf)",
+                        linkId: "TSN",
                         damageMultPercent: 100
                     },
                     {
@@ -3894,11 +3906,13 @@
                     },
                     {
                         name: "Aiming",
+                        linkId: "ADS",
                         text: "+10% damage while aiming",
                         damageMultPercent: 10
                     },
                     {
                         name: "25% increased fire rate",
+                        linkId: "FFR",
                         speedMultPercent: 25
                     }
                 ],
@@ -4973,6 +4987,20 @@
                 }
             }
 
+            function sanitizeName(name) {
+                return name.replace(/[\s\-\_\']/g, "");
+            }
+
+            function linkIdFor(obj, fallback) {
+                if (obj.linkId !== undefined) {
+                    return obj.linkId;
+                }
+                if (fallback !== undefined) {
+                    return sanitizeName(fallback);
+                }
+                return undefined;
+            }
+
             function createSelectWeapon(tbl, index, type) {
                 clearTable(tbl);
 
@@ -4994,6 +5022,7 @@
                     cell2.innerHTML = "<select id='weapon" + index + "'></select> ("
                     + weaps.length + ") <span id='weaponinfo" + index + "'></span>";
                     var selector = document.getElementById("weapon" + index);
+                    selector.linkId = "W";
 
                     weaps.forEach(function(weap) {
                         var opt = document.createElement("option");
@@ -5004,6 +5033,8 @@
                         }
                         opt.value = weap.name;
                         opt.info = weap.info;
+                        opt.linkId = linkIdFor(weap, weap.name);
+
                         selector.add(opt);
                     });
                     selector.selectedIndex = -1;
@@ -5049,6 +5080,7 @@
                 cell2.innerHTML = "<select id='level" + index + "'></select>"
 
                 var levelsel = document.getElementById("level" + index);
+                levelsel.linkId = "L";
 
                 var weapIdx = document.getElementById("weapon" + index).selectedIndex;
                 var weap = allWeapons.get(type)[weapIdx];
@@ -5059,6 +5091,7 @@
 
                     opt.text = item;
                     opt.value = "" + idx;
+                    opt.linkId = "" + item;
                 });
                 levelsel.selectedIndex = weap.level.length - 1;
                 levelsel.onchange = function() {
@@ -5093,6 +5126,7 @@
 
                     var modSelector = document.createElement("select");
                     modSelector.id = "mods_" + index + "_" + idx;
+                    modSelector.linkId = linkIdFor(item, "Mod" + item.slot);
                     modCell2.appendChild(modSelector);
 
                     var selIdx = 0;
@@ -5101,6 +5135,7 @@
                         modSelector.add(modOpt);
                         modOpt.value = "" + modIdx;
                         modOpt.text = modItem.name;
+                        modOpt.linkId = linkIdFor(modItem, modItem.name);
                         if (modItem.preinstalled) {
                             selIdx = modIdx;
                         }
@@ -5140,6 +5175,8 @@
                         effSelector.id = "effs_" + index + "_" + idx;
                         effCell2.appendChild(effSelector);
 
+                        effSelector.linkId = titles[idx];
+
                         var effOpt = document.createElement("option");
                             effSelector.add(effOpt);
                             effOpt.value = "";
@@ -5150,6 +5187,8 @@
                                     effOpt = document.createElement("option");
                                     effSelector.add(effOpt);
                                     effOpt.value = "" + effIdx;
+                                    effOpt.linkId = linkIdFor(effItem, effItem.name);
+
                                     if (effItem.text !== undefined) {
                                         effOpt.text = effItem.text;
                                     } else {
@@ -5192,6 +5231,8 @@
                 document.getElementById("nighttime" + index + "_yes").onchange = function() {
                     recalculate(tbl, index, type);
                 };
+                document.getElementById("nighttime" + index + "_yes").linkId="Night";
+
                 document.getElementById("nighttime" + index + "_no").onchange = function() {
                     recalculate(tbl, index, type);
                 };
@@ -5206,6 +5247,7 @@
                 document.getElementById("sneaking" + index + "_yes").onchange = function() {
                     recalculate(tbl, index, type);
                 };
+                document.getElementById("sneaking" + index + "_yes").linkId = "Sneak";
                 document.getElementById("sneaking" + index + "_no").onchange = function() {
                     recalculate(tbl, index, type);
                 };
@@ -5221,6 +5263,7 @@
                     document.getElementById("aiming" + index + "_yes").onchange = function() {
                         recalculate(tbl, index, type);
                     };
+                    document.getElementById("aiming" + index + "_yes").linkId = "Aim";
                     document.getElementById("aiming" + index + "_no").onchange = function() {
                         recalculate(tbl, index, type);
                     };
@@ -5237,6 +5280,7 @@
                 document.getElementById("team" + index + "_yes").onchange = function() {
                     recalculate(tbl, index, type);
                 };
+                document.getElementById("team" + index + "_yes").linkId = "Team";
                 document.getElementById("team" + index + "_no").onchange = function() {
                     recalculate(tbl, index, type);
                 };
@@ -5249,6 +5293,7 @@
                 document.getElementById("playerhealth" + index ).oninput = function() {
                     recalculate(tbl, index, type);
                 };
+                document.getElementById("playerhealth" + index ).linkId = "PHP";
 
                 row = tbl.insertRow(tbl.rows.length);
                 cell1 = row.insertCell(0);
@@ -5258,6 +5303,7 @@
                 document.getElementById("enemyhealth" + index ).oninput = function() {
                     recalculate(tbl, index, type);
                 };
+                document.getElementById("enemyhealth" + index ).linkId = "EHP";
 
                 row = tbl.insertRow(tbl.rows.length);
                 cell1 = row.insertCell(0);
@@ -5266,10 +5312,24 @@
                 cell2.innerHTML = "<select id='enemytype" + index + "'></select>"
 
                 var enemytypesel = document.getElementById("enemytype" + index);
+                enemytypesel.linkId = "Enemy";
                 var opt = document.createElement("option");
                 enemytypesel.add(opt);
                 opt.text = "Any";
                 opt.value = "";
+
+                enemyCategories.forEach(function(item, idx) {
+                    opt = document.createElement("option");
+                    enemytypesel.add(opt);
+
+                    opt.text = item.name;
+                    opt.value = item.keywords.join();
+                    opt.linkId = linkIdFor(item, item.name);
+                });
+
+                enemytypesel.onchange = function() {
+                    recalculate(tbl, index, type);
+                };
 
                 if (type === "Melee") {
                     row = tbl.insertRow(tbl.rows.length);
@@ -5283,19 +5343,8 @@
                     document.getElementById("strength" + index ).oninput = function() {
                         recalculate(tbl, index, type);
                     };
+                    document.getElementById("strength" + index ).linkId = "Str";
                 }
-
-                enemyCategories.forEach(function(item, idx) {
-                    opt = document.createElement("option");
-                    enemytypesel.add(opt);
-
-                    opt.text = item.name;
-                    opt.value = item.keywords.join();
-                });
-
-                enemytypesel.onchange = function() {
-                    recalculate(tbl, index, type);
-                };
 
                 row = tbl.insertRow(tbl.rows.length);
                     cell1 = row.insertCell(0);
@@ -5305,6 +5354,7 @@
                     document.getElementById("furioushits" + index ).oninput = function() {
                         recalculate(tbl, index, type);
                     };
+                    document.getElementById("furioushits" + index ).linkId = "Hits";
 
                 row = tbl.insertRow(tbl.rows.length);
                     cell1 = row.insertCell(0);
@@ -5314,6 +5364,7 @@
                     document.getElementById("junkiescount" + index ).oninput = function() {
                         recalculate(tbl, index, type);
                     };
+                    document.getElementById("junkiescount" + index ).linkId = "Addicts";
 
                 var weapIdx = document.getElementById("weapon" + index).selectedIndex;
                 var weap = allWeapons.get(type)[weapIdx];
@@ -5332,6 +5383,7 @@
                     document.getElementById("charge" + index + "_no").onchange = function() {
                         recalculate(tbl, index, type);
                     };
+                    document.getElementById("charge" + index + "_yes").linkId = "Charged";
                 }
             }
 
@@ -5355,6 +5407,7 @@
                 bloodymesssel.add(opt);
                 opt.text = "None";
                 opt.value = "0";
+                bloodymesssel.linkId = "BloodyMess";
 
                 for (var i = 1; i < 13; i++) {
                     opt = document.createElement("option");
@@ -5365,6 +5418,7 @@
                         opt.text = "" + i;
                     }
                     opt.value = "" + (i * 5);
+                    opt.linkId = opt.value;
                 }
                 bloodymesssel.selectedIndex = 0;
                 bloodymesssel.onchange = function() {
@@ -5383,12 +5437,14 @@
                 adrenalinesel.add(opt);
                 opt.text = "None";
                 opt.value = "0";
+                adrenalinesel.linkId = "Adrenaline";
 
                 for (var i = 1; i < 6; i++) {
                     opt = document.createElement("option");
                     adrenalinesel.add(opt);
                     opt.text = "" + i;
                     opt.value = "" + (30 + (i * 6));
+                    opt.linkId = opt.value;
                 }
                 adrenalinesel.selectedIndex = 0;
                 adrenalinesel.onchange = function() {
@@ -5398,6 +5454,7 @@
                 document.getElementById("kills" + index ).oninput = function() {
                     recalculate(tbl, index, type);
                 };
+                document.getElementById("kills" + index ).linkId = "Kills";
 
                 row = tbl.insertRow(tbl.rows.length);
                 cell1 = row.insertCell(0);
@@ -5410,6 +5467,7 @@
                 boost.add(opt);
                 opt.text = "None";
                 opt.value = "0";
+                boost.linkId = "Boost";
 
                 for (var i = 10; i < 121; i += 5) {
                     opt = document.createElement("option");
@@ -5420,6 +5478,7 @@
                         opt.text = "" + i;
                     }
                     opt.value = "" + i;
+                    opt.linkId = opt.value;
                 }
                 boost.selectedIndex = 0;
                 boost.onchange = function() {
@@ -5440,12 +5499,14 @@
                     incisor.add(opt);
                     opt.text = "None";
                     opt.value = "0";
+                    incisor.linkId = "Incisor";
 
                     for (var i = 1; i < 4; i++) {
                         opt = document.createElement("option");
                         incisor.add(opt);
                         opt.text = "" + i;
                         opt.value = "" + (i * 25);
+                        opt.linkId = opt.value;
                     }
                     incisor.selectedIndex = 0;
                     incisor.onchange = function() {
@@ -5463,12 +5524,14 @@
                     martialartist.add(opt);
                     opt.text = "None";
                     opt.value = "0";
+                    martialartist.linkId = "Martial";
 
                     for (var i = 1; i < 4; i++) {
                         opt = document.createElement("option");
                         martialartist.add(opt);
                         opt.text = "" + i;
                         opt.value = "" + (i * 10);
+                        opt.linkId = opt.value;
                     }
                     martialartist.selectedIndex = 0;
                     martialartist.onchange = function() {
@@ -5486,19 +5549,23 @@
                     ninja.add(opt);
                     opt.text = "None";
                     opt.value = "0";
+                    ninja.linkId = "Ninja";
 
                     opt = document.createElement("option");
                         ninja.add(opt);
                         opt.text = "1";
                         opt.value = "30";
+                        opt.linkId = opt.value;
                     opt = document.createElement("option");
                         ninja.add(opt);
                         opt.text = "2";
                         opt.value = "60";
+                        opt.linkId = opt.value;
                     opt = document.createElement("option");
                         ninja.add(opt);
                         opt.text = "3";
                         opt.value = "100";
+                        opt.linkId = opt.value;
 
                     ninja.selectedIndex = 0;
                     ninja.onchange = function() {
@@ -5519,22 +5586,26 @@
                     demolition.add(opt);
                     opt.text = "None";
                     opt.value = "0";
+                    demolition.linkId = "Demo";
 
                     for (var i = 1; i < 6; i++) {
                         opt = document.createElement("option");
                         demolition.add(opt);
                         opt.text = "" + i;
                         opt.value = "" + (20 + (i - 1) * 10);
+                        opt.linkId = opt.value;
                     }
                     // pre nerf available options
                     opt = document.createElement("option");
                     demolition.add(opt);
                     opt.text = "4 (pre nerf)";
                     opt.value = "80";
+                    opt.linkId = opt.value + "N";
                     opt = document.createElement("option");
                     demolition.add(opt);
                     opt.text = "5 (pre nerf)";
                     opt.value = "100";
+                    opt.linkId = opt.value + "N";
 
                     // teammate combinations
                     for (var i = 1; i < 24; i++) {
@@ -5543,6 +5614,7 @@
                         var perc = (20 + (i - 1) * 10);
                         opt.text = "" + perc + "% (team)";
                         opt.value = "" + perc;
+                        opt.linkId = opt.value + "T";
                     }
 
 
@@ -5563,12 +5635,14 @@
                         tankkiller.add(opt);
                         opt.text = "None";
                         opt.value = "0";
+                        tankkiller.linkId = "TankAP";
 
                         for (var i = 1; i < 4; i++) {
                             opt = document.createElement("option");
                             tankkiller.add(opt);
                             opt.text = "" + i;
                             opt.value = "" + (i * 12);
+                            opt.linkId = opt.value;
                         }
                         tankkiller.selectedIndex = 0;
                         tankkiller.onchange = function() {
@@ -5587,12 +5661,14 @@
                         bowbeforeme.add(opt);
                         opt.text = "None";
                         opt.value = "0";
+                        bowbeforeme.linkId = "BowAP";
 
                         for (var i = 1; i < 4; i++) {
                             opt = document.createElement("option");
                             bowbeforeme.add(opt);
                             opt.text = "" + i;
                             opt.value = "" + (i * 12);
+                            opt.linkId = opt.value;
                         }
                         bowbeforeme.selectedIndex = 0;
                         bowbeforeme.onchange = function() {
@@ -5611,12 +5687,14 @@
                         stabilized.add(opt);
                         opt.text = "None";
                         opt.value = "0";
+                        stabilized.linkId = "HeavyAP";
 
                         for (var i = 1; i < 4; i++) {
                             opt = document.createElement("option");
                             stabilized.add(opt);
                             opt.text = "" + i;
                             opt.value = "" + (i * 15);
+                            opt.linkId = opt.value;
                         }
                         stabilized.selectedIndex = 0;
                         stabilized.onchange = function() {
@@ -5635,21 +5713,25 @@
                     covertop.add(opt);
                     opt.text = "None";
                     opt.value = "0";
+                    covertop.linkId = "Covert";
 
                     opt = document.createElement("option");
                     covertop.add(opt);
                     opt.text = "1";
                     opt.value = "" + 15;
+                    opt.linkId = opt.value;
 
                     opt = document.createElement("option");
                     covertop.add(opt);
                     opt.text = "2";
                     opt.value = "" + 30;
+                    opt.linkId = opt.value;
                     
                     opt = document.createElement("option");
                     covertop.add(opt);
                     opt.text = "3";
                     opt.value = "" + 50;
+                    opt.linkId = opt.value;
 
                     covertop.selectedIndex = 0;
                     covertop.onchange = function() {
@@ -5669,12 +5751,14 @@
                     exterminator.add(opt);
                     opt.text = "None";
                     opt.value = "0";
+                    exterminator.linkId = "Exterm";
 
                     for (var i = 1; i < 4; i++) {
                         opt = document.createElement("option");
                         exterminator.add(opt);
                         opt.text = "" + i;
                         opt.value = "" + (25 * i);
+                        opt.linkId = opt.value;
                     }
                     exterminator.selectedIndex = 0;
                     exterminator.onchange = function() {
@@ -5692,12 +5776,14 @@
                     glowsight.add(opt);
                     opt.text = "None";
                     opt.value = "0";
+                    glowsight.linkId = "Glow";
 
                     for (var i = 1; i < 4; i++) {
                         opt = document.createElement("option");
                         glowsight.add(opt);
                         opt.text = "" + i;
                         opt.value = "" + (20 * i);
+                        opt.linkId = opt.value;
                     }
                     glowsight.selectedIndex = 0;
                     glowsight.onchange = function() {
@@ -5715,12 +5801,14 @@
                 nerdragesel.add(opt);
                 opt.text = "None";
                 opt.value = "0";
+                nerdragesel.linkId = "Nerd";
 
                 for (var i = 1; i < 4; i++) {
                     opt = document.createElement("option");
                     nerdragesel.add(opt);
                     opt.text = "" + i;
                     opt.value = "" + (5 + i * 5);
+                    opt.linkId = opt.value;
                 }
                 nerdragesel.selectedIndex = 0;
                 nerdragesel.onchange = function() {
@@ -5738,12 +5826,14 @@
                 revenantsel.add(opt);
                 opt.text = "None";
                 opt.value = "0";
+                revenantsel.linkId = "Rev";
 
                 for (var i = 1; i < 3; i++) {
                     opt = document.createElement("option");
                     revenantsel.add(opt);
                     opt.text = "" + i;
                     opt.value = "" + (i * 25);
+                    opt.linkId = opt.value;
                 }
                 revenantsel.selectedIndex = 0;
                 revenantsel.onchange = function() {
@@ -5761,12 +5851,14 @@
                     sandmansel.add(opt);
                     opt.text = "None";
                     opt.value = "0";
+                    sandmansel.linkId = "Sandman";
 
                     for (var i = 1; i < 3; i++) {
                         opt = document.createElement("option");
                         sandmansel.add(opt);
                         opt.text = "" + i;
                         opt.value = "" + (i * 25);
+                        opt.linkId = opt.value;
                     }
                     sandmansel.selectedIndex = 0;
                     sandmansel.onchange = function() {
@@ -5784,6 +5876,7 @@
                 document.getElementById("strangeinnumbers" + index + "_yes").onchange = function() {
                     recalculate(tbl, index, type);
                 };
+                document.getElementById("strangeinnumbers" + index + "_yes").linkId = "Strange";
                 document.getElementById("strangeinnumbers" + index + "_no").onchange = function() {
                     recalculate(tbl, index, type);
                 };
@@ -5799,12 +5892,14 @@
                 partypersonsel.add(opt);
                 opt.text = "None";
                 opt.value = "0";
+                partypersonsel.linkId = "Party";
 
                 for (var i = 1; i < 3; i++) {
                     opt = document.createElement("option");
                     partypersonsel.add(opt);
                     opt.text = "" + i;
                     opt.value = "" + i; // calculated with (1 + value)
+                    opt.linkId = opt.value;
                 }
                 partypersonsel.selectedIndex = 0;
                 partypersonsel.onchange = function() {
@@ -5823,12 +5918,14 @@
                     colanutsel.add(opt);
                     opt.text = "None";
                     opt.value = "0";
+                    colanutsel.linkId = "Cola";
 
                     for (var i = 1; i < 3; i++) {
                         opt = document.createElement("option");
                         colanutsel.add(opt);
                         opt.text = "" + i;
                         opt.value = "" + i; // calculated with (1 + value)
+                        opt.linkId = opt.value;
                     }
                     colanutsel.selectedIndex = 0;
                     colanutsel.onchange = function() {
@@ -5853,6 +5950,7 @@
                 document.getElementById("adrenalreaction" + index + "_yes").onchange = function() {
                     recalculate(tbl, index, type);
                 };
+                document.getElementById("adrenalreaction" + index + "_yes").linkId = "Adrenal";
                 document.getElementById("adrenalreaction" + index + "_no").onchange = function() {
                     recalculate(tbl, index, type);
                 };
@@ -5868,6 +5966,7 @@
                     document.getElementById("twistedmuscles" + index + "_yes").onchange = function() {
                         recalculate(tbl, index, type);
                     };
+                    document.getElementById("twistedmuscles" + index + "_yes").linkId = "Twisted";
                     document.getElementById("twistedmuscles" + index + "_no").onchange = function() {
                         recalculate(tbl, index, type);
                     };                    
@@ -5883,6 +5982,7 @@
                 document.getElementById("mutation" + index + "_yes").onchange = function() {
                     recalculate(tbl, index, type);
                 };
+                document.getElementById("mutation" + index + "_yes").linkId = "Mutation";
                 document.getElementById("mutation" + index + "_no").onchange = function() {
                     recalculate(tbl, index, type);
                 };
@@ -5909,6 +6009,7 @@
                 chemsel.add(opt);
                 opt.text = "None";
                 opt.value = "";
+                chemsel.linkId = "Chem";
 
                 for (var chm of chems) {
                     if (chm.mode.includes(type)) {
@@ -5916,6 +6017,7 @@
                         chemsel.add(opt);
                         opt.text = chm.desc;
                         opt.value = chm.id;
+                        opt.linkId = linkIdFor(chm, chm.id);
                     }
                 }
                 chemsel.selectedIndex = 0;
@@ -5934,6 +6036,7 @@
                 alcoholsel.add(opt);
                 opt.text = "None";
                 opt.value = "";
+                alcoholsel.linkId = "Alcohol";
 
                 for (var alc of alcohols) {
                     if (alc.mode.includes(type)) {
@@ -5947,6 +6050,7 @@
                         alcoholsel.add(opt);
                         opt.text = alc.desc;
                         opt.value = alc.id;
+                        opt.linkId = linkIdFor(alc, alc.id);
                     }
                 }
                 alcoholsel.selectedIndex = 0;
@@ -5965,6 +6069,7 @@
                 bobbleheadsel.add(opt);
                 opt.text = "None";
                 opt.value = "";
+                bobbleheadsel.linkId = "Bobble";
 
                 for (var bh of bobbleheads) {
                     if (bh.mode.includes(type)) {
@@ -5978,6 +6083,7 @@
                         bobbleheadsel.add(opt);
                         opt.text = bh.desc;
                         opt.value = bh.id;
+                        opt.linkId = linkIdFor(bh, bh.id);
                     }
                 }
                 bobbleheadsel.selectedIndex = 0;
@@ -5996,6 +6102,7 @@
                 magazinesel.add(opt);
                 opt.text = "None";
                 opt.value = "";
+                magazinesel.linkId = "Magazine";
 
                 for (var mag of magazines) {
                     if (mag.mode.includes(type)) {
@@ -6015,6 +6122,7 @@
                         magazinesel.add(opt);
                         opt.text = mag.desc;
                         opt.value = mag.id;
+                        opt.linkId = linkIdFor(mag, mag.id);
                     }
                 }
                 magazinesel.selectedIndex = 0;
@@ -6033,6 +6141,7 @@
                 queenhuntsel.add(opt);
                 opt.text = "None";
                 opt.value = "";
+                queenhuntsel.linkId = "Queenhunt";
 
                 for (var qh of queenhunt) {
                     if (qh.mode.includes(type)) {
@@ -6040,6 +6149,7 @@
                         queenhuntsel.add(opt);
                         opt.text = qh.desc;
                         opt.value = qh.id;
+                        opt.linkId = linkIdFor(qh, qh.id);
                     }
                 }
                 queenhuntsel.selectedIndex = 0;
@@ -6056,6 +6166,7 @@
                 document.getElementById("otherboost" + index ).oninput = function() {
                     recalculate(tbl, index, type);
                 };
+                document.getElementById("otherboost" + index ).linkId = "Other";
             }
 
             function getAlcoholAndColaBuff(partyMultiplier, colanutMultiplier, buff) {
@@ -6753,6 +6864,8 @@
                 speeds[index] = speed;
 
                 recalculateDiff();
+
+                recalculateLinks();
             }
 
             function hasMutation(index) {
@@ -6928,12 +7041,19 @@
                 if (document.getElementById("wtMelee" + fromIdx).checked) {
                     document.getElementById("wtMelee" + toIdx).click();
                     wtype = "Melee";
-                } else {
+                } else 
+                if (document.getElementById("wtRanged" + fromIdx).checked) {
                     document.getElementById("wtRanged" + toIdx).click();
                     wtype = "Ranged";
+                } else {
+                    return;
                 }
                 var selOther = document.getElementById("weapon" + toIdx);
-                selOther.selectedIndex = document.getElementById("weapon" + fromIdx).selectedIndex;
+                var selIdx = document.getElementById("weapon" + fromIdx).selectedIndex;
+                selOther.selectedIndex = selIdx;
+                if (selIdx < 0) {
+                    return;
+                }
                 selOther.dispatchEvent(new Event('change'));
 
                 var srcTable = document.getElementById("table" + fromIdx);
@@ -6958,6 +7078,148 @@
 
                 recalculate(document.getElementById("table" + toIdx), toIdx, wtype);
             }
+
+            document.getElementById("wtMelee1").linkId = "M";
+            document.getElementById("wtMelee2").linkId = "M";
+            document.getElementById("wtRanged1").linkId = "R";
+            document.getElementById("wtRanged2").linkId = "R";
+
+            function createLinkURL(sideIndex) {
+                var srcTable = document.getElementById("table" + sideIndex);
+                var list = srcTable.querySelectorAll("input,select");
+
+                var linkStr = (sideIndex == 1 ? "left=" : "right=");
+
+                list.forEach(function(node) {
+                    var i = node.id.indexOf("" + sideIndex);
+                    if (i >= 0) {
+                        if (node.linkId !== undefined) {
+                            if (node.selectedIndex !== undefined) {
+                                var opt = node.options[node.selectedIndex];
+                                if (opt.linkId !== undefined) {
+                                    linkStr += node.linkId + "-" + opt.linkId + "_";
+                                }
+                            } else
+                            if (node.type === "radio") {
+                                if (node.checked) {
+                                    linkStr += node.linkId + "_"
+                                }
+                            } else
+                            if (node.value !== undefined) {
+                                linkStr += node.linkId + "-" + node.value + "_";
+                            }
+                        }
+                    }
+                });
+
+                if (linkStr.endsWith("_")) {
+                    linkStr = linkStr.substring(0, linkStr.length - 1);
+                }
+
+                return linkStr;
+            }
+
+            function recalculateLinks() {
+                var leftleftlink = document.getElementById("linkleftleft");
+                var leftlinkStr = createLinkURL(1);
+                leftleftlink.href = "?" + leftlinkStr;
+
+                var rightrightlink = document.getElementById("linkrightright");
+                var rightlinkStr = createLinkURL(2);
+                rightrightlink.href = "?" + rightlinkStr;
+
+                var bothlink = document.getElementById("linkboth");
+                bothlink.href = "?" + leftlinkStr + "&" + rightlinkStr;
+            }
+
+            function paramsApply(side, entries) {
+                // select the weapon type
+                var wtype = "";
+                if (entries.indexOf("M") >= 0) {
+                    wtype = "Melee";
+                    document.getElementById("wtMelee" + side).click()
+                } else
+                if (entries.indexOf("R") >= 0) {
+                    wtype = "Ranged";
+                    document.getElementById("wtRanged" + side).click();
+                }
+
+                if (wtype === "") {
+                    return;
+                }
+
+                var paramMap = new Map();
+
+                // select the weapon
+                outer:
+                for (var e of entries) {
+                    if (e === "M" || e === "R") {
+                        continue;
+                    }
+                    if (e.startsWith("W-")) {
+                        var linkId = e.substring(2);
+                        var weaponSel = document.getElementById("weapon" + side);
+                        weaponSel.selectedIndex = -1;
+
+                        for (var opt of weaponSel.options) {
+                            if (opt.linkId == linkId) {
+                                opt.selected = true;
+                                weaponSel.dispatchEvent(new Event('change'));
+                                break;
+                            }
+                        }
+                    }
+
+                    var kv = e.split("-");
+                    if (kv.length == 1) {
+                        paramMap.set(kv[0], "true");
+                    } else {
+                        paramMap.set(kv[0], kv[1]);
+                    }
+                }
+
+                // scan the options and match the linkIds with the parameters
+                var tbl = document.getElementById("table" + side);
+                var list = tbl.querySelectorAll("input,select");
+
+                list.forEach(function(node) {
+                    if (node.linkId !== undefined) {
+
+                        var paramVal = paramMap.get(node.linkId);
+
+                        if (node.type === "radio") {
+                            node.checked = "true" === paramVal;
+                        }
+                        else if (node.options !== undefined) {
+                            for (var opt of node.options) {
+                                if (opt.linkId === paramVal) {
+                                    opt.selected = true;
+                                }
+                            }
+                        } else if (node.value !== undefined) {
+                            node.value = paramVal;
+                        }
+                    }
+                });
+
+                recalculate(tbl, side, wtype);
+            }
+
+            var params = document.location.search;
+            if (params.startsWith("?")) {
+                var panels = params.substring(1).split("&");
+                for (var panel of panels) {
+                    if (panel.startsWith("right=")) {
+                        var entries = panel.substring(6).split("_");
+                        paramsApply(2, entries);
+                    } else
+                    if (panel.startsWith("left=")) {
+                        var entries = panel.substring(5).split("_");
+                        paramsApply(1, entries);
+                    }
+                }
+            }
+
         </script>
     </body>
 </html>
