@@ -7066,10 +7066,10 @@
 
                         if (nodeOther.selectedIndex !== undefined) {
                             nodeOther.selectedIndex = node.selectedIndex;
-                        }
-                        if (nodeOther.checked !== undefined) {
+                        } else
+                        if (nodeOther.type === "radio") {
                             nodeOther.checked = node.checked;
-                        }
+                        } else
                         if (nodeOther.value !== undefined) {
                             nodeOther.value = node.value;
                         }
