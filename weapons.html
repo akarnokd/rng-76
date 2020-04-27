@@ -7137,10 +7137,12 @@
                 var wtype = "";
                 if (entries.indexOf("M") >= 0) {
                     wtype = "Melee";
+                    document.getElementById("wtMelee" + side).checked = true;
                     document.getElementById("wtMelee" + side).click()
                 } else
                 if (entries.indexOf("R") >= 0) {
                     wtype = "Ranged";
+                    document.getElementById("wtRanged" + side).checked = true;
                     document.getElementById("wtRanged" + side).click();
                 }
 
@@ -7188,7 +7190,9 @@
                         var paramVal = paramMap.get(node.linkId);
 
                         if (node.type === "radio") {
-                            node.checked = "true" === paramVal;
+                            if (!node.id.startsWith("wt")) {
+                                node.checked = "true" === paramVal;
+                            }
                         }
                         else if (node.options !== undefined) {
                             for (var opt of node.options) {
