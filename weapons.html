@@ -22,7 +22,7 @@
     </head>
     <body style="height: 90%">
         <center>
-            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Weapon Damage Calculator (v3.1.0)</span><br/>
+            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Weapon Damage Calculator (v3.1.1)</span><br/>
         <br/>
         <table id="parent">
             <tr>
@@ -3327,7 +3327,7 @@
                     speed: 10,
                     level: [20,30,40,50],
                     damage: [0, 0, 0, 0],
-                    damadamageEnergy: [15,29,22,25],
+                    damageEnergy: [15,29,22,25],
                     mods: []
                 },
                 {
@@ -3340,7 +3340,7 @@
                     speed: 10,
                     level: [20,30,40,50],
                     damage: [0, 0, 0, 0],
-                    damadamageEnergy: [15,29,22,25],
+                    damageEnergy: [15,29,22,25],
                     mods: []
                 },
                 {
@@ -3434,6 +3434,7 @@
                     speed: 12.3,
                     level: [45,50],
                     damage: [48,50],
+                    explosiveDamageMult: 15,
                     mods: [
                         {
                             slot: "Barrel",
@@ -6769,6 +6770,18 @@
                     if (demolitionsel != null && demolitionsel.selectedIndex > 0) {
                         totalDamageMultiply.push(parseFloat(valueOf(demolitionsel)));
                     }
+                }
+
+                if (weap.explosiveDamageMult !== undefined) {
+
+                    var xpl = weap.explosiveDamageMult / 100.0;
+                    xpl *= 1 + (explosiveBobbleheadPercent / 100.0);
+
+                    var demolitionsel = document.getElementById("demolition" + index);
+                    if (demolitionsel != null && demolitionsel.selectedIndex > 0) {
+                        xpl *= 1.0 + parseFloat(valueOf(demolitionsel)) / 100.0;
+                    }
+                    totalDamageMultiply.push(xpl * 100);
                 }
 
                 var revenantsel = document.getElementById("revenant" + index);
