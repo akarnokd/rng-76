@@ -1,0 +1,662 @@
+<html>
+    <head>
+        <title>Fallout 76 Daily Challenges</title>
+        <style>
+            * {
+                font-family: sans-serif;
+                font-size: 20px;
+            }
+            td {
+                padding: 2px;
+            }
+            
+            table.infoTable {
+               border: 1px solid black;
+               border-collapse: collapse;
+            }
+            table.infoTable td {
+               border: 1px solid black;
+            }
+        </style>
+        <meta name="keywords" content="Fallout,Fallout 76,Daily,Challenge,Challenges">
+    </head>
+    <body>
+        <center>
+            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Daily Challenges (0.0.1)</span><br/>
+            <br/>
+            <br/>
+            <table>
+                <tr>
+                    <td><button id='prevDay'>&lt;</button></td>
+                    <td id='showndate' style='font-size: 24; text-align: center;'></td>
+                    <td><button id='nextDay'>&gt;</button></td>
+                </tr>
+                <tr><td colspan='3' id='remainingtime' style='text-align: center; font-weight: bold;'></td></tr>
+            </table>
+            <br/>
+            <br/>
+            <table id='challenges'>
+            </table>
+        </center>
+        <script>
+            var selectedDate = new Date();
+            selectedDate.setUTCHours(15, 0, 0, 0);
+            var now = new Date();
+            if (selectedDate > now) {
+                selectedDate.setDate(selectedDate.getDate() - 1);
+            }
+
+            var dsrc = document.location.search;
+            if (dsrc.includes("day=")) {
+                var idx = dsrc.indexOf("day=");
+                var date = dsrc.substring(idx + 4);
+                try {
+                    selectedDate = new Date(date);
+                } catch (e) {
+                    // ignored
+                }
+            }
+
+            var challenges = [
+                {
+                    validStart: new Date(Date.UTC(2020, 3, 22, 15, 0, 0, 0)),
+                    validEnd: undefined,
+                    options: [
+                        {
+                            name: "Level up while",
+                            offset: 0,
+                            period: 3,
+                            subchallenges: [
+                                {
+                                    name: "Being level 76 or higher"
+                                },
+                                {
+                                    name: "Wearing a Fasnacht Mask",
+                                    tipId: "LevelUpFasnacht",
+                                    tip: "There is usually a Fasnacht Man Mask in Fort Defiance."
+                                },
+                                {
+                                    name: "Wearing Responder's Gear",
+                                    tipId: "LevelUpResponders",
+                                    tip: "Responder's Jumpsuit, Paramedic Jumpsuit, Pastor's Vestments should work."
+                                },
+                                {
+                                    name: "Holding a Protest Sign",
+                                    tipId: "LevelUpProtest",
+                                    tip: "Fast travel to Poseidon Energy Plant and among the tents, there are a couple of protest signs."
+                                },
+                                {
+                                    name: "on Deathclaw island"
+                                },
+                                {
+                                    name: "in a Group"
+                                },
+                                {
+                                    name: "at Arktos Pharma under level 20"
+                                },
+                                {
+                                    name: "at Wavy Willard's Water Park under level 30"
+                                },
+                                {
+                                    name: "Naked"
+                                },
+                                {
+                                    name: "Engaged in PvP"
+                                },
+                            ]
+                        },
+                        {
+                            name: "Level up while",
+                            offset: 1,
+                            period: 6,
+                            subchallenges: [
+                                {
+                                    name: "Being level 76 or higher"
+                                },
+                                {
+                                    name: "At a Fissure site",
+                                    tipId: "LevelUpFissure",
+                                    tip: "Only the on-map named fissure sites count."
+                                },
+                                {
+                                    name: "At/in Morgantown Airport under level 20"
+                                },
+                                {
+                                    name: "In Whitesprings",
+                                    tipId: "LevelUpWhitesprings",
+                                    tip: "Be anywhere within the fenced area of the hotel, including the interior."
+                                },
+                                {
+                                    name: "Near Grahm and Chally"
+                                },
+                                {
+                                    name: "Wearing an Asylum Uniform and Hat",
+                                    tipId: "LevelUpAsylum",
+                                    tip: "Fort Defiance (Allegheny Asylum) has many Uniforms and Hats."
+                                },
+                                {
+                                    name: "Wearing sunglasses"
+                                },
+                                {
+                                    name: "Using chems"
+                                },
+                                {
+                                    name: "Engaged in PvP"
+                                },
+                                {
+                                    name: "Wielding a sword",
+                                    tipId: "LevelUpSword",
+                                    tip: "Machete and any weapon with Sword in its name should work."
+                                }
+                            ]
+                        },
+                        {
+                            name: "Level up while",
+                            offset: 4,
+                            period: 6,
+                            subchallenges: [
+                                {
+                                    name: "Being level 76 or higher"
+                                },
+                                {
+                                    name: "In Watoga",
+                                    tipId: "LevelUpWatoga",
+                                    tip: "Be within the city bounds or the interior of the EMS, AMS, Civic Center or Municipal Center."
+                                },
+                                {
+                                    name: "Wielding a music instrument as a weapon",
+                                    tipId: "LevelUpMusic",
+                                    tip: "Death Tambo, Guitar Sword or War Drum should work."
+                                },
+                                {
+                                    name: "At/in the Top of the World under level 40"
+                                },
+                                {
+                                    name: "At/in Vault-Tec Agricultural Research Center under level 10"
+                                },
+                                {
+                                    name: "Wearing Formal Wear"
+                                },
+                                {
+                                    name: "Wearing an Unstoppables Costume"
+                                },
+                                {
+                                    name: "in Power Armor"
+                                },
+                                {
+                                    name: "Well Fed"
+                                },
+                                {
+                                    name: "Engaged in PvP"
+                                },
+                            ]
+                        },
+                        {
+                            name: "Level up while",
+                            offset: 2,
+                            period: 3,
+                            subchallenges: [
+                                {
+                                    name: "Being level 76 or higher"
+                                },
+                                {
+                                    name: "In Caves or Mines",
+                                    tipId: "LevelUpCave",
+                                    tip: "Unfortunately, Big Bent Tunnel doesn't count."
+                                },
+                                {
+                                    name: "In a Workshop under level 20"
+                                },
+                                {
+                                    name: "Well Tuned or Well Rested",
+                                    tipId: "LevelUpWellTuned",
+                                    tip: "Warning! Currently, Lover's Embrace and similar Ally-granted 3 hour bonus"
+                                         + "<br>do not count towards this so make sure you are Well Tuned!"
+                                },
+                                {
+                                    name: "Wielding an Axe",
+                                    tipId: "LevelUpAxe",
+                                    tip: "Grognak's Axe, Fire Axe, Pickaxe or Multi-purpose Axe should work."
+                                },
+                                {
+                                    name: "In a Nuked Region"
+                                },
+                                {
+                                    name: "Wearing a full Clown Suit",
+                                    tipId: "LevelUpClown",
+                                    tip: "Freddy Fear's House of Scares usually has a Clown Suit and Clown Hat."
+                                },
+                                {
+                                    name: "Wearing Sleepwear"
+                                },
+                                {
+                                    name: "Diseased"
+                                },
+                                {
+                                    name: "Engaged in PvP"
+                                },
+                            ]
+                        },
+                        {
+                            name: "Build anything in your C.A.M.P. or Workshop (x10)",
+                            offset: 0,
+                            period: 10,
+                            tipId: "BuildAnything",
+                            tip: "Floor Mat is the cheapest to build"
+                        },
+                        {
+                            name: "Craft Ammo (x50)",
+                            offset: 0,
+                            period: 10,
+                            tipId: "CraftAmmo",
+                            tip: "The perk Ammosmith doesn't count for this challenge."
+                        },
+                        {
+                            name: "Kill a Sheepsquatch",
+                            offset: 0,
+                            period: 10,
+                            tipId: "KillSheepsquatch",
+                            tip: "Other than the Free Range event, they are random encounters."
+                        },
+                        {
+                            name: "Scrap junk to produce Fiberglass (x5)",
+                            offset: 0,
+                            period: 10,
+                            tipId: "ScrapFiberglass",
+                            tip: "Scrap the telephones at the National Isolated Radio Array offices."
+                        },
+                        {
+                            name: "Scrap junk to produce Screws (x5)",
+                            offset: 1,
+                            period: 5,
+                            tipId: "ScrapScrews",
+                            tip: "Scrap the globes, fans and typewriters at the National Isolated Radio Array offices."
+                        },
+                        {
+                            name: "Scrap junk to produce Springs (x5)",
+                            offset: 3,
+                            period: 5,
+                            tipId: "ScrapSprings",
+                            tip: "Simply scrap Bulk Springs."
+                        },
+                        {
+                            name: "Kill a Legendary enemy",
+                            offset: 1,
+                            period: 5,
+                            tipId: "KillLegendary",
+                            tip: "Check out horde events, fissure sites or West Tek."
+                        },
+                        {
+                            name: "Kill a Legendary at a fissure site",
+                            offset: 3,
+                            period: 5,
+                            tipId: "KillLegendaryFissure",
+                            tip: "Named fissure sites only. Works best at Prime. " 
+                                 + "<br>You have to be at the very close to the edge of the fissure site."
+                                 + "<br>The enemy can be further away."
+                        },
+                        {
+                            name: "Build floors, walls and roofs in your C.A.M.P. (x10)",
+                            offset: 1,
+                            period: 5,
+                            tipId: "BuildFloors",
+                            tip: "Remember to equip the Contractor perk card."
+                        },
+                        {
+                            name: "Build lighting in your C.A.M.P. or Workshop (x5)",
+                            offset: 2,
+                            period: 10,
+                            tipId: "BuildLights",
+                            tip: "Remember to equip the Contractor perk card."
+                        },
+                        {
+                            name: "Destroy turrets (x5)",
+                            offset: 1,
+                            period: 20,
+                            tipId: "DestroyTurrets",
+                            tip: "Check out the Relay Towers."
+                        },
+                        {
+                            name: "Destroy robots (x5)",
+                            offset: 11,
+                            period: 20,
+                            tipId: "DestroyRobots",
+                            tip: "Check out the Vault-tec Agricultural Research Center near Flatwoods."
+                        },
+                        {
+                            name: "Eat pies, candies and sweets (x20)",
+                            offset: 2,
+                            period: 10,
+                            tipId: "EatPies",
+                            tip: "Gum drop works too but Dandy Boy Apples doesn't."
+                        },
+                        {
+                            name: "Harvest Fungi (x10)",
+                            offset: 2,
+                            period: 10,
+                            tipId: "HarvestFungi",
+                            tip: "Check out the river towards Flatwoods."
+                        },
+                        {
+                            name: "Kill a Mole Miner",
+                            offset: 2,
+                            period: 10,
+                            tipId: "KillMoleminer",
+                            tip: "Check out the rooftop in Welch visible from the Station fast travel point."
+                                 + "<br>Check out Black Water Mine (exterior and interior) near The Whitespring resort."
+                        },
+                        {
+                            name: "Claim a Workshop",
+                            offset: 3,
+                            period: 5,
+                            tipId: "ClaimWorkshop",
+                            tip: "Remember to stay crouched at all times and leave the build area"
+                                  + "<br>as soon as you can to avoid unvanted PvP."
+                        },
+                        {
+                            name: "Kill a Deathclaw",
+                            offset: 3,
+                            period: 10,
+                            tipId: "KillDeathclaw",
+                            tip: "Check out Deathclaw island or the Thunder Mountain Substation"
+                                  + "<br>TM-02 north of Watoga."
+                        },
+                        {
+                            name: "Plant vegetables in your C.A.M.P. or Workshop (x10)",
+                            offset: 4,
+                            period: 10,
+                            tipId: "PlantVegetables",
+                            tip: "You can scrap and replant your vegetables."
+                        },
+                        {
+                            name: "Pick flowers (x10)",
+                            offset: 4,
+                            period: 10,
+                            tipId: "PickFlowers",
+                            tip: "Rododendron (magenta) and Soot Flower (blue) are easy to spot."
+                                 + "<br>Bloodleaf works too, found in the river towards Flatwoods."
+                        },
+                        {
+                            name: "Revive a Player",
+                            offset: 4,
+                            period: 10,
+                            tipId: "RevivePlayer",
+                            tip: "No need to team up. Jump down from some height to down yourself."
+                        },
+                        {
+                            name: "Destroy Liberators (x5)",
+                            offset: 4,
+                            period: 10,
+                            tipId: "DestroyLiberators",
+                            tip: "Tygart Water Treatment north of Sommersville has a bunch of them."
+                        },
+                        {
+                            name: "Kill Ghouls in a nuked region (x5)",
+                            offset: 6,
+                            period: 10,
+                            tipId: "KillGhoulsNuled",
+                            tip: "Nuke Whitesprings. Equip the Glow Sight perk for bonus damage."
+                        },
+                        {
+                            name: "Chew Bubblegum (x5)",
+                            offset: 7,
+                            period: 10,
+                            tipId: "ChewBubblegum",
+                            tip: "Gum drops don't work. Perk pack bubblegums do work."
+                                + "<br>Find bubblegum in Whitesprings or in the Pumpkin House."
+                        },
+                        {
+                            name: "Kill a Glowing Enemy",
+                            offset: 7,
+                            period: 10,
+                            tipId: "KillGlowing",
+                            tip: "They are everywhere. Equip the Glow Sight perk for bonus damage."
+                        },
+                        {
+                            name: "Kill a Mirelurk",
+                            offset: 7,
+                            period: 10,
+                            tipId: "KillMirelurk",
+                            tip: "Ohio River Adventures spawns them regularly."
+                                 + "Alternatively, start the defense miscellaneous quest with Fishbones there."
+                        },
+                        {
+                            name: "Harvest vegetables (x10)",
+                            offset: 7,
+                            period: 10,
+                            tipId: "HarvestVegetables",
+                            tip: "Your C.A.M.P., someone else's C.A.M.P. or simply any world spawn will do."
+                        },
+                        {
+                            name: "Kill a Wendigo in the Wendigo Cave",
+                            offset: 8,
+                            period: 10,
+                            tipId: "KillWendigo",
+                            tip: "You may have to hop servers and/or lob a grenade at the waterfall for it to spawn."
+                        },
+                        {
+                            name: "Collect Caps (x100)",
+                            offset: 9,
+                            period: 10,
+                            tipId: "CollectCaps",
+                            tip: "Looting, selling, drinking Nuka cola products and quest rewards all count."
+                        },
+                        {
+                            name: "Cook meals with vegetables or fungi (x10)",
+                            offset: 9,
+                            period: 10,
+                            tipId: "CookMeals",
+                            tip: "Perhaps the easiest is to craft Razorgrain Soup."
+                        },
+                        {
+                            name: "Hack a Terminal",
+                            offset: 9,
+                            period: 10,
+                            tipId: "HackTerminal",
+                            tip: "The Arktos Pharma reception terminal requires no hacking perk cards."
+                        },
+                        {
+                            name: "Kill a Cryptid",
+                            offset: 9,
+                            period: 10,
+                            tipId: "KillCryptid",
+                            tip: "Wendigo (Wendigo Cave), Grafton Monster (Charleston Trainyard),"
+                                + "<br>Snallygaster (Toxic Larry's Meet'n'go) or Mothman (Cultist camps)"
+                        },
+                        {
+                            name: "Collect Water (x50)",
+                            offset: 5,
+                            period: 10,
+                            tipId: "CollectWater",
+                            tip: "Collecting water from water sources and boiling them also counts."
+                        },
+                    ]
+                }
+            ];
+
+            var infoMap = new Map();
+            for (var challenge of challenges) {
+                for (var opt of challenge.options) {
+                    if (opt.tipId !== undefined) {
+                        infoMap.set(opt.tipId, opt.tip);
+                    }
+                    if (opt.subchallenges !== undefined) {
+                        for (var sc of opt.subchallenges) {
+                            if (sc.tipId !== undefined) {
+                                infoMap.set(sc.tipId, sc.tip);
+                            }
+                        }
+                    }
+                }
+            }
+
+            // add HTML explanation marker
+            function info(name) {
+                return "&nbsp;<sup><a href='#' style='font-size: 14; font-weight: bold;' onclick='showinfo(this, \"" + name + "\"); return false;'>Tip</a></sup>";
+            }
+
+            // popup for explanation
+            function showinfo(target, name) {
+                var div = document.getElementById("InfoDiv" + name);
+                if (div == null) {
+                    var div = document.createElement("div");
+                    div.style.border = "1px solid black";
+                    div.style.padding = "3px";
+                    div.style.position = "absolute";
+                    div.style.backgroundColor = "#FFFFD0";
+                    div.style.zIndex = 99;
+                    div.id = "InfoDiv" + name;
+                    var txt = infoMap.get(name);
+
+                    if (txt == null) {
+                        txt = "??? " + name + " ???";
+                    }
+                    txt += "<hr><font style='font-size: 14px'>Click to close.</font>";
+                    div.innerHTML = txt;
+
+                    target.parentElement.appendChild(div);
+                    div.onclick = function() {
+                        target.parentElement.removeChild(div);
+                    }
+                } else {
+                    target.parentElement.removeChild(div);
+                }
+            }
+
+            function updateChallenges() {
+                // normalize date
+                selectedDate.setUTCHours(15, 0, 0, 0);
+
+                var endDate = new Date(selectedDate);
+                endDate.setDate(endDate.getDate() + 1);
+
+                document.getElementById("showndate").innerHTML = 
+                    "<a href='?day=" + selectedDate.toISOString().substring(0, 10) + "' target='_blank'>"
+                    + selectedDate.toLocaleDateString() + " " + selectedDate.toLocaleTimeString()
+                    + " - " + endDate.toLocaleDateString() + endDate.toLocaleTimeString()
+                    + "</a>"
+                    ;
+
+                var tbl = document.getElementById("challenges");
+
+                for (var i = tbl.rows.length - 1; i >= 0; i--) {
+                    tbl.deleteRow(i);
+                }
+
+
+                var found = false;
+                // find a valid challenge among the data
+                for (var challenge of challenges) {
+                    if (challenge.validStart <= selectedDate
+                        && (challenge.validEnd === undefined || challenge.validEnd >= endDate)) {
+
+                        var timeSince = selectedDate.getTime() - challenge.validStart.getTime();
+                        var dayDiff = Math.floor(timeSince / 24 / 60 / 60 / 1000);
+
+                        for (var opt of challenge.options) {
+                            var d = dayDiff - opt.offset;
+                            var per = Math.floor(d % opt.period);
+                            if (per === 0) {
+                                var rw = tbl.insertRow(tbl.rows.length);
+                                
+                                var cll = rw.insertCell(rw.cells.length);
+                                cll.colSpan = 2;
+                                if (opt.tipId !== undefined) {
+                                    cll.innerHTML = "<b>" + opt.name + "</b>" + info(opt.tipId);
+                                } else {
+                                    cll.innerHTML = "<b>" + opt.name + "</b>";
+                                }
+
+                                if (opt.subchallenges !== undefined) {
+                                    for (var sc of opt.subchallenges) {
+
+                                        rw = tbl.insertRow(tbl.rows.length);
+                                        cll = rw.insertCell(rw.cells.length);
+                                        cll.innerHTML = "&nbsp;&nbsp;&nbsp;";
+
+                                        cll = rw.insertCell(rw.cells.length);
+
+                                        if (sc.tipId !== undefined) {
+                                            cll.innerHTML = sc.name + info(sc.tipId);
+                                        } else {
+                                            cll.innerHTML = sc.name;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+
+                        found = true;
+                        break;
+                    }
+                }
+
+                if (!found) {
+                    var rw = tbl.insertRow(0);
+                    var cll = rw.insertCell();
+
+                    cll.innerText = "No information available for this date";
+                    cll.style.textAlign = "center";
+                    cll.style.color = "red";
+                }
+            }
+
+            function updateTimer() {
+                // normalize date
+                selectedDate.setUTCHours(15, 0, 0, 0);
+
+                var endDate = new Date(selectedDate);
+                endDate.setDate(endDate.getDate() + 1);
+
+                var now = new Date();
+
+                var remainingLabel = document.getElementById("remainingtime");
+
+                if (selectedDate <= now && now < endDate) {
+                    var diff = endDate - now;
+                    remainingLabel.innerText = formatTime(diff / 1000);
+                } else if (selectedDate < now) {
+                    remainingLabel.innerHTML = "Past date. <a href='?'>Return to today.</a>";
+                } else {
+                    remainingLabel.innerHTML = "Future date. <a href='?'>Return to today.</a>";
+                }
+            }
+
+            function formatTime(timeSeconds) {
+                var hours = Math.floor(timeSeconds / 60 / 60);
+                var minutes = Math.floor(timeSeconds / 60) % 60;
+                var seconds = Math.floor(timeSeconds % 60);
+
+                return padZero(hours) + ":" + padZero(minutes) + ":" + padZero(seconds);
+            }
+
+            function padZero(n) {
+                var str = "";
+                if (n < 10) {
+                    str += "0";
+                }
+                str += n;
+                return str;
+            }
+
+            function goPrevDay() {
+                selectedDate.setDate(selectedDate.getDate() - 1);
+                updateChallenges();
+                updateTimer();
+            }
+
+            function goNextDay() {
+                selectedDate.setDate(selectedDate.getDate() + 1);
+                updateChallenges();
+                updateTimer();
+            }
+
+            document.getElementById("prevDay").onclick = goPrevDay;
+            document.getElementById("nextDay").onclick = goNextDay;
+
+            setInterval(updateTimer, 1000);
+            updateTimer();
+            updateChallenges();
+        </script>
+    </body>
+</html>
