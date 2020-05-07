@@ -22,7 +22,7 @@
     </head>
     <body>
         <center>
-            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Daily Challenges (0.0.1)</span><br/>
+            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Daily Challenges (0.0.2)</span><br/>
             <br/>
             <br/>
             <table>
@@ -469,6 +469,87 @@
                             period: 10,
                             tipId: "CollectWater",
                             tip: "Collecting water from water sources and boiling them also counts."
+                        },
+                        {
+                            name: "Eat Pre-war Food (x20)",
+                            offset: 5,
+                            period: 10,
+                            tipId: "EatPrewarfood",
+                            tip: "Dog Food is everywhere. Bubblegum and Gum Drops coun too. Check out diners around the map."
+                        },
+                        {
+                            name: "Kill a Yao Guai",
+                            offset: 5,
+                            period: 10,
+                            tipId: "KillYaoGuai",
+                            tip: "Check out Monongah Overlook or Dolly Sods Wilderness."
+                        },
+                        {
+                            name: "Craft Healing Items (any 5)",
+                            offset: 5,
+                            period: 10,
+                            tipId: "CraftHealingItems",
+                            tip: "Bug/tip: Crafting Healing Salve counts for crafting a Stimpak too.",
+                            subchallenges: [
+                                {
+                                    name: "Antibiotics",
+                                    tipId: "CraftAntibiotics",
+                                    tip: "The plans are available in the Enclave Bunker Medical section."
+                                },
+                                {
+                                    name: "Bloodpack",
+                                    tipId: "CraftBloodpack",
+                                    tip: "Requires Tick Blood (2) + Antiseptic (1)."
+                                },
+                                {
+                                    name: "Diluted Radaway",
+                                    tipId: "CraftDilutedRadaway",
+                                    tip: "Radaway + Purified water"
+                                },
+                                {
+                                    name: "Diluted Stimpak",
+                                    tipId: "CraftDilutedStimpak",
+                                    tip: "Stimpak + Purified water"
+                                },
+                                {
+                                    name: "Disease Cure",
+                                    tipId: "CraftDiseaseCure",
+                                    tip: "Firecap (2) + Bloodleaf (2) + Snaptail Reed (2)."
+                                        + "<br>Start from Slocum Joe's to pick up Firecap around, then go to the river"
+                                        + "<br>towards Flatwoods to find Bloodleaf and then Snaptail Reed."
+                                        + "<br>Don't forget to equip the Green Thumb (PER) perk card."
+                                },
+                                {
+                                    name: "Glowing Bloodpack",
+                                    tipId: "CraftGlowingBloodpack",
+                                    tip: "Bloodpack + Glowing Blood + Antiseptic"
+                                },
+                                {
+                                    name: "Healing Salve",
+                                    tipId: "CraftHealingSalve",
+                                    tip: "Soot Flower + Rhododendron Flower + Boiled Water. Check around the Overseer's Camp."
+                                },
+                                {
+                                    name: "Skeeto Spit",
+                                    tipId: "CraftSkeetoSpit",
+                                    tip: "Blood Pack + Bloodleaf + Glass + Steel"
+                                },
+                                {
+                                    name: "Standard Radaway",
+                                    tipId: "CraftRadaway",
+                                    tip: "Antiseptic + Glowing Fungus (3) + Purified Water + Plastic"
+                                },
+                                {
+                                    name: "Standard Stimpak",
+                                    tipId: "CraftStimpak",
+                                    tip: "Antiseptic (2) + Blood Pack + Steel"
+                                },
+                                {
+                                    name: "Super Stimpak",
+                                    tipId: "CraftSuperStimpak",
+                                    tip: "Ultracite + Antiseptic (2) + Blood Pack + Steel + Strangler Pod + Corpse Flower Stamen"
+                                }
+                            ]
                         },
                     ]
                 }
