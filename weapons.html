@@ -22,7 +22,7 @@
     </head>
     <body style="height: 90%">
         <center>
-            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Weapon Damage Calculator (v3.1.4)</span><br/>
+            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Weapon Damage Calculator (v3.1.5)</span><br/>
         <br/>
         <table id="parent">
             <tr>
@@ -1969,16 +1969,34 @@
                                 {
                                     name: "Automatic",
                                     damageMultPercent: -10,
-                                    speedMultPercent: 87.5
+                                    speedMultPercent: 10
                                 },
                                 {
                                     name: "Powerful Automatic",
                                     damageMultPercent: 11.11,
-                                    speedMultPercent: 87.5
+                                    speedMultPercent: 10
+                                },
+                                {
+                                    name: "Focused Automatic",
+                                    damageMultPercent: 11.11,
+                                    speedMultPercent: 10
+                                },
+                                {
+                                    name: "Tweaked Automatic",
+                                    damageMultPercent: 11.11,
+                                    speedMultPercent: 10
                                 },
                                 {
                                     name: "Hardened",
                                     damageMultPercent: 25
+                                },
+                                {
+                                    name: "Refined",
+                                    damageMultPercent: 12.5
+                                },
+                                {
+                                    name: "Severe",
+                                    damageMultPercent: 12.5
                                 },
                                 {
                                     name: "Scorch killer's",
@@ -1995,7 +2013,7 @@
                                 {
                                     name: "Prime Automatic",
                                     damageMultPercent: 15,
-                                    speedMultPercent: 87.5,
+                                    speedMultPercent: 10,
                                     versus: ["Scorched", "Scorchbeast", "Scorchbeast Queen"],
                                     versusMultPercent: 35
                                 }
@@ -3472,12 +3490,12 @@
                                 },
                                 {
                                     name: "Tri",
-                                    speedMultPercent: 20
+                                    speedAddPercent: 20
                                 },
                                 {
                                     name: "Penta",
                                     damageMultPercent: -15,
-                                    speedMultPercent: 35
+                                    speedAddPercent: 35
                                 }
                             ]
                         },
@@ -3931,6 +3949,11 @@
                     {
                         name: "Explosive",
                         damageMultPercent: 20
+                    },
+                    {
+                        name: "ExplosiveCustomShotgun",
+                        text: "Explosive (shotguns)",
+                        damageMultPercent: 24 // 3% per pellet (usually 8)
                     },
                     {
                         name: "ExplosiveOld",
@@ -6297,6 +6320,7 @@
 
                 var totalArmorIgnoreArray = [];
                 var totalSpeedMultiply = [];
+                var totalSpeedAdditive = [];
 
                 var effects = allEffects.get(type);
 
@@ -6525,6 +6549,9 @@
                         if (modInfo.speedMultPercent !== undefined) {
                             totalSpeedMultiply.push(modInfo.speedMultPercent);
                         }
+                        if (modInfo.speedAddPercent !== undefined) {
+                            totalSpeedAdditive.push(modInfo.speedAddPercent);
+                        }
                         if (modInfo.versus !== undefined) {
                             for (var i = 0; i < enemytypes.length; i++) {
                                 if (modInfo.versus.indexOf(enemytypes[i]) >= 0) {
@@ -6652,6 +6679,9 @@
                         }
                         if (effInfo.speedMultPercent !== undefined) {
                             totalSpeedMultiply.push(effInfo.speedMultPercent);
+                        }
+                        if (effInfo.speedAddPercent !== undefined) {
+                            totalSpeedAdditive.push(effInfo.speedAddPercent);
                         }
                     }
                 });
@@ -6866,6 +6896,12 @@
                 });
                 totalDamageRadiationMultiply.forEach(function(v) {
                     totalDamageRadiation *= 1.0 + v / 100.0;
+                });
+
+                var baseSpeed = speed;
+
+                totalSpeedAdditive.forEach(function(v) {
+                    speed += baseSpeed * (v / 100.0);
                 });
 
                 totalSpeedMultiply.forEach(function(v) {
