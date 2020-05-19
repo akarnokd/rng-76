@@ -22,7 +22,7 @@
     </head>
     <body style="height: 90%">
         <center>
-            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Weapon Damage Calculator (v3.1.5)</span><br/>
+            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Weapon Damage Calculator (v3.1.6)</span><br/>
         <br/>
         <table id="parent">
             <tr>
@@ -1331,12 +1331,12 @@
                                 {
                                     name: "Automatic",
                                     damageMultPercent: -10,
-                                    speedMultPercent: 87.5
+                                    speedAddPercent: 87.5
                                 },
                                 {
                                     name: "Powerful Automatic",
                                     damageMultPercent: 11.11,
-                                    speedMultPercent: 87.5
+                                    speedAddPercent: 87.5
                                 },
                                 {
                                     name: "Scorch killer's",
@@ -1353,7 +1353,7 @@
                                 {
                                     name: "Prime Automatic",
                                     damageMultPercent: 15,
-                                    speedMultPercent: 87.5,
+                                    speedAddPercent: 87.5,
                                     versus: ["Scorched", "Scorchbeast", "Scorchbeast Queen"],
                                     versusMultPercent: 35
                                 },
@@ -1488,12 +1488,12 @@
                                 {
                                     name: "Automatic",
                                     damageMultPercent: -10,
-                                    speedMultPercent: 87.5
+                                    speedAddPercent: 87.5
                                 },
                                 {
                                     name: "Powerful Automatic",
                                     damageMultPercent: 11.11,
-                                    speedMultPercent: 87.5
+                                    speedAddPercent: 87.5
                                 },
                                 {
                                     name: "Hardened",
@@ -1514,7 +1514,7 @@
                                 {
                                     name: "Prime Automatic",
                                     damageMultPercent: 15,
-                                    speedMultPercent: 87.5,
+                                    speedAddPercent: 87.5,
                                     versus: ["Scorched", "Scorchbeast", "Scorchbeast Queen"],
                                     versusMultPercent: 35
                                 }
@@ -1542,7 +1542,7 @@
                                 },
                                 {
                                     name: "Speedy",
-                                    speedMultPercent: 50
+                                    speedAddPercent: 25
                                 },
                                 {
                                     name: "Prime",
@@ -1572,7 +1572,7 @@
                                 {
                                     name: "Automatic",
                                     damageMultPercent: -10,
-                                    speedMultPercent: 650
+                                    speedAddPercent: 650
                                 },
                                 {
                                     name: "Prime",
@@ -1708,12 +1708,12 @@
                                 {
                                     name: "Accelerated",
                                     damageMultPercent: 10,
-                                    speedMultPercent: 25
+                                    speedAddPercent: 25
                                 },
                                 {
                                     name: "Tri",
                                     damageMultPercent: 20,
-                                    speedMultPercent: -25
+                                    speedAddPercent: -25
                                 },
                                 {
                                     name: "Prime",
@@ -1744,25 +1744,25 @@
                                 {
                                     name: "Automatic",
                                     damageMultPercent: -10,
-                                    speedMultPercent: speedMult(7.5, 3.3),
+                                    speedAddPercent: speedMult(7.5, 3.3),
                                 },
                                 {
                                     name: "Powerful Automatic",
                                     damageMultPercent: 11.11,
-                                    speedMultPercent: speedMult(7.5, 3.3),
+                                    speedAddPercent: speedMult(7.5, 3.3),
                                 },
                                 {
                                     name: "Hair Triggered",
-                                    speedMultPercent: speedMult(5, 3.3),
+                                    speedAddPercent: speedMult(5, 3.3),
                                 },
                                 {
                                     name: "Focused",
-                                    speedMultPercent: speedMult(7.5, 3.3),
+                                    speedAddPercent: speedMult(7.5, 3.3),
                                 },
                                 {
                                     name: "Hasty .38",
                                     damageMultPercent: -25,
-                                    speedMultPercent: speedMult(4, 3.3),
+                                    speedAddPercent: speedMult(4, 3.3),
                                 },
                                 {
                                     name: "Refined .38",
@@ -1774,11 +1774,11 @@
                                 },
                                 {
                                     name: "Steadfast",
-                                    speedMultPercent: speedMult(4, 3.3),
+                                    speedAddPercent: speedMult(4, 3.3),
                                 },
                                 {
                                     name: "Tweaked Automatic",
-                                    speedMultPercent: speedMult(7.5, 3.3),
+                                    speedAddPercent: speedMult(7.5, 3.3),
                                 },
                                 {
                                     name: "True"
@@ -1788,7 +1788,7 @@
                                 },
                                 {
                                    name: "Vigorous",
-                                   speedMultPercent: speedMult(4, 3.3),
+                                   speedAddPercent: speedMult(4, 3.3),
                                 },
                                 {
                                     name: "Hardened",
@@ -1809,7 +1809,7 @@
                                 {
                                     name: "Prime Automatic",
                                     damageMultPercent: 15,
-                                    speedMultPercent: speedMult(7.5, 3.3),
+                                    speedAddPercent: speedMult(7.5, 3.3),
                                     versus: ["Scorched", "Scorchbeast", "Scorchbeast Queen"],
                                     versusMultPercent: 35
                                 }
@@ -1838,25 +1838,25 @@
                                 {
                                     name: "Automatic",
                                     damageMultPercent: -10,
-                                    speedMultPercent: speedMult(7.5, 3.3),
+                                    speedAddPercent: speedMult(7.5, 3.3),
                                 },
                                 {
                                     name: "Powerful Automatic",
                                     damageMultPercent: 11.11,
-                                    speedMultPercent: speedMult(7.5, 3.3),
+                                    speedAddPercent: speedMult(7.5, 3.3),
                                 },
                                 {
                                     name: "Hair Triggered",
-                                    speedMultPercent: speedMult(5, 3.3),
+                                    speedAddPercent: speedMult(5, 3.3),
                                 },
                                 {
                                     name: "Focused",
-                                    speedMultPercent: speedMult(7.5, 3.3),
+                                    speedAddPercent: speedMult(7.5, 3.3),
                                 },
                                 {
                                     name: "Hasty .38",
                                     damageMultPercent: -25,
-                                    speedMultPercent: speedMult(4, 3.3),
+                                    speedAddPercent: speedMult(4, 3.3),
                                 },
                                 {
                                     name: "Refined .38",
@@ -1868,11 +1868,11 @@
                                 },
                                 {
                                     name: "Steadfast",
-                                    speedMultPercent: speedMult(4, 3.3),
+                                    speedAddPercent: speedMult(4, 3.3),
                                 },
                                 {
                                     name: "Tweaked Automatic",
-                                    speedMultPercent: speedMult(7.5, 3.3),
+                                    speedAddPercent: speedMult(7.5, 3.3),
                                 },
                                 {
                                     name: "True"
@@ -1886,7 +1886,7 @@
                                 },
                                 {
                                    name: "Vigorous",
-                                   speedMultPercent: speedMult(4, 3.3),
+                                   speedAddPercent: speedMult(4, 3.3),
                                 },
                                 {
                                     name: "Hardened",
@@ -1907,7 +1907,7 @@
                                 {
                                     name: "Prime Automatic",
                                     damageMultPercent: 15,
-                                    speedMultPercent: speedMult(7.5, 3.3),
+                                    speedAddPercent: speedMult(7.5, 3.3),
                                     versus: ["Scorched", "Scorchbeast", "Scorchbeast Queen"],
                                     versusMultPercent: 35
                                 }
@@ -1969,22 +1969,22 @@
                                 {
                                     name: "Automatic",
                                     damageMultPercent: -10,
-                                    speedMultPercent: 10
+                                    speedAddPercent: 10
                                 },
                                 {
                                     name: "Powerful Automatic",
                                     damageMultPercent: 11.11,
-                                    speedMultPercent: 10
+                                    speedAddPercent: 10
                                 },
                                 {
                                     name: "Focused Automatic",
                                     damageMultPercent: 11.11,
-                                    speedMultPercent: 10
+                                    speedAddPercent: 10
                                 },
                                 {
                                     name: "Tweaked Automatic",
                                     damageMultPercent: 11.11,
-                                    speedMultPercent: 10
+                                    speedAddPercent: 10
                                 },
                                 {
                                     name: "Hardened",
@@ -2013,7 +2013,7 @@
                                 {
                                     name: "Prime Automatic",
                                     damageMultPercent: 15,
-                                    speedMultPercent: 10,
+                                    speedAddPercent: 10,
                                     versus: ["Scorched", "Scorchbeast", "Scorchbeast Queen"],
                                     versusMultPercent: 35
                                 }
@@ -2148,12 +2148,12 @@
                                 {
                                     name: "Automatic",
                                     damageMultPercent: -10,
-                                    speedMultPercent: 87.5
+                                    speedAddPercent: 87.5
                                 },
                                 {
                                     name: "Powerful Automatic",
                                     damageMultPercent: 11.11,
-                                    speedMultPercent: 87.5
+                                    speedAddPercent: 87.5
                                 },
                                 {
                                     name: "Hardened",
@@ -2174,7 +2174,7 @@
                                 {
                                     name: "Prime Automatic",
                                     damageMultPercent: 15,
-                                    speedMultPercent: 87.5,
+                                    speedAddPercent: 87.5,
                                     versus: ["Scorched", "Scorchbeast", "Scorchbeast Queen"],
                                     versusMultPercent: 35
                                 }
@@ -2531,7 +2531,7 @@
                                 {
                                     name: "Powerful Automatic",
                                     damageMultPercent: 11.11,
-                                    speedMultPercent: 50
+                                    speedAddPercent: 50
                                 },
                                 {
                                     name: "Scorch killer's",
@@ -2548,7 +2548,7 @@
                                 {
                                     name: "Prime Automatic",
                                     damageMultPercent: 15,
-                                    speedMultPercent: 50,
+                                    speedAddPercent: 50,
                                     versus: ["Scorched", "Scorchbeast", "Scorchbeast Queen"],
                                     versusMultPercent: 35
                                 }
@@ -2637,17 +2637,17 @@
                                 {
                                     name: "Automatic",
                                     damageMultPercent: -10,
-                                    speedMultPercent: 50
+                                    speedAddPercent: 50
                                 },
                                 {
                                     name: "Powerful Automatic",
                                     damageMultPercent: 11.11,
-                                    speedMultPercent: 50
+                                    speedAddPercent: 50
                                 },
                                 {
                                     name: "Prime Automatic",
                                     damageMultPercent: 15,
-                                    speedMultPercent: 50,
+                                    speedAddPercent: 50,
                                     versus: ["Scorched", "Scorchbeast", "Scorchbeast Queen"],
                                     versusMultPercent: 35
                                 }
@@ -2920,7 +2920,7 @@
                                 {
                                     name: "Charging",
                                     damageMultPercent: 55,
-                                    speedMultPercent: speedMult(3, 18.2)
+                                    speedAddPercent: -speedMult(18.2, 3)
                                 },
                             ]
                         }
@@ -2960,7 +2960,7 @@
                                 {
                                     name: "Charging",
                                     damageMultPercent: 55,
-                                    speedMultPercent: speedMult(3, 18.2)
+                                    speedAddPercent: -speedMult(18.2, 3)
                                 },
                             ]
                         }
@@ -3237,7 +3237,7 @@
                                 },
                                 {
                                     name: "Signal Repeater",
-                                    speedMultPercent: speedMult(9.1, 6.7)
+                                    speedAddPercent: speedMult(9.1, 6.7)
                                 }
                             ]
                         }
@@ -3263,7 +3263,7 @@
                                 {
                                     name: "Automatic",
                                     damageMultPercent: -15,
-                                    speedMultPercent: speedMult(9.1, 2)
+                                    speedAddPercent: speedMult(9.1, 2)
                                 },
                                 {
                                     name: "Charging",
@@ -3293,7 +3293,7 @@
                                 {
                                     name: "Chrystallizing",
                                     damageMultPercent: -25,
-                                    speedMultPercent: -25,
+                                    speedAddPercent: -25,
                                     addDamageBallisticLeveled: [25 / 0.75, 25 / 0.75, 25 / 0.75]
                                 }
                             ]
@@ -3644,7 +3644,7 @@
                                 },
                                 {
                                     name: "Fancy",
-                                    speedMultPercent: 30
+                                    speedAddPercent: 30
                                 },
                                 {
                                     name: "Prime",
@@ -3969,7 +3969,8 @@
                     {
                         name: "25% increased fire rate",
                         linkId: "FFR",
-                        speedMultPercent: 25
+                        //speedMultPercent: 25
+                        speedAddPercent: 25
                     }
                 ],
                 // 3: minor
