@@ -1,0 +1,104 @@
+<html>
+    <head>
+        <title>Fallout 76 List drop Monte-carlo simulation</title>
+        <style>
+            * {
+                font-family: sans-serif;
+                font-size: 20px;
+            }
+            td {
+                padding: 2px;
+            }
+            
+            table.infoTable {
+               border: 1px solid black;
+               border-collapse: collapse;
+            }
+            table.infoTable td {
+               border: 1px solid black;
+            }
+        </style>
+    </head>
+    <body>
+        <center>
+            <span style="font-size: 36px; font-weight: bold;">Fallout 76 List drop Monte-carlo simulation</span><br/>
+            <br/>
+            <br/>
+
+        Options: <input id='count' type="number" min="1" value='3'><button id='createTableBtn'>Create</button>
+        <br/><br/>
+        <table id='main'>
+            <tr>
+                <td>Absent percent</td>
+                <td>Probability</td>
+            </tr>
+        </table>
+        <br/>
+        Rounds: <input id='rounds' type="number" min="1" value='100000'>&nbsp;&nbsp;&nbsp;<button id='runBtn'>Run!</button>
+        </center>
+
+        <script>
+            function createTable() {
+                var n = parseInt(document.getElementById("count").value);
+                var tbl = document.getElementById("main");
+
+                for (var i = tbl.rows.length - 1; i > 0; i--) {
+                    tbl.deleteRow(i);
+                }
+
+                for (var i = 1; i <= n; i++) {
+                    var row = tbl.insertRow(i);
+
+                    var c1 = row.insertCell(0);
+                    c1.innerHTML = "<input id='option" + i + "' type='number' min='0' max='100' value='0'>";
+
+                    var c2 = row.insertCell(1);
+                    c2.id = "prob" + i;
+                    c2.innerText = "0.000 %";
+                    c2.style.textAlign = "right";
+                }
+            }
+
+            function run() {
+                var tbl = document.getElementById("main");
+
+                var absentList = [];
+
+                for (var i = 1; i < tbl.rows.length; i++) {
+                    absentList.push(
+                        { 
+                            index: i, 
+                            absent: parseInt(document.getElementById("option" + i).value) / 100.0,
+                            occurrence: 0
+                        }
+                    );
+                }
+
+                var rounds = parseInt(document.getElementById("rounds").value);
+
+                for (var j = 0; j < rounds; j++) {
+                    var presentList = [];
+                    for (var e of absentList) {
+                        if (Math.random() >= e.absent) {
+                            presentList.push(e);
+                        }
+                    }
+
+                    if (presentList.length > 0) {
+                        var index = Math.floor(Math.random() * presentList.length);
+                        presentList[index].occurrence++;
+                    }
+                }
+
+                for (var e of absentList) {
+                    document.getElementById("prob" + e.index).innerText = (100.0 * e.occurrence / rounds).toFixed(3) + " %";
+                }
+            }
+
+            document.getElementById("createTableBtn").onclick = createTable;
+            document.getElementById("runBtn").onclick = run;
+
+            createTable();
+        </script>
+    </body>
+</html>
