@@ -27,10 +27,11 @@
 
         Options: <input id='count' type="number" min="1" value='3'><button id='createTableBtn'>Create</button>
         <br/><br/>
-        <table id='main'>
+        <table id='main' style='border-collapse: collapse;'>
             <tr>
                 <td>Absent percent</td>
-                <td>Probability</td>
+                <td>Probability (sim)</td>
+                <td>Probability (formula)</td>
             </tr>
         </table>
         <br/>
@@ -51,11 +52,19 @@
 
                     var c1 = row.insertCell(0);
                     c1.innerHTML = "<input id='option" + i + "' type='number' min='0' max='100' value='0'>";
+                    c1.style.border = "1px solid black";
 
                     var c2 = row.insertCell(1);
                     c2.id = "prob" + i;
                     c2.innerText = "0.000 %";
                     c2.style.textAlign = "right";
+                    c2.style.border = "1px solid black";
+
+                    c2 = row.insertCell(2);
+                    c2.id = "probf" + i;
+                    c2.innerText = "0.000 %";
+                    c2.style.textAlign = "right";
+                    c2.style.border = "1px solid black";
                 }
             }
 
@@ -92,6 +101,35 @@
 
                 for (var e of absentList) {
                     document.getElementById("prob" + e.index).innerText = (100.0 * e.occurrence / rounds).toFixed(3) + " %";
+                }
+
+                var combinations = 1 << absentList.length;
+
+                var probCombinations = new Array(combinations);
+                for (var n = 0; n < combinations; n++) {
+                    var product = 1.0;
+                    var bits = 0;
+                    for (var m = 0; m < absentList.length; m++) {
+                        var bitMask = 1 << m;
+                        if ((n & bitMask) != 0) {
+                            bits++;
+                            product *= (1 - absentList[m].absent);
+                        } else {
+                            product *= absentList[m].absent;
+                        }
+                    }
+                    probCombinations[n] = product / Math.max(1, bits);
+                }
+
+                for (var m = 0; m < absentList.length; m++) {
+                    var bitMask = 1 << m;
+                    var sum = 0.0;
+                    for (var n = 0; n < combinations; n++) {
+                        if ((n & bitMask) != 0) {
+                            sum += probCombinations[n];
+                        }
+                    }
+                    document.getElementById("probf" + (m + 1)).innerText = (100.0 * sum).toFixed(5) + " %";
                 }
             }
 
