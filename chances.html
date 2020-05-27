@@ -50,21 +50,26 @@
             }
 
             function fetchData(name, whenDone) {
-                var xhr = new XMLHttpRequest();
-                xhr.onload = function() {
-                    whenDone(JSON.parse(xhr.responseText));
+                fetch(name, {
+                    method: "GET",
+                    headers: {
+                        Accept: "application/json",
+                        "Content-Type": "application/json"
+                    },
+                    mode: "no-cors"
+                })
+                .then(res => {
+                    whenDone(res.json());
                     if (--downloadDone == 0) {
                         allDownloaded();
                     }
-                }
-                xhr.onerror = function() {
+                })
+                .catch(err=>{
                     console.log(xhr.responseText);
                     if (--downloadDone == 0) {
                         allDownloaded();
                     }
-                }
-                xhr.open('GET', name)
-                xhr.send(null)
+                });
             }
 
             function doLoad() {
