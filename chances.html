@@ -47,29 +47,28 @@
             function allDownloaded() {
                 document.getElementById("loadversion").disabled = false;
                 // TODO 
+                console.log(Object.keys(edids).length);
+                console.log(Object.keys(globals).length);
+                console.log(Object.keys(leveledLists).length);
             }
 
-            function fetchData(name, whenDone) {
-                fetch(name, {
-                    method: "GET",
-                    headers: {
-                        Accept: "application/json",
-                        "Content-Type": "application/json"
-                    },
-                    mode: "no-cors"
-                })
-                .then(res => {
-                    whenDone(res.json());
-                    if (--downloadDone == 0) {
-                        allDownloaded();
+            function loadScript(src, callback) {
+                var s,
+                    r,
+                    t;
+                r = false;
+                s = document.createElement('script');
+                s.type = 'text/javascript';
+                s.src = src;
+                s.onload = s.onreadystatechange = function() {
+                    //console.log( this.readyState ); //uncomment this line to see which ready states are called.
+                    if ( !r && (!this.readyState || this.readyState == 'complete') ) {
+                        r = true;
+                        callback(s);
                     }
-                })
-                .catch(err=>{
-                    console.log(xhr.responseText);
-                    if (--downloadDone == 0) {
-                        allDownloaded();
-                    }
-                });
+                };
+                t = document.getElementsByTagName('script')[0];
+                t.parentNode.insertBefore(s, t);
             }
 
             function doLoad() {
@@ -79,17 +78,23 @@
                 if (versionSelect.selectedIndex >= 0) {
                     downloadDone = 3;
                     var patchPrefix = 
-                        "https://akarnokd.github.com/rng-76/"
-                        + versionSelect.options[versionSelect.selectedIndex].value + "_";
+                        // "https://akarnokd.github.com/rng-76/" +
+                        versionSelect.options[versionSelect.selectedIndex].value + "_";
 
-                    fetchData(patchPrefix + "SeventySix_EDIDs.json", res => {
-                        edids = res;
+                    loadScript(patchPrefix + "SeventySix_EDIDs.js", node => {
+                        if (--downloadDone == 0) {
+                           allDownloaded();
+                        }
                     });
-                    fetchData(patchPrefix + "SeventySix_GLOBs.json", res => {
-                        edids = res;
+                    loadScript(patchPrefix + "SeventySix_GLOBs.js", node => {
+                        if (--downloadDone == 0) {
+                           allDownloaded();
+                        }
                     });
-                    fetchData(patchPrefix + "SeventySix_LVLIs.json", res => {
-                        edids = res;
+                    loadScript(patchPrefix + "SeventySix_LVLIs.js", node => {
+                        if (--downloadDone == 0) {
+                           allDownloaded();
+                        }
                     });
                 }
             }

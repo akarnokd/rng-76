@@ -1,4 +1,4 @@
-{
+edids = {
 "00000001": "STATDoorMarker",
 "00000002": "STATTravelMarker",
 "00000003": "STATNorthMarker",
