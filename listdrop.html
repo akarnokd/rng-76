@@ -32,6 +32,7 @@
                 <td>Absent percent</td>
                 <td>Probability (sim)</td>
                 <td>Probability (formula)</td>
+                <td>Probability (first pick)</td>
             </tr>
         </table>
         <br/>
@@ -62,6 +63,12 @@
 
                     c2 = row.insertCell(2);
                     c2.id = "probf" + i;
+                    c2.innerText = "0.000 %";
+                    c2.style.textAlign = "right";
+                    c2.style.border = "1px solid black";
+
+                    c2 = row.insertCell(3);
+                    c2.id = "probp" + i;
                     c2.innerText = "0.000 %";
                     c2.style.textAlign = "right";
                     c2.style.border = "1px solid black";
@@ -101,6 +108,21 @@
 
                 for (var e of absentList) {
                     document.getElementById("prob" + e.index).innerText = (100.0 * e.occurrence / rounds).toFixed(3) + " %";
+                    e.occurrence = 0;
+                }
+
+                // run as first pick
+                for (var j = 0; j < rounds; j++) {
+                    for (var e of absentList) {
+                        if (Math.random() >= e.absent) {
+                            e.occurrence++;
+                            break;
+                        }
+                    }
+                }
+
+                for (var e of absentList) {
+                    document.getElementById("probp" + e.index).innerText = (100.0 * e.occurrence / rounds).toFixed(3) + " %";
                 }
 
                 var combinations = 1 << absentList.length;
