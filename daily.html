@@ -60,7 +60,7 @@
             var challenges = [
                 {
                     validStart: new Date(Date.UTC(2020, 3, 22, 15, 0, 0, 0)),
-                    validEnd: undefined,
+                    validEnd: new Date(Date.UTC(2020, 4, 31, 15, 0, 0, 0)),
                     options: [
                         {
                             name: "Level up while (any 3)",
@@ -591,6 +591,85 @@
                                     tip: "Ultracite + Antiseptic (2) + Blood Pack + Steel + Strangler Pod + Corpse Flower Stamen"
                                 }
                             ]
+                        },
+                    ]
+                },
+                {
+                    validStart: new Date(Date.UTC(2020, 4, 31, 15, 0, 0, 0)),
+                    validEnd: undefined,
+                    options: [
+                        {
+                            name: "Level up while (any 3)",
+                            offset: 0,
+                            period: 6,
+                            subchallenges: [
+                                {
+                                    name: "Being level 76 or higher"
+                                },
+                                {
+                                    name: "At a Fissure site",
+                                    tipId: "LevelUpFissure",
+                                    tip: "Only the on-map named fissure sites count."
+                                },
+                                {
+                                    name: "At/in Morgantown Airport under level 20"
+                                },
+                                {
+                                    name: "In Whitesprings",
+                                    tipId: "LevelUpWhitesprings",
+                                    tip: "Be anywhere within the fenced area of the hotel, including the interior."
+                                },
+                                {
+                                    name: "Near Grahm and Chally"
+                                },
+                                {
+                                    name: "Wearing an Asylum Uniform and Hat",
+                                    tipId: "LevelUpAsylum",
+                                    tip: "Fort Defiance (Allegheny Asylum) has many Uniforms and Hats."
+                                },
+                                {
+                                    name: "Wearing sunglasses"
+                                },
+                                {
+                                    name: "Using chems"
+                                },
+                                {
+                                    name: "Engaged in PvP"
+                                },
+                                {
+                                    name: "Wielding a sword",
+                                    tipId: "LevelUpSword",
+                                    tip: "Machete and any weapon with Sword in its name should work."
+                                }
+                            ]
+                        },
+                        {
+                            name: "Kill a Megasloth in the Cranberry Bog",
+                            offset: 0,
+                            period: 30,
+                            tipId: "KillMegaslothCranberry",
+                            tip: "They can show up between the Cranberry Glades and the Flooded Trainyard."
+                        },
+                        {
+                            name: "Kill a Crave Cricket at/in the Uncanny Caverns",
+                            offset: 0,
+                            period: 30,
+                            tipId: "KillCaveCricketUncanny",
+                            tip: "May need several server hops. Outside and inside count."
+                        },
+                        {
+                            name: "Kill Insects (x5)",
+                            offset: 0,
+                            period: 30,
+                            tipId: "KillInsects",
+                            tip: "."
+                        },
+                        {
+                            name: "Kill Radants (x5)",
+                            offset: 0,
+                            period: 30,
+                            tipId: "KillRadants",
+                            tip: "Try Thunder Mountain Substation TM-02 north of Watoga."
                         },
                     ]
                 }
