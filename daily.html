@@ -672,13 +672,76 @@
                             tip: "Try Thunder Mountain Substation TM-02 north of Watoga."
                         },
                         {
-                            name: "Unkown",
+                            name: "Level up while (any 3)",
                             offset: 1,
-                            period: 2,
-                            tipId: "UnknownEra2",
-                            tip: "Challenges broke their periodicity on 31/5/2020 and there isn't"
-                            + "<br>enough data yet to predict future (traditional) challenges."
-                            + "<br>Update 20 will rewamp challenges completely."
+                            period: 3,
+                            subchallenges: [
+                                {
+                                    name: "Being level 76 or higher"
+                                },
+                                {
+                                    name: "Wearing a Fasnacht Mask",
+                                    tipId: "LevelUpFasnacht",
+                                    tip: "There is usually a Fasnacht Man Mask in Fort Defiance."
+                                },
+                                {
+                                    name: "Wearing Responder's Gear",
+                                    tipId: "LevelUpResponders",
+                                    tip: "Responder's Jumpsuit, Paramedic Jumpsuit, Pastor's Vestments should work."
+                                },
+                                {
+                                    name: "Holding a Protest Sign",
+                                    tipId: "LevelUpProtest",
+                                    tip: "Fast travel to Poseidon Energy Plant and among the tents, there are a couple of protest signs."
+                                },
+                                {
+                                    name: "on Deathclaw Island"
+                                },
+                                {
+                                    name: "in a Group"
+                                },
+                                {
+                                    name: "at Arktos Pharma under level 20"
+                                },
+                                {
+                                    name: "at Wavy Willard's Water Park under level 30"
+                                },
+                                {
+                                    name: "Naked"
+                                },
+                                {
+                                    name: "Engaged in PvP"
+                                },
+                            ]
+                        },
+                        {
+                            name: "Collect Caps (x100)",
+                            offset: 1,
+                            period: 10,
+                            tipId: "CollectCaps",
+                            tip: "Looting, selling, drinking Nuka cola products and quest rewards all count."
+                        },
+                        {
+                            name: "Cook meals with vegetables or fungi (x5)",
+                            offset: 1,
+                            period: 10,
+                            tipId: "CookMeals",
+                            tip: "Perhaps the easiest is to craft Razorgrain Soup."
+                        },
+                        {
+                            name: "Hack a Terminal",
+                            offset: 1,
+                            period: 10,
+                            tipId: "HackTerminal",
+                            tip: "The Arktos Pharma reception terminal requires no hacking perk cards."
+                        },
+                        {
+                            name: "Kill a Cryptid",
+                            offset: 1,
+                            period: 10,
+                            tipId: "KillCryptid",
+                            tip: "Wendigo (Wendigo Cave), Grafton Monster (Charleston Trainyard),"
+                                + "<br>Snallygaster (Toxic Larry's Meet'n'go) or Mothman (Cultist camps)"
                         },
                     ]
                 }
