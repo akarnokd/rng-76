@@ -41,6 +41,8 @@
             var globals = {};
             // property key is the FormID, property value is the leveled list object
             var leveledLists = {};
+            // property key is the FormID, property value is an array of objects with the form { "x": 0, "y" : 0 }
+            var curves = {};
 
             var downloadDone = 0;
 
@@ -50,6 +52,7 @@
                 console.log(Object.keys(edids).length);
                 console.log(Object.keys(globals).length);
                 console.log(Object.keys(leveledLists).length);
+                console.log(Object.keys(curves).length);
             }
 
             function loadScript(src, callback) {
@@ -73,7 +76,7 @@
 
                 var versionSelect = document.getElementById("versionselect");
                 if (versionSelect.selectedIndex >= 0) {
-                    downloadDone = 3;
+                    downloadDone = 4;
                     var patchPrefix = 
                         // "https://akarnokd.github.com/rng-76/" +
                         versionSelect.options[versionSelect.selectedIndex].value + "_";
@@ -89,6 +92,11 @@
                         }
                     });
                     loadScript(patchPrefix + "SeventySix_LVLIs.js", node => {
+                        if (--downloadDone == 0) {
+                           allDownloaded();
+                        }
+                    });
+                    loadScript(patchPrefix + "SeventySix_CURVs.js", node => {
                         if (--downloadDone == 0) {
                            allDownloaded();
                         }
