@@ -1,0 +1,175 @@
+<html>
+    <head>
+        <title>Fallout 76 Fasnacht Roll Simulation</title>
+        <style>
+            * {
+                font-family: sans-serif;
+                font-size: 20px;
+            }
+            td {
+                padding: 2px;
+            }
+            
+            table.infoTable {
+               border: 1px solid black;
+               border-collapse: collapse;
+            }
+            table.infoTable td {
+               border: 1px solid black;
+            }
+        </style>
+        <meta name="keywords" content="Fallout,Fallout 76,RNG,Random,Chances,Fasnacht,Rolls">
+    </head>
+    <body>
+        <center>
+            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Fasnacht Roll Simulation</span><br/>
+            <br/>
+            <br/>
+            Rolls: <input type="number" min="1" value='100' id="rollCount"> <button id='rollBtn'>Roll!</button>
+            <table id='rollsTable'>
+                <tr style='font-weight: bold;'>
+                    <td>Item</td>
+                    <td>Chance</td>
+                    <td>Rolls</td>
+                    <td style="text-align: right;">%</td>
+                    <td>Expected</td>
+                    <td>Group rolls</td>
+                    <td>Group %</td>
+                </tr>
+            </table>
+        </center>
+        <script>
+            var masks = [
+                {
+                    chance: 0.05,
+                    itemChance: 0.01,
+                    items: [
+                        "Fasnacht Raven Mask",
+                        "Fasnacht Deathclaw Mask",
+                        "Fasnacht Winter Man Mask", 
+                        "Fasnacht Crazy Guy Mask",
+                        "Father Winter Helmet"
+                    ]
+                },
+                {
+                    chance: 0.75,
+                    itemChance: 0.7125 / 5,
+                    items: [
+                        "Fasnacht Jester Mask",
+                        "Fasnacht Sun Mask",
+                        "Fasnacht Skull Mask",
+                        "Fasnacht Beret",
+                        "Fasnacht Goblin Mask"
+                    ]
+                },
+                {
+                    chance: 1,
+                    itemChance: 0.2375 / 5,
+                    items: [
+                        "Fasnacht Soldier Mask",
+                        "Fasnacht Toothy Man Mask",
+                        "Fasnacht Witch Mask",
+                        "Fasnacht Giant Mask",
+                        "Fasnacht Owl Mask"
+                    ]
+                },
+               
+            ];
+
+            function doRoll() {
+                var tbl = document.getElementById("rollsTable");
+
+                for (var i = tbl.rows.length - 1; i > 0; i--) {
+                    tbl.deleteRow(i);
+                }
+
+                var count = parseInt(document.getElementById("rollCount").value);
+
+                var j = 0;
+                for (var me of masks) {
+                    var k = 0;
+                    for (var m of me.items) {
+                        var rw = tbl.insertRow(tbl.rows.length);
+
+                        if (j % 2 == 1) {
+                            rw.style.backgroundColor = "#d9ead3";
+                        }
+
+                        var cll = rw.insertCell(rw.cells.length);
+                        cll.innerText = m;
+
+                        cll = rw.insertCell(rw.cells.length);
+                        cll.style.textAlign="right";
+                        cll.innerText = (me.itemChance * 100).toFixed(3) + "%";
+
+                        cll = rw.insertCell(rw.cells.length);
+                        cll.id = "R" + j + "_" + k;
+                        cll.style.textAlign = "right";
+                        cll.innerText = "0";
+
+                        cll = rw.insertCell(rw.cells.length);
+                        cll.id = "P" + j + "_" + k;
+                        cll.style.textAlign = "right";
+                        cll.style.paddingLeft = "20px";
+                        cll.innerText = "0.000%";
+
+                        cll = rw.insertCell(rw.cells.length);
+                        cll.id = "E" + j + "_" + k;
+                        cll.style.textAlign = "right";
+                        cll.innerText = (me.itemChance * count).toFixed(2);
+
+                        if (k == 0) {
+                            cll = rw.insertCell(rw.cells.length);
+                            cll.id = "G" + j;
+                            cll.style.textAlign = "right";
+                            cll.innerText = "0";
+                            cll.rowSpan = me.items.length;
+
+                            cll = rw.insertCell(rw.cells.length);
+                            cll.id = "GP" + j;
+                            cll.style.textAlign = "right";
+                            cll.innerText = "0";
+                            cll.rowSpan = me.items.length;
+                        }
+
+                        k++;
+                    }
+                    j++;
+                }
+
+                for (var i = 0; i < count; i++) {
+                    var j = 0;
+                    for (var me of masks) {
+                        if (Math.random() < me.chance) {
+
+                            var k = Math.floor(Math.random() * me.items.length);
+
+                            var rcll = document.getElementById("R" + j + "_" + k);
+                            var n = parseInt(rcll.innerText);
+                            rcll.innerText = n + 1;
+
+                            var pcll = document.getElementById("P" + j + "_" + k);
+
+                            pcll.innerText = ((n + 1.0) * 100 / count).toFixed(3) + "%";
+
+                            var rgcll = document.getElementById("G" + j);
+                            n = parseInt(rgcll.innerText);
+                            rgcll.innerText = n + 1;
+
+                            var pgcll = document.getElementById("GP" + j);
+
+                            pgcll.innerText = ((n + 1.0) * 100 / count).toFixed(3) + "%";
+
+                            break;
+                        }
+                        j++;
+                    }
+                }
+            }
+
+            document.getElementById("rollBtn").onclick = doRoll;
+
+            doRoll();
+        </script>
+    </body>
+</html>
