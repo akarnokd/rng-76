@@ -86,7 +86,11 @@
                 var count = parseInt(document.getElementById("rollCount").value);
 
                 var j = 0;
-                for (var me of masks) {
+                var reversed = [];
+                for (var i = 0; i < masks.length; i++) {
+                    reversed.push(masks[masks.length - i - 1]);
+                }
+                for (var me of reversed) {
                     var k = 0;
                     for (var m of me.items) {
                         var rw = tbl.insertRow(tbl.rows.length);
