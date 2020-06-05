@@ -110,6 +110,7 @@
                         cll.id = "R" + j + "_" + k;
                         cll.style.textAlign = "right";
                         cll.innerText = "0";
+                        cll.rollCount = 0;
 
                         cll = rw.insertCell(rw.cells.length);
                         cll.id = "P" + j + "_" + k;
@@ -128,6 +129,7 @@
                             cll.style.textAlign = "right";
                             cll.innerText = "0";
                             cll.rowSpan = me.items.length;
+                            cll.rollCount = 0;
 
                             cll = rw.insertCell(rw.cells.length);
                             cll.id = "GP" + j;
@@ -149,25 +151,33 @@
                             var k = Math.floor(Math.random() * me.items.length);
 
                             var rcll = document.getElementById("R" + j + "_" + k);
-                            var n = parseInt(rcll.innerText);
-                            rcll.innerText = n + 1;
-
-                            var pcll = document.getElementById("P" + j + "_" + k);
-
-                            pcll.innerText = ((n + 1.0) * 100 / count).toFixed(3) + "%";
+                            rcll.rollCount++;
 
                             var rgcll = document.getElementById("G" + j);
-                            n = parseInt(rgcll.innerText);
-                            rgcll.innerText = n + 1;
-
-                            var pgcll = document.getElementById("GP" + j);
-
-                            pgcll.innerText = ((n + 1.0) * 100 / count).toFixed(3) + "%";
+                            rgcll.rollCount++;
 
                             break;
                         }
                         j++;
                     }
+                }
+
+                for (var j = 0; j < masks.length; j++) {
+                    var me = masks[j];
+                    for (var k = 0; k < me.items.length; k++) {
+
+                        var rcll = document.getElementById("R" + j + "_" + k);
+                        rcll.innerText = rcll.rollCount;
+
+                        var pcll = document.getElementById("P" + j + "_" + k);
+                        pcll.innerText = ((rcll.rollCount * 100.0) / count).toFixed(3) + "%";
+                    }
+
+                    var rgcll = document.getElementById("G" + j);
+                    rgcll.innerText = rgcll.rollCount;
+
+                    var gpcll = document.getElementById("GP" + j);
+                    gpcll.innerText = ((rgcll.rollCount * 100.0) / count).toFixed(3) + "%";
                 }
             }
 
