@@ -33,6 +33,30 @@
             <button id='loadversion'>Load</button>
             &nbsp; (Note that the site downloads up to 3MB of data for the selected version!)
             <hr>
+            <table>
+                <tr>
+                    <td id='listsearchtip'>
+                    </td>
+                    <td>
+                        <input id='listsearchterm' type='text' style='width: 300px;' value='*fasnacht*'>&nbsp;<button id='listsearchbtn'>Find</button>
+                    </td>
+                    <td style='width: 30px;'></td>
+                    <td id='itemsearchtip'>
+
+                    </td>
+                    <td>
+                        <input id='itemsearchterm' type='text' style='width: 300px;' value='*raven*'>&nbsp;<button id='itemsearchbtn'>Find</button>
+                    </td>
+                </tr>
+            </table>
+            <hr>
+            <table id='searchresults'>
+
+            </table>
+            <hr>
+            <table id='listtable'>
+
+            </table>
         </center>
         <script>
             // property key is the FormID, property value is the Group string (4chars) concatenated with the EditorID
@@ -53,6 +77,26 @@
                 console.log(Object.keys(globals).length);
                 console.log(Object.keys(leveledLists).length);
                 console.log(Object.keys(curves).length);
+
+                // find cross references
+                for (var listID in leveledLists) {
+
+                    var lvli = leveledLists[listID];
+
+                    if (lvli.Entries !== undefined) {
+                        for (var entry of lvli.Entries) {
+
+                            var refList = leveledLists[entry.Object];
+
+                            if (refList !== undefined) {
+                                if (refList.Parents === undefined) {
+                                    refList.Parents = [];
+                                }
+                                refList.Parents.push(listID);
+                            }
+                        }
+                    }
+                }
             }
 
             function loadScript(src, callback) {
@@ -106,6 +150,383 @@
 
 
             document.getElementById("loadversion").onclick = doLoad;
+
+            var infoMap = new Map();
+            infoMap.set("ListSearch", 
+                "Enter the FormID (leading zeros can be omitted) or Editor ID of the leveled list to find."
+                + "<br>Use * to indicate a wildcard (e.g., *Fasnacht*)."
+                + "<br>Use commas to list alternative options."
+                + "<br>Spaces and capitalization are ignored."
+            );
+            infoMap.set("ItemSearch", 
+                "Enter the FormID (leading zeros can be omitted) or Editor ID of the item you want to locate in the leveled lists."
+                + "<br>Use * to indicate a wildcard (e.g., *Fixer*)."
+                + "<br>Use commas to list alternative options."
+                + "<br>Spaces and capitalization are ignored."
+            );
+
+            // add HTML explanation marker
+            function info(name) {
+                return "&nbsp;<sup><a href='#' style='font-size: 14; font-weight: bold;' onclick='showinfo(this, \"" + name + "\"); return false;'>Tip</a></sup>";
+            }
+
+            // popup for explanation
+            function showinfo(target, name) {
+                var div = document.getElementById("InfoDiv" + name);
+                if (div == null) {
+                    var div = document.createElement("div");
+                    div.style.border = "1px solid black";
+                    div.style.padding = "3px";
+                    div.style.position = "absolute";
+                    div.style.backgroundColor = "#FFFFD0";
+                    div.style.zIndex = 99;
+                    div.id = "InfoDiv" + name;
+                    var txt = infoMap.get(name);
+
+                    if (txt == null) {
+                        txt = "??? " + name + " ???";
+                    }
+                    txt += "<hr><font style='font-size: 14px'>Click to close.</font>";
+                    div.innerHTML = txt;
+
+                    target.parentElement.appendChild(div);
+                    div.onclick = function() {
+                        target.parentElement.removeChild(div);
+                    }
+                } else {
+                    target.parentElement.removeChild(div);
+                }
+            }
+
+            document.getElementById("listsearchtip").innerHTML = "Search leveled list " + info("ListSearch");
+            document.getElementById("itemsearchtip").innerHTML = "Search item in lists " + info("ItemSearch");
+
+            // paging support
+            var searchResults = [];
+
+            function parseSearchText(text) {
+
+                var result = text.split(",");
+                for (var i = 0; i < result.length; i++) {
+                    // remove spaces
+                    var entry = result[i];
+
+                    entry = entry.replace(" ", "");;
+                    entry = entry.replace(/\*/g, ".*");
+                    entry = entry.replace(/^0+/, "");
+                    entry = entry.toLowerCase();
+
+                    result[i] = new RegExp("^" + entry + "$");
+                }
+
+                return result;
+            }
+
+            function getEditorID(formID) {
+                var result = edids[formID];
+                if (result !== undefined) {
+                    return result.substring(4);
+                }
+                return "";
+            }
+
+            function getGroupID(formID) {
+                var result = edids[formID];
+                if (result !== undefined) {
+                    return result.substring(0, 4);
+                }
+                return "";
+            }
+
+            function createListLink(formID, text) {
+                return "<a href='#' onclick='showList(\"" + formID + "\"); return false;'>" + text + "</a>";
+            }
+
+            function chain(childID, parentID) {
+                // TODO implement
+            }
+
+            function showList(formID) {
+                var listTable = document.getElementById("listtable");
+
+                for (var i = listTable.rows.length - 1; i >= 0; i--) {
+                    listTable.deleteRow(i);
+                }
+
+                var lvli = leveledLists[formID];
+                var maxCols = 5;
+
+                var n = listTable.rows.length;
+                var row = listTable.insertRow(n);
+                var cll = row.insertCell(row.cells.length);
+                cll.innerHTML = getGroupID(formID) + ":" + formID + " &lt;" + getEditorID(formID) + "&gt; "
+                    + "<a href='https://nukacrypt.com/database/json/" + formID + "' target='_blank' title='See Nukacrypt data.'>&#x2622;&#x2622;&#x2622;</a>"
+                ;
+                cll.style.backgroundColor = "#FFCC00";
+                cll.style.fontWeight = "bold";
+                cll.colSpan = maxCols;
+
+                if (lvli === undefined) {
+                    n = listTable.rows.length;
+                    row = listTable.insertRow(n);
+                    cll = row.insertCell(row.cells.length);
+
+                    cll.innerText = "Table " + formID + " not found.";
+                } else {
+                    if (lvli.Parents !== undefined) {
+                        var n = listTable.rows.length;
+                        var row = listTable.insertRow(n);
+                        var cll = row.insertCell(row.cells.length);
+                        cll.colSpan = maxCols;
+                        cll.innerText = "Referenced from (" + lvli.Parents.length + ")";
+                        cll.style.backgroundColor = "#C0C0FF";
+                        cll.style.fontWeight = "bold";
+
+                        for (var ref of lvli.Parents) {
+                            n = listTable.rows.length;
+                            row = listTable.insertRow(n);
+
+                            cll = row.insertCell(row.cells.length);
+
+                            cll = row.insertCell(row.cells.length);
+                            cll.style.fontFamily = "monospace";
+                            cll.innerHTML = createListLink(ref, ref);
+
+                            cll = row.insertCell(row.cells.length);
+                            cll.style.fontFamily = "monospace";
+                            cll.innerHTML = createListLink(ref, getEditorID(ref));
+
+                            cll = row.insertCell(row.cells.length);
+                            cll.innerHTML = "<a href='https://nukacrypt.com/database/json/" + ref + "' target='_blank' title='See Nukacrypt data.'>&#x2622;&#x2622;&#x2622;</a>"
+
+                            cll = row.insertCell(row.cells.length);
+                            cll.innerHTML = "<button id='List" + formID + "_Parent" + ref + "'>Chain</button>";
+                            var btn = document.getElementById("List" + formID + "_Parent" + ref);
+
+                            let f = formID;
+                            let p = ref;
+                            btn.onclick = function() {
+                                chain(f, ref);
+                            };
+                        }
+                    }
+
+                    if (lvli.Conditions !== undefined) {
+
+                        n = listTable.rows.length;
+                        row = listTable.insertRow(n);
+                        cll = row.insertCell(row.cells.length);
+
+                        cll.innerText = "Conditions (" + lvli.Conditions.length + ")";
+                        cll.style.backgroundColor = "#C0C0FF";
+                        cll.style.fontWeight = "bold";
+                        cll.colSpan = maxCols;
+                    }
+                    if (lvli.Entries !== undefined) {
+                        n = listTable.rows.length;
+                        row = listTable.insertRow(n);
+                        cll = row.insertCell(row.cells.length);
+
+                        cll.innerText = "Entries (" + lvli.Entries.length + ")";
+                        cll.style.backgroundColor = "#C0C0FF";
+                        cll.style.fontWeight = "bold";
+                        cll.colSpan = maxCols;
+
+                        for (var entry of lvli.Entries) {
+                            n = listTable.rows.length;
+                            row = listTable.insertRow(n);
+
+                            var objectID = entry.Object;
+                            var objectEDIDFull = edids[objectID];
+                            var objectGroup = "";
+                            var objectName = "";
+                            if (objectEDIDFull !== undefined) {
+                                objectGroup = objectEDIDFull.substring(0, 4);
+                                objectName = objectEDIDFull.substring(4);
+                            }
+
+                            cll = row.insertCell(row.cells.length);
+                            cll.style.fontFamily = "monospace";
+                            cll.innerText = objectGroup;
+
+                            cll = row.insertCell(row.cells.length);
+                            cll.style.fontFamily = "monospace";
+                            if (objectGroup == "LVLI") {
+                                cll.innerHTML = createListLink(objectID, objectID);
+                            } else {
+                                cll.innerText = objectID;
+                            }
+
+                            cll = row.insertCell(row.cells.length);
+                            cll.style.fontFamily = "monospace";
+                            if (objectGroup == "LVLI") {
+                                cll.innerHTML = createListLink(objectID, objectName);
+                            } else {
+                                cll.innerText = objectName;
+                            }
+
+                            cll = row.insertCell(row.cells.length);
+                            cll.innerHTML = "<a href='https://nukacrypt.com/database/json/" + objectID + "' target='_blank' title='See Nukacrypt data.'>&#x2622;&#x2622;&#x2622;</a>"
+                        }
+                    }
+                }
+            }
+
+            function searchLists() {
+                var textField = document.getElementById("listsearchterm");
+                var regexps = parseSearchText(textField.value);
+
+                var resultsTable = document.getElementById("searchresults");
+
+                for (var i = resultsTable.rows.length - 1; i >= 0; i--) {
+                    resultsTable.deleteRow(i);
+                }
+
+                for (var formID in leveledLists) {
+                    var editorId = getEditorID(formID).toLowerCase();
+                    var match = false;
+
+                    var nozeroFormID = formID.replace(/^0+/, "").toLowerCase();
+                    while (nozeroFormID.charAt(0) == "0") {
+                        nozeroFormID = nozeroFormID.substring(1);
+                    }
+                    
+                    for (var regexp of regexps) {
+                        if (regexp.test(nozeroFormID)) {
+                            match = true;
+                            break;
+                        }
+                        if (regexp.test(editorId)) {
+                            match = true;
+                            break;
+                        }
+                    }
+
+                    if (match) {
+                        var n = resultsTable.rows.length;
+                        var row = resultsTable.insertRow(n);
+
+                        if (n % 2 != 0) {
+                            row.style.backgroundColor = "#E0E0E0";
+                        }
+
+                        /*
+                        var cll = row.insertCell(row.cells.length);
+                        cll.style.fontFamily = "monospace";
+                        cll.innerText = getGroupID(formID);
+                        */
+                        
+                        cll = row.insertCell(row.cells.length);
+                        cll.style.fontFamily = "monospace";
+                        cll.innerHTML = createListLink(formID, formID);
+
+                        cll = row.insertCell(row.cells.length);
+                        cll.style.fontFamily = "monospace";
+                        cll.innerHTML = createListLink(formID, getEditorID(formID));
+
+                        cll = row.insertCell(row.cells.length);
+                        cll.innerHTML = "<a href='https://nukacrypt.com/database/json/" + formID + "' target='_blank' title='See Nukacrypt data.'>&#x2622;&#x2622;&#x2622;</a>"
+                    }
+                }
+
+                if (resultsTable.rows.length == 0) {
+                    var n = resultsTable.rows.length;
+                    var row = resultsTable.insertRow(n);
+                    var cll = row.insertCell(row.cells.length);
+
+                    cll.innerText = "No leveled lists found.";
+                }
+            }
+
+            function searchItems() {
+                var textField = document.getElementById("itemsearchterm");
+                var regexps = parseSearchText(textField.value);
+
+                var resultsTable = document.getElementById("searchresults");
+
+                for (var i = resultsTable.rows.length - 1; i >= 0; i--) {
+                    resultsTable.deleteRow(i);
+                }
+
+                for (var formID in leveledLists) {
+                    var editorId = getEditorID(formID).toLowerCase();
+                    var lvli = leveledLists[formID];
+
+                    var match = false;
+
+                    if (lvli.Entries === undefined) {
+                        continue;
+                    }
+
+                    outer:
+                    for (var listEntries of lvli.Entries) {
+                        var entryId = listEntries.Object;
+                        var nozeroEntryID = entryId.replace(/^0+/, "").toLowerCase();
+                        var entryEditorId = getEditorID(entryId).toLowerCase()
+
+                        for (var regexp of regexps) {
+                            if (regexp.test(nozeroEntryID)) {
+                                match = true;
+                                break outer;
+                            }
+                            if (regexp.test(entryEditorId)) {
+                                match = true;
+                                break outer;
+                            }
+                        }
+                    }
+
+                    if (match) {
+                        var n = resultsTable.rows.length;
+                        var row = resultsTable.insertRow(n);
+
+                        if (n % 2 != 0) {
+                            row.style.backgroundColor = "#E0E0E0";
+                        }
+
+                        /*
+                        var cll = row.insertCell(row.cells.length);
+                        cll.style.fontFamily = "monospace";
+                        cll.innerText = getGroupID(formID);
+                        */
+                        
+                        cll = row.insertCell(row.cells.length);
+                        cll.style.fontFamily = "monospace";
+                        cll.innerHTML = createListLink(formID, formID);
+
+                        cll = row.insertCell(row.cells.length);
+                        cll.style.fontFamily = "monospace";
+                        cll.innerHTML = createListLink(formID, getEditorID(formID));
+
+                        cll = row.insertCell(row.cells.length);
+                        cll.innerHTML = "<a href='https://nukacrypt.com/database/json/" + formID + "' target='_blank'>&#x2622;&#x2622;&#x2622;</a>"
+                    }
+                }
+
+                if (resultsTable.rows.length == 0) {
+                    var n = resultsTable.rows.length;
+                    var row = resultsTable.insertRow(n);
+                    var cll = row.insertCell(row.cells.length);
+
+                    cll.innerText = "No leveled lists found.";
+                }
+            }
+
+            document.getElementById("listsearchbtn").onclick = searchLists;
+            document.getElementById("itemsearchbtn").onclick = searchItems;
+
+            document.getElementById("listsearchterm").onkeydown = function(evt) {
+                if (evt.keyCode == 13) {
+                    searchLists();
+                }
+            };
+            document.getElementById("itemsearchterm").onkeydown = function(evt) {
+                if (evt.keyCode == 13) {
+                    searchItems();
+                }
+            };
+
+            doLoad();
         </script>
     </body>
 </html>
