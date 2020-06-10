@@ -246,18 +246,14 @@
                 // TODO implement
             }
 
-            function showList(formID) {
-                var listTable = document.getElementById("listtable");
-
-                for (var i = listTable.rows.length - 1; i >= 0; i--) {
-                    listTable.deleteRow(i);
-                }
+            function generateTable(parent, formIDs, index) {
+                var formID = formIDs[index];
 
                 var lvli = leveledLists[formID];
                 var maxCols = 5;
 
-                var n = listTable.rows.length;
-                var row = listTable.insertRow(n);
+                var n = parent.rows.length;
+                var row = parent.insertRow(n);
                 var cll = row.insertCell(row.cells.length);
                 cll.innerHTML = getGroupID(formID) + ":" + formID + " &lt;" + getEditorID(formID) + "&gt; "
                     + "<a href='https://nukacrypt.com/database/json/" + formID + "' target='_blank' title='See Nukacrypt data.'>&#x2622;&#x2622;&#x2622;</a>"
@@ -267,15 +263,15 @@
                 cll.colSpan = maxCols;
 
                 if (lvli === undefined) {
-                    n = listTable.rows.length;
-                    row = listTable.insertRow(n);
+                    n = parent.rows.length;
+                    row = parent.insertRow(n);
                     cll = row.insertCell(row.cells.length);
 
                     cll.innerText = "Table " + formID + " not found.";
                 } else {
                     if (lvli.Parents !== undefined) {
-                        var n = listTable.rows.length;
-                        var row = listTable.insertRow(n);
+                        var n = parent.rows.length;
+                        var row = parent.insertRow(n);
                         var cll = row.insertCell(row.cells.length);
                         cll.colSpan = maxCols;
                         cll.innerText = "Referenced from (" + lvli.Parents.length + ")";
@@ -283,8 +279,8 @@
                         cll.style.fontWeight = "bold";
 
                         for (var ref of lvli.Parents) {
-                            n = listTable.rows.length;
-                            row = listTable.insertRow(n);
+                            n = parent.rows.length;
+                            row = parent.insertRow(n);
 
                             cll = row.insertCell(row.cells.length);
 
@@ -300,21 +296,35 @@
                             cll.innerHTML = "<a href='https://nukacrypt.com/database/json/" + ref + "' target='_blank' title='See Nukacrypt data.'>&#x2622;&#x2622;&#x2622;</a>"
 
                             cll = row.insertCell(row.cells.length);
-                            cll.innerHTML = "<button id='List" + formID + "_Parent" + ref + "'>Chain</button>";
-                            var btn = document.getElementById("List" + formID + "_Parent" + ref);
 
-                            let f = formID;
-                            let p = ref;
+                            var btn = document.createElement("button");
+                            cll.appendChild(btn);
+
+                            btn.innerText = "Chain";
+
+                            let newFormIDs = [];
+                            newFormIDs.push(ref);
+                            for (var fi = index; fi < formIDs.length; fi++) {
+                                newFormIDs.push(formIDs[fi]);
+                            }
+
                             btn.onclick = function() {
-                                chain(f, ref);
+                                var mainTable = document.getElementById("listtable");
+
+                                clear(mainTable);
+
+                                generateTable(mainTable, newFormIDs, 0);
                             };
+                            if (index > 0 && formIDs[index - 1] == ref) {
+                                btn.disabled = true;
+                            }
                         }
                     }
 
                     if (lvli.Conditions !== undefined) {
 
-                        n = listTable.rows.length;
-                        row = listTable.insertRow(n);
+                        n = parent.rows.length;
+                        row = parent.insertRow(n);
                         cll = row.insertCell(row.cells.length);
 
                         cll.innerText = "Conditions (" + lvli.Conditions.length + ")";
@@ -323,8 +333,8 @@
                         cll.colSpan = maxCols;
                     }
                     if (lvli.Entries !== undefined) {
-                        n = listTable.rows.length;
-                        row = listTable.insertRow(n);
+                        n = parent.rows.length;
+                        row = parent.insertRow(n);
                         cll = row.insertCell(row.cells.length);
 
                         cll.innerText = "Entries (" + lvli.Entries.length + ")";
@@ -333,8 +343,8 @@
                         cll.colSpan = maxCols;
 
                         for (var entry of lvli.Entries) {
-                            n = listTable.rows.length;
-                            row = listTable.insertRow(n);
+                            n = parent.rows.length;
+                            row = parent.insertRow(n);
 
                             var objectID = entry.Object;
                             var objectEDIDFull = edids[objectID];
@@ -367,9 +377,68 @@
 
                             cll = row.insertCell(row.cells.length);
                             cll.innerHTML = "<a href='https://nukacrypt.com/database/json/" + objectID + "' target='_blank' title='See Nukacrypt data.'>&#x2622;&#x2622;&#x2622;</a>"
+
+                            if (objectGroup == "LVLI" ) {
+                                cll = row.insertCell(row.cells.length);
+                                var btn = document.createElement("button");
+                                btn.innerText = "Open";
+                                cll.appendChild(btn);
+
+                                let newFormIDs = [];
+                                for (var fi = 0; fi <= index; fi++) {
+                                    newFormIDs.push(formIDs[fi]);
+                                }
+                                newFormIDs.push(objectID);
+                                btn.onclick = function() {
+                                    var mainTable = document.getElementById("listtable");
+
+                                    clear(mainTable);
+
+                                    generateTable(mainTable, newFormIDs, 0);
+                                };
+
+                                if (formIDs.length > index + 1 && formIDs[index + 1] == objectID) {
+                                    n = parent.rows.length;
+                                    row = parent.insertRow(n);
+
+                                    cll = row.insertCell(row.cells.length);
+                                    cll.colSpan = maxCols;
+                                    cll.style.paddingLeft = "40px";
+                                    cll.style.border = "1px solid black";
+
+                                    var innerTable = document.createElement("table");
+                                    cll.appendChild(innerTable);
+
+                                    generateTable(innerTable, formIDs, index + 1);
+
+                                    btn.innerText = "Close";
+                                    let closeFormIDs = formIDs.slice(0, index + 1);
+                                    btn.onclick = function() {
+                                        var mainTable = document.getElementById("listtable");
+
+                                        clear(mainTable);
+
+                                        generateTable(mainTable, closeFormIDs, 0);
+                                    };
+                                }
+                            }
                         }
                     }
                 }
+            }
+
+            function clear(table) {
+                for (var i = table.rows.length - 1; i >= 0; i--) {
+                    table.deleteRow(i);
+                }
+            }
+
+            function showList(formID) {
+                var listTable = document.getElementById("listtable");
+
+                clear(listTable);
+
+                generateTable(listTable, [formID], 0);
             }
 
             function searchLists() {
@@ -378,9 +447,7 @@
 
                 var resultsTable = document.getElementById("searchresults");
 
-                for (var i = resultsTable.rows.length - 1; i >= 0; i--) {
-                    resultsTable.deleteRow(i);
-                }
+                clear(resultsTable);
 
                 for (var formID in leveledLists) {
                     var editorId = getEditorID(formID).toLowerCase();
@@ -444,9 +511,7 @@
 
                 var resultsTable = document.getElementById("searchresults");
 
-                for (var i = resultsTable.rows.length - 1; i >= 0; i--) {
-                    resultsTable.deleteRow(i);
-                }
+                clear(resultsTable);
 
                 for (var formID in leveledLists) {
                     var editorId = getEditorID(formID).toLowerCase();
