@@ -38,14 +38,14 @@
                     <td id='listsearchtip'>
                     </td>
                     <td>
-                        <input id='listsearchterm' type='text' style='width: 300px;' value='*fasnacht*'>&nbsp;<button id='listsearchbtn'>Find</button>
+                        <input id='listsearchterm' name='listsearchterm' type='text' style='width: 300px;' value='' autocomplete="on">&nbsp;<button id='listsearchbtn'>Find</button>
                     </td>
                     <td style='width: 30px;'></td>
                     <td id='itemsearchtip'>
 
                     </td>
                     <td>
-                        <input id='itemsearchterm' type='text' style='width: 300px;' value='*raven*'>&nbsp;<button id='itemsearchbtn'>Find</button>
+                        <input id='itemsearchterm' name='itemsearchterm' type='text' style='width: 300px;' value='' autocomplete="on">&nbsp;<button id='itemsearchbtn'>Find</button>
                     </td>
                     <td style='padding-left: 30px'>
                         <button id='clearResults'>Clear results</button>
@@ -838,7 +838,7 @@
                             ignoreFlag = ignoreFlag | 2;
                             continue;
                         }
-                        if (!includeDebug && editorId.includes("debug")) {
+                        if (!includeDebug && (editorId.includes("debug") || editorId.includes("test"))) {
                             ignoreFlag = ignoreFlag | 4;
                             continue;
                         }
@@ -951,7 +951,7 @@
                             ignoreFlag = ignoreFlag | 2;
                             continue;
                         }
-                        if (!includeDebug && editorId.includes("debug")) {
+                        if (!includeDebug && (editorId.includes("debug") || editorId.includes("test"))) {
                             ignoreFlag = ignoreFlag | 4;
                             continue;
                         }
