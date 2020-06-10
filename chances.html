@@ -47,6 +47,9 @@
                     <td>
                         <input id='itemsearchterm' type='text' style='width: 300px;' value='*raven*'>&nbsp;<button id='itemsearchbtn'>Find</button>
                     </td>
+                    <td style='padding-left: 30px'>
+                        <button id='clearResults'>Clear results</button>
+                    </td>
                 </tr>
                 <tr>
                     <td colspan='5' style='text-align: center;'>
@@ -356,6 +359,56 @@
                     + "</a>";
             }
 
+            function buildConditionEntry(parent, entry, maxCols) {
+                if (entry.Conditions !== undefined) {
+                    n = parent.rows.length;
+                    row = parent.insertRow(n);
+                    cll = row.insertCell(row.cells.length);
+                    cll.colSpan = maxCols;
+                    cll.style.paddingLeft = "60px";
+
+                    var innerTbl = document.createElement("table");
+                    innerTbl.style.width = "100%";
+                    cll.appendChild(innerTbl);
+
+                    row = innerTbl.insertRow(0);
+                    cll = row.insertCell(0);
+
+                    cll.innerText = "Conditions (" + entry.Conditions.length + ")";
+                    cll.style.backgroundColor = "#FFC0FF";
+                    cll.style.fontWeight = "bold";
+
+                    for (var cond of entry.Conditions) {
+                        row = innerTbl.insertRow(innerTbl.rows.length);
+                        cll = row.insertCell(0);
+
+                        cll.style.backgroundColor = "E0E0E0";
+
+                        var txt = "&nbsp;&nbsp;&nbsp;<b>" + cond.FunctionName + "</b>";
+
+                        if (cond.FunctionName === "HasLearnedRecipe") {
+                            txt += "(" + createNukaLink(cond.Param1Ref) + ")";
+                        }
+
+                        cll.innerHTML = txt;
+
+                        if (entry.Conditions.length > 1) {
+                            row = innerTbl.insertRow(innerTbl.rows.length);
+                            cll = row.insertCell(0);
+                            cll.style.textAlign = "center";
+                            cll.style.fontWeight = "bold";
+
+                            if ((cond.Operator & 1) == 0) {
+                                cll.innerText = "{ AND }";
+                            } else {
+                                cll.innerText = "{ OR }";
+                            }
+
+                        }
+                    }
+                }
+            }
+
             function buildValueEntry(parent, omiss, maxCols, title, formatter) {
                 n = parent.rows.length;
                 row = parent.insertRow(n);
@@ -364,6 +417,7 @@
                 cll.style.paddingLeft = "60px";
 
                 var innerTbl = document.createElement("table");
+                innerTbl.style.borderCollapse = "collapse";
                 innerTbl.style.width = "100%";
                 cll.appendChild(innerTbl);
 
@@ -441,6 +495,7 @@
                     cll.colSpan = maxCols;
                     
                     var innerTbl = document.createElement("table");
+                    innerTbl.style.borderCollapse = "collapse";
                     innerTbl.style.width = "100%";
                     cll.appendChild(innerTbl);
 
@@ -609,6 +664,8 @@
 
                             var omissChanceEntry = decodeValue(entry, "LVOV", "LVOC", "LVOT");
                             buildValueEntry(parent, omissChanceEntry, maxCols, "Omission chance", value => value.toFixed(3) + "%");
+
+                            buildConditionEntry(parent, entry, maxCols);
 
                             n = parent.rows.length;
                             row = parent.insertRow(n);
@@ -899,6 +956,10 @@
                 if (evt.keyCode == 13) {
                     searchItems();
                 }
+            };
+
+            document.getElementById("clearResults").onclick = function() {
+                clear(document.getElementById("searchresults"));
             };
 
             var q = location.search;
