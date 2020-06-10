@@ -457,6 +457,18 @@
                 }
             }
 
+            function checkConditionsMutual(conditionList) {
+                if (conditionList !== undefined) {
+                    for (var ce of conditionList) {
+                        if (ce.FunctionName === "EditorLocationHasKeyword") {
+                            return true;
+                        }
+                        // TODO expand as necessary
+                    }
+                }
+                return false;
+            }
+
             
             function generateTable(parent, formIDs, index, parentChance) {
                 var formID = formIDs[index];
@@ -675,16 +687,23 @@
                             cll = row.insertCell(row.cells.length);
                             cll.colSpan = Math.max(1, maxCols - 3);
 
+
+                            // calculate entry chance
                             var entryChance = parentChance * (1 - omissChanceList.value / 100.0);
                             if (pickUniformRandom) {
                                 entryChance *= 1.0 / lvli.Entries.length;
                             }
                             else if (firstPickFromAll) {
-                                entryChance *= picksSoFar * (1 - omissChanceEntry.value / 100.0);
-                                picksSoFar *= omissChanceEntry.value / 100;
+                                // mutual conditions on all entries keeps the parent+list chance
+                                if (!checkConditionsMutual(entry.Conditions)) {
+                                    entryChance *= picksSoFar * (1 - omissChanceEntry.value / 100.0);
+                                    picksSoFar *= omissChanceEntry.value / 100;
+                                }
                             } else {
                                 entryChance *= (1 - omissChanceEntry.value / 100.0);
                             }
+                            // calculate entry chance
+
 
                             var chanceTable = document.createElement("table");
                             cll.appendChild(chanceTable);
