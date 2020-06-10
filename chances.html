@@ -22,7 +22,7 @@
     </head>
     <body>
         <center>
-            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Drop Chances (0.0.1)</span><br/>
+            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Drop Chances (0.0.2)</span><br/>
             <br/>
             <br/>
             Select version:
@@ -57,6 +57,7 @@
                         <input type='checkbox' id='IncludeCut'><label for='IncludeCut'>Include cut content</label>&nbsp;&nbsp;&nbsp;
                         <input type='checkbox' id='IncludeDebug'><label for='IncludeDebug'>Include debug content</label>&nbsp;&nbsp;&nbsp;
                         <input type='checkbox' id='SortByEditorID' checked><label for='SortByEditorID'>Sort by EditorID</label>&nbsp;&nbsp;&nbsp;
+                        <input type='checkbox' id='Coalesce' checked><label for='Coalesce'>Coalesce duplicate entries</label>
                     </td>
                 </tr>
             </table>
@@ -104,7 +105,9 @@
                                 if (refList.Parents === undefined) {
                                     refList.Parents = [];
                                 }
-                                refList.Parents.push(listID);
+                                if (!refList.Parents.includes(listID)) {
+                                    refList.Parents.push(listID);
+                                }
                             }
                         }
                     }
@@ -378,34 +381,41 @@
                     cll.style.backgroundColor = "#FFC0FF";
                     cll.style.fontWeight = "bold";
 
-                    for (var cond of entry.Conditions) {
+                    buildConditionItem(innerTbl, entry);
+                }
+            }
+
+            function buildConditionItem(innerTbl, entry) {
+                var i = 0;
+                for (var cond of entry.Conditions) {
+                    row = innerTbl.insertRow(innerTbl.rows.length);
+                    cll = row.insertCell(0);
+
+                    cll.style.backgroundColor = "E0E0E0";
+
+                    var txt = "&nbsp;&nbsp;&nbsp;<b>" + cond.FunctionName + "</b>";
+
+                    if (cond.FunctionName === "HasLearnedRecipe"
+                        || cond.FunctionName === "GetIsInRegion") {
+                        txt += "(" + createNukaLink(cond.Param1Ref) + ")";
+                    }
+
+                    cll.innerHTML = txt;
+
+                    if (entry.Conditions.length > 1 && i < entry.Conditions.length - 1) {
                         row = innerTbl.insertRow(innerTbl.rows.length);
                         cll = row.insertCell(0);
+                        cll.style.textAlign = "center";
+                        cll.style.fontWeight = "bold";
 
-                        cll.style.backgroundColor = "E0E0E0";
-
-                        var txt = "&nbsp;&nbsp;&nbsp;<b>" + cond.FunctionName + "</b>";
-
-                        if (cond.FunctionName === "HasLearnedRecipe") {
-                            txt += "(" + createNukaLink(cond.Param1Ref) + ")";
+                        if ((cond.Operator & 1) == 0) {
+                            cll.innerText = "{ AND }";
+                        } else {
+                            cll.innerText = "{ OR }";
                         }
 
-                        cll.innerHTML = txt;
-
-                        if (entry.Conditions.length > 1) {
-                            row = innerTbl.insertRow(innerTbl.rows.length);
-                            cll = row.insertCell(0);
-                            cll.style.textAlign = "center";
-                            cll.style.fontWeight = "bold";
-
-                            if ((cond.Operator & 1) == 0) {
-                                cll.innerText = "{ AND }";
-                            } else {
-                                cll.innerText = "{ OR }";
-                            }
-
-                        }
                     }
+                    i++;
                 }
             }
 
@@ -469,6 +479,14 @@
                 return false;
             }
 
+            function compareEntries(curr, prev) {
+                return curr.Object === prev.Object 
+                       && curr.LVIV === prev.LVIV
+                       && curr.LVOV === prev.LVOV
+                       && curr.LVOC === prev.LVOC 
+                       && curr.LVOT === prev.LVOT
+                       && curr.LVLV === prev.LVLV;
+            }
             
             function generateTable(parent, formIDs, index, parentChance) {
                 var formID = formIDs[index];
@@ -601,6 +619,20 @@
                         cll.style.backgroundColor = "#C0C0FF";
                         cll.style.fontWeight = "bold";
                         cll.colSpan = maxCols;
+
+                        n = parent.rows.length;
+                        row = parent.insertRow(n);
+                        cll = row.insertCell(row.cells.length);
+                        cll.colSpan = maxCols;
+                        var innerTbl = document.createElement("table");
+                        innerTbl.style.width = "100%";
+                        innerTbl.style.paddingLeft = "20px";
+                        cll.appendChild(innerTbl);
+
+                        row = innerTbl.insertRow(0);
+                        cll = row.insertCell(0);
+
+                        buildConditionItem(innerTbl, lvli);
                     }
                     if (lvli.Entries !== undefined) {
 
@@ -610,6 +642,7 @@
                         var firstPickFromAll = flagsUseAll && max === 1;
                         var useAll = flagsUseAll && max === 0;
                         var pickUniformRandom = !flagsUseAll;
+                        var uniformChance = 1.0 / lvli.Entries.length;
 
                         var picksSoFar = 1;
 
@@ -621,8 +654,47 @@
                         cll.style.backgroundColor = "#C0C0FF";
                         cll.style.fontWeight = "bold";
                         cll.colSpan = maxCols;
+                        var entries = [];
 
-                        for (var entry of lvli.Entries) {
+                        // coalesce same entries
+                        if (document.getElementById("Coalesce").checked) {
+                            var entriesCopy = JSON.parse(JSON.stringify(lvli.Entries));
+
+                            for (var i = entriesCopy.length - 1; i > 0; i--) {
+                                var curr = entriesCopy[i];
+                                if (curr.coalesced === undefined) {
+                                    curr.coalesced = 1;
+                                }
+                                if (curr.LVIV === undefined) {
+                                    curr.LVIV = 1;
+                                }
+                                for (var j = i - 1; j >= 0; j--) {
+                                    var prev = entriesCopy[j];
+                                    if (prev.coalesced === undefined) {
+                                        prev.coalesced = 1;
+                                    }
+                                    if (prev.LVIV === undefined) {
+                                        prev.LVIV = 1;
+                                    }
+
+                                    if (compareEntries(curr, prev)) {
+                                        curr.ignore = true;
+                                        prev.coalesced += curr.coalesced;
+                                        break;
+                                    }
+                                }
+                            }
+
+                            for (var e of entriesCopy) {
+                                if (!e.ignore) {
+                                    entries.push(e);
+                                }
+                            }
+                        } else {
+                            entries = lvli.Entries;
+                        }
+
+                        for (var entry of entries) {
                             n = parent.rows.length;
                             row = parent.insertRow(n);
 
@@ -654,6 +726,9 @@
                             } else {
                                 cll.innerText = objectName;
                             }
+                            if (entry.LVIV > 1) {
+                                cll.innerHTML += "&nbsp;<span style='color: blue; font-weight: bold; border: 1px dotted blue;'>&nbsp;x&nbsp;" + entry.LVIV + "&nbsp;</span>";
+                            }
 
                             cll = row.insertCell(row.cells.length);
                             cll.innerHTML = "<a href='https://nukacrypt.com/database/json/" + objectID + "' target='_blank' title='See Nukacrypt data.'>&#x2622;</a>"
@@ -676,6 +751,10 @@
 
                             var omissChanceEntry = decodeValue(entry, "LVOV", "LVOC", "LVOT");
                             buildValueEntry(parent, omissChanceEntry, maxCols, "Omission chance", value => value.toFixed(3) + "%");
+                            var levelEntry = decodeValue(entry, "LVLV", "LVOG", "ZZZZ");
+                            if (levelEntry.value > 1) {
+                                buildValueEntry(parent, levelEntry, maxCols, "Minimum level", value => value);
+                            }
 
                             buildConditionEntry(parent, entry, maxCols);
 
@@ -691,7 +770,7 @@
                             // calculate entry chance
                             var entryChance = parentChance * (1 - omissChanceList.value / 100.0);
                             if (pickUniformRandom) {
-                                entryChance *= 1.0 / lvli.Entries.length;
+                                entryChance *= uniformChance * (entry.coalesced !== undefined ? entry.coalesced : 1);
                             }
                             else if (firstPickFromAll) {
                                 // mutual conditions on all entries keeps the parent+list chance
@@ -760,6 +839,12 @@
 
                 tableLink.href = "?patch=" + patch + "&formids=" + encodeURIComponent(formIDs.join("-"));
                 tableLink.style.display = "inline";
+
+                var coalesce = document.getElementById("Coalesce");
+                let fids = formIDs;
+                coalesce.oninput = function() {
+                    recreateMainTable(fids);
+                };
             }
 
             function clear(table) {
