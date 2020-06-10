@@ -38,7 +38,7 @@
                     <td id='listsearchtip'>
                     </td>
                     <td>
-                        <input id='listsearchterm' type='text' style='width: 300px;' value='*fasnacht*'>&nbsp;<button id='listsearchbtn'>Find</button>
+                        <input id='listsearchterm' type='text' style='width: 300px;' value='0045EC2C,00439874,00439714'>&nbsp;<button id='listsearchbtn'>Find</button>
                     </td>
                     <td style='width: 30px;'></td>
                     <td id='itemsearchtip'>
@@ -242,11 +242,153 @@
                 return "<a href='#' onclick='showList(\"" + formID + "\"); return false;'>" + text + "</a>";
             }
 
-            function chain(childID, parentID) {
-                // TODO implement
+            function interpolate(curveTable, x) {
+                var first = curveTable[0];
+                if (x <= first.x) {
+                    return first.y;
+                }
+                var last = curveTable[curveTable.length - 1];
+                if (last <= x) {
+                    return last.y;
+                }
+                for (var i = 0; i < curveTable.length - 1; i++) {
+                    var curr = curveTable[i];
+                    var next = curveTable[i + 1];
+
+                    if (curr.x <= x && x < next.x) {
+                        var step = next.x - curr.x;
+                        var raise = next.y - curr.y;
+
+                        var xrate = (x - curr.x) / step;
+
+                        var yrate = curr.y + raise * xrate;
+
+                        return yrate;
+                    }
+                }
+                return NaN;
             }
 
-            function generateTable(parent, formIDs, index) {
+            function decodeValue(entry, keyDirect, keyGlobal, keyCurve) {
+                var curveID = entry[keyCurve];
+                var globalID = entry[keyGlobal];
+                if (curveID !== undefined) {
+                    var curveTable = curves[curveID];
+                    if (curveTable !== undefined) {
+                        if (globalID !== undefined) {
+                            var globalValue = globals[globalID];
+                            if (globalValue !== undefined) {
+                                var v = interpolate(curveTable, globalValue);                            
+                                return {
+                                    type: "Curve",
+                                    id: curveID,
+                                    g: globalID,
+                                    x: globalValue,
+                                    value: v
+                                };
+                            }
+
+                            return {
+                                type: "Curve",
+                                id: curveID,
+                                x: globalID,
+                                error: "Global value not found"
+                            };
+                        }
+                        return {
+                            type: "Curve",
+                            id: curveID,
+                            error: "Global reference entry missing"
+                        }
+                    }
+                    return {
+                        type: "Curve",
+                        id: curveID,
+                        error: "Curve table not found."
+                    }
+                }
+                if (globalID !== undefined) {
+                    var globalValue = globals[globalID];
+                    if (globalValue !== undefined) {
+                        return {
+                            type: "Global",
+                            id: globalID,
+                            value: globalValue
+                        };
+                    }
+                    return {
+                        type: "Global",
+                        id: globalID,
+                        error: "Global value not found"
+                    }
+                }
+
+                var direct = entry[keyDirect];
+                if (direct === undefined) {
+                    direct = 0;
+                }
+
+                return {
+                    type: "Constant",
+                    value: direct
+                };
+            }
+
+            function createNukaLink(formID) {
+                return "<a href='https://nukacrypt.com/database/json/" + formID + "' target='_blank' title='See Nukacrypt data.'>&#x2622;&nbsp;"
+                    + getGroupID(formID) + ":" + formID + " &lt;" + getEditorID(formID) + "&gt;"
+                    + "</a>";
+            }
+
+            function buildValueEntry(parent, omiss, maxCols, title, formatter) {
+                n = parent.rows.length;
+                row = parent.insertRow(n);
+                cll = row.insertCell(row.cells.length);
+                cll.colSpan = maxCols;
+                cll.style.paddingLeft = "60px";
+
+                var innerTbl = document.createElement("table");
+                innerTbl.style.width = "100%";
+                cll.appendChild(innerTbl);
+
+                row = innerTbl.insertRow(0);
+                cll = row.insertCell(0);
+
+                cll.style.backgroundColor = "C0FFC0";
+
+                var omissSpacer = "<br><span style='margin-left: 20px;'></span>";
+
+                if (omiss.type === "Constant") {
+                    cll.innerHTML = title + " (constant): <b>" + formatter(omiss.value) + "</b>";
+                }
+                else if (omiss.type === "Global") {
+                    if (omiss.error === undefined) {
+                        cll.innerHTML = title + " (global): <b>" + formatter(omiss.value) + "</b>" + omissSpacer
+                            + createNukaLink(omiss.id)
+                        ;
+                    } else {
+                        cll.innerHTML = title + " (global): <b style='color: red;'>" + omiss.error + "</b>" + omissSpacer
+                            + createNukaLink(omiss.id)
+                        ;
+                    }
+                }
+                else if (omiss.type == "Curve") {
+                    if (omiss.error === undefined) {
+                        cll.innerHTML = title + " (curve): <b>" + formatter(omiss.value) + "</b>" + omissSpacer
+                            + "Table: " + createNukaLink(omiss.id) + omissSpacer
+                            + "Global: " + createNukaLink(omiss.g) + " = " + omiss.x
+                        ;
+                    } else {
+                        cll.innerHTML = title + " (curve): <b style='color: red;'>" + omiss.error + "</b>" + omissSpacer
+                            + "Table: " + createNukaLink(omiss.id)
+                            + "Global: " + createNukaLink(omiss.g)
+                        ;
+                    }
+                }
+            }
+
+            
+            function generateTable(parent, formIDs, index, parentChance) {
                 var formID = formIDs[index];
 
                 var lvli = leveledLists[formID];
@@ -256,7 +398,7 @@
                 var row = parent.insertRow(n);
                 var cll = row.insertCell(row.cells.length);
                 cll.innerHTML = getGroupID(formID) + ":" + formID + " &lt;" + getEditorID(formID) + "&gt; "
-                    + "<a href='https://nukacrypt.com/database/json/" + formID + "' target='_blank' title='See Nukacrypt data.'>&#x2622;&#x2622;&#x2622;</a>"
+                    + "<a href='https://nukacrypt.com/database/json/" + formID + "' target='_blank' title='See Nukacrypt data.'>&#x2622;</a>"
                 ;
                 cll.style.backgroundColor = "#FFCC00";
                 cll.style.fontWeight = "bold";
@@ -269,13 +411,20 @@
 
                     cll.innerText = "Table " + formID + " not found.";
                 } else {
+                    var omissChanceList = decodeValue(lvli, "LVCV", "LVLG", "LVCT");
+                    buildValueEntry(parent, omissChanceList, maxCols, "Omission chance", value => value.toFixed(3) + "%");
+
+                    var maxValueList = decodeValue(lvli, "LVMV", "LVMG", "LVMT");
+                    buildValueEntry(parent, maxValueList, maxCols, "Max value", value => value + "");
+                    var flagsList = lvli["LVLF"];
+
                     if (lvli.Parents !== undefined) {
                         var n = parent.rows.length;
                         var row = parent.insertRow(n);
                         var cll = row.insertCell(row.cells.length);
                         cll.colSpan = maxCols;
                         cll.innerText = "Referenced from (" + lvli.Parents.length + ")";
-                        cll.style.backgroundColor = "#C0C0FF";
+                        cll.style.backgroundColor = "#C0FFFF";
                         cll.style.fontWeight = "bold";
 
                         for (var ref of lvli.Parents) {
@@ -293,7 +442,7 @@
                             cll.innerHTML = createListLink(ref, getEditorID(ref));
 
                             cll = row.insertCell(row.cells.length);
-                            cll.innerHTML = "<a href='https://nukacrypt.com/database/json/" + ref + "' target='_blank' title='See Nukacrypt data.'>&#x2622;&#x2622;&#x2622;</a>"
+                            cll.innerHTML = "<a href='https://nukacrypt.com/database/json/" + ref + "' target='_blank' title='See Nukacrypt data.'>&#x2622;</a>"
 
                             cll = row.insertCell(row.cells.length);
 
@@ -313,7 +462,7 @@
 
                                 clear(mainTable);
 
-                                generateTable(mainTable, newFormIDs, 0);
+                                generateTable(mainTable, newFormIDs, 0, 1);
                             };
                             if (index > 0 && formIDs[index - 1] == ref) {
                                 btn.disabled = true;
@@ -333,6 +482,10 @@
                         cll.colSpan = maxCols;
                     }
                     if (lvli.Entries !== undefined) {
+
+                        var useAll = (flagsList & 4) != 0;
+                        var entryBaseChance = 1;
+
                         n = parent.rows.length;
                         row = parent.insertRow(n);
                         cll = row.insertCell(row.cells.length);
@@ -376,9 +529,9 @@
                             }
 
                             cll = row.insertCell(row.cells.length);
-                            cll.innerHTML = "<a href='https://nukacrypt.com/database/json/" + objectID + "' target='_blank' title='See Nukacrypt data.'>&#x2622;&#x2622;&#x2622;</a>"
+                            cll.innerHTML = "<a href='https://nukacrypt.com/database/json/" + objectID + "' target='_blank' title='See Nukacrypt data.'>&#x2622;</a>"
 
-                            if (objectGroup == "LVLI" ) {
+                            if (objectGroup == "LVLI") {
                                 cll = row.insertCell(row.cells.length);
                                 var btn = document.createElement("button");
                                 btn.innerText = "Open";
@@ -394,33 +547,38 @@
 
                                     clear(mainTable);
 
-                                    generateTable(mainTable, newFormIDs, 0);
+                                    generateTable(mainTable, newFormIDs, 0, 1);
                                 };
+                            }
 
-                                if (formIDs.length > index + 1 && formIDs[index + 1] == objectID) {
-                                    n = parent.rows.length;
-                                    row = parent.insertRow(n);
+                            var omissChanceEntry = decodeValue(entry, "LVOV", "LVOC", "LVOT");
+                            buildValueEntry(parent, omissChanceEntry, maxCols, "Omission chance", value => value.toFixed(3) + "%");
 
-                                    cll = row.insertCell(row.cells.length);
-                                    cll.colSpan = maxCols;
-                                    cll.style.paddingLeft = "40px";
-                                    cll.style.border = "1px solid black";
+                            var entryCascadingChance = 1;
 
-                                    var innerTable = document.createElement("table");
-                                    cll.appendChild(innerTable);
+                            if (objectGroup == "LVLI" && formIDs.length > index + 1 && formIDs[index + 1] == objectID) {
+                                n = parent.rows.length;
+                                row = parent.insertRow(n);
 
-                                    generateTable(innerTable, formIDs, index + 1);
+                                cll = row.insertCell(row.cells.length);
+                                cll.colSpan = maxCols;
+                                cll.style.paddingLeft = "40px";
+                                cll.style.border = "1px solid black";
 
-                                    btn.innerText = "Close";
-                                    let closeFormIDs = formIDs.slice(0, index + 1);
-                                    btn.onclick = function() {
-                                        var mainTable = document.getElementById("listtable");
+                                var innerTable = document.createElement("table");
+                                cll.appendChild(innerTable);
 
-                                        clear(mainTable);
+                                generateTable(innerTable, formIDs, index + 1, entryCascadingChance);
 
-                                        generateTable(mainTable, closeFormIDs, 0);
-                                    };
-                                }
+                                btn.innerText = "Close";
+                                let closeFormIDs = formIDs.slice(0, index + 1);
+                                btn.onclick = function() {
+                                    var mainTable = document.getElementById("listtable");
+
+                                    clear(mainTable);
+
+                                    generateTable(mainTable, closeFormIDs, 0, 1);
+                                };
                             }
                         }
                     }
@@ -438,7 +596,7 @@
 
                 clear(listTable);
 
-                generateTable(listTable, [formID], 0);
+                generateTable(listTable, [formID], 0, 1);
             }
 
             function searchLists() {
@@ -492,7 +650,7 @@
                         cll.innerHTML = createListLink(formID, getEditorID(formID));
 
                         cll = row.insertCell(row.cells.length);
-                        cll.innerHTML = "<a href='https://nukacrypt.com/database/json/" + formID + "' target='_blank' title='See Nukacrypt data.'>&#x2622;&#x2622;&#x2622;</a>"
+                        cll.innerHTML = "<a href='https://nukacrypt.com/database/json/" + formID + "' target='_blank' title='See Nukacrypt data.'>&#x2622;</a>"
                     }
                 }
 
@@ -564,7 +722,7 @@
                         cll.innerHTML = createListLink(formID, getEditorID(formID));
 
                         cll = row.insertCell(row.cells.length);
-                        cll.innerHTML = "<a href='https://nukacrypt.com/database/json/" + formID + "' target='_blank'>&#x2622;&#x2622;&#x2622;</a>"
+                        cll.innerHTML = "<a href='https://nukacrypt.com/database/json/" + formID + "' target='_blank'>&#x2622;</a>"
                     }
                 }
 
