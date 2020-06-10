@@ -31,14 +31,14 @@
             </select>
             &nbsp;&nbsp;
             <button id='loadversion'>Load</button>
-            &nbsp; (Note that the site downloads up to 3MB of data for the selected version!)
+            <!-- &nbsp; (Note that the site downloads up to 3MB of data for the selected version!) -->
             <hr>
             <table>
                 <tr>
                     <td id='listsearchtip'>
                     </td>
                     <td>
-                        <input id='listsearchterm' type='text' style='width: 300px;' value='0045EC2C,00439874,00439714'>&nbsp;<button id='listsearchbtn'>Find</button>
+                        <input id='listsearchterm' type='text' style='width: 300px;' value='*fasnacht*'>&nbsp;<button id='listsearchbtn'>Find</button>
                     </td>
                     <td style='width: 30px;'></td>
                     <td id='itemsearchtip'>
@@ -48,12 +48,21 @@
                         <input id='itemsearchterm' type='text' style='width: 300px;' value='*raven*'>&nbsp;<button id='itemsearchbtn'>Find</button>
                     </td>
                 </tr>
+                <tr>
+                    <td colspan='5' style='text-align: center;'>
+                        <input type='checkbox' id='IncludeATX' checked><label for='IncludeATX'>Include Atom Shop</label>&nbsp;&nbsp;&nbsp;
+                        <input type='checkbox' id='IncludeCut'><label for='IncludeCut'>Include cut content</label>&nbsp;&nbsp;&nbsp;
+                        <input type='checkbox' id='IncludeDebug'><label for='IncludeDebug'>Include debug content</label>&nbsp;&nbsp;&nbsp;
+                        <input type='checkbox' id='SortByEditorID' checked><label for='SortByEditorID'>Sort by EditorID</label>&nbsp;&nbsp;&nbsp;
+                    </td>
+                </tr>
             </table>
             <hr>
             <table id='searchresults'>
 
             </table>
             <hr>
+            <a id='tableLink' href="#" target="_blank" style='display: none;'>Link to the selected setup below:</a><br/><br/>
             <table id='listtable'>
 
             </table>
@@ -96,6 +105,13 @@
                             }
                         }
                     }
+                }
+
+                var q = location.search;
+                if (q.includes("formids=")) {
+                    var idx = q.indexOf("formids=");
+                    var ids = q.substr(idx + 8).split("-");
+                    recreateMainTable(ids);
                 }
             }
 
@@ -418,6 +434,49 @@
                     buildValueEntry(parent, maxValueList, maxCols, "Max value", value => value + "");
                     var flagsList = lvli["LVLF"];
 
+                    n = parent.rows.length;
+                    row = parent.insertRow(n);
+                    cll = row.insertCell(row.cells.length);
+                    cll.style.paddingLeft = "60px";
+                    cll.colSpan = maxCols;
+                    
+                    var innerTbl = document.createElement("table");
+                    innerTbl.style.width = "100%";
+                    cll.appendChild(innerTbl);
+
+                    row = innerTbl.insertRow(0);
+                    cll = row.insertCell(0);
+                    cll.style.backgroundColor = "C0FFC0";
+                    var flagsTxt = "Flags (" + flagsList + "): ";
+
+                    if ((flagsList & 1) != 0) {
+                        flagsTxt += "<b>+level</b> "
+                    }
+                    if ((flagsList & 2) != 0) {
+                        flagsTxt += "<b>+each</b> "
+                    }
+                    if ((flagsList & 4) != 0) {
+                        flagsTxt += "<b>+all</b> "
+                    }
+                    if ((flagsList & 8) != 0) {
+                        flagsTxt += "<b>+u3</b> "
+                    }
+                    if ((flagsList & 16) != 0) {
+                        flagsTxt += "<b>+refspawn</b> "
+                    }
+                    if ((flagsList & 32) != 0) {
+                        flagsTxt += "<b>+u5</b> "
+                    }
+                    if ((flagsList & 64) != 0) {
+                        flagsTxt += "<b>+first-match-all-conditons</b> "
+                    }
+                    if ((flagsList & 128) != 0) {
+                        flagsTxt += "<b>+u7</b> "
+                    }
+
+
+                    cll.innerHTML = flagsTxt;
+
                     if (lvli.Parents !== undefined) {
                         var n = parent.rows.length;
                         var row = parent.insertRow(n);
@@ -458,11 +517,7 @@
                             }
 
                             btn.onclick = function() {
-                                var mainTable = document.getElementById("listtable");
-
-                                clear(mainTable);
-
-                                generateTable(mainTable, newFormIDs, 0, 1);
+                                recreateMainTable(newFormIDs);
                             };
                             if (index > 0 && formIDs[index - 1] == ref) {
                                 btn.disabled = true;
@@ -471,7 +526,6 @@
                     }
 
                     if (lvli.Conditions !== undefined) {
-
                         n = parent.rows.length;
                         row = parent.insertRow(n);
                         cll = row.insertCell(row.cells.length);
@@ -483,8 +537,14 @@
                     }
                     if (lvli.Entries !== undefined) {
 
-                        var useAll = (flagsList & 4) != 0;
-                        var entryBaseChance = 1;
+                        var flagsUseAll = (flagsList & 4) != 0;
+                        var max = maxValueList.value;
+
+                        var firstPickFromAll = flagsUseAll && max === 1;
+                        var useAll = flagsUseAll && max === 0;
+                        var pickUniformRandom = !flagsUseAll;
+
+                        var picksSoFar = 1;
 
                         n = parent.rows.length;
                         row = parent.insertRow(n);
@@ -543,18 +603,47 @@
                                 }
                                 newFormIDs.push(objectID);
                                 btn.onclick = function() {
-                                    var mainTable = document.getElementById("listtable");
-
-                                    clear(mainTable);
-
-                                    generateTable(mainTable, newFormIDs, 0, 1);
+                                    recreateMainTable(newFormIDs);
                                 };
                             }
 
                             var omissChanceEntry = decodeValue(entry, "LVOV", "LVOC", "LVOT");
                             buildValueEntry(parent, omissChanceEntry, maxCols, "Omission chance", value => value.toFixed(3) + "%");
 
-                            var entryCascadingChance = 1;
+                            n = parent.rows.length;
+                            row = parent.insertRow(n);
+                            cll = row.insertCell(row.cells.length);
+                            cll.colSpan = 2;
+
+                            cll = row.insertCell(row.cells.length);
+                            cll.colSpan = Math.max(1, maxCols - 3);
+
+                            var entryChance = parentChance * (1 - omissChanceList.value / 100.0);
+                            if (pickUniformRandom) {
+                                entryChance *= 1.0 / lvli.Entries.length;
+                            }
+                            else if (firstPickFromAll) {
+                                entryChance *= picksSoFar * (1 - omissChanceEntry.value / 100.0);
+                                picksSoFar *= omissChanceEntry.value / 100;
+                            } else {
+                                entryChance *= (1 - omissChanceEntry.value / 100.0);
+                            }
+
+                            var chanceTable = document.createElement("table");
+                            cll.appendChild(chanceTable);
+                            chanceTable.style.width = "100%";
+
+                            row = chanceTable.insertRow(0);
+                            cll = row.insertCell(0)
+                            cll.style.fontWeight = "bold";
+                            cll.innerText = "Drop chance (cumulative)";
+
+                            cll = row.insertCell(1)
+                            cll.style.textAlign = "right";
+                            cll.style.fontWeight = "bold";
+                            cll.innerText = (entryChance * 100.0).toFixed(3) + "%";
+                            cll.style.border = "1px dotted red";
+                            cll.style.color = "red";
 
                             if (objectGroup == "LVLI" && formIDs.length > index + 1 && formIDs[index + 1] == objectID) {
                                 n = parent.rows.length;
@@ -568,21 +657,33 @@
                                 var innerTable = document.createElement("table");
                                 cll.appendChild(innerTable);
 
-                                generateTable(innerTable, formIDs, index + 1, entryCascadingChance);
+                                generateTable(innerTable, formIDs, index + 1, entryChance);
 
                                 btn.innerText = "Close";
                                 let closeFormIDs = formIDs.slice(0, index + 1);
                                 btn.onclick = function() {
-                                    var mainTable = document.getElementById("listtable");
-
-                                    clear(mainTable);
-
-                                    generateTable(mainTable, closeFormIDs, 0, 1);
+                                    recreateMainTable(closeFormIDs);
                                 };
                             }
                         }
                     }
                 }
+            }
+
+            function recreateMainTable(formIDs) {
+                var mainTable = document.getElementById("listtable");
+
+                clear(mainTable);
+
+                generateTable(mainTable, formIDs, 0, 1);
+
+                var tableLink = document.getElementById("tableLink");
+
+                var patchSel = document.getElementById("versionselect");
+                var patch = patchSel.options[patchSel.selectedIndex].value;
+
+                tableLink.href = "?patch=" + patch + "&formids=" + encodeURIComponent(formIDs.join("-"));
+                tableLink.style.display = "inline";
             }
 
             function clear(table) {
@@ -592,11 +693,28 @@
             }
 
             function showList(formID) {
-                var listTable = document.getElementById("listtable");
+                recreateMainTable([formID]);
+            }
 
-                clear(listTable);
-
-                generateTable(listTable, [formID], 0, 1);
+            function createIgnoreRow(resultsTable, ignoreFlag) {
+                var n = resultsTable.rows.length;
+                var row = resultsTable.insertRow(n);
+                var cll = row.insertCell(row.cells.length);
+                cll.colSpan = 3;
+                cll.style.borderTop = "1px solid black";
+                cll.style.textAlign = "center";
+                cll.style.fontStyle = "italic";
+                var txt = [];
+                if ((ignoreFlag & 1) != 0) {
+                    txt.push("Atom Shop");
+                }
+                if ((ignoreFlag & 2) != 0) {
+                    txt.push("Cut content");
+                }
+                if ((ignoreFlag & 4) != 0) {
+                    txt.push("Debug content");
+                }
+                cll.innerText = "Entries found but ignored due to options: " + txt.join(", ");
             }
 
             function searchLists() {
@@ -606,6 +724,14 @@
                 var resultsTable = document.getElementById("searchresults");
 
                 clear(resultsTable);
+
+                var includeATX = document.getElementById("IncludeATX").checked;
+                var includeCut = document.getElementById("IncludeCut").checked;
+                var includeDebug = document.getElementById("IncludeDebug").checked;
+
+                var ignoreFlag = 0;
+
+                var foundList = [];
 
                 for (var formID in leveledLists) {
                     var editorId = getEditorID(formID).toLowerCase();
@@ -628,32 +754,65 @@
                     }
 
                     if (match) {
-                        var n = resultsTable.rows.length;
-                        var row = resultsTable.insertRow(n);
-
-                        if (n % 2 != 0) {
-                            row.style.backgroundColor = "#E0E0E0";
+                        if (!includeATX && editorId.startsWith("atx_")) {
+                            ignoreFlag = ignoreFlag | 1;
+                            continue;
+                        }
+                        if (!includeCut && (editorId.startsWith("zzz") || editorId.includes("cut"))) {
+                            ignoreFlag = ignoreFlag | 2;
+                            continue;
+                        }
+                        if (!includeDebug && editorId.includes("debug")) {
+                            ignoreFlag = ignoreFlag | 4;
+                            continue;
                         }
 
-                        /*
-                        var cll = row.insertCell(row.cells.length);
-                        cll.style.fontFamily = "monospace";
-                        cll.innerText = getGroupID(formID);
-                        */
-                        
-                        cll = row.insertCell(row.cells.length);
-                        cll.style.fontFamily = "monospace";
-                        cll.innerHTML = createListLink(formID, formID);
-
-                        cll = row.insertCell(row.cells.length);
-                        cll.style.fontFamily = "monospace";
-                        cll.innerHTML = createListLink(formID, getEditorID(formID));
-
-                        cll = row.insertCell(row.cells.length);
-                        cll.innerHTML = "<a href='https://nukacrypt.com/database/json/" + formID + "' target='_blank' title='See Nukacrypt data.'>&#x2622;</a>"
+                        foundList.push(formID);
                     }
                 }
 
+                generateSearchResults(resultsTable, foundList, ignoreFlag);
+            }
+
+            function generateSearchResults(resultsTable, foundList, ignoreFlag) {
+
+                if (document.getElementById("SortByEditorID").checked) {
+                    foundList.sort((a, b) => {
+                        var e1 = getEditorID(a);
+                        var e2 = getEditorID(b);
+                        return e1.localeCompare(e2);
+                    });
+                }
+
+                for (var formID of foundList) {
+                    var n = resultsTable.rows.length;
+                    var row = resultsTable.insertRow(n);
+
+                    if (n % 2 != 0) {
+                        row.style.backgroundColor = "#E0E0E0";
+                    }
+
+                    /*
+                    var cll = row.insertCell(row.cells.length);
+                    cll.style.fontFamily = "monospace";
+                    cll.innerText = getGroupID(formID);
+                    */
+                    
+                    cll = row.insertCell(row.cells.length);
+                    cll.style.fontFamily = "monospace";
+                    cll.innerHTML = createListLink(formID, formID);
+
+                    cll = row.insertCell(row.cells.length);
+                    cll.style.fontFamily = "monospace";
+                    cll.innerHTML = createListLink(formID, getEditorID(formID));
+
+                    cll = row.insertCell(row.cells.length);
+                    cll.innerHTML = "<a href='https://nukacrypt.com/database/json/" + formID + "' target='_blank' title='See Nukacrypt data.'>&#x2622;</a>"
+                }
+
+                if (ignoreFlag != 0) {
+                    createIgnoreRow(resultsTable, ignoreFlag);
+                } else
                 if (resultsTable.rows.length == 0) {
                     var n = resultsTable.rows.length;
                     var row = resultsTable.insertRow(n);
@@ -670,6 +829,14 @@
                 var resultsTable = document.getElementById("searchresults");
 
                 clear(resultsTable);
+
+                var includeATX = document.getElementById("IncludeATX").checked;
+                var includeCut = document.getElementById("IncludeCut").checked;
+                var includeDebug = document.getElementById("IncludeDebug").checked;
+
+                var ignoreFlag = 0;
+
+                var foundList = [];
 
                 for (var formID in leveledLists) {
                     var editorId = getEditorID(formID).toLowerCase();
@@ -700,39 +867,24 @@
                     }
 
                     if (match) {
-                        var n = resultsTable.rows.length;
-                        var row = resultsTable.insertRow(n);
-
-                        if (n % 2 != 0) {
-                            row.style.backgroundColor = "#E0E0E0";
+                        if (!includeATX && editorId.startsWith("atx_")) {
+                            ignoreFlag = ignoreFlag | 1;
+                            continue;
+                        }
+                        if (!includeCut && (editorId.startsWith("zzz") || editorId.includes("cut"))) {
+                            ignoreFlag = ignoreFlag | 2;
+                            continue;
+                        }
+                        if (!includeDebug && editorId.includes("debug")) {
+                            ignoreFlag = ignoreFlag | 4;
+                            continue;
                         }
 
-                        /*
-                        var cll = row.insertCell(row.cells.length);
-                        cll.style.fontFamily = "monospace";
-                        cll.innerText = getGroupID(formID);
-                        */
-                        
-                        cll = row.insertCell(row.cells.length);
-                        cll.style.fontFamily = "monospace";
-                        cll.innerHTML = createListLink(formID, formID);
-
-                        cll = row.insertCell(row.cells.length);
-                        cll.style.fontFamily = "monospace";
-                        cll.innerHTML = createListLink(formID, getEditorID(formID));
-
-                        cll = row.insertCell(row.cells.length);
-                        cll.innerHTML = "<a href='https://nukacrypt.com/database/json/" + formID + "' target='_blank'>&#x2622;</a>"
+                        foundList.push(formID);
                     }
                 }
 
-                if (resultsTable.rows.length == 0) {
-                    var n = resultsTable.rows.length;
-                    var row = resultsTable.insertRow(n);
-                    var cll = row.insertCell(row.cells.length);
-
-                    cll.innerText = "No leveled lists found.";
-                }
+                generateSearchResults(resultsTable, foundList, ignoreFlag);
             }
 
             document.getElementById("listsearchbtn").onclick = searchLists;
@@ -749,6 +901,24 @@
                 }
             };
 
+            var q = location.search;
+
+            if (q.includes("patch=")) {
+                var idx = q.indexOf("patch=");
+                var jdx = q.indexOf("&", idx + 1);
+                if (jdx < 0) {
+                    jdx = q.length;
+                }
+                var patch = q.substring(6, jdx);
+                var versionSelect = document.getElementById("versionselect");
+                for (var i = 0; i < versionSelect.options.length; i++) {
+                    var opt = versionSelect.options[i];
+                    if (opt.value === patch) {
+                        opt.selected = true;
+                        break;
+                    }
+                }         
+            }
             doLoad();
         </script>
     </body>
