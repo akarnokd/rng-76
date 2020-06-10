@@ -637,12 +637,14 @@
                     if (lvli.Entries !== undefined) {
 
                         var flagsUseAll = (flagsList & 4) != 0;
+                        var forEach = (flagsList & 3) != 0;
                         var max = maxValueList.value;
 
                         var firstPickFromAll = flagsUseAll && max === 1;
-                        var useAll = flagsUseAll && max === 0;
-                        var pickUniformRandom = !flagsUseAll;
+                        var useAll = !forEach && max !== 1;
+                        var pickUniformRandom = forEach;
                         var uniformChance = 1.0 / lvli.Entries.length;
+                        
 
                         var picksSoFar = 1;
 
