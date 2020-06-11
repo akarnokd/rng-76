@@ -780,9 +780,11 @@
 
                         if (!isAllLevel) {
                             for (var entry of entries) {
-                                var lvl = decodeValueOverride(entry, "LVLV", "LVOG", "ZZZZ");
-                                if (lvl <= settingsLevel) {
-                                    closestLevel = Math.max(closestLevel, lvl);
+                                if (evaluateConditions(entry.Conditions)) {
+                                    var lvl = decodeValueOverride(entry, "LVLV", "LVOG", "ZZZZ");
+                                    if (lvl <= settingsLevel) {
+                                        closestLevel = Math.max(closestLevel, lvl);
+                                    }
                                 }
                             }
                         }
@@ -1315,7 +1317,7 @@
                             entryNode.conditionMatch = evaluateConditions(entry.Conditions);
                         }
 
-                        if (isClosestLevel && entryNode.level <= settingsLevel) {
+                        if (isClosestLevel && entryNode.conditionMatch && entryNode.level <= settingsLevel) {
                             closestLevel = Math.max(closestLevel, entryNode.level);
                         }
 
