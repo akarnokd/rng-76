@@ -1226,6 +1226,9 @@
                         ) {
                         functionResult = getSettingsValue(fn + "_" + cond.Param1Ref);
                     }
+                    else if (fn === "GetLevel") {
+                        functionResult = getSettingsValue("MinLevel");
+                    }
 
                     var op = (cond.Operator & 0xFF) >> 5;
                     
