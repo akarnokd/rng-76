@@ -66,8 +66,27 @@
 
             </table>
             <hr>
-            <a id='tableLink' href="#" target="_blank" style='display: none;'>Link to the selected setup below:</a><br/><br/>
-            <table id='listtable'>
+            <a id='tableLink' href="#" target="_blank" style='display: none;'>Link to the selected setup below:</a><br/><br/><br/>
+            <span id='settingstoggle' style='border: 1px solid black; font-family: monospace; cursor: pointer;'>&nbsp;-&nbsp;</span>&nbsp;<b>List settings:</b>
+            <table id='settings' style='border-collapse: collapse; margin-top: 5px;'>
+                <tr>
+
+                    <td style='border: 1px solid gray; vertical-align: top;'>
+                        <div id="settingsCheckboxes" style='overflow-y: scroll; height: 150px;'>
+                        </div>
+                    </td>
+                    <td style='border: 1px solid gray; vertical-align: top;'>
+                        <div id="settingsComboboxes" style='overflow-y: scroll; height: 150px;'>
+                        </div>
+                    </td>
+                    <td style='border: 1px solid gray; vertical-align: top;'>
+                        <div id="settingsGlobals" style='overflow-y: scroll; height: 150px;'>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+            
+            <table id='listtable' style='margin-top: 15px;'>
 
             </table>
         </center>
@@ -393,12 +412,41 @@
 
                     cll.style.backgroundColor = "E0E0E0";
 
-                    var txt = "&nbsp;&nbsp;&nbsp;<b>" + cond.FunctionName + "</b>";
+                    var fn = cond.FunctionName;
+                    var txt = "&nbsp;&nbsp;&nbsp;<b>" + fn + "</b>";
 
-                    if (cond.FunctionName === "HasLearnedRecipe"
-                        || cond.FunctionName === "GetIsInRegion") {
+                    if (fn === "HasLearnedRecipe"
+                        || fn === "GetIsInRegion"
+                        || fn === "EditorLocationHasKeyword") {
                         txt += "(" + createNukaLink(cond.Param1Ref) + ")";
                     }
+
+                    var operatorKind = (cond.Operator & 0xFF) >> 5;
+                    if (operatorKind == 0) {
+                        txt += "&nbsp;==&nbsp;"
+                    }
+                    if (operatorKind == 1) {
+                        txt += "&nbsp;!=&nbsp;"
+                    }
+                    if (operatorKind == 2) {
+                        txt += "&nbsp;&gt;&nbsp;"
+                    }
+                    if (operatorKind == 3) {
+                        txt += "&nbsp;>=&nbsp;"
+                    }
+                    if (operatorKind == 4) {
+                        txt += "&nbsp;&lt;&nbsp;"
+                    }
+                    if (operatorKind == 5) {
+                        txt += "&nbsp;&lt;=&nbsp;"
+                    }
+
+                    if (cond.Value !== undefined) {
+                        txt += "<b>" + cond.Value + "</b>";
+                    } else {
+                        txt += "<b>" + globals[cond.Ref] + "</b><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(" + createNukaLink(cond.Ref) + ")";
+                    }
+
 
                     cll.innerHTML = txt;
 
@@ -534,14 +582,19 @@
                     cll.style.backgroundColor = "C0FFC0";
                     var flagsTxt = "Flags (" + flagsList + "): ";
 
-                    if ((flagsList & 1) != 0) {
-                        flagsTxt += "<b>+level</b> "
-                    }
-                    if ((flagsList & 2) != 0) {
-                        flagsTxt += "<b>+each</b> "
-                    }
                     if ((flagsList & 4) != 0) {
                         flagsTxt += "<b>+all</b> "
+                    } else {
+                        if ((flagsList & 1) != 0) {
+                            flagsTxt += "<b>+player-level</b> "
+                        } else {
+                            flagsTxt += "<b>+target-level</b> "
+                        }
+                        if ((flagsList & 2) != 0) {
+                            flagsTxt += "<b>+each-item</b> "
+                        } else {
+                            flagsTxt += "<b>+entire-list</b> "
+                        }
                     }
                     if ((flagsList & 8) != 0) {
                         flagsTxt += "<b>+u3</b> "
@@ -827,10 +880,232 @@
                 }
             }
 
+            // string key (function name or FormID) to its HTML control
+            var settingsMap = new Map();
+
+            var settingsCheckboxes = document.getElementById("settingsCheckboxes");
+            var settingsComboboxes = document.getElementById("settingsComboboxes");
+            var settingsGlobals = document.getElementById("settingsGlobals");
+
+            function gatherSettings(rootFormID) {
+                settingsCheckboxes.innerHTML = "";
+                settingsComboboxes.innerHTML = "";
+                settingsGlobals.innerHTML = "";
+                settingsMap.clear();
+
+                var lvli = leveledLists[rootFormID];
+
+                appendLevelInput();
+                gatherSettingsEntry(lvli);
+
+                let fid = rootFormID;
+
+                for (var input of settingsMap.values()) {
+                    input.oninput = function() {
+                        calculateChances(fid);
+                    };
+                }
+            }
+
+            var propertyNames = {
+                "LVLV": "Minimum level"
+            }
+
+            function appendTextBox(node, key, isRef) {
+                
+                var id = isRef ? node[key] : key;
+                if (settingsMap.get(id) != null) {
+                    return;
+                }
+
+                var span = document.createElement("span");
+                settingsGlobals.appendChild(span);
+                if (isRef) {
+                    span.innerHTML = createNukaLink(node[key]) + "&nbsp;&nbsp;";
+                } else {
+                    span.innerHTML = (propertyNames[key] !== undefined ? propertyNames[key] : key)  + "&nbsp;&nbsp;";
+                }
+
+                var input = document.createElement("input");
+                span.appendChild(input);
+                input.type = "text";
+                input.style.width = "50px";
+                input.id = isRef ? key + "_" + node[key] : key;
+                input.value = isRef ? globals[node[key]] : node[key];
+
+                var span2 = document.createElement("span");
+                span.appendChild(span2);
+                span2.innerHTML = "&nbsp;(" + input.value + ")<br>";
+
+                settingsMap.set(id, input);
+            }
+
+            function appendCheckBox(functionName, value) {
+                var key = functionName + "_" + value;
+                var input = settingsMap.get(key);
+                if (input == null) {
+                    var span = document.createElement("span");
+                    settingsCheckboxes.appendChild(span);
+
+                    input = document.createElement("input");
+                    span.appendChild(input);
+                    input.type = "checkbox";
+                    input.id = key;
+
+                    var lbl = document.createElement("label");
+                    span.appendChild(lbl);
+                    lbl.htmlFor = key;
+                    lbl.innerHTML = "&nbsp;" + functionName + ":&nbsp;";
+
+                    var span2 = document.createElement("span");
+                    span.appendChild(span2);
+                    span2.innerHTML = createNukaLink(value) + "<br>";
+
+                    settingsMap.set(key, input);
+                }
+            }
+
+            function appendComboBox(functionName, value) {
+
+                var input = settingsMap.get(functionName);
+                if (input == null) {
+
+                    var span = document.createElement("span");
+                    settingsComboboxes.appendChild(span);
+                    span.innerHTML = functionName + "&nbsp;&nbsp;"
+                    
+                    input = document.createElement("select");
+                    span.appendChild(input);
+
+                    var defaultOp = document.createElement("option");
+                    input.add(defaultOp);
+                    defaultOp.text = "N/A";
+                    defaultOp.value = "";
+                    defaultOp.selected = true;
+
+                    var span2 = document.createElement("span");
+                    span.appendChild(span2);
+                    span2.innerHTML = "&nbsp;&nbsp;";
+
+                    var a = document.createElement("a");
+                    span.appendChild(a);
+                    a.innerHTML = "&#x2622;"
+                    a.href = "#";
+
+                    let finput = input;
+                    a.onclick = function() {
+                        var entry = finput.options[finput.selectedIndex].value;
+                        if (entry !== "") {
+                            window.open("https://nukacrypt.com/database/json/" + entry, "_blank");
+                        }
+                        return false;
+                    };
+
+                    settingsMap.set(functionName, input);
+                }
+
+                for (var op of input.options) {
+                    if (op.value === value) {
+                        return;
+                    }
+                }
+
+                var opt = document.createElement("option");
+                input.add(opt);
+                opt.text = getGroupID(value) + ":" + value + " <" + getEditorID(value) + ">";
+                opt.value = value;
+            }
+
+            function appendLevelInput() {
+                
+                var span = document.createElement("span");
+                settingsGlobals.appendChild(span);
+                span.innerHTML = "Player/Target level&nbsp;&nbsp;";
+
+                var input = document.createElement("input");
+                span.appendChild(input);
+                input.type = "number";
+                input.min = 1;
+                input.style.width = "50px";
+                input.id = "MinLevel";
+                input.value = 1;
+
+                var span2 = document.createElement("br");
+                span.appendChild(span2);
+
+                settingsMap.set("MinLevel", input);
+            }
+
+            function gatherSettingsEntry(node) {
+
+                // omission chance global
+                if (node.LVLG !== undefined) {
+                    appendTextBox(node, "LVLG", true);
+                }
+                // entry omission chance global
+                if (node.LVOC !== undefined) {
+                    appendTextBox(node, "LVOC", true);
+                }
+
+                // entry min level global
+                if (node.LVOG !== undefined) {
+                    appendTextBox(node, "LVOG", true);
+                }
+                // max value global
+                if (node.LVMG !== undefined) {
+                    appendTextBox(node, "LVMG", true);
+                }
+
+                // functions
+                if (node.FunctionName !== undefined) {
+                    var fn = node.FunctionName;
+                    if (fn === "GetIsInRegion") {
+                        appendComboBox(fn, node.Param1Ref);
+                    }
+                    if (fn === "HasLearnedRecipe"
+                        || fn === "EditorLocationHasKeyword") {
+                            appendCheckBox(fn, node.Param1Ref);
+                        }
+                    if (node.Ref !== undefined) {
+                        appendTextBox(node.ref, "Ref", true);
+                    }
+                }
+
+                if (node.Object !== undefined) {
+                    var sublist = leveledLists[node.Object];
+                    if (sublist !== undefined) {
+                        gatherSettingsEntry(sublist);
+                    }
+                }
+
+                if (node.Conditions !== undefined) {
+                    for (var entry of node.Conditions) {
+                        gatherSettingsEntry(entry);
+                    }
+                }
+
+                if (node.Entries !== undefined) {
+                    for (var entry of node.Entries) {
+                        gatherSettingsEntry(entry);
+                    }
+                }
+            }
+
+            // key is and index path, value is a record { chance: 0.0, nochance: 0.0 }
+            var chanceMap = new Map();
+
+            function calculateChances(rootFormID) {
+
+            }
+
             function recreateMainTable(formIDs) {
                 var mainTable = document.getElementById("listtable");
 
                 clear(mainTable);
+
+                gatherSettings(formIDs[0]);
+
+                calculateChances(formIDs[0]);
 
                 generateTable(mainTable, formIDs, 0, 1);
 
@@ -1066,6 +1341,18 @@
 
             document.getElementById("clearResults").onclick = function() {
                 clear(document.getElementById("searchresults"));
+            };
+
+            var settingsToggle = document.getElementById("settingstoggle");
+            settingsToggle.onclick = function() {
+                var settingsTable = document.getElementById("settings");
+                if (settingsTable.style.display !== "none") {
+                    settingsTable.style.display = "none";
+                    settingsToggle.innerHTML = "&nbsp;+&nbsp;"
+                } else {
+                    settingsTable.style.display = "table";
+                    settingsToggle.innerHTML = "&nbsp;-&nbsp;"
+                }
             };
 
             var q = location.search;
