@@ -22,7 +22,7 @@
     </head>
     <body>
         <center>
-            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Drop Chances (0.0.3)</span><br/>
+            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Drop Chances (0.0.4)</span><br/>
             <br/>
             <br/>
             Select version:
@@ -320,14 +320,17 @@
                     var curveTable = curves[curveID];
                     if (curveTable !== undefined) {
                         if (globalID !== undefined) {
-                            var globalValue = globals[globalID];
-                            if (globalValue !== undefined) {
-                                var v = interpolate(curveTable, globalValue);                            
+                            var x = getSettingsValue(globalID);
+                            if (x === undefined) {
+                                x = globals[globalID];
+                            }
+                            if (x !== undefined) {
+                                var v = interpolate(curveTable, x);                            
                                 return {
                                     type: "Curve",
                                     id: curveID,
                                     g: globalID,
-                                    x: globalValue,
+                                    x: x,
                                     value: v
                                 };
                             }
@@ -352,12 +355,15 @@
                     }
                 }
                 if (globalID !== undefined) {
-                    var globalValue = globals[globalID];
-                    if (globalValue !== undefined) {
+                    var x = getSettingsValue(globalID);
+                    if (x === undefined) {
+                        x = globals[globalID];
+                    }
+                    if (x !== undefined) {
                         return {
                             type: "Global",
                             id: globalID,
-                            value: globalValue
+                            value: x
                         };
                     }
                     return {
@@ -597,14 +603,14 @@
                         flagsTxt += "<b>+all</b> "
                     } else {
                         if ((flagsList & 1) != 0) {
-                            flagsTxt += "<b>+player-level</b> "
+                            flagsTxt += "<b>+all-levels</b> "
                         } else {
-                            flagsTxt += "<b>+target-level</b> "
+                            flagsTxt += "<b>+closest-levels</b> "
                         }
                         if ((flagsList & 2) != 0) {
-                            flagsTxt += "<b>+each-item</b> "
+                            flagsTxt += "<b>+parent-quantity-randomly</b> "
                         } else {
-                            flagsTxt += "<b>+entire-list</b> "
+                            flagsTxt += "<b>+one-randomly</b> "
                         }
                     }
                     if ((flagsList & 8) != 0) {
@@ -768,6 +774,19 @@
                             entries = lvli.Entries;
                         }
 
+                        let settingsLevel = getSettingsValue("MinLevel");
+                        let isAllLevel = (lvli.LVLF & 1) != 0;
+                        var closestLevel = 0;
+
+                        if (!isAllLevel) {
+                            for (var entry of entries) {
+                                var lvl = decodeValueOverride(entry, "LVLV", "LVOG", "ZZZZ");
+                                if (lvl <= settingsLevel) {
+                                    closestLevel = Math.max(closestLevel, lvl);
+                                }
+                            }
+                        }
+
                         for (var entry of entries) {
                             n = parent.rows.length;
                             row = parent.insertRow(n);
@@ -826,12 +845,17 @@
                             var omissChanceEntry = decodeValue(entry, "LVOV", "LVOC", "LVOT");
                             buildValueEntry(parent, omissChanceEntry, maxCols, "Omission chance", value => value.toFixed(3) + "%");
                             var levelEntry = decodeValue(entry, "LVLV", "LVOG", "ZZZZ");
-                            if (levelEntry.value > 1) {
+                            if (levelEntry.value > 1 || !isAllLevel) {
                                 buildValueEntry(parent, levelEntry, maxCols, "Minimum level", value => {
-                                    var settingsLevel = getSettingsValue("MinLevel");
-                                    if (value <= settingsLevel) {
+                                    if (isAllLevel) {
+                                        if (value <= settingsLevel) {
+                                            return value;
+                                        }
+                                    }
+                                    if (value === closestLevel) {
                                         return value;
                                     }
+                                    
                                     return value + " [ &#10060; FAIL ]";
                                 });
                             }
@@ -1121,7 +1145,8 @@
             function createChanceNode(id) {
                 return {
                     formID: id,
-                    enabled: true, // turns false if the level requirements or conditions are not met
+                    conditionMatch: true, // turns false if the level requirements or conditions are not met
+                    levelMatch: true,
                     chanceNone: 0, // the node's default chance none value
                     flags: 0, // the node's flags
                     max: 0, // the node's max value extracted
@@ -1147,7 +1172,7 @@
                         if (input.type === "checkbox") {
                             return input.checked ? 1 : 0;
                         }
-                        return input.value;
+                        return parseFloat(input.value);
                     }
                     return 0;
                 }
@@ -1256,16 +1281,23 @@
                 node.chanceNone = decodeValueOverride(lvli, "LVCV", "LVLG", "LVCT");
 
                 if (lvli.Conditions !== undefined) {
-                    node.enabled = evaluateConditions(lvli.Conditions);
+                    node.conditionMatch = evaluateConditions(lvli.Conditions);
                 }
+
+                var isClosestLevel = (lvli.LVLF & 1) == 0;
+
                 if (lvli.Entries !== undefined) {
+                    let settingsLevel = getSettingsValue("MinLevel");
+
+                    var closestLevel = 0;
 
                     var entryIndex = 0;
                     for (var entry of lvli.Entries) {
 
                         var entryNode = {
                             formID: entry.Object,
-                            enabled: true,
+                            conditionMatch: true,
+                            levelMatch: true,
                             chanceNone: 0, // the node's default chance none value
                             level: 0,
                             index: entryIndex,
@@ -1277,7 +1309,11 @@
                         entryNode.level = decodeValueOverride(entry, "LVLV", "LVOG", "ZZZZ");
                         
                         if (entry.Conditions !== undefined) {
-                            entryNode.enabled = evaluateConditions(entry.Conditions);
+                            entryNode.conditionMatch = evaluateConditions(entry.Conditions);
+                        }
+
+                        if (isClosestLevel && entryNode.level <= settingsLevel) {
+                            closestLevel = Math.max(closestLevel, entryNode.level);
                         }
 
                         if (getGroupID(entry.Object) === "LVLI") {
@@ -1286,6 +1322,12 @@
                         }
 
                         entryIndex++;
+                    }
+
+                    if (isClosestLevel) {
+                        for (var n of node.items) {
+                            n.levelMatch = n.level == closestLevel;
+                        }
                     }
                 }
             }
