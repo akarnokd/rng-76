@@ -22,7 +22,7 @@
     </head>
     <body>
         <center>
-            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Drop Chances (0.0.2)</span><br/>
+            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Drop Chances (0.0.3)</span><br/>
             <br/>
             <br/>
             Select version:
@@ -102,6 +102,9 @@
 
             var downloadDone = 0;
 
+            // the currently shown chain of formids
+            var currentFormIDs = [];
+
             function allDownloaded() {
                 document.getElementById("loadversion").disabled = false;
                 // TODO 
@@ -136,7 +139,7 @@
                 if (q.includes("formids=")) {
                     var idx = q.indexOf("formids=");
                     var ids = q.substr(idx + 8).split("-");
-                    recreateMainTable(ids);
+                    showChain(ids);
                 }
             }
 
@@ -395,8 +398,16 @@
 
                     row = innerTbl.insertRow(0);
                     cll = row.insertCell(0);
+                    var checkTxt = "";
 
-                    cll.innerText = "Conditions (" + entry.Conditions.length + ")";
+                    if (evaluateConditions(entry.Conditions)) {
+                        checkTxt = "<span style='color: green; font-weight: bold'>[ &#128077; PASS ]</span>";
+                    } else {
+                        checkTxt = "<span style='color: red; font-weight: bold'>[ &#10060; FAIL ]</span>";
+                    }
+
+                    cll.innerHTML = "Conditions (" + entry.Conditions.length + ")&nbsp;&nbsp;&nbsp;" + checkTxt;
+
                     cll.style.backgroundColor = "#FFC0FF";
                     cll.style.fontWeight = "bold";
 
@@ -655,7 +666,7 @@
                             }
 
                             btn.onclick = function() {
-                                recreateMainTable(newFormIDs);
+                                showChain(newFormIDs);
                             };
                             if (index > 0 && formIDs[index - 1] == ref) {
                                 btn.disabled = true;
@@ -668,7 +679,15 @@
                         row = parent.insertRow(n);
                         cll = row.insertCell(row.cells.length);
 
-                        cll.innerText = "Conditions (" + lvli.Conditions.length + ")";
+                        var checkTxt = "";
+
+                        if (evaluateConditions(lvli.Conditions)) {
+                            checkTxt = "<span style='color: green; font-weight: bold'>[ &#128077; PASS ]</span>";
+                        } else {
+                            checkTxt = "<span style='color: red; font-weight: bold'>[ &#10060; FAIL ]</span>";
+                        }
+
+                        cll.innerHTML = "Conditions (" + lvli.Conditions.length + ")&nbsp;&nbsp;&nbsp;" + checkTxt;
                         cll.style.backgroundColor = "#C0C0FF";
                         cll.style.fontWeight = "bold";
                         cll.colSpan = maxCols;
@@ -800,7 +819,7 @@
                                 }
                                 newFormIDs.push(objectID);
                                 btn.onclick = function() {
-                                    recreateMainTable(newFormIDs);
+                                    renderTable(newFormIDs);
                                 };
                             }
 
@@ -808,7 +827,13 @@
                             buildValueEntry(parent, omissChanceEntry, maxCols, "Omission chance", value => value.toFixed(3) + "%");
                             var levelEntry = decodeValue(entry, "LVLV", "LVOG", "ZZZZ");
                             if (levelEntry.value > 1) {
-                                buildValueEntry(parent, levelEntry, maxCols, "Minimum level", value => value);
+                                buildValueEntry(parent, levelEntry, maxCols, "Minimum level", value => {
+                                    var settingsLevel = getSettingsValue("MinLevel");
+                                    if (value <= settingsLevel) {
+                                        return value;
+                                    }
+                                    return value + " [ &#10060; FAIL ]";
+                                });
                             }
 
                             buildConditionEntry(parent, entry, maxCols);
@@ -872,7 +897,7 @@
                                 btn.innerText = "Close";
                                 let closeFormIDs = formIDs.slice(0, index + 1);
                                 btn.onclick = function() {
-                                    recreateMainTable(closeFormIDs);
+                                    renderTable(closeFormIDs);
                                 };
                             }
                         }
@@ -898,11 +923,9 @@
                 appendLevelInput();
                 gatherSettingsEntry(lvli);
 
-                let fid = rootFormID;
-
                 for (var input of settingsMap.values()) {
                     input.oninput = function() {
-                        calculateChances(fid);
+                        updateChances(currentFormIDs);
                     };
                 }
             }
@@ -1026,7 +1049,7 @@
                 span.appendChild(input);
                 input.type = "number";
                 input.min = 1;
-                input.style.width = "50px";
+                input.style.width = "80px";
                 input.id = "MinLevel";
                 input.value = 1;
 
@@ -1093,19 +1116,200 @@
 
             // key is and index path, value is a record { chance: 0.0, nochance: 0.0 }
             var chanceMap = new Map();
+            var chanceTree = {};
 
-            function calculateChances(rootFormID) {
-
+            function createChanceNode(id) {
+                return {
+                    formID: id,
+                    enabled: true, // turns false if the level requirements or conditions are not met
+                    chanceNone: 0, // the node's default chance none value
+                    flags: 0, // the node's flags
+                    max: 0, // the node's max value extracted
+                    items: []
+                };
             }
 
-            function recreateMainTable(formIDs) {
-                var mainTable = document.getElementById("listtable");
+            function calculateChances(rootFormID) {
+                // build a tree and apply condition parameters
+                
+                chanceTree = createChanceNode(rootFormID);
 
-                clear(mainTable);
+                recurseForms(chanceTree);
+            }
+
+            function getSettingsValue(key) {
+                var input = settingsMap.get(key);
+                if (input !== undefined) {
+                    if (input.selectedIndex !== undefined) {
+                        return input.options[input.selectedIndex].value;
+                    }
+                    else if (input.type !== undefined) {
+                        if (input.type === "checkbox") {
+                            return input.checked ? 1 : 0;
+                        }
+                        return input.value;
+                    }
+                    return 0;
+                }
+                return undefined;
+            }
+
+            function decodeValueOverride(node, defaultKey, globalKey, curveKey) {
+                var globalFormID = node[globalKey];
+                var curveFormID = node[curveKey];
+
+                if (curveFormID !== undefined) {
+                    var x = getSettingsValue(globalFormID);
+                    if (x === undefined) {
+                        x = globals[globalFormID];
+                    }
+                    return interpolate(curves[curveFormID], x);
+                }
+                else if (globalFormID !== undefined) {
+                    var x = getSettingsValue(globalFormID);
+                    if (x === undefined) {
+                        x = globals[globalFormID];
+                    }
+                    return x;
+                }
+                var defaultValue = node[defaultKey];
+                return defaultValue !== undefined ? defaultValue : 0;
+            }
+
+            function evaluateConditions(Conditions) {
+
+                var logicOutcome = false;
+
+                var index = 0;
+                for (var cond of Conditions) {
+
+                    var compareWith = cond.Value;
+                    // compare with global instead?
+                    if (compareWith === undefined) {
+                        compareWith = getSettingsValue(cond.Ref);
+                    }
+
+                    var fn = cond.FunctionName;
+
+                    var functionResult = "";
+                    if (fn === "GetIsInRegion") {
+                        var selectOption = getSettingsValue(fn);
+                        functionResult = selectOption == cond.Param1Ref;
+                    }
+                    else if (fn === "HasLearnedRecipe"
+                            || fn === "EditorLocationHasKeyword"
+                        ) {
+                        functionResult = getSettingsValue(fn + "_" + cond.Param1Ref);
+                    }
+
+                    var op = (cond.Operator & 0xFF) >> 5;
+                    
+                    var evaluation = false;
+
+                    if (typeof(functionResult) === "string") {
+                        functionResult = parseFloat(functionResult.replace(',', '.'));
+                    }
+                    if (typeof(compareWith) === "string") {
+                        compareWith = parseFloat(compareWith.replace(',', '.'));
+                    }
+
+                    if (op == 0) {
+                        evaluation = functionResult == compareWith;
+                    }
+                    else if (op == 1) {
+                        evaluation = functionResult != compareWith;
+                    }
+                    else if (op == 2) {
+                        evaluation = functionResult > compareWith;
+                    }
+                    else if (op == 3) {
+                        evaluation = functionResult >= compareWith;
+                    }
+                    else if (op == 4) {
+                        evaluation = functionResult < compareWith;
+                    }
+                    else if (op == 5) {
+                        evaluation = functionResult <= compareWith;
+                    }
+
+                    if (index == 0) {
+                        logicOutcome = evaluation;
+                    } else {
+                        var logicAnd = (cond.Operator & 1) == 0;
+                        if (logicAnd) {
+                            logicOutcome &= evaluation;
+                        } else {
+                            logicOutcome |= evaluation;
+                        }
+                    }
+
+                    index++;
+                }
+                return logicOutcome;
+            }
+
+            function recurseForms(node) {
+                var lvli = leveledLists[node.formID];
+
+                node.flags = lvli.LVLF;
+                node.max = decodeValueOverride(lvli, "LVMV", "LVMG", "LVMT");
+                node.chanceNone = decodeValueOverride(lvli, "LVCV", "LVLG", "LVCT");
+
+                if (lvli.Conditions !== undefined) {
+                    node.enabled = evaluateConditions(lvli.Conditions);
+                }
+                if (lvli.Entries !== undefined) {
+
+                    var settingsLevel = getSettingsValue("MinLevel");
+
+                    var entryIndex = 0;
+                    for (var entry of lvli.Entries) {
+
+                        var entryNode = {
+                            formID: entry.Object,
+                            enabled: true,
+                            chanceNone: 0, // the node's default chance none value
+                            level: 0,
+                            index: entryIndex,
+                            sublist: undefined
+                        };
+
+                        node.items.push(entryNode);
+                        entryNode.chanceNone = decodeValueOverride(entry, "LVOV", "LVOC", "LVOT");
+                        entryNode.level = decodeValueOverride(entry, "LVLV", "LVOG", "ZZZZ");
+                        
+                        if (entry.Conditions !== undefined) {
+                            entryNode.enabled = evaluateConditions(entry.Conditions);
+                        }
+
+                        if (getGroupID(entry.Object) === "LVLI") {
+                            entryNode.sublist = createChanceNode(entry.Object);
+                            recurseForms(entryNode.sublist);
+                        }
+
+                        entryIndex++;
+                    }
+                }
+            }
+
+            function showChain(formIDs) {
+                currentFormIDs = formIDs;
 
                 gatherSettings(formIDs[0]);
 
+                updateChances(formIDs);
+            }
+
+            function updateChances(formIDs) {
                 calculateChances(formIDs[0]);
+
+                renderTable(formIDs);
+            }
+
+            function renderTable(formIDs) {
+                var mainTable = document.getElementById("listtable");
+
+                clear(mainTable);
 
                 generateTable(mainTable, formIDs, 0, 1);
 
@@ -1120,7 +1324,7 @@
                 var coalesce = document.getElementById("Coalesce");
                 let fids = formIDs;
                 coalesce.oninput = function() {
-                    recreateMainTable(fids);
+                    renderTable(fids);
                 };
             }
 
@@ -1131,7 +1335,7 @@
             }
 
             function showList(formID) {
-                recreateMainTable([formID]);
+                showChain([formID]);
             }
 
             function createIgnoreRow(resultsTable, ignoreFlag) {
