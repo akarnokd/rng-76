@@ -882,8 +882,10 @@
                             cll.colSpan = Math.max(1, maxCols - 3);
 
 
-                            var entrySelfChance = chanceNode.items[entryIndex].chance;
+                            var itemNode = chanceNode.items[entryIndex];
+                            var entrySelfChance = itemNode.chance;
                             var entryChance = 0;
+                            var coalesced = entry.coalesced !== undefined ? entry.coalesced : 1;
 
                             var chanceTable = document.createElement("table");
                             cll.appendChild(chanceTable);
@@ -898,7 +900,7 @@
                             cll.style.fontWeight = "bold";
                             if (entrySelfChance !== undefined) {
                                 cll.style.textAlign = "right";
-                                entryChance = entrySelfChance * (1 - chanceNode.chanceNone) * parentChance;
+                                entryChance = entrySelfChance * parentChance * coalesced;
                                 cll.innerText = (entryChance * 100.0).toFixed(3) + "%";
                             } else {
                                 cll.style.textAlign = "center";
@@ -919,7 +921,11 @@
                                 var innerTable = document.createElement("table");
                                 cll.appendChild(innerTable);
 
-                                generateTable(innerTable, formIDs, index + 1, chanceNode.items[entryIndex].sublist, entryChance);
+                                var cascadeChance = entryChance;
+                                if (itemNode.apriori !== undefined) {
+                                    cascadeChance = parentChance * itemNode.apriori;
+                                }
+                                generateTable(innerTable, formIDs, index + 1, chanceNode.items[entryIndex].sublist, cascadeChance);
 
                                 btn.innerText = "Close";
                                 let closeFormIDs = formIDs.slice(0, index + 1);
@@ -1381,6 +1387,7 @@
 
                                     }
                                     entry.chance = nodeChanceRemaining * entrySelfChance;
+                                    entry.apriori = nodeChanceRemaining;
 
                                     nodeChanceRemaining *= (1 - entrySelfChance);
                                 }
