@@ -434,7 +434,9 @@
 
                     if (fn === "HasLearnedRecipe"
                         || fn === "GetIsInRegion"
-                        || fn === "EditorLocationHasKeyword") {
+                        || fn === "EditorLocationHasKeyword"
+                        || fn === "GetGlobalValue"
+                        || fn === "GetQuestCompleted") {
                         txt += "(" + createNukaLink(cond.Param1Ref) + ")";
                     }
 
@@ -547,6 +549,7 @@
             function compareEntries(curr, prev) {
                 return curr.Object === prev.Object 
                        && curr.LVIV === prev.LVIV
+                       && curr.LVIG === prev.LVIG
                        && curr.LVOV === prev.LVOV
                        && curr.LVOC === prev.LVOC 
                        && curr.LVOT === prev.LVOT
@@ -780,7 +783,7 @@
 
                         if (!isAllLevel) {
                             for (var entry of entries) {
-                                if (evaluateConditions(entry.Conditions)) {
+                                if (entry.Conditions === undefined || evaluateConditions(entry.Conditions)) {
                                     var lvl = decodeValueOverride(entry, "LVLV", "LVOG", "ZZZZ");
                                     if (lvl <= settingsLevel) {
                                         closestLevel = Math.max(closestLevel, lvl);
@@ -821,8 +824,9 @@
                             } else {
                                 cll.innerText = objectName;
                             }
-                            if (entry.LVIV > 1) {
-                                cll.innerHTML += "&nbsp;<span style='color: blue; font-weight: bold; border: 1px dotted blue;'>&nbsp;x&nbsp;" + entry.LVIV + "&nbsp;</span>";
+                            var qty = decodeValueOverride(entry, "LVIV", "LVIG", "ZZZZ");
+                            if (qty > 1) {
+                                cll.innerHTML += "&nbsp;<span style='color: blue; font-weight: bold; border: 1px dotted blue;'>&nbsp;x&nbsp;" + qty + "&nbsp;</span>";
                             }
 
                             cll = row.insertCell(row.cells.length);
@@ -840,6 +844,7 @@
                                 }
                                 newFormIDs.push(objectID);
                                 btn.onclick = function() {
+                                    currentFormIDs = newFormIDs;
                                     renderTable(newFormIDs);
                                 };
                             }
@@ -860,6 +865,11 @@
                                     
                                     return value + " [ &#10060; FAIL ]";
                                 });
+                            }
+
+                            if (entry.LVIG !== undefined) {
+                                var qtyEntry = decodeValue(entry, "LVIV", "LVIG", "ZZZZ");
+                                buildValueEntry(parent, qtyEntry, maxCols, "Quantity", value => value);
                             }
 
                             buildConditionEntry(parent, entry, maxCols);
@@ -923,6 +933,7 @@
                                 btn.innerText = "Close";
                                 let closeFormIDs = formIDs.slice(0, index + 1);
                                 btn.onclick = function() {
+                                    currentFormIDs = closeFormIDs;
                                     renderTable(closeFormIDs);
                                 };
                             }
@@ -1112,9 +1123,14 @@
                         appendComboBox(fn, node.Param1Ref);
                     }
                     if (fn === "HasLearnedRecipe"
-                        || fn === "EditorLocationHasKeyword") {
-                            appendCheckBox(fn, node.Param1Ref);
-                        }
+                        || fn === "EditorLocationHasKeyword"
+                        || fn === "GetQuestCompleted"
+                        ) {
+                        appendCheckBox(fn, node.Param1Ref);
+                    }
+                    if (fn === "GetGlobalValue") {
+                        appendTextBox(node, "Param1Ref", true);
+                    }
                     if (node.Ref !== undefined) {
                         appendTextBox(node.ref, "Ref", true);
                     }
@@ -1225,11 +1241,15 @@
                     }
                     else if (fn === "HasLearnedRecipe"
                             || fn === "EditorLocationHasKeyword"
+                            || fn === "GetQuestCompleted"
                         ) {
                         functionResult = getSettingsValue(fn + "_" + cond.Param1Ref);
                     }
                     else if (fn === "GetLevel") {
                         functionResult = getSettingsValue("MinLevel");
+                    }
+                    else if (fn === "GetGlobalValue") {
+                        functionResult = getSettingsValue(cond.Param1Ref);
                     }
 
                     var op = (cond.Operator & 0xFF) >> 5;
@@ -1305,6 +1325,7 @@
                             levelMatch: true,
                             chanceNone: 0, // the node's default chance none value
                             level: 0,
+                            quantity: 1,
                             index: entryIndex,
                             sublist: undefined
                         };
@@ -1312,6 +1333,7 @@
                         node.items.push(entryNode);
                         entryNode.chanceNone = decodeValueOverride(entry, "LVOV", "LVOC", "LVOT");
                         entryNode.level = decodeValueOverride(entry, "LVLV", "LVOG", "ZZZZ");
+                        entryNode.quantity = decodeValueOverride(entry, "LVIV", "LVIG", "ZZZZ");
                         
                         if (entry.Conditions !== undefined) {
                             entryNode.conditionMatch = evaluateConditions(entry.Conditions);
