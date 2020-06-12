@@ -22,7 +22,7 @@
     </head>
     <body>
         <center>
-            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Drop Chances (0.0.7)</span><br/>
+            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Drop Chances (0.0.8)</span><br/>
             <br/>
             <br/>
             Select version:
@@ -569,6 +569,27 @@
                        && curr.LVOT === prev.LVOT
                        && curr.LVLV === prev.LVLV;
             }
+
+            function prepareLinkDefault() {
+                var patchSel = document.getElementById("versionselect");
+                var patch = patchSel.options[patchSel.selectedIndex].value;
+
+                var lnk = "?patch=" + patch;
+                if (!document.getElementById("Coalesce").checked) {
+                    lnk += "&nocoalesce";
+                }
+                if (!document.getElementById("ShowFailedConditions").checked) {
+                    lnk += "&noshowfail";
+                }
+                return lnk;
+            }
+
+            function createOpenNewWindow(formID) {
+                var lnk = prepareLinkDefault();
+                lnk += "&formids=" + encodeURIComponent(formID);
+
+                return "<a href='" + lnk + "' target='blank' title='Open in new window' style='font-weight: bold; border: 1px solid blue;'>&nbsp;&#x2197;&nbsp;</a>"
+            }
             
             function generateTable(parent, formIDs, index, chanceNode, parentChance) {
                 var formID = formIDs[index];
@@ -581,6 +602,7 @@
                 var cll = row.insertCell(row.cells.length);
                 cll.innerHTML = getGroupID(formID) + ":" + formID + " &lt;" + getEditorID(formID) + "&gt; "
                     + "<a href='https://nukacrypt.com/database/json/" + formID + "' target='_blank' title='See Nukacrypt data.'>&#x2622;</a>"
+                    + "&nbsp;" + createOpenNewWindow(formID)
                 ;
                 cll.style.backgroundColor = "#FFCC00";
                 cll.style.fontWeight = "bold";
@@ -674,6 +696,7 @@
 
                             cll = row.insertCell(row.cells.length);
                             cll.innerHTML = "<a href='https://nukacrypt.com/database/json/" + ref + "' target='_blank' title='See Nukacrypt data.'>&#x2622;</a>"
+                                + "&nbsp;" + createOpenNewWindow(ref);
 
                             cll = row.insertCell(row.cells.length);
 
@@ -852,9 +875,11 @@
                             }
 
                             cll = row.insertCell(row.cells.length);
-                            cll.innerHTML = "<a href='https://nukacrypt.com/database/json/" + objectID + "' target='_blank' title='See Nukacrypt data.'>&#x2622;</a>"
+                            cll.innerHTML = "<a href='https://nukacrypt.com/database/json/" + objectID + "' target='_blank' title='See Nukacrypt data.'>&#x2622;</a>";
 
                             if (objectGroup == "LVLI") {
+                                cll.innerHTML += "&nbsp;" + createOpenNewWindow(objectID);
+
                                 cll = row.insertCell(row.cells.length);
                                 var btn = document.createElement("button");
                                 btn.innerText = "Open";
@@ -1815,13 +1840,7 @@
                 var patchSel = document.getElementById("versionselect");
                 var patch = patchSel.options[patchSel.selectedIndex].value;
 
-                var lnk = "?patch=" + patch;
-                if (!document.getElementById("Coalesce").checked) {
-                    lnk += "&nocoalesce";
-                }
-                if (!document.getElementById("ShowFailedConditions").checked) {
-                    lnk += "&noshowfail";
-                }
+                var lnk = prepareLinkDefault();
                 lnk += "&formids=" + encodeURIComponent(formIDs.join("-"));
                 tableLink.href = lnk;
                 tableLink.style.display = "inline";
