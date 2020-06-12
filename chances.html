@@ -1387,7 +1387,7 @@
                                     }
                                     entry.chance = nodeChanceRemaining * entrySelfChance;
                                     if (subchances.emptyChance >= epsilon) {
-                                        entry.apriori = nodeChanceRemaining;
+                                        entry.apriori = nodeChanceRemaining * (1 - entry.chanceNone);
                                     }
 
                                     nodeChanceRemaining *= (1 - entrySelfChance);
