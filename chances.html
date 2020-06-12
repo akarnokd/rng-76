@@ -22,7 +22,7 @@
     </head>
     <body>
         <center>
-            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Drop Chances (0.0.5)</span><br/>
+            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Drop Chances (0.0.6)</span><br/>
             <br/>
             <br/>
             Select version:
@@ -1192,6 +1192,7 @@
 
             // returns undefined for an unsupported setup or a record { emptyChance: float, [items: array] }
             function processLeafNode(node, isAll, isEach, presentEntries, neverEmpty, hasAlwaysPresentEntry) {
+                var baseChance = 1 - node.chanceNone;
                 // only leaf nodes
                 if (isAll) {
                     // all items
@@ -1199,7 +1200,7 @@
                         var nodeChanceEmpty = 1;
 
                         for (var entry of presentEntries) {
-                            var entrySelfChance = 1 - entry.chanceNone;
+                            var entrySelfChance = (1 - entry.chanceNone) * baseChance;
 
                             entry.chance = entrySelfChance;
 
@@ -1213,7 +1214,7 @@
                         var nodeChanceRemaining = 1;
 
                         for (var entry of presentEntries) {
-                            var entrySelfChance = (1 - entry.chanceNone);
+                            var entrySelfChance = (1 - entry.chanceNone) * baseChance;
 
                             entry.chance = nodeChanceRemaining * entrySelfChance;
 
@@ -1229,12 +1230,12 @@
 
                     // all entries have chanceNone == 0 thus this is a simple 1/N random pick
                     if (neverEmpty) {
-                        var uniform = 1.0 / presentEntries.length;
+                        var uniform = baseChance / presentEntries.length;
                         for (var entry of presentEntries) {
                             entry.chance = uniform;
                         }
 
-                        return { emptyChance: 0.0, items: presentEntries };
+                        return { emptyChance: node.chanceNone, items: presentEntries };
                     } else {
                         // otherwise it is a 2^N combinational formula
                         // we calculate it expliticty for sorter lists as it takes exponential time
@@ -1278,7 +1279,11 @@
                                 }
                             }
 
-                            return { emptyChance: nodeChanceEmpty, items: presentEntries };
+                            for (var entry of presentEntries) {
+                                entry.chance *= baseChance;
+                            }
+
+                            return { emptyChance: nodeChanceEmpty * baseChance + node.chanceNone, items: presentEntries };
                         } else {
                             // otherwise we use a monte-carlo simulation of the list itself to approximate
                             // chance acts as a counter
@@ -1286,29 +1291,38 @@
                                 entry.chance = 0;
                             }
 
+                            var emptyList = 0;
+
                             // use monte-carlo
                             for (var i = 0; i < monteCarloCount; i++) {
+                                var selection = [];
                                 for (var entry of presentEntries) {
                                     if (entry.chanceNone <= Math.random()) {
-                                        entry.chance++;
+                                        selection.push(entry);
                                     }
+                                }
+                                if (selection.length == 0) {
+                                    emptyList++;
+                                } else {
+                                    var idx = selection.length * Math.random();
+                                    presentEntries[idx].chance++;
                                 }
                             }
 
-                            var nodeChanceEmpty = 1;
 
                             // do the average over all the runs
                             for (var entry of presentEntries) {
-                                entry.chance /= monteCarloCount;
-
-                                nodeChanceEmpty *= (1.0 - entry.chance);
+                                entry.chance = baseChance * entry.chance / monteCarloCount;
                             }
 
+                            var noneChanceEmpty;
                             if (hasAlwaysPresentEntry) {
                                 nodeChanceEmpty = 0.0;
+                            } else {
+                                noneChanceEmpty = emptyList / monteCarloCount;
                             }
 
-                            return { emptyChance: nodeChanceEmpty, items: presentEntries };
+                            return { emptyChance: nodeChanceEmpty * baseChance + node.chanceNone, items: presentEntries };
                         }
                     }
                 }
@@ -1318,6 +1332,7 @@
 
             // returns undefined for an unsupported setup or a record { emptyChance: float, [items: array] }
             function processMixedNode(node, isAll, isEach, presentEntries, neverEmpty, hasAlwaysPresentEntry) {
+                var baseChance = 1 - node.chanceNone;
                 if (isAll) {
                     if (node.max == 0) {
                         var nodeChanceEmpty = 1;
@@ -1326,7 +1341,7 @@
                             if (entry.sublist === undefined) {
                                 var entrySelfChance = 1 - entry.chanceNone;
 
-                                entry.chance = entrySelfChance;
+                                entry.chance = entrySelfChance * baseChance;
 
                                 nodeChanceEmpty *= (1 - entrySelfChance);
                             } else {
@@ -1348,14 +1363,14 @@
                                         entrySelfChance = (1 - entry.chanceNone) * (1 - subchances.emptyChance);
 
                                     }
-                                    entry.chance = entrySelfChance;
+                                    entry.chance = entrySelfChance * baseChance;
 
                                     nodeChanceEmpty *= (1 - entrySelfChance);
                                 }
                             }
                         }
 
-                        return { emptyChance: nodeChanceEmpty };
+                        return { emptyChance: nodeChanceEmpty * baseChance + node.chanceNone };
                     }
                     if (node.max == 1) {
                         var nodeChanceRemaining = 1;
@@ -1364,7 +1379,7 @@
                             if (entry.sublist === undefined) {
                                 var entrySelfChance = nodeChanceRemaining * (1 - entry.chanceNone);
 
-                                entry.chance = entrySelfChance;
+                                entry.chance = entrySelfChance * baseChance;
 
                                 nodeChanceRemaining *= (1 - entrySelfChance);
                             } else {
@@ -1385,7 +1400,7 @@
                                         
                                         entrySelfChance = (1 - entry.chanceNone) * (1 - subchances.emptyChance);
                                     }
-                                    entry.chance = nodeChanceRemaining * entrySelfChance;
+                                    entry.chance = nodeChanceRemaining * entrySelfChance * baseChance;
                                     if (subchances.emptyChance >= epsilon) {
                                         entry.apriori = nodeChanceRemaining * (1 - entry.chanceNone);
                                     }
@@ -1395,7 +1410,7 @@
                             }
                         }
 
-                        return { emptyChance: nodeChanceRemaining };
+                        return { emptyChance: nodeChanceRemaining * baseChance + node.chanceNone };
                     }
                 } else {
                     // pick one randomly
@@ -1415,12 +1430,12 @@
                         }
 
                         if (subsNeverEmpty) {
-                            var uniform = 1.0 / presentEntries.length;
+                            var uniform = baseChance / presentEntries.length;
                             for (var entry of presentEntries) {
                                 entry.chance = uniform;
                             }
 
-                            return { emptyChance: 0.0, items: presentEntries };
+                            return { emptyChance: node.chanceNone, items: presentEntries };
                         }
                     }
                     // otherwise, we have to use the 2^N formula
@@ -1490,35 +1505,49 @@
                             }
                         }
 
-                        return { emptyChance: nodeChanceEmpty, items: presentEntries };
+                        for (var entry of presentEntries) {
+                            entry.chance *= baseChance;
+                        }
+
+                        return { emptyChance: nodeChanceEmpty * baseChance + node.chanceNone, items: presentEntries };
                     } else {
                         // otherwise we use a monte-carlo simulation of the list itself to approximate
                         // chance acts as a counter
                         
+                        var emptyList = 0;
+
+                        // use monte-carlo
                         for (var i = 0; i < monteCarloCount; i++) {
+                            var selection = [];
                             for (var entry of presentEntries) {
                                 if (entry.chanceNone <= Math.random()) {
                                     if (entry.selfChance === undefined || entry.selfChance > Math.random()) {
-                                        entry.chance++;
+                                        selection.push(entry);
                                     }
                                 }
                             }
+                            if (selection.length == 0) {
+                                emptyList++;
+                            } else {
+                                var idx = selection.length * Math.random();
+                                presentEntries[idx].chance++;
+                            }
                         }
 
-                        var nodeChanceEmpty = 1;
 
                         // do the average over all the runs
                         for (var entry of presentEntries) {
-                            entry.chance /= monteCarloCount;
-
-                            nodeChanceEmpty *= (1.0 - entry.chance);
+                            entry.chance = baseChance * entry.chance / monteCarloCount;
                         }
 
+                        var noneChanceEmpty;
                         if (hasAlwaysPresentEntry) {
                             nodeChanceEmpty = 0.0;
+                        } else {
+                            noneChanceEmpty = emptyList / monteCarloCount;
                         }
 
-                        return { emptyChance: nodeChanceEmpty, items: presentEntries };
+                        return { emptyChance: nodeChanceEmpty * baseChance + node.chanceNone, items: presentEntries };
                     }
                 }
                 return undefined;
