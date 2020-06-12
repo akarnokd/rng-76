@@ -22,7 +22,7 @@
     </head>
     <body>
         <center>
-            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Drop Chances (0.1.0)</span><br/>
+            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Drop Chances (0.1.1)</span><br/>
             <br/>
             <br/>
             Select version:
@@ -1705,55 +1705,57 @@
             function simulateNode(node, parentEntry) {
                 var result = [];
                 if (node.conditionMatch) {
-                    if (isFlagsAll(node.flags)) {
-                        var entriesFound = 0;
-                        for (var entry of node.items) {
-                            if (entry.levelMatch && entry.conditionMatch) {
-                                if (entry.chanceNone <= Math.random()) {
-                                    if (entry.sublist === undefined) {
-                                        result.push(entry);
-                                        entriesFound++;
-                                    } else {
-                                        var subresult = simulateNode(entry.sublist, entry);
-                                        if (subresult.length != 0) {
-                                            for (var sub of subresult) {
-                                                result.push(sub);
-                                            }
-                                            entriesFound++;
-                                        }
-                                    }
-                                }
-                            }
-                            if (node.max > 0 && entriesFound >= node.max) {
-                                break;
-                            }
-                        }
-                    } else {
-                        var rerolls = 1;
-                        if (isFlagsEach(node.flags) && parentEntry != null && parentEntry.quantity > 1) {
-                            rerolls = parentEntry.quantity;
-                        }
-
-                        for (var i = 0; i < rerolls; i++) {
-                            var entriesToPickFrom = [];
+                    if (node.chanceNone <= Math.random()) {
+                        if (isFlagsAll(node.flags)) {
+                            var entriesFound = 0;
                             for (var entry of node.items) {
                                 if (entry.levelMatch && entry.conditionMatch) {
                                     if (entry.chanceNone <= Math.random()) {
                                         if (entry.sublist === undefined) {
-                                            entriesToPickFrom.push( [ entry ]);
+                                            result.push(entry);
+                                            entriesFound++;
                                         } else {
                                             var subresult = simulateNode(entry.sublist, entry);
                                             if (subresult.length != 0) {
-                                                entriesToPickFrom.push(subresult);
+                                                for (var sub of subresult) {
+                                                    result.push(sub);
+                                                }
+                                                entriesFound++;
                                             }
                                         }
                                     }
                                 }
+                                if (node.max > 0 && entriesFound >= node.max) {
+                                    break;
+                                }
                             }
-                            if (entriesToPickFrom.length != 0) {
-                                var idx = Math.floor(entriesToPickFrom.length * Math.random());
-                                for (var entry of entriesToPickFrom[idx]) {
-                                    result.push(entry);
+                        } else {
+                            var rerolls = 1;
+                            if (isFlagsEach(node.flags) && parentEntry != null && parentEntry.quantity > 1) {
+                                rerolls = parentEntry.quantity;
+                            }
+
+                            for (var i = 0; i < rerolls; i++) {
+                                var entriesToPickFrom = [];
+                                for (var entry of node.items) {
+                                    if (entry.levelMatch && entry.conditionMatch) {
+                                        if (entry.chanceNone <= Math.random()) {
+                                            if (entry.sublist === undefined) {
+                                                entriesToPickFrom.push( [ entry ]);
+                                            } else {
+                                                var subresult = simulateNode(entry.sublist, entry);
+                                                if (subresult.length != 0) {
+                                                    entriesToPickFrom.push(subresult);
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                                if (entriesToPickFrom.length != 0) {
+                                    var idx = Math.floor(entriesToPickFrom.length * Math.random());
+                                    for (var entry of entriesToPickFrom[idx]) {
+                                        result.push(entry);
+                                    }
                                 }
                             }
                         }
