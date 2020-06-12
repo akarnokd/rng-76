@@ -55,10 +55,8 @@
                     <td colspan='5' style='text-align: center;'>
                         <input type='checkbox' id='IncludeATX' checked><label for='IncludeATX'>Include Atom Shop</label>&nbsp;&nbsp;&nbsp;
                         <input type='checkbox' id='IncludeCut'><label for='IncludeCut'>Include cut content</label>&nbsp;&nbsp;&nbsp;
-                        <input type='checkbox' id='IncludeDebug'><label for='IncludeDebug'>Include debug content</label><br>
-                        <input type='checkbox' id='SortByEditorID' checked><label for='SortByEditorID'>Sort by EditorID</label>&nbsp;&nbsp;&nbsp;
-                        <input type='checkbox' id='Coalesce' checked><label for='Coalesce'>Coalesce duplicate entries</label>
-                        <input type='checkbox' id='ShowFailedConditions' checked><label for='ShowFailedConditions'>Show entries with failed conditions</label>
+                        <input type='checkbox' id='IncludeDebug'><label for='IncludeDebug'>Include debug content</label>&nbsp;&nbsp;&nbsp;
+                        <input type='checkbox' id='SortByEditorID' checked><label for='SortByEditorID'>Sort by EditorID</label>
                     </td>
                 </tr>
             </table>
@@ -67,7 +65,10 @@
 
             </table>
             <hr>
-            <a id='tableLink' href="#" target="_blank" style='display: none;'>Link to the selected setup below:</a><br/><br/><br/>
+            <a id='tableLink' href="#" target="_blank" style='display: none;'>Link to the selected setup below:</a><br/><br/>
+            <input type='checkbox' id='Coalesce' checked><label for='Coalesce'>Coalesce duplicate entries</label>
+            <input type='checkbox' id='ShowFailedConditions' checked><label for='ShowFailedConditions'>Show entries with failed conditions</label>
+            <br/><br/>
             <span id='settingstoggle' style='border: 1px solid black; font-family: monospace; cursor: pointer;'>&nbsp;-&nbsp;</span>&nbsp;<b>List settings:</b>
             <table id='settings' style='border-collapse: collapse; margin-top: 5px;'>
                 <tr>
