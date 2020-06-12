@@ -22,7 +22,7 @@
     </head>
     <body>
         <center>
-            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Drop Chances (0.0.4)</span><br/>
+            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Drop Chances (0.0.5)</span><br/>
             <br/>
             <br/>
             Select version:
@@ -104,6 +104,14 @@
 
             // the currently shown chain of formids
             var currentFormIDs = [];
+
+            // up to how many list items to consider for the formula evaluations
+            var formulaLimit = 20;
+            // how many runs to do for the monte-carlo simulation
+            var monteCarloCount = 1 << 20;
+
+            // if a number > 0 but less than epsilon, it is treated as zero.
+            var epsilon = 0.000001;
 
             function allDownloaded() {
                 document.getElementById("loadversion").disabled = false;
@@ -556,7 +564,7 @@
                        && curr.LVLV === prev.LVLV;
             }
             
-            function generateTable(parent, formIDs, index, parentChance) {
+            function generateTable(parent, formIDs, index, chanceNode, parentChance) {
                 var formID = formIDs[index];
 
                 var lvli = leveledLists[formID];
@@ -602,7 +610,7 @@
                     cll.style.backgroundColor = "C0FFC0";
                     var flagsTxt = "Flags (" + flagsList + "): ";
 
-                    if ((flagsList & 4) != 0) {
+                    if (isFlagsAll(flagsList)) {
                         flagsTxt += "<b>+all</b> "
                     } else {
                         if ((flagsList & 1) != 0) {
@@ -610,7 +618,7 @@
                         } else {
                             flagsTxt += "<b>+closest-levels</b> "
                         }
-                        if ((flagsList & 2) != 0) {
+                        if (isFlagsEach(flagsList)) {
                             flagsTxt += "<b>+parent-quantity-randomly</b> "
                         } else {
                             flagsTxt += "<b>+one-randomly</b> "
@@ -717,17 +725,7 @@
                     }
                     if (lvli.Entries !== undefined) {
 
-                        var flagsUseAll = (flagsList & 4) != 0;
-                        var forEach = (flagsList & 3) != 0;
                         var max = maxValueList.value;
-
-                        var firstPickFromAll = flagsUseAll && max === 1;
-                        var useAll = !forEach && max !== 1;
-                        var pickUniformRandom = forEach;
-                        var uniformChance = 1.0 / lvli.Entries.length;
-                        
-
-                        var picksSoFar = 1;
 
                         n = parent.rows.length;
                         row = parent.insertRow(n);
@@ -792,6 +790,7 @@
                             }
                         }
 
+                        var entryIndex = 0;
                         for (var entry of entries) {
                             n = parent.rows.length;
                             row = parent.insertRow(n);
@@ -883,22 +882,8 @@
                             cll.colSpan = Math.max(1, maxCols - 3);
 
 
-                            // calculate entry chance
-                            var entryChance = parentChance * (1 - omissChanceList.value / 100.0);
-                            if (pickUniformRandom) {
-                                entryChance *= uniformChance * (entry.coalesced !== undefined ? entry.coalesced : 1);
-                            }
-                            else if (firstPickFromAll) {
-                                // mutual conditions on all entries keeps the parent+list chance
-                                if (!checkConditionsMutual(entry.Conditions)) {
-                                    entryChance *= picksSoFar * (1 - omissChanceEntry.value / 100.0);
-                                    picksSoFar *= omissChanceEntry.value / 100;
-                                }
-                            } else {
-                                entryChance *= (1 - omissChanceEntry.value / 100.0);
-                            }
-                            // calculate entry chance
-
+                            var entrySelfChance = chanceNode.items[entryIndex].chance;
+                            var entryChance = 0;
 
                             var chanceTable = document.createElement("table");
                             cll.appendChild(chanceTable);
@@ -910,9 +895,15 @@
                             cll.innerText = "Drop chance (cumulative)";
 
                             cll = row.insertCell(1)
-                            cll.style.textAlign = "right";
                             cll.style.fontWeight = "bold";
-                            cll.innerText = (entryChance * 100.0).toFixed(3) + "%";
+                            if (entrySelfChance !== undefined) {
+                                cll.style.textAlign = "right";
+                                entryChance = entrySelfChance * (1 - chanceNode.chanceNone) * parentChance;
+                                cll.innerText = (entryChance * 100.0).toFixed(3) + "%";
+                            } else {
+                                cll.style.textAlign = "center";
+                                cll.innerText = "N/A";
+                            }
                             cll.style.border = "1px dotted red";
                             cll.style.color = "red";
 
@@ -928,7 +919,7 @@
                                 var innerTable = document.createElement("table");
                                 cll.appendChild(innerTable);
 
-                                generateTable(innerTable, formIDs, index + 1, entryChance);
+                                generateTable(innerTable, formIDs, index + 1, chanceNode.items[entryIndex].sublist, entryChance);
 
                                 btn.innerText = "Close";
                                 let closeFormIDs = formIDs.slice(0, index + 1);
@@ -937,6 +928,8 @@
                                     renderTable(closeFormIDs);
                                 };
                             }
+
+                            entryIndex++;
                         }
                     }
                 }
@@ -1157,7 +1150,6 @@
             }
 
             // key is and index path, value is a record { chance: 0.0, nochance: 0.0 }
-            var chanceMap = new Map();
             var chanceTree = {};
 
             function createChanceNode(id) {
@@ -1165,9 +1157,11 @@
                     formID: id,
                     conditionMatch: true, // turns false if the level requirements or conditions are not met
                     levelMatch: true,
-                    chanceNone: 0, // the node's default chance none value
+                    chanceNone: 0, // the node's default chance none value [0..1]
                     flags: 0, // the node's flags
                     max: 0, // the node's max value extracted
+                    presentCount: 0,
+                    hasSubLists: false,
                     items: []
                 };
             }
@@ -1178,6 +1172,376 @@
                 chanceTree = createChanceNode(rootFormID);
 
                 recurseForms(chanceTree);
+
+                // walk the tree
+                recurseTree(chanceTree);
+            }
+
+            function isFlagsAll(flags) {
+                return (flags & 4) != 0;
+            }
+            function isFlagsEach(flags) {
+                return (flags & 2) != 0;
+            }
+
+            // returns undefined for an unsupported setup or a record { emptyChance: float, [items: array] }
+            function processLeafNode(node, isAll, isEach, presentEntries, neverEmpty, hasAlwaysPresentEntry) {
+                // only leaf nodes
+                if (isAll) {
+                    // all items
+                    if (node.max == 0) {
+                        var nodeChanceEmpty = 1;
+
+                        for (var entry of presentEntries) {
+                            var entrySelfChance = 1 - entry.chanceNone;
+
+                            entry.chance = entrySelfChance;
+
+                            nodeChanceEmpty *= (1 - entrySelfChance);
+                        }
+
+                        return { emptyChance: nodeChanceEmpty };
+                    }
+                    // first present
+                    if (node.max == 1) {
+                        var nodeChanceRemaining = 1;
+
+                        for (var entry of presentEntries) {
+                            var entrySelfChance = (1 - entry.chanceNone);
+
+                            entry.chance = nodeChanceRemaining * entrySelfChance;
+
+                            nodeChanceRemaining *= (1 - entrySelfChance);
+                        }
+
+                        return { emptyChance: nodeChanceRemaining };
+                    }
+                } else {
+                    // pick one entry at random
+                    // with foreach and parent.quantity > 1, it means reroll quantity times
+                    // let the parent calculate the multi-roll probabilities
+
+                    // all entries have chanceNone == 0 thus this is a simple 1/N random pick
+                    if (neverEmpty) {
+                        var uniform = 1.0 / presentEntries.length;
+                        for (var entry of presentEntries) {
+                            entry.chance = uniform;
+                        }
+
+                        return { emptyChance: 0.0, items: presentEntries };
+                    } else {
+                        // otherwise it is a 2^N combinational formula
+                        // we calculate it expliticty for sorter lists as it takes exponential time
+                        if (presentEntries.length <= formulaLimit) {
+                            // prepare sum for entries
+                            for (var entry of presentEntries) {
+                                entry.chance = 0;
+                            }
+
+                            var nodeChanceEmpty = 1;
+
+                            // use exact formulation
+                            var bitMap = 1 << presentEntries.length;
+
+                            for (var i = 0; i < bitMap; i++) {
+                                var product = 1;
+                                var nonzeroCount = 0;
+
+                                for (var j = 0; j < presentEntries.length; j++) {
+                                    var entry = presentEntries[j];
+                                    var bit = 1 << j;
+                                    if ((i & bit) == 0) {
+                                        product *= entry.chanceNone;
+                                    } else {
+                                        nonzeroCount++;
+                                        product *= 1 - entry.chanceNone;
+                                    }
+                                }
+
+                                if (nonzeroCount == 0) {
+                                    nodeChanceEmpty = product;
+                                } else {
+                                    product /= nonzeroCount;
+                                    for (var j = 0; j < presentEntries.length; j++) {
+                                        var entry = presentEntries[j];
+                                        var bit = 1 << j;
+                                        if ((i & bit) != 0) {
+                                            entry.chance += product;
+                                        }
+                                    }
+                                }
+                            }
+
+                            return { emptyChance: nodeChanceEmpty, items: presentEntries };
+                        } else {
+                            // otherwise we use a monte-carlo simulation of the list itself to approximate
+                            // chance acts as a counter
+                            for (var entry of presentEntries) {
+                                entry.chance = 0;
+                            }
+
+                            // use monte-carlo
+                            for (var i = 0; i < monteCarloCount; i++) {
+                                for (var entry of presentEntries) {
+                                    if (entry.chanceNone <= Math.random()) {
+                                        entry.chance++;
+                                    }
+                                }
+                            }
+
+                            var nodeChanceEmpty = 1;
+
+                            // do the average over all the runs
+                            for (var entry of presentEntries) {
+                                entry.chance /= monteCarloCount;
+
+                                nodeChanceEmpty *= (1.0 - entry.chance);
+                            }
+
+                            if (hasAlwaysPresentEntry) {
+                                nodeChanceEmpty = 0.0;
+                            }
+
+                            return { emptyChance: nodeChanceEmpty, items: presentEntries };
+                        }
+                    }
+                }
+
+                return undefined;
+            }
+
+            // returns undefined for an unsupported setup or a record { emptyChance: float, [items: array] }
+            function processMixedNode(node, isAll, isEach, presentEntries, neverEmpty, hasAlwaysPresentEntry) {
+                if (isAll) {
+                    if (node.max == 0) {
+                        var nodeChanceEmpty = 1;
+
+                        for (var entry of presentEntries) {
+                            if (entry.sublist === undefined) {
+                                var entrySelfChance = 1 - entry.chanceNone;
+
+                                entry.chance = entrySelfChance;
+
+                                nodeChanceEmpty *= (1 - entrySelfChance);
+                            } else {
+                                var subchances = recurseTree(entry.sublist);
+                                if (subchances !== undefined) {
+                                    var entrySelfChance;
+
+                                    if (entry.quantity > 1 && isFlagsEach(entry.sublist.flags)) {
+                                        // if the sublist produced items and we should reroll the entire list quantity times
+                                        entrySelfChance = (1 - entry.chanceNone) * (1 - Math.pow(subchances.emptyChance, entry.quantity));
+                                        // ??? update subentry chances to reflect at-least-once chance
+                                        for (var subEntry of subchances.items) {
+                                            subEntry.chance = 1 - Math.pow(1 - subEntry.chance, entry.quantity);
+                                            // recurse ???
+                                        }
+                                    } else {
+                                        // the sublist is either run-once, all, or the reroll quantity is 1 anyway
+                                        
+                                        entrySelfChance = (1 - entry.chanceNone) * (1 - subchances.emptyChance);
+
+                                    }
+                                    entry.chance = entrySelfChance;
+
+                                    nodeChanceEmpty *= (1 - entrySelfChance);
+                                }
+                            }
+                        }
+
+                        return { emptyChance: nodeChanceEmpty };
+                    }
+                    if (node.max == 1) {
+                        var nodeChanceRemaining = 1;
+
+                        for (var entry of presentEntries) {
+                            if (entry.sublist === undefined) {
+                                var entrySelfChance = nodeChanceRemaining * (1 - entry.chanceNone);
+
+                                entry.chance = entrySelfChance;
+
+                                nodeChanceRemaining *= (1 - entrySelfChance);
+                            } else {
+                                var subchances = recurseTree(entry.sublist);
+                                if (subchances !== undefined) {
+                                    var entrySelfChance;
+                                    if (entry.quantity > 1 && isFlagsEach(entry.sublist.flags)) {
+                                        // if the sublist produced items and we should reroll the entire list quantity times
+                                        // if the sublist produced items and we should reroll the entire list quantity times
+                                        entrySelfChance = (1 - entry.chanceNone) * (1 - Math.pow(subchances.emptyChance, entry.quantity));
+                                        // ??? update subentry chances to reflect at-least-once chance
+                                        for (var subEntry of subchances.items) {
+                                            subEntry.chance = 1 - Math.pow(1 - subEntry.chance, entry.quantity);
+                                            // recurse ???
+                                        }
+                                    } else {
+                                        // the sublist is either run-once, all, or the reroll quantity is 1 anyway
+                                        
+                                        entrySelfChance = (1 - entry.chanceNone) * (1 - subchances.emptyChance);
+
+                                    }
+                                    entry.chance = nodeChanceRemaining * entrySelfChance;
+
+                                    nodeChanceRemaining *= (1 - entrySelfChance);
+                                }
+                            }
+                        }
+
+                        return { emptyChance: nodeChanceRemaining };
+                    }
+                } else {
+                    // pick one randomly
+                    if (neverEmpty) {
+                        // loop over each entry to see if they by themselves could return emptyChance == 0
+                        var subsNeverEmpty = true;
+                        for (var entry of presentEntries) {
+                            if (entry.sublist !== undefined) {
+                                var subchances = recurseTree(entry.sublist);
+                                if (subchances !== undefined) {
+                                    if (subchances.emptyChance >= epsilon) {
+                                        subsNeverEmpty = false;
+                                        break;
+                                    }
+                                } 
+                            }
+                        }
+
+                        if (subsNeverEmpty) {
+                            var uniform = 1.0 / presentEntries.length;
+                            for (var entry of presentEntries) {
+                                entry.chance = uniform;
+                            }
+
+                            return { emptyChance: 0.0, items: presentEntries };
+                        }
+                    }
+                    // otherwise, we have to use the 2^N formula
+
+                    for (var entry of presentEntries) {
+                        entry.chance = 0;
+
+                        if (entry.sublist !== undefined) {
+                            var subchances = recurseTree(entry.sublist);
+                            if (subchances !== undefined) {
+                                if (entry.quantity > 1 && isFlagsEach(entry.sublist.flags)) {
+                                    // if the sublist produced items and we should reroll the entire list quantity times
+                                    // if the sublist produced items and we should reroll the entire list quantity times
+                                    entry.selfChance = (1 - Math.pow(subchances.emptyChance, entry.quantity));
+                                    // ??? update subentry chances to reflect at-least-once chance
+                                    for (var subEntry of subchances.items) {
+                                        subEntry.chance = 1 - Math.pow(1 - subEntry.chance, entry.quantity);
+                                        // recurse ???
+                                    }
+                                } else {
+                                    // the sublist is either run-once, all, or the reroll quantity is 1 anyway
+                                    
+                                    entry.selfChance = (1 - subchances.emptyChance);
+                                }
+                            } else {
+                                entry.selfChance = 0;
+                            }
+                        } else {
+                            entry.selfChance = 1;
+                        }
+                    }
+
+                    // we calculate it expliticty for sorter lists as it takes exponential time
+                    if (presentEntries.length <= formulaLimit) {
+                        var nodeChanceEmpty = 1;
+
+                        // use exact formulation
+                        var bitMap = 1 << presentEntries.length;
+
+                        for (var i = 0; i < bitMap; i++) {
+                            var product = 1;
+                            var nonzeroCount = 0;
+
+                            for (var j = 0; j < presentEntries.length; j++) {
+                                var entry = presentEntries[j];
+                                var selfChance = (1 - entry.chanceNone) * entry.selfChance;
+                                var bit = 1 << j;
+                                if ((i & bit) == 0) {
+                                    product *= 1 - selfChance;
+                                } else {
+                                    nonzeroCount++;
+                                    product *= selfChance;
+                                }
+                            }
+
+                            if (nonzeroCount == 0) {
+                                nodeChanceEmpty = product;
+                            } else {
+                                product /= nonzeroCount;
+                                for (var j = 0; j < presentEntries.length; j++) {
+                                    var entry = presentEntries[j];
+                                    var bit = 1 << j;
+                                    if ((i & bit) != 0) {
+                                        entry.chance += product;
+                                    }
+                                }
+                            }
+                        }
+
+                        return { emptyChance: nodeChanceEmpty, items: presentEntries };
+                    } else {
+                        // otherwise we use a monte-carlo simulation of the list itself to approximate
+                        // chance acts as a counter
+                        
+                        for (var i = 0; i < monteCarloCount; i++) {
+                            for (var entry of presentEntries) {
+                                if (entry.chanceNone <= Math.random()) {
+                                    if (entry.selfChance === undefined || entry.selfChance > Math.random()) {
+                                        entry.chance++;
+                                    }
+                                }
+                            }
+                        }
+
+                        var nodeChanceEmpty = 1;
+
+                        // do the average over all the runs
+                        for (var entry of presentEntries) {
+                            entry.chance /= monteCarloCount;
+
+                            nodeChanceEmpty *= (1.0 - entry.chance);
+                        }
+
+                        if (hasAlwaysPresentEntry) {
+                            nodeChanceEmpty = 0.0;
+                        }
+
+                        return { emptyChance: nodeChanceEmpty, items: presentEntries };
+                    }
+                }
+                return undefined;
+            }
+
+            // returns undefined for an unsupported setup or a record { emptyChance: float, [items: array] }
+            function recurseTree(node) {
+                if (!node.conditionMatch) {
+                    return undefined;
+                }
+                var isAll = isFlagsAll(node.flags);
+                var isEach = isFlagsEach(node.flags);
+
+                var presentEntries = [];
+                var neverEmpty = true;
+                var hasAlwaysPresentEntry = false;
+                for (var entry of node.items) {
+                    if (entry.levelMatch && entry.conditionMatch) {
+                        presentEntries.push(entry);
+                        if (entry.chanceNone > 0) {
+                            neverEmpty = false;
+                        } else {
+                            hasAlwaysPresentEntry = true;
+                        }
+                    }
+                }
+
+                if (node.hasSubLists) {
+                    return processMixedNode(node, isAll, isEach, presentEntries, neverEmpty, hasAlwaysPresentEntry);
+                }
+                return processLeafNode(node, isAll, isEach, presentEntries, neverEmpty, hasAlwaysPresentEntry);
             }
 
             function getSettingsValue(key) {
@@ -1303,7 +1667,7 @@
 
                 node.flags = lvli.LVLF;
                 node.max = decodeValueOverride(lvli, "LVMV", "LVMG", "LVMT");
-                node.chanceNone = decodeValueOverride(lvli, "LVCV", "LVLG", "LVCT");
+                node.chanceNone = decodeValueOverride(lvli, "LVCV", "LVLG", "LVCT") / 100.0;
 
                 if (lvli.Conditions !== undefined) {
                     node.conditionMatch = evaluateConditions(lvli.Conditions);
@@ -1323,7 +1687,7 @@
                             formID: entry.Object,
                             conditionMatch: true,
                             levelMatch: true,
-                            chanceNone: 0, // the node's default chance none value
+                            chanceNone: 0, // the node's default chance none value [0..1]
                             level: 0,
                             quantity: 1,
                             index: entryIndex,
@@ -1331,7 +1695,7 @@
                         };
 
                         node.items.push(entryNode);
-                        entryNode.chanceNone = decodeValueOverride(entry, "LVOV", "LVOC", "LVOT");
+                        entryNode.chanceNone = decodeValueOverride(entry, "LVOV", "LVOC", "LVOT") / 100.0;
                         entryNode.level = decodeValueOverride(entry, "LVLV", "LVOG", "ZZZZ");
                         entryNode.quantity = decodeValueOverride(entry, "LVIV", "LVIG", "ZZZZ");
                         
@@ -1344,6 +1708,7 @@
                         }
 
                         if (getGroupID(entry.Object) === "LVLI") {
+                            node.hasSubLists = true;
                             entryNode.sublist = createChanceNode(entry.Object);
                             recurseForms(entryNode.sublist);
                         }
@@ -1351,9 +1716,14 @@
                         entryIndex++;
                     }
 
-                    if (isClosestLevel) {
-                        for (var n of node.items) {
+                    for (var n of node.items) {
+                        if (isClosestLevel) {
                             n.levelMatch = n.level == closestLevel;
+                        } else {
+                            n.levelMatch = n.level <= settingsLevel;
+                        }
+                        if (n.conditionMatch && n.levelMatch) {
+                            node.presentCount++;
                         }
                     }
                 }
@@ -1378,7 +1748,7 @@
 
                 clear(mainTable);
 
-                generateTable(mainTable, formIDs, 0, 1);
+                generateTable(mainTable, formIDs, 0, chanceTree, 1);
 
                 var tableLink = document.getElementById("tableLink");
 
