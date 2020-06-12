@@ -22,7 +22,7 @@
     </head>
     <body>
         <center>
-            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Drop Chances (0.0.8)</span><br/>
+            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Drop Chances (0.0.9)</span><br/>
             <br/>
             <br/>
             Select version:
@@ -90,6 +90,17 @@
             
             <table id='listtable' style='margin-top: 15px;'>
 
+            </table>
+            <br>
+            <br>
+            <input id='simulate' type='checkbox'><label for='simulate'>Generate drops via simulation :</label>
+            &nbsp;&nbsp;&nbsp;<input type="number" id='simulateRolls' value="100000" min="1" /> (rolls)
+            &nbsp;&nbsp;&nbsp;<button id='rollagain'>Roll again!</button>
+            <br>
+
+            <br>
+            <span style="font-size: 24px; font-weight: bold;">Item probabilities</span><br/>
+            <table id='itemtable' style='margin-top: 15px;'>
             </table>
         </center>
         <script>
@@ -588,7 +599,7 @@
                 var lnk = prepareLinkDefault();
                 lnk += "&formids=" + encodeURIComponent(formID);
 
-                return "<a href='" + lnk + "' target='blank' title='Open in new window' style='font-weight: bold; border: 1px solid blue;'>&nbsp;&#x2197;&nbsp;</a>"
+                return "<a href='" + lnk + "' target='_blank' title='Open in new window' style='font-weight: bold; border: 1px solid blue;'>&nbsp;&#x2197;&nbsp;</a>"
             }
             
             function generateTable(parent, formIDs, index, chanceNode, parentChance) {
@@ -1205,6 +1216,7 @@
 
             // key is and index path, value is a record { chance: 0.0, nochance: 0.0 }
             var chanceTree = {};
+            var simulationTree = {};
 
             function createChanceNode(id) {
                 return {
@@ -1226,6 +1238,11 @@
                 chanceTree = createChanceNode(rootFormID);
 
                 recurseForms(chanceTree);
+
+                if (document.getElementById("simulate").checked) {
+                    simulationTree = JSON.parse(JSON.stringify(chanceTree));
+                    simulateTree();
+                }
 
                 // walk the tree
                 recurseTree(chanceTree);
@@ -1629,6 +1646,115 @@
                 return processLeafNode(node, isAll, isEach, presentEntries, neverEmpty, hasAlwaysPresentEntry);
             }
 
+            function incrementChance(entry) {
+                if (entry.chance === undefined) {
+                    entry.chance = 1;
+                } else {
+                    entry.chance++;
+                }
+            }
+
+            function simulateTree() {
+                linkParents(simulationTree, undefined);
+
+                var rounds = parseInt(document.getElementById("simulateRolls").value);
+
+                for (var i = 0; i < rounds; i++) {
+                    var results = simulateNode(simulationTree, null);
+                    var dedup = new Map();                    
+                    for (var entry of results) {
+                        if (dedup.get(entry.formID) == null) {
+                            dedup.set(entry.formID, 1);
+                            incrementChance(entry);
+                            while (entry.parent !== undefined) {
+                                incrementChance(entry.parent);
+                                entry = entry.parent;
+                            }
+                        }
+                    }
+                }
+
+                applyRollCount(simulationTree, rounds);
+            }
+
+            function linkParents(node, parentEntry) {
+                for (var entry of node.items) {
+                    entry.parent = parentEntry;
+                    if (entry.sublist !== undefined) {
+                        linkParents(entry.sublist, entry);
+                    }
+                }
+            }
+
+            function applyRollCount(node, count) {
+                for (var entry of node.items) {
+                    if (entry.chance !== undefined) {
+                        entry.chance /= count;
+                    }
+                    if (entry.sublist !== undefined) {
+                        applyRollCount(entry.sublist, count);
+                    }
+                }
+            }
+
+            function simulateNode(node, parentEntry) {
+                var result = [];
+                if (isFlagsAll(node.flags)) {
+                    var entriesFound = 0;
+                    for (var entry of node.items) {
+                        if (entry.levelMatch && entry.conditionMatch) {
+                            if (entry.chanceNone <= Math.random()) {
+                                if (entry.sublist === undefined) {
+                                    result.push(entry);
+                                    entriesFound++;
+                                } else {
+                                    var subresult = simulateNode(entry.sublist, entry);
+                                    if (subresult.length != 0) {
+                                        for (var sub of subresult) {
+                                            result.push(sub);
+                                        }
+                                        entriesFound++;
+                                    }
+                                }
+                            }
+                        }
+                        if (node.max > 0 && entriesFound >= node.max) {
+                            break;
+                        }
+                    }
+                } else {
+                    var rerolls = 1;
+                    if (isFlagsEach(node.flags) && parentEntry != null && parentEntry.quantity > 1) {
+                        rerolls = parentEntry.quantity;
+                    }
+
+                    for (var i = 0; i < rerolls; i++) {
+                        var entriesToPickFrom = [];
+                        for (var entry of node.items) {
+                            if (entry.levelMatch && entry.conditionMatch) {
+                                if (entry.chanceNone <= Math.random()) {
+                                    if (entry.sublist === undefined) {
+                                        entriesToPickFrom.push( [ entry ]);
+                                    } else {
+                                        var subresult = simulateNode(entry.sublist, entry);
+                                        if (subresult.length != 0) {
+                                            entriesToPickFrom.push(subresult);
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        if (entriesToPickFrom.length != 0) {
+                            var idx = Math.floor(entriesToPickFrom.length * Math.random());
+                            for (var entry of entriesToPickFrom[idx]) {
+                                result.push(entry);
+                            }
+                        }
+                    }
+                }
+                return result;
+            }
+
             function getSettingsValue(key) {
                 var input = settingsMap.get(key);
                 if (input !== undefined) {
@@ -1795,7 +1921,7 @@
                         if (getGroupID(entry.Object) === "LVLI") {
                             node.hasSubLists = true;
                             entryNode.sublist = createChanceNode(entry.Object);
-                            recurseForms(entryNode.sublist);
+                            recurseForms(entryNode.sublist, entryNode);
                         }
 
                         entryIndex++;
@@ -1824,6 +1950,13 @@
 
             function updateChances(formIDs) {
                 calculateChances(formIDs[0]);
+
+                document.getElementById("simulate").oninput = function() {
+                    updateChances(currentFormIDs);
+                };
+                document.getElementById("rollagain").onclick = function() {
+                    updateChances(currentFormIDs);
+                };
 
                 renderTable(formIDs);
             }
@@ -1856,6 +1989,143 @@
                 showFail.oninput = function() {
                     renderTable(fids);
                 };
+
+                generateItemTable();
+            }
+
+            function generateItemTable() {
+                var itemTable = document.getElementById("itemtable");
+                clear(itemTable);
+
+                var row = itemTable.insertRow(itemTable.rows.length);
+                row.style.backgroundColor = "#FFCC00";
+                row.style.fontWeight = "bold";
+                        
+                var cll = row.insertCell(row.cells.length);
+                cll.innerText = "Item";
+                cll = row.insertCell(row.cells.length);
+                cll.innerText = "Calc";
+                cll.title = "Calculated chance";
+
+                var leafs = [];
+
+                recurseForItems(chanceTree, leafs, 1);
+
+                var includeSim = document.getElementById("simulate").checked;
+
+                if (includeSim) {
+                    cll = row.insertCell(row.cells.length);
+                    cll.innerText = "Sim";
+                    cll.title = "Simulated chance";
+
+                    var leafsSim = [];
+                    recurseForSimItems(simulationTree, leafsSim);
+
+                    var leafsMap = new Map();
+                    for (var leaf of leafs) {
+                        leafsMap.set(leaf.formID, leaf);
+                    }
+
+                    for (var leaf of leafsSim) {
+                        var existingLeaf = leafsMap.get(leaf.formID);
+                        if (existingLeaf != null) {
+                            existingLeaf.chanceSim = leaf.chance;
+                        } else {
+                            leafs.push(leaf);
+                            leaf.chanceSim = leaf.chance;
+                            leaf.chance = undefined;
+                            leafsMap.set(leaf.formID, leaf);
+                        }
+                    }
+                }
+
+
+                if (leafs.length > 0) {
+                    for (var leaf of leafs) {
+                        row = itemTable.insertRow(itemTable.rows.length);
+                        
+                        cll = row.insertCell(row.cells.length);
+                        cll.innerHTML = createNukaLink(leaf.formID);
+
+                        cll = row.insertCell(row.cells.length);
+                        cll.style.border="1px dotted red";
+                        cll.style.fontWeight = "bold";
+                        cll.style.paddingLeft = "5px";
+                        cll.style.paddingRight = "5px";
+                        if (leaf.chance !== undefined) {
+                            cll.style.color = "red";
+                            cll.style.textAlign = "right";
+                            cll.innerText = (leaf.chance * 100.0).toFixed(3) + "%";
+                        } else {
+                            cll.style.color = "black";
+                            cll.style.textAlign = "center";
+                            cll.innerText = "- missing -";
+                        }
+
+                        if (includeSim) {
+                            if (leaf.chance === undefined || leaf.chanceSim === undefined) {
+                                row.style.backgroundColor = "#FFECEC";
+                            }
+
+                            cll = row.insertCell(row.cells.length);
+                            cll.style.border="1px dotted blue";
+                            cll.style.fontWeight = "bold";
+                            cll.style.paddingLeft = "5px";
+                            cll.style.paddingRight = "5px";
+                            if (leaf.chanceSim !== undefined) {
+                                cll.style.color = "blue";
+                                cll.style.textAlign = "right";
+                                cll.innerText = (leaf.chanceSim * 100.0).toFixed(3) + "%";
+                            } else {
+                                cll.style.color = "black";
+                                cll.style.textAlign = "center";
+                                cll.innerText = "- missing -";
+                            }
+                        }
+                    }
+                } else {
+                    row = itemTable.insertRow(itemTable.rows.length);
+                    cll = row.insertCell(row.cells.length);
+                    cll.style.fontStyle = "italic";
+                    cll.innerText = "No items can drop with this setup."
+                }
+            }
+
+            function recurseForItems(node, leafs, parentChance) {
+                for (var entry of node.items) {
+                    if (entry.levelMatch && entry.conditionMatch) {
+                        var entrySelfChance = entry.chance;
+                        if (entrySelfChance !== undefined) {
+                            if (entry.sublist == undefined) {
+                                leafs.push({
+                                    formID : entry.formID,
+                                    chance: entrySelfChance * parentChance
+                                });
+                            } else {
+                                var cascadeChance = entrySelfChance * parentChance;
+                                if (entry.apriori !== undefined) {
+                                    cascadeChance = entry.apriori * parentChance;
+                                }
+                                recurseForItems(entry.sublist, leafs, cascadeChance);
+                            }
+                        }
+                    }
+                }
+            }
+
+            function recurseForSimItems(node, leafs) {
+                for (var entry of node.items) {
+                    if (entry.levelMatch && entry.conditionMatch) {
+                        if (entry.sublist == undefined) {
+                            leafs.push({
+                                formID : entry.formID,
+                                chance: entry.chance
+                            });
+                        } else {
+                            recurseForSimItems(entry.sublist, leafs);
+                        }
+                    }
+                }
             }
 
             function clear(table) {
