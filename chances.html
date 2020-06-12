@@ -1384,10 +1384,11 @@
                                         // the sublist is either run-once, all, or the reroll quantity is 1 anyway
                                         
                                         entrySelfChance = (1 - entry.chanceNone) * (1 - subchances.emptyChance);
-
                                     }
                                     entry.chance = nodeChanceRemaining * entrySelfChance;
-                                    entry.apriori = nodeChanceRemaining;
+                                    if (subchances.emptyChance >= epsilon) {
+                                        entry.apriori = nodeChanceRemaining;
+                                    }
 
                                     nodeChanceRemaining *= (1 - entrySelfChance);
                                 }
