@@ -22,7 +22,7 @@
     </head>
     <body>
         <center>
-            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Drop Chances (0.0.6)</span><br/>
+            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Drop Chances (0.0.7)</span><br/>
             <br/>
             <br/>
             Select version:
@@ -55,9 +55,10 @@
                     <td colspan='5' style='text-align: center;'>
                         <input type='checkbox' id='IncludeATX' checked><label for='IncludeATX'>Include Atom Shop</label>&nbsp;&nbsp;&nbsp;
                         <input type='checkbox' id='IncludeCut'><label for='IncludeCut'>Include cut content</label>&nbsp;&nbsp;&nbsp;
-                        <input type='checkbox' id='IncludeDebug'><label for='IncludeDebug'>Include debug content</label>&nbsp;&nbsp;&nbsp;
+                        <input type='checkbox' id='IncludeDebug'><label for='IncludeDebug'>Include debug content</label><br>
                         <input type='checkbox' id='SortByEditorID' checked><label for='SortByEditorID'>Sort by EditorID</label>&nbsp;&nbsp;&nbsp;
                         <input type='checkbox' id='Coalesce' checked><label for='Coalesce'>Coalesce duplicate entries</label>
+                        <input type='checkbox' id='ShowFailedConditions' checked><label for='ShowFailedConditions'>Show entries with failed conditions</label>
                     </td>
                 </tr>
             </table>
@@ -146,7 +147,11 @@
                 var q = location.search;
                 if (q.includes("formids=")) {
                     var idx = q.indexOf("formids=");
-                    var ids = q.substr(idx + 8).split("-");
+                    var jdx = q.indexOf("&", idx + 8);
+                    if (jdx < 0) {
+                        jdx = q.length;
+                    }
+                    var ids = q.substring(idx + 8, jdx).split("-");
                     showChain(ids);
                 }
             }
@@ -731,11 +736,18 @@
                         row = parent.insertRow(n);
                         cll = row.insertCell(row.cells.length);
 
-                        cll.innerText = "Entries (" + lvli.Entries.length + ")";
+                        var showFail = document.getElementById("ShowFailedConditions").checked;
+
+                        if (!showFail) {
+                            cll.innerText = "Entries (" + lvli.Entries.length + ") - showing passing entries only";
+                        } else {
+                            cll.innerText = "Entries (" + lvli.Entries.length + ")";
+                        }
                         cll.style.backgroundColor = "#C0C0FF";
                         cll.style.fontWeight = "bold";
                         cll.colSpan = maxCols;
                         var entries = [];
+
 
                         // coalesce same entries
                         if (document.getElementById("Coalesce").checked) {
@@ -792,6 +804,16 @@
 
                         var entryIndex = 0;
                         for (var entry of entries) {
+
+                            if (!showFail) {
+                                var pass = entry.Conditions === undefined || evaluateConditions(entry.Conditions);
+                                var lvl = decodeValueOverride(entry, "LVLV", "LVOG", "ZZZZ");
+                                if (!pass || (isAllLevel && lvl > settingsLevel) || (!isAllLevel && lvl != closestLevel)) {
+                                    entryIndex++;
+                                    continue;
+                                }
+                            }
+
                             n = parent.rows.length;
                             row = parent.insertRow(n);
 
@@ -1792,12 +1814,26 @@
                 var patchSel = document.getElementById("versionselect");
                 var patch = patchSel.options[patchSel.selectedIndex].value;
 
-                tableLink.href = "?patch=" + patch + "&formids=" + encodeURIComponent(formIDs.join("-"));
+                var lnk = "?patch=" + patch;
+                if (!document.getElementById("Coalesce").checked) {
+                    lnk += "&nocoalesce";
+                }
+                if (!document.getElementById("ShowFailedConditions").checked) {
+                    lnk += "&noshowfail";
+                }
+                lnk += "&formids=" + encodeURIComponent(formIDs.join("-"));
+                tableLink.href = lnk;
                 tableLink.style.display = "inline";
 
                 var coalesce = document.getElementById("Coalesce");
                 let fids = formIDs;
                 coalesce.oninput = function() {
+                    renderTable(fids);
+                };
+
+
+                var showFail = document.getElementById("ShowFailedConditions");
+                showFail.oninput = function() {
                     renderTable(fids);
                 };
             }
@@ -2050,6 +2086,12 @@
                         break;
                     }
                 }         
+            }
+            if (q.includes("noshowfail")) {
+                document.getElementById("ShowFailedConditions").checked = false;
+            }
+            if (q.includes("nocoalesce")) {
+                document.getElementById("Coalesce").checked = false;
             }
             doLoad();
         </script>
