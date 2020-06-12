@@ -22,7 +22,7 @@
     </head>
     <body>
         <center>
-            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Drop Chances (0.0.9)</span><br/>
+            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Drop Chances (0.1.0)</span><br/>
             <br/>
             <br/>
             Select version:
@@ -1217,9 +1217,11 @@
             // key is and index path, value is a record { chance: 0.0, nochance: 0.0 }
             var chanceTree = {};
             var simulationTree = {};
+            var uniqueIDGenerator = 0;
 
             function createChanceNode(id) {
                 return {
+                    uniqueID: uniqueIDGenerator++,
                     formID: id,
                     conditionMatch: true, // turns false if the level requirements or conditions are not met
                     levelMatch: true,
@@ -1232,7 +1234,10 @@
                 };
             }
 
+
             function calculateChances(rootFormID) {
+
+                uniqueIDGenerator = 0;
                 // build a tree and apply condition parameters
                 
                 chanceTree = createChanceNode(rootFormID);
@@ -1663,8 +1668,8 @@
                     var results = simulateNode(simulationTree, null);
                     var dedup = new Map();                    
                     for (var entry of results) {
-                        if (dedup.get(entry.formID) == null) {
-                            dedup.set(entry.formID, 1);
+                        if (dedup.get(entry.uniqueID) == null) {
+                            dedup.set(entry.uniqueID, 1);
                             incrementChance(entry);
                             while (entry.parent !== undefined) {
                                 incrementChance(entry.parent);
@@ -1699,55 +1704,57 @@
 
             function simulateNode(node, parentEntry) {
                 var result = [];
-                if (isFlagsAll(node.flags)) {
-                    var entriesFound = 0;
-                    for (var entry of node.items) {
-                        if (entry.levelMatch && entry.conditionMatch) {
-                            if (entry.chanceNone <= Math.random()) {
-                                if (entry.sublist === undefined) {
-                                    result.push(entry);
-                                    entriesFound++;
-                                } else {
-                                    var subresult = simulateNode(entry.sublist, entry);
-                                    if (subresult.length != 0) {
-                                        for (var sub of subresult) {
-                                            result.push(sub);
-                                        }
-                                        entriesFound++;
-                                    }
-                                }
-                            }
-                        }
-                        if (node.max > 0 && entriesFound >= node.max) {
-                            break;
-                        }
-                    }
-                } else {
-                    var rerolls = 1;
-                    if (isFlagsEach(node.flags) && parentEntry != null && parentEntry.quantity > 1) {
-                        rerolls = parentEntry.quantity;
-                    }
-
-                    for (var i = 0; i < rerolls; i++) {
-                        var entriesToPickFrom = [];
+                if (node.conditionMatch) {
+                    if (isFlagsAll(node.flags)) {
+                        var entriesFound = 0;
                         for (var entry of node.items) {
                             if (entry.levelMatch && entry.conditionMatch) {
                                 if (entry.chanceNone <= Math.random()) {
                                     if (entry.sublist === undefined) {
-                                        entriesToPickFrom.push( [ entry ]);
+                                        result.push(entry);
+                                        entriesFound++;
                                     } else {
                                         var subresult = simulateNode(entry.sublist, entry);
                                         if (subresult.length != 0) {
-                                            entriesToPickFrom.push(subresult);
+                                            for (var sub of subresult) {
+                                                result.push(sub);
+                                            }
+                                            entriesFound++;
                                         }
                                     }
                                 }
                             }
+                            if (node.max > 0 && entriesFound >= node.max) {
+                                break;
+                            }
                         }
-                        if (entriesToPickFrom.length != 0) {
-                            var idx = Math.floor(entriesToPickFrom.length * Math.random());
-                            for (var entry of entriesToPickFrom[idx]) {
-                                result.push(entry);
+                    } else {
+                        var rerolls = 1;
+                        if (isFlagsEach(node.flags) && parentEntry != null && parentEntry.quantity > 1) {
+                            rerolls = parentEntry.quantity;
+                        }
+
+                        for (var i = 0; i < rerolls; i++) {
+                            var entriesToPickFrom = [];
+                            for (var entry of node.items) {
+                                if (entry.levelMatch && entry.conditionMatch) {
+                                    if (entry.chanceNone <= Math.random()) {
+                                        if (entry.sublist === undefined) {
+                                            entriesToPickFrom.push( [ entry ]);
+                                        } else {
+                                            var subresult = simulateNode(entry.sublist, entry);
+                                            if (subresult.length != 0) {
+                                                entriesToPickFrom.push(subresult);
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                            if (entriesToPickFrom.length != 0) {
+                                var idx = Math.floor(entriesToPickFrom.length * Math.random());
+                                for (var entry of entriesToPickFrom[idx]) {
+                                    result.push(entry);
+                                }
                             }
                         }
                     }
@@ -1895,6 +1902,7 @@
                     for (var entry of lvli.Entries) {
 
                         var entryNode = {
+                            uniqueID: uniqueIDGenerator++,
                             formID: entry.Object,
                             conditionMatch: true,
                             levelMatch: true,
@@ -2023,90 +2031,128 @@
 
                     var leafsMap = new Map();
                     for (var leaf of leafs) {
-                        leafsMap.set(leaf.formID, leaf);
+                        leafsMap.set(leaf.uniqueID, leaf);
                     }
 
                     for (var leaf of leafsSim) {
-                        var existingLeaf = leafsMap.get(leaf.formID);
+                        var existingLeaf = leafsMap.get(leaf.uniqueID);
                         if (existingLeaf != null) {
                             existingLeaf.chanceSim = leaf.chance;
                         } else {
                             leafs.push(leaf);
                             leaf.chanceSim = leaf.chance;
                             leaf.chance = undefined;
-                            leafsMap.set(leaf.formID, leaf);
+                            leafsMap.set(leaf.uniqueID, leaf);
                         }
                     }
                 }
 
+                if (document.getElementById("Coalesce").checked) {
+                    for (var i = leafs.length - 1; i > 0; i--) {
+                        var curr = leafs[i];
+                        for (var j = i - 1; j >= 0; j--) {
+                            var prev = leafs[j];
+                            if (prev.formID == curr.formID && prev.quantity == curr.quantity) {
 
-                if (leafs.length > 0) {
-                    for (var leaf of leafs) {
-                        row = itemTable.insertRow(itemTable.rows.length);
-                        
-                        cll = row.insertCell(row.cells.length);
-                        cll.innerHTML = createNukaLink(leaf.formID);
+                                if (prev.chance === undefined) {
+                                    prev.chance = curr.chance;
+                                } 
+                                else if (curr.chance !== undefined) {
+                                    prev.chance += curr.chance;
+                                }
+
+                                if (prev.chanceSim === undefined) {
+                                    prev.chanceSim = curr.chanceSim;
+                                } 
+                                else if (curr.chanceSim !== undefined) {
+                                    prev.chanceSim += curr.chanceSim;
+                                }
+
+                                curr.skip = true;
+                                break;
+                            }
+                        }
+                    }
+                }
+
+                for (var leaf of leafs) {
+                    if (leaf.skip) {
+                        continue;
+                    }
+                    row = itemTable.insertRow(itemTable.rows.length);
+                    
+                    cll = row.insertCell(row.cells.length);
+                    cll.innerHTML = createNukaLink(leaf.formID);
+
+                    if (leaf.quantity > 1) {
+                        cll.innerHTML += "&nbsp;<span style='color: blue; font-weight: bold; border: 1px dotted blue;'>&nbsp;x&nbsp;" + leaf.quantity + "&nbsp;</span>";
+                    }
+
+                    cll = row.insertCell(row.cells.length);
+                    cll.style.border="1px dotted red";
+                    cll.style.fontWeight = "bold";
+                    cll.style.paddingLeft = "5px";
+                    cll.style.paddingRight = "5px";
+                    if (leaf.chance !== undefined) {
+                        cll.style.color = "red";
+                        cll.style.textAlign = "right";
+                        cll.innerText = (leaf.chance * 100.0).toFixed(3) + "%";
+                    } else {
+                        cll.style.color = "black";
+                        cll.style.textAlign = "center";
+                        cll.innerText = "- missing -";
+                    }
+
+                    if (includeSim) {
+                        if (leaf.chance === undefined || leaf.chanceSim === undefined) {
+                            row.style.backgroundColor = "#FFECEC";
+                        }
 
                         cll = row.insertCell(row.cells.length);
-                        cll.style.border="1px dotted red";
+                        cll.style.border="1px dotted blue";
                         cll.style.fontWeight = "bold";
                         cll.style.paddingLeft = "5px";
                         cll.style.paddingRight = "5px";
-                        if (leaf.chance !== undefined) {
-                            cll.style.color = "red";
+                        if (leaf.chanceSim !== undefined) {
+                            cll.style.color = "blue";
                             cll.style.textAlign = "right";
-                            cll.innerText = (leaf.chance * 100.0).toFixed(3) + "%";
+                            cll.innerText = (leaf.chanceSim * 100.0).toFixed(3) + "%";
                         } else {
                             cll.style.color = "black";
                             cll.style.textAlign = "center";
                             cll.innerText = "- missing -";
                         }
-
-                        if (includeSim) {
-                            if (leaf.chance === undefined || leaf.chanceSim === undefined) {
-                                row.style.backgroundColor = "#FFECEC";
-                            }
-
-                            cll = row.insertCell(row.cells.length);
-                            cll.style.border="1px dotted blue";
-                            cll.style.fontWeight = "bold";
-                            cll.style.paddingLeft = "5px";
-                            cll.style.paddingRight = "5px";
-                            if (leaf.chanceSim !== undefined) {
-                                cll.style.color = "blue";
-                                cll.style.textAlign = "right";
-                                cll.innerText = (leaf.chanceSim * 100.0).toFixed(3) + "%";
-                            } else {
-                                cll.style.color = "black";
-                                cll.style.textAlign = "center";
-                                cll.innerText = "- missing -";
-                            }
-                        }
                     }
-                } else {
+                }
+                if (itemTable.rows.length == 1) {
                     row = itemTable.insertRow(itemTable.rows.length);
                     cll = row.insertCell(row.cells.length);
                     cll.style.fontStyle = "italic";
                     cll.innerText = "No items can drop with this setup."
+                    cll.colSpan = includeSim ? 3 : 2;
                 }
             }
 
             function recurseForItems(node, leafs, parentChance) {
-                for (var entry of node.items) {
-                    if (entry.levelMatch && entry.conditionMatch) {
-                        var entrySelfChance = entry.chance;
-                        if (entrySelfChance !== undefined) {
-                            if (entry.sublist == undefined) {
-                                leafs.push({
-                                    formID : entry.formID,
-                                    chance: entrySelfChance * parentChance
-                                });
-                            } else {
-                                var cascadeChance = entrySelfChance * parentChance;
-                                if (entry.apriori !== undefined) {
-                                    cascadeChance = entry.apriori * parentChance;
+                if (node.conditionMatch) {
+                    for (var entry of node.items) {
+                        if (entry.levelMatch && entry.conditionMatch) {
+                            var entrySelfChance = entry.chance;
+                            if (entrySelfChance !== undefined) {
+                                if (entry.sublist == undefined) {
+                                    leafs.push({
+                                        formID : entry.formID,
+                                        uniqueID: entry.uniqueID,
+                                        quantity: entry.quantity,
+                                        chance: entrySelfChance * parentChance
+                                    });
+                                } else {
+                                    var cascadeChance = entrySelfChance * parentChance;
+                                    if (entry.apriori !== undefined) {
+                                        cascadeChance = entry.apriori * parentChance;
+                                    }
+                                    recurseForItems(entry.sublist, leafs, cascadeChance);
                                 }
-                                recurseForItems(entry.sublist, leafs, cascadeChance);
                             }
                         }
                     }
@@ -2114,15 +2160,19 @@
             }
 
             function recurseForSimItems(node, leafs) {
-                for (var entry of node.items) {
-                    if (entry.levelMatch && entry.conditionMatch) {
-                        if (entry.sublist == undefined) {
-                            leafs.push({
-                                formID : entry.formID,
-                                chance: entry.chance
-                            });
-                        } else {
-                            recurseForSimItems(entry.sublist, leafs);
+                if (node.conditionMatch) {
+                    for (var entry of node.items) {
+                        if (entry.levelMatch && entry.conditionMatch) {
+                            if (entry.sublist == undefined) {
+                                leafs.push({
+                                    formID : entry.formID,
+                                    uniqueID: entry.uniqueID,
+                                    quantity: entry.quantity,
+                                    chance: entry.chance
+                                });
+                            } else {
+                                recurseForSimItems(entry.sublist, leafs);
+                            }
                         }
                     }
                 }
@@ -2250,6 +2300,9 @@
 
                     cll = row.insertCell(row.cells.length);
                     cll.innerHTML = "<a href='https://nukacrypt.com/database/json/" + formID + "' target='_blank' title='See Nukacrypt data.'>&#x2622;</a>"
+
+                    cll = row.insertCell(row.cells.length);
+                    cll.innerHTML = createOpenNewWindow(formID);
                 }
 
                 if (ignoreFlag != 0) {
