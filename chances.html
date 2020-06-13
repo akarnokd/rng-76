@@ -22,7 +22,7 @@
     </head>
     <body>
         <center>
-            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Drop Chances (0.1.4)</span><br/>
+            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Drop Chances (0.1.5)</span><br/>
             <br/>
             <br/>
             Select version:
@@ -160,6 +160,67 @@
                     }
                 }
 
+                // gatherFunctionNames();
+                findMixedConditions();
+
+                var q = location.search;
+                if (q.includes("formids=")) {
+                    var idx = q.indexOf("formids=");
+                    var jdx = q.indexOf("&", idx + 8);
+                    if (jdx < 0) {
+                        jdx = q.length;
+                    }
+                    var ids = q.substring(idx + 8, jdx).split("-");
+                    showChain(ids);
+                }
+            }
+
+            function findMixedConditions() {
+                var formIDs = new Map();
+
+                for (var listID in leveledLists) {
+
+                    var lvli = leveledLists[listID];
+
+                    if (lvli.Conditions !== undefined) {
+                        var logic = 0;
+                        for (var cond of lvli.Conditions) {
+                            if ((cond.Operator & 1) == 0) {
+                                logic |= 1;
+                            } else {
+                                logic |= 2;
+                            }
+                        }
+
+                        if (logic == 3) {
+                            formIDs.set(listID, listID);
+                        }
+                    }
+                    if (lvli.Entries !== undefined) {
+                        for (var entry of lvli.Entries) {
+                            if (entry.Conditions !== undefined) {
+                                var logic = 0;
+                                for (var cond of entry.Conditions) {
+                                    if ((cond.Operator & 1) == 0) {
+                                        logic |= 1;
+                                    } else {
+                                        logic |= 2;
+                                    }
+                                }
+                                if (logic == 3) {
+                                    formIDs.set(listID, listID);
+                                }
+                            }
+                        }
+                    }
+                }
+
+                for (var fn of formIDs.values()) {
+                    console.log(fn);
+                }
+            }
+
+            function gatherFunctionNames() {
                 // TEMPORARY: dump unique "FunctionName"s
                 /*
                 var functionNames = new Map();
@@ -187,17 +248,6 @@
                     console.log(fn);
                 }
                 */
-
-                var q = location.search;
-                if (q.includes("formids=")) {
-                    var idx = q.indexOf("formids=");
-                    var jdx = q.indexOf("&", idx + 8);
-                    if (jdx < 0) {
-                        jdx = q.length;
-                    }
-                    var ids = q.substring(idx + 8, jdx).split("-");
-                    showChain(ids);
-                }
             }
 
             function loadScript(src, callback) {
@@ -447,6 +497,23 @@
                     + "</a>";
             }
 
+            function pickComboSettings(key, entry) {
+                var input = settingsMap.get(key);
+                if (input !== undefined) {
+                    if (input.selectedIndex !== undefined) {
+                        for (var i = 0; i < input.options.length; i++) {
+                            var opt = input.options[i];
+                            if (opt.value == entry) {
+                                opt.selected = true;
+                                input.dispatchEvent(new Event('input'));
+                                break;
+                            }
+                        }
+                    }
+                }
+                return false;
+            }
+
             function buildConditionEntry(parent, entry, maxCols) {
                 if (entry.Conditions !== undefined) {
                     n = parent.rows.length;
@@ -494,7 +561,19 @@
             }
 
             var displayOneLinkFunc = function(fn, cond) {
-                return "(" + createNukaLink(cond.Param1Ref) + ")";
+                return "(" + createNukaLink(cond.Param1Ref) + ")"
+                ;
+            };
+
+            var displayOneLinkPickFunc = function(fn, cond) {
+                return "(" + createNukaLink(cond.Param1Ref) + ")"
+                + "&nbsp;<a href='#' onclick='javascript:pickComboSettings(\"" + fn + "\", \"" + cond.Param1Ref
+                 + "\"); return false;' title='Use this in the settings' "
+                 + "style='border:1px dotted green; text-decoration: none; "
+                 + "font-weight: bold; background-color: #E0FFFF; padding-left: 3px; padding-right: 3px;"
+                 + "box-shadow: 2px 2px #888888;"
+                 + "'>&#x2190;</a>"
+                ;
             };
 
             var displayTwoLinksFunc = function(fn, cond) {
@@ -616,13 +695,13 @@
             addFunction("GetDistance", displayOneLinkFunc, addTextBoxNameParamFunc, evalTextBox);
 
             // Value on the subject target, keyed by the reference, that can be only a set of possibilities
-            addFunction("GetIsInRegion", displayOneLinkFunc, addComboBoxFunc, evalComboBoxFunc);
-            addFunction("GetIsRace", displayOneLinkFunc, addComboBoxFunc, evalComboBoxFunc);
-            addFunction("LocationHasRefType", displayOneLinkFunc, addComboBoxFunc, evalComboBoxFunc);
-            addFunction("GetIsID", displayOneLinkFunc, addComboBoxFunc, evalComboBoxFunc);
-            addFunction("GetInCurrentLoc", displayOneLinkFunc, addComboBoxFunc, evalComboBoxFunc);
-            addFunction("HasRefType", displayOneLinkFunc, addComboBoxFunc, evalComboBoxFunc);
-            addFunction("GetIsEditorLocation", displayOneLinkFunc, addComboBoxFunc, evalComboBoxFunc);
+            addFunction("GetIsInRegion", displayOneLinkPickFunc, addComboBoxFunc, evalComboBoxFunc);
+            addFunction("GetIsRace", displayOneLinkPickFunc, addComboBoxFunc, evalComboBoxFunc);
+            addFunction("LocationHasRefType", displayOneLinkPickFunc, addComboBoxFunc, evalComboBoxFunc);
+            addFunction("GetIsID", displayOneLinkPickFunc, addComboBoxFunc, evalComboBoxFunc);
+            addFunction("GetInCurrentLoc", displayOneLinkPickFunc, addComboBoxFunc, evalComboBoxFunc);
+            addFunction("HasRefType", displayOneLinkPickFunc, addComboBoxFunc, evalComboBoxFunc);
+            addFunction("GetIsEditorLocation", displayOneLinkPickFunc, addComboBoxFunc, evalComboBoxFunc);
             
 
             // Boolean value on subject/target
@@ -1206,6 +1285,28 @@
                     input.oninput = function() {
                         updateChances(currentFormIDs);
                     };
+
+                    if (input.selectedIndex !== undefined) {
+                        sortComboBox(input);
+                    }
+                }
+            }
+
+            function sortComboBox(input) {
+                var items = [ { text: "", value: "" } ];
+
+                for (var i = 1; i < input.options.length; i++) {
+                    var opt = input.options[i];
+                    items.push( { text: opt.text, value: opt.value });
+                }
+
+                items.sort((a, b) => a.text.localeCompare(b.text));
+                for (var i = 1; i < input.options.length; i++) {
+                    var opt = input.options[i];
+                    var sorted = items[i];
+                    
+                    opt.text = sorted.text;
+                    opt.value = sorted.value;
                 }
             }
 
@@ -2307,76 +2408,84 @@
                 return defaultValue !== undefined ? defaultValue : 0;
             }
 
+            function evaluateFunction(cond) {
+                var compareWith = cond.Value;
+                // compare with global instead?
+                if (compareWith === undefined) {
+                    compareWith = getSettingsValue(cond.Ref);
+                }
+
+                var fn = cond.FunctionName;
+
+                var functionResult = "";
+                var handle = functionMap.get(fn);
+                if (handle != null && handle.evaluate !== undefined) {
+                    functionResult = handle.evaluate(fn, cond);
+                }
+
+                var op = (cond.Operator & 0xFF) >> 5;
+                
+                var evaluation = false;
+
+                if (typeof(functionResult) === "string") {
+                    functionResult = parseFloat(functionResult.replace(',', '.'));
+                }
+                if (typeof(compareWith) === "string") {
+                    compareWith = parseFloat(compareWith.replace(',', '.'));
+                }
+
+                if (op == 0) {
+                    evaluation = functionResult == compareWith;
+                }
+                else if (op == 1) {
+                    evaluation = functionResult != compareWith;
+                }
+                else if (op == 2) {
+                    evaluation = functionResult > compareWith;
+                }
+                else if (op == 3) {
+                    evaluation = functionResult >= compareWith;
+                }
+                else if (op == 4) {
+                    evaluation = functionResult < compareWith;
+                }
+                else if (op == 5) {
+                    evaluation = functionResult <= compareWith;
+                }
+
+                // when evaluating the condition for pruning, we consider RNG to always match
+                if (fn == "GetRandomPercent") {
+                    evaluation = true;
+                }
+                return evaluation;
+            }
+
             function evaluateConditions(Conditions) {
 
-                var logicOutcome = false;
 
-                var index = 0;
+                var orGroup = [];
+                var andGroups = [ orGroup ];
+
                 for (var cond of Conditions) {
-
-                    var compareWith = cond.Value;
-                    // compare with global instead?
-                    if (compareWith === undefined) {
-                        compareWith = getSettingsValue(cond.Ref);
+                    orGroup.push(cond);
+                    var logicAnd = (cond.Operator & 1) == 0;
+                    if (logicAnd) {
+                        orGroup = [];
+                        andGroups.push(orGroup);
                     }
-
-                    var fn = cond.FunctionName;
-
-                    var functionResult = "";
-                    var handle = functionMap.get(fn);
-                    if (handle != null && handle.evaluate !== undefined) {
-                        functionResult = handle.evaluate(fn, cond);
-                    }
-
-                    var op = (cond.Operator & 0xFF) >> 5;
-                    
-                    var evaluation = false;
-
-                    if (typeof(functionResult) === "string") {
-                        functionResult = parseFloat(functionResult.replace(',', '.'));
-                    }
-                    if (typeof(compareWith) === "string") {
-                        compareWith = parseFloat(compareWith.replace(',', '.'));
-                    }
-
-                    if (op == 0) {
-                        evaluation = functionResult == compareWith;
-                    }
-                    else if (op == 1) {
-                        evaluation = functionResult != compareWith;
-                    }
-                    else if (op == 2) {
-                        evaluation = functionResult > compareWith;
-                    }
-                    else if (op == 3) {
-                        evaluation = functionResult >= compareWith;
-                    }
-                    else if (op == 4) {
-                        evaluation = functionResult < compareWith;
-                    }
-                    else if (op == 5) {
-                        evaluation = functionResult <= compareWith;
-                    }
-
-                    // when evaluating the condition for pruning, we consider RNG to always match
-                    if (fn == "GetRandomPercent") {
-                        evaluation = true;
-                    }
-
-                    if (index == 0) {
-                        logicOutcome = evaluation;
-                    } else {
-                        var logicAnd = (cond.Operator & 1) == 0;
-                        if (logicAnd) {
-                            logicOutcome &= evaluation;
-                        } else {
-                            logicOutcome |= evaluation;
-                        }
-                    }
-
-                    index++;
                 }
-                return logicOutcome;
+
+                var andOutcome = true;
+
+                for (var orGroup of andGroups) {
+                    var orOutcome = false; 
+                    for (var cond of orGroup) {
+                        orOutcome |= evaluateFunction(cond);
+                    }
+                    andOutcome &= orOutcome;
+                }
+
+                return andOutcome;
             }
 
             function patchRandomPercent(node, target) {
