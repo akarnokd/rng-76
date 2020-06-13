@@ -22,7 +22,7 @@
     </head>
     <body>
         <center>
-            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Drop Chances (0.1.2)</span><br/>
+            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Drop Chances (0.1.3)</span><br/>
             <br/>
             <br/>
             Select version:
@@ -1300,17 +1300,53 @@
                 return (flags & 64) != 0;
             }
 
+            function updateChanceNoneConditionRandom(node, originalChanceNone) {
+                var val = node.conditionRandom;
+                if (val !== undefined) {
+                    var op = node.conditionCompare;
+                    // RNG == X is always zero chance
+                    if (op == 0) {
+                        return 1.0;
+                    }
+                    // RNG != X is always 100% chance
+                    if (op == 1) {
+                        return originalChanceNone;
+                    }
+                    if (op == 2 || op == 3) {
+                        // RNG > X or RNG >= X 
+                        return 1 - (1 - originalChanceNone) * (1 - val);
+                    }
+                    if (op == 4 || op == 5) {
+                        // RNG < X or RNG <= X
+                        return 1 - (1 - originalChanceNone) * val;
+                    }
+                }
+                return originalChanceNone;
+            }
+
             // returns undefined for an unsupported setup or a record { emptyChance: float, [items: array] }
             function processLeafNode(node, isAll, isEach, presentEntries, neverEmpty, hasAlwaysPresentEntry) {
-                var baseChance = 1 - node.chanceNone;
+                var nodeChanceNone = updateChanceNoneConditionRandom(node, node.chanceNone);
+
+                var baseChance = 1 - nodeChanceNone;
+                var max = node.max;
+
+                if (isFlagsFirst(node.flags)) {
+                    isAll = true;
+                    max = 1;
+                }
+
                 // only leaf nodes
                 if (isAll) {
                     // all items
-                    if (node.max == 0) {
+                    if (max == 0) {
                         var nodeChanceEmpty = 1;
 
                         for (var entry of presentEntries) {
-                            var entrySelfChance = (1 - entry.chanceNone) * baseChance;
+
+                            var entryChanceNone = updateChanceNoneConditionRandom(entry, entry.chanceNone);
+
+                            var entrySelfChance = (1 - entryChanceNone) * baseChance;
 
                             entry.chance = entrySelfChance;
 
@@ -1320,11 +1356,13 @@
                         return { emptyChance: nodeChanceEmpty };
                     }
                     // first present
-                    if (node.max == 1) {
+                    if (max == 1) {
                         var nodeChanceRemaining = 1;
 
                         for (var entry of presentEntries) {
-                            var entrySelfChance = (1 - entry.chanceNone) * baseChance;
+                            var entryChanceNone = updateChanceNoneConditionRandom(entry, entry.chanceNone);
+
+                            var entrySelfChance = (1 - entryChanceNone) * baseChance;
 
                             entry.chance = nodeChanceRemaining * entrySelfChance;
 
@@ -1345,7 +1383,7 @@
                             entry.chance = uniform;
                         }
 
-                        return { emptyChance: node.chanceNone, items: presentEntries };
+                        return { emptyChance: nodeChanceNone, items: presentEntries };
                     } else {
                         // otherwise it is a 2^N combinational formula
                         // we calculate it expliticty for sorter lists as it takes exponential time
@@ -1366,12 +1404,14 @@
 
                                 for (var j = 0; j < presentEntries.length; j++) {
                                     var entry = presentEntries[j];
+                                    var entryChanceNone = updateChanceNoneConditionRandom(entry, entry.chanceNone);
+
                                     var bit = 1 << j;
                                     if ((i & bit) == 0) {
-                                        product *= entry.chanceNone;
+                                        product *= entryChanceNone;
                                     } else {
                                         nonzeroCount++;
-                                        product *= 1 - entry.chanceNone;
+                                        product *= 1 - entryChanceNone;
                                     }
                                 }
 
@@ -1393,7 +1433,7 @@
                                 entry.chance *= baseChance;
                             }
 
-                            return { emptyChance: nodeChanceEmpty * baseChance + node.chanceNone, items: presentEntries };
+                            return { emptyChance: nodeChanceEmpty * baseChance + nodeChanceNone, items: presentEntries };
                         } else {
                             // otherwise we use a monte-carlo simulation of the list itself to approximate
                             // chance acts as a counter
@@ -1407,7 +1447,8 @@
                             for (var i = 0; i < monteCarloCount; i++) {
                                 var selection = [];
                                 for (var entry of presentEntries) {
-                                    if (entry.chanceNone <= Math.random()) {
+                                    var entryChanceNone = updateChanceNoneConditionRandom(entry, entry.chanceNone);
+                                    if (entryChanceNone <= Math.random()) {
                                         selection.push(entry);
                                     }
                                 }
@@ -1432,7 +1473,7 @@
                                 noneChanceEmpty = emptyList / monteCarloCount;
                             }
 
-                            return { emptyChance: nodeChanceEmpty * baseChance + node.chanceNone, items: presentEntries };
+                            return { emptyChance: nodeChanceEmpty * baseChance + nodeChanceNone, items: presentEntries };
                         }
                     }
                 }
@@ -1442,14 +1483,25 @@
 
             // returns undefined for an unsupported setup or a record { emptyChance: float, [items: array] }
             function processMixedNode(node, isAll, isEach, presentEntries, neverEmpty, hasAlwaysPresentEntry) {
-                var baseChance = 1 - node.chanceNone;
+                var nodeChanceNone = updateChanceNoneConditionRandom(node, node.chanceNone);
+
+                var baseChance = 1 - nodeChanceNone;
+                var max = node.max;
+
+                if (isFlagsFirst(node.flags)) {
+                    isAll = true;
+                    max = 1;
+                }
+
                 if (isAll) {
-                    if (node.max == 0) {
+                    if (max == 0) {
                         var nodeChanceEmpty = 1;
 
                         for (var entry of presentEntries) {
+                            var entryChanceNone = updateChanceNoneConditionRandom(entry, entry.chanceNone);
                             if (entry.sublist === undefined) {
-                                var entrySelfChance = 1 - entry.chanceNone;
+
+                                var entrySelfChance = 1 - entryChanceNone;
 
                                 entry.chance = entrySelfChance * baseChance;
 
@@ -1461,7 +1513,7 @@
 
                                     if (entry.quantity > 1 && isFlagsEach(entry.sublist.flags)) {
                                         // if the sublist produced items and we should reroll the entire list quantity times
-                                        entrySelfChance = (1 - entry.chanceNone) * (1 - Math.pow(subchances.emptyChance, entry.quantity));
+                                        entrySelfChance = (1 - entryChanceNone) * (1 - Math.pow(subchances.emptyChance, entry.quantity));
                                         // ??? update subentry chances to reflect at-least-once chance
                                         for (var subEntry of subchances.items) {
                                             subEntry.chance = 1 - Math.pow(1 - subEntry.chance, entry.quantity);
@@ -1470,7 +1522,7 @@
                                     } else {
                                         // the sublist is either run-once, all, or the reroll quantity is 1 anyway
                                         
-                                        entrySelfChance = (1 - entry.chanceNone) * (1 - subchances.emptyChance);
+                                        entrySelfChance = (1 - entryChanceNone) * (1 - subchances.emptyChance);
 
                                     }
                                     entry.chance = entrySelfChance * baseChance;
@@ -1480,14 +1532,15 @@
                             }
                         }
 
-                        return { emptyChance: nodeChanceEmpty * baseChance + node.chanceNone };
+                        return { emptyChance: nodeChanceEmpty * baseChance + nodeChanceNone };
                     }
-                    if (node.max == 1) {
+                    if (max == 1) {
                         var nodeChanceRemaining = 1;
 
                         for (var entry of presentEntries) {
+                            var entryChanceNone = updateChanceNoneConditionRandom(entry, entry.chanceNone);
                             if (entry.sublist === undefined) {
-                                var entrySelfChance = nodeChanceRemaining * (1 - entry.chanceNone);
+                                var entrySelfChance = nodeChanceRemaining * (1 - entryChanceNone);
 
                                 entry.chance = entrySelfChance * baseChance;
 
@@ -1499,7 +1552,7 @@
                                     if (entry.quantity > 1 && isFlagsEach(entry.sublist.flags)) {
                                         // if the sublist produced items and we should reroll the entire list quantity times
                                         // if the sublist produced items and we should reroll the entire list quantity times
-                                        entrySelfChance = (1 - entry.chanceNone) * (1 - Math.pow(subchances.emptyChance, entry.quantity));
+                                        entrySelfChance = (1 - entryChanceNone) * (1 - Math.pow(subchances.emptyChance, entry.quantity));
                                         // ??? update subentry chances to reflect at-least-once chance
                                         for (var subEntry of subchances.items) {
                                             subEntry.chance = 1 - Math.pow(1 - subEntry.chance, entry.quantity);
@@ -1508,11 +1561,11 @@
                                     } else {
                                         // the sublist is either run-once, all, or the reroll quantity is 1 anyway
                                         
-                                        entrySelfChance = (1 - entry.chanceNone) * (1 - subchances.emptyChance);
+                                        entrySelfChance = (1 - entryChanceNone) * (1 - subchances.emptyChance);
                                     }
                                     entry.chance = nodeChanceRemaining * entrySelfChance * baseChance;
                                     if (subchances.emptyChance >= epsilon) {
-                                        entry.apriori = nodeChanceRemaining * (1 - entry.chanceNone);
+                                        entry.apriori = nodeChanceRemaining * (1 - entryChanceNone);
                                     }
 
                                     nodeChanceRemaining *= (1 - entrySelfChance);
@@ -1520,7 +1573,7 @@
                             }
                         }
 
-                        return { emptyChance: nodeChanceRemaining * baseChance + node.chanceNone };
+                        return { emptyChance: nodeChanceRemaining * baseChance + nodeChanceNone };
                     }
                 } else {
                     // pick one randomly
@@ -1545,7 +1598,7 @@
                                 entry.chance = uniform;
                             }
 
-                            return { emptyChance: node.chanceNone, items: presentEntries };
+                            return { emptyChance: nodeChanceNone, items: presentEntries };
                         }
                     }
                     // otherwise, we have to use the 2^N formula
@@ -1591,7 +1644,8 @@
 
                             for (var j = 0; j < presentEntries.length; j++) {
                                 var entry = presentEntries[j];
-                                var selfChance = (1 - entry.chanceNone) * entry.selfChance;
+                                var entryChanceNone = updateChanceNoneConditionRandom(entry, entry.chanceNone);
+                                var selfChance = (1 - entryChanceNone) * entry.selfChance;
                                 var bit = 1 << j;
                                 if ((i & bit) == 0) {
                                     product *= 1 - selfChance;
@@ -1619,7 +1673,7 @@
                             entry.chance *= baseChance;
                         }
 
-                        return { emptyChance: nodeChanceEmpty * baseChance + node.chanceNone, items: presentEntries };
+                        return { emptyChance: nodeChanceEmpty * baseChance + nodeChanceNone, items: presentEntries };
                     } else {
                         // otherwise we use a monte-carlo simulation of the list itself to approximate
                         // chance acts as a counter
@@ -1630,7 +1684,8 @@
                         for (var i = 0; i < monteCarloCount; i++) {
                             var selection = [];
                             for (var entry of presentEntries) {
-                                if (entry.chanceNone <= Math.random()) {
+                                var entryChanceNone = updateChanceNoneConditionRandom(entry, entry.chanceNone);
+                                if (entryChanceNone <= Math.random()) {
                                     if (entry.selfChance === undefined || entry.selfChance > Math.random()) {
                                         selection.push(entry);
                                     }
@@ -1657,7 +1712,7 @@
                             noneChanceEmpty = emptyList / monteCarloCount;
                         }
 
-                        return { emptyChance: nodeChanceEmpty * baseChance + node.chanceNone, items: presentEntries };
+                        return { emptyChance: nodeChanceEmpty * baseChance + nodeChanceNone, items: presentEntries };
                     }
                 }
                 return undefined;
@@ -1677,7 +1732,8 @@
                 for (var entry of node.items) {
                     if (entry.levelMatch && entry.conditionMatch) {
                         presentEntries.push(entry);
-                        if (entry.chanceNone > 0) {
+                        var entryChanceNone = updateChanceNoneConditionRandom(entry, entry.chanceNone);
+                        if (entryChanceNone > 0) {
                             neverEmpty = false;
                         } else {
                             hasAlwaysPresentEntry = true;
