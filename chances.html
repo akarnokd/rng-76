@@ -22,7 +22,7 @@
     </head>
     <body>
         <center>
-            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Drop Chances (0.1.1)</span><br/>
+            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Drop Chances (0.1.2)</span><br/>
             <br/>
             <br/>
             Select version:
@@ -446,6 +446,64 @@
                 }
             }
 
+            var functionMap = new Map();
+
+            // displayFunction: function(fn, cond) : string
+            // settingsFunction: function(fn, cond) : void
+            // evalFunction: function(fn, cond) : object
+            function addFunction(name, displayFunction, settingsFunction, evalFunction) {
+                var rec = {
+                    display: displayFunction,
+                    settings: settingsFunction,
+                    evaluate: evalFunction
+                };
+                functionMap.set(name, rec);
+                return rec;
+            }
+
+            var displayOneLinkFunc = function(fn, cond) {
+                return "(" + createNukaLink(cond.Param1Ref) + ")";
+            };
+
+            var addCheckBoxFunc = function(fn, cond) {
+                appendCheckBox(fn, cond.Param1Ref);
+            };
+            var addComboBoxFunc = function(fn, cond) {
+                appendComboBox(fn, cond.Param1Ref);
+            };
+
+            var addTextBoxFunc = function(fn, cond) {
+                appendTextBox(cond, "Param1Ref", true);
+            };
+
+            var evalCheckBoxFunc = function(fn, cond) {
+                return getSettingsValue(fn + "_" + cond.Param1Ref);
+            };
+
+            var evalComboBoxFunc = function(fn, cond) {
+                var selectOption = getSettingsValue(fn);
+                return selectOption == cond.Param1Ref;
+            };
+
+            var evalTextBox = function(fn, cond) {
+                return getSettingsValue(cond.Param1Ref);
+            };
+
+            addFunction("HasLearnedRecipe", displayOneLinkFunc, addCheckBoxFunc, evalCheckBoxFunc);
+            addFunction("EditorLocationHasKeyword", displayOneLinkFunc, addCheckBoxFunc, evalCheckBoxFunc);
+            addFunction("GetQuestCompleted", displayOneLinkFunc, addCheckBoxFunc, evalCheckBoxFunc);
+            addFunction("HasEntitlement", displayOneLinkFunc, addCheckBoxFunc, evalCheckBoxFunc);
+            addFunction("WornHasKeyword", displayOneLinkFunc, addCheckBoxFunc, evalCheckBoxFunc);
+
+            addFunction("GetGlobalValue", displayOneLinkFunc, addTextBoxFunc, evalTextBox);
+
+            addFunction("GetIsInRegion", displayOneLinkFunc, addComboBoxFunc, evalComboBoxFunc);
+
+            addFunction("GetLevel", undefined, undefined, (fn, cond) => getSettingsValue("MinLevel"));
+
+            // TODO work out how to do these
+            addFunction("GetRandomPercent", undefined, undefined, (fn, cond) => cond.conditionRandom);
+
             function buildConditionItem(innerTbl, entry) {
                 var i = 0;
                 for (var cond of entry.Conditions) {
@@ -457,12 +515,9 @@
                     var fn = cond.FunctionName;
                     var txt = "&nbsp;&nbsp;&nbsp;<b>" + fn + "</b>";
 
-                    if (fn === "HasLearnedRecipe"
-                        || fn === "GetIsInRegion"
-                        || fn === "EditorLocationHasKeyword"
-                        || fn === "GetGlobalValue"
-                        || fn === "GetQuestCompleted") {
-                        txt += "(" + createNukaLink(cond.Param1Ref) + ")";
+                    var handle = functionMap.get(fn);
+                    if (handle != null && handle.display !== undefined) {
+                        txt += handle.display(fn, cond);
                     }
 
                     var operatorKind = (cond.Operator & 0xFF) >> 5;
@@ -557,18 +612,6 @@
                         ;
                     }
                 }
-            }
-
-            function checkConditionsMutual(conditionList) {
-                if (conditionList !== undefined) {
-                    for (var ce of conditionList) {
-                        if (ce.FunctionName === "EditorLocationHasKeyword") {
-                            return true;
-                        }
-                        // TODO expand as necessary
-                    }
-                }
-                return false;
             }
 
             function compareEntries(curr, prev) {
@@ -1177,20 +1220,12 @@
                 // functions
                 if (node.FunctionName !== undefined) {
                     var fn = node.FunctionName;
-                    if (fn === "GetIsInRegion") {
-                        appendComboBox(fn, node.Param1Ref);
-                    }
-                    if (fn === "HasLearnedRecipe"
-                        || fn === "EditorLocationHasKeyword"
-                        || fn === "GetQuestCompleted"
-                        ) {
-                        appendCheckBox(fn, node.Param1Ref);
-                    }
-                    if (fn === "GetGlobalValue") {
-                        appendTextBox(node, "Param1Ref", true);
+                    var handle = functionMap.get(fn);
+                    if (handle != null && handle.settings !== undefined) {
+                        handle.settings(fn, node);
                     }
                     if (node.Ref !== undefined) {
-                        appendTextBox(node.ref, "Ref", true);
+                        appendTextBox(node, "Ref", true);
                     }
                 }
 
@@ -1224,6 +1259,8 @@
                     uniqueID: uniqueIDGenerator++,
                     formID: id,
                     conditionMatch: true, // turns false if the level requirements or conditions are not met
+                    conditionRandom: undefined, // if set, contains the number for random() :op: value live check
+                    conditionCompare: undefined, // contains the operator code :op: for the comparison
                     levelMatch: true,
                     chanceNone: 0, // the node's default chance none value [0..1]
                     flags: 0, // the node's flags
@@ -1258,6 +1295,9 @@
             }
             function isFlagsEach(flags) {
                 return (flags & 2) != 0;
+            }
+            function isFlagsFirst(flags) {
+                return (flags & 64) != 0;
             }
 
             // returns undefined for an unsupported setup or a record { emptyChance: float, [items: array] }
@@ -1702,15 +1742,65 @@
                 }
             }
 
+            function simulateChanceRoll(node) {
+                if (node.chanceNone <= Math.random()) {
+                    var val = node.conditionRandom;
+                    if (val !== undefined) {
+                        var rng = Math.random();
+                        var op = node.conditionCompare;
+                        if (op == 0) {
+                            return rng == val;
+                        }
+                        if (op == 1) {
+                            return rng != val;
+                        }
+                        if (op == 2) {
+                            return rng > val;
+                        }
+                        if (op == 3) {
+                            return rng >= val;
+                        }
+                        if (op == 4) {
+                            return rng < val;
+                        }
+                        if (op == 5) {
+                            return rng <= val;
+                        }
+                        return false;
+                    }
+                    return true;
+                }
+                return false;
+            }
+
             function simulateNode(node, parentEntry) {
                 var result = [];
                 if (node.conditionMatch) {
-                    if (node.chanceNone <= Math.random()) {
-                        if (isFlagsAll(node.flags)) {
+                    if (simulateChanceRoll(node)) {
+                        if (isFlagsFirst(node.flags)) {
+                            for (var entry of node.items) {
+                                if (entry.levelMatch && entry.conditionMatch) {
+                                    if (simulateChanceRoll(entry)) {
+                                        if (entry.sublist === undefined) {
+                                            result.push(entry);
+                                        } else {
+                                            var subresult = simulateNode(entry.sublist, entry);
+                                            if (subresult.length != 0) {
+                                                for (var sub of subresult) {
+                                                    result.push(sub);
+                                                }
+                                            }
+                                        }
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+                        else if (isFlagsAll(node.flags)) {
                             var entriesFound = 0;
                             for (var entry of node.items) {
                                 if (entry.levelMatch && entry.conditionMatch) {
-                                    if (entry.chanceNone <= Math.random()) {
+                                    if (simulateChanceRoll(entry)) {
                                         if (entry.sublist === undefined) {
                                             result.push(entry);
                                             entriesFound++;
@@ -1739,7 +1829,7 @@
                                 var entriesToPickFrom = [];
                                 for (var entry of node.items) {
                                     if (entry.levelMatch && entry.conditionMatch) {
-                                        if (entry.chanceNone <= Math.random()) {
+                                        if (simulateChanceRoll(entry)) {
                                             if (entry.sublist === undefined) {
                                                 entriesToPickFrom.push( [ entry ]);
                                             } else {
@@ -1819,21 +1909,9 @@
                     var fn = cond.FunctionName;
 
                     var functionResult = "";
-                    if (fn === "GetIsInRegion") {
-                        var selectOption = getSettingsValue(fn);
-                        functionResult = selectOption == cond.Param1Ref;
-                    }
-                    else if (fn === "HasLearnedRecipe"
-                            || fn === "EditorLocationHasKeyword"
-                            || fn === "GetQuestCompleted"
-                        ) {
-                        functionResult = getSettingsValue(fn + "_" + cond.Param1Ref);
-                    }
-                    else if (fn === "GetLevel") {
-                        functionResult = getSettingsValue("MinLevel");
-                    }
-                    else if (fn === "GetGlobalValue") {
-                        functionResult = getSettingsValue(cond.Param1Ref);
+                    var handle = functionMap.get(fn);
+                    if (handle != null && handle.evaluate !== undefined) {
+                        functionResult = handle.evaluate(fn, cond);
                     }
 
                     var op = (cond.Operator & 0xFF) >> 5;
@@ -1866,6 +1944,11 @@
                         evaluation = functionResult <= compareWith;
                     }
 
+                    // when evaluating the condition for pruning, we consider RNG to always match
+                    if (fn == "GetRandomPercent") {
+                        evaluation = true;
+                    }
+
                     if (index == 0) {
                         logicOutcome = evaluation;
                     } else {
@@ -1882,6 +1965,22 @@
                 return logicOutcome;
             }
 
+            function patchRandomPercent(node, target) {
+                for (var cond of node.Conditions) {
+                    if (cond.FunctionName == "GetRandomPercent") {
+                        var val = "";
+                        if (cond.Ref !== undefined) {
+                            val = getSettingsValue(cond.Ref);
+                        } else {
+                            val = cond.Value;
+                        }
+                        var op = (cond.Operator & 0xFF) >> 5;
+                        target.conditionRandom = val / 100.0;
+                        target.conditionCompare = op;
+                    }
+                }
+            }
+
             function recurseForms(node) {
                 var lvli = leveledLists[node.formID];
 
@@ -1890,6 +1989,7 @@
                 node.chanceNone = decodeValueOverride(lvli, "LVCV", "LVLG", "LVCT") / 100.0;
 
                 if (lvli.Conditions !== undefined) {
+                    patchRandomPercent(node, node);
                     node.conditionMatch = evaluateConditions(lvli.Conditions);
                 }
 
@@ -1907,6 +2007,8 @@
                             uniqueID: uniqueIDGenerator++,
                             formID: entry.Object,
                             conditionMatch: true,
+                            conditionRandom: undefined, // if set, contains the number for random() >= value live check
+                            conditionCompare: undefined, // contains the operator code :op: for the comparison
                             levelMatch: true,
                             chanceNone: 0, // the node's default chance none value [0..1]
                             level: 0,
@@ -1921,6 +2023,8 @@
                         entryNode.quantity = decodeValueOverride(entry, "LVIV", "LVIG", "ZZZZ");
                         
                         if (entry.Conditions !== undefined) {
+                            // find unique conditions such as GetRandomPercent
+                            patchRandomPercent(entry, entryNode)
                             entryNode.conditionMatch = evaluateConditions(entry.Conditions);
                         }
 
