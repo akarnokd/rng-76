@@ -22,7 +22,7 @@
     </head>
     <body>
         <center>
-            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Drop Chances (0.1.3)</span><br/>
+            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Drop Chances (0.1.4)</span><br/>
             <br/>
             <br/>
             Select version:
@@ -31,6 +31,8 @@
             </select>
             &nbsp;&nbsp;
             <button id='loadversion'>Load</button>
+            &nbsp;&nbsp;&nbsp;&nbsp;
+            <button id='resetPage'>Reset</button>
             <!-- &nbsp; (Note that the site downloads up to 3MB of data for the selected version!) -->
             <hr>
             <table>
@@ -128,11 +130,13 @@
 
             function allDownloaded() {
                 document.getElementById("loadversion").disabled = false;
-                // TODO 
+
+                /*
                 console.log(Object.keys(edids).length);
                 console.log(Object.keys(globals).length);
                 console.log(Object.keys(leveledLists).length);
                 console.log(Object.keys(curves).length);
+                */
 
                 // find cross references
                 for (var listID in leveledLists) {
@@ -155,6 +159,34 @@
                         }
                     }
                 }
+
+                // TEMPORARY: dump unique "FunctionName"s
+                /*
+                var functionNames = new Map();
+                for (var listID in leveledLists) {
+
+                    var lvli = leveledLists[listID];
+
+                    if (lvli.Conditions !== undefined) {
+                        for (var cond of lvli.Conditions) {
+                            functionNames.set(cond.FunctionName, cond.FunctionName);
+                        }
+                    }
+                    if (lvli.Entries !== undefined) {
+                        for (var entry of lvli.Entries) {
+                            if (entry.Conditions !== undefined) {
+                                for (var cond of entry.Conditions) {
+                                    functionNames.set(cond.FunctionName, cond.FunctionName);
+                                }
+                            }
+                        }
+                    }
+                }
+
+                for (var fn of functionNames) {
+                    console.log(fn);
+                }
+                */
 
                 var q = location.search;
                 if (q.includes("formids=")) {
@@ -465,19 +497,74 @@
                 return "(" + createNukaLink(cond.Param1Ref) + ")";
             };
 
+            var displayTwoLinksFunc = function(fn, cond) {
+                return "("
+                     + createNukaLink(cond.Param1Ref)
+                     + ", "
+                     + createNukaLink(cond.Param2Ref)
+                     + ")";
+            };
+
+            var displayLinkAndIntFunc = function(fn, cond) {
+                return "("
+                     + createNukaLink(cond.Param1Ref)
+                     + ", "
+                     + parseInt(cond.Param2Ref, 16)
+                     + ")";
+            };
+
+            // Checkboxes
+            // ==========
             var addCheckBoxFunc = function(fn, cond) {
                 appendCheckBox(fn, cond.Param1Ref);
             };
+            var addCheckBoxValue = function(fn, cond) {
+                appendCheckBoxValue(fn);
+            };
+            var addCheckBoxRefIntFunc = function(fn, cond) {
+                appendCheckBoxRefInt(fn, cond);
+            };
+
+            // Comboboxes
+            // ==========
             var addComboBoxFunc = function(fn, cond) {
                 appendComboBox(fn, cond.Param1Ref);
             };
+            var addComboBoxParam2IntFunc = function(fn, cond) {
+                appendComboBoxParam2Int(fn, cond.Param1Ref, parseInt(cond.Param2Ref, 16));
+            };
+
+            var dayOfWeekComboBoxFunc = function(fn, cond) {
+                appendComboBoxDayOfWeek(fn);
+            }
+
+            // Texboxes
+            // ========
 
             var addTextBoxFunc = function(fn, cond) {
                 appendTextBox(cond, "Param1Ref", true);
             };
+            var addTextBoxValueFunc = function(fn, cond) {
+                appendTextBoxValue(fn);
+            };
+            var addTextBoxParamFunc = function(fn, cond) {
+                appendTextBoxParam(fn, cond.Param1Ref, false);
+            };
+            var addTextBoxParamFunc2 = function(fn, cond) {
+                appendTextBoxParam2(fn, cond.Param1Ref, cond.Param2Ref);
+            };
+            var addTextBoxNameParamFunc = function(fn, cond) {
+                appendTextBoxParam(fn, cond.Param1Ref, true);
+            };
+
+            // oooooooooooooooooooooooooooooooooooooo
 
             var evalCheckBoxFunc = function(fn, cond) {
                 return getSettingsValue(fn + "_" + cond.Param1Ref);
+            };
+
+            var evalCheckBoxValue = function(fn, cond) {
+                return getSettingsValue(fn);
             };
 
             var evalComboBoxFunc = function(fn, cond) {
@@ -488,21 +575,74 @@
             var evalTextBox = function(fn, cond) {
                 return getSettingsValue(cond.Param1Ref);
             };
+            var evalTextBoxValue = function(fn, cond) {
+                return getSettingsValue(fn);
+            };
+            var evalTextBoxRefRef = function(fn, cond) {
+                return getSettingsValue(cond.Param1Ref + "_" + cond.Param2Ref);
+            };
 
+            var evalCheckBoxFuncRefRef = function(fn, cond) {
+                return getSettingsValue(fn + "_" + cond.Param1Ref + "_" + cond.Param2Ref);
+            };
+
+            // Presence/absence based on a key by reference
+            // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
             addFunction("HasLearnedRecipe", displayOneLinkFunc, addCheckBoxFunc, evalCheckBoxFunc);
             addFunction("EditorLocationHasKeyword", displayOneLinkFunc, addCheckBoxFunc, evalCheckBoxFunc);
             addFunction("GetQuestCompleted", displayOneLinkFunc, addCheckBoxFunc, evalCheckBoxFunc);
             addFunction("HasEntitlement", displayOneLinkFunc, addCheckBoxFunc, evalCheckBoxFunc);
             addFunction("WornHasKeyword", displayOneLinkFunc, addCheckBoxFunc, evalCheckBoxFunc);
+            addFunction("IsTrueForConditionForm", displayOneLinkFunc, addCheckBoxFunc, evalCheckBoxFunc);
+            addFunction("HasPerk", displayOneLinkFunc, addCheckBoxFunc, evalCheckBoxFunc);
+            addFunction("HasKeyword", displayOneLinkFunc, addCheckBoxFunc, evalCheckBoxFunc);
+            addFunction("HasActiveMagicEffect", displayOneLinkFunc, addCheckBoxFunc, evalCheckBoxFunc);
+            addFunction("GetEquipped", displayOneLinkFunc, addCheckBoxFunc, evalCheckBoxFunc);
 
+            // A global value keyed by its ID
+            // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
             addFunction("GetGlobalValue", displayOneLinkFunc, addTextBoxFunc, evalTextBox);
 
+            // Direct numeric value on subject/target
+            // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+            addFunction("GetStage", undefined, addTextBoxValueFunc, evalTextBoxValue);
+            addFunction("GetLockLevel", undefined, addTextBoxValueFunc, evalTextBoxValue);
+            addFunction("GetWorldType", undefined, addTextBoxValueFunc, evalTextBoxValue);
+
+            // Value on the subject/target keyed by the reference
+            addFunction("GetActorValue", displayOneLinkFunc, addTextBoxParamFunc, evalTextBox);
+            addFunction("GetItemCount", displayOneLinkFunc, addTextBoxParamFunc, evalTextBox);
+            addFunction("GetNumTimesCompletedQuest", displayOneLinkFunc, addTextBoxParamFunc, evalTextBox);
+            addFunction("GetDistance", displayOneLinkFunc, addTextBoxNameParamFunc, evalTextBox);
+
+            // Value on the subject target, keyed by the reference, that can be only a set of possibilities
             addFunction("GetIsInRegion", displayOneLinkFunc, addComboBoxFunc, evalComboBoxFunc);
+            addFunction("GetIsRace", displayOneLinkFunc, addComboBoxFunc, evalComboBoxFunc);
+            addFunction("LocationHasRefType", displayOneLinkFunc, addComboBoxFunc, evalComboBoxFunc);
+            addFunction("GetIsID", displayOneLinkFunc, addComboBoxFunc, evalComboBoxFunc);
+            addFunction("GetInCurrentLoc", displayOneLinkFunc, addComboBoxFunc, evalComboBoxFunc);
+            addFunction("HasRefType", displayOneLinkFunc, addComboBoxFunc, evalComboBoxFunc);
+            addFunction("GetIsEditorLocation", displayOneLinkFunc, addComboBoxFunc, evalComboBoxFunc);
+            
+
+            // Boolean value on subject/target
+            // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+            addFunction("GetLocked", undefined, addCheckBoxValue, evalCheckBoxValue);
+            addFunction("IsActivePlayer", undefined, addCheckBoxValue, evalCheckBoxValue);
+            addFunction("LocationHasPlayerOwnedWorkshop", undefined, addCheckBoxValue, evalCheckBoxValue);
+            
+            // Special cases
+            addFunction("GetRandomPercent", undefined, undefined, (fn, cond) => cond.conditionRandom);
 
             addFunction("GetLevel", undefined, undefined, (fn, cond) => getSettingsValue("MinLevel"));
 
-            // TODO work out how to do these
-            addFunction("GetRandomPercent", undefined, undefined, (fn, cond) => cond.conditionRandom);
+            addFunction("GetActorValueForCurrentLocation", displayTwoLinksFunc, addTextBoxParamFunc2, evalTextBoxRefRef);
+
+            addFunction("GetStageDoneUniqueQuest", displayLinkAndIntFunc, addCheckBoxRefIntFunc, evalCheckBoxFuncRefRef);
+
+            addFunction("GetDayOfWeek", undefined, dayOfWeekComboBoxFunc, evalTextBoxValue);
+
+            // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
             function buildConditionItem(innerTbl, entry) {
                 var i = 0;
@@ -621,7 +761,8 @@
                        && curr.LVOV === prev.LVOV
                        && curr.LVOC === prev.LVOC 
                        && curr.LVOT === prev.LVOT
-                       && curr.LVLV === prev.LVLV;
+                       && curr.LVLV === prev.LVLV
+                       && (curr.Conditions === undefined && prev.Conditions === undefined);
             }
 
             function prepareLinkDefault() {
@@ -1072,6 +1213,82 @@
                 "LVLV": "Minimum level"
             }
 
+            function appendTextBoxValue(id) {
+                if (settingsMap.get(id) != null) {
+                    return;
+                }
+
+                var span = document.createElement("span");
+                settingsGlobals.appendChild(span);
+                span.innerHTML = id + "&nbsp;&nbsp;";
+
+                var input = document.createElement("input");
+                span.appendChild(input);
+                input.type = "text";
+                input.style.width = "70px";
+                input.value = 0;
+
+                var span2 = document.createElement("br");
+                span.appendChild(span2);
+
+                settingsMap.set(id, input);
+            }
+
+            function appendTextBoxParam(node, key, showFunctionName) {
+                
+                var id = key;
+                if (settingsMap.get(id) != null) {
+                    return;
+                }
+
+                var span = document.createElement("span");
+                settingsGlobals.appendChild(span);
+                if (showFunctionName) {
+                    span.innerHTML = node + " (" + createNukaLink(key) + ")&nbsp;&nbsp;";
+                } else {
+                    span.innerHTML = createNukaLink(key) + "&nbsp;&nbsp;";
+                }
+
+                var input = document.createElement("input");
+                span.appendChild(input);
+                input.type = "text";
+                input.style.width = "70px";
+                input.id = key;
+                input.value = 0;
+
+                var span2 = document.createElement("br");
+                span.appendChild(span2);
+
+                settingsMap.set(id, input);
+            }
+
+            function appendTextBoxParam2(node, key1, key2) {
+                
+                var id = key1 + "_" + key2;
+                if (settingsMap.get(id) != null) {
+                    return;
+                }
+
+                var span = document.createElement("span");
+                settingsGlobals.appendChild(span);
+                span.innerHTML = "(" + createNukaLink(key1)
+                    + ", "
+                    + createNukaLink(key2)
+                    + ")&nbsp;&nbsp;";
+
+                var input = document.createElement("input");
+                span.appendChild(input);
+                input.type = "text";
+                input.style.width = "70px";
+                input.id = id;
+                input.value = 0;
+
+                var span2 = document.createElement("br");
+                span.appendChild(span2);
+
+                settingsMap.set(id, input);
+            }
+
             function appendTextBox(node, key, isRef) {
                 
                 var id = isRef ? node[key] : key;
@@ -1100,6 +1317,35 @@
 
                 settingsMap.set(id, input);
             }
+            function appendCheckBoxRefInt(functionName, cond) {
+                var key = functionName + "_" + cond.Param1Ref + "_" + cond.Param2Ref;
+                var input = settingsMap.get(key);
+                if (input == null) {
+                    var span = document.createElement("span");
+                    settingsCheckboxes.appendChild(span);
+
+                    input = document.createElement("input");
+                    span.appendChild(input);
+                    input.type = "checkbox";
+                    input.id = key;
+
+                    var lbl = document.createElement("label");
+                    span.appendChild(lbl);
+                    lbl.htmlFor = key;
+                    lbl.innerHTML = "&nbsp;" + functionName + ":&nbsp;";
+
+                    var span2 = document.createElement("span");
+                    span.appendChild(span2);
+                    span2.innerHTML = 
+                        "("
+                        + createNukaLink(cond.Param1Ref)
+                        + ", "
+                        + parseInt(cond.Param2Ref, 16)
+                        + ")<br>";
+
+                    settingsMap.set(key, input);
+                }
+            }
 
             function appendCheckBox(functionName, value) {
                 var key = functionName + "_" + value;
@@ -1124,6 +1370,31 @@
 
                     settingsMap.set(key, input);
                 }
+            }
+
+            function appendCheckBoxValue(functionName) {
+                var key = functionName;
+                var input = settingsMap.get(key);
+                if (input != null) {
+                    return;
+                }
+                var span = document.createElement("span");
+                settingsCheckboxes.appendChild(span);
+
+                input = document.createElement("input");
+                span.appendChild(input);
+                input.type = "checkbox";
+                input.id = key;
+
+                var lbl = document.createElement("label");
+                span.appendChild(lbl);
+                lbl.htmlFor = key;
+                lbl.innerHTML = "&nbsp;" + functionName;
+
+                var span2 = document.createElement("br");
+                span.appendChild(span2);
+
+                settingsMap.set(key, input);
             }
 
             function appendComboBox(functionName, value) {
@@ -1162,6 +1433,9 @@
                         return false;
                     };
 
+                    var span3 = document.createElement("br");
+                    span.appendChild(span3);
+
                     settingsMap.set(functionName, input);
                 }
 
@@ -1175,6 +1449,76 @@
                 input.add(opt);
                 opt.text = getGroupID(value) + ":" + value + " <" + getEditorID(value) + ">";
                 opt.value = value;
+            }
+
+            function appendComboBoxParam2Int(functionName, key, value) {
+
+                var id = functionName + "_" + key;
+                var input = settingsMap.get(id);
+                if (input == null) {
+
+                    var span = document.createElement("span");
+                    settingsComboboxes.appendChild(span);
+                    span.innerHTML = functionName 
+                        + "("
+                        + createNukaLink(key)
+                        + ")&nbsp;&nbsp;"
+                    
+                    input = document.createElement("select");
+                    span.appendChild(input);
+
+                    var defaultOp = document.createElement("option");
+                    input.add(defaultOp);
+                    defaultOp.text = "N/A";
+                    defaultOp.value = "";
+                    defaultOp.selected = true;
+
+                    var span3 = document.createElement("br");
+                    span.appendChild(span3);
+
+                    settingsMap.set(id, input);
+                }
+
+                for (var op of input.options) {
+                    if (op.value === value) {
+                        return;
+                    }
+                }
+
+                var opt = document.createElement("option");
+                input.add(opt);
+                opt.text = value;
+                opt.value = value;
+            }
+
+            function appendComboBoxDayOfWeek(id) {
+
+                var input = settingsMap.get(id);
+                if (input == null) {
+
+                    var span = document.createElement("span");
+                    settingsComboboxes.appendChild(span);
+                    span.innerHTML = id 
+                        + "&nbsp;&nbsp;"
+                    
+                    input = document.createElement("select");
+                    span.appendChild(input);
+
+                    var span3 = document.createElement("br");
+                    span.appendChild(span3);
+
+                    var daysOfWeek = [ "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday" ];
+                    for (var i = 0; i < daysOfWeek.length; i++) {
+                        var opt = document.createElement("option");
+                        input.add(opt);
+                        opt.text = daysOfWeek[i];
+                        opt.value = i;
+                        opt.selected = i == 0;
+                    }
+
+                    settingsMap.set(id, input);
+                }
+
             }
 
             function appendLevelInput() {
@@ -1283,11 +1627,25 @@
 
                 if (document.getElementById("simulate").checked) {
                     simulationTree = JSON.parse(JSON.stringify(chanceTree));
-                    simulateTree();
+
+                    setTimeout(function() {
+                        simulateTree();
+
+                        recurseTree(chanceTree);
+
+                        document.getElementById("simulate").disabled = false;
+                        document.getElementById("rollagain").disabled = false;
+                    }, 0);
+                    return false;
                 }
 
                 // walk the tree
                 recurseTree(chanceTree);
+
+                document.getElementById("simulate").disabled = false;
+                document.getElementById("rollagain").disabled = false;
+
+                return true;
             }
 
             function isFlagsAll(flags) {
@@ -2045,7 +2403,7 @@
                 node.chanceNone = decodeValueOverride(lvli, "LVCV", "LVLG", "LVCT") / 100.0;
 
                 if (lvli.Conditions !== undefined) {
-                    patchRandomPercent(node, node);
+                    patchRandomPercent(lvli, node);
                     node.conditionMatch = evaluateConditions(lvli.Conditions);
                 }
 
@@ -2119,16 +2477,22 @@
             }
 
             function updateChances(formIDs) {
+
+                var updateFn = function(sender) {
+                    document.getElementById("simulate").disabled = true;
+                    document.getElementById("rollagain").disabled = true;
+
+                    updateChances(currentFormIDs);
+                };
+
+                document.getElementById("simulate").oninput = updateFn;
+                document.getElementById("rollagain").onclick = updateFn;
+
                 calculateChances(formIDs[0]);
 
-                document.getElementById("simulate").oninput = function() {
-                    updateChances(currentFormIDs);
-                };
-                document.getElementById("rollagain").onclick = function() {
-                    updateChances(currentFormIDs);
-                };
-
-                renderTable(formIDs);
+                setTimeout(function() {
+                    renderTable(formIDs);
+                }, 0);
             }
 
             function renderTable(formIDs) {
@@ -2598,6 +2962,11 @@
             if (q.includes("nocoalesce")) {
                 document.getElementById("Coalesce").checked = false;
             }
+
+            document.getElementById("resetPage").onclick = function() {
+                window.location = "chances.html";
+            }
+
             doLoad();
         </script>
     </body>
