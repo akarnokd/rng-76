@@ -2346,26 +2346,26 @@
                                 rerolls = parentEntry.quantity;
                             }
 
-                            for (var i = 0; i < rerolls; i++) {
-                                var entriesToPickFrom = [];
-                                for (var entry of node.items) {
-                                    if (entry.levelMatch && entry.conditionMatch) {
-                                        if (simulateChanceRoll(entry)) {
-                                            if (entry.sublist === undefined) {
-                                                entriesToPickFrom.push( [ entry ]);
-                                            } else {
-                                                var subresult = simulateNode(entry.sublist, entry);
-                                                if (subresult.length != 0) {
-                                                    entriesToPickFrom.push(subresult);
-                                                }
+                            var entriesToPickFrom = [];
+                            for (var entry of node.items) {
+                                if (entry.levelMatch) {
+                                    entriesToPickFrom.push(entry);
+                                }
+                            }
+
+                            if (entriesToPickFrom.length != 0) {
+                                for (var i = 0; i < rerolls; i++) {
+                                    var pickIndex = Math.floor(entriesToPickFrom.length * Math.random());
+                                    var pick = entriesToPickFrom[pickIndex];
+                                    if (pick.conditionMatch && simulateChanceRoll(pick)) {
+                                        if (entry.sublist === undefined) {
+                                            result.push(pick);
+                                        } else {
+                                            var subresult = simulateNode(entry.sublist, entry);
+                                            for (var subentry of subresult) {
+                                                result.push(subentry);
                                             }
                                         }
-                                    }
-                                }
-                                if (entriesToPickFrom.length != 0) {
-                                    var idx = Math.floor(entriesToPickFrom.length * Math.random());
-                                    for (var entry of entriesToPickFrom[idx]) {
-                                        result.push(entry);
                                     }
                                 }
                             }
@@ -2484,7 +2484,7 @@
                 var andOutcome = true;
 
                 for (var orGroup of andGroups) {
-                    var orOutcome = false; 
+                    var orOutcome = orGroup.length == 0; 
                     for (var cond of orGroup) {
                         orOutcome |= evaluateFunction(cond);
                     }
