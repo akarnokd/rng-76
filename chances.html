@@ -2300,21 +2300,19 @@
                     if (simulateChanceRoll(node)) {
                         if (isFlagsFirst(node.flags)) {
                             for (var entry of node.items) {
-                                if (entry.levelMatch && entry.conditionMatch && simulateConditionRoll(entry)) {
-                                    if (simulateChanceNoneRoll(entry)) {
-                                        if (entry.sublist === undefined) {
-                                            result.push(entry);
-                                        } else {
-                                            var subresult = simulateNode(entry.sublist, entry);
-                                            if (subresult.length != 0) {
-                                                for (var sub of subresult) {
-                                                    result.push(sub);
-                                                }
+                                if (entry.levelMatch && entry.conditionMatch && simulateChanceRoll(entry)) {
+                                    if (entry.sublist === undefined) {
+                                        result.push(entry);
+                                    } else {
+                                        var subresult = simulateNode(entry.sublist, entry);
+                                        if (subresult.length != 0) {
+                                            for (var sub of subresult) {
+                                                result.push(sub);
                                             }
                                         }
                                     }
-                                    break;
                                 }
+                                break;
                             }
                         }
                         else if (isFlagsAll(node.flags)) {
@@ -2334,10 +2332,10 @@
                                                 entriesFound++;
                                             }
                                         }
+                                        if (node.max > 0 && entriesFound >= node.max) {
+                                            break;
+                                        }
                                     }
-                                }
-                                if (node.max > 0 && entriesFound >= node.max) {
-                                    break;
                                 }
                             }
                         } else {
@@ -2348,7 +2346,7 @@
 
                             var entriesToPickFrom = [];
                             for (var entry of node.items) {
-                                if (entry.levelMatch) {
+                                if (entry.levelMatch && entry.conditionMatch && simulateConditionRoll(entry)) {
                                     entriesToPickFrom.push(entry);
                                 }
                             }
@@ -2357,7 +2355,7 @@
                                 for (var i = 0; i < rerolls; i++) {
                                     var pickIndex = Math.floor(entriesToPickFrom.length * Math.random());
                                     var pick = entriesToPickFrom[pickIndex];
-                                    if (pick.conditionMatch && simulateChanceRoll(pick)) {
+                                    if (simulateChanceNoneRoll(pick)) {
                                         if (entry.sublist === undefined) {
                                             result.push(pick);
                                         } else {
