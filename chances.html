@@ -22,7 +22,7 @@
     </head>
     <body>
         <center>
-            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Drop Chances (0.1.5)</span><br/>
+            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Drop Chances (0.1.6)</span><br/>
             <br/>
             <br/>
             Select version:
@@ -161,7 +161,7 @@
                 }
 
                 // gatherFunctionNames();
-                findMixedConditions();
+                // findMixedConditions();
 
                 var q = location.search;
                 if (q.includes("formids=")) {
@@ -2258,34 +2258,40 @@
             }
 
             function simulateChanceRoll(node) {
-                if (node.chanceNone <= Math.random()) {
-                    var val = node.conditionRandom;
-                    if (val !== undefined) {
-                        var rng = Math.random();
-                        var op = node.conditionCompare;
-                        if (op == 0) {
-                            return rng == val;
-                        }
-                        if (op == 1) {
-                            return rng != val;
-                        }
-                        if (op == 2) {
-                            return rng > val;
-                        }
-                        if (op == 3) {
-                            return rng >= val;
-                        }
-                        if (op == 4) {
-                            return rng < val;
-                        }
-                        if (op == 5) {
-                            return rng <= val;
-                        }
-                        return false;
+                return simulateConditionRoll(node)
+                    && simulateChanceNoneRoll(node);
+            }
+
+            function simulateChanceNoneRoll(node) {
+                return node.chanceNone <= Math.random();
+            }
+
+            function simulateConditionRoll(node) {
+                var val = node.conditionRandom;
+                if (val !== undefined) {
+                    var rng = Math.random();
+                    var op = node.conditionCompare;
+                    if (op == 0) {
+                        return rng == val;
                     }
-                    return true;
+                    if (op == 1) {
+                        return rng != val;
+                    }
+                    if (op == 2) {
+                        return rng > val;
+                    }
+                    if (op == 3) {
+                        return rng >= val;
+                    }
+                    if (op == 4) {
+                        return rng < val;
+                    }
+                    if (op == 5) {
+                        return rng <= val;
+                    }
+                    return false;
                 }
-                return false;
+                return true;
             }
 
             function simulateNode(node, parentEntry) {
@@ -2294,8 +2300,8 @@
                     if (simulateChanceRoll(node)) {
                         if (isFlagsFirst(node.flags)) {
                             for (var entry of node.items) {
-                                if (entry.levelMatch && entry.conditionMatch) {
-                                    if (simulateChanceRoll(entry)) {
+                                if (entry.levelMatch && entry.conditionMatch && simulateConditionRoll(entry)) {
+                                    if (simulateChanceNoneRoll(entry)) {
                                         if (entry.sublist === undefined) {
                                             result.push(entry);
                                         } else {
@@ -2306,8 +2312,8 @@
                                                 }
                                             }
                                         }
-                                        break;
                                     }
+                                    break;
                                 }
                             }
                         }
