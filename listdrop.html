@@ -135,6 +135,8 @@
                 var mode = modeSel.options[modeSel.selectedIndex].value;
                 var max = parseInt(document.getElementById("max").value);
                 var count = parseInt(document.getElementById("count").value);
+                // var quantity = parseInt(document.getElementById("quantity").value);
+                var quantity = 1;
 
                 var entries = [];
                 var hasRng = false;
@@ -157,11 +159,11 @@
                     }
                 }
 
-                simulate(mode, max, entries, rounds, hasRng);
+                simulate(mode, max, entries, rounds, hasRng, quantity);
                 for (var entry of entries) {
                     entry.count = 0;
                 }
-                formula(mode, max, entries, hasRng);
+                formula(mode, max, entries, hasRng, quantity);
             }
 
             function filterIfRng(entriesBase, hasRng) {
@@ -177,7 +179,7 @@
                 return entriesBase;
             }
 
-            function simulate(mode, max, entriesBase, rounds, hasRng) {
+            function simulate(mode, max, entriesBase, rounds, hasRng, quantity) {
                 var empty = 0;
                 if (entriesBase.length != 0) {
                     if (mode == 'all') {
@@ -244,7 +246,7 @@
                 document.getElementById("emptysim").innerText = (empty * 100.0 / rounds).toFixed(3) + " %";
             }
 
-            function formula(mode, max, entries, hasRng) {
+            function formula(mode, max, entries, hasRng, quantity) {
                 var empty = 1;
                 
                 if (mode == 'all') {
