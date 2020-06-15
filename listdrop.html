@@ -280,11 +280,14 @@
                 }
                 else if (mode == "first") {
                     if (hasRng) {
+                        var sum = 0;
                         for (var entry of entries) {
                             var selfChance = (1 - entry.chanceNone) * entry.conditionRandom;
                             entry.count = selfChance * empty;
-                            empty *= (1 - selfChance);
+                            empty *= (1 - entry.conditionRandom);
+                            sum += entry.count;
                         }
+                        empty = 1 - sum;
                     } else {
                         var entry = entries[0];
                         entry.count = (1 - entry.chanceNone);
