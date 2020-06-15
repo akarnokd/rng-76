@@ -7,17 +7,25 @@ Table of contents
   - [curve table lookup](#curve-table-lookup)
   - [condition evaluation](condition-evaluation)
 - [How the game evaluates a leveled list](#how-the-game-evaluates-a-leveled-list)
-  - [1. evaluate list conditions](1-evaluate-list-conditions)
-  - [2. get list `chanceNone`](2-get-list-chanceNone)
-  - [3. prepare the list entries](3-prepare-the-list-entries)
-    - [entry minimum levels](entry-minimum-levels)
-    - [entry conditions](entry-conditions)
-  - [4. pick an entry or entries](4-pick-an-entry-or-entries)
-    - [**bit 2** is set](bit-2-is-set)
-    - [**bit 1** is set](bit-1-is-set)
-    - [**bit 1** is clear](bit-1-is-clear)
-    - [**bit 6** is set](bit-6-is-set)
+  - [1. evaluate list conditions](#1-evaluate-list-conditions)
+  - [2. get list `chanceNone`](#2-get-list-chanceNone)
+  - [3. prepare the list entries](#3-prepare-the-list-entries)
+    - [entry minimum levels](#entry-minimum-levels)
+    - [entry conditions](#entry-conditions)
+  - [4. pick an entry or entries](#4-pick-an-entry-or-entries)
+    - [**bit 2** is set](#bit-2-is-set)
+    - [**bit 1** is set](#bit-1-is-set)
+    - [**bit 1** is clear](#bit-1-is-clear)
+    - [**bit 6** is set](#bit-6-is-set)
 - [Calculating the exact drop chances](#calculating-the-exact-drop-chances)
+  - [Dealing with conditions](#dealing-with-conditions)
+  - [Dealing with sublists](#dealing-with-sublists)
+  - [Calculation for mode All](#calculation-for-mode-all)
+    - [maximum = 0](#maximum-is-0)
+    - [maximum = 1](#maximum--is-1)
+    - [maximum more than 1](#maximum-is-more-than-1)
+  - [Calculation for mode non-All](#calculation-for-mode-non-all)
+  - [Calculation for mode First](#calculation-for-mode-for-first)
 
 ## Terminology
 
@@ -386,3 +394,88 @@ This first entry can have its `chanceNone` defined and non-zero, the output may 
 Thus, if a PRNG is rolled less than the entry's `chanceNone` percentage, the output will be **empty**. Otherwise, the output will be this first entry.
 
 ## Calculating the exact drop chances
+
+Given the evaluation methods in the previous section, luckily, the drop chances for any entry can be calculated via exact formulas.
+
+### Dealing with conditions
+
+For the most part, conditions can be considered as pre-calculated. I.e., given a specific game state, the conditions and minimum level requirements
+on the leveled lists and entries can be pre-processed, thus a tree of leveled list can be pruned upfront so that the chance calculations
+only have to deal with present entries.
+
+Therefore, an entry's chance information has only to consider its own `chanceNone` and, if it references another list, the chance that sublist evaluates to be empty itself, recursively applied if necessary.
+
+However, one complication comes from conditions, such as `GetRandomPercent`, where the condition has to be converted into a probability on the list or on the entry it uses. Effectively, such conditions can act as another `chanceNone` value, to be combined with the list's/entry's own `chanceNone` value.
+
+Consequently, the probability a list itself is considered in the first place is:
+
+```javascript
+var listSelfChance = (1 - list.chanceNone) * list.conditionRandom;
+```
+
+where 
+
+ - `list.chanceNone` is a value between 0 and 1 (i.e.`LVCV / 100.0`)
+ - `list.conditionRandom` is a value between 0 and 1 and is extracted from the condition
+   -  `GetRandomPercent >= X` or `GetRandomPercent > X` as `conditionRandom = 1 - X / 100.0`
+   -  `GetRandomPercent < X` or `GetRandomPercent <= X` as `conditionRandom = X / 100.0`
+
+Similarly, an entry can have a `chanceNone` on its own, a `GetRandomPercent` and a possible sublist with an `emptyChance` evaluated.
+
+```javascript
+var entrySelfChance = (1 - entry.chanceNone) * entry.conditionRandom;
+
+// or
+
+var entrySelfChance = (1 - entry.chanceNone) * entry.conditionRandom * (1 - entry.sublist.emptyChance);
+```
+
+### Dealing with sublists
+
+Since leveled lists can reference other leveled lists, those sublists can turn out to be empty with a certain probability, which has to be taken
+into account with the various calculation methods.
+
+For example, if the parent list uses mode *all* with *maximum* of `1`, the sublist of the first entry may turn out to be empty after all, thus the second
+entry of the parent list has to be evaluated. Give the following nested lists:
+
+    [ // flags = all, maximum = 1
+        Entry1
+        [
+            Entry2(chanceNone = 20)
+        ],
+        Entry3
+    ]
+
+`Entry2` may not be chosen for thus `Entry3` is the output. 
+
+When calculating the probabilities, the sublist has a 50% chance of being empty, thus the probability `Entry1` is selected is 80% as well.
+Consequently, the probability of `Entry3` being selected is 20%.
+
+Similarly, if the parent list entry has a `chanceNone`, all of them have to be combined:
+
+    [
+        // flags = all, maximum = 1
+        Entry1(chanceNone = 10)
+        [
+            Entry2(chanceNone = 20)
+        ],
+        Entry3
+    ]
+
+Thus, the chance `Entry2` is the output is probability of chosing it (90%) multiplied by its sublist not being empty (80%): 72%. The chance
+`Entry3` is picked is thus 28%.
+
+
+### Calculation for mode All
+
+The calculation for this mode depends on the value of the list's *maximum* attribute.
+
+#### maximum is 0
+
+#### maximum is 1
+
+#### maximum is more than 1
+
+### Calculation for mode non-All
+
+### Calculation for mode First
