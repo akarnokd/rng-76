@@ -22,7 +22,7 @@ Table of contents
   - [Dealing with sublists](#dealing-with-sublists)
   - [Calculation for mode All](#calculation-for-mode-all)
     - [maximum = 0](#maximum-is-0)
-    - [maximum = 1](#maximum--is-1)
+    - [maximum = 1](#maximum-is-1)
     - [maximum more than 1](#maximum-is-more-than-1)
   - [Calculation for mode non-All](#calculation-for-mode-non-all)
     - [Uniform pick](#uniform-pick)
@@ -1199,3 +1199,22 @@ return 1 - sum;
 Note that when cumulating the empty cases, we have to multiply by the entry's `conditionChance` only and not include the entry's own presence chance, because the selection criteria for an entry is only its `conditionChance`. If the entry turns out to be empty after all, that's not the problem of the subsequent entries like with the mode *all* and *maximum* of 1 was.
 
 ### Calculating the cascading chances
+
+Given a tree of the leveled lists, we have to be careful when calculating the chances of the nodes in the tree by cascading a parent's probability to its chindren to form the basis for "if the node has been selected" chance.
+
+For example, let's consider the following tree:
+
+    [ // flags 0
+        Entry1
+        [
+            Entry2(chanceNone = 20)
+        ],
+    ]
+
+Here, the chance of selecting `Entry1` is 50% and getting `Entry2` is `0.5 * 0.8 = 0.4`, **40%**. Thus we could say the chance of `Entry1` being non-empty is 40% too.
+
+However, when we try to cascade the chance of `Entry1` down to see given `Entry1`, what is the chance of `Entry2`, using this 40% would be wrong. It already included the probability of `Entry2` and we would calculate `0.5 * 0.8 * 0.8 = 0.32`, **32%** that is incorrect. We need a probability from `Entry1` that doesn't include the sublist outcome yet.
+
+That's why we calculated the `aprioriChance` of every entry. Here `Entry1`'s apriori chance would be still 50% and the cascaded chance for `Entry2` would be `0.5 * 0.8 = 0.4`, **40%**, the correct value.
+
+
