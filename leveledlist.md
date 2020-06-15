@@ -240,15 +240,93 @@ Having a non-zero *maximum* can result in non-intuitive outcomes, therefore, her
       - If < 50, the output will be `Entry1` and `Entry3`.
     - If X < 20
       - PRNG rolls Z
-      - If Y >= 50, the output will be `Entry2` and `Entry3`.
-      - If < 50, the output will be only `Entry3`.
+      - If Z >= 50, the output will be `Entry2` and `Entry3`.
+      - If Z < 50, the output will be only `Entry3`.
 
 
 #### **bit 1** is set
 
-If **bit 1** is set (named *for each entry* in  tools)
+If **bit 1** is set (named *for each entry* in  tools), a single entry from the pruned list is picked at uniform random.
+
+Example:
+
+    [
+        Entry1,
+        Entry2,
+        Entry3
+    ]
+
+- 1/3 of the time, `Entry1` is chosen,
+- 1/3 of the time, `Entry2` is chosen,
+- 1/3 of the time, `Entry3` is chosen.
+
+However, since each entry can have its `chanceNone` defined and non-zero, the output may be **empty** after all. An entry's `chanceNone` is a percentage extracted from the
+
+- `LVOV` attribute,
+- `LVOC` global value or
+- `LVOT` curve table where the indexer is the `LVOC` global value.
+
+Thus, if an entry was picked uniform random before, a PRNG is rolled and if less than the `chanceNone` percentage, the output will be **empty**.
+
+1. Example: given a list of
+
+    [
+        Entry1(chanceNone = 20)
+        Entry2
+    ]
+
+    - PRNG rolls X
+    - If X < 50, then
+      - PRNG rolls Y
+      - If Y < 20, the output is **empty**
+      - If Y >= 20, the output is `Entry1` 
+    - If X >= 50, the output is `Entry2`.
+
+2. Example: given a list of
+
+    [
+        Entry1(chanceNone = 20)
+        Entry2
+        Entry2(chanceNone = 50)
+    ]
+
+    - PRNG rolls X
+    - If X < 33.33, then
+      - PRNG rolls Y
+      - If Y < 20, the output is **empty**
+      - If Y >= 20, the output is `Entry1` 
+    - If 33.33 <= X < 66.66, the output is `Entry2`.
+    - If X >= 66.66
+      - PRNG rolls Z
+      - If Z < 50, the output is **empty**
+      - If Z >= 50, the output is `Entry3` 
+
+
 
 #### **bit 1** is clear
+
+If **bit 1** is clear and if this list is embedded in another leveled list, the list itself is evaluated once, similar to the **bit 1** set case above,
+and the item quantities are multiplied by the parent leveled list referencing entry's quantity.
+
+Example:
+
+    [
+        Entry1(Quantity = 2):
+        [ 
+            // list flags: 0
+            Entry2(Quantity = 3),
+            Entry3(Quantity = 4)
+        ]
+    ]
+
+In this setup, the inner list picks `Entry2` or `Entry3` with 50% probability, then multiplies their quantity, thus the main list will output
+`Entry2(Quantity = 6)` 50% of the time and `Entry3(Quantity = 8)` 50% of the time.
+
+From the drop chances perspective of the entries themselves, having **bit 1** set or not is an *equivalent setup*. 
+
+The reason for this is that when we consider simulating the drops by running the main list N times, 
+the inner list would be run 2 * N times if **bit 1** was set and N times if **bit 1** was clear, essentially running the simulation twice as long.
+
 
 #### **bit 7** is set
 
