@@ -26,6 +26,7 @@ Table of contents
     - [maximum more than 1](#maximum-is-more-than-1)
   - [Calculation for mode non-All](#calculation-for-mode-non-all)
   - [Calculation for mode First](#calculation-for-mode-for-first)
+  - [Calculating the cascading chances](#calculating-the-cascading-chances)
 
 ## Terminology
 
@@ -410,24 +411,24 @@ However, one complication comes from conditions, such as `GetRandomPercent`, whe
 Consequently, the probability a list itself is considered in the first place is:
 
 ```javascript
-var listSelfChance = (1 - list.chanceNone) * list.conditionRandom;
+var listSelfChance = (1 - list.chanceNone) * list.conditionChance;
 ```
 
 where 
 
  - `list.chanceNone` is a value between 0 and 1 (i.e.`LVCV / 100.0`)
- - `list.conditionRandom` is a value between 0 and 1 and is extracted from the condition
-   -  `GetRandomPercent >= X` or `GetRandomPercent > X` as `conditionRandom = 1 - X / 100.0`
-   -  `GetRandomPercent < X` or `GetRandomPercent <= X` as `conditionRandom = X / 100.0`
+ - `list.conditionChance` is a value between 0 and 1 and is extracted from the condition
+   -  `GetRandomPercent >= X` or `GetRandomPercent > X` as `conditionChance = 1 - X / 100.0`
+   -  `GetRandomPercent < X` or `GetRandomPercent <= X` as `conditionChance = X / 100.0`
 
 Similarly, an entry can have a `chanceNone` on its own, a `GetRandomPercent` and a possible sublist with an `emptyChance` evaluated.
 
 ```javascript
-var entrySelfChance = (1 - entry.chanceNone) * entry.conditionRandom;
+var entrySelfChance = (1 - entry.chanceNone) * entry.conditionChance;
 
 // or
 
-var entrySelfChance = (1 - entry.chanceNone) * entry.conditionRandom * (1 - entry.sublist.emptyChance);
+var entrySelfChance = (1 - entry.chanceNone) * entry.conditionChance * (1 - entry.sublist.emptyChance);
 ```
 
 ### Dealing with sublists
@@ -472,10 +473,169 @@ The calculation for this mode depends on the value of the list's *maximum* attri
 
 #### maximum is 0
 
+This is perhaps the easiest configuration to calculate because the chance of each entry is independent of the other entries, thus can be calculated from just the entry's own properties.
+
+```javascript
+for (var entry of entries) {
+    entry.chance = (1 - entry.chanceNone) * entry.conditionChance;
+}
+```
+
+However, if the entire list has a `chanceNone` and/or `conditionChance`, those have to be included:
+
+```javascript
+var listSelfChance = (1 - list.chanceNone) * list.conditionChance;
+
+for (var entry of entries) {
+    entry.chance = listSelfChance * (1 - entry.chanceNone) * entry.conditionChance;
+}
+```
+
+In addition, if the entry has a sublist, that sublist has to be evaluated recursively. This recursive evaluation can
+return the **chance of the sublist becoming empty** and thus combined with the product above:
+
+```javascript
+var listSelfChance = (1 - list.chanceNone) * list.conditionChance;
+
+for (var entry of entries) {
+    var sublistChance = 1;
+    if (entry.sublist !== undefined) {
+        sublistChance = 1 - evaluate(entry.sublist);
+    }
+
+    entry.chance = listSelfChance * (1 - entry.chanceNone) * entry.conditionChance * sublistChance;
+}
+```
+
+Finally, in case the current list is referenced by a parent list via the same recursive `evaluate()` function call, the chance for this list to be empty has to be calculated too. 
+
+The chance of this list being empty is equal to the product of an entry not having anything by itself for some reason:
+
+
+```javascript
+var empty = 1;
+
+for (var entry of entries) {
+    empty *= 1 - entry.chance;
+}
+
+return empty;
+```
+
+(Of course, the two loops can be combined into one.)
+
+One important property to consider with entries having a sublist is that when [cascading](#calculating-the-cascading-chances) the chances in the tree of leveled lists, the `sublistChance` should not be included
+when again. Instead, an extra property called `aprioriChance` should be kept and used for the cascading calculation. 
+
+```javascript
+for (var entry of entries) {
+    entry.aprioriChance = listSelfChance * (1 - entry.chanceNone) * entry.conditionChance;
+
+    var sublistChance = 1;
+    if (entry.sublist !== undefined) {
+        sublistChance = 1 - evaluate(entry.sublist);
+    }
+
+    entry.chance = entry.aprioriChance * sublistChance;
+}
+```
+
+If there is no sublist, the `chance` is equal to the `aprioriChance`. (See [this](#calculating-the-cascading-chances) for further details on cascading chances.)
+
 #### maximum is 1
+
+In this type of settings, the chance of picking an item is dependent upon not picking any of the previous items in the list  (because they are not there or have empty sublists for example).
+
+Effectively, this means that when we keep track of the overal chance of emptyness, the entries have consider the chance of all previous items being empty. Luckily, we already track this in `empty`, thus we need to factor that in into the `entry.chance` calculation.
+
+```javascript
+var empty = 1;
+
+for (var entry of entries) {
+    entry.chance = (1 - entry.chanceNone) * empty;
+    empty *= entry.chanceNone;
+
+}
+```
+
+This setting is non-intuitive at first, therefore, here is a simplified formulae to demonstrate.
+
+```
+P[1] = (1 - ChanceNone[1])
+P[2] = (1 - ChanceNone[2]) * ChanceNone[1]
+P[3] = (1 - ChanceNone[3]) * ChanceNone[1] * ChanceNone[2]
+...
+P[n] = (1 - ChanceNone[n]) * ChanceNone[1] * ChanceNone[2] * ... * ChanceNone[n - 1]
+```
+
+
+```javascript
+var empty = 1;
+
+for (var entry of entries) {
+    var selfChance = (1 - entry.chanceNone) * entry.conditionChance;
+    entry.aprioriChance = selfChance * empty;
+
+    var sublistChance = 1;
+    if (entry.sublist !== undefined) {
+        sublistChance = 1 - evaluate(entry.sublist);
+    }
+
+    entry.chance = entry.aprioriChance * sublistChance;
+
+    empty *= 1 - selfChance * sublistChance;
+}
+```
+
+To calculate the emptiness for the subsequent item, we can't include the previous empty value as it would "overcount" the empty cases.
+
+Again, this calculation is non-intuitive, so let's see an example:
+
+    list
+    [
+        Entry1(chanceNone = 20)
+        [
+            Entry2(chanceNone = 30)
+        ],
+        Entry3(chanceNone = 40)
+    ]
+
+1. We start out empty `1`
+2. With `Entry1`
+  - The self chance is `0.8`
+  - Thee apriori chance is `0.8 * 1 = 0.8`.
+  - The sublist chance of being empty is `0.7`.
+  - The entry chance is thus `0.8 * 0.7 = 0.56`
+  - The chance for this entry being empty is `1 - 0.8 * 0.7 = 1 - 0.56 = 0.44` 
+3. The new overall empty is `1 * 0.44 = 0.44`
+4. With `Entry3`
+  - The self chance is `0.6`
+  - The apriori chance is `0.6 * 0.44 = 0.264`
+  - The entry chance is thus `0.264`
+  - The chance for this entry being empty is `1 - 0.6 = 0.4`
+5. The new overall empty is `0.44 * 0.4 = 0.176`
+
+Therefore, the chances are `Entry1`: **56%**, `Entry3`: **26.4%** and the list being `empty` is **17.6%**. 56 + 26.4 + 17.6 = 100!
+
+But what if the entire list has a `listSelfChance` less than 100% ? We can factor that into `entry.chance` via multiplication. We can't modify the running empty with it and we have to add its reverse to the overall empty value when returning the empty chance of the entire list:
+
+```javascript
+   // ...
+   entry.chance = selfChance * sublistChance * listSelfChance;
+   // ...
+
+   return (1 - listSelfChance) + listSelfChance * empty;
+```
+
+In other terms, the chance the entire list is empty is the chance the list itself is to be considered empty (`1 - listSelfChance`) plus the chance of the list being empty after all provided the list shouldn't be empty (`listSelfChance * empty`).
+
+With the given example above, having the list with 40% chance on its own, `Entry1`: **22.4%**, `Entry3`: **10.56%** and the list being `empty` is `0.6 + 0.4 * 0.176` = **67.04%**. Again, 22.4 + 10.56 + 67.04 = 100!
+
 
 #### maximum is more than 1
 
 ### Calculation for mode non-All
 
 ### Calculation for mode First
+
+### Calculating the cascading chances
