@@ -270,10 +270,10 @@ Thus, if an entry was picked uniform random before, a PRNG is rolled and if less
 
 1. Example: given a list of
 
-    [
-        Entry1(chanceNone = 20)
-        Entry2
-    ]
+        [
+            Entry1(chanceNone = 20)
+            Entry2
+        ]
 
     - PRNG rolls X
     - If X < 50, then
@@ -284,11 +284,11 @@ Thus, if an entry was picked uniform random before, a PRNG is rolled and if less
 
 2. Example: given a list of
 
-    [
-        Entry1(chanceNone = 20)
-        Entry2
-        Entry2(chanceNone = 50)
-    ]
+        [
+            Entry1(chanceNone = 20)
+            Entry2
+            Entry2(chanceNone = 50)
+        ]
 
     - PRNG rolls X
     - If X < 33.33, then
@@ -305,7 +305,7 @@ Thus, if an entry was picked uniform random before, a PRNG is rolled and if less
 
 #### **bit 1** is clear
 
-If **bit 1** is clear and if this list is embedded in another leveled list, the list itself is evaluated once, similar to the **bit 1** set case above,
+If **bit 1** is clear and if this list is embedded in another leveled list, the list itself is evaluated once, similar to the [**bit 1** set](#bit-1-is-set) case above,
 and the item quantities are multiplied by the parent leveled list referencing entry's quantity.
 
 Example:
