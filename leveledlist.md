@@ -10,7 +10,7 @@ For example, if a list has a `chanceNone` of 80, 80% of the time when evaluating
 
 `chanceNone` defines the absense probability percentage (i.e, when calculating the `chanceNone` has to be divided by 100).
 
-[Example list: LVLI:00064B92 <LPI_Clothes_LocTheme>](https://nukacrypt.com/database/json/00064B92)
+[Example list: LVLI:00064B92 &lt;LPI_Clothes_LocTheme&gt;](https://nukacrypt.com/database/json/00064B92)
 
 ### curve table lookup
 
@@ -60,11 +60,11 @@ If they don't pass, the list is considered **empty**.
 
 ### 2. get list `chanceNone`
 
-First step is to get the list's `chanceNone` value from:
+First step is to get the list's `chanceNone` value extracted from the
 
-- `LVCV` attribute
-- `LVLG` gets a global value
-- `LVCT` points to a curve table for which the indexer will be the global value of `LVLG`
+- `LVCV` attribute,
+- `LVLG` global value or
+- `LVCT` curve table for which the indexer will be the global value of `LVLG`
 
 If `LVLG` or `LVCT` are present, `LVCV` is ignored.
 
@@ -85,21 +85,21 @@ If `LVOG` is present, `LVLV` is ignored.
 
 However, the list's flags determines how to evaluate this minimum level.
 
-Given the flag attribute `LVLF` and its bit 0 state:
+Given the flag attribute `LVLF`:
 
-- if set, all entries are kept which have minimum level less than or equal to the *subject/target level*
+- if **bit 0** is set (called *for each level &lt;= player level* in tools), all entries are kept which have minimum level less than or equal to the *subject/target level*
 
-    Example: given a list of
+    Example: given a list of with flags = 1 or 
 
         [
             Entry1(minLevel = 1), 
             Entry2(minLevel = 10)
         ]
 
-    if *subject/target level* is 5, only `Entry1` is kept. 
-    If *subject/target level* is 10, both `Entry1` and `Entry2` are kept.
+    - if *subject/target level* is 5, only `Entry1` is kept. 
+    - If *subject/target level* is 10, both `Entry1` and `Entry2` are kept.
 
-- if clear, entries are kept which have a minimum level closest to the *subject/target level* and not exceeding it
+- if **bit 0** is clear, entries are kept which have a minimum level closest to the *subject/target level* and not exceeding it
 
     Example: given a list of 
 
@@ -110,11 +110,12 @@ Given the flag attribute `LVLF` and its bit 0 state:
             Entry4(minLevel = 20)
         ]
 
-    if *subject/target level* is 5, only `Entry1` is kept. 
-    If *subject/target level* is 10, only `Entry2` and `Entry3` are kept.
-    If *subject/target level* is 19, only `Entry2` and `Entry3` are kept.
-    If *subject/target level* is 20, only `Entry4` is kept.
+    - if *subject/target level* is 5, only `Entry1` is kept. 
+    - If *subject/target level* is 10, only `Entry2` and `Entry3` are kept.
+    - If *subject/target level* is 19, only `Entry2` and `Entry3` are kept.
+    - If *subject/target level* is 20, only `Entry4` is kept.
 
+One complication is that if **bit 2** of the flag is set (called *use all* in tools), the level evaluation will always work like the first method above.
 
 #### entry conditions
 
@@ -130,10 +131,8 @@ For example, given a list of
        Entry2 ()
     ]
 
-If keyword `K1` is not present on the subject/target, the pruned list will only hold `Entry2`. If `K1` is present,
-the pruned list will hold both `Entry1` and `Entry2`
-
-
+- If keyword `K1` is not present on the subject/target, the pruned list will only hold `Entry2`. 
+- If `K1` is present, the pruned list will hold both `Entry1` and `Entry2`.
 
 ### 4. pick an entry or entries
 
@@ -141,6 +140,126 @@ The evaluation of the pruned entry list can happen in multiple ways, depending o
 
 The flag attribute `LVLF` is a bitfield indicating how to proceed.
 
-- If bit 0 is set, 
+Currently, 4 evaluation modes have been explored:
+
+#### **bit 2** is set
+
+If **bit 2** is set (named *all* in tools), every entry in the pruned list is consulted and collected up to be the result of this list.
+
+For this mode, the *maximum* attribute can limit the total number of the entries in the results. The *maximum* number is extracted from the
+
+- `LVMV` attribute,
+- `LVMG` global value or
+- `LVMT` curve table where the indexer is the `LVMG` global value.
+
+When *maximum* is `0`, all items can be returned. If *maximum* is 1, only up to 1 entry is returned. If *maximum* is 2, up to 2 entries can be returned.
+
+However, since each entry can have its `chanceNone` defined and non-zero, the output may not contain that many entries after all. An entry's `chanceNone` is a percentage extracted from the
+
+- `LVOV` attribute,
+- `LVOC` global value or
+- `LVOT` curve table where the indexer is the `LVOC` global value.
+
+Thus, for each entry in the pruned list, if a PRNG is rolled less than the entry's `chanceNone` percentage, the entry is ignored.
+
+For example, given a list of
+
+    [
+        Entry1(chanceNone = 20),
+        Entry2(chanceNone = 0),
+        Entry3(chanceNone = 100)
+    ]
+
+- If PRNG rolls 50, `Entry1` is kept; `Entry2` is always present and `Entry3` is never present.
+- If PRNG rolls 10, `Entry1` is ignored; `Entry2` is always present and `Entry3` is never present.
+
+The entries are evaluated in order and the processing stops if the number of entries that passed is equal to the *maximum* specified.
+(Note, since the stop condition is evaluated directly after an entry has determined to be passing, having *maximum* of `0` will never be true thus
+every entry will be visited. Computationally, this is equivalent to having no limit on the size of the output.)
+
+Having a non-zero *maximum* can result in non-intuitive outcomes, therefore, here are some examples with *maximum* and entries with `chanceNone`:
+
+1. Example: *maximum* is `1` with guaranteed entry first entry:
+
+        [
+            Entry1,
+            Entry2(chanceNone = 20)
+        ]
+
+    This list will always return `Entry1`.
+
+2. Example: *maximum* is `1` with mixed entries:
+
+        [
+            Entry1(chanceNone = 20),
+            Entry2
+        ]
+
+    - PRNG rolls X
+    - If X >= 20, the output will be only `Entry1`.
+    - If X < 20, `Entry1` is ignored and the output will be only `Entry2`.
+
+3. Exmaple: *maximum* is `1` with chanced entries:
+
+       [
+           Entry1(chanceNone = 20),
+           Entry2(chanceNone = 50)
+       ]
+    
+    - PRNG rolls X
+    - If X >= 20, the output will be only `Entry1`
+    - If X < 10, `Entry1` is ignored and the next entry is evaluated
+      - PRNG rolls Y
+      - If Y >= 50, `Entry2` is ignored and the output will be **empty**
+      - If Y < 50, the output will be only `Entry2`.
+
+4. Example: *maximum* is `2` with chanced entries:
+
+       [
+           Entry1(chanceNone = 20),
+           Entry2,
+           Entry3
+       ]
+
+    - PRNG rolls X
+    - If X >= 20, the output will be `Entry1` and `Entry2`
+    - If X < 20, `Entry1` is ignored and the output will be `Entry2` and `Entry3`.
+
+5. Example: *maximum* is `2` with chanced entries:
+
+       [
+           Entry1(chanceNone = 20),
+           Entry2(chanceNone = 50),
+           Entry3
+       ]
+
+    - PRNG rolls X
+    - If X >= 20, then
+      - PRNG rolls Y
+      - If Y >= 50, the output will be `Entry1` and `Entry2`.
+      - If < 50, the output will be `Entry1` and `Entry3`.
+    - If X < 20
+      - PRNG rolls Z
+      - If Y >= 50, the output will be `Entry2` and `Entry3`.
+      - If < 50, the output will be only `Entry3`.
+
+
+#### **bit 1** is set
+
+If **bit 1** is set (named *for each entry* in  tools)
+
+#### **bit 1** is clear
+
+#### **bit 7** is set
+
+If **bit 7** is set (named *first entry where conditions match* in  tools), only the first entry will be consulted.
+
+This first entry can have its `chanceNone` defined and non-zero, the output may not contain that many entries after all. An entry's `chanceNone` is a percentage extracted from the
+
+- `LVOV` attribute,
+- `LVOC` global value or
+- `LVOT` curve table where the indexer is the `LVOC` global value.
+
+Thus, if a PRNG is rolled less than the entry's `chanceNone` percentage, the output will be **empty**. Otherwise, the output will be this first entry.
 
 ## Calculating exact drop chances
