@@ -115,7 +115,7 @@ Given the flag attribute `LVLF`:
     - If *subject/target level* is 19, only `Entry2` and `Entry3` are kept.
     - If *subject/target level* is 20, only `Entry4` is kept.
 
-One complication is that if **bit 2** of the flag is set (called *use all* in tools), the level evaluation will always work like the first method above.
+One complication is that if **bit 2** of the flag is set (called *use all* in tools), every entry is kept regardless of its minimum level.
 
 #### entry conditions
 
