@@ -246,9 +246,35 @@ Having a non-zero *maximum* can result in non-intuitive outcomes, therefore, her
 
 #### **bit 1** is set
 
-If **bit 1** is set (named *for each entry* in  tools), a single entry from the pruned list is picked at uniform random.
+If **bit 1** is set (named *for each entry* in  tools), a single entry from the pruned list is picked at uniform random every time.
 
-Example:
+More specifically, if this list is referenced by a parent leveled list, the current list is evaluatet over and over, specified by the
+referencing entry's quantity amount.
+
+For example, given the following nesting:
+
+    [
+        Entry1(Quantity = 2):
+        [ 
+            // list flags: 2
+            Entry2,
+            Entry3
+        ]
+    ]
+
+The inner list will be evaluated twice, each time picking Entry2 or Entry3 with 50% chance. Therefore, the output of the main list can be:
+
+- 25% of the time, `Entry2` appears twice
+- 25% of the time, `Entry3` appears twice
+- 50% of the time, both `Entry2` and `Entry3` appears.
+
+However, from a drop chance perspective, we consider the probability that an entry appears in the output at least once, therefore, 
+the resulting distribution can be coalesced into the drop chance of 50% for `Entry2` and 50% for `Entry3`. Consequently, the
+`Quantity` of the parent (indicating the reroll count) has no consequence for the probability of a sub-entry appearing at least once.
+
+Regardless, a single evaluation of the list is done by picking one entry with uniform randomness.
+
+For example, given a list:
 
     [
         Entry1,
