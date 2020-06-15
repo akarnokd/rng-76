@@ -1,5 +1,24 @@
 # Fallout 76 Leveled List drop chances
 
+Table of contents
+
+- [Terminology](#terminology)
+  - [`chanceNone`](#chancenone)
+  - [curve table lookup](#curve-table-lookup)
+  - [condition evaluation](condition-evaluation)
+- [How the game evaluates a leveled list](#how-the-game-evaluates-a-leveled-list)
+  - [1. evaluate list conditions](1-evaluate-list-conditions)
+  - [2. get list `chanceNone`](2-get-list-chanceNone)
+  - [3. prepare the list entries](3-prepare-the-list-entries)
+    - [entry minimum levels](entry-minimum-levels)
+    - [entry conditions](entry-conditions)
+  - [4. pick an entry or entries](4-pick-an-entry-or-entries)
+    - [**bit 2** is set](bit-2-is-set)
+    - [**bit 1** is set](bit-1-is-set)
+    - [**bit 1** is clear](bit-1-is-clear)
+    - [**bit 6** is set](bit-6-is-set)
+- [Calculating the exact drop chances](#calculating-the-exact-drop-chances)
+
 ## Terminology
 
 ### `chanceNone`
@@ -266,7 +285,7 @@ The inner list will be evaluated twice, each time picking Entry2 or Entry3 with 
 
 - 25% of the time, `Entry2` appears twice
 - 25% of the time, `Entry3` appears twice
-- 50% of the time, both `Entry2` and `Entry3` appears.
+- 50% of the time, both `Entry2` and `Entry3` appear.
 
 However, from a drop chance perspective, we consider the probability that an entry appears in the output at least once, therefore, 
 the resulting distribution can be coalesced into the drop chance of 50% for `Entry2` and 50% for `Entry3`. Consequently, the
@@ -354,9 +373,9 @@ The reason for this is that when we consider simulating the drops by running the
 the inner list would be run 2 * N times if **bit 1** was set and N times if **bit 1** was clear, essentially running the simulation twice as long.
 
 
-#### **bit 7** is set
+#### **bit 6** is set
 
-If **bit 7** is set (named *first entry where conditions match* in  tools), only the first entry will be consulted.
+If **bit 6** is set (named *first entry where conditions match* in  tools), only the first entry will be consulted.
 
 This first entry can have its `chanceNone` defined and non-zero, the output may not contain that many entries after all. An entry's `chanceNone` is a percentage extracted from the
 
@@ -366,4 +385,4 @@ This first entry can have its `chanceNone` defined and non-zero, the output may 
 
 Thus, if a PRNG is rolled less than the entry's `chanceNone` percentage, the output will be **empty**. Otherwise, the output will be this first entry.
 
-## Calculating exact drop chances
+## Calculating the exact drop chances
