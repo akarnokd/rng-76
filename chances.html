@@ -22,7 +22,7 @@
     </head>
     <body>
         <center>
-            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Drop Chances (0.1.6)</span><br/>
+            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Drop Chances (0.1.7)</span><br/>
             <br/>
             <br/>
             Select version:
@@ -2356,10 +2356,10 @@
                                     var pickIndex = Math.floor(entriesToPickFrom.length * Math.random());
                                     var pick = entriesToPickFrom[pickIndex];
                                     if (simulateChanceNoneRoll(pick)) {
-                                        if (entry.sublist === undefined) {
+                                        if (pick.sublist === undefined) {
                                             result.push(pick);
                                         } else {
-                                            var subresult = simulateNode(entry.sublist, entry);
+                                            var subresult = simulateNode(pick.sublist, entry);
                                             for (var subentry of subresult) {
                                                 result.push(subentry);
                                             }
