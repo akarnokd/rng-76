@@ -25,6 +25,8 @@ Table of contents
     - [maximum = 1](#maximum--is-1)
     - [maximum more than 1](#maximum-is-more-than-1)
   - [Calculation for mode non-All](#calculation-for-mode-non-all)
+    - [Uniform pick](#uniform-pick)
+    - [Combinatorial pick](#combinatorial-pick)
   - [Calculation for mode First](#calculation-for-mode-for-first)
   - [Calculating the cascading chances](#calculating-the-cascading-chances)
 
@@ -568,6 +570,13 @@ P[3] = (1 - ChanceNone[3]) * ChanceNone[1] * ChanceNone[2]
 P[n] = (1 - ChanceNone[n]) * ChanceNone[1] * ChanceNone[2] * ... * ChanceNone[n - 1]
 ```
 
+So the chance of the first is just the presence chance. The chance of the second entry is its presence chance provided the first item was not selected. The second entry chance is its presence chance provided neither the first or second entry was selected before.
+
+For example, if every entry has a 50% chance. The first entry is chosen with **50%** chance, the second entry **25%**, the third **12.5%**, the fourth **6.25%**, etc.
+
+
+Let's express it via code:
+
 
 ```javascript
 var empty = 1;
@@ -635,6 +644,72 @@ With the given example above, having the list with 40% chance on its own, `Entry
 #### maximum is more than 1
 
 ### Calculation for mode non-All
+
+This mode includes the *for each* and not *for each* settings both, effectively, when **bit 2** of the flags is not set, and **bit 1** might be set.
+
+From the drop chance perspective, both variants are the same. The reason is that the number of times a list is rolled doesn't affect the calculation of the chances of the individual entries being rolled. Only the tallying of the possible outcomes, i.e., chance of getting an item once, twice, three times, etc. Since we are interested in getting an item *at least once*, only one evaluation is enough.
+
+There are two sub-cases to consider though: 
+
+- if every entry has `conditionChance == 1` and
+- if some or all of the entries have a `conditionChance < 1`.
+
+The reason for this is that since conditions are used for pruning the list upfront, an entry might not be on the list to begin with. Since this mode picks an entry with uniform random, that is, 1 / N chance, we don't have a constant N anymore. N could be 0, 1, ..., n based on the entry's `conditionChance`.
+
+#### Uniform pick
+
+When every entry has `conditionChance == 1`, the size of the list is constant, thus every entry has a 1 / N chance of being
+picked. Then, the usual sublist and self chances have to be applied.
+
+```javascript
+var uniformChance = 1 / entries.length;
+var sum = 0;
+
+for (var entry of entries) {
+
+    entry.aprioriChance = (1 - entry.chanceNone) * uniformChance;
+
+    var sublistChance = 1;
+    if (entry.sublist !== undefined) {
+        sublistChance = 1 - evaluate(entry.sublist);
+    }
+
+    entry.chance = entry.aprioriChance * sublistChance;
+
+    sum += entry.chance;
+}
+
+return 1 - sum;
+```
+
+Here, since the entries are chosen independently, the chance of an empty list is basically subtracting the sum of
+overall entry chances from 1.
+
+For example, given the following list
+
+    [
+        Entry1(chanceNone = 20),
+        Entry2(chanceNone = 40),
+        Entry3,
+        Entry4
+    ]
+
+- `Entry1` is returned `0.25 * 0.8 = 0.2`, 20% of the time,
+- `Entry2` is returned `0.25 * 0.6 = 0.15`, 15% of the time,
+- `Entry3` is returned 25% of the time,
+- `Entry4` is returned 25% of the time and
+- The list ifself may be empty is `(1 - (0.2 + 0.15 + 0.25 + 0.25)) = 0.15`, **15%** of the time after all .
+
+To factor in the lists' own chance, simply use it as the numerator in the `uniformChance` expression:
+
+```javascript
+var uniformChance = listSelfChance / entries.length;
+```
+
+The overall chance for an empty list will be still just the sum of entry chances subtracte from 1.
+
+#### Combinatorial pick
+
 
 ### Calculation for mode First
 

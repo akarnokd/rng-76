@@ -105087,6 +105087,7 @@ leveledLists = {
   ]
 },
 "0052CA3F": {
+  "LVCV": 25,
   "LVLF": 0,
   "LVLG": "004E3397",
   "Entries": [
@@ -105116,6 +105117,7 @@ leveledLists = {
   ]
 },
 "0052CA42": {
+  "LVCV": 25,
   "LVLF": 0,
   "LVLG": "004E3397",
   "Entries": [
@@ -105125,6 +105127,7 @@ leveledLists = {
   ]
 },
 "0052CA3E": {
+  "LVCV": 75,
   "LVLF": 0,
   "LVLG": "004E3398",
   "Entries": [
@@ -105142,6 +105145,7 @@ leveledLists = {
   ]
 },
 "0052CA3B": {
+  "LVCV": 25,
   "LVLF": 0,
   "LVLG": "004E3397",
   "Entries": [
@@ -105193,6 +105197,7 @@ leveledLists = {
   ]
 },
 "0052CA40": {
+  "LVCV": 50,
   "LVLF": 0,
   "LVLG": "004E3396",
   "Entries": [
@@ -105202,6 +105207,7 @@ leveledLists = {
   ]
 },
 "0052CA44": {
+  "LVCV": 75,
   "LVLF": 0,
   "LVLG": "004E3398",
   "Entries": [
@@ -106162,6 +106168,7 @@ leveledLists = {
   ]
 },
 "00527C71": {
+  "LVCV": 50,
   "LVLF": 3,
   "Entries": [
     {
@@ -114828,6 +114835,7 @@ leveledLists = {
   ]
 },
 "004E4480": {
+  "LVCV": 25,
   "LVLF": 0,
   "LVLG": "004E3397",
   "Entries": [
@@ -114846,6 +114854,7 @@ leveledLists = {
   ]
 },
 "004E34AC": {
+  "LVCV": 25,
   "LVLF": 0,
   "LVLG": "004E3397",
   "Entries": [
@@ -114864,6 +114873,7 @@ leveledLists = {
   ]
 },
 "004E34AA": {
+  "LVCV": 50,
   "LVLF": 0,
   "LVLG": "004E3396",
   "Entries": [
@@ -114873,6 +114883,7 @@ leveledLists = {
   ]
 },
 "004E34A9": {
+  "LVCV": 50,
   "LVLF": 0,
   "LVLG": "004E3396",
   "Entries": [
@@ -114890,6 +114901,7 @@ leveledLists = {
   ]
 },
 "004E33A5": {
+  "LVCV": 25,
   "LVLF": 0,
   "LVLG": "004E3397",
   "Entries": [
@@ -114919,6 +114931,7 @@ leveledLists = {
   ]
 },
 "004E33A1": {
+  "LVCV": 25,
   "LVLF": 4,
   "LVLG": "004E3397",
   "Entries": [
@@ -114961,6 +114974,7 @@ leveledLists = {
   ]
 },
 "004E33A3": {
+  "LVCV": 25,
   "LVLF": 0,
   "LVLG": "004E3397",
   "Entries": [
@@ -115016,6 +115030,7 @@ leveledLists = {
   ]
 },
 "004E33A7": {
+  "LVCV": 25,
   "LVLF": 0,
   "LVLG": "004E3397",
   "Entries": [
@@ -115047,6 +115062,7 @@ leveledLists = {
   ]
 },
 "004E33A2": {
+  "LVCV": 50,
   "LVLF": 0,
   "LVLG": "004E3396",
   "Entries": [
@@ -115064,6 +115080,7 @@ leveledLists = {
   ]
 },
 "004E33A6": {
+  "LVCV": 25,
   "LVLF": 0,
   "LVLG": "004E3397",
   "Entries": [
@@ -116493,6 +116510,7 @@ leveledLists = {
   ]
 },
 "003E98CC": {
+  "LVCV": 20,
   "LVLF": 4,
   "LVLG": "0006D4CA",
   "Entries": [
@@ -120564,6 +120582,7 @@ leveledLists = {
   ]
 },
 "003C4763": {
+  "LVCV": 10,
   "LVLF": 3,
   "Entries": [
     {
@@ -120601,6 +120620,7 @@ leveledLists = {
   ]
 },
 "003C4762": {
+  "LVCV": 10,
   "LVLF": 3,
   "Entries": [
     {
@@ -121662,6 +121682,7 @@ leveledLists = {
   ]
 },
 "003ACCC2": {
+  "LVCV": 50,
   "LVLF": 3,
   "LVLG": "00389278",
   "Entries": [
@@ -121721,6 +121742,7 @@ leveledLists = {
   ]
 },
 "003ACCF3": {
+  "LVCV": 85,
   "LVLF": 2,
   "LVLG": "0038927A",
   "Entries": [
@@ -122862,6 +122884,7 @@ leveledLists = {
   ]
 },
 "0039EE3E": {
+  "LVCV": 100,
   "LVLF": 3,
   "Entries": [
     {
@@ -126580,6 +126603,7 @@ leveledLists = {
   ]
 },
 "003710CC": {
+  "LVCV": 75,
   "LVLF": 3,
   "Entries": [
     {
@@ -127196,6 +127220,7 @@ leveledLists = {
   ]
 },
 "0036C1F2": {
+  "LVCV": 1,
   "LVLF": 0,
   "Entries": [
     {
@@ -127204,6 +127229,7 @@ leveledLists = {
   ]
 },
 "0036C1F4": {
+  "LVCV": 1,
   "LVLF": 0,
   "Entries": [
     {
@@ -127212,6 +127238,7 @@ leveledLists = {
   ]
 },
 "0036C1F3": {
+  "LVCV": 20,
   "LVLF": 0,
   "Entries": [
     {
@@ -128476,6 +128503,7 @@ leveledLists = {
   "LVLF": 0
 },
 "0036135A": {
+  "LVCV": 99,
   "LVLF": 0,
   "LVLG": "00361359",
   "Entries": [
@@ -128494,6 +128522,7 @@ leveledLists = {
   ]
 },
 "0036135C": {
+  "LVCV": 50,
   "LVLF": 3,
   "LVLG": "00361357",
   "Entries": [
@@ -135356,6 +135385,7 @@ leveledLists = {
   ]
 },
 "0034251F": {
+  "LVCV": 25,
   "LVLF": 3,
   "LVLG": "00389277",
   "Entries": [
@@ -136853,6 +136883,7 @@ leveledLists = {
   ]
 },
 "0033AA06": {
+  "LVCV": 90,
   "LVLF": 0,
   "LVLG": "00361354",
   "Entries": [
@@ -142559,6 +142590,7 @@ leveledLists = {
   ]
 },
 "002EBF27": {
+  "LVCV": 33,
   "LVLF": 0,
   "Entries": [
     {
@@ -143436,6 +143468,7 @@ leveledLists = {
   ]
 },
 "00050F51": {
+  "LVCV": 80,
   "LVLF": 0,
   "Entries": [
     {
@@ -143444,6 +143477,7 @@ leveledLists = {
   ]
 },
 "00050F4E": {
+  "LVCV": 50,
   "LVLF": 0,
   "Entries": [
     {
@@ -143452,6 +143486,7 @@ leveledLists = {
   ]
 },
 "00050F46": {
+  "LVCV": 25,
   "LVLF": 0,
   "Entries": [
     {
@@ -146069,6 +146104,7 @@ leveledLists = {
   ]
 },
 "00017F92": {
+  "LVCV": 33,
   "LVLF": 0,
   "Entries": [
     {
@@ -146346,6 +146382,7 @@ leveledLists = {
   ]
 },
 "0009ED1A": {
+  "LVCV": 15,
   "LVLF": 4,
   "Entries": [
     {
@@ -146360,6 +146397,7 @@ leveledLists = {
   ]
 },
 "0009ED19": {
+  "LVCV": 15,
   "LVLF": 4,
   "Entries": [
     {
@@ -146374,6 +146412,7 @@ leveledLists = {
   ]
 },
 "0009ED18": {
+  "LVCV": 15,
   "LVLF": 4,
   "Entries": [
     {
@@ -146388,6 +146427,7 @@ leveledLists = {
   ]
 },
 "0009ED17": {
+  "LVCV": 15,
   "LVLF": 4,
   "Entries": [
     {
@@ -146402,6 +146442,7 @@ leveledLists = {
   ]
 },
 "0009ED16": {
+  "LVCV": 15,
   "LVLF": 4,
   "Entries": [
     {
@@ -146496,6 +146537,7 @@ leveledLists = {
   ]
 },
 "0001C3D4": {
+  "LVCV": 15,
   "LVLF": 0,
   "Entries": [
     {
@@ -146513,6 +146555,7 @@ leveledLists = {
   ]
 },
 "0001C3D3": {
+  "LVCV": 15,
   "LVLF": 0,
   "Entries": [
     {
@@ -146539,6 +146582,7 @@ leveledLists = {
   ]
 },
 "0001C3CC": {
+  "LVCV": 15,
   "LVLF": 0,
   "Entries": [
     {
@@ -146550,6 +146594,7 @@ leveledLists = {
   ]
 },
 "0001B4C2": {
+  "LVCV": 2,
   "LVLF": 0,
   "Entries": [
     {
@@ -146573,6 +146618,7 @@ leveledLists = {
   ]
 },
 "0001B4BE": {
+  "LVCV": 3,
   "LVLF": 0,
   "Entries": [
     {
@@ -146620,6 +146666,7 @@ leveledLists = {
   ]
 },
 "0001B4BD": {
+  "LVCV": 30,
   "LVLF": 0,
   "Entries": [
     {
@@ -146634,6 +146681,7 @@ leveledLists = {
   ]
 },
 "0001B4BC": {
+  "LVCV": 10,
   "LVLF": 0,
   "Entries": [
     {
@@ -146648,6 +146696,7 @@ leveledLists = {
   ]
 },
 "0001B4BB": {
+  "LVCV": 15,
   "LVLF": 0,
   "Entries": [
     {
@@ -146668,6 +146717,7 @@ leveledLists = {
   ]
 },
 "0001B4BA": {
+  "LVCV": 15,
   "LVLF": 0,
   "Entries": [
     {
@@ -146685,6 +146735,7 @@ leveledLists = {
   ]
 },
 "0017BED0": {
+  "LVCV": 10,
   "LVLF": 0,
   "Entries": [
     {
@@ -146705,6 +146756,7 @@ leveledLists = {
   ]
 },
 "00186DB2": {
+  "LVCV": 20,
   "LVLF": 0,
   "Entries": [
     {
@@ -146734,6 +146786,7 @@ leveledLists = {
   ]
 },
 "001825B8": {
+  "LVCV": 20,
   "LVLF": 0,
   "Entries": [
     {
@@ -146745,6 +146798,7 @@ leveledLists = {
   ]
 },
 "0000683B": {
+  "LVCV": 10,
   "LVLF": 0,
   "Entries": [
     {
@@ -146768,6 +146822,7 @@ leveledLists = {
   ]
 },
 "0000683A": {
+  "LVCV": 1,
   "LVLF": 0,
   "Entries": [
     {
@@ -146827,6 +146882,7 @@ leveledLists = {
   ]
 },
 "00006809": {
+  "LVCV": 10,
   "LVLF": 0,
   "Entries": [
     {
@@ -146853,6 +146909,7 @@ leveledLists = {
   ]
 },
 "00006803": {
+  "LVCV": 1,
   "LVLF": 0,
   "Entries": [
     {
@@ -146912,6 +146969,7 @@ leveledLists = {
   ]
 },
 "00006802": {
+  "LVCV": 10,
   "LVLF": 0,
   "Entries": [
     {
@@ -146938,6 +146996,7 @@ leveledLists = {
   ]
 },
 "001C79EE": {
+  "LVCV": 5,
   "LVLF": 0,
   "Entries": [
     {
@@ -146961,6 +147020,7 @@ leveledLists = {
   ]
 },
 "001C79EB": {
+  "LVCV": 10,
   "LVLF": 0,
   "Entries": [
     {
@@ -146990,6 +147050,7 @@ leveledLists = {
   ]
 },
 "001C79EA": {
+  "LVCV": 5,
   "LVLF": 0,
   "Entries": [
     {
@@ -147007,6 +147068,7 @@ leveledLists = {
   ]
 },
 "001C79E9": {
+  "LVCV": 10,
   "LVLF": 0,
   "Entries": [
     {
@@ -147021,6 +147083,7 @@ leveledLists = {
   ]
 },
 "001C79E8": {
+  "LVCV": 10,
   "LVLF": 0,
   "Entries": [
     {
@@ -147038,6 +147101,7 @@ leveledLists = {
   ]
 },
 "001C79E7": {
+  "LVCV": 15,
   "LVLF": 0,
   "Entries": [
     {
@@ -147061,6 +147125,7 @@ leveledLists = {
   ]
 },
 "001C79E6": {
+  "LVCV": 50,
   "LVLF": 0,
   "Entries": [
     {
@@ -147072,6 +147137,7 @@ leveledLists = {
   ]
 },
 "001C79E4": {
+  "LVCV": 1,
   "LVLF": 0,
   "Entries": [
     {
@@ -147137,6 +147203,7 @@ leveledLists = {
   ]
 },
 "0012DFDC": {
+  "LVCV": 30,
   "LVLF": 0,
   "Entries": [
     {
@@ -147166,6 +147233,7 @@ leveledLists = {
   ]
 },
 "0012DFD3": {
+  "LVCV": 30,
   "LVLF": 0,
   "Entries": [
     {
@@ -147183,6 +147251,7 @@ leveledLists = {
   ]
 },
 "0012DFCA": {
+  "LVCV": 10,
   "LVLF": 0,
   "Entries": [
     {
@@ -147200,6 +147269,7 @@ leveledLists = {
   ]
 },
 "0012D647": {
+  "LVCV": 15,
   "LVLF": 0,
   "Entries": [
     {
@@ -147214,6 +147284,7 @@ leveledLists = {
   ]
 },
 "0012D646": {
+  "LVCV": 15,
   "LVLF": 0,
   "Entries": [
     {
@@ -147228,6 +147299,7 @@ leveledLists = {
   ]
 },
 "0012D60B": {
+  "LVCV": 10,
   "LVLF": 0,
   "Entries": [
     {
@@ -147242,6 +147314,7 @@ leveledLists = {
   ]
 },
 "0012D433": {
+  "LVCV": 15,
   "LVLF": 0,
   "Entries": [
     {
@@ -147259,6 +147332,7 @@ leveledLists = {
   ]
 },
 "0012D432": {
+  "LVCV": 15,
   "LVLF": 0,
   "Entries": [
     {
@@ -147276,6 +147350,7 @@ leveledLists = {
   ]
 },
 "0012D431": {
+  "LVCV": 15,
   "LVLF": 0,
   "Entries": [
     {
@@ -147290,6 +147365,7 @@ leveledLists = {
   ]
 },
 "0012D430": {
+  "LVCV": 20,
   "LVLF": 0,
   "Entries": [
     {
@@ -147301,6 +147377,7 @@ leveledLists = {
   ]
 },
 "001230B3": {
+  "LVCV": 15,
   "LVLF": 0,
   "Entries": [
     {
@@ -147327,6 +147404,7 @@ leveledLists = {
   ]
 },
 "00123095": {
+  "LVCV": 5,
   "LVLF": 0,
   "Entries": [
     {
@@ -147353,6 +147431,7 @@ leveledLists = {
   ]
 },
 "00123094": {
+  "LVCV": 10,
   "LVLF": 0,
   "Entries": [
     {
@@ -147384,6 +147463,7 @@ leveledLists = {
   ]
 },
 "00122A39": {
+  "LVCV": 15,
   "LVLF": 0,
   "Entries": [
     {
@@ -147410,6 +147490,7 @@ leveledLists = {
   ]
 },
 "00122970": {
+  "LVCV": 10,
   "LVLF": 0,
   "Entries": [
     {
@@ -147442,6 +147523,7 @@ leveledLists = {
   ]
 },
 "00122901": {
+  "LVCV": 15,
   "LVLF": 0,
   "Entries": [
     {
@@ -147488,6 +147570,7 @@ leveledLists = {
   ]
 },
 "001228FF": {
+  "LVCV": 10,
   "LVLF": 0,
   "Entries": [
     {
@@ -147511,6 +147594,7 @@ leveledLists = {
   ]
 },
 "001228F4": {
+  "LVCV": 8,
   "LVLF": 0,
   "Entries": [
     {
@@ -147549,6 +147633,7 @@ leveledLists = {
   ]
 },
 "001228E8": {
+  "LVCV": 30,
   "LVLF": 0,
   "Entries": [
     {
@@ -147566,6 +147651,7 @@ leveledLists = {
   ]
 },
 "001228E2": {
+  "LVCV": 5,
   "LVLF": 0,
   "Entries": [
     {
@@ -147610,6 +147696,7 @@ leveledLists = {
   ]
 },
 "001228E1": {
+  "LVCV": 10,
   "LVLF": 0,
   "Entries": [
     {
@@ -147624,6 +147711,7 @@ leveledLists = {
   ]
 },
 "001227DD": {
+  "LVCV": 30,
   "LVLF": 0,
   "Entries": [
     {
@@ -147674,6 +147762,7 @@ leveledLists = {
   ]
 },
 "001227DC": {
+  "LVCV": 20,
   "LVLF": 0,
   "Entries": [
     {
@@ -147715,6 +147804,7 @@ leveledLists = {
   ]
 },
 "001227DB": {
+  "LVCV": 25,
   "LVLF": 0,
   "Entries": [
     {
@@ -147738,6 +147828,7 @@ leveledLists = {
   ]
 },
 "001227DA": {
+  "LVCV": 20,
   "LVLF": 0,
   "Entries": [
     {
@@ -147761,6 +147852,7 @@ leveledLists = {
   ]
 },
 "001227CF": {
+  "LVCV": 15,
   "LVLF": 0,
   "Entries": [
     {
@@ -147796,6 +147888,7 @@ leveledLists = {
   ]
 },
 "001227CE": {
+  "LVCV": 30,
   "LVLF": 0,
   "Entries": [
     {
@@ -147819,6 +147912,7 @@ leveledLists = {
   ]
 },
 "0003E073": {
+  "LVCV": 30,
   "LVLF": 0,
   "Entries": [
     {
@@ -147842,6 +147936,7 @@ leveledLists = {
   ]
 },
 "00120C53": {
+  "LVCV": 15,
   "LVLF": 0,
   "Entries": [
     {
@@ -147856,6 +147951,7 @@ leveledLists = {
   ]
 },
 "00089445": {
+  "LVCV": 40,
   "LVLF": 0,
   "Entries": [
     {
@@ -147870,6 +147966,7 @@ leveledLists = {
   ]
 },
 "00089443": {
+  "LVCV": 5,
   "LVLF": 0,
   "Entries": [
     {
@@ -147884,6 +147981,7 @@ leveledLists = {
   ]
 },
 "00089442": {
+  "LVCV": 5,
   "LVLF": 0,
   "Entries": [
     {
@@ -147910,6 +148008,7 @@ leveledLists = {
   ]
 },
 "00087B35": {
+  "LVCV": 15,
   "LVLF": 0,
   "Entries": [
     {
@@ -147927,6 +148026,7 @@ leveledLists = {
   ]
 },
 "00085D8F": {
+  "LVCV": 5,
   "LVLF": 0,
   "Entries": [
     {
@@ -147944,6 +148044,7 @@ leveledLists = {
   ]
 },
 "00085D85": {
+  "LVCV": 5,
   "LVLF": 0,
   "Entries": [
     {
@@ -147967,6 +148068,7 @@ leveledLists = {
   ]
 },
 "00085D49": {
+  "LVCV": 50,
   "LVLF": 0,
   "Entries": [
     {
@@ -148008,6 +148110,7 @@ leveledLists = {
   ]
 },
 "00085D48": {
+  "LVCV": 15,
   "LVLF": 0,
   "Entries": [
     {
@@ -148025,6 +148128,7 @@ leveledLists = {
   ]
 },
 "00085D47": {
+  "LVCV": 25,
   "LVLF": 0,
   "Entries": [
     {
@@ -148048,6 +148152,7 @@ leveledLists = {
   ]
 },
 "0006CDAD": {
+  "LVCV": 5,
   "LVLF": 0,
   "Entries": [
     {
@@ -148077,6 +148182,7 @@ leveledLists = {
   ]
 },
 "0006CD9E": {
+  "LVCV": 15,
   "LVLF": 0,
   "Entries": [
     {
@@ -148136,6 +148242,7 @@ leveledLists = {
   ]
 },
 "0006CD8A": {
+  "LVCV": 10,
   "LVLF": 0,
   "Entries": [
     {
@@ -148182,6 +148289,7 @@ leveledLists = {
   ]
 },
 "000041FA": {
+  "LVCV": 20,
   "LVLF": 0,
   "Entries": [
     {
@@ -148232,6 +148340,7 @@ leveledLists = {
   ]
 },
 "0000E109": {
+  "LVCV": 20,
   "LVLF": 0,
   "Entries": [
     {
@@ -148252,6 +148361,7 @@ leveledLists = {
   ]
 },
 "0000E108": {
+  "LVCV": 20,
   "LVLF": 0,
   "Entries": [
     {
@@ -148281,6 +148391,7 @@ leveledLists = {
   ]
 },
 "0000E0EA": {
+  "LVCV": 15,
   "LVLF": 0,
   "Entries": [
     {
@@ -148292,6 +148403,7 @@ leveledLists = {
   ]
 },
 "0000E0E9": {
+  "LVCV": 15,
   "LVLF": 0,
   "Entries": [
     {
@@ -148306,6 +148418,7 @@ leveledLists = {
   ]
 },
 "0000E0E7": {
+  "LVCV": 10,
   "LVLF": 0,
   "Entries": [
     {
@@ -148323,6 +148436,7 @@ leveledLists = {
   ]
 },
 "0000E0E4": {
+  "LVCV": 50,
   "LVLF": 0,
   "Entries": [
     {
@@ -148334,6 +148448,7 @@ leveledLists = {
   ]
 },
 "0000E0E3": {
+  "LVCV": 16,
   "LVLF": 0,
   "Entries": [
     {
@@ -148351,6 +148466,7 @@ leveledLists = {
   ]
 },
 "0000E0E2": {
+  "LVCV": 1,
   "LVLF": 0,
   "Entries": [
     {
@@ -148368,6 +148484,7 @@ leveledLists = {
   ]
 },
 "0000E0E0": {
+  "LVCV": 10,
   "LVLF": 0,
   "Entries": [
     {
@@ -148954,6 +149071,7 @@ leveledLists = {
   ]
 },
 "001117C3": {
+  "LVCV": 25,
   "LVLF": 3,
   "Entries": [
     {
@@ -150254,6 +150372,7 @@ leveledLists = {
   ]
 },
 "000954BF": {
+  "LVCV": 15,
   "LVLF": 0,
   "Entries": [
     {
@@ -150271,6 +150390,7 @@ leveledLists = {
   ]
 },
 "000954BE": {
+  "LVCV": 10,
   "LVLF": 0,
   "Entries": [
     {
@@ -150353,6 +150473,7 @@ leveledLists = {
   ]
 },
 "00013759": {
+  "LVCV": 20,
   "LVLF": 0,
   "Entries": [
     {
@@ -150382,6 +150503,7 @@ leveledLists = {
   ]
 },
 "00015645": {
+  "LVCV": 15,
   "LVLF": 0,
   "Entries": [
     {
@@ -150393,6 +150515,7 @@ leveledLists = {
   ]
 },
 "00015643": {
+  "LVCV": 25,
   "LVLF": 0,
   "Entries": [
     {
@@ -150410,6 +150533,7 @@ leveledLists = {
   ]
 },
 "000155E9": {
+  "LVCV": 25,
   "LVLF": 0,
   "Entries": [
     {
@@ -151183,6 +151307,7 @@ leveledLists = {
   ]
 },
 "00246C06": {
+  "LVCV": 85,
   "LVLF": 3,
   "LVLG": "0038927A",
   "Entries": [
@@ -153573,6 +153698,7 @@ leveledLists = {
   ]
 },
 "0022B61E": {
+  "LVCV": 25,
   "LVLF": 3,
   "Entries": [
     {
@@ -154126,6 +154252,7 @@ leveledLists = {
   ]
 },
 "0020F488": {
+  "LVCV": 75,
   "LVLF": 3,
   "LVLG": "00389279",
   "Entries": [
@@ -154326,6 +154453,7 @@ leveledLists = {
   ]
 },
 "001FA2D4": {
+  "LVCV": 100,
   "LVLF": 3,
   "LVLG": "001A729D",
   "Entries": [
@@ -154351,6 +154479,7 @@ leveledLists = {
   ]
 },
 "001FA2D0": {
+  "LVCV": 100,
   "LVLF": 3,
   "LVLG": "001A729D",
   "Entries": [
@@ -154360,6 +154489,7 @@ leveledLists = {
   ]
 },
 "001FA2CF": {
+  "LVCV": 100,
   "LVLF": 3,
   "LVLG": "001A729D",
   "Entries": [
@@ -154386,6 +154516,7 @@ leveledLists = {
   ]
 },
 "001FA2C7": {
+  "LVCV": 100,
   "LVLF": 3,
   "LVLG": "001A729D",
   "Entries": [
@@ -155157,6 +155288,7 @@ leveledLists = {
   ]
 },
 "001C2062": {
+  "LVCV": 10,
   "LVLF": 2,
   "Entries": [
     {
@@ -155269,6 +155401,7 @@ leveledLists = {
   ]
 },
 "001BBCBD": {
+  "LVCV": 85,
   "LVLF": 3,
   "LVLG": "0038927A",
   "Entries": [
@@ -155531,6 +155664,7 @@ leveledLists = {
   ]
 },
 "001B3A25": {
+  "LVCV": 60,
   "LVLF": 3,
   "Entries": [
     {
@@ -155551,6 +155685,7 @@ leveledLists = {
   ]
 },
 "001B3A22": {
+  "LVCV": 20,
   "LVLF": 3,
   "Entries": [
     {
@@ -155571,6 +155706,7 @@ leveledLists = {
   ]
 },
 "001B3A21": {
+  "LVCV": 20,
   "LVLF": 3,
   "Entries": [
     {
@@ -155678,6 +155814,7 @@ leveledLists = {
   ]
 },
 "001B201B": {
+  "LVCV": 25,
   "LVLF": 3,
   "LVLG": "00389277",
   "Entries": [
@@ -156804,6 +156941,7 @@ leveledLists = {
   ]
 },
 "00138750": {
+  "LVCV": 50,
   "LVLF": 0,
   "Entries": [
     {
@@ -156815,6 +156953,7 @@ leveledLists = {
   ]
 },
 "0013874F": {
+  "LVCV": 50,
   "LVLF": 0,
   "Entries": [
     {
@@ -156826,6 +156965,7 @@ leveledLists = {
   ]
 },
 "0013874E": {
+  "LVCV": 70,
   "LVLF": 0,
   "Entries": [
     {
@@ -156834,6 +156974,7 @@ leveledLists = {
   ]
 },
 "0013874C": {
+  "LVCV": 20,
   "LVLF": 0,
   "Entries": [
     {
@@ -156851,6 +156992,7 @@ leveledLists = {
   ]
 },
 "0013874B": {
+  "LVCV": 50,
   "LVLF": 0,
   "Entries": [
     {
@@ -156873,6 +157015,7 @@ leveledLists = {
   ]
 },
 "00138747": {
+  "LVCV": 35,
   "LVLF": 0,
   "Entries": [
     {
@@ -158338,6 +158481,7 @@ leveledLists = {
   ]
 },
 "000A076D": {
+  "LVCV": 25,
   "LVLF": 0,
   "Entries": [
     {
@@ -159845,6 +159989,7 @@ leveledLists = {
   ]
 },
 "0007C70D": {
+  "LVCV": 75,
   "LVLF": 2,
   "LVLG": "00389279",
   "Entries": [
@@ -160887,6 +161032,7 @@ leveledLists = {
   ]
 },
 "0005BBAB": {
+  "LVCV": 50,
   "LVLF": 3,
   "LVLG": "00389278",
   "Entries": [
@@ -161133,6 +161279,7 @@ leveledLists = {
   ]
 },
 "0001A32A": {
+  "LVCV": 50,
   "LVLF": 0,
   "LVLG": "00389278",
   "Entries": [
@@ -161411,6 +161558,7 @@ leveledLists = {
   ]
 },
 "0019E965": {
+  "LVCV": 75,
   "LVLF": 0,
   "LVLG": "00361355",
   "Entries": [
@@ -161420,6 +161568,7 @@ leveledLists = {
   ]
 },
 "0019E964": {
+  "LVCV": 50,
   "LVLF": 0,
   "LVLG": "00361357",
   "Entries": [
@@ -161429,6 +161578,7 @@ leveledLists = {
   ]
 },
 "0019E963": {
+  "LVCV": 25,
   "LVLF": 0,
   "LVLG": "00361356",
   "Entries": [
@@ -161438,6 +161588,7 @@ leveledLists = {
   ]
 },
 "0019DEA0": {
+  "LVCV": 25,
   "LVLF": 3,
   "LVLG": "00389277",
   "Entries": [
@@ -161447,6 +161598,7 @@ leveledLists = {
   ]
 },
 "0019DE9F": {
+  "LVCV": 50,
   "LVLF": 3,
   "LVLG": "00389278",
   "Entries": [
@@ -161456,6 +161608,7 @@ leveledLists = {
   ]
 },
 "0019DE9E": {
+  "LVCV": 75,
   "LVLF": 3,
   "LVLG": "00389279",
   "Entries": [
@@ -161766,6 +161919,7 @@ leveledLists = {
   ]
 },
 "0018F65F": {
+  "LVCV": 25,
   "LVLF": 2,
   "LVLG": "00389277",
   "Entries": [
@@ -161787,6 +161941,7 @@ leveledLists = {
   ]
 },
 "0018F65E": {
+  "LVCV": 25,
   "LVLF": 2,
   "LVLG": "00389277",
   "Entries": [
@@ -161811,6 +161966,7 @@ leveledLists = {
   ]
 },
 "0018F65D": {
+  "LVCV": 25,
   "LVLF": 3,
   "LVLG": "00389277",
   "Entries": [
@@ -161832,6 +161988,7 @@ leveledLists = {
   ]
 },
 "0018F65B": {
+  "LVCV": 25,
   "LVLF": 3,
   "LVLG": "00389277",
   "Entries": [
@@ -161841,6 +161998,7 @@ leveledLists = {
   ]
 },
 "0018F65A": {
+  "LVCV": 25,
   "LVLF": 3,
   "LVLG": "00389277",
   "Entries": [
@@ -161887,6 +162045,7 @@ leveledLists = {
   ]
 },
 "0018F655": {
+  "LVCV": 25,
   "LVLF": 3,
   "Entries": [
     {
@@ -162599,6 +162758,7 @@ leveledLists = {
   ]
 },
 "0018ABE4": {
+  "LVCV": 100,
   "LVLF": 3,
   "Entries": [
     {
@@ -164506,6 +164666,7 @@ leveledLists = {
   ]
 },
 "0016BACC": {
+  "LVCV": 50,
   "LVLF": 0,
   "Entries": [
     {
@@ -164902,6 +165063,7 @@ leveledLists = {
   ]
 },
 "001338E4": {
+  "LVCV": 25,
   "LVLF": 3,
   "LVLG": "00389277",
   "Entries": [
@@ -165189,6 +165351,7 @@ leveledLists = {
   ]
 },
 "00123D96": {
+  "LVCV": 20,
   "LVLF": 0,
   "Entries": [
     {
@@ -165236,6 +165399,7 @@ leveledLists = {
   ]
 },
 "00123D92": {
+  "LVCV": 1,
   "LVLF": 0,
   "Entries": [
     {
@@ -165463,6 +165627,7 @@ leveledLists = {
   ]
 },
 "0011003C": {
+  "LVCV": 85,
   "LVLF": 2,
   "LVLG": "0038927A",
   "Entries": [
@@ -165476,6 +165641,7 @@ leveledLists = {
   ]
 },
 "0011003B": {
+  "LVCV": 50,
   "LVLF": 3,
   "LVLG": "00389278",
   "Entries": [
@@ -167849,6 +168015,7 @@ leveledLists = {
   ]
 },
 "000824EC": {
+  "LVCV": 25,
   "LVLF": 2,
   "Entries": [
     {
@@ -167994,6 +168161,7 @@ leveledLists = {
   ]
 },
 "0007BB20": {
+  "LVCV": 75,
   "LVLF": 3,
   "LVLG": "00389279",
   "Entries": [
@@ -168023,6 +168191,7 @@ leveledLists = {
   ]
 },
 "0007BB1B": {
+  "LVCV": 75,
   "LVLF": 3,
   "LVLG": "00389279",
   "Entries": [
@@ -168032,6 +168201,7 @@ leveledLists = {
   ]
 },
 "0007BB1A": {
+  "LVCV": 75,
   "LVLF": 3,
   "LVLG": "00389279",
   "Entries": [
@@ -168407,6 +168577,7 @@ leveledLists = {
   ]
 },
 "00076A1C": {
+  "LVCV": 50,
   "LVLF": 0,
   "Entries": [
     {
@@ -168476,6 +168647,7 @@ leveledLists = {
   ]
 },
 "00073250": {
+  "LVCV": 75,
   "LVLF": 0,
   "LVLG": "00389279",
   "Entries": [
@@ -168485,6 +168657,7 @@ leveledLists = {
   ]
 },
 "000731A5": {
+  "LVCV": 10,
   "LVLF": 3,
   "Entries": [
     {
@@ -168560,6 +168733,7 @@ leveledLists = {
   ]
 },
 "0006D4CE": {
+  "LVCV": 85,
   "LVLF": 0,
   "LVLG": "0038927A",
   "Entries": [
@@ -169262,6 +169436,7 @@ leveledLists = {
   ]
 },
 "000673B7": {
+  "LVCV": 75,
   "LVLF": 3,
   "LVLG": "00389279",
   "Entries": [
@@ -169271,6 +169446,7 @@ leveledLists = {
   ]
 },
 "000673B6": {
+  "LVCV": 50,
   "LVLF": 3,
   "LVLG": "00389278",
   "Entries": [
@@ -169389,6 +169565,7 @@ leveledLists = {
   ]
 },
 "000673AC": {
+  "LVCV": 25,
   "LVLF": 0,
   "LVLG": "00389277",
   "Entries": [
@@ -169417,6 +169594,7 @@ leveledLists = {
   ]
 },
 "000673AA": {
+  "LVCV": 75,
   "LVLF": 0,
   "LVLG": "00389279",
   "Entries": [
@@ -169591,6 +169769,7 @@ leveledLists = {
   ]
 },
 "0006739F": {
+  "LVCV": 25,
   "LVLF": 0,
   "LVLG": "00389277",
   "Entries": [
@@ -169600,6 +169779,7 @@ leveledLists = {
   ]
 },
 "0006739E": {
+  "LVCV": 75,
   "LVLF": 0,
   "LVLG": "00389279",
   "Entries": [
@@ -169609,6 +169789,7 @@ leveledLists = {
   ]
 },
 "0006739D": {
+  "LVCV": 75,
   "LVLF": 3,
   "LVLG": "00389279",
   "Entries": [
@@ -169635,6 +169816,7 @@ leveledLists = {
   ]
 },
 "0006739B": {
+  "LVCV": 75,
   "LVLF": 3,
   "LVLG": "00389279",
   "Entries": [
@@ -169678,6 +169860,7 @@ leveledLists = {
   ]
 },
 "00067395": {
+  "LVCV": 75,
   "LVLF": 4,
   "LVLG": "00389279",
   "Entries": [
@@ -169700,6 +169883,7 @@ leveledLists = {
   ]
 },
 "00067393": {
+  "LVCV": 25,
   "LVLF": 0,
   "LVLG": "00389277",
   "Entries": [
@@ -169750,6 +169934,7 @@ leveledLists = {
   ]
 },
 "0006738E": {
+  "LVCV": 25,
   "LVLF": 2,
   "LVLG": "00389277",
   "Entries": [
@@ -169759,6 +169944,7 @@ leveledLists = {
   ]
 },
 "0006738D": {
+  "LVCV": 50,
   "LVLF": 3,
   "LVLG": "00389278",
   "Entries": [
@@ -169808,6 +169994,7 @@ leveledLists = {
   ]
 },
 "0006738C": {
+  "LVCV": 75,
   "LVLF": 2,
   "LVLG": "00389279",
   "Entries": [
@@ -170126,6 +170313,7 @@ leveledLists = {
   ]
 },
 "00065A40": {
+  "LVCV": 75,
   "LVLF": 3,
   "LVLG": "00361355",
   "Entries": [
@@ -170144,6 +170332,7 @@ leveledLists = {
   ]
 },
 "00065A3E": {
+  "LVCV": 25,
   "LVLF": 2,
   "LVLG": "00389277",
   "Entries": [
@@ -170153,6 +170342,7 @@ leveledLists = {
   ]
 },
 "00065A3D": {
+  "LVCV": 50,
   "LVLF": 2,
   "LVLG": "00389278",
   "Entries": [
@@ -170162,6 +170352,7 @@ leveledLists = {
   ]
 },
 "00065A3C": {
+  "LVCV": 75,
   "LVLF": 2,
   "LVLG": "00389279",
   "Entries": [
@@ -170302,6 +170493,7 @@ leveledLists = {
   ]
 },
 "000585A5": {
+  "LVCV": 85,
   "LVLF": 3,
   "LVLG": "0038927A",
   "Entries": [
@@ -170361,6 +170553,7 @@ leveledLists = {
   ]
 },
 "000585A2": {
+  "LVCV": 80,
   "LVLF": 3,
   "LVLG": "00361353",
   "Entries": [
@@ -170391,6 +170584,7 @@ leveledLists = {
   ]
 },
 "00038A0C": {
+  "LVCV": 25,
   "LVLF": 3,
   "LVLG": "00389277",
   "Entries": [
@@ -170441,6 +170635,7 @@ leveledLists = {
   ]
 },
 "0003692B": {
+  "LVCV": 25,
   "LVLF": 3,
   "LVLG": "00389277",
   "Entries": [
@@ -170450,6 +170645,7 @@ leveledLists = {
   ]
 },
 "00036928": {
+  "LVCV": 50,
   "LVLF": 0,
   "LVLG": "00389278",
   "Entries": [
@@ -170459,6 +170655,7 @@ leveledLists = {
   ]
 },
 "00036926": {
+  "LVCV": 25,
   "LVLF": 3,
   "LVLG": "00389277",
   "Entries": [
@@ -170477,6 +170674,7 @@ leveledLists = {
   ]
 },
 "0003691B": {
+  "LVCV": 75,
   "LVLF": 3,
   "LVLG": "00389279",
   "Entries": [
@@ -170486,6 +170684,7 @@ leveledLists = {
   ]
 },
 "0003691A": {
+  "LVCV": 50,
   "LVLF": 3,
   "LVLG": "00389278",
   "Entries": [
@@ -170504,6 +170703,7 @@ leveledLists = {
   ]
 },
 "00036916": {
+  "LVCV": 75,
   "LVLF": 3,
   "LVLG": "00389279",
   "Entries": [
@@ -170538,6 +170738,7 @@ leveledLists = {
   ]
 },
 "000330EA": {
+  "LVCV": 75,
   "LVLF": 3,
   "LVLG": "00389279",
   "Entries": [
@@ -170550,6 +170751,7 @@ leveledLists = {
   ]
 },
 "000330E9": {
+  "LVCV": 75,
   "LVLF": 3,
   "LVLG": "00389279",
   "Entries": [
@@ -170748,6 +170950,7 @@ leveledLists = {
   "LVLF": 3
 },
 "0004E351": {
+  "LVCV": 85,
   "LVLF": 3,
   "LVLG": "0038927A",
   "Entries": [
@@ -170814,6 +171017,7 @@ leveledLists = {
   ]
 },
 "00048353": {
+  "LVCV": 5,
   "LVLF": 2,
   "Entries": [
     {
@@ -170948,6 +171152,7 @@ leveledLists = {
   ]
 },
 "0002EF6A": {
+  "LVCV": 75,
   "LVLF": 1,
   "LVLG": "00389279",
   "Entries": [
