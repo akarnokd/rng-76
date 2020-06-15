@@ -8,6 +8,7 @@
             }
             td {
                 padding: 2px;
+                border: 1px solid black;
             }
             
             table.infoTable {
@@ -34,11 +35,15 @@
         &nbsp;&nbsp;Max: <input id='max' type='number' value='0' min='0'> (only in Use all mode)</br>
         <br/><br/>
         <table id='main' style='border-collapse: collapse;'>
-            <tr>
-                <td>Condition</td>
-                <td>Chance None (%)</td>
-                <td>Probability (sim)</td>
-                <td>Probability (formula)</td>
+            <tr style='font-weight: bold;'>
+                <td colspan='2'>Condition</td>
+                <td rowspan='2'>Chance None (%)</td>
+                <td rowspan='2'>Probability (sim)</td>
+                <td rowspan='2'>Probability (formula)</td>
+            </tr>
+            <tr style='font-weight: bold;'>
+                <td>Logic</td>
+                <td>RNG match chance (%)</td>
             </tr>
         </table>
         <br/>
@@ -50,17 +55,21 @@
                 var n = parseInt(document.getElementById("count").value);
                 var tbl = document.getElementById("main");
 
-                for (var i = tbl.rows.length - 1; i > 0; i--) {
+                for (var i = tbl.rows.length - 1; i > 1; i--) {
                     tbl.deleteRow(i);
                 }
 
                 for (var i = 1; i <= n; i++) {
-                    var row = tbl.insertRow(i);
+                    var row = tbl.insertRow(tbl.rows.length);
 
                     c2 = row.insertCell(row.cells.length);
                     c2.style.textAlign = "center";
                     c2.innerHTML = "<input id='condition" + i + "' type='checkbox' checked='checked'>";
                     c2.style.border = "1px solid black";
+
+                    var c1 = row.insertCell(row.cells.length);
+                    c1.innerHTML = "<input id='rng" + i + "' type='number' min='0' max='100' value='100'>";
+                    c1.style.border = "1px solid black";
 
                     var c1 = row.insertCell(row.cells.length);
                     c1.innerHTML = "<input id='chanceNone" + i + "' type='number' min='0' max='100' value='0'>";
@@ -81,12 +90,13 @@
 
                     document.getElementById("chanceNone" + i).oninput = run;
                     document.getElementById("condition" + i).oninput = run;
+                    document.getElementById("rng" + i).oninput = run;
                 }
 
-                var row = tbl.insertRow(i);
+                var row = tbl.insertRow(tbl.rows.length);
                 var cll = row.insertCell(row.cells.length);
                 cll.innerText = "Empty";
-                cll.colSpan = 2;
+                cll.colSpan = 3;
                 cll.style.border = "1px solid black";
 
                 cll = row.insertCell(row.cells.length);
@@ -103,6 +113,16 @@
 
             }
 
+            function cap(value) {
+                if (value < 0) {
+                    return 0;
+                }
+                if (value > 1) {
+                    return 1
+                }
+                return value;
+            }
+
             function run() {
                 var tbl = document.getElementById("main");
 
@@ -114,32 +134,52 @@
                 var count = parseInt(document.getElementById("count").value);
 
                 var entries = [];
+                var hasRng = false;
                 for (var i = 1; i <= count; i++) {
                     document.getElementById("probsim" + i).innerText = "";
                     document.getElementById("probformula" + i).innerText = "";
 
                     if (document.getElementById("condition" + i).checked) {
+                        var rng = cap(parseFloat(document.getElementById("rng" + i).value) / 100.0);
+                        var chanceNone = cap(parseFloat(document.getElementById("chanceNone" + i).value) / 100.0);
+                        if (rng < 1) {
+                            hasRng = true;
+                        }
                         entries.push({
                             index: i,
-                            chanceNone: parseFloat(document.getElementById("chanceNone" + i).value) / 100.0,
+                            chanceNone: chanceNone,
+                            conditionRandom: rng,
                             count: 0
                         });
                     }
                 }
 
-                simulate(mode, max, entries, rounds);
+                simulate(mode, max, entries, rounds, hasRng);
                 for (var entry of entries) {
                     entry.count = 0;
                 }
-                formula(mode, max, entries);
+                formula(mode, max, entries, hasRng);
             }
 
-            function simulate(mode, max, entries, rounds) {
+            function filterIfRng(entriesBase, hasRng) {
+                if (hasRng) {
+                    var result = [];
+                    for (var e of entriesBase) {
+                        if (e.conditionRandom > Math.random()) {
+                            result.push(e);
+                        }
+                    }
+                    return result;
+                }
+                return entriesBase;
+            }
 
+            function simulate(mode, max, entriesBase, rounds, hasRng) {
                 var empty = 0;
-                if (entries.length != 0) {
+                if (entriesBase.length != 0) {
                     if (mode == 'all') {
                         for (var r = 0; r < rounds; r++) {
+                            var entries = filterIfRng(entriesBase, hasRng);
                             var found = 0;
                             for (var entry of entries) {
                                 if (entry.chanceNone <= Math.random()) {
@@ -157,11 +197,17 @@
                     }
                     else if (mode == 'random') {
                         for (var r = 0; r < rounds; r++) {
-                            var idx = Math.floor(entries.length * Math.random());
-                            var entry = entries[idx];
+                            var entries = filterIfRng(entriesBase, hasRng);
 
-                            if (entry.chanceNone <= Math.random()) {
-                                entry.count++;
+                            if (entries.length != 0) {
+                                var idx = Math.floor(entries.length * Math.random());
+                                var entry = entries[idx];
+
+                                if (entry.chanceNone <= Math.random()) {
+                                    entry.count++;
+                                } else {
+                                    empty++;
+                                }
                             } else {
                                 empty++;
                             }
@@ -169,10 +215,15 @@
                     }
                     else if (mode == 'first') {
                         for (var r = 0; r < rounds; r++) {
-                            var entry = entries[0];
+                            var entries = filterIfRng(entriesBase, hasRng);
+                            if (entries.length != 0) {
+                                var entry = entries[0];
 
-                            if (entry.chanceNone <= Math.random()) {
-                                entry.count++;
+                                if (entry.chanceNone <= Math.random()) {
+                                    entry.count++;
+                                } else {
+                                    empty++;
+                                }
                             } else {
                                 empty++;
                             }
@@ -182,28 +233,29 @@
                     empty = rounds;
                 }
 
-                for (var entry of entries) {
+                for (var entry of entriesBase) {
                     document.getElementById("probsim" + entry.index).innerText = (entry.count * 100.0 / rounds).toFixed(3) + " %";
                 }
 
                 document.getElementById("emptysim").innerText = (empty * 100.0 / rounds).toFixed(3) + " %";
             }
 
-            function formula(mode, max, entries) {
+            function formula(mode, max, entries, hasRng) {
                 var empty = 1;
                 
                 if (mode == 'all') {
                     if (max == 0) {
                         for (var entry of entries) {
-                            entry.count = (1 - entry.chanceNone);
-                            empty *= entry.chanceNone;
+                            var selfChance = (1 - entry.chanceNone) * entry.conditionRandom;
+                            entry.count = selfChance;
+                            empty *= 1 - selfChance;
                         }
                     }
                     else if (max == 1) {
                         for (var entry of entries) {
-                            var p = (1 - entry.chanceNone);
-                            entry.count = p * empty;
-                            empty *= entry.chanceNone;
+                            var selfChance = (1 - entry.chanceNone) * entry.conditionRandom;
+                            entry.count = selfChance * empty;
+                            empty *= (1 - selfChance);
                         }
                     }
                     else {
@@ -212,20 +264,32 @@
                 }
                 else if (mode == "random") {
                     if (entries.length != 0) {
-                        empty = 0;
-                        var m = 1.0 / entries.length;
-                        for (var entry of entries) {
-                            entry.count = (1 - entry.chanceNone) * m;
-                            empty += entry.chanceNone * m;
+                        if (!hasRng) {
+                            empty = 0;
+                            var m = 1.0 / entries.length;
+                            for (var entry of entries) {
+                                entry.count = (1 - entry.chanceNone) * m;
+                                empty += entry.chanceNone * m;
+                            }
+                        } else {
+                            empty = binaryFormula(entries);
                         }
                     } else {
                         empty = 1;
                     }
                 }
                 else if (mode == "first") {
-                    var entry = entries[0];
-                    entry.count = (1 - entry.chanceNone);
-                    empty = entry.chanceNone;
+                    if (hasRng) {
+                        for (var entry of entries) {
+                            var selfChance = (1 - entry.chanceNone) * entry.conditionRandom;
+                            entry.count = selfChance * empty;
+                            empty *= (1 - selfChance);
+                        }
+                    } else {
+                        var entry = entries[0];
+                        entry.count = (1 - entry.chanceNone);
+                        empty = entry.chanceNone;
+                    }
                 }
 
                 for (var entry of entries) {
@@ -245,8 +309,9 @@
                 var empty = 1.0;
                 for (var i = 0; i < max; i++) {
                     var entry = entries[i];
-                    entry.count = (1 - entry.chanceNone);
-                    empty *= entry.chanceNone;
+                    var selfChance = (1 - entry.chanceNone) * entry.conditionRandom;
+                    entry.count = selfChance;
+                    empty *= 1 - selfChance;
                 } 
 
                 var residue = 0;
@@ -262,10 +327,11 @@
                             for (var b = 0; b < i; b++) {
                                 var mask = 1 << b;
                                 var e = entries[b];
+                                var selfChance = (1 - e.chanceNone) * e.conditionRandom;
                                 if ((p & mask) != 0) {
-                                    product *= (1 - e.chanceNone);
+                                    product *= selfChance;
                                 } else {
-                                    product *= e.chanceNone;
+                                    product *= 1 - selfChance;
                                 }
                             }
 
@@ -275,11 +341,56 @@
                     residue += sum;
 
                     var entry = entries[i];
-                    entry.count = (1 - entry.chanceNone) * (1 - residue);
-                    empty *= entry.chanceNone;
+                    var selfChance = (1 - entry.chanceNone) * entry.conditionRandom;
+                    entry.count = selfChance * (1 - residue);
+                    empty *= 1 - selfChance;
                 }
 
                 return empty;
+            }
+
+            function binaryFormula(entries) {
+                var n = entries.length;
+                var bits = 1 << n;
+                var empty = 1;
+
+                for (var i = 0; i < bits; i++) {
+                    var product = 1;
+                    var nonZeroCount = 0;
+                    for (var j = 0; j < n; j++) {
+                        var mask = 1 << j;
+                        var entry = entries[j];
+                        var cr = entry.conditionRandom;
+                        if ((i & mask) != 0) {
+                            product *= cr;
+                            nonZeroCount++;
+                        } else {
+                            product *= (1 - cr);
+                        }
+                    }
+
+                    if (i == 0) {
+                        empty = product;
+                    } else {
+                        product /= nonZeroCount;
+                        for (var j = 0; j < n; j++) {
+                            var mask = 1 << j;
+                            var entry = entries[j];
+                            if ((i & mask) != 0) {
+                                entry.count += product;
+                            }
+                        }
+                    }
+                }
+
+                var sum = 0;
+                for (var entry of entries) {
+                    var baseChance = entry.count;
+                    entry.count = (1 - entry.chanceNone) * baseChance;
+                    sum += entry.count;
+                }
+
+                return 1 - sum;
             }
 
             document.getElementById("createTableBtn").onclick = createTable;
