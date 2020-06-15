@@ -24,19 +24,25 @@
             <span style="font-size: 36px; font-weight: bold;">Fallout 76 List drop Monte-carlo simulation</span><br/>
             <br/>
             <br/>
-
-        Options: <input id='count' type="number" min="1" value='3'><button id='createTableBtn'>Create</button>
+        Options: <input id='count' type="number" min="1" value='6'><button id='createTableBtn'>Create</button>
+        <hr>
+            List mode: <select id='mode'>
+            <option value='all'>Use all</option>
+            <option value='random'>For each</option>
+            <option value='first'>First match condition</option>
+        </select>
+        &nbsp;&nbsp;Max: <input id='max' type='number' value='0' min='0'> (only in Use all mode)</br>
         <br/><br/>
         <table id='main' style='border-collapse: collapse;'>
             <tr>
-                <td>Absent percent</td>
+                <td>Condition</td>
+                <td>Chance None (%)</td>
                 <td>Probability (sim)</td>
                 <td>Probability (formula)</td>
-                <td>Probability (first pick)</td>
             </tr>
         </table>
         <br/>
-        Rounds: <input id='rounds' type="number" min="1" value='100000'>&nbsp;&nbsp;&nbsp;<button id='runBtn'>Run!</button>
+        Rounds: <input id='rounds' type="number" min="1" value='1000000'>&nbsp;&nbsp;&nbsp;<button id='runBtn'>Run!</button>
         </center>
 
         <script>
@@ -51,114 +57,238 @@
                 for (var i = 1; i <= n; i++) {
                     var row = tbl.insertRow(i);
 
-                    var c1 = row.insertCell(0);
-                    c1.innerHTML = "<input id='option" + i + "' type='number' min='0' max='100' value='0'>";
+                    c2 = row.insertCell(row.cells.length);
+                    c2.style.textAlign = "center";
+                    c2.innerHTML = "<input id='condition" + i + "' type='checkbox' checked='checked'>";
+                    c2.style.border = "1px solid black";
+
+                    var c1 = row.insertCell(row.cells.length);
+                    c1.innerHTML = "<input id='chanceNone" + i + "' type='number' min='0' max='100' value='0'>";
                     c1.style.border = "1px solid black";
 
-                    var c2 = row.insertCell(1);
-                    c2.id = "prob" + i;
+
+                    c2 = row.insertCell(row.cells.length);
+                    c2.id = "probsim" + i;
                     c2.innerText = "0.000 %";
                     c2.style.textAlign = "right";
                     c2.style.border = "1px solid black";
 
-                    c2 = row.insertCell(2);
-                    c2.id = "probf" + i;
+                    c2 = row.insertCell(row.cells.length);
+                    c2.id = "probformula" + i;
                     c2.innerText = "0.000 %";
                     c2.style.textAlign = "right";
                     c2.style.border = "1px solid black";
 
-                    c2 = row.insertCell(3);
-                    c2.id = "probp" + i;
-                    c2.innerText = "0.000 %";
-                    c2.style.textAlign = "right";
-                    c2.style.border = "1px solid black";
+                    document.getElementById("chanceNone" + i).oninput = run;
+                    document.getElementById("condition" + i).oninput = run;
                 }
+
+                var row = tbl.insertRow(i);
+                var cll = row.insertCell(row.cells.length);
+                cll.innerText = "Empty";
+                cll.colSpan = 2;
+                cll.style.border = "1px solid black";
+
+                cll = row.insertCell(row.cells.length);
+                cll.id = "emptysim";
+                cll.innerText = "0.000 %";
+                cll.style.textAlign = "right";
+                cll.style.border = "1px solid black";
+                
+                cll = row.insertCell(row.cells.length);
+                cll.id = "emptyformula";
+                cll.innerText = "0.000 %";
+                cll.style.textAlign = "right";
+                cll.style.border = "1px solid black";
+
             }
 
             function run() {
                 var tbl = document.getElementById("main");
 
-                var absentList = [];
-
-                for (var i = 1; i < tbl.rows.length; i++) {
-                    absentList.push(
-                        { 
-                            index: i, 
-                            absent: parseInt(document.getElementById("option" + i).value) / 100.0,
-                            occurrence: 0
-                        }
-                    );
-                }
-
                 var rounds = parseInt(document.getElementById("rounds").value);
 
-                for (var j = 0; j < rounds; j++) {
-                    var presentList = [];
-                    for (var e of absentList) {
-                        if (Math.random() >= e.absent) {
-                            presentList.push(e);
+                var modeSel = document.getElementById("mode");
+                var mode = modeSel.options[modeSel.selectedIndex].value;
+                var max = parseInt(document.getElementById("max").value);
+                var count = parseInt(document.getElementById("count").value);
+
+                var entries = [];
+                for (var i = 1; i <= count; i++) {
+                    document.getElementById("probsim" + i).innerText = "";
+                    document.getElementById("probformula" + i).innerText = "";
+
+                    if (document.getElementById("condition" + i).checked) {
+                        entries.push({
+                            index: i,
+                            chanceNone: parseFloat(document.getElementById("chanceNone" + i).value) / 100.0,
+                            count: 0
+                        });
+                    }
+                }
+
+                simulate(mode, max, entries, rounds);
+                for (var entry of entries) {
+                    entry.count = 0;
+                }
+                formula(mode, max, entries);
+            }
+
+            function simulate(mode, max, entries, rounds) {
+
+                var empty = 0;
+                if (entries.length != 0) {
+                    if (mode == 'all') {
+                        for (var r = 0; r < rounds; r++) {
+                            var found = 0;
+                            for (var entry of entries) {
+                                if (entry.chanceNone <= Math.random()) {
+                                    entry.count++;
+                                    if (++found == max) {
+                                        break;
+                                    }
+                                }
+                            }
+
+                            if (found == 0) {
+                                empty++;
+                            }
                         }
                     }
+                    else if (mode == 'random') {
+                        for (var r = 0; r < rounds; r++) {
+                            var idx = Math.floor(entries.length * Math.random());
+                            var entry = entries[idx];
 
-                    if (presentList.length > 0) {
-                        var index = Math.floor(Math.random() * presentList.length);
-                        presentList[index].occurrence++;
-                    }
-                }
-
-                for (var e of absentList) {
-                    document.getElementById("prob" + e.index).innerText = (100.0 * e.occurrence / rounds).toFixed(3) + " %";
-                    e.occurrence = 0;
-                }
-
-                // run as first pick
-                for (var j = 0; j < rounds; j++) {
-                    for (var e of absentList) {
-                        if (Math.random() >= e.absent) {
-                            e.occurrence++;
-                            break;
+                            if (entry.chanceNone <= Math.random()) {
+                                entry.count++;
+                            } else {
+                                empty++;
+                            }
                         }
                     }
-                }
+                    else if (mode == 'first') {
+                        for (var r = 0; r < rounds; r++) {
+                            var entry = entries[0];
 
-                for (var e of absentList) {
-                    document.getElementById("probp" + e.index).innerText = (100.0 * e.occurrence / rounds).toFixed(3) + " %";
-                }
-
-                var combinations = 1 << absentList.length;
-
-                var probCombinations = new Array(combinations);
-                for (var n = 0; n < combinations; n++) {
-                    var product = 1.0;
-                    var bits = 0;
-                    for (var m = 0; m < absentList.length; m++) {
-                        var bitMask = 1 << m;
-                        if ((n & bitMask) != 0) {
-                            bits++;
-                            product *= (1 - absentList[m].absent);
-                        } else {
-                            product *= absentList[m].absent;
+                            if (entry.chanceNone <= Math.random()) {
+                                entry.count++;
+                            } else {
+                                empty++;
+                            }
                         }
                     }
-                    probCombinations[n] = product / Math.max(1, bits);
+                } else {
+                    empty = rounds;
                 }
 
-                for (var m = 0; m < absentList.length; m++) {
-                    var bitMask = 1 << m;
-                    var sum = 0.0;
-                    for (var n = 0; n < combinations; n++) {
-                        if ((n & bitMask) != 0) {
-                            sum += probCombinations[n];
+                for (var entry of entries) {
+                    document.getElementById("probsim" + entry.index).innerText = (entry.count * 100.0 / rounds).toFixed(3) + " %";
+                }
+
+                document.getElementById("emptysim").innerText = (empty * 100.0 / rounds).toFixed(3) + " %";
+            }
+
+            function formula(mode, max, entries) {
+                var empty = 1;
+                
+                if (mode == 'all') {
+                    if (max == 0) {
+                        for (var entry of entries) {
+                            entry.count = (1 - entry.chanceNone);
+                            empty *= entry.chanceNone;
                         }
                     }
-                    document.getElementById("probf" + (m + 1)).innerText = (100.0 * sum).toFixed(5) + " %";
+                    else if (max == 1) {
+                        for (var entry of entries) {
+                            var p = (1 - entry.chanceNone);
+                            entry.count = p * empty;
+                            empty *= entry.chanceNone;
+                        }
+                    }
+                    else {
+                        empty = maxFormula(entries, max);
+                    }
                 }
+                else if (mode == "random") {
+                    if (entries.length != 0) {
+                        empty = 0;
+                        var m = 1.0 / entries.length;
+                        for (var entry of entries) {
+                            entry.count = (1 - entry.chanceNone) * m;
+                            empty += entry.chanceNone * m;
+                        }
+                    } else {
+                        empty = 1;
+                    }
+                }
+                else if (mode == "first") {
+                    var entry = entries[0];
+                    entry.count = (1 - entry.chanceNone);
+                    empty = entry.chanceNone;
+                }
+
+                for (var entry of entries) {
+                    document.getElementById("probformula" + entry.index).innerText = (entry.count * 100.0).toFixed(3) + " %";
+                }
+
+                document.getElementById("emptyformula").innerText = (empty * 100.0).toFixed(3) + " %";
+            }
+
+            function bitCount(n) {
+                n = n - ((n >> 1) & 0x55555555);
+                n = (n & 0x33333333) + ((n >> 2) & 0x33333333);
+                return ((n + (n >> 4) & 0xF0F0F0F) * 0x1010101) >> 24;
+            }
+
+            function maxFormula(entries, max) {
+                var empty = 1.0;
+                for (var i = 0; i < max; i++) {
+                    var entry = entries[i];
+                    entry.count = (1 - entry.chanceNone);
+                    empty *= entry.chanceNone;
+                } 
+
+                var residue = 0;
+                for (var i = max; i < entries.length; i++) {
+                    
+                    var sum = 0;
+                    var minPattern = 1 << (i - 1);
+                    var maxPattern = ((1 << i) - 1);
+
+                    for (var p = minPattern; p <= maxPattern; p++) {
+                        if (bitCount(p) == max) {
+                            var product = 1.0;
+                            for (var b = 0; b < i; b++) {
+                                var mask = 1 << b;
+                                var e = entries[b];
+                                if ((p & mask) != 0) {
+                                    product *= (1 - e.chanceNone);
+                                } else {
+                                    product *= e.chanceNone;
+                                }
+                            }
+
+                            sum += product;
+                        }
+                    }
+                    residue += sum;
+
+                    var entry = entries[i];
+                    entry.count = (1 - entry.chanceNone) * (1 - residue);
+                    empty *= entry.chanceNone;
+                }
+
+                return empty;
             }
 
             document.getElementById("createTableBtn").onclick = createTable;
             document.getElementById("runBtn").onclick = run;
+            document.getElementById("mode").oninput = run;
+            document.getElementById("max").oninput = run;
 
             createTable();
+            run();
         </script>
     </body>
 </html>
