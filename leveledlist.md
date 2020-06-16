@@ -281,7 +281,7 @@ Having a non-zero *maximum* can result in non-intuitive outcomes, therefore, her
 
 If **bit 1** is set (named *for each entry* in  tools), a single entry from the pruned list is picked at uniform random every time.
 
-More specifically, if this list is referenced by a parent leveled list, the current list is evaluatet over and over, specified by the
+More specifically, if this list is referenced by a parent leveled list, the current list is evaluated over and over, specified by the
 referencing entry's quantity amount.
 
 For example, given the following nesting:
