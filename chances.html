@@ -17,12 +17,22 @@
             table.infoTable td {
                border: 1px solid black;
             }
+
+            .picker {
+                border:1px dotted green; 
+                text-decoration: none;
+                font-weight: bold; 
+                background-color: #E0FFFF; 
+                padding-left: 3px; 
+                padding-right: 3px;
+                box-shadow: 2px 2px #888888;
+            }
         </style>
         <meta name="keywords" content="Fallout,Fallout 76,RNG,Random,Chances,Leveled,Leveled List,LVLI,Datamine">
     </head>
     <body>
         <center>
-            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Drop Chances (0.1.9)</span><br/>
+            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Drop Chances (0.2.0)</span><br/>
             <br/>
             <br/>
             Select version:
@@ -530,6 +540,14 @@
                 return false;
             }
 
+            function toggleCheckBoxSettings(key) {
+                var input = settingsMap.get(key);
+                if (input !== undefined) {
+                    input.checked = !input.checked;
+                    input.dispatchEvent(new Event('input'));
+                }
+            }
+
             function buildConditionEntry(parent, entry, maxCols) {
                 if (entry.Conditions !== undefined) {
                     n = parent.rows.length;
@@ -581,14 +599,33 @@
                 ;
             };
 
+            var displayOneLinkCheckFunc = function(fn, cond) {
+                return "(" + createNukaLink(cond.Param1Ref) + ")"
+                + "&nbsp;<a href='#' onclick='javascript:toggleCheckBoxSettings(\"" + fn + "_" + cond.Param1Ref
+                + "\"); return false;' title='Toggle this condition' "
+                + "class='picker'>&#x2190;</a>"
+                ;
+            };
+
+            var displayNoneCheckFunc = function(fn, cond) {
+                return "&nbsp;<a href='#' onclick='javascript:toggleCheckBoxSettings(\"" + fn
+                + "\"); return false;' title='Toggle this condition' "
+                + "class='picker'>&#x2190;</a>"
+                ;
+            };
+
             var displayOneLinkPickFunc = function(fn, cond) {
                 return "(" + createNukaLink(cond.Param1Ref) + ")"
                 + "&nbsp;<a href='#' onclick='javascript:pickComboSettings(\"" + fn + "\", \"" + cond.Param1Ref
-                 + "\"); return false;' title='Use this in the settings' "
-                 + "style='border:1px dotted green; text-decoration: none; "
-                 + "font-weight: bold; background-color: #E0FFFF; padding-left: 3px; padding-right: 3px;"
-                 + "box-shadow: 2px 2px #888888;"
-                 + "'>&#x2190;</a>"
+                + "\"); return false;' title='Use this in the settings' "
+                + "class='picker'>&#x2190;</a>"
+                ;
+            };
+
+            var displayPickDayOfWeekFunc = function(fn, cond) {
+                return "&nbsp;<a href='#' onclick='javascript:pickComboSettings(\"" + fn + "\", \"" + cond.Value
+                + "\"); return false;' title='Use this day of week' "
+                + "class='picker'>&#x2190;</a>"
                 ;
             };
 
@@ -683,16 +720,16 @@
 
             // Presence/absence based on a key by reference
             // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-            addFunction("HasLearnedRecipe", displayOneLinkFunc, addCheckBoxFunc, evalCheckBoxFunc);
-            addFunction("EditorLocationHasKeyword", displayOneLinkFunc, addCheckBoxFunc, evalCheckBoxFunc);
-            addFunction("GetQuestCompleted", displayOneLinkFunc, addCheckBoxFunc, evalCheckBoxFunc);
-            addFunction("HasEntitlement", displayOneLinkFunc, addCheckBoxFunc, evalCheckBoxFunc);
-            addFunction("WornHasKeyword", displayOneLinkFunc, addCheckBoxFunc, evalCheckBoxFunc);
-            addFunction("IsTrueForConditionForm", displayOneLinkFunc, addCheckBoxFunc, evalCheckBoxFunc);
-            addFunction("HasPerk", displayOneLinkFunc, addCheckBoxFunc, evalCheckBoxFunc);
-            addFunction("HasKeyword", displayOneLinkFunc, addCheckBoxFunc, evalCheckBoxFunc);
-            addFunction("HasActiveMagicEffect", displayOneLinkFunc, addCheckBoxFunc, evalCheckBoxFunc);
-            addFunction("GetEquipped", displayOneLinkFunc, addCheckBoxFunc, evalCheckBoxFunc);
+            addFunction("HasLearnedRecipe", displayOneLinkCheckFunc, addCheckBoxFunc, evalCheckBoxFunc);
+            addFunction("EditorLocationHasKeyword", displayOneLinkCheckFunc, addCheckBoxFunc, evalCheckBoxFunc);
+            addFunction("GetQuestCompleted", displayOneLinkCheckFunc, addCheckBoxFunc, evalCheckBoxFunc);
+            addFunction("HasEntitlement", displayOneLinkCheckFunc, addCheckBoxFunc, evalCheckBoxFunc);
+            addFunction("WornHasKeyword", displayOneLinkCheckFunc, addCheckBoxFunc, evalCheckBoxFunc);
+            addFunction("IsTrueForConditionForm", displayOneLinkCheckFunc, addCheckBoxFunc, evalCheckBoxFunc);
+            addFunction("HasPerk", displayOneLinkCheckFunc, addCheckBoxFunc, evalCheckBoxFunc);
+            addFunction("HasKeyword", displayOneLinkCheckFunc, addCheckBoxFunc, evalCheckBoxFunc);
+            addFunction("HasActiveMagicEffect", displayOneLinkCheckFunc, addCheckBoxFunc, evalCheckBoxFunc);
+            addFunction("GetEquipped", displayOneLinkCheckFunc, addCheckBoxFunc, evalCheckBoxFunc);
 
             // A global value keyed by its ID
             // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -722,9 +759,9 @@
 
             // Boolean value on subject/target
             // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-            addFunction("GetLocked", undefined, addCheckBoxValue, evalCheckBoxValue);
-            addFunction("IsActivePlayer", undefined, addCheckBoxValue, evalCheckBoxValue);
-            addFunction("LocationHasPlayerOwnedWorkshop", undefined, addCheckBoxValue, evalCheckBoxValue);
+            addFunction("GetLocked", displayNoneCheckFunc, addCheckBoxValue, evalCheckBoxValue);
+            addFunction("IsActivePlayer", displayNoneCheckFunc, addCheckBoxValue, evalCheckBoxValue);
+            addFunction("LocationHasPlayerOwnedWorkshop", displayNoneCheckFunc, addCheckBoxValue, evalCheckBoxValue);
             
             // Special cases
             addFunction("GetRandomPercent", undefined, undefined, (fn, cond) => cond.conditionRandom);
@@ -735,7 +772,7 @@
 
             addFunction("GetStageDoneUniqueQuest", displayLinkAndIntFunc, addCheckBoxRefIntFunc, evalCheckBoxFuncRefRef);
 
-            addFunction("GetDayOfWeek", undefined, dayOfWeekComboBoxFunc, evalTextBoxValue);
+            addFunction("GetDayOfWeek", displayPickDayOfWeekFunc, dayOfWeekComboBoxFunc, evalTextBoxValue);
 
             // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -1303,7 +1340,9 @@
                     };
 
                     if (input.selectedIndex !== undefined) {
-                        sortComboBox(input);
+                        if (input.dontSort === undefined) {
+                            sortComboBox(input);
+                        }
                     }
                 }
             }
@@ -1619,6 +1658,7 @@
                         + "&nbsp;&nbsp;"
                     
                     input = document.createElement("select");
+                    input.dontSort = true;
                     span.appendChild(input);
 
                     var span3 = document.createElement("br");
@@ -2863,7 +2903,9 @@
                         }
                     }
 
-                    match &= entryPredicate === undefined || entryPredicate(leveledLists[formID]);
+                    if (match && entryPredicate !== undefined) {
+                        match = entryPredicate(leveledLists[formID]);
+                    }
 
                     if (match) {
                         if (!includeATX && editorId.startsWith("atx_")) {
@@ -3109,15 +3151,19 @@
 
             document.getElementById("SpecialBugged1").onclick = evt => doSpecialSearch(entry => {
                 if (isFlagsAll(entry.LVLF) && entry.Entries !== undefined) {
-                    if (entry.Entries.length != 0) {
+                    if (entry.Entries.length > 1) {
                         var first = entry.Entries[0];
-                        if (first.LVOV == 0 && entry.Conditions === undefined) {
-                            if (entry.LVMV == 1) {
-                                return true;
-                            }
-                            if (entry.LVMG !== undefined) {
-                                if (globals[entry.LVMG] == 1) {
-                                    return true;
+                        if (leveledLists[first.Object] === undefined) {
+                            if (first.LVOV === undefined && first.Conditions === undefined) {
+                                if (first.LVOC === undefined) {
+                                    if (entry.LVMV == 1) {
+                                        return true;
+                                    }
+                                    if (entry.LVMG !== undefined) {
+                                        if (globals[entry.LVMG] == 1) {
+                                            return true;
+                                        }
+                                    }
                                 }
                             }
                         }
