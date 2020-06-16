@@ -710,7 +710,7 @@ function bitCount(n) {
 To begin, we have to assign the chances to the first *maximum* (`M`) items unconditionally:
 
 ```javascript
-for (var i = 0; i < M; i++) {
+for (var i = 0; i < M && i < entries.length; i++) {
     var entry = entries[i];
     entry.aprioriChance = (1 - entry.chanceNone) * entry.conditionChance;
 
@@ -798,7 +798,7 @@ Now that we have the sum of the chance combinations from the previous entries, l
 All in all, the entire algorithm looks like this:
 
 ```javascript
-for (var i = 0; i < M; i++) {
+for (var i = 0; i < M && i < entries.length; i++) {
     var entry = entries[i];
     entry.aprioriChance = (1 - entry.chanceNone) * entry.conditionChance;
 
