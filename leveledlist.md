@@ -27,6 +27,7 @@ Table of contents
   - [Calculation for mode non-All](#calculation-for-mode-non-all)
     - [Uniform pick](#uniform-pick)
     - [Combinatorial pick](#combinatorial-pick)
+    - [for-each repeated rolls](#for-each-repeated-rolls)
   - [Calculation for mode First](#calculation-for-mode-for-first)
     - [Pick first always](#pick-first-always)
     - [Pick one](#pick-one)
@@ -294,15 +295,15 @@ For example, given the following nesting:
         ]
     ]
 
-The inner list will be evaluated twice, each time picking Entry2 or Entry3 with 50% chance. Therefore, the output of the main list can be:
+The inner list will be evaluated twice, each time picking `Entry2` or `Entry3` with 50% chance. Therefore, the output of the main list can be:
 
 - 25% of the time, `Entry2` appears twice
 - 25% of the time, `Entry3` appears twice
 - 50% of the time, both `Entry2` and `Entry3` appear.
 
-However, from a drop chance perspective, we consider the probability that an entry appears in the output at least once, therefore, 
-the resulting distribution can be coalesced into the drop chance of 50% for `Entry2` and 50% for `Entry3`. Consequently, the
-`Quantity` of the parent (indicating the reroll count) has no consequence for the probability of a sub-entry appearing at least once.
+The probability of `Entry2` appearing at least once can be calculated by calculating it not appearing at all for all the rolls, then subtracting that
+value from 1. With the example, the chance `Entry2` is not rolled twice is `(1 - 0.5) * (1 - 0.5) = 0.25`, **25%**. Consequently, the chance
+`Entry2` is rolled at least once is `1 - 0.25 = 0.75`, **75%**!
 
 Regardless, a single evaluation of the list is done by picking one entry with uniform randomness.
 
@@ -845,8 +846,8 @@ for (var i = M; i < entries.length; i++) {
     entry.aprioriChance = (1 - entry.chanceNone) * entry.conditionChance * (1 - sum);
 
     var sublistChance = 1;
-    if (e.sublist !== undefined) {
-        sublistChance *= 1 - evaluate(e.sublist);
+    if (entry.sublist !== undefined) {
+        sublistChance *= 1 - evaluate(entry.sublist);
     }
 
     entry.chance = entry.aprioriChance * sublistChance;
@@ -873,7 +874,7 @@ var empty = 1;
 
 for (var entry of entries) {
     empty *= 1 - entry.chance;
-    entry.chance * listSelfChance;
+    entry.chance *= listSelfChance;
 }
 
 return (1 - listSelfChance) + listSelfChance * empty;
@@ -882,8 +883,6 @@ return (1 - listSelfChance) + listSelfChance * empty;
 ### Calculation for mode non-All
 
 This mode includes the *for each* and not *for each* settings both, effectively, when **bit 2** of the flags is not set, and **bit 1** might be set.
-
-From the drop chance perspective, both variants are the same. The reason is that the number of times a list is rolled doesn't affect the calculation of the chances of the individual entries being rolled. Only the tallying of the possible outcomes, i.e., chance of getting an item once, twice, three times, etc. Since we are interested in getting an item *at least once*, only one evaluation is enough.
 
 There are two sub-cases to consider though: 
 
@@ -942,7 +941,7 @@ To factor in the lists' own chance, simply use it as the numerator in the `unifo
 var uniformChance = listSelfChance / entries.length;
 ```
 
-The overall chance for an empty list will be still just the sum of entry chances subtracte from 1.
+The overall chance for an empty list will be still just the sum of entry chances subtracted from 1.
 
 #### Combinatorial pick
 
@@ -1005,16 +1004,15 @@ For each of such bit pattern, calculate the product of present/absent chances:
         var entry = entries[j];
     
         var cr = entry.conditionChance;
-            if ((i & mask) != 0) {
-                product *= cr;
-                nonZeroCount++;
-            } else {
-                product *= (1 - cr);
-            }
+        if ((i & mask) != 0) {
+            product *= cr;
+            nonZeroCount++;
+        } else {
+            product *= (1 - cr);
         }
-
-        // ...
     }
+
+    // ...
 ```
 
 Again the chance to pick an entry doesn't depend on the entry itself possibly empty. We count the number of non-zero bits as well to divide the sum later on. Consequently, we have to add the particular product to every entry's chance that were present in the product formula to form the entry's full sum:
@@ -1083,27 +1081,27 @@ for (var i = 0; i < bits; i++) {
         var entry = entries[j];
     
         var cr = entry.conditionChance;
-            if ((i & mask) != 0) {
-                product *= cr;
-                nonZeroCount++;
-            } else {
-                product *= (1 - cr);
-            }
+        if ((i & mask) != 0) {
+            product *= cr;
+            nonZeroCount++;
+        } else {
+            product *= (1 - cr);
         }
+    }
 
-        if (nonZeroCount != 0) {
-            product /= nonZeroCount;
+    if (nonZeroCount != 0) {
+        product /= nonZeroCount;
 
-            for (var j = 0; j < n; j++) {
-                var mask = 1 << j;
-                var entry = entries[j];
-                if ((i & mask) != 0) {
-                    entry.chance += product;
-                }
+        for (var j = 0; j < n; j++) {
+            var mask = 1 << j;
+            var entry = entries[j];
+            if ((i & mask) != 0) {
+                entry.chance += product;
             }
         }
     }
 }
+
 var sum = 0;
 for (var entry of entries) {
     var baseChance = entry.chance;
@@ -1123,6 +1121,55 @@ for (var entry of entries) {
 
 return (1 - sum) * listSelfChance + (1 - listSelfChance);
 ```
+
+#### for-each repeated rolls
+
+If the *for-each* flag is set (bit 1), the probabilities of the entries have to be adjusted in case the parent entry has *quantity* > 1 defined.
+
+For example, let's consider the following list:
+
+    [// flags: for-each
+        Entry1,
+        Entry2
+    ]
+
+If we roll this list once, we get `Entry1` 50% of the time and `Entry2` 50% of the time. However, if we roll it twice, we can get
+
+- `Entry1` twice, with probability `0.5 * 0.5 = 0.25`, *25%**,
+- `Entry2` twice, with probability `0.5 * 0.5 = 0.25`, *25%**,
+- `Entry1` and `Entry2`, with probability `0.5 * 0.5 = 0.25`, *25%** or
+- `Entry2` and `Entry1`, with probability `0.5 * 0.5 = 0.25`, *25%**.
+
+Consequently, the chance of getting `Entry1` once is 25% + 25% + 25% = 75% just by summing up the cases where `Entry1` appears.
+
+However, we can calculate the probability of getting `Entry1` at least once by calculating the chance we don't get `Entry1` at all, then subtract it from 1.
+With the exmaple, we won't get `Entry1` if for both rolls, we roll `Entry2`, which has the probability of `0.5 * 0.5 = 0.25`, **25%**. Therefore,
+The chance we do roll `Entry1` at least once is `1 - 0.25 = 0.75`, **75%**.
+
+More generally, we can calculate the chance of an entry appearing at least once by calculating the chance the entry won't apper, raise it to the power of the roll count, then subtract it from 1:
+
+```javascript
+entry.chance = 1 - Math.pow(1 - entry.chance, rolls);
+```
+
+When we want to calculate chance the list is empty, we can no longer sum up the modified entry chances. Instead, we sum up the unmodified entry chances,
+which indicates none of the entries were selected in the roll, then raise that amount to the power of the roll count, which indicates none of the rolls had any result.
+
+```javascript
+var sum = 0;
+
+for (var entry of entries) {
+
+    entry.chance = ... // calculate it according to the conditionChance status of the entries
+
+    sum += entry.chance;
+
+    entry.chance = 1 - Math.pow(1 - entry.chance, rolls);
+}
+
+return Math.pow(1 - sum, rolls);
+```
+
 
 ### Calculation for mode First
 
@@ -1148,7 +1195,7 @@ if (entry.sublist !== undefined) {
 
 entry.chance = entry.aprioriChance * sublistChance;
 
-return empty - entry.chance;
+return 1 - entry.chance;
 ```
 
 Since only the first item can be picked, the list being empty is the chance the first item is not picked or is empty after all.
