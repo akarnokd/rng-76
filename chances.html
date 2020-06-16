@@ -22,7 +22,7 @@
     </head>
     <body>
         <center>
-            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Drop Chances (0.1.8)</span><br/>
+            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Drop Chances (0.1.9)</span><br/>
             <br/>
             <br/>
             Select version:
@@ -58,13 +58,16 @@
                 </tr>
                 <tr id='FindSpecialRow'>
                     <td colspan='7' style='text-align: center;'>
-                        <button id='SpecialAllMax0' title='Lists with flags=all and Max=0'>All/Max=0</button>&nbsp;
-                        <button id='SpecialAllMax1' title='Lists with flags=all and Max=1'>All/Max=1</button>&nbsp;
+                        <button id='SpecialAllMax0' title='Lists with Flags=all and Max=0'>All/Max=0</button>&nbsp;
+                        <button id='SpecialAllMax1' title='Lists with Flags=all and Max=1'>All/Max=1</button>&nbsp;
+                        <button id='SpecialAllMax2' title='Lists with Flags=all and Max&gt;1'>All/Max&gt;1</button>&nbsp;
                         <button id='SpecialAllMaxGlobal' title='Lists with flags=all and Max=Global value'>All/Max=Global</button>&nbsp;
                         <button id='SpecialFirst' title='Lists with flags=first-match-all-conditions'>First</button>&nbsp;
                         <button id='SpecialForEach' title='Lists with flags=for-each'>ForEach</button>&nbsp;
                         <button id='SpecialPickRandom' title='Lists with flags=not all and not for-each'>PickRandom</button>&nbsp;
                         <button id='SpecialListChanceNone' title='Lists which have Chance None nonzero'>ListChanceNone &gt; 0</button>&nbsp;
+                        <button id='SpecialGetRandomPercent' title='Lists which have conditions with GetRandomPercent'>GetRandomPercent</button>&nbsp;
+                        <button id='SpecialBugged1' title='Lists which are defined Flags=all and Max=1, but they only ever return their first entries'>All/Max=1 always first</button>&nbsp;
                     </td>
                 </tr>
                 <tr>
@@ -1746,7 +1749,7 @@
                     setTimeout(function() {
                         simulateTree();
 
-                        recurseTree(chanceTree);
+                        chanceTree.emptyChance = recurseTree(chanceTree, undefined);
 
                         document.getElementById("simulate").disabled = false;
                         document.getElementById("rollagain").disabled = false;
@@ -1755,7 +1758,7 @@
                 }
 
                 // walk the tree
-                recurseTree(chanceTree, undefined);
+                chanceTree.emptyChance = recurseTree(chanceTree, undefined);
 
                 document.getElementById("simulate").disabled = false;
                 document.getElementById("rollagain").disabled = false;
@@ -1895,15 +1898,13 @@
                 }
                 var sum = 0;
                 for (var entry of entries) {
-                    var baseChance = entry.chance;
-                    entry.apriori = (1 - entry.chanceNone) * baseChance;
-
+                    var selfChance = entry.chance * (1 - entry.chanceNone);
                     var sublistChance = getSublistChance(entry);
 
-                    var chance = entry.aprioriChance * sublistChance;
+                    entry.apriori = listSelfChance * selfChance;
+                    entry.chance = entry.apriori * sublistChance;
 
-                    entry.chance = chance * listSelfChance;
-                    sum += chance;
+                    sum += selfChance * sublistChance;
 
                     if (quantity > 1) {
                         entry.chance = 1 - Math.pow(1 - entry.chance, quantity);
@@ -1935,8 +1936,8 @@
                         var entry = entries[idx];
                         
                         if (entry.chanceNone == 0 || entry.chanceNone <= Math.random()) {
+                            entry.apriori++;
                             var sublistChance = getSublistChance(entry);
-
                             if (sublistChance == 1 || sublistChance > Math.random()) {
                                 entry.chance++;
                             } else {
@@ -1949,6 +1950,7 @@
                 }
 
                 for (var entry of entriesAll) {
+                    entry.apriori = entry.apriori * listSelfChance / monteCarloCount;
                     entry.chance = entry.chance * listSelfChance / monteCarloCount;
                 }
                 return listSelfChance * empty / monteCarloCount + (1 - listSelfChance);
@@ -1960,11 +1962,11 @@
 
                 for (var entry of entries) {
 
-                    entry.aprioriChance = (1 - entry.chanceNone) * uniformChance;
+                    entry.apriori = (1 - entry.chanceNone) * uniformChance;
 
                     var sublistChance = getSublistChance(entry);
 
-                    entry.chance = entry.aprioriChance * sublistChance;
+                    entry.chance = entry.apriori * sublistChance;
 
                     sum += entry.chance;
 
@@ -1991,6 +1993,8 @@
                     return computeManySimulation(entries, max, listSelfChance);
                 }
 
+                var empty = 1;
+
                 for (var i = 0; i < max && i < entries.length; i++) {
                     var entry = entries[i];
                     entry.apriori = (1 - entry.chanceNone) * entry.conditionChance;
@@ -1998,14 +2002,17 @@
                     var sublistChance = getSublistChance(entry);
 
                     entry.chance = entry.apriori * sublistChance;
+                    empty *= 1 - entry.chance * sublistChance;
                 }
 
+                var lowerBitsAllOne = (1 << max) - 1;
                 var sum = 0;
                 for (var i = max; i < entries.length; i++) {
                     var entry = entries[i];
 
-                    var minPattern = (1 << (i - 1)) | ((1 << max) - 1);
-                    var maxPattern = ((1 << i) - 1) & ~((1 << max) - 1);
+                    var minPattern = (1 << (i - 1));
+                    var maxPattern = (1 << i) - 1;
+                    
                     for (var p = minPattern; p <= maxPattern; p++) {
                         if (bitCount(p) == max) {
                             var product = 1;
@@ -2021,23 +2028,21 @@
                                 } else {
                                     product *= 1 - chance;
                                 }
-
-                                sum += product;
                             }
+                            sum += product;
                         }
                     }
                     var entry = entries[i];
-                    entry.apriori = (1 - entry.chanceNone) * entry.conditionChance * (1 - sum);
+                    var selfChance = (1 - entry.chanceNone) * entry.conditionChance;
+                    entry.apriori = selfChance * (1 - sum);
 
                     var sublistChance = getSublistChance(entry);
 
                     entry.chance = entry.apriori * sublistChance;
+                    empty *= 1 - selfChance * sublistChance;
                 }
 
-                var empty = 1;
-
                 for (var entry of entries) {
-                    empty *= 1 - entry.chance;
                     entry.apriori *= listSelfChance;
                     entry.chance *= listSelfChance;
                 }
@@ -2090,7 +2095,7 @@
                     empty *= (1 - selfChance * sublistChance);
                 }
 
-                return empty;
+                return (1 - listSelfChance) + listSelfChance * empty;
             }
 
             function computeAllUnlimited(entries, listSelfChance) {
@@ -2156,20 +2161,26 @@
 
                 var rounds = parseInt(document.getElementById("simulateRolls").value);
 
+                var empty = 0;
                 for (var i = 0; i < rounds; i++) {
                     var outcome = simulateNode(simulationTree, null);
 
-                    var dedup = new Map();
+                    if (outcome.length == 0) {
+                        empty++;
+                    } else {
+                        var dedup = new Map();
 
-                    for (var entry of outcome) {
-                        if (dedup.get(entry.uniqueID) === undefined) {
-                            dedup.set(entry.uniqueID, 1);
-                            incrementChance(entry);
+                        for (var entry of outcome) {
+                            if (dedup.get(entry.uniqueID) === undefined) {
+                                dedup.set(entry.uniqueID, 1);
+                                incrementChance(entry);
+                            }
                         }
                     }
                 }
 
                 applyRollCount(simulationTree, rounds);
+                simulationTree.emptyChance = empty / rounds;
             }
 
             function linkParents(node, parentEntry) {
@@ -2478,6 +2489,8 @@
                             conditionChance: 1,
                             levelMatch: true,
                             chanceNone: 0, // the node's default chance none value [0..1]
+                            chance: 0, // default chance amount
+                            apriori: 0, // the chance before the items sublist is considered
                             level: 0,
                             quantity: 1,
                             index: entryIndex,
@@ -2654,6 +2667,7 @@
                     }
                 }
 
+                var resultRows = 0;
                 for (var leaf of leafs) {
                     if (leaf.skip) {
                         continue;
@@ -2702,8 +2716,33 @@
                             cll.innerText = "- missing -";
                         }
                     }
+                    resultRows++;
                 }
-                if (itemTable.rows.length == 1) {
+
+                row = itemTable.insertRow(itemTable.rows.length);
+                    
+                cll = row.insertCell(row.cells.length);
+                cll.innerText = "Nothing dropped";
+                cll.style.fontWeigt = "bold";
+                cll.style.borderTop = "1px solid black";
+
+                cll = row.insertCell(row.cells.length);
+                cll.innerText = (chanceTree.emptyChance * 100.0).toFixed(3) + "%";
+                cll.style.border = "1px dotted red";
+                cll.style.fontWeight = "bold";
+                cll.style.color = "red";
+                cll.style.textAlign = "right";
+
+                if (includeSim) {
+                    cll = row.insertCell(row.cells.length);
+                    cll.innerText = (simulationTree.emptyChance * 100.0).toFixed(3) + "%";
+                    cll.style.border="1px dotted blue";
+                    cll.style.fontWeight = "bold";
+                    cll.style.color = "blue";
+                    cll.style.textAlign = "right";
+                }
+
+                if (resultRows == 0) {
                     row = itemTable.insertRow(itemTable.rows.length);
                     cll = row.insertCell(row.cells.length);
                     cll.style.fontStyle = "italic";
@@ -3035,14 +3074,57 @@
                 searchLists(predicate);
             }
 
+            function hasFunction(entry, name) {
+                if (entry.Conditions !== undefined) {
+                    for (var cond of entry.Conditions) {
+                        if (cond.FunctionName === "GetRandomPercent") {
+                            return true;
+                        }
+                    }
+                }
+            }
+
             document.getElementById("listsearchbtn").onclick = evt => doSpecialSearch();
             document.getElementById("SpecialAllMax0").onclick = evt => doSpecialSearch(entry => isFlagsAll(entry.LVLF) && (entry.LVMV === undefined || entry.LVMV === 1));
             document.getElementById("SpecialAllMax1").onclick = evt => doSpecialSearch(entry => isFlagsAll(entry.LVLF) && entry.LVMV === 1);
+            document.getElementById("SpecialAllMax1").onclick = evt => doSpecialSearch(entry => isFlagsAll(entry.LVLF) && entry.LVMV > 1);
             document.getElementById("SpecialAllMaxGlobal").onclick = evt => doSpecialSearch(entry => isFlagsAll(entry.LVLF) && entry.LVMG !== undefined);
             document.getElementById("SpecialFirst").onclick = evt => doSpecialSearch(entry => isFlagsFirst(entry.LVLF));
             document.getElementById("SpecialForEach").onclick = evt => doSpecialSearch(entry => isFlagsEach(entry.LVLF));
             document.getElementById("SpecialPickRandom").onclick = evt => doSpecialSearch(entry => !isFlagsAll(entry.LVLF) && !isFlagsEach(entry.LVLF) && !isFlagsFirst(entry.LVLF));
             document.getElementById("SpecialListChanceNone").onclick = evt => doSpecialSearch(entry => entry.LVCV > 0 || entry.LVCG !== undefined);
+            document.getElementById("SpecialGetRandomPercent").onclick = evt => doSpecialSearch(entry => {
+                if (hasFunction(entry, "GetRandomPercent")) {
+                    return true;
+                }
+                if (entry.Entries !== undefined) {
+                    for (var e of entry.Entries) {
+                        if (hasFunction(e, "GetRandomPercent")) {
+                            return true;
+                        }
+                    }
+                }
+                return false;
+            });
+
+            document.getElementById("SpecialBugged1").onclick = evt => doSpecialSearch(entry => {
+                if (isFlagsAll(entry.LVLF) && entry.Entries !== undefined) {
+                    if (entry.Entries.length != 0) {
+                        var first = entry.Entries[0];
+                        if (first.LVOV == 0 && entry.Conditions === undefined) {
+                            if (entry.LVMV == 1) {
+                                return true;
+                            }
+                            if (entry.LVMG !== undefined) {
+                                if (globals[entry.LVMG] == 1) {
+                                    return true;
+                                }
+                            }
+                        }
+                    }
+                }
+                return false;
+            });
 
             doLoad();
         </script>
