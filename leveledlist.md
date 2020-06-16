@@ -776,9 +776,9 @@ Now that we know `p` has only `M` bits set, we generate a product on this bit pa
                 } else {
                     product *= 1 - chance;
                 }
-
-                sum += product;
             }
+
+            sum += product;
 ```
 
 Now that we have the sum of the chance combinations from the previous entries, let's assign it to the current entry:
@@ -836,9 +836,8 @@ for (var i = M; i < entries.length; i++) {
                     product *= 1 - chance;
                 }
 
-                sum += product;
             }
-
+            sum += product;
         }
     }
 
