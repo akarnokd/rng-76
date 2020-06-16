@@ -3129,7 +3129,7 @@
             document.getElementById("listsearchbtn").onclick = evt => doSpecialSearch();
             document.getElementById("SpecialAllMax0").onclick = evt => doSpecialSearch(entry => isFlagsAll(entry.LVLF) && (entry.LVMV === undefined || entry.LVMV === 1));
             document.getElementById("SpecialAllMax1").onclick = evt => doSpecialSearch(entry => isFlagsAll(entry.LVLF) && entry.LVMV === 1);
-            document.getElementById("SpecialAllMax1").onclick = evt => doSpecialSearch(entry => isFlagsAll(entry.LVLF) && entry.LVMV > 1);
+            document.getElementById("SpecialAllMax2").onclick = evt => doSpecialSearch(entry => isFlagsAll(entry.LVLF) && entry.LVMV > 1);
             document.getElementById("SpecialAllMaxGlobal").onclick = evt => doSpecialSearch(entry => isFlagsAll(entry.LVLF) && entry.LVMG !== undefined);
             document.getElementById("SpecialFirst").onclick = evt => doSpecialSearch(entry => isFlagsFirst(entry.LVLF));
             document.getElementById("SpecialForEach").onclick = evt => doSpecialSearch(entry => isFlagsEach(entry.LVLF));
