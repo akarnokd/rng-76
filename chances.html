@@ -27,12 +27,15 @@
                 padding-right: 3px;
                 box-shadow: 2px 2px #888888;
             }
+            .monospaced {
+                font-family: monospace;
+            }
         </style>
         <meta name="keywords" content="Fallout,Fallout 76,RNG,Random,Chances,Leveled,Leveled List,LVLI,Datamine">
     </head>
     <body>
         <center>
-            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Drop Chances (0.2.1)</span><br/>
+            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Drop Chances (0.2.2)</span><br/>
             <a href='leveledlist' target='_blank'>How does it work?</a>
             <br/>
             <br/>
@@ -340,7 +343,8 @@
                 "Enter the FormID (leading zeros can be omitted) or Editor ID of the item you want to locate in the leveled lists."
                 + "<br>Use * to indicate a wildcard (e.g., *Fixer*)."
                 + "<br>Use commas to list alternative options."
-                + "<br>Spaces and capitalization are ignored."
+                + "<br>Spaces between words are considered (e.g., *long coat*)."
+                + "<br>Capitalization is ignored."
             );
 
             // add HTML explanation marker
@@ -387,9 +391,9 @@
                 var result = text.split(",");
                 for (var i = 0; i < result.length; i++) {
                     // remove spaces
-                    var entry = result[i];
+                    var entry = result[i].trim();
 
-                    entry = entry.replace(" ", "");;
+                    entry = entry.replace(" ", "\\s");;
                     entry = entry.replace(/\*/g, ".*");
                     entry = entry.replace(/^0+/, "");
                     entry = entry.toLowerCase();
@@ -407,7 +411,7 @@
                     if (idx < 0) {
                         return result.substring(4);
                     }
-                    return result.substrign(4, idx);
+                    return result.substring(4, idx);
                 }
                 return "";
             }
@@ -417,7 +421,7 @@
                 if (result !== undefined) {
                     var idx = result.indexOf(" ", 4);
                     if (idx > 0) {
-                        return result.substring(idx);
+                        return result.substring(idx + 1);
                     }
                 }
                 return "";
@@ -1188,9 +1192,16 @@
                             var objectEDIDFull = edids[objectID];
                             var objectGroup = "";
                             var objectName = "";
+                            var objectDesc = undefined;
                             if (objectEDIDFull !== undefined) {
                                 objectGroup = objectEDIDFull.substring(0, 4);
-                                objectName = objectEDIDFull.substring(4);
+                                var didx = objectEDIDFull.indexOf(" ", 4);
+                                if (didx >= 0) {
+                                    objectName = objectEDIDFull.substring(4, didx);
+                                    objectDesc = objectEDIDFull.substring(didx + 1);
+                                } else {
+                                    objectName = objectEDIDFull.substring(4);
+                                }
                             }
 
                             cll = row.insertCell(row.cells.length);
@@ -1206,11 +1217,17 @@
                             }
 
                             cll = row.insertCell(row.cells.length);
-                            cll.style.fontFamily = "monospace";
                             if (objectGroup == "LVLI") {
                                 cll.innerHTML = createListLink(objectID, objectName);
                             } else {
-                                cll.innerText = objectName;
+                                if (objectDesc !== undefined) {
+                                    cll.innerHTML = "<span class='monospaced'>" + objectName + "</span>"
+                                    + "&nbsp;&nbsp;<b>\"" + objectDesc + "\"</b>";
+                                    ;
+                                } else {
+                                    cll.style.fontFamily = "monospace";
+                                    cll.innerText = objectName;
+                                }
                             }
                             var qty = decodeValueOverride(entry, "LVIV", "LVIG", "ZZZZ");
                             if (qty > 1) {
@@ -2742,6 +2759,11 @@
                     cll = row.insertCell(row.cells.length);
                     cll.innerHTML = createNukaLink(leaf.formID);
 
+                    var desc = getDescription(leaf.formID);
+                    if (desc !== "") {
+                        cll.innerHTML += "&nbsp;<b>\"" + desc + "\"</b>";
+                    }
+
                     if (leaf.quantity > 1) {
                         cll.innerHTML += "&nbsp;<span style='color: blue; font-weight: bold; border: 1px dotted blue;'>&nbsp;x&nbsp;" + leaf.quantity + "&nbsp;</span>";
                     }
@@ -2990,6 +3012,10 @@
                     cll.innerHTML = createListLink(formID, getEditorID(formID));
 
                     cll = row.insertCell(row.cells.length);
+                    cll.style.fontFamily = "monospace";
+                    cll.innerHTML = createListLink(formID, getDescription(formID));
+
+                    cll = row.insertCell(row.cells.length);
                     cll.innerHTML = "<a href='https://nukacrypt.com/database/json/" + formID + "' target='_blank' title='See Nukacrypt data.'>&#x2622;</a>"
 
                     cll = row.insertCell(row.cells.length);
@@ -3038,7 +3064,8 @@
                     for (var listEntries of lvli.Entries) {
                         var entryId = listEntries.Object;
                         var nozeroEntryID = entryId.replace(/^0+/, "").toLowerCase();
-                        var entryEditorId = getEditorID(entryId).toLowerCase()
+                        var entryEditorId = getEditorID(entryId).toLowerCase();
+                        var entryDescription = getDescription(entryId).toLowerCase();
 
                         for (var regexp of regexps) {
                             if (regexp.test(nozeroEntryID)) {
@@ -3046,6 +3073,10 @@
                                 break outer;
                             }
                             if (regexp.test(entryEditorId)) {
+                                match = true;
+                                break outer;
+                            }
+                            if (regexp.test(entryDescription)) {
                                 match = true;
                                 break outer;
                             }
