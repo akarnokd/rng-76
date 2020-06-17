@@ -403,7 +403,22 @@
             function getEditorID(formID) {
                 var result = edids[formID];
                 if (result !== undefined) {
-                    return result.substring(4);
+                    var idx = result.indexOf(" ", 4);
+                    if (idx < 0) {
+                        return result.substring(4);
+                    }
+                    return result.substrign(4, idx);
+                }
+                return "";
+            }
+
+            function getDescription(formID) {
+                var result = edids[formID];
+                if (result !== undefined) {
+                    var idx = result.indexOf(" ", 4);
+                    if (idx > 0) {
+                        return result.substring(idx);
+                    }
                 }
                 return "";
             }
