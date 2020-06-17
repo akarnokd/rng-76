@@ -32,7 +32,7 @@
     </head>
     <body>
         <center>
-            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Drop Chances (0.2.0)</span><br/>
+            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Drop Chances (0.2.1)</span><br/>
             <a href='leveledlist' target='_blank'>How does it work?</a>
             <br/>
             <br/>
@@ -1270,10 +1270,16 @@
                             row = chanceTable.insertRow(0);
                             cll = row.insertCell(0)
                             cll.style.fontWeight = "bold";
-                            cll.innerText = "Drop chance (cumulative)";
+                            if (coalesced > 1) {
+                                cll.innerHTML = "Drop chance (<span style='border: 1px dotted green; font-weight: bold; color: green;'>&nbsp;"
+                                 + coalesced + "&nbsp;</span> <span title='This entry appeared multiple times and has been coalesced into one row.'>&#x1F5DC;</span>)";
+                            } else {
+                                cll.innerText = "Drop chance";
+                            }
 
                             cll = row.insertCell(1)
                             cll.style.fontWeight = "bold";
+                            cll.width = '100px';
                             if (entrySelfChance !== undefined) {
                                 cll.style.textAlign = "right";
                                 entryChance = entrySelfChance * parentChance * coalesced;
@@ -2701,6 +2707,9 @@
                                     prev.chanceSim += curr.chanceSim;
                                 }
 
+                                prev.coalesced = (prev.coalesced !== undefined ? prev.coalesced : 1)
+                                    + (curr.coalesced !== undefined ? curr.coalesced : 1);
+
                                 curr.skip = true;
                                 break;
                             }
@@ -2720,6 +2729,10 @@
 
                     if (leaf.quantity > 1) {
                         cll.innerHTML += "&nbsp;<span style='color: blue; font-weight: bold; border: 1px dotted blue;'>&nbsp;x&nbsp;" + leaf.quantity + "&nbsp;</span>";
+                    }
+                    if (leaf.coalesced > 1) {
+                        cll.innerHTML += "&nbsp;(<span style='border: 1px dotted green; font-weight: bold; color: green;'>&nbsp;"
+                                 + leaf.coalesced + "&nbsp;</span> <span title='This entry appeared multiple times and has been coalesced into one row.'>&#x1F5DC;</span>)";
                     }
 
                     cll = row.insertCell(row.cells.length);
