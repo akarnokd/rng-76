@@ -22,7 +22,7 @@
     </head>
     <body style="height: 90%">
         <center>
-            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Weapon Damage Calculator (v3.1.9)</span><br/>
+            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Weapon Damage Calculator (v3.2.0)</span><br/>
         <br/>
         <table id="parent">
             <tr>
@@ -78,6 +78,8 @@
                     <div>
                         <input type='radio' name='comparemode' id='damagemode' checked='checked'/><span id='spdamagemode' style='cursor: pointer;'> Single hit damage</span>&nbsp;&nbsp;&nbsp;&nbsp;
                         <input type='radio' name='comparemode' id='dpsmode'/><span id='spdpsmode' style='cursor: pointer;'> Damage per second</span>
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                        <input type='checkbox' id='comparesortdesc' checked/><label for='comparesortdesc' style='cursor: pointer;'> Toughest enemies first</label>
                     </div>
                     <br/>
                     
@@ -3746,14 +3748,15 @@
                 { dr: 300, er: 300, rr: 300 },
                 { dr: 300, er: 300, rr: 400 },
                 { dr: 400, er: 400, rr: 500 },
-                { dr: 300, er: 300, rr: 300, queen: true },
+                { dr: 300, er: 300, rr: 300, name: "SBQ", tip: "ResistanceSBQ", mitigation: 0.3 },
+                { dr: 400, er: 400, rr: 500, name: "Randal", tip: "ResistanceRandal", mitigation: 0.9 },
             ];
 
-            enemyResistances.sort(function(a, b) {
-                if (a.queen !== undefined && b.queen === undefined) {
+            var resistancesSortDefault = function(a, b) {
+                if (a.name !== undefined && b.name === undefined) {
                     return 1;
                 }
-                if (a.queen === undefined && b.queen !== undefined) {
+                if (a.name === undefined && b.name !== undefined) {
                     return -1;
                 }
                 if (a.dr < b.dr) {
@@ -3775,7 +3778,11 @@
                     return 1;
                 }
                 return 0;
-            });
+            };
+
+            var resistancesSortReverse = function(a, b) {
+                return resistancesSortDefault(b, a);
+            };
 
             // vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
 
@@ -4752,6 +4759,10 @@
                 recalculateDiff();
             };
 
+            document.getElementById("comparesortdesc").oninput = function() {
+                recalculateDiff();
+            };
+
             // ======================================================================
 
             var infoMap = new Map();
@@ -4983,6 +4994,11 @@
                 + "<br>Hidden effect: better firerate than the default 10mm SMG"
                 + "<br>Form ID: <a href='https://nukacrypt.com/database/json/0059A82F' target='_blank'>0059A82F</a>"
                 );
+
+            infoMap.set("ResistanceSBQ", "Scorchbeast Queen<br>32000 health, 300 DR, 300 ER, 300 RR<br>ignores 70% of all kinds of incoming damage.");
+            infoMap.set("ResistanceRandal", "Aka the <a href='https://youtu.be/KRJcSsGt6VY?t=512' target='_blank'>Wendigo Colossus ;)</a><br>32000 health, 400 DR, 400 ER, 500 RR<br>"
+                + "ignores 10% of all kinds of incoming damage (PTS, subject to change)<br>"
+             );
 
             // ~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o
 
@@ -6978,6 +6994,12 @@
                 var lastDr = null;
                 var aaEnergy = true;
 
+                if (document.getElementById("comparesortdesc").checked) {
+                    enemyResistances.sort(resistancesSortReverse);
+                } else {
+                    enemyResistances.sort(resistancesSortDefault);
+                }
+
                 enemyResistances.forEach(function(res) {
                     var row = tbl.insertRow(tbl.rows.length);
 
@@ -6990,8 +7012,8 @@
                     }
 
                     var damageMitigation = 1;
-                    if (res.queen) {
-                        damageMitigation = 0.3;
+                    if (res.mitigation !== undefined) {
+                        damageMitigation = res.mitigation;
                     }
                     var dr = res.dr;
                     var er = res.er;
@@ -7011,11 +7033,17 @@
                     var cidx = 0;
 
                     var cell = row.insertCell(cidx++);
-                    if (res.queen) {
-                        cell.innerText = "Scorchbeast Queen";
-                        cell.style = "border: 1px solid black; text-align: right;";
+                    if (res.name !== undefined) {
+                        cell.innerHTML = res.name;
+                        if (res.tip !== undefined) {
+                            cell.innerHTML += info(res.tip);
+                        }
+                        cell.style = "border: 1px solid black;";
                         cell.colSpan = 3;
-                        cell.title = "DR: " + dr + ", ER: " + res.er + ", RR: " + res.rr + "\r\n70% of all damage ignored"; 
+                        cell.title = "DR: " + dr + ", ER: " + res.er + ", RR: " + res.rr; 
+                        if (res.mitigation !== undefined) {
+                            cell.title += "\r\n" + ((1 - res.mitigation) * 100).toFixed(0) + "% of all damage ignored";
+                        }
                     } else {
                         cell.innerText = "" + dr;
                         cell.style = "border: 1px solid black; text-align: right;";
