@@ -22,7 +22,7 @@
     </head>
     <body>
         <center>
-            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Daily Atom Challenges (0.1.5)</span><br/>
+            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Daily Atom Challenges (0.1.6)</span><br/>
             <br/>
             <br/>
             <table>
@@ -57,14 +57,10 @@
                 }
             }
 
-            var challenges = [
-                {
-                    validStart: new Date(Date.UTC(2020, 3, 22, 15, 0, 0, 0)),
-                    validEnd: new Date(Date.UTC(2020, 4, 31, 15, 0, 0, 0)),
-                    options: [
-                        {
+            function levelUpFasnacht(offset) {
+                return {
                             name: "Level up while (any 3)",
-                            offset: 0,
+                            offset: offset,
                             period: 3,
                             subchallenges: [
                                 {
@@ -104,10 +100,13 @@
                                     name: "Engaged in PvP"
                                 },
                             ]
-                        },
-                        {
+                        };
+            }
+
+            function levelUpWhitesprings(offset) {
+                return {
                             name: "Level up while (any 3)",
-                            offset: 1,
+                            offset: offset,
                             period: 6,
                             subchallenges: [
                                 {
@@ -149,10 +148,13 @@
                                     tip: "Machete and any weapon with Sword in its name should work."
                                 }
                             ]
-                        },
-                        {
+                        };
+            }
+
+            function levelUpWatoga(offset) {
+                return {
                             name: "Level up while (any 3)",
-                            offset: 4,
+                            offset: offset,
                             period: 6,
                             subchallenges: [
                                 {
@@ -190,10 +192,13 @@
                                     name: "Engaged in PvP"
                                 },
                             ]
-                        },
-                        {
+                        };
+            }
+
+            function levelUpCaves(offset) {
+                return {
                             name: "Level up while (any 3)",
-                            offset: 2,
+                            offset: offset,
                             period: 3,
                             subchallenges: [
                                 {
@@ -236,298 +241,203 @@
                                     name: "Engaged in PvP"
                                 },
                             ]
-                        },
-                        {
+                        };
+            }
+
+            function buildAnythingCamp(offset) {
+                return {
                             name: "Build anything in your C.A.M.P. or Workshop (x10)",
-                            offset: 0,
+                            offset: offset,
                             period: 10,
                             tipId: "BuildAnything",
                             tip: "Floor Mat is the cheapest to build"
-                        },
-                        {
+                        };
+            }
+
+            function craftAmmo(offset) {
+                return {
                             name: "Craft Ammo (x50)",
-                            offset: 0,
+                            offset: offset,
                             period: 10,
                             tipId: "CraftAmmo",
                             tip: "The perk Ammosmith doesn't count for this challenge."
-                        },
-                        {
+                        };
+            }
+
+            function killSheepsquatch(offset) {
+                return {
                             name: "Kill a Sheepsquatch",
-                            offset: 0,
+                            offset: offset,
                             period: 10,
                             tipId: "KillSheepsquatch",
                             tip: "Other than the Free Range event, they are random encounters."
-                        },
-                        {
+                        };
+            }
+
+            function scrapFiberglass(offset) {
+                return {
                             name: "Scrap junk to produce Fiberglass (x5)",
-                            offset: 0,
+                            offset: offset,
                             period: 10,
                             tipId: "ScrapFiberglass",
                             tip: "Scrap the telephones at the National Isolated Radio Array offices."
-                        },
-                        {
+                        };
+            }
+
+            function scrapScrews(offset) {
+                return {
                             name: "Scrap junk to produce Screws (x5)",
-                            offset: 1,
+                            offset: offset,
                             period: 5,
                             tipId: "ScrapScrews",
                             tip: "Scrap the globes, fans and typewriters at the National Isolated Radio Array offices."
-                        },
-                        {
+                        };
+            }
+
+            function scrapSprings(offset) {
+                return {
                             name: "Scrap junk to produce Springs (x5)",
-                            offset: 3,
+                            offset: offset,
                             period: 5,
                             tipId: "ScrapSprings",
                             tip: "Simply scrap Bulk Springs."
-                        },
-                        {
+                        };
+            }
+
+            function killLegendary(offset) {
+                return {
                             name: "Kill a Legendary enemy",
-                            offset: 1,
+                            offset: offset,
                             period: 5,
                             tipId: "KillLegendary",
                             tip: "Check out horde events, fissure sites or West Tek."
-                        },
-                        {
+                        };
+            }
+
+            function killLegendaryFissure(offset) {
+                return {
                             name: "Kill a Legendary at a fissure site",
-                            offset: 3,
+                            offset: offset,
                             period: 5,
                             tipId: "KillLegendaryFissure",
                             tip: "Named fissure sites only. Works best at Prime. " 
                                  + "<br>You have to be very close to the edge of the fissure site."
                                  + "<br>The enemy can be further away."
-                        },
-                        {
+                        };
+            }
+            function buildFloorsCamp(offset) {
+                return {
                             name: "Build floors, walls and roofs in your C.A.M.P. (x10)",
-                            offset: 1,
+                            offset: offset,
                             period: 5,
                             tipId: "BuildFloors",
                             tip: "Remember to equip the Contractor perk card."
-                        },
-                        {
+                        };
+            }
+
+            function buildLightingCamp(offset) {
+                return {
                             name: "Build lighting in your C.A.M.P. or Workshop (x5)",
-                            offset: 2,
+                            offset: offset,
                             period: 10,
                             tipId: "BuildLights",
                             tip: "Remember to equip the Contractor perk card."
-                        },
-                        {
+                        };
+            }
+
+            function destroyTurrets(offset) {
+                return {
                             name: "Destroy turrets (x5)",
-                            offset: 1,
+                            offset: offset,
                             period: 30,
                             tipId: "DestroyTurrets",
                             tip: "Check out the Relay Towers."
-                        },
-                        {
+                        };
+            }
+
+            function destroyRobots(offset) {
+                return {
                             name: "Destroy robots (x5)",
-                            offset: 11,
+                            offset: offset,
                             period: 30,
                             tipId: "DestroyRobots",
                             tip: "Check out the Vault-tec Agricultural Research Center near Flatwoods."
-                        },
-                        {
+                        }
+            }
+
+            function killRadscorpions(offset) {
+                return {
                             name: "Kill Radscorpions in the Savage Divide (x5)",
-                            offset: 21,
+                            offset: offset,
                             period: 30,
                             tipId: "KilLRadScorpions",
                             tip: "Middle mountain Cabins, Top of the World and The Freakshow may have them."
-                        },
-                        {
+                        };
+            }
+
+            function eatCandy(offset) {
+                return {
                             name: "Eat pies, candies and sweets (x20)",
-                            offset: 2,
+                            offset: offset,
                             period: 10,
                             tipId: "EatPies",
                             tip: "Gum drop works too but Dandy Boy Apples doesn't."
-                        },
-                        {
+                        };
+            }
+
+            function harvestFungi(offset) {
+                return {
                             name: "Harvest Fungi (x10)",
-                            offset: 2,
+                            offset: offset,
                             period: 10,
                             tipId: "HarvestFungi",
                             tip: "Check out the river towards Flatwoods."
-                        },
-                        {
+                        };
+            }
+
+            function killMoleMiner(offset) {
+                return {
                             name: "Kill a Mole Miner",
-                            offset: 2,
+                            offset: offset,
                             period: 10,
                             tipId: "KillMoleminer",
                             tip: "Check out the rooftop in Welch visible from the Station fast travel point."
                                  + "<br>Check out Blackwater Mine (exterior and interior) near The Whitespring resort."
-                        },
-                        {
+                        };
+            }
+
+            function claimWorkshop(offset) {
+                return {
                             name: "Claim a Workshop",
-                            offset: 3,
+                            offset: offset,
                             period: 5,
                             tipId: "ClaimWorkshop",
                             tip: "Remember to stay crouched at all times and leave the build area"
                                   + "<br>as soon as you can to avoid unwanted PvP."
-                        },
-                        {
+                        };
+            }
+            function killDeathclawIsland(offset) {
+                return {
                             name: "Kill a Deathclaw on Deathclaw Island",
-                            offset: 3,
+                            offset: offset,
                             period: 20,
-                        },
-                        {
+                        };
+            }
+            function killDeathclaw(offset) {
+                return {
                             name: "Kill a Deathclaw",
-                            offset: 13,
+                            offset: offset,
                             period: 20,
                             tipId: "KillDeathclaw",
                             tip: "Check out Deathclaw Island or the Thunder Mountain Substation"
                                   + "<br>TM-02 north of Watoga."
-                        },
-                        {
-                            name: "Plant vegetables in your C.A.M.P. or Workshop (x10)",
-                            offset: 4,
-                            period: 10,
-                            tipId: "PlantVegetables",
-                            tip: "You can scrap and replant your vegetables."
-                        },
-                        {
-                            name: "Pick flowers (x10)",
-                            offset: 4,
-                            period: 10,
-                            tipId: "PickFlowers",
-                            tip: "Rododendron (magenta) and Soot Flower (blue) are easy to spot."
-                                 + "<br>Bloodleaf works too, found in the river towards Flatwoods."
-                        },
-                        {
-                            name: "Revive a Player",
-                            offset: 4,
-                            period: 10,
-                            tipId: "RevivePlayer",
-                            tip: "No need to team up. Jump down from some height to down yourself."
-                        },
-                        {
-                            name: "Destroy Liberators (x5)",
-                            offset: 4,
-                            period: 10,
-                            tipId: "DestroyLiberators",
-                            tip: "Tygart Water Treatment north of Sommersville has a bunch of them."
-                        },
-                        {
-                            name: "Kill Ghouls in a nuked region (x5)",
-                            offset: 6,
-                            period: 30,
-                            tipId: "KillGhoulsNuled",
-                            tip: "Nuke Whitesprings. Equip the Glow Sight perk for bonus damage."
-                        },
-                        {
-                            name: "Kill Radroaches in the Toxic Valley (x5)",
-                            offset: 16,
-                            period: 20,
-                            tipId: "KillRadroaches",
-                            tip: "Check around Hemlock Holes and Clarksburg Shooting Club."
-                        },
-                        {
-                            name: "Destroy Robots in Watoga (x10)",
-                            offset: 26,
-                            period: 30,
-                            tipId: "DestroyRobotsWatoga",
-                            tip: "Liberators inside EMS and Mr. Gutsy random spawns count too. Some Watoga Mr. Handys don't count."
-                        },
-                        {
-                            name: "Chew Bubblegum (x5)",
-                            offset: 7,
-                            period: 10,
-                            tipId: "ChewBubblegum",
-                            tip: "Gum drops don't work. Perk pack bubblegums do work."
-                                + "<br>Find bubblegum in Whitesprings or in the Pumpkin House."
-                        },
-                        {
-                            name: "Kill a Glowing Enemy",
-                            offset: 7,
-                            period: 10,
-                            tipId: "KillGlowing",
-                            tip: "They are everywhere. Equip the Glow Sight perk for bonus damage."
-                        },
-                        {
-                            name: "Kill Mirelurks (x5)",
-                            offset: 7,
-                            period: 10,
-                            tipId: "KillMirelurk",
-                            tip: "Ohio River Adventures spawns them regularly."
-                                 + "Alternatively, start the defense miscellaneous quest with Fishbones there."
-                        },
-                        {
-                            name: "Harvest vegetables (x5)",
-                            offset: 7,
-                            period: 10,
-                            tipId: "HarvestVegetables",
-                            tip: "Your C.A.M.P., someone else's C.A.M.P. or simply any world spawn will do."
-                        },
-                        {
-                            name: "Kill a Wendigo in the Wendigo Cave",
-                            offset: 8,
-                            period: 30,
-                            tipId: "KillWendigo",
-                            tip: "You may have to hop servers and/or lob a grenade at the waterfall for it to spawn."
-                        },
-                        {
-                            name: "Kill a Gulper at the Gulper Lagoon",
-                            offset: 18,
-                            period: 30,
-                            tipId: "KillGulper",
-                            tip: "There are usually 3-4 of them."
-                        },
-                        {
-                            name: "Kill Anglers in the Mire (x5)",
-                            offset: 28,
-                            period: 30,
-                            tipId: "KillAngler",
-                            tip: "There are usually 2 at the Thunder Mountain Substation TM-01 (South-east to Berkeley Springs Station) and"
-                                 + "<br>there are 3 at the Gnarled Shallows (north of Thunder Mountain Power Plant)."
-                        },
-                        {
-                            name: "Collect Caps (x100)",
-                            offset: 9,
-                            period: 10,
-                            tipId: "CollectCaps",
-                            tip: "Looting, selling, drinking Nuka cola products and quest rewards all count."
-                        },
-                        {
-                            name: "Cook meals with vegetables or fungi (x5)",
-                            offset: 9,
-                            period: 10,
-                            tipId: "CookMeals",
-                            tip: "Perhaps the easiest is to craft Razorgrain Soup."
-                        },
-                        {
-                            name: "Hack a Terminal",
-                            offset: 9,
-                            period: 10,
-                            tipId: "HackTerminal",
-                            tip: "The Arktos Pharma reception terminal requires no hacking perk cards."
-                        },
-                        {
-                            name: "Kill a Cryptid",
-                            offset: 9,
-                            period: 10,
-                            tipId: "KillCryptid",
-                            tip: "Wendigo (Wendigo Cave), Grafton Monster (Charleston Trainyard),"
-                                + "<br>Snallygaster (Toxic Larry's Meet'n'go) or Mothman (Cultist camps)"
-                        },
-                        {
-                            name: "Collect Water (x50)",
-                            offset: 5,
-                            period: 10,
-                            tipId: "CollectWater",
-                            tip: "Collecting water from water sources and boiling them also counts."
-                        },
-                        {
-                            name: "Eat Pre-war Food (x20)",
-                            offset: 5,
-                            period: 10,
-                            tipId: "EatPrewarfood",
-                            tip: "Dog Food is everywhere. Bubblegum and Gum Drops count too. Check out diners around the map."
-                        },
-                        {
-                            name: "Kill a Yao Guai",
-                            offset: 5,
-                            period: 10,
-                            tipId: "KillYaoGuai",
-                            tip: "Check out Monongah Overlook or Dolly Sods Wilderness."
-                        },
-                        {
+                        };
+            }
+
+            function craftHealing(offset) {
+                return {
                             name: "Craft Healing Items (any 5)",
-                            offset: 5,
+                            offset: offset,
                             period: 10,
                             tipId: "CraftHealingItems",
                             tip: "Bug/tip: Crafting Healing Salve counts for crafting a Stimpak too.",
@@ -591,58 +501,278 @@
                                     tip: "Ultracite + Antiseptic (2) + Blood Pack + Steel + Strangler Pod + Corpse Flower Stamen"
                                 }
                             ]
-                        },
+                        };
+            }
+
+            function plantVegetables(offset) {
+                return {
+                            name: "Plant vegetables in your C.A.M.P. or Workshop (x10)",
+                            offset: offset,
+                            period: 10,
+                            tipId: "PlantVegetables",
+                            tip: "You can scrap and replant your vegetables."
+                        };
+            }
+
+            function pickFlowers(offset) {
+                return {
+                            name: "Pick flowers (x10)",
+                            offset: offset,
+                            period: 10,
+                            tipId: "PickFlowers",
+                            tip: "Rododendron (magenta) and Soot Flower (blue) are easy to spot."
+                                 + "<br>Bloodleaf works too, found in the river towards Flatwoods."
+                        };
+            }
+
+            function revivePlayer(offset) {
+                return {
+                            name: "Revive a Player",
+                            offset: offset,
+                            period: 10,
+                            tipId: "RevivePlayer",
+                            tip: "No need to team up. Jump down from some height to down yourself."
+                        };
+            }
+
+            function destroyLiberators(offset) {
+                return {
+                            name: "Destroy Liberators (x5)",
+                            offset: offset,
+                            period: 10,
+                            tipId: "DestroyLiberators",
+                            tip: "Tygart Water Treatment north of Sommersville has a bunch of them."
+                        };
+            }
+
+            function killGhoulNuked(offset) {
+                return {
+                            name: "Kill Ghouls in a nuked region (x5)",
+                            offset: offset,
+                            period: 30,
+                            tipId: "KillGhoulsNuled",
+                            tip: "Nuke Whitesprings. Equip the Glow Sight perk for bonus damage."
+                        };
+            }
+
+            function killRadroaches(offset) {
+                return {
+                            name: "Kill Radroaches in the Toxic Valley (x5)",
+                            offset: offset,
+                            period: 20,
+                            tipId: "KillRadroaches",
+                            tip: "Check around Hemlock Holes and Clarksburg Shooting Club."
+                        };
+            }
+
+            function destroyRobotsWatoga(offset) {
+                return {
+                            name: "Destroy Robots in Watoga (x10)",
+                            offset: offset,
+                            period: 30,
+                            tipId: "DestroyRobotsWatoga",
+                            tip: "Liberators inside EMS and Mr. Gutsy random spawns count too. Some Watoga Mr. Handys don't count."
+                        };
+            }
+
+            function chewBubblegum(offset) {
+                return {
+                            name: "Chew Bubblegum (x5)",
+                            offset: offset,
+                            period: 10,
+                            tipId: "ChewBubblegum",
+                            tip: "Gum drops don't work. Perk pack bubblegums do work."
+                                + "<br>Find bubblegum in Whitesprings or in the Pumpkin House."
+                        };
+            }
+
+            function killGlowing(offset) {
+                return {
+                            name: "Kill a Glowing Enemy",
+                            offset: offset,
+                            period: 10,
+                            tipId: "KillGlowing",
+                            tip: "They are everywhere. Equip the Glow Sight perk for bonus damage."
+                        };
+            }
+
+            function killMirelurks(offset) {
+                return {
+                            name: "Kill Mirelurks (x5)",
+                            offset: offset,
+                            period: 10,
+                            tipId: "KillMirelurk",
+                            tip: "Ohio River Adventures spawns them regularly."
+                                 + "Alternatively, start the defense miscellaneous quest with Fishbones there."
+                        };
+            }
+
+            function harvestVegetables(offset) {
+                return {
+                            name: "Harvest vegetables (x5)",
+                            offset: offset,
+                            period: 10,
+                            tipId: "HarvestVegetables",
+                            tip: "Your C.A.M.P., someone else's C.A.M.P. or simply any world spawn will do."
+                        };
+            }
+
+            function killWendigoCave(offset) {
+                return {
+                            name: "Kill a Wendigo in the Wendigo Cave",
+                            offset: offset,
+                            period: 30,
+                            tipId: "KillWendigo",
+                            tip: "You may have to hop servers and/or lob a grenade at the waterfall for it to spawn."
+                        };
+            }
+
+            function killGulper(offset) {
+                return {
+                            name: "Kill a Gulper at the Gulper Lagoon",
+                            offset: offset,
+                            period: 30,
+                            tipId: "KillGulper",
+                            tip: "There are usually 3-4 of them."
+                        };
+            }
+
+            function killAnglers(offset) {
+                return {
+                            name: "Kill Anglers in the Mire (x5)",
+                            offset: offset,
+                            period: 30,
+                            tipId: "KillAngler",
+                            tip: "There are usually 2 at the Thunder Mountain Substation TM-01 (South-east to Berkeley Springs Station) and"
+                                 + "<br>there are 3 at the Gnarled Shallows (north of Thunder Mountain Power Plant)."
+                        };
+            }
+
+            function collectCaps(offset) {
+                return {
+                            name: "Collect Caps (x100)",
+                            offset: offset,
+                            period: 10,
+                            tipId: "CollectCaps",
+                            tip: "Looting, selling, drinking Nuka cola products and quest rewards all count."
+                        };
+            }
+
+            function cookMeals(offset) {
+                return {
+                            name: "Cook meals with vegetables or fungi (x5)",
+                            offset: offset,
+                            period: 10,
+                            tipId: "CookMeals",
+                            tip: "Perhaps the easiest is to craft Razorgrain Soup."
+                        };
+            }
+
+            function hackTerminal(offset) {
+                return {
+                            name: "Hack a Terminal",
+                            offset: offset,
+                            period: 10,
+                            tipId: "HackTerminal",
+                            tip: "The Arktos Pharma reception terminal requires no hacking perk cards."
+                        };
+            }
+            function killCryptid(offset) {
+                return {
+                            name: "Kill a Cryptid",
+                            offset: offset,
+                            period: 10,
+                            tipId: "KillCryptid",
+                            tip: "Wendigo (Wendigo Cave), Grafton Monster (Charleston Trainyard),"
+                                + "<br>Snallygaster (Toxic Larry's Meet'n'go) or Mothman (Cultist camps)"
+                        };
+            }
+            function collectWater(offset) {
+                return {
+                            name: "Collect Water (x50)",
+                            offset: offset,
+                            period: 10,
+                            tipId: "CollectWater",
+                            tip: "Collecting water from water sources and boiling them also counts."
+                        };
+            }
+            function eatPrewarFood(offset) {
+                return {
+                            name: "Eat Pre-war Food (x20)",
+                            offset: offset,
+                            period: 10,
+                            tipId: "EatPrewarfood",
+                            tip: "Dog Food is everywhere. Bubblegum and Gum Drops count too. Check out diners around the map."
+                        };
+            }
+            
+            function killYaoGuai(offset) {
+                return {
+                            name: "Kill a Yao Guai",
+                            offset: offset,
+                            period: 10,
+                            tipId: "KillYaoGuai",
+                            tip: "Check out Monongah Overlook or Dolly Sods Wilderness."
+                        };
+            }
+
+            var challenges = [
+                {
+                    validStart: new Date(Date.UTC(2020, 3, 22, 15, 0, 0, 0)),
+                    validEnd: new Date(Date.UTC(2020, 4, 31, 15, 0, 0, 0)),
+                    options: [
+                        levelUpFasnacht(0),
+                        levelUpWhitesprings(1),
+                        levelUpWatoga(4),
+                        levelUpCaves(2),
+                        buildAnythingCamp(0),
+                        craftAmmo(0),
+                        killSheepsquatch(0),
+                        scrapFiberglass(0),
+                        scrapScrews(1),
+                        scrapSprings(3),
+                        killLegendary(1),
+                        killLegendaryFissure(3),
+                        buildFloorsCamp(1),
+                        buildLightingCamp(2),
+                        destroyTurrets(1),
+                        destroyRobots(11),
+                        killRadscorpions(21),
+                        eatCandy(2),
+                        harvestFungi(2),
+                        killMoleMiner(2),
+                        claimWorkshop(3),
+                        killDeathclawIsland(3),
+                        killDeathclaw(13),
+                        plantVegetables(4),
+                        pickFlowers(4),
+                        revivePlayer(4),
+                        destroyLiberators(4),
+                        killGhoulNuked(6),
+                        killRadroaches(16),
+                        destroyRobotsWatoga(26),
+                        chewBubblegum(7),
+                        killGlowing(7),
+                        killMirelurks(7),
+                        harvestVegetables(7),
+                        killWendigoCave(8),
+                        killGulper(18),
+                        killAnglers(28),
+                        collectCaps(9),
+                        cookMeals(9),
+                        hackTerminal(9),
+                        killCryptid(9),
+                        collectWater(5),
+                        eatPrewarFood(5),
+                        killYaoGuai(5),
+                        craftHealing(5),
                     ]
                 },
                 {
                     validStart: new Date(Date.UTC(2020, 4, 31, 15, 0, 0, 0)),
                     validEnd: new Date(Date.UTC(2020, 5, 1, 15, 0, 0, 0)),
                     options: [
-                        {
-                            name: "Level up while (any 3)",
-                            offset: 0,
-                            period: 6,
-                            subchallenges: [
-                                {
-                                    name: "Being level 76 or higher"
-                                },
-                                {
-                                    name: "At a Fissure site",
-                                    tipId: "LevelUpFissure",
-                                    tip: "Only the on-map named fissure sites count."
-                                },
-                                {
-                                    name: "At/in Morgantown Airport under level 20"
-                                },
-                                {
-                                    name: "In Whitesprings",
-                                    tipId: "LevelUpWhitesprings",
-                                    tip: "Be anywhere within the fenced area of the hotel, including the interior."
-                                },
-                                {
-                                    name: "Near Grahm and Chally"
-                                },
-                                {
-                                    name: "Wearing an Asylum Uniform and Hat",
-                                    tipId: "LevelUpAsylum",
-                                    tip: "Fort Defiance (Allegheny Asylum) has many Uniforms and Hats."
-                                },
-                                {
-                                    name: "Wearing sunglasses"
-                                },
-                                {
-                                    name: "Using chems"
-                                },
-                                {
-                                    name: "Engaged in PvP"
-                                },
-                                {
-                                    name: "Wielding a sword",
-                                    tipId: "LevelUpSword",
-                                    tip: "Machete and any weapon with Sword in its name should work."
-                                }
-                            ]
-                        },
+                        levelUpWhitesprings(0),
                         {
                             name: "Kill a Megasloth in the Cranberry Bog",
                             offset: 0,
@@ -677,515 +807,50 @@
                     validStart: new Date(Date.UTC(2020, 5, 1, 15, 0, 0, 0)),
                     validEnd: undefined,
                     options: [
-                       {
-                            name: "Level up while (any 3)",
-                            offset: 0,
-                            period: 3,
-                            subchallenges: [
-                                {
-                                    name: "Being level 76 or higher"
-                                },
-                                {
-                                    name: "Wearing a Fasnacht Mask",
-                                    tipId: "LevelUpFasnacht",
-                                    tip: "There is usually a Fasnacht Man Mask in Fort Defiance."
-                                },
-                                {
-                                    name: "Wearing Responder's Gear",
-                                    tipId: "LevelUpResponders",
-                                    tip: "Responder's Jumpsuit, Paramedic Jumpsuit, Pastor's Vestments should work."
-                                },
-                                {
-                                    name: "Holding a Protest Sign",
-                                    tipId: "LevelUpProtest",
-                                    tip: "Fast travel to Poseidon Energy Plant and among the tents, there are a couple of protest signs."
-                                },
-                                {
-                                    name: "on Deathclaw Island"
-                                },
-                                {
-                                    name: "in a Group"
-                                },
-                                {
-                                    name: "at Arktos Pharma under level 20"
-                                },
-                                {
-                                    name: "at Wavy Willard's Water Park under level 30"
-                                },
-                                {
-                                    name: "Naked"
-                                },
-                                {
-                                    name: "Engaged in PvP"
-                                },
-                            ]
-                        },
-                        {
-                            name: "Collect Caps (x100)",
-                            offset: 0,
-                            period: 10,
-                            tipId: "CollectCaps",
-                            tip: "Looting, selling, drinking Nuka cola products and quest rewards all count."
-                        },
-                        {
-                            name: "Cook meals with vegetables or fungi (x5)",
-                            offset: 0,
-                            period: 10,
-                            tipId: "CookMeals",
-                            tip: "Perhaps the easiest is to craft Razorgrain Soup."
-                        },
-                        {
-                            name: "Hack a Terminal",
-                            offset: 0,
-                            period: 10,
-                            tipId: "HackTerminal",
-                            tip: "The Arktos Pharma reception terminal requires no hacking perk cards."
-                        },
-                        {
-                            name: "Kill a Cryptid",
-                            offset: 0,
-                            period: 10,
-                            tipId: "KillCryptid",
-                            tip: "Wendigo (Wendigo Cave), Grafton Monster (Charleston Trainyard),"
-                                + "<br>Snallygaster (Toxic Larry's Meet'n'go) or Mothman (Cultist camps)"
-                        },
-                        {
-                            name: "Level up while (any 3)",
-                            offset: 1,
-                            period: 6,
-                            subchallenges: [
-                                {
-                                    name: "Being level 76 or higher"
-                                },
-                                {
-                                    name: "In Watoga",
-                                    tipId: "LevelUpWatoga",
-                                    tip: "Be within the city bounds or the interior of the EMS, AMS, Civic Center or Municipal Center."
-                                },
-                                {
-                                    name: "Wielding a music instrument as a weapon",
-                                    tipId: "LevelUpMusic",
-                                    tip: "Death Tambo, Guitar Sword or War Drum should work."
-                                },
-                                {
-                                    name: "At/in the Top of the World under level 40"
-                                },
-                                {
-                                    name: "At/in Vault-Tec Agricultural Research Center under level 10"
-                                },
-                                {
-                                    name: "Wearing Formal Wear"
-                                },
-                                {
-                                    name: "Wearing an Unstoppables Costume"
-                                },
-                                {
-                                    name: "in Power Armor"
-                                },
-                                {
-                                    name: "Well Fed"
-                                },
-                                {
-                                    name: "Engaged in PvP"
-                                },
-                            ]
-                        },
-                        {
-                            name: "Build anything in your C.A.M.P. or Workshop (x10)",
-                            offset: 1,
-                            period: 10,
-                            tipId: "BuildAnything",
-                            tip: "Floor Mat is the cheapest to build"
-                        },
-                        {
-                            name: "Craft Ammo (x50)",
-                            offset: 1,
-                            period: 10,
-                            tipId: "CraftAmmo",
-                            tip: "The perk Ammosmith doesn't count for this challenge."
-                        },
-                        {
-                            name: "Kill a Sheepsquatch",
-                            offset: 1,
-                            period: 10,
-                            tipId: "KillSheepsquatch",
-                            tip: "Other than the Free Range event, they are random encounters."
-                        },
-                        {
-                            name: "Scrap junk to produce Fiberglass (x5)",
-                            offset: 1,
-                            period: 10,
-                            tipId: "ScrapFiberglass",
-                            tip: "Scrap the telephones at the National Isolated Radio Array offices."
-                        },
-                        {
-                            name: "Level up while (any 3)",
-                            offset: 2,
-                            period: 3,
-                            subchallenges: [
-                                {
-                                    name: "Being level 76 or higher"
-                                },
-                                {
-                                    name: "In Caves or Mines",
-                                    tipId: "LevelUpCave",
-                                    tip: "Unfortunately, Big Bent Tunnel doesn't count."
-                                },
-                                {
-                                    name: "In a Workshop under level 20"
-                                },
-                                {
-                                    name: "Well Tuned or Well Rested",
-                                    tipId: "LevelUpWellTuned",
-                                    tip: "Warning! Currently, Lover's Embrace and similar Ally-granted 3 hour bonus"
-                                         + "<br>do not count towards this so make sure you are Well Tuned!"
-                                },
-                                {
-                                    name: "Wielding an Axe",
-                                    tipId: "LevelUpAxe",
-                                    tip: "Grognak's Axe, Fire Axe, Pickaxe or Multi-purpose Axe should work."
-                                },
-                                {
-                                    name: "In a Nuked Region"
-                                },
-                                {
-                                    name: "Wearing a full Clown Suit",
-                                    tipId: "LevelUpClown",
-                                    tip: "Freddy Fear's House of Scares usually has a Clown Suit and Clown Hat."
-                                },
-                                {
-                                    name: "Wearing Sleepwear"
-                                },
-                                {
-                                    name: "Diseased"
-                                },
-                                {
-                                    name: "Engaged in PvP"
-                                },
-                            ]
-                        },
-                        {
-                            name: "Kill a Legendary enemy",
-                            offset: 2,
-                            period: 5,
-                            tipId: "KillLegendary",
-                            tip: "Check out horde events, fissure sites or West Tek."
-                        },
-                        {
-                            name: "Build floors, walls and roofs in your C.A.M.P. (x10)",
-                            offset: 2,
-                            period: 5,
-                            tipId: "BuildFloors",
-                            tip: "Remember to equip the Contractor perk card."
-                        },
-                        {
-                            name: "Destroy robots (x5)",
-                            offset: 2,
-                            period: 30,
-                            tipId: "DestroyRobots",
-                            tip: "Check out the Vault-tec Agricultural Research Center near Flatwoods."
-                        },
-                        {
-                            name: "Scrap junk to produce Screws (x5)",
-                            offset: 2,
-                            period: 5,
-                            tipId: "ScrapScrews",
-                            tip: "Scrap the globes, fans and typewriters at the National Isolated Radio Array offices."
-                        },
-                        {
-                            name: "Build lighting in your C.A.M.P. or Workshop (x5)",
-                            offset: 3,
-                            period: 10,
-                            tipId: "BuildLights",
-                            tip: "Remember to equip the Contractor perk card."
-                        },
-                        {
-                            name: "Eat pies, candies and sweets (x20)",
-                            offset: 3,
-                            period: 10,
-                            tipId: "EatPies",
-                            tip: "Gum drop works too but Dandy Boy Apples doesn't."
-                        },
-                        {
-                            name: "Harvest Fungi (x10)",
-                            offset: 3,
-                            period: 10,
-                            tipId: "HarvestFungi",
-                            tip: "Check out the river towards Flatwoods."
-                        },
-                        {
-                            name: "Kill a Mole Miner",
-                            offset: 3,
-                            period: 10,
-                            tipId: "KillMoleminer",
-                            tip: "Check out the rooftop in Welch visible from the Station fast travel point."
-                                 + "<br>Check out Blackwater Mine (exterior and interior) near The Whitespring resort."
-                        },
-                        {
-                            name: "Level up while (any 3)",
-                            offset: 4,
-                            period: 6,
-                            subchallenges: [
-                                {
-                                    name: "Being level 76 or higher"
-                                },
-                                {
-                                    name: "At a Fissure site",
-                                    tipId: "LevelUpFissure",
-                                    tip: "Only the on-map named fissure sites count."
-                                },
-                                {
-                                    name: "At/in Morgantown Airport under level 20"
-                                },
-                                {
-                                    name: "In Whitesprings",
-                                    tipId: "LevelUpWhitesprings",
-                                    tip: "Be anywhere within the fenced area of the hotel, including the interior."
-                                },
-                                {
-                                    name: "Near Grahm and Chally"
-                                },
-                                {
-                                    name: "Wearing an Asylum Uniform and Hat",
-                                    tipId: "LevelUpAsylum",
-                                    tip: "Fort Defiance (Allegheny Asylum) has many Uniforms and Hats."
-                                },
-                                {
-                                    name: "Wearing sunglasses"
-                                },
-                                {
-                                    name: "Using chems"
-                                },
-                                {
-                                    name: "Engaged in PvP"
-                                },
-                                {
-                                    name: "Wielding a sword",
-                                    tipId: "LevelUpSword",
-                                    tip: "Machete and any weapon with Sword in its name should work."
-                                }
-                            ]
-                        },
-                        {
-                            name: "Scrap junk to produce Springs (x5)",
-                            offset: 4,
-                            period: 5,
-                            tipId: "ScrapSprings",
-                            tip: "Simply scrap Bulk Springs."
-                        },
-                        {
-                            name: "Kill a Legendary at a fissure site",
-                            offset: 4,
-                            period: 5,
-                            tipId: "KillLegendaryFissure",
-                            tip: "Named fissure sites only. Works best at Prime. " 
-                                 + "<br>You have to be very close to the edge of the fissure site."
-                                 + "<br>The enemy can be further away."
-                        },
-                        {
-                            name: "Claim a Workshop",
-                            offset: 4,
-                            period: 5,
-                            tipId: "ClaimWorkshop",
-                            tip: "Remember to stay crouched at all times and leave the build area"
-                                  + "<br>as soon as you can to avoid unwanted PvP."
-                        },
-                        {
-                            name: "Kill a Deathclaw",
-                            offset: 4,
-                            period: 20,
-                            tipId: "KillDeathclaw",
-                            tip: "Check out Deathclaw Island or the Thunder Mountain Substation"
-                                  + "<br>TM-02 north of Watoga."
-                        },
-                        {
-                            name: "Kill a Deathclaw on Deathclaw Island",
-                            offset: 14,
-                            period: 20,
-                        },
-                        {
-                            name: "Plant vegetables in your C.A.M.P. or Workshop (x10)",
-                            offset: 5,
-                            period: 10,
-                            tipId: "PlantVegetables",
-                            tip: "You can scrap and replant your vegetables."
-                        },
-                        {
-                            name: "Pick flowers (x10)",
-                            offset: 5,
-                            period: 10,
-                            tipId: "PickFlowers",
-                            tip: "Rododendron (magenta) and Soot Flower (blue) are easy to spot."
-                                 + "<br>Bloodleaf works too, found in the river towards Flatwoods."
-                        },
-                        {
-                            name: "Revive a Player",
-                            offset: 5,
-                            period: 10,
-                            tipId: "RevivePlayer",
-                            tip: "No need to team up. Jump down from some height to down yourself."
-                        },
-                        {
-                            name: "Destroy Liberators (x5)",
-                            offset: 5,
-                            period: 10,
-                            tipId: "DestroyLiberators",
-                            tip: "Tygart Water Treatment north of Sommersville has a bunch of them."
-                        },
-                        {
-                            name: "Collect Water (x50)",
-                            offset: 6,
-                            period: 10,
-                            tipId: "CollectWater",
-                            tip: "Collecting water from water sources and boiling them also counts."
-                        },
-                        {
-                            name: "Eat Pre-war Food (x20)",
-                            offset: 6,
-                            period: 10,
-                            tipId: "EatPrewarfood",
-                            tip: "Dog Food is everywhere. Bubblegum and Gum Drops count too. Check out diners around the map."
-                        },
-                        {
-                            name: "Kill a Yao Guai",
-                            offset: 6,
-                            period: 10,
-                            tipId: "KillYaoGuai",
-                            tip: "Check out Monongah Overlook or Dolly Sods Wilderness."
-                        },
-                        {
-                            name: "Craft Healing Items (any 5)",
-                            offset: 6,
-                            period: 10,
-                            tipId: "CraftHealingItems",
-                            tip: "Bug/tip: Crafting Healing Salve counts for crafting a Stimpak too.",
-                            subchallenges: [
-                                {
-                                    name: "Antibiotics",
-                                    tipId: "CraftAntibiotics",
-                                    tip: "The plans are available in the Enclave Bunker Medical section."
-                                },
-                                {
-                                    name: "Bloodpack",
-                                    tipId: "CraftBloodpack",
-                                    tip: "Requires Tick Blood (2) + Antiseptic (1)."
-                                },
-                                {
-                                    name: "Diluted Radaway",
-                                    tipId: "CraftDilutedRadaway",
-                                    tip: "Radaway + Purified water"
-                                },
-                                {
-                                    name: "Diluted Stimpak",
-                                    tipId: "CraftDilutedStimpak",
-                                    tip: "Stimpak + Purified water"
-                                },
-                                {
-                                    name: "Disease Cure",
-                                    tipId: "CraftDiseaseCure",
-                                    tip: "Firecap (2) + Bloodleaf (2) + Snaptail Reed (2)."
-                                        + "<br>Start from Slocum Joe's to pick up Firecap around, then go to the river"
-                                        + "<br>towards Flatwoods to find Bloodleaf and then Snaptail Reed."
-                                        + "<br>Don't forget to equip the Green Thumb (PER) perk card."
-                                },
-                                {
-                                    name: "Glowing Bloodpack",
-                                    tipId: "CraftGlowingBloodpack",
-                                    tip: "Bloodpack + Glowing Blood + Antiseptic"
-                                },
-                                {
-                                    name: "Healing Salve",
-                                    tipId: "CraftHealingSalve",
-                                    tip: "Soot Flower + Rhododendron Flower + Boiled Water. Check around the Overseer's Camp."
-                                },
-                                {
-                                    name: "Skeeto Spit",
-                                    tipId: "CraftSkeetoSpit",
-                                    tip: "Blood Pack + Bloodleaf + Glass + Steel"
-                                },
-                                {
-                                    name: "Standard Radaway",
-                                    tipId: "CraftRadaway",
-                                    tip: "Antiseptic + Glowing Fungus (3) + Purified Water + Plastic"
-                                },
-                                {
-                                    name: "Standard Stimpak",
-                                    tipId: "CraftStimpak",
-                                    tip: "Antiseptic (2) + Blood Pack + Steel"
-                                },
-                                {
-                                    name: "Super Stimpak",
-                                    tipId: "CraftSuperStimpak",
-                                    tip: "Ultracite + Antiseptic (2) + Blood Pack + Steel + Strangler Pod + Corpse Flower Stamen"
-                                }
-                            ]
-                        },
-                        {
-                            name: "Kill Radroaches in the Toxic Valley (x5)",
-                            offset: 7,
-                            period: 20,
-                            tipId: "KillRadroaches",
-                            tip: "Check around Hemlock Holes and Clarksburg Shooting Club."
-                        },
-                        {
-                            name: "Chew Bubblegum (x5)",
-                            offset: 8,
-                            period: 10,
-                            tipId: "ChewBubblegum",
-                            tip: "Gum drops don't work. Perk pack bubblegums do work."
-                                + "<br>Find bubblegum in Whitesprings or in the Pumpkin House."
-                        },
-                        {
-                            name: "Kill a Glowing Enemy",
-                            offset: 8,
-                            period: 10,
-                            tipId: "KillGlowing",
-                            tip: "They are everywhere. Equip the Glow Sight perk for bonus damage."
-                        },
-                        {
-                            name: "Kill Mirelurks (x5)",
-                            offset: 8,
-                            period: 10,
-                            tipId: "KillMirelurk",
-                            tip: "Ohio River Adventures spawns them regularly."
-                                 + "Alternatively, start the defense miscellaneous quest with Fishbones there."
-                        },
-                        {
-                            name: "Harvest vegetables (x5)",
-                            offset: 8,
-                            period: 10,
-                            tipId: "HarvestVegetables",
-                            tip: "Your C.A.M.P., someone else's C.A.M.P. or simply any world spawn will do."
-                        },
-                        {
-                            name: "Kill a Gulper at the Gulper Lagoon",
-                            offset: 9,
-                            period: 30,
-                            tipId: "KillGulper",
-                            tip: "There are usually 3-4 of them."
-                        },
-                        {
-                            name: "Kill Radscorpions in the Savage Divide (x5)",
-                            offset: 12,
-                            period: 30,
-                            tipId: "KilLRadScorpions",
-                            tip: "Middle mountain Cabins, Top of the World and The Freakshow may have them."
-                        },
-                        {
-                            name: "Destroy Robots in Watoga (x10)",
-                            offset: 17,
-                            period: 30,
-                            tipId: "DestroyRobotsWatoga",
-                            tip: "Liberators inside EMS and Mr. Gutsy random spawns count too. Some Watoga Mr. Handys don't count."
-                        },
-                        {
-                            name: "Kill Anglers in the Mire (x5)",
-                            offset: 19,
-                            period: 30,
-                            tipId: "KillAngler",
-                            tip: "There are usually 2 at the Thunder Mountain Substation TM-01 (South-east to Berkeley Springs Station) and"
-                                 + "<br>there are 3 at the Gnarled Shallows (north of Thunder Mountain Power Plant)."
-                        },
+                        levelUpFasnacht(0),
+                        levelUpWatoga(1),
+                        levelUpCaves(2),
+                        levelUpWhitesprings(4),
+                        collectCaps(0),
+                        cookMeals(0),
+                        hackTerminal(0),
+                        killCryptid(0),
+                        buildAnythingCamp(1),
+                        craftAmmo(1),
+                        killSheepsquatch(1),
+                        scrapFiberglass(1),
+                        killLegendary(2),
+                        buildFloorsCamp(2),
+                        destroyRobots(2),
+                        scrapScrews(2),
+                        buildLightingCamp(3),
+                        eatCandy(3),
+                        harvestFungi(3),
+                        killMoleMiner(3),
+                        scrapSprings(4),                
+                        killLegendaryFissure(4),        
+                        claimWorkshop(4),
+                        killDeathclaw(4),
+                        killDeathclawIsland(14),
+                        plantVegetables(5),
+                        pickFlowers(5),
+                        revivePlayer(5),
+                        destroyLiberators(5),
+                        collectWater(6),
+                        eatPrewarFood(6),
+                        killYaoGuai(6),
+                        craftHealing(6),
+                        killRadroaches(7),
+                        chewBubblegum(8),
+                        killGlowing(8),
+                        killMirelurks(8),
+                        harvestVegetables(8),
+                        killGulper(9),
+                        killRadscorpions(12),
+                        destroyRobotsWatoga(17),
+                        killAnglers(19),
+                        destroyTurrets(22),
+                        killWendigoCave(29)
                     ]
                 }
             ];
