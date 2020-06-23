@@ -1,6 +1,6 @@
 <html>
     <head>
-        <title>Fallout 76 Daily Atom Challenges</title>
+        <title>Fallout 76 Daily/Weekly Atom Challenges</title>
         <style>
             * {
                 font-family: sans-serif;
@@ -18,20 +18,21 @@
                border: 1px solid black;
             }
         </style>
-        <meta name="keywords" content="Fallout,Fallout 76,Daily,Challenge,Challenges,Atom">
+        <meta name="keywords" content="Fallout,Fallout 76,Daily,Challenge,Challenges,Atom,Weekly">
     </head>
     <body>
         <center>
-            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Daily Atom Challenges (0.1.6)</span><br/>
+            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Daily/Weekly Atom Challenges (0.2.0)</span><br/>
             <br/>
             <br/>
             <table>
                 <tr>
-                    <td><button id='prevDay'>&lt;</button></td>
+                    <td><button id='prevWeek' title='Go back a week.'>&lt;&lt;</button></td>
+                    <td><button id='prevDay' title='Previous day.'>&lt;</button></td>
                     <td id='showndate' style='font-size: 24; text-align: center;'></td>
-                    <td><button id='nextDay'>&gt;</button></td>
+                    <td><button id='nextDay' title='Next day.'>&gt;</button></td>
+                    <td><button id='nextWeek' title='Go forward a week.'>&gt;&gt;</button></td>
                 </tr>
-                <tr><td colspan='3' id='remainingtime' style='text-align: center; font-weight: bold;'></td></tr>
             </table>
             <br/>
             <br/>
@@ -855,16 +856,465 @@
                 }
             ];
 
+            function completeEvents(offset) {
+                return {
+                            name: "Complete Events (x10)",
+                            offset: offset,
+                            period: 14,
+                            tipId: "CompleteEvents",
+                            tip: "Enclave events don't count unfortunately."
+                        };
+            }
+            function gatherBuildingSupplies(offset) {
+                return {
+                            name: "Gather Building Supplies (any 5)",
+                            offset: offset,
+                            period: 14,
+                            tipId: "GatherBuildingSupplies",
+                            tip: "You can simply scrap bulk items of these components.",
+                            subchallenges: [
+                                {
+                                    name: "Aluminium (x50)",
+                                },
+                                {
+                                    name: "Concrete (x50)",
+                                },
+                                {
+                                    name: "Copper (x50)",
+                                },
+                                {
+                                    name: "Fertilizer (x50)",
+                                },
+                                {
+                                    name: "Oil (x50)",
+                                },
+                                {
+                                    name: "Screws, spings or gears (x50)",
+                                },
+                                {
+                                    name: "Steel (x250)"
+                                },
+                                {
+                                    name: "Wood (x250)"
+                                },
+                            ]
+                        };
+            }
+            function killInPowerArmor(offset) {
+                return {
+                            name: "Kill/destroy enemies in Power Armor (x10)",
+                            offset: offset,
+                            period: 14
+                        };
+            }
+            function killLegendariesMany(offset) {
+                return {
+                            name: "Kill Legendary enemies (x5)",
+                            offset: offset,
+                            period: 14,
+                            tipId: "KillLegendariesMany",
+                            tip: "Named fissure sites, West-Tek and Horde-events are a good place to find them."
+                        };
+            }
+
+            function completeEventsGroup(offset) {
+                return {
+                            name: "Complete Events in Group (x10)",
+                            offset: offset,
+                            period: 28,
+                            tipId: "CompleteEventsGroup",
+                            tip: "Yeah, you have to get into a team for this one."
+                        };
+            }
+            function worldOnFire(offset) {
+                return {
+                            name: "Set the World on Fire (any 3)",
+                            offset: offset,
+                            period: 14,
+                            subchallenges: [
+                                {
+                                    name: "Take a picture at a fissure site",
+                                    tipId: "TakePictureFissure",
+                                    tip: "You have to be at the very edge of a named fissure site and use Photomode."
+                                },
+                                {
+                                    name: "Launch a Nuke",
+                                },
+                                {
+                                    name: "Kill enemies with the flamer (x10)",
+                                },
+                                {
+                                    name: "Find Silo code pieces (x2)",
+                                    tipId: "FindSiloCodes",
+                                    tip: "Currently bugged."
+                                },
+                                {
+                                    name: "Kill a Scorchbeast"
+                                },
+                                {
+                                    name: "Win a Hunter/Hunted match (x3)"
+                                },
+                                {
+                                    name: "Level up while engaged in PvP"
+                                }
+                            ]
+                        };
+            }
+            function acquireFlux(offset) {
+                return {
+                            name: "Acquire flux from nuked flora (all)",
+                            offset: offset,
+                            period: 28,
+                            tipId: "AcquireFlux",
+                            tip: "Nuke Whitesprings so that the Safe'n Clean Disposal, the Bunker and the Golf Club are covered."
+                            +"<br>If luckly, all plants turn into their nuked ones, including the Snaptail Reeds."
+                            +"<br>Otherwise, you have to nuke Fissure Prime too.",
+                            subchallenges: [
+                                {
+                                    name: "Raw Cobalt (x3)",
+                                },
+                                {
+                                    name: "Raw Crimson (x3)",
+                                },
+                                {
+                                    name: "Raw Fluorescent (x3)",
+                                },
+                                {
+                                    name: "Raw Violet (x3)",
+                                },
+                                {
+                                    name: "Raw Yellowcake (x3)"
+                                },
+                            ]
+                        };
+            }
+            function buildupCamp(offset) {
+                return {
+                            name: "Build up your C.A.M.P. (all)",
+                            offset: offset,
+                            period: 28,
+                            subchallenges: [
+                                {
+                                    name: "Build containers, displays or shelves (x1)",
+                                    tipId: "BuildupCampContainer",
+                                    tip: "Simply build another Stash Box."
+                                },
+                                {
+                                    name: "Build wall or floor decorations (x5)",
+                                    tipId: "BuildupCampFloor",
+                                    tip: "Floor mats are the cheapest to build."
+                                },
+                                {
+                                    name: "Build doors or stairs (x5)",
+                                },
+                                {
+                                    name: "Plant crops or build water sources (x10)",
+                                    tipId: "BuildupCampCrops",
+                                    tip: "Scrap and replant your vegetables."
+                                },
+                                {
+                                    name: "Build generators or lighting (x20)",
+                                    tipId: "BuildupCampLighting",
+                                    tip: "Placing the cheapest standing lamp works."
+                                },
+                            ]
+                        };
+            }
+
+            function scorchedTop(offset) {
+                return {
+                            name: "Kill Scorched at the Top of the World (x25)",
+                            offset: offset,
+                            period: 56,
+                            tipId: "ScorchedTopWorld",
+                            tip: "Most of them can be found inside. You can also aggro the Scorched from the nearby locations,"
+                            + "<br>however, you have to be within 20 meters of the elevator when you kill them for it to count."
+                        };
+            }
+
+            function pickManyFlowers(offset) {
+                return {
+                            name: "Pick different kinds of flowers (any 8)",
+                            offset: offset,
+                            period: 28,
+                            tipId: "Pick many flowers",
+                            tip: "The perk Green Thumb doesn't work consistently with this challenge",
+                            subchallenges: [
+                                {
+                                    name: "Ash Rose (x10)",
+                                    tipId: "PickManyFlowersAshRose",
+                                    tip: "Around Welch in the Ash Heap and around the Fissure Site in the Ash Heap."
+                                },
+                                {
+                                    name: "Bloodleaf (x10)",
+                                    tipId: "PickManyFlowersBloodleaf",
+                                    tip: "Start from the Wayward towards Flatwoods in the river."
+                                },
+                                {
+                                    name: "Carrot Flowers (x10)",
+                                    tipId: "PickManyFlowersCarrotFlower",
+                                    tip: "In the front garden of the Palace of the Winding Path."
+                                },
+                                {
+                                    name: "Fever Blossoms (x10)",
+                                    tipId: "PickManyFlowersFeverBlossom",
+                                    tip: "In The Deep, west of Whitesprings"
+                                },
+                                {
+                                    name: "Fern Flowers (x10)",
+                                    tipId: "PickManyFlowersFernFlower",
+                                    tip: "Around Fissure Site Prime."
+                                },
+                                {
+                                    name: "Gourd Flowers (x10)",
+                                    tipId: "PickManyFlowersGourdFlower",
+                                    tip: "In front of Sugarmaple on the road (east of Sommersville lake), Sundary Brothers' Cabin or Cobbleton farm."
+                                },
+                                {
+                                    name: "Rhododendron Flowers (x10)",
+                                    tipId: "PickManyFlowersRhododendron",
+                                    tip: "Around Slocum Joe's and moving towards Flatwoods."
+                                },
+                                {
+                                    name: "Strangler Blooms (x10)",
+                                    tipId: "PickManyFlowersStranglerBlooms",
+                                    tip: "West of Dyer Chemical along the riverbed, after completing An Organic Solution quest."
+                                },
+                                {
+                                    name: "Soot Flowers (x10)",
+                                    tipId: "PickManyFlowersSootFlower",
+                                    tip: "Around Slocum Joe's and moving towards Flatwoods."
+                                },
+                                {
+                                    name: "Tato Flowers (x10)",
+                                    tipId: "PickManyFlowersTatoFlower",
+                                    tip: "In the front garden outside of Vault 94."
+                                },
+                                {
+                                    name: "Thistle Blooms (x10)",
+                                    tipId: "PickManyFlowersThistleBlooms",
+                                    tip: "North-east of the Wavy Willard Water Park and north of the nearby Willard Corporate Housing."
+                                },
+                            ]
+                        };
+            }
+
+            function craftAlcohol15(offset) {
+                return {
+                            name: "Craft Alcohol (any 15)",
+                            offset: offset,
+                            period: 112,
+                        };
+            }
+
+            function enemiesGrafton(offset) {
+                return {
+                            name: "Kill enemies in Grafton (x25)",
+                            offset: offset,
+                            period: 112,
+                        };
+            }
+
+            function consumeAlcohol10(offset) {
+                return {
+                            name: "Consume Alcohol (any 10)",
+                            offset: offset,
+                            period: 112,
+                        };
+            }
+
+            function criticalHits25(offset) {
+                return {
+                            name: "Deal critical hits (x25)",
+                            offset: offset,
+                            period: 112,
+                            tipId: "CriticalHits25",
+                            tip: "Currently, the best is to use a shotgun as each pellet counts as a critical hit."
+                        };
+            }
+
+            function criticalHits50(offset) {
+                return {
+                            name: "Deal critical hits (x50)",
+                            offset: offset,
+                            period: 112,
+                            tipId: "CriticalHits50",
+                            tip: "Currently, the best is to use a shotgun as each pellet counts as a critical hit."
+                        };
+            }
+
+            function claimLakeside(offset) {
+                return {
+                            name: "Claim Lakeside Cabins",
+                            offset: offset,
+                            period: 56,
+                        };
+            }
+            function claimRedRocketMega(offset) {
+                return {
+                            name: "Claim Red Rocket Mega Stop",
+                            offset: offset,
+                            period: 56,
+                        };
+            }
+
+            function completeEventsQuestsGroup(offset) {
+                return {
+                            name: "Complete Events or Quests in group (x20)",
+                            offset: offset,
+                            period: 28,
+                        };
+            }
+            function craftScrapWeaponArmor(offset) {
+                return {
+                            name: "Craft or Scrap weapons or armor",
+                            offset: offset,
+                            period: 28,
+                        };
+            }
+            function killHugeCreatures(offset) {
+                return {
+                            name: "Kill huge creatures (any 5)",
+                            offset: offset,
+                            period: 28,
+                            subchallenges: [
+                                {
+                                    name: "Super Mutant Behemoth",
+                                    tipId: "KillHugeSuperMutantBehemoth",
+                                    tip: "From the Vantage Point, go down the road towards south-east to find a pond."
+                                },
+                                {
+                                    name: "Deathclaw",
+                                    tipId: "KillHugeDeathclaw",
+                                    tip: "Check out Deathclaw Island, Hopewell Cave, Thunder Mountain Substation TM-02 north of Watoga."
+                                },
+                                {
+                                    name: "Grafton Monster",
+                                    tipId: "KillHugeGraftonMonster",
+                                    tip: "In the dried up riverbed between the power plant and the train yard."
+                                    + "<br>Near the Charleston Capital fast travel point."
+                                },
+                                {
+                                    name: "Mega Sloth",
+                                    tipId: "KillHugeMegasloth",
+                                    tip: "Check out South of Mosstown, southeast of the South Belle Motel, NAR Repair Yard,"
+                                    + "<br>Cranberry Glade or the Overgrown Sundew Grove."
+                                },
+                                {
+                                    name: "Mirelurk Queen",
+                                    tipId: "KillHugeMirelurkQueen",
+                                    tip: "Check out Highland Marsh (Mire), Quarry X3 (Cranberry Bog) or Sunrise Field (south of Watoga)."
+                                },
+                                {
+                                    name: "Scorchbeast",
+                                    tipId: "KillHugeScorchbeast",
+                                    tip: "Any fissure site."
+                                },
+                                {
+                                    name: "Sheepsquatch",
+                                    tipId: "KillHugeSheepsquatch",
+                                    tip: "Check out the Free Range event or locations such as NAR Repair Yard, Cranberry Glade,"
+                                    + "<br>south of the Freakshow in the crater, south of Huntersville towards the crater, "
+                                    + "<br>north-west of the Treetop house or west between Berkeley Station and Harper's Ferry."
+                                },
+                            ]
+                        };
+            }
+            function prepareFeast(offset) {
+                return {
+                            name: "Prepare a feast (all)",
+                            offset: offset,
+                            period: 28,
+                            subchallenges: [
+                                {
+                                    name: "Chicken meat or Vegetarian Ham (x5)",
+                                },
+                                {
+                                    name: "Instamash or Seasonings (x5)",
+                                },
+                                {
+                                    name: "Cranberries (x10)"
+                                },
+                                {
+                                    name: "Vegetables (x20)"
+                                },
+                                {
+                                    name: "Fruit (x20)",
+                                    tipId: "FeastFruit",
+                                    tip: "Picking Cranberries count towards this as well."
+                                },
+                                {
+                                    name: "Eggs (x6)",
+                                    tipId: "FeastEggs",
+                                    tip: "Mothman eggs from Point Pleasant, Mirelurk eggs from Highland Marsh or Radtoad eggs from Grafton."
+                                },
+                                {
+                                    name: "Alcohol, juices or Nuka-Cola (x20)"
+                                },
+                                {
+                                    name: "Sweets, cakes, pies or breads (x10)"
+                                },
+                            ]
+                        };
+            }
+
+
+            function addWeekly(target, offset, func) {
+                for (var i = offset; i < offset + 7; i++) {
+                    target.push(func(i));
+                }
+            }
+
+            var challengesWeeklyEra1 = {
+                validStart: new Date(Date.UTC(2020, 3, 21, 15, 0, 0, 0)),
+                validEnd: undefined,
+                options: []
+            };
+
+            addWeekly(challengesWeeklyEra1.options, 0, completeEvents);
+            addWeekly(challengesWeeklyEra1.options, 0, gatherBuildingSupplies);
+            addWeekly(challengesWeeklyEra1.options, 0, killInPowerArmor);
+            addWeekly(challengesWeeklyEra1.options, 0, killLegendariesMany);
+            addWeekly(challengesWeeklyEra1.options, 0, worldOnFire);
+
+            addWeekly(challengesWeeklyEra1.options, 7, completeEventsGroup);
+            addWeekly(challengesWeeklyEra1.options, 7, acquireFlux);
+            addWeekly(challengesWeeklyEra1.options, 7, buildupCamp);
+            addWeekly(challengesWeeklyEra1.options, 7, scorchedTop);
+            addWeekly(challengesWeeklyEra1.options, 7, pickManyFlowers);
+
+            addWeekly(challengesWeeklyEra1.options, 35, enemiesGrafton);
+
+            addWeekly(challengesWeeklyEra1.options, 14, craftAlcohol15);
+            addWeekly(challengesWeeklyEra1.options, 42, consumeAlcohol10);
+
+            addWeekly(challengesWeeklyEra1.options, 14, criticalHits25);
+            addWeekly(challengesWeeklyEra1.options, 42, criticalHits25);
+
+            addWeekly(challengesWeeklyEra1.options, 21, claimLakeside);
+            addWeekly(challengesWeeklyEra1.options, 49, claimRedRocketMega);
+
+            addWeekly(challengesWeeklyEra1.options, 21, completeEventsQuestsGroup);
+            addWeekly(challengesWeeklyEra1.options, 21, craftScrapWeaponArmor);
+            addWeekly(challengesWeeklyEra1.options, 21, killHugeCreatures);
+            addWeekly(challengesWeeklyEra1.options, 21, prepareFeast);
+
+            var challengesWeekly = [
+                challengesWeeklyEra1
+            ];
+
             var infoMap = new Map();
-            for (var challenge of challenges) {
-                for (var opt of challenge.options) {
-                    if (opt.tipId !== undefined) {
-                        infoMap.set(opt.tipId, opt.tip);
-                    }
-                    if (opt.subchallenges !== undefined) {
-                        for (var sc of opt.subchallenges) {
-                            if (sc.tipId !== undefined) {
-                                infoMap.set(sc.tipId, sc.tip);
+            for (var list of [challenges, challengesWeekly]) {
+                for (var challenge of list) {
+                    for (var opt of challenge.options) {
+                        if (opt.tipId !== undefined) {
+                            infoMap.set(opt.tipId, opt.tip);
+                        }
+                        if (opt.subchallenges !== undefined) {
+                            for (var sc of opt.subchallenges) {
+                                if (sc.tipId !== undefined) {
+                                    infoMap.set(sc.tipId, sc.tip);
+                                }
                             }
                         }
                     }
@@ -924,7 +1374,35 @@
                     tbl.deleteRow(i);
                 }
 
+                var rw = tbl.insertRow(tbl.rows.length);
+                var cll = rw.insertCell(rw.cells.length);
+                cll.colSpan = 2;
+                cll.style.textAlign = "center";
+                cll.style.fontWeight = "bold";
+                cll.style.padding = "10px";
+                cll.style.border = '1px dotted black';
+                cll.innerHTML = "<span style='font-size: 24px;'>Daily</span><br><span id='remainingtime'></span>";
 
+                renderList(tbl, challenges, endDate);
+
+                var rw = tbl.insertRow(tbl.rows.length);
+                var cll = rw.insertCell(rw.cells.length);
+                cll.colSpan = 2;
+                cll.innerHTML = "&nbsp;";
+
+                var rw = tbl.insertRow(tbl.rows.length);
+                var cll = rw.insertCell(rw.cells.length);
+                cll.colSpan = 2;
+                cll.style.textAlign = "center";
+                cll.style.fontWeight = "bold";
+                cll.style.padding = "10px";
+                cll.innerHTML = "<span style='font-size: 24px;'>Weekly</span><br><span id='remainingweek'></span>";
+                cll.style.border = '1px dotted black';
+
+                renderList(tbl, challengesWeekly, endDate);
+            }
+
+            function renderList(tbl, challenges, endDate) {
                 var found = false;
                 // find a valid challenge among the data
                 for (var challenge of challenges) {
@@ -980,6 +1458,7 @@
                     cll.style.textAlign = "center";
                     cll.style.color = "red";
                 }
+
             }
 
             function updateTimer() {
@@ -992,23 +1471,49 @@
                 var now = new Date();
 
                 var remainingLabel = document.getElementById("remainingtime");
+                if (remainingLabel != null) {
+                    if (selectedDate <= now && now < endDate) {
+                        var diff = endDate - now;
+                        remainingLabel.innerText = formatTime(diff / 1000);
+                    } else if (selectedDate < now) {
+                        remainingLabel.innerHTML = "Past date. <a href='?'>Return to today.</a>";
+                    } else {
+                        remainingLabel.innerHTML = "Future date. <a href='?'>Return to today.</a>";
+                    }
+                }
 
-                if (selectedDate <= now && now < endDate) {
-                    var diff = endDate - now;
-                    remainingLabel.innerText = formatTime(diff / 1000);
-                } else if (selectedDate < now) {
-                    remainingLabel.innerHTML = "Past date. <a href='?'>Return to today.</a>";
-                } else {
-                    remainingLabel.innerHTML = "Future date. <a href='?'>Return to today.</a>";
+                var remainingWeekLabel = document.getElementById("remainingweek");
+                if (remainingWeekLabel != null) {
+                    var startDate = new Date(selectedDate);
+                    while (startDate.getDay() != 2) {
+                        startDate.setDate(startDate.getDate() - 1);
+                    }
+                    var endDate = new Date(startDate);
+                    endDate.setDate(endDate.getDate() + 7);
+
+                    if (startDate <= now && now < endDate) {
+                        var diff = endDate - now;
+                        remainingWeekLabel.innerText = formatTime(diff / 1000);
+                    } else if (startDate < now) {
+                        remainingWeekLabel.innerHTML = "Past date. <a href='?'>Return to today.</a>";
+                    } else {
+                        remainingWeekLabel.innerHTML = "Future date. <a href='?'>Return to today.</a>";
+                    }
                 }
             }
 
             function formatTime(timeSeconds) {
-                var hours = Math.floor(timeSeconds / 60 / 60);
+                var days = Math.floor(timeSeconds / 24 / 60 / 60);
+                var hours = Math.floor(timeSeconds / 60 / 60) % 24;
                 var minutes = Math.floor(timeSeconds / 60) % 60;
                 var seconds = Math.floor(timeSeconds % 60);
 
-                return padZero(hours) + ":" + padZero(minutes) + ":" + padZero(seconds);
+                var str = "";
+                if (days > 0) {
+                    str += days + " days ";
+                }
+                str += padZero(hours) + ":" + padZero(minutes) + ":" + padZero(seconds);
+                return str;
             }
 
             function padZero(n) {
@@ -1020,24 +1525,20 @@
                 return str;
             }
 
-            function goPrevDay() {
-                selectedDate.setDate(selectedDate.getDate() - 1);
+            function goDate(delta) {
+                selectedDate.setDate(selectedDate.getDate() + delta);
                 updateChallenges();
                 updateTimer();
             }
 
-            function goNextDay() {
-                selectedDate.setDate(selectedDate.getDate() + 1);
-                updateChallenges();
-                updateTimer();
-            }
-
-            document.getElementById("prevDay").onclick = goPrevDay;
-            document.getElementById("nextDay").onclick = goNextDay;
+            document.getElementById("prevDay").onclick = evt => goDate(-1);
+            document.getElementById("nextDay").onclick = evt => goDate(1);
+            document.getElementById("prevWeek").onclick = evt => goDate(-7);
+            document.getElementById("nextWeek").onclick = evt => goDate(7);
 
             setInterval(updateTimer, 1000);
-            updateTimer();
             updateChallenges();
+            updateTimer();
         </script>
     </body>
 </html>
