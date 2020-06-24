@@ -1217,6 +1217,12 @@
                                     + "<br>south of the Freakshow in the crater, south of Huntersville towards the crater, "
                                     + "<br>north-west of the Treetop house or west between Berkeley Station and Harper's Ferry."
                                 },
+                                {
+                                    name: "Wendigo Colossus",
+                                    tipId: "KillHugeWendigoColossus",
+                                    tip: "Nuke fissure prime so that the Overgrown Sundew Grove is in the nuke radius."
+                                    + "<br>It has a 7% chance of spawning and keep returning in about 10-15 minutes to trigger a fresh location spawn."
+                                },
                             ]
                         };
             }
@@ -1267,7 +1273,7 @@
 
             var challengesWeeklyEra1 = {
                 validStart: new Date(Date.UTC(2020, 3, 21, 15, 0, 0, 0)),
-                validEnd: undefined,
+                validEnd: new Date(Date.UTC(2020, 5, 23, 15, 0, 0, 0)),
                 options: []
             };
 
@@ -1299,8 +1305,21 @@
             addWeekly(challengesWeeklyEra1.options, 21, killHugeCreatures);
             addWeekly(challengesWeeklyEra1.options, 21, prepareFeast);
 
+            var challengesWeeklyEra2 = {
+                validStart: new Date(Date.UTC(2020, 5, 23, 15, 0, 0, 0)),
+                validEnd: undefined,
+                options: []
+            };
+
+            addWeekly(challengesWeeklyEra2.options, 0, completeEventsQuestsGroup);
+            addWeekly(challengesWeeklyEra2.options, 0, craftAlcohol15);
+            addWeekly(challengesWeeklyEra2.options, 0, killHugeCreatures);
+            addWeekly(challengesWeeklyEra2.options, 0, acquireFlux);
+            addWeekly(challengesWeeklyEra2.options, 0, buildupCamp);
+
             var challengesWeekly = [
-                challengesWeeklyEra1
+                challengesWeeklyEra1,
+                challengesWeeklyEra2
             ];
 
             var infoMap = new Map();
