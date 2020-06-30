@@ -21,12 +21,16 @@
             .monospaced {
                 font-family: monospace;
             }
+            .highlightvalue {
+                border: 1px dotted green; 
+                font-weight:bold;
+            }
         </style>
         <meta name="keywords" content="Fallout,Fallout 76,RNG,Random,Chances,Leveled,Leveled List,LVLI,Datamine,Patch,Diff,Difference,Comparison">
     </head>
     <body>
         <center>
-            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Patch Difference Viewer (0.0.1)</span><br/>
+            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Patch Difference Viewer (0.0.2)</span><br/>
             <br/>
             <br/>
             <table>
@@ -47,6 +51,9 @@
                             <option value='P20' selected>Update 20: 30th June, 2020 (latest)</option>
                         </select>
                     </td>
+                    <td>
+                        <input type="checkbox" id="fulldata"><label for="fulldata">Load all data</label>
+                    </td>
                     <td rowspan="2" style="padding-left: 25px;">
                         <button id='resetPage'>Reset</button>
                     </td>
@@ -55,7 +62,7 @@
                     <td colspan="2" style="text-align: center; padding-top: 15px;">
                         <button id="datasetEDID">Load Editor IDs</button>&nbsp;&nbsp;
                         <button id="datasetGLOB">Load Globals</button>&nbsp;&nbsp;
-                        <button id="datasetCURV" disabled>Load Curve Tables</button>
+                        <button id="datasetCURV">Load Curve Tables</button>
                         <button id="datasetLVLI" disabled>Load Leveled Lists</button>
                     </td>
                 </tr>
@@ -69,6 +76,13 @@
                         <input type="checkbox" id="diffadded" checked><label for="diffadded">Additions</label>&nbsp;&nbsp;
                         <input type="checkbox" id="diffmodified" checked><label for="diffmodified">Modifications</label>&nbsp;&nbsp;
                         <input type="checkbox" id="diffremoved" checked><label for="diffremoved">Removals</label>
+                        &nbsp;&nbsp;&nbsp;&nbsp;Sort by: <select id="sortby">
+                            <option value="file">File order</option>
+                            <option value="formid">FormID</option>
+                            <option value="group_formid">Group + FormID</option>
+                            <option value="editoridlast" selected>Editor ID (no ids last)</option>
+                            <option value="editoridfirst">Editor ID (no ids first)</option>
+                        </select>
                     </td>
                 </tr>
             </table>
@@ -156,19 +170,25 @@
                 var saveFunc = undefined;
                 renderDiffFunc = undefined;
 
+                var postfix = "";
+                if (isChecked("fulldata")) {
+                    postfix = "_full"
+                }
+
                 if (mode === "edid") {
-                    fileName = "SeventySix_EDIDs.js";
+                    fileName = "SeventySix_EDIDs" + postfix + ".js";
                     saveFunc = () => edids;
                     renderDiffFunc = diffAsEditorIDs;
                 }
                 else if (mode === "glob") {
-                    fileName = "SeventySix_GLOBs.js";
+                    fileName = "SeventySix_GLOBs" + postfix + ".js";
                     saveFunc = () => globals;
                     renderDiffFunc = diffAsGlobals;
                 }
                 else if (mode === "curv") {
-                    fileName = "SeventySix_CURVs.js";
+                    fileName = "SeventySix_CURVs" + postfix + ".js";
                     saveFunc = () => curves;
+                    renderDiffFunc = diffAsCurves;
                 }
                 else if (mode === "lvli") {
                     fileName = "SeventySix_LVLIs.js";
@@ -182,11 +202,11 @@
                     removeOf("rightScript");
                     clearTable(document.getElementById("difftable"), 1);
 
-                    loadScript("leftEdids", versionLeft + "_SeventySix_EDIDs.js", node => {
+                    loadScript("leftEdids", versionLeft + "_SeventySix_EDIDs" + postfix + ".js", node => {
                         leftEdids = edids;
                         loadScript("leftScript", versionLeft + "_" + fileName, node => {
                             leftData = saveFunc();
-                            loadScript("rightEdids", versionRight + "_SeventySix_EDIDs.js", node => {
+                            loadScript("rightEdids", versionRight + "_SeventySix_EDIDs" + postfix + ".js", node => {
                                 rightEdids = edids;
                                 loadScript("rightScript", versionRight + "_"  + fileName, node => {
                                     rightData = saveFunc();
@@ -234,12 +254,17 @@
                         description: desc
                     };
                 }
-                return undefined;
+                return {
+                    group: "????",
+                    editorId: "",
+                    description: ""
+                };
             }
 
             function applyTextFilter(interest) {
                 // filter out entries
                 var searchText = document.getElementById("filterdiff").value;
+                
                 if (searchText !== "") {
                     var oldInterest = interest;
                     interest = [];
@@ -277,16 +302,119 @@
                 return interest;
             }
 
-            function diffAsEditorIDs() {
+            function applySort(interest) {
+                var sortBy = valueOf("sortby");
+                var sortfunc;
+                if (sortBy === "file") {
+                    return;
+                }
+                else if (sortBy == "formid") {
+                    sortfunc = (a, b) => {
+                        return a.id.localeCompare(b.id);
+                    };
+                }
+                else if (sortBy == "group_formid") {
+                    sortfunc = (a, b) => {
+                        var ag = "";
+                        if (a.leftInfo !== undefined) {
+                            ag = a.leftInfo.group;
+                        }
+                        else if (a.rightInfo !== undefined) {
+                            ag = a.rightInfo.group;
+                        }
+
+                        var bg = "";
+                        if (b.leftInfo !== undefined) {
+                            bg = b.leftInfo.group;
+                        }
+                        else if (b.rightInfo !== undefined) {
+                            bg = b.rightInfo.group;
+                        }
+
+                        var c = ag.localeCompare(bg);
+                        if (c == 0) {
+                            return a.id.localeCompare(b.id);
+                        }
+                        return c;
+                    };
+                }
+                else if (sortBy == "editoridlast") {
+                    sortfunc = (a, b) => {
+                        var ad = "";
+                        if (a.rightInfo !== undefined) {
+                            ad = a.rightInfo.editorId;
+                        }
+                        else if (a.leftInfo !== undefined) {
+                            ad = a.leftInfo.editorId;
+                        }
+
+                        var bd = "";
+                        if (b.rightInfo !== undefined) {
+                            bd = b.rightInfo.editorId;
+                        }
+                        else if (b.leftInfo !== undefined) {
+                            bd = b.leftInfo.editorId;
+                        }
+
+                        if (ad === "" && bd !== "") {
+                            return 1;
+                        }
+                        if (ad !== "" && bd === "") {
+                            return -1;
+                        }
+
+                        return ad.localeCompare(bd);
+                    };
+                }
+                else if (sortBy == "editoridfirst") {
+                    sortfunc = (a, b) => {
+                        var ad = "";
+                        if (a.rightInfo !== undefined) {
+                            ad = a.rightInfo.editorId;
+                        }
+                        else if (a.leftInfo !== undefined) {
+                            ad = a.leftInfo.editorId;
+                        }
+
+                        var bd = "";
+                        if (b.rightInfo !== undefined) {
+                            bd = b.rightInfo.editorId;
+                        }
+                        else if (b.leftInfo !== undefined) {
+                            bd = b.leftInfo.editorId;
+                        }
+
+                        if (ad === "" && bd !== "") {
+                            return -1;
+                        }
+                        if (ad !== "" && bd === "") {
+                            return 1;
+                        }
+
+                        return ad.localeCompare(bd);
+                    };
+                }
+
+                interest.sort(sortfunc);
+            }
+
+            function computeDiff(entryCompareFunc) {
                 var interest = [];
                 var diffFound = false;
                 var isAdd = isChecked("diffadded");
                 var isModified = isChecked("diffmodified");
                 var isRemoved = isChecked("diffremoved");
-
+                var isFull = isChecked("fulldata")
                 // find additions in right
                 for (var key in rightData) {
                     var rightInfo = getInfo(false, key);
+                    if (!isFull) {
+                        if (rightInfo.editorId === "") {
+                            continue;
+                        }
+                    }
+
+                    var rightEntry = rightData[key];
                     var leftEntry = leftData[key];
 
                     if (leftEntry === undefined) {
@@ -297,14 +425,15 @@
                                 id: key,
                                 nozeroId: key.replace(/^0+/, "").toLowerCase(),
                                 leftInfo: undefined,
-                                rightInfo: rightInfo
+                                leftValue: undefined,
+                                rightInfo: rightInfo,
+                                rightValue: rightEntry
                             });
                         }
                     } else {
                         leftInfo = getInfo(true, key);
-                        if (leftInfo.group !== rightInfo.group ||
-                                leftInfo.editorId !== rightInfo.editorId ||
-                                leftInfo.description !== rightInfo.description) {
+
+                        if (entryCompareFunc(leftEntry, leftInfo, rightEntry, rightInfo)) {
                             diffFound = true;
                             if (isModified) {
                                 interest.push({
@@ -312,7 +441,9 @@
                                     id: key,
                                     nozeroId: key.replace(/^0+/, "").toLowerCase(),
                                     leftInfo: leftInfo,
-                                    rightInfo: rightInfo
+                                    leftValue: leftEntry,
+                                    rightInfo: rightInfo,
+                                    rightValue: rightEntry
                                 });
                             }
                         }
@@ -321,6 +452,13 @@
                 // find removals on the right
                 for (var key in leftData) {
                     var leftInfo = getInfo(true, key);
+                    if (!isFull) {
+                        if (leftInfo.editorId === "") {
+                            continue;
+                        }
+                    }
+
+                    var leftEntry = leftData[key];
                     var rightEntry = rightData[key];
                     if (rightEntry === undefined) {
                         diffFound = true;
@@ -330,13 +468,31 @@
                                 id: key,
                                 nozeroId: key.replace(/^0+/, "").toLowerCase(),
                                 leftInfo: leftInfo,
-                                rightInfo: undefined
+                                leftValue: leftEntry,
+                                rightInfo: undefined,
+                                rightValue: undefined
                             });
                         }
                     }
                 }
 
-                interest = applyTextFilter(interest);
+                return {
+                    interest: interest,
+                    diffFound: diffFound
+                };
+            }
+
+            function diffAsEditorIDs() {
+
+                var result = computeDiff((leftEntry, leftInfo, rightEntry, rightInfo) => {
+                    return leftInfo.group !== rightInfo.group ||
+                                leftInfo.editorId !== rightInfo.editorId ||
+                                leftInfo.description !== rightInfo.description;
+                });
+                var diffFound = result.diffFound;
+
+                interest = applyTextFilter(result.interest);
+                applySort(interest);
 
                 var tbl = document.getElementById("difftable");
                 clearTable(tbl, 1);
@@ -386,71 +542,13 @@
             }
 
             function diffAsGlobals() {
-                var interest = [];
-                var diffFound = false;
-                var isAdd = isChecked("diffadded");
-                var isModified = isChecked("diffmodified");
-                var isRemoved = isChecked("diffremoved");
+                var result = computeDiff((leftEntry, leftInfo, rightEntry, rightInfo) => {
+                    return leftEntry != rightEntry;
+                });
+                var diffFound = result.diffFound;
 
-                // find additions in right
-                for (var key in rightData) {
-                    var rightInfo = getInfo(false, key);
-                    var leftEntry = leftData[key];
-
-                    if (leftEntry === undefined) {
-                        diffFound = true;
-                        if (isAdd) {
-                            interest.push({
-                                type: "added",
-                                id: key,
-                                nozeroId: key.replace(/^0+/, "").toLowerCase(),
-                                leftInfo: undefined,
-                                leftValue: undefined,                                
-                                rightInfo: rightInfo,
-                                rightValue: rightData[key]
-                            });
-                        }
-                    } else {
-                        leftInfo = getInfo(true, key);
-                        var leftValue = leftData[key];
-                        var rightValue = rightData[key];
-                        if (leftValue != rightValue) {
-                            diffFound = true;
-                            if (isModified) {
-                                interest.push({
-                                    type: "modified",
-                                    id: key,
-                                    nozeroId: key.replace(/^0+/, "").toLowerCase(),
-                                    leftInfo: leftInfo,
-                                    leftValue: leftValue,
-                                    rightInfo: rightInfo,
-                                    rightValue: rightValue
-                                });
-                            }
-                        }
-                    }
-                }
-                // find removals on the right
-                for (var key in leftData) {
-                    var leftInfo = getInfo(true, key);
-                    var rightEntry = rightData[key];
-                    if (rightEntry === undefined) {
-                        diffFound = true;
-                        if (isRemoved) {
-                            interest.push({
-                                type: "removed",
-                                id: key,
-                                nozeroId: key.replace(/^0+/, "").toLowerCase(),
-                                leftInfo: leftInfo,
-                                leftValue: leftData[key],
-                                rightInfo: undefined,
-                                rightValue: undefined
-                            });
-                        }
-                    }
-                }
-
-                interest = applyTextFilter(interest);
+                interest = applyTextFilter(result.interest);
+                applySort(interest);
 
                 var tbl = document.getElementById("difftable");
                 clearTable(tbl, 1);
@@ -498,7 +596,182 @@
                             cll.innerHTML = formatEdid(entry.id, entry.rightInfo);
                         }
                         if (entry.rightValue !== undefined) {
-                            cll.innerHTML += "&nbsp;<span style='border: 1px dotted green; font-weight:bold'>&nbsp;" + entry.rightValue + "&nbsp;</span>";
+                            cll.innerHTML += "&nbsp;<span class='highlightvalue'>&nbsp;" + entry.rightValue + "&nbsp;</span>";
+                        }
+                    }
+                }
+            }
+
+            function dedupAndFix(entries) {
+                if (entries.length != 0) {
+                    var first = entries[0];
+                    var result = [];
+                    if (first.x === undefined) {
+                        var idx = 0;
+                        for (var e of entries) {
+                            result.push({ x: idx, y: e });
+                            idx++;
+                        }
+                    } else {
+                        var map = new Map();
+                        for (var e of entries) {
+                            map.set(e.x, e.y);
+                        }
+                        for (var e of map.entries()) {
+                            result.push({ x: e[0], y: e[1]});
+                        }
+                    }
+                    return result;
+                }
+                return entries;
+            }
+
+            function diffAsCurves() {
+                var result = computeDiff((leftEntry, leftInfo, rightEntry, rightInfo) => {
+                    leftEntry = dedupAndFix(leftEntry);
+                    rightEntry = dedupAndFix(rightEntry);
+                    if (leftEntry.length != rightEntry.length) {
+                        return true;
+                    };
+
+                    var leftMap = new Map();
+                    for (var xy of leftEntry) {
+                        leftMap.set(xy.x, xy.y);
+                    }
+
+                    for (var xy of rightEntry) {
+                        var leftY = leftMap.get(xy.x);
+                        if (leftY == null) {
+                            return true;
+                        }
+                        if (leftY != xy.y) {
+                            return true;
+                        }
+                        leftMap.delete(xy.x);
+                    }
+                    if (leftMap.size != 0) {
+                        return true;
+                    }
+                    return false;
+                });
+                var diffFound = result.diffFound;
+
+                interest = applyTextFilter(result.interest);
+                applySort(interest);
+
+                var tbl = document.getElementById("difftable");
+                clearTable(tbl, 1);
+                if (interest.length == 0) {
+
+                    var rw = tbl.insertRow(tbl.rows.length);
+                    var cll = rw.insertCell(rw.cells.length);
+                    cll.colSpan = 3;
+                    cll.style.fontStyle = "italic";
+                    cll.style.textAlign = "center";
+                    if (diffFound) {
+                        cll.innerText = "Differences were filtered out.";
+                    } else {
+                        cll.innerText = "No differences were found";
+                    }
+                } else {
+                    for (var entry of interest) {
+
+                        var rw = tbl.insertRow(tbl.rows.length);
+                        var cll = rw.insertCell(rw.cells.length);
+                        cll.style.borderTop = "1px solid #808080";
+                        if (entry.leftInfo !== undefined || entry.type !== "added") {
+                            cll.innerHTML = formatEdid(entry.id, entry.leftInfo);
+                        }
+
+                        cll = rw.insertCell(rw.cells.length);
+                        cll.style.textAlign = "center";
+
+                        if (entry.type === "added") {
+                            cll.innerText = "+";
+                            cll.style.backgroundColor = "#80FF80"; 
+                        }
+                        else if (entry.type === "modified") {
+                            cll.innerHTML = "&#x270E;";
+                            cll.style.backgroundColor = "#FFFF80"; 
+                        } else {
+                            cll.innerText = "-";
+                            cll.style.backgroundColor = "#FF8080"; 
+                        }
+
+                        cll = rw.insertCell(rw.cells.length);
+                        cll.style.borderTop = "1px solid #808080";
+                        if (entry.rightInfo !== undefined || entry.type !== "removed") {
+                            cll.innerHTML = formatEdid(entry.id, entry.rightInfo);
+                        }
+                        if (entry.rightValue !== undefined) {
+                            // TODO curve table diff
+                        }
+
+                        if (entry.type === "modified") {
+                            var unionX = [];
+                            var leftMap = new Map();
+
+                            for (var xy of dedupAndFix(entry.leftValue)) {
+                                leftMap.set(xy.x, xy.y);
+                                if (unionX.indexOf(xy.x) < 0) {
+                                    unionX.push(xy.x);
+                                }
+                            }
+                            var rightMap = new Map();
+                            for (var xy of dedupAndFix(entry.rightValue)) {
+                                rightMap.set(xy.x, xy.y);
+                                if (unionX.indexOf(xy.x) < 0) {
+                                    unionX.push(xy.x);
+                                }
+                            }
+
+                            unionX.sort((a, b) => a - b);
+
+                            for (var x of unionX) {
+                                var leftY = leftMap.get(x);
+                                var rightY = rightMap.get(x);
+
+                                if (leftY == null && rightY != null) {
+                                    var rw = tbl.insertRow(tbl.rows.length);
+                                    cll = rw.insertCell(rw.cells.length);
+                                    cll.style.textAlign = "right";
+
+                                    cll = rw.insertCell(rw.cells.length);
+                                    cll.style.textAlign = "center";
+                                    cll.innerText = "+";
+                                    cll.style.backgroundColor = "#C0FFC0"; 
+
+                                    cll = rw.insertCell(rw.cells.length);
+                                    cll.innerHTML = "X = " + x + ", Y = " + rightY;
+                                }
+                                else if (leftY != null && rightY == null) {
+                                    var rw = tbl.insertRow(tbl.rows.length);
+                                    cll = rw.insertCell(rw.cells.length);
+                                    cll.style.textAlign = "right";
+                                    cll.innerHTML = "X = " + x + ", Y = " + leftY;
+
+                                    cll = rw.insertCell(rw.cells.length);
+                                    cll.style.textAlign = "center";
+                                    cll.innerText = "-";
+                                    cll.style.backgroundColor = "#FFC0C0"; 
+
+                                    cll = rw.insertCell(rw.cells.length);
+                                } 
+                                else if (leftY != rightY) {
+                                    var rw = tbl.insertRow(tbl.rows.length);
+                                    cll = rw.insertCell(rw.cells.length);
+                                    cll.style.textAlign = "right";
+                                    cll.innerHTML = "X = " + x + ", Y = <span class='highlightvalue'>&nbsp;" + leftY + "&nbsp;</span>";
+
+                                    cll = rw.insertCell(rw.cells.length);
+                                    cll.style.textAlign = "center";
+                                    cll.innerHTML = "&#x270E;";
+                                    cll.style.backgroundColor = "#FFFFC0"; 
+
+                                    cll = rw.insertCell(rw.cells.length);
+                                    cll.innerHTML = "X = " + x + ", Y = <span class='highlightvalue'>&nbsp;" + rightY + "&nbsp;</span>";
+                                }
+                            }
                         }
                     }
                 }
@@ -546,8 +819,9 @@
             document.getElementById("diffadded").oninput = updateDiffTable;
             document.getElementById("diffmodified").oninput = updateDiffTable;
             document.getElementById("diffremoved").oninput = updateDiffTable;
+            document.getElementById("sortby").oninput = updateDiffTable;
 
-            doLoad("glob");
+            doLoad("curv");
         </script>
     </body>
 </html>
