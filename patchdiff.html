@@ -1,0 +1,553 @@
+<html>
+    <head>
+        <title>Fallout 76 Patch Difference Viewer</title>
+        <style>
+            * {
+                font-family: sans-serif;
+                font-size: 20px;
+            }
+            td {
+                padding: 2px;
+            }
+            
+            table.infoTable {
+               border: 1px solid black;
+               border-collapse: collapse;
+            }
+            table.infoTable td {
+               border: 1px solid black;
+            }
+
+            .monospaced {
+                font-family: monospace;
+            }
+        </style>
+        <meta name="keywords" content="Fallout,Fallout 76,RNG,Random,Chances,Leveled,Leveled List,LVLI,Datamine,Patch,Diff,Difference,Comparison">
+    </head>
+    <body>
+        <center>
+            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Patch Difference Viewer (0.0.1)</span><br/>
+            <br/>
+            <br/>
+            <table>
+                <tr>
+                    <td>
+                        Patch (left):&nbsp;
+                        <select id='versionleft'>
+                            <option value='P19' selected='selected'>Update 19: 19th May, 2020</option>
+                            <!-- <option value='P191'>Update 19: 19th May, 2020 (test)</option> -->
+                            <option value='P20'>Update 20: 30th June, 2020 (latest)</option>
+                        </select>
+                    </td>
+                    <td>
+                        Patch (right):
+                        <select id='versionright'>
+                            <option value='P19'>Update 19: 19th May, 2020</option>
+                            <!-- <option value='P191'>Update 19: 19th May, 2020 (test)</option> -->
+                            <option value='P20' selected>Update 20: 30th June, 2020 (latest)</option>
+                        </select>
+                    </td>
+                    <td rowspan="2" style="padding-left: 25px;">
+                        <button id='resetPage'>Reset</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2" style="text-align: center; padding-top: 15px;">
+                        <button id="datasetEDID">Load Editor IDs</button>&nbsp;&nbsp;
+                        <button id="datasetGLOB">Load Globals</button>&nbsp;&nbsp;
+                        <button id="datasetCURV" disabled>Load Curve Tables</button>
+                        <button id="datasetLVLI" disabled>Load Leveled Lists</button>
+                    </td>
+                </tr>
+            </table>
+            <hr>
+            <table>
+                <tr>
+                    <td>
+                        Filter by FormID, Editor ID or Description: <input type="text" id="filterdiff" style="width: 600px">
+                        &nbsp;&nbsp;&nbsp;
+                        <input type="checkbox" id="diffadded" checked><label for="diffadded">Additions</label>&nbsp;&nbsp;
+                        <input type="checkbox" id="diffmodified" checked><label for="diffmodified">Modifications</label>&nbsp;&nbsp;
+                        <input type="checkbox" id="diffremoved" checked><label for="diffremoved">Removals</label>
+                    </td>
+                </tr>
+            </table>
+            <hr>
+            <table id="difftable">
+                <tr>
+                    <td id="diffleft" style='text-align: center; font-weight: bold; border-bottom: 1px solid black;'>
+
+                    </td>
+                    <td style='text-align: center; font-weight: bold; border-bottom: 1px solid black; width: 50px;'>
+
+                    </td>
+                    <td id="diffright" style='text-align: center; font-weight: bold; border-bottom: 1px solid black;'>
+
+                    </td>
+                </tr>
+            </table>
+        </center>
+        <script>
+            // property key is the FormID, property value is the Group string (4chars) concatenated with the EditorID
+            var edids = {};
+            // property key is the FormID, property value is the global float
+            var globals = {};
+            // property key is the FormID, property value is the leveled list object
+            var leveledLists = {};
+            // property key is the FormID, property value is an array of objects with the form { "x": 0, "y" : 0 }
+            var curves = {};
+
+            var leftData = {};
+            var leftEdids = {};
+            var rightData = {};
+            var rightEdids = {};
+
+            // called to render the appropriate difference
+            var renderDiffFunc = undefined;
+
+            function loadScript(id, src, callback) {
+                var r = false;
+                var s = document.createElement('script');
+                s.id = id;
+                s.type = 'text/javascript';
+                s.src = src;
+                s.onload = s.onreadystatechange = function() {
+                    //console.log( this.readyState ); //uncomment this line to see which ready states are called.
+                    if ( !r && (!this.readyState || this.readyState == 'complete') ) {
+                        r = true;
+                        callback(s);
+                    }
+                };
+                var t = document.getElementsByTagName('script')[0];
+                t.parentNode.insertBefore(s, t);
+            }
+
+            function isChecked(id) {
+                return document.getElementById(id).checked;
+            }
+
+            function valueOf(id) {
+                var sel = document.getElementById(id);
+                if (sel.selectedIndex !== undefined) {
+                    return sel.options[sel.selectedIndex].value;
+                }
+                return sel.value;
+            }
+
+            function textOf(id) {
+                var sel = document.getElementById(id);
+                return sel.options[sel.selectedIndex].text;
+            }
+
+            function removeOf(id) {
+                var t = document.getElementById(id);
+                if (t != null) {
+                    t.parentNode.removeChild(t);
+                }
+            }
+
+            function doLoad(mode) {
+                var versionLeft = valueOf("versionleft");
+                var versionRight = valueOf("versionright");
+                document.getElementById("diffleft").innerText = textOf("versionleft");
+                document.getElementById("diffright").innerText = textOf("versionright");
+
+                var fileName = undefined;
+                var saveFunc = undefined;
+                renderDiffFunc = undefined;
+
+                if (mode === "edid") {
+                    fileName = "SeventySix_EDIDs.js";
+                    saveFunc = () => edids;
+                    renderDiffFunc = diffAsEditorIDs;
+                }
+                else if (mode === "glob") {
+                    fileName = "SeventySix_GLOBs.js";
+                    saveFunc = () => globals;
+                    renderDiffFunc = diffAsGlobals;
+                }
+                else if (mode === "curv") {
+                    fileName = "SeventySix_CURVs.js";
+                    saveFunc = () => curves;
+                }
+                else if (mode === "lvli") {
+                    fileName = "SeventySix_LVLIs.js";
+                    saveFunc = () => leveledLists;
+                }
+
+                if (fileName !== undefined) {
+                    removeOf("leftEdids");
+                    removeOf("leftScript");
+                    removeOf("rightEdids");
+                    removeOf("rightScript");
+                    clearTable(document.getElementById("difftable"), 1);
+
+                    loadScript("leftEdids", versionLeft + "_SeventySix_EDIDs.js", node => {
+                        leftEdids = edids;
+                        loadScript("leftScript", versionLeft + "_" + fileName, node => {
+                            leftData = saveFunc();
+                            loadScript("rightEdids", versionRight + "_SeventySix_EDIDs.js", node => {
+                                rightEdids = edids;
+                                loadScript("rightScript", versionRight + "_"  + fileName, node => {
+                                    rightData = saveFunc();
+
+                                    updateDiffTable();
+                                });
+                            });
+                        });
+                    });
+                }
+            }
+
+            function clearTable(tbl, skipRows) {
+                if (skipRows === undefined) {
+                    skipRows = 0;
+                }
+                for (var i = tbl.rows.length - 1; i >= skipRows; i--) {
+                    tbl.deleteRow(i);
+                }
+            }
+
+            function updateDiffTable() {
+                if (renderDiffFunc !== undefined) {
+                    renderDiffFunc();
+                }
+            }
+
+            function getInfo(isLeft, key) {
+                var list = isLeft ? leftEdids : rightEdids;
+                var entry = list[key];
+                if (entry !== undefined) {
+                    var group = entry.substring(0, 4);
+                    var desc = "";
+                    var editorId = "";
+                    var idx = entry.indexOf(" ", 4);
+                    if (idx >= 0) {
+                        editorId = entry.substring(4, idx);
+                        desc = entry.substring(idx + 1);
+                    } else {
+                        editorId = entry.substring(4);
+                    }
+                    return {
+                        group: group,
+                        editorId: editorId,
+                        description: desc
+                    };
+                }
+                return undefined;
+            }
+
+            function applyTextFilter(interest) {
+                // filter out entries
+                var searchText = document.getElementById("filterdiff").value;
+                if (searchText !== "") {
+                    var oldInterest = interest;
+                    interest = [];
+
+                    var regexps = parseSearchText(searchText);
+
+                    for (var entry of oldInterest) {
+                        var valuesToCheck = [ entry.nozeroId ];
+                        if (entry.leftInfo !== undefined) {
+                            valuesToCheck.push(entry.leftInfo.editorId);
+                            if (entry.leftInfo.description !== "") {
+                                valuesToCheck.push(entry.leftInfo.description);
+                            }
+                        }
+                        if (entry.rightInfo !== undefined) {
+                            valuesToCheck.push(entry.rightInfo.editorId);
+                            if (entry.rightInfo.description !== "") {
+                                valuesToCheck.push(entry.rightInfo.description);
+                            }
+                        }
+
+                        rgx:
+                        for (var regexp of regexps) {
+
+                            for (var toCheck of valuesToCheck) {
+                                if (regexp.test(toCheck)) {
+                                    interest.push(entry);
+                                    break rgx;
+                                }
+                            }
+                        }
+                    }
+                }
+
+                return interest;
+            }
+
+            function diffAsEditorIDs() {
+                var interest = [];
+                var diffFound = false;
+                var isAdd = isChecked("diffadded");
+                var isModified = isChecked("diffmodified");
+                var isRemoved = isChecked("diffremoved");
+
+                // find additions in right
+                for (var key in rightData) {
+                    var rightInfo = getInfo(false, key);
+                    var leftEntry = leftData[key];
+
+                    if (leftEntry === undefined) {
+                        diffFound = true;
+                        if (isAdd) {
+                            interest.push({
+                                type: "added",
+                                id: key,
+                                nozeroId: key.replace(/^0+/, "").toLowerCase(),
+                                leftInfo: undefined,
+                                rightInfo: rightInfo
+                            });
+                        }
+                    } else {
+                        leftInfo = getInfo(true, key);
+                        if (leftInfo.group !== rightInfo.group ||
+                                leftInfo.editorId !== rightInfo.editorId ||
+                                leftInfo.description !== rightInfo.description) {
+                            diffFound = true;
+                            if (isModified) {
+                                interest.push({
+                                    type: "modified",
+                                    id: key,
+                                    nozeroId: key.replace(/^0+/, "").toLowerCase(),
+                                    leftInfo: leftInfo,
+                                    rightInfo: rightInfo
+                                });
+                            }
+                        }
+                    }
+                }
+                // find removals on the right
+                for (var key in leftData) {
+                    var leftInfo = getInfo(true, key);
+                    var rightEntry = rightData[key];
+                    if (rightEntry === undefined) {
+                        diffFound = true;
+                        if (isRemoved) {
+                            interest.push({
+                                type: "removed",
+                                id: key,
+                                nozeroId: key.replace(/^0+/, "").toLowerCase(),
+                                leftInfo: leftInfo,
+                                rightInfo: undefined
+                            });
+                        }
+                    }
+                }
+
+                interest = applyTextFilter(interest);
+
+                var tbl = document.getElementById("difftable");
+                clearTable(tbl, 1);
+                if (interest.length == 0) {
+
+                    var rw = tbl.insertRow(tbl.rows.length);
+                    var cll = rw.insertCell(rw.cells.length);
+                    cll.colSpan = 3;
+                    cll.style.fontStyle = "italic";
+                    cll.style.textAlign = "center";
+                    if (diffFound) {
+                        cll.innerText = "Differences were filtered out.";
+                    } else {
+                        cll.innerText = "No differences were found";
+                    }
+                } else {
+                    for (var entry of interest) {
+                        var rw = tbl.insertRow(tbl.rows.length);
+                        rw.style.borderTop = "1px solid #808080";
+                        var cll = rw.insertCell(rw.cells.length);
+
+                        if (entry.leftInfo !== undefined) {
+                            cll.innerHTML = formatEdid(entry.id, entry.leftInfo);
+                        }
+
+                        cll = rw.insertCell(rw.cells.length);
+                        cll.style.textAlign = "center";
+
+                        if (entry.type === "added") {
+                            cll.innerText = "+";
+                            cll.style.backgroundColor = "#80FF80"; 
+                        }
+                        else if (entry.type === "modified") {
+                            cll.innerHTML = "&#x270E;";
+                            cll.style.backgroundColor = "#FFFF80"; 
+                        } else {
+                            cll.innerText = "-";
+                            cll.style.backgroundColor = "#FF8080"; 
+                        }
+
+                        cll = rw.insertCell(rw.cells.length);
+                        if (entry.rightInfo !== undefined) {
+                            cll.innerHTML = formatEdid(entry.id, entry.rightInfo);
+                        }
+                    }
+                }
+            }
+
+            function diffAsGlobals() {
+                var interest = [];
+                var diffFound = false;
+                var isAdd = isChecked("diffadded");
+                var isModified = isChecked("diffmodified");
+                var isRemoved = isChecked("diffremoved");
+
+                // find additions in right
+                for (var key in rightData) {
+                    var rightInfo = getInfo(false, key);
+                    var leftEntry = leftData[key];
+
+                    if (leftEntry === undefined) {
+                        diffFound = true;
+                        if (isAdd) {
+                            interest.push({
+                                type: "added",
+                                id: key,
+                                nozeroId: key.replace(/^0+/, "").toLowerCase(),
+                                leftInfo: undefined,
+                                leftValue: undefined,                                
+                                rightInfo: rightInfo,
+                                rightValue: rightData[key]
+                            });
+                        }
+                    } else {
+                        leftInfo = getInfo(true, key);
+                        var leftValue = leftData[key];
+                        var rightValue = rightData[key];
+                        if (leftValue != rightValue) {
+                            diffFound = true;
+                            if (isModified) {
+                                interest.push({
+                                    type: "modified",
+                                    id: key,
+                                    nozeroId: key.replace(/^0+/, "").toLowerCase(),
+                                    leftInfo: leftInfo,
+                                    leftValue: leftValue,
+                                    rightInfo: rightInfo,
+                                    rightValue: rightValue
+                                });
+                            }
+                        }
+                    }
+                }
+                // find removals on the right
+                for (var key in leftData) {
+                    var leftInfo = getInfo(true, key);
+                    var rightEntry = rightData[key];
+                    if (rightEntry === undefined) {
+                        diffFound = true;
+                        if (isRemoved) {
+                            interest.push({
+                                type: "removed",
+                                id: key,
+                                nozeroId: key.replace(/^0+/, "").toLowerCase(),
+                                leftInfo: leftInfo,
+                                leftValue: leftData[key],
+                                rightInfo: undefined,
+                                rightValue: undefined
+                            });
+                        }
+                    }
+                }
+
+                interest = applyTextFilter(interest);
+
+                var tbl = document.getElementById("difftable");
+                clearTable(tbl, 1);
+                if (interest.length == 0) {
+
+                    var rw = tbl.insertRow(tbl.rows.length);
+                    var cll = rw.insertCell(rw.cells.length);
+                    cll.colSpan = 3;
+                    cll.style.fontStyle = "italic";
+                    cll.style.textAlign = "center";
+                    if (diffFound) {
+                        cll.innerText = "Differences were filtered out.";
+                    } else {
+                        cll.innerText = "No differences were found";
+                    }
+                } else {
+                    for (var entry of interest) {
+                        var rw = tbl.insertRow(tbl.rows.length);
+                        rw.style.borderTop = "1px solid #808080";
+                        var cll = rw.insertCell(rw.cells.length);
+                        if (entry.leftInfo !== undefined || entry.type !== "added") {
+                            cll.innerHTML = formatEdid(entry.id, entry.leftInfo);
+                        }
+                        if (entry.leftValue !== undefined) {
+                            cll.innerHTML += "&nbsp;<span style='border: 1px dotted green; font-weight:bold'>&nbsp;" + entry.leftValue + "&nbsp;</span>";
+                        }
+
+                        cll = rw.insertCell(rw.cells.length);
+                        cll.style.textAlign = "center";
+
+                        if (entry.type === "added") {
+                            cll.innerText = "+";
+                            cll.style.backgroundColor = "#80FF80"; 
+                        }
+                        else if (entry.type === "modified") {
+                            cll.innerHTML = "&#x270E;";
+                            cll.style.backgroundColor = "#FFFF80"; 
+                        } else {
+                            cll.innerText = "-";
+                            cll.style.backgroundColor = "#FF8080"; 
+                        }
+
+                        cll = rw.insertCell(rw.cells.length);
+                        if (entry.rightInfo !== undefined || entry.type !== "removed") {
+                            cll.innerHTML = formatEdid(entry.id, entry.rightInfo);
+                        }
+                        if (entry.rightValue !== undefined) {
+                            cll.innerHTML += "&nbsp;<span style='border: 1px dotted green; font-weight:bold'>&nbsp;" + entry.rightValue + "&nbsp;</span>";
+                        }
+                    }
+                }
+            }
+
+            function formatEdid(key, info) {
+                var txt = "";
+                if (info === undefined) {
+                    txt = "<span class='monospaced'>????:" + key + " &lt;???&gt;</span>";
+                } else {
+                    txt = "<span class='monospaced'>" + info.group + ":" + key + " &lt;" + info.editorId + "&gt;</span>";
+                }
+                if (info !== undefined && info.description !== "") {
+                    txt += " <b>" + info.description + "</b>";
+                }
+                return "<a href='https://nukacrypt.com/database/json/" + key + "' target='_blank' title='See Nukacrypt data.'>&#x2622;</a>&nbsp;" + txt;
+            }
+
+            function parseSearchText(text) {
+                var result = text.split(",");
+                for (var i = 0; i < result.length; i++) {
+                    // remove spaces
+                    var entry = result[i].trim();
+
+                    entry = entry.replace(" ", "\\s");;
+                    entry = entry.replace(/\*/g, ".*");
+                    entry = entry.replace(/^0+/, "");
+                    entry = entry.toLowerCase();
+
+                    result[i] = new RegExp("^" + entry + "$", "i");
+                }
+
+                return result;
+            }
+
+            document.getElementById("datasetEDID").onclick = () => doLoad("edid");
+            document.getElementById("datasetGLOB").onclick = () => doLoad("glob");
+            document.getElementById("datasetCURV").onclick = () => doLoad("curv");
+            document.getElementById("datasetLVLI").onclick = () => doLoad("lvli");
+
+            document.getElementById("resetPage").onclick = function() {
+                window.location = "patchdiff.html";
+            }
+            document.getElementById("filterdiff").oninput = updateDiffTable;
+            document.getElementById("diffadded").oninput = updateDiffTable;
+            document.getElementById("diffmodified").oninput = updateDiffTable;
+            document.getElementById("diffremoved").oninput = updateDiffTable;
+
+            doLoad("glob");
+        </script>
+    </body>
+</html>
