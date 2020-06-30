@@ -27,6 +27,16 @@
                 padding-right: 3px;
                 box-shadow: 2px 2px #888888;
             }
+            .pickerOn {
+                border:1px dotted black; 
+                text-decoration: none;
+                font-weight: bold; 
+                background-color: #A0FFA0; 
+                padding-left: 3px; 
+                padding-right: 3px;
+                box-shadow: 2px 2px #888888;
+            }
+
             .monospaced {
                 font-family: monospace;
             }
@@ -35,7 +45,7 @@
     </head>
     <body>
         <center>
-            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Drop Chances (0.2.2)</span><br/>
+            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Drop Chances (0.2.3)</span><br/>
             <a href='leveledlist' target='_blank'>How does it work?</a>
             <br/>
             <br/>
@@ -550,9 +560,29 @@
                         for (var i = 0; i < input.options.length; i++) {
                             var opt = input.options[i];
                             if (opt.value == entry) {
-                                opt.selected = true;
+                                if (opt.selected) {
+                                    opt.selected = false;
+                                    input.options[0].selected = true;
+                                } else {
+                                    opt.selected = true;
+                                }
                                 input.dispatchEvent(new Event('input'));
                                 break;
+                            }
+                        }
+                    }
+                }
+                return false;
+            }
+
+            function isComboSelected(key, entry) {
+                var input = settingsMap.get(key);
+                if (input !== undefined) {
+                    if (input.selectedIndex !== undefined) {
+                        for (var i = 0; i < input.options.length; i++) {
+                            var opt = input.options[i];
+                            if (opt.value == entry && opt.selected) {
+                                return true;
                             }
                         }
                     }
@@ -566,6 +596,11 @@
                     input.checked = !input.checked;
                     input.dispatchEvent(new Event('input'));
                 }
+            }
+
+            function isCheckBoxSelected(key) {
+                var input = settingsMap.get(key);
+                return input !== undefined && input.checked;
             }
 
             function buildConditionEntry(parent, entry, maxCols) {
@@ -620,25 +655,39 @@
             };
 
             var displayOneLinkCheckFunc = function(fn, cond) {
+                var clazz = "picker";
+                var key = fn + "_" + cond.Param1Ref;
+                if (isCheckBoxSelected(key)) {
+                    clazz = "pickerOn";
+                }
                 return "(" + createNukaLink(cond.Param1Ref) + ")"
-                + "&nbsp;<a href='#' onclick='javascript:toggleCheckBoxSettings(\"" + fn + "_" + cond.Param1Ref
+                + "&nbsp;<a href='#' onclick='javascript:toggleCheckBoxSettings(\"" + key
                 + "\"); return false;' title='Toggle this condition' "
-                + "class='picker'>&#x2190;</a>"
+                + "class='" + clazz + "'>&#x2190;</a>"
                 ;
             };
 
             var displayNoneCheckFunc = function(fn, cond) {
+                var clazz = "picker";
+                var key = fn;
+                if (isCheckBoxSelected(key)) {
+                    clazz = "pickerOn";
+                }
                 return "&nbsp;<a href='#' onclick='javascript:toggleCheckBoxSettings(\"" + fn
                 + "\"); return false;' title='Toggle this condition' "
-                + "class='picker'>&#x2190;</a>"
+                + "class='" + clazz + "'>&#x2190;</a>"
                 ;
             };
 
             var displayOneLinkPickFunc = function(fn, cond) {
+                var clazz = "picker";
+                if (isComboSelected(fn, cond.Param1Ref)) {
+                    clazz = "pickerOn"
+                }
                 return "(" + createNukaLink(cond.Param1Ref) + ")"
                 + "&nbsp;<a href='#' onclick='javascript:pickComboSettings(\"" + fn + "\", \"" + cond.Param1Ref
-                + "\"); return false;' title='Use this in the settings' "
-                + "class='picker'>&#x2190;</a>"
+                + "\"); return false;' title='Use this in the settings. Click again to select N/A.' "
+                + "class='" + clazz + "'>&#x2190;</a>"
                 ;
             };
 
