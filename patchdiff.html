@@ -30,7 +30,7 @@
     </head>
     <body>
         <center>
-            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Patch Difference Viewer (0.0.2)</span><br/>
+            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Patch Difference Viewer (0.0.4)</span><br/>
             <br/>
             <br/>
             <table>
@@ -62,8 +62,8 @@
                     <td colspan="2" style="text-align: center; padding-top: 15px;">
                         <button id="datasetEDID">Load Editor IDs</button>&nbsp;&nbsp;
                         <button id="datasetGLOB">Load Globals</button>&nbsp;&nbsp;
-                        <button id="datasetCURV">Load Curve Tables</button>
-                        <button id="datasetLVLI" disabled>Load Leveled Lists</button>
+                        <button id="datasetCURV">Load Curve Tables</button>&nbsp;&nbsp;
+                        <button id="datasetLVLI">Load Leveled Lists</button>
                     </td>
                 </tr>
             </table>
@@ -71,11 +71,14 @@
             <table>
                 <tr>
                     <td>
-                        Filter by FormID, Editor ID or Description: <input type="text" id="filterdiff" style="width: 600px">
-                        &nbsp;&nbsp;&nbsp;
-                        <input type="checkbox" id="diffadded" checked><label for="diffadded">Additions</label>&nbsp;&nbsp;
-                        <input type="checkbox" id="diffmodified" checked><label for="diffmodified">Modifications</label>&nbsp;&nbsp;
-                        <input type="checkbox" id="diffremoved" checked><label for="diffremoved">Removals</label>
+                        Filter by Group, FormID, Editor ID or Description: <input type="text" id="filterdiff" style="width: 600px">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="checkbox" id="diffadded" checked><label for="diffadded">Additions</label>&nbsp;<span id='addcount'></span>&nbsp;&nbsp;
+                        <input type="checkbox" id="diffmodified" checked><label for="diffmodified">Modifications</label>&nbsp;<span id='modcount'></span>&nbsp;&nbsp;
+                        <input type="checkbox" id="diffremoved" checked><label for="diffremoved">Removals</label>&nbsp;<span id='removecount'></span>
                         &nbsp;&nbsp;&nbsp;&nbsp;Sort by: <select id="sortby">
                             <option value="file">File order</option>
                             <option value="formid">FormID</option>
@@ -193,6 +196,7 @@
                 else if (mode === "lvli") {
                     fileName = "SeventySix_LVLIs.js";
                     saveFunc = () => leveledLists;
+                    renderDiffFunc = diffAsLeveledLists;
                 }
 
                 if (fileName !== undefined) {
@@ -275,12 +279,14 @@
                         var valuesToCheck = [ entry.nozeroId ];
                         if (entry.leftInfo !== undefined) {
                             valuesToCheck.push(entry.leftInfo.editorId);
+                            valuesToCheck.push(entry.leftInfo.group);
                             if (entry.leftInfo.description !== "") {
                                 valuesToCheck.push(entry.leftInfo.description);
                             }
                         }
                         if (entry.rightInfo !== undefined) {
                             valuesToCheck.push(entry.rightInfo.editorId);
+                            valuesToCheck.push(entry.rightInfo.group);
                             if (entry.rightInfo.description !== "") {
                                 valuesToCheck.push(entry.rightInfo.description);
                             }
@@ -482,6 +488,27 @@
                 };
             }
 
+            function countChanges(list) {
+                var addcnt = 0;
+                var modcnt = 0;
+                var remcnt = 0;
+
+                for (var e of list) {
+                    if (e.type === "added") {
+                        addcnt++;
+                    }
+                    if (e.type === "modified") {
+                        modcnt++;
+                    }
+                    if (e.type === "removed") {
+                        remcnt++;
+                    }
+                }
+                document.getElementById("addcount").innerText = "(" + addcnt + ")";
+                document.getElementById("modcount").innerText = "(" + modcnt + ")";
+                document.getElementById("removecount").innerText = "(" + remcnt + ")";
+            }
+
             function diffAsEditorIDs() {
 
                 var result = computeDiff((leftEntry, leftInfo, rightEntry, rightInfo) => {
@@ -493,6 +520,7 @@
 
                 interest = applyTextFilter(result.interest);
                 applySort(interest);
+                countChanges(interest);
 
                 var tbl = document.getElementById("difftable");
                 clearTable(tbl, 1);
@@ -509,13 +537,16 @@
                         cll.innerText = "No differences were found";
                     }
                 } else {
+                    var versionleft = valueOf("versionleft");
+                    var versionright = valueOf("versionright");
+
                     for (var entry of interest) {
                         var rw = tbl.insertRow(tbl.rows.length);
                         rw.style.borderTop = "1px solid #808080";
                         var cll = rw.insertCell(rw.cells.length);
 
                         if (entry.leftInfo !== undefined) {
-                            cll.innerHTML = formatEdid(entry.id, entry.leftInfo);
+                            cll.innerHTML = formatEdid(entry.id, entry.leftInfo, versionleft);
                         }
 
                         cll = rw.insertCell(rw.cells.length);
@@ -535,7 +566,7 @@
 
                         cll = rw.insertCell(rw.cells.length);
                         if (entry.rightInfo !== undefined) {
-                            cll.innerHTML = formatEdid(entry.id, entry.rightInfo);
+                            cll.innerHTML = formatEdid(entry.id, entry.rightInfo, versionright);
                         }
                     }
                 }
@@ -549,6 +580,7 @@
 
                 interest = applyTextFilter(result.interest);
                 applySort(interest);
+                countChanges(interest);
 
                 var tbl = document.getElementById("difftable");
                 clearTable(tbl, 1);
@@ -565,12 +597,15 @@
                         cll.innerText = "No differences were found";
                     }
                 } else {
+                    var versionleft = valueOf("versionleft");
+                    var versionright = valueOf("versionright");
+
                     for (var entry of interest) {
                         var rw = tbl.insertRow(tbl.rows.length);
                         rw.style.borderTop = "1px solid #808080";
                         var cll = rw.insertCell(rw.cells.length);
                         if (entry.leftInfo !== undefined || entry.type !== "added") {
-                            cll.innerHTML = formatEdid(entry.id, entry.leftInfo);
+                            cll.innerHTML = formatEdid(entry.id, entry.leftInfo, versionleft);
                         }
                         if (entry.leftValue !== undefined) {
                             cll.innerHTML += "&nbsp;<span style='border: 1px dotted green; font-weight:bold'>&nbsp;" + entry.leftValue + "&nbsp;</span>";
@@ -593,7 +628,7 @@
 
                         cll = rw.insertCell(rw.cells.length);
                         if (entry.rightInfo !== undefined || entry.type !== "removed") {
-                            cll.innerHTML = formatEdid(entry.id, entry.rightInfo);
+                            cll.innerHTML = formatEdid(entry.id, entry.rightInfo, versionright);
                         }
                         if (entry.rightValue !== undefined) {
                             cll.innerHTML += "&nbsp;<span class='highlightvalue'>&nbsp;" + entry.rightValue + "&nbsp;</span>";
@@ -658,6 +693,7 @@
 
                 interest = applyTextFilter(result.interest);
                 applySort(interest);
+                countChanges(interest);
 
                 var tbl = document.getElementById("difftable");
                 clearTable(tbl, 1);
@@ -674,13 +710,16 @@
                         cll.innerText = "No differences were found";
                     }
                 } else {
+                    var versionleft = valueOf("versionleft");
+                    var versionright = valueOf("versionright");
+
                     for (var entry of interest) {
 
                         var rw = tbl.insertRow(tbl.rows.length);
                         var cll = rw.insertCell(rw.cells.length);
                         cll.style.borderTop = "1px solid #808080";
                         if (entry.leftInfo !== undefined || entry.type !== "added") {
-                            cll.innerHTML = formatEdid(entry.id, entry.leftInfo);
+                            cll.innerHTML = formatEdid(entry.id, entry.leftInfo, versionleft);
                         }
 
                         cll = rw.insertCell(rw.cells.length);
@@ -701,7 +740,7 @@
                         cll = rw.insertCell(rw.cells.length);
                         cll.style.borderTop = "1px solid #808080";
                         if (entry.rightInfo !== undefined || entry.type !== "removed") {
-                            cll.innerHTML = formatEdid(entry.id, entry.rightInfo);
+                            cll.innerHTML = formatEdid(entry.id, entry.rightInfo, versionright);
                         }
                         if (entry.rightValue !== undefined) {
                             // TODO curve table diff
@@ -777,7 +816,120 @@
                 }
             }
 
-            function formatEdid(key, info) {
+            function arrayEquals(left, right, onEntry) {
+                if (left === undefined && right === undefined) {
+                    return true;
+                }
+                if (left !== undefined && right !== undefined) {
+                    if (left.length === right.length) {
+                        for (var i = 0; i < left.length; i++) {
+                            if (onEntry(left[i], right[i])) {
+                                return false;
+                            }
+                        }
+                        return true;
+                    }
+                }
+                return false;
+            }
+
+            function compareConditions(cleft, cright) {
+                return cleft.FunctionName === cright.FunctionName
+                    && cleft.Value === cright.Value
+                    && cleft.Ref === cright.Ref
+                    && cleft.Param1Value === cright.Param1Value
+                    && cleft.Param1Ref === cright.Param1Ref
+                    && cleft.Param2Value === cright.Param2Value
+                    && cleft.Param2Ref === cright.Param2Ref
+                ;
+            }
+
+            function diffAsLeveledLists() {
+                var result = computeDiff((leftEntry, leftInfo, rightEntry, rightInfo) => {
+                    return 
+                        leftEntry.LVLF === rightEntry.LVLF
+                        && leftEntry.LVMV === rightEntry.LVMV
+                        && leftEntry.LVMG === rightEntry.LVMG
+                        && leftEntry.LVMT === rightEntry.LVMT
+                        && leftEntry.LVCV === rightEntry.LVCV
+                        && leftEntry.LVLG === rightEntry.LVLG
+                        && leftEntry.LVCT === rightEntry.LVCT
+                        && arrayEquals(leftEntry.Conditions, rightEntry.Conditions, compareConditions)
+                        && arrayEquals(leftEntry.Entries, rightEntry.Entries, (eleft, eright) => {
+                            return eleft.Object === eright.Object
+                                && eleft.LVOV === eright.LVOV
+                                && eleft.LVOC === eright.LVOC
+                                && eleft.LVOT === eright.LVOT
+                                && eleft.LVLV === eright.LVLV
+                                && eleft.LVOG === eright.LVOG
+                                && eleft.LVIV === eright.LVIV
+                                && eleft.LVIG === eright.LVIG
+                                && arrayEquals(eleft.Conditions, eright.Conditions, compareConditions)
+                            ;
+                        })
+                    ;
+                });
+                var diffFound = result.diffFound;
+
+                interest = applyTextFilter(result.interest);
+                applySort(interest);
+                countChanges(interest);
+
+                var tbl = document.getElementById("difftable");
+                clearTable(tbl, 1);
+                if (interest.length == 0) {
+
+                    var rw = tbl.insertRow(tbl.rows.length);
+                    var cll = rw.insertCell(rw.cells.length);
+                    cll.colSpan = 3;
+                    cll.style.fontStyle = "italic";
+                    cll.style.textAlign = "center";
+                    if (diffFound) {
+                        cll.innerText = "Differences were filtered out.";
+                    } else {
+                        cll.innerText = "No differences were found";
+                    }
+                } else {
+                    var versionleft = valueOf("versionleft");
+                    var versionright = valueOf("versionright");
+
+                    for (var entry of interest) {
+                        var rw = tbl.insertRow(tbl.rows.length);
+                        rw.style.borderTop = "1px solid #808080";
+                        var cll = rw.insertCell(rw.cells.length);
+                        if (entry.leftInfo !== undefined || entry.type !== "added") {
+                            cll.innerHTML = formatEdid(entry.id, entry.leftInfo, versionleft);
+                        }
+
+                        cll = rw.insertCell(rw.cells.length);
+                        cll.style.textAlign = "center";
+
+                        if (entry.type === "added") {
+                            cll.innerText = "+";
+                            cll.style.backgroundColor = "#80FF80"; 
+                        }
+                        else if (entry.type === "modified") {
+                            cll.innerHTML = "&#x270E;";
+                            cll.style.backgroundColor = "#FFFF80"; 
+                        } else {
+                            cll.innerText = "-";
+                            cll.style.backgroundColor = "#FF8080"; 
+                        }
+
+                        cll = rw.insertCell(rw.cells.length);
+                        if (entry.rightInfo !== undefined || entry.type !== "removed") {
+                            cll.innerHTML = formatEdid(entry.id, entry.rightInfo, versionright);
+                        }
+
+                        // TODO diff
+                        if (entry.type === "modified") {
+
+                        }
+                    }
+                }
+            }
+
+            function formatEdid(key, info, patchId) {
                 var txt = "";
                 if (info === undefined) {
                     txt = "<span class='monospaced'>????:" + key + " &lt;???&gt;</span>";
@@ -786,6 +938,10 @@
                 }
                 if (info !== undefined && info.description !== "") {
                     txt += " <b>" + info.description + "</b>";
+                }
+                if (info.group === "LVLI") {
+                    var lnk = "chances.html?patch=" + patchId + "&formids=" + key;
+                    txt += "&nbsp;<a href='" + lnk + "' target='_blank' title='Open in new window' style='font-weight: bold; border: 1px solid blue;'>&nbsp;&#x2197;&nbsp;</a>"
                 }
                 return "<a href='https://nukacrypt.com/database/json/" + key + "' target='_blank' title='See Nukacrypt data.'>&#x2622;</a>&nbsp;" + txt;
             }
@@ -821,7 +977,7 @@
             document.getElementById("diffremoved").oninput = updateDiffTable;
             document.getElementById("sortby").oninput = updateDiffTable;
 
-            doLoad("curv");
+            doLoad("lvli");
         </script>
     </body>
 </html>
