@@ -30,7 +30,7 @@
     </head>
     <body>
         <center>
-            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Patch Difference Viewer (0.0.4)</span><br/>
+            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Patch Difference Viewer (0.0.5)</span><br/>
             <br/>
             <br/>
             <table>
@@ -823,7 +823,7 @@
                 if (left !== undefined && right !== undefined) {
                     if (left.length === right.length) {
                         for (var i = 0; i < left.length; i++) {
-                            if (onEntry(left[i], right[i])) {
+                            if (!onEntry(left[i], right[i])) {
                                 return false;
                             }
                         }
@@ -841,12 +841,14 @@
                     && cleft.Param1Ref === cright.Param1Ref
                     && cleft.Param2Value === cright.Param2Value
                     && cleft.Param2Ref === cright.Param2Ref
+                    && cleft.Operator === cright.Operator
+                    //&& cleft.RunOn === cright.RunOn
                 ;
             }
 
             function diffAsLeveledLists() {
                 var result = computeDiff((leftEntry, leftInfo, rightEntry, rightInfo) => {
-                    return 
+                    var result = 
                         leftEntry.LVLF === rightEntry.LVLF
                         && leftEntry.LVMV === rightEntry.LVMV
                         && leftEntry.LVMG === rightEntry.LVMG
@@ -868,6 +870,7 @@
                             ;
                         })
                     ;
+                    return !result;
                 });
                 var diffFound = result.diffFound;
 

@@ -45,7 +45,7 @@
     </head>
     <body>
         <center>
-            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Drop Chances (0.3.0)</span><br/>
+            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Drop Chances (0.3.1)</span><br/>
             <a href='leveledlist' target='_blank'>How does it work?</a>
             <br/>
             <br/>
@@ -109,7 +109,9 @@
 
             </table>
             <hr>
-            <a id='tableLink' href="#" target="_blank" style='display: none;'>Link to the selected setup below:</a><br/><br/>
+            <span id='tablelinks'>
+            </span>
+            <br/><br/>
             <input type='checkbox' id='Coalesce' checked><label for='Coalesce'>Coalesce duplicate entries</label>
             <input type='checkbox' id='ShowFailedConditions' checked><label for='ShowFailedConditions'>Show entries with failed conditions</label>
             <br/><br/>
@@ -967,9 +969,12 @@
                        && (curr.Conditions === undefined && prev.Conditions === undefined);
             }
 
-            function prepareLinkDefault() {
+            function currentPatch() {
                 var patchSel = document.getElementById("versionselect");
-                var patch = patchSel.options[patchSel.selectedIndex].value;
+                return patchSel.options[patchSel.selectedIndex].value;
+            }
+
+            function prepareLinkDefault(patch) {
 
                 var lnk = "?patch=" + patch;
                 if (!document.getElementById("Coalesce").checked) {
@@ -982,7 +987,7 @@
             }
 
             function createOpenNewWindow(formID) {
-                var lnk = prepareLinkDefault();
+                var lnk = prepareLinkDefault(currentPatch());
                 lnk += "&formids=" + encodeURIComponent(formID);
 
                 return "<a href='" + lnk + "' target='_blank' title='Open in new window' style='font-weight: bold; border: 1px solid blue;'>&nbsp;&#x2197;&nbsp;</a>"
@@ -2697,15 +2702,27 @@
 
                 generateTable(mainTable, formIDs, 0, chanceTree, 1);
 
-                var tableLink = document.getElementById("tableLink");
+                var tableLinks = document.getElementById("tablelinks");
 
                 var patchSel = document.getElementById("versionselect");
-                var patch = patchSel.options[patchSel.selectedIndex].value;
 
-                var lnk = prepareLinkDefault();
-                lnk += "&formids=" + encodeURIComponent(formIDs.join("-"));
-                tableLink.href = lnk;
-                tableLink.style.display = "inline";
+                for (var i = 0; i < patchSel.options.length; i++) {
+                    var ver = patchSel.options[i].value;
+
+                    var lnk = prepareLinkDefault(ver);
+                    lnk += "&formids=" + encodeURIComponent(formIDs.join("-"));
+                    var tableLink = document.createElement("a");
+                    tableLinks.appendChild(tableLink);
+                    
+                    tableLink.target = "_blank";
+                    tableLink.href = lnk;
+                    tableLink.innerText = ver + " link to this table";
+                    tableLink.title = patchSel.options[i].text;
+
+                    if (i != 0) {
+                        tableLink.style.paddingLeft = "20px";
+                    }
+                }
 
                 var coalesce = document.getElementById("Coalesce");
                 let fids = formIDs;
@@ -3192,7 +3209,8 @@
                 if (jdx < 0) {
                     jdx = q.length;
                 }
-                var patch = q.substring(6, jdx);
+                var patch = q.substring(7, jdx);
+                console.log(patch);
                 var versionSelect = document.getElementById("versionselect");
                 for (var i = 0; i < versionSelect.options.length; i++) {
                     var opt = versionSelect.options[i];
