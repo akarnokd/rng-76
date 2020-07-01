@@ -1,6 +1,6 @@
 <html>
     <head>
-        <title>Fallout 76 Daily/Weekly Atom Challenges</title>
+        <title>Fallout 76 Daily/Weekly Atom/S.C.O.R.E. Challenges</title>
         <style>
             * {
                 font-family: sans-serif;
@@ -18,11 +18,11 @@
                border: 1px solid black;
             }
         </style>
-        <meta name="keywords" content="Fallout,Fallout 76,Daily,Challenge,Challenges,Atom,Weekly">
+        <meta name="keywords" content="Fallout,Fallout 76,Daily,Challenge,Challenges,Atom,Weekly,Score,S.C.O.R.E.">
     </head>
     <body>
         <center>
-            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Daily/Weekly Atom Challenges (0.2.0)</span><br/>
+            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Daily/Weekly Atom/S.C.O.R.E. Challenges (0.3.0)</span><br/>
             <br/>
             <br/>
             <table>
@@ -717,144 +717,211 @@
                         };
             }
 
+            var challengesDailyEra1 = {
+                validStart: new Date(Date.UTC(2020, 3, 22, 15, 0, 0, 0)),
+                validEnd: new Date(Date.UTC(2020, 4, 31, 15, 0, 0, 0)),
+                options: [
+                    levelUpFasnacht(0),
+                    levelUpWhitesprings(1),
+                    levelUpWatoga(4),
+                    levelUpCaves(2),
+                    buildAnythingCamp(0),
+                    craftAmmo(0),
+                    killSheepsquatch(0),
+                    scrapFiberglass(0),
+                    scrapScrews(1),
+                    scrapSprings(3),
+                    killLegendary(1),
+                    killLegendaryFissure(3),
+                    buildFloorsCamp(1),
+                    buildLightingCamp(2),
+                    destroyTurrets(1),
+                    destroyRobots(11),
+                    killRadscorpions(21),
+                    eatCandy(2),
+                    harvestFungi(2),
+                    killMoleMiner(2),
+                    claimWorkshop(3),
+                    killDeathclawIsland(3),
+                    killDeathclaw(13),
+                    plantVegetables(4),
+                    pickFlowers(4),
+                    revivePlayer(4),
+                    destroyLiberators(4),
+                    killGhoulNuked(6),
+                    killRadroaches(16),
+                    destroyRobotsWatoga(26),
+                    chewBubblegum(7),
+                    killGlowing(7),
+                    killMirelurks(7),
+                    harvestVegetables(7),
+                    killWendigoCave(8),
+                    killGulper(18),
+                    killAnglers(28),
+                    collectCaps(9),
+                    cookMeals(9),
+                    hackTerminal(9),
+                    killCryptid(9),
+                    collectWater(5),
+                    eatPrewarFood(5),
+                    killYaoGuai(5),
+                    craftHealing(5),
+                ]
+            };
+
+            var challengesDailyEra1_2 = {
+                validStart: new Date(Date.UTC(2020, 4, 31, 15, 0, 0, 0)),
+                validEnd: new Date(Date.UTC(2020, 5, 1, 15, 0, 0, 0)),
+                options: [
+                    levelUpWhitesprings(0),
+                    {
+                        name: "Kill a Megasloth in the Cranberry Bog",
+                        offset: 0,
+                        period: 30,
+                        tipId: "KillMegaslothCranberry",
+                        tip: "They can show up between the Cranberry Glades and the Flooded Trainyard."
+                    },
+                    {
+                        name: "Kill a Crave Cricket at/in the Uncanny Caverns",
+                        offset: 0,
+                        period: 30,
+                        tipId: "KillCaveCricketUncanny",
+                        tip: "May need several server hops. Outside and inside count."
+                    },
+                    {
+                        name: "Kill Insects (x5)",
+                        offset: 0,
+                        period: 30,
+                        tipId: "KillInsects",
+                        tip: "."
+                    },
+                    {
+                        name: "Kill Radants (x5)",
+                        offset: 0,
+                        period: 30,
+                        tipId: "KillRadants",
+                        tip: "Try Thunder Mountain Substation TM-02 north of Watoga."
+                    }
+                ]
+            };
+
+            var challengesDailyEra2 = {
+                validStart: new Date(Date.UTC(2020, 5, 1, 15, 0, 0, 0)),
+                validEnd: new Date(Date.UTC(2020, 5, 30, 15, 0, 0, 0)),
+                options: [
+                    levelUpFasnacht(0),
+                    levelUpWatoga(1),
+                    levelUpCaves(2),
+                    levelUpWhitesprings(4),
+                    collectCaps(0),
+                    cookMeals(0),
+                    hackTerminal(0),
+                    killCryptid(0),
+                    buildAnythingCamp(1),
+                    craftAmmo(1),
+                    killSheepsquatch(1),
+                    scrapFiberglass(1),
+                    killLegendary(2),
+                    buildFloorsCamp(2),
+                    destroyRobots(2),
+                    scrapScrews(2),
+                    buildLightingCamp(3),
+                    eatCandy(3),
+                    harvestFungi(3),
+                    killMoleMiner(3),
+                    scrapSprings(4),                
+                    killLegendaryFissure(4),        
+                    claimWorkshop(4),
+                    killDeathclaw(4),
+                    killDeathclawIsland(14),
+                    plantVegetables(5),
+                    pickFlowers(5),
+                    revivePlayer(5),
+                    destroyLiberators(5),
+                    collectWater(6),
+                    eatPrewarFood(6),
+                    killYaoGuai(6),
+                    craftHealing(6),
+                    killRadroaches(7),
+                    chewBubblegum(8),
+                    killGlowing(8),
+                    killMirelurks(8),
+                    harvestVegetables(8),
+                    killGulper(9),
+                    killRadscorpions(12),
+                    destroyRobotsWatoga(17),
+                    killAnglers(19),
+                    destroyTurrets(22),
+                    killWendigoCave(29)
+                ]
+            };
+
+            function scoreChewBubblegum(offset) {
+                return {
+                            name: "Chew Bubblegum",
+                            offset: offset,
+                            period: 10,
+                        };
+            }
+            function scoreCompleteOneEvent(offset) {
+                return {
+                            name: "Complete an Event",
+                            offset: offset,
+                            period: 10,
+                        };
+            }
+            function scoreKillScorched10(offset) {
+                return {
+                            name: "Kill Scorched (x10)",
+                            offset: offset,
+                            period: 10,
+                        };
+            }
+            function scoreLevelUp1(offset) {
+                return {
+                            name: "Level up",
+                            offset: offset,
+                            period: 10,
+                        };
+            }
+            function scoreScrapAluminium10(offset) {
+                return {
+                            name: "Scrap junk to produce Aluminium (x10)",
+                            offset: offset,
+                            period: 10,
+                            tipId: "ScoreScrapAluminium",
+                            tip: "Scrapping and rebulking Aluminium works best."
+                        };
+            }
+            function scoreCompleteDailyChallenge5(offset) {
+                return {
+                            name: "&#x1F947; Gold: Complete a Daily Challenge (x5)",
+                            offset: offset,
+                            period: 10
+                        };
+            }
+
+            var challengesDailyEra3 = {
+                validStart: new Date(Date.UTC(2020, 5, 30, 15, 0, 0, 0)),
+                validEnd: undefined,
+                options: [
+                    scoreCompleteDailyChallenge5(0),
+                    scoreChewBubblegum(0),
+                    scoreCompleteOneEvent(0),
+                    scoreKillScorched10(0),
+                    scoreLevelUp1(0),
+                    scoreScrapAluminium10(0),
+                ]
+            };
+
             var challenges = [
-                {
-                    validStart: new Date(Date.UTC(2020, 3, 22, 15, 0, 0, 0)),
-                    validEnd: new Date(Date.UTC(2020, 4, 31, 15, 0, 0, 0)),
-                    options: [
-                        levelUpFasnacht(0),
-                        levelUpWhitesprings(1),
-                        levelUpWatoga(4),
-                        levelUpCaves(2),
-                        buildAnythingCamp(0),
-                        craftAmmo(0),
-                        killSheepsquatch(0),
-                        scrapFiberglass(0),
-                        scrapScrews(1),
-                        scrapSprings(3),
-                        killLegendary(1),
-                        killLegendaryFissure(3),
-                        buildFloorsCamp(1),
-                        buildLightingCamp(2),
-                        destroyTurrets(1),
-                        destroyRobots(11),
-                        killRadscorpions(21),
-                        eatCandy(2),
-                        harvestFungi(2),
-                        killMoleMiner(2),
-                        claimWorkshop(3),
-                        killDeathclawIsland(3),
-                        killDeathclaw(13),
-                        plantVegetables(4),
-                        pickFlowers(4),
-                        revivePlayer(4),
-                        destroyLiberators(4),
-                        killGhoulNuked(6),
-                        killRadroaches(16),
-                        destroyRobotsWatoga(26),
-                        chewBubblegum(7),
-                        killGlowing(7),
-                        killMirelurks(7),
-                        harvestVegetables(7),
-                        killWendigoCave(8),
-                        killGulper(18),
-                        killAnglers(28),
-                        collectCaps(9),
-                        cookMeals(9),
-                        hackTerminal(9),
-                        killCryptid(9),
-                        collectWater(5),
-                        eatPrewarFood(5),
-                        killYaoGuai(5),
-                        craftHealing(5),
-                    ]
-                },
-                {
-                    validStart: new Date(Date.UTC(2020, 4, 31, 15, 0, 0, 0)),
-                    validEnd: new Date(Date.UTC(2020, 5, 1, 15, 0, 0, 0)),
-                    options: [
-                        levelUpWhitesprings(0),
-                        {
-                            name: "Kill a Megasloth in the Cranberry Bog",
-                            offset: 0,
-                            period: 30,
-                            tipId: "KillMegaslothCranberry",
-                            tip: "They can show up between the Cranberry Glades and the Flooded Trainyard."
-                        },
-                        {
-                            name: "Kill a Crave Cricket at/in the Uncanny Caverns",
-                            offset: 0,
-                            period: 30,
-                            tipId: "KillCaveCricketUncanny",
-                            tip: "May need several server hops. Outside and inside count."
-                        },
-                        {
-                            name: "Kill Insects (x5)",
-                            offset: 0,
-                            period: 30,
-                            tipId: "KillInsects",
-                            tip: "."
-                        },
-                        {
-                            name: "Kill Radants (x5)",
-                            offset: 0,
-                            period: 30,
-                            tipId: "KillRadants",
-                            tip: "Try Thunder Mountain Substation TM-02 north of Watoga."
-                        }
-                    ]
-                },
-                {
-                    validStart: new Date(Date.UTC(2020, 5, 1, 15, 0, 0, 0)),
-                    validEnd: undefined,
-                    options: [
-                        levelUpFasnacht(0),
-                        levelUpWatoga(1),
-                        levelUpCaves(2),
-                        levelUpWhitesprings(4),
-                        collectCaps(0),
-                        cookMeals(0),
-                        hackTerminal(0),
-                        killCryptid(0),
-                        buildAnythingCamp(1),
-                        craftAmmo(1),
-                        killSheepsquatch(1),
-                        scrapFiberglass(1),
-                        killLegendary(2),
-                        buildFloorsCamp(2),
-                        destroyRobots(2),
-                        scrapScrews(2),
-                        buildLightingCamp(3),
-                        eatCandy(3),
-                        harvestFungi(3),
-                        killMoleMiner(3),
-                        scrapSprings(4),                
-                        killLegendaryFissure(4),        
-                        claimWorkshop(4),
-                        killDeathclaw(4),
-                        killDeathclawIsland(14),
-                        plantVegetables(5),
-                        pickFlowers(5),
-                        revivePlayer(5),
-                        destroyLiberators(5),
-                        collectWater(6),
-                        eatPrewarFood(6),
-                        killYaoGuai(6),
-                        craftHealing(6),
-                        killRadroaches(7),
-                        chewBubblegum(8),
-                        killGlowing(8),
-                        killMirelurks(8),
-                        harvestVegetables(8),
-                        killGulper(9),
-                        killRadscorpions(12),
-                        destroyRobotsWatoga(17),
-                        killAnglers(19),
-                        destroyTurrets(22),
-                        killWendigoCave(29)
-                    ]
-                }
+                challengesDailyEra1,
+                challengesDailyEra1_2,
+                challengesDailyEra2,
+                challengesDailyEra3
             ];
+
+            // ******************************************************************************************************************************
 
             function completeEvents(offset) {
                 return {
@@ -1307,7 +1374,7 @@
 
             var challengesWeeklyEra2 = {
                 validStart: new Date(Date.UTC(2020, 5, 23, 15, 0, 0, 0)),
-                validEnd: undefined,
+                validEnd: new Date(Date.UTC(2020, 5, 30, 15, 0, 0, 0)),
                 options: []
             };
 
@@ -1317,10 +1384,176 @@
             addWeekly(challengesWeeklyEra2.options, 0, acquireFlux);
             addWeekly(challengesWeeklyEra2.options, 0, buildupCamp);
 
+
+            var challengesWeeklyEra3 = {
+                validStart: new Date(Date.UTC(2020, 5, 30, 15, 0, 0, 0)),
+                validEnd: undefined,
+                options: [
+                ]
+            };
+
+            function scoreBuildupCamp(offset) {
+                return {
+                            name: "Build up your C.A.M.P. or Workshop (all)",
+                            offset: offset,
+                            period: 28,
+                            subchallenges: [
+                                {
+                                    name: "Build containers, displays or shelves (x5)",
+                                    tipId: "BuildupCampContainer",
+                                    tip: "Simply build another Stash Box."
+                                },
+                                {
+                                    name: "Build wall or floor decorations (x5)",
+                                    tipId: "BuildupCampFloor",
+                                    tip: "Floor mats are the cheapest to build."
+                                },
+                                {
+                                    name: "Build doors or stairs (x5)",
+                                },
+                                {
+                                    name: "Plant crops or build water sources (x10)",
+                                    tipId: "BuildupCampCrops",
+                                    tip: "Scrap and replant your vegetables."
+                                },
+                                {
+                                    name: "Build generators or lighting (x20)",
+                                    tipId: "BuildupCampLighting",
+                                    tip: "Placing the cheapest standing lamp works."
+                                },
+                            ]
+                        };
+            }
+
+            function scoreCompleteEventsGroup5(offset) {
+                return {
+                            name: "Complete Events in group (x5)",
+                            offset: offset,
+                            period: 28,
+                            tipId: "ScoreCompleteEventsGroup",
+                            tip: "Public teams work too and no need for proximity."
+                        };
+            }
+
+            function scoreCraftScrapItems25(offset) {
+                return {
+                            name: "Craft or scrap weapons, armor or clothing (x25)",
+                            offset: offset,
+                            period: 28,
+                        };
+            }
+
+            function scoreDestroyRobots5(offset) {
+                return {
+                            name: "Destroy various robots (any 5)",
+                            offset: offset,
+                            period: 28,
+                            tipId: "ScoreDestroyRobots",
+                            tip: "Watoga has all sorts of robots.",
+                            subchallenges: [
+                                {
+                                    name: "Assaultron"
+                                },
+                                {
+                                    name: "Eyebot (x5)"
+                                },
+                                {
+                                    name: "Liberator  (x5)"
+                                },
+                                {
+                                    name: "Mr. Handy or Mr. Gutsy (x5)"
+                                },
+                                {
+                                    name: "Protectron (x5)"
+                                },
+                                {
+                                    name: "Sentty Bot"
+                                },
+                                {
+                                    name: "Turret (x5)"
+                                },
+                                {
+                                    name: "Vertibot (x5)"
+                                },
+                            ]
+                        };
+            }
+
+            function scoreGatherBuildingSupplies25(offset) {
+                return {
+                            name: "Gather Building Supplies (any 5)",
+                            offset: offset,
+                            period: 14,
+                            tipId: "GatherBuildingSupplies",
+                            tip: "You can simply scrap bulk items of these components.",
+                            subchallenges: [
+                                {
+                                    name: "Aluminium (x25)",
+                                },
+                                {
+                                    name: "Concrete (x25)",
+                                },
+                                {
+                                    name: "Copper (x25)",
+                                },
+                                {
+                                    name: "Fertilizer (x25)",
+                                },
+                                {
+                                    name: "Oil (x25)",
+                                },
+                                {
+                                    name: "Screws, spings or gears (x25)",
+                                },
+                                {
+                                    name: "Steel (x100)"
+                                },
+                                {
+                                    name: "Wood (x100)"
+                                },
+                            ]
+                        };
+            }
+
+            function scoreKillLegendaries10(offset) {
+                return {
+                            name: "Kill/destroy legendary enemies (x10)",
+                            offset: offset,
+                            period: 28,
+                        };
+            }
+            function scoreLevelUp3(offset) {
+                return {
+                            name: "Level up (x3)",
+                            offset: offset,
+                            period: 28,
+                        };
+            }
+
+            function scoreGainXP10000(offset) {
+                return {
+                            name: "&#x267B; Repeatable: Gain 10.000 XP",
+                            offset: offset,
+                            period: 28,
+                        };
+            }
+
+            addWeekly(challengesWeeklyEra3.options, 0, scoreGainXP10000);
+            addWeekly(challengesWeeklyEra3.options, 0, scoreBuildupCamp);
+            addWeekly(challengesWeeklyEra3.options, 0, scoreCompleteEventsGroup5);
+            addWeekly(challengesWeeklyEra3.options, 0, scoreCraftScrapItems25);
+            addWeekly(challengesWeeklyEra3.options, 0, scoreDestroyRobots5);
+            addWeekly(challengesWeeklyEra3.options, 0, scoreGatherBuildingSupplies25);
+            addWeekly(challengesWeeklyEra3.options, 0, scoreKillLegendaries10);
+            addWeekly(challengesWeeklyEra3.options, 0, scoreLevelUp3);
+
             var challengesWeekly = [
                 challengesWeeklyEra1,
-                challengesWeeklyEra2
+                challengesWeeklyEra2,
+                challengesWeeklyEra3
             ];
+
+            // --------------------------------------------------------------------------------------------------------------
 
             var infoMap = new Map();
             for (var list of [challenges, challengesWeekly]) {
