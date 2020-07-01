@@ -881,7 +881,7 @@
                 return {
                             name: "Level up",
                             offset: offset,
-                            period: 10,
+                            period: 1,
                         };
             }
             function scoreScrapAluminium10(offset) {
@@ -897,7 +897,39 @@
                 return {
                             name: "&#x1F947; Gold: Complete a Daily Challenge (x5)",
                             offset: offset,
-                            period: 10
+                            period: 1
+                        };
+            }
+
+            function scoreBuildWallDecor5(offset) {
+                return {
+                            name: "Build floor or wall decoration in your C.A.M.P. or Workshop (x5)",
+                            offset: offset,
+                            period: 10,
+                            tipId: "ScoreWallDecor",
+                            tip: "Find the cheapest floor mat and equip Contractor 2 (INT) to have it cost 1 cloth."
+                        };
+            }
+
+            function scoreCollectPurifiedWater3(offset) {
+                return {
+                            name: "Collect purified water (x3)",
+                            offset: offset,
+                            period: 10,
+                        };
+            }
+            function scoreCompleteOneEvent3(offset) {
+                return {
+                            name: "Complete an Event (x3)",
+                            offset: offset,
+                            period: 10,
+                        };
+            }
+            function scoreKillLegendary1(offset) {
+                return {
+                            name: "Kill/destroy a legendary enemy",
+                            offset: offset,
+                            period: 10,
                         };
             }
 
@@ -911,6 +943,13 @@
                     scoreKillScorched10(0),
                     scoreLevelUp1(0),
                     scoreScrapAluminium10(0),
+
+                    scoreBuildWallDecor5(1),
+                    scoreCollectPurifiedWater3(1),
+                    scoreCompleteOneEvent3(1),
+                    scoreKillLegendary1(1),
+
+
                 ]
             };
 
