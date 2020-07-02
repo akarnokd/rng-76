@@ -184,7 +184,13 @@
                 var level = state.startLevel;
 
                 var xpGain = parseInt(document.getElementById("xpgain").value);
+                if (isNaN(xpGain) || xpGain < 0) {
+                    xpGain = 0;
+                }
                 var days = parseInt(document.getElementById("days").value);
+                if (isNaN(days) || days < 1) {
+                    days = 1;
+                }
                 var nw = document.getElementById("nw").checked;
 
                 var dailyScore = nw ? 2000 : 1750;
