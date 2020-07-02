@@ -1,0 +1,384 @@
+<html>
+    <head>
+        <title>Fallout 76 S.C.O.R.E. Progression Calculator</title>
+        <style>
+            * {
+                font-family: sans-serif;
+                font-size: 20px;
+            }
+            td {
+                padding: 2px;
+            }
+            
+            table.infoTable {
+               border: 1px solid black;
+               border-collapse: collapse;
+            }
+            table.infoTable td {
+               border: 1px solid black;
+            }
+
+            .monospaced {
+                font-family: monospace;
+            }
+            .highlightvalue {
+                border: 1px dotted green; 
+                font-weight:bold;
+            }
+            table.progress td {
+                padding: 5px;
+                border: 1px solid #808080;
+            }
+        </style>
+        <meta name="keywords" content="Fallout,Fallout 76,RNG,Calculator,Score,Level,S.C.O.R.E.,Season,Seasons,Battle,Battlepass,Battle pass">
+    </head>
+    <body>
+        <center>
+            <span style="font-size: 36px; font-weight: bold;">Fallout 76 S.C.O.R.E. Progression Calculator (0.0.1)</span><br/>
+            <br/>
+            <br/>
+            <table>
+                <tr>
+                    <td>Starting level:</td>
+                    <td><input type="number" id="playerlevel" value='50' min='1'/></td>
+                    <td id="playerxpstart" style="text-align: right; width: 150px;"></td>
+                </tr>
+                <tr>
+                    <td>&nbsp;&nbsp;&nbsp;Progression within the level:</td>
+                    <td><input type="number" id="levelprogress" value='0' min='0' max='100'> %</td>
+                    <td id="playerxpcurrent" style="text-align: right; font-weight: bold;"></td>
+                </tr>
+                <tr>
+                    <td>&nbsp;&nbsp;&nbsp;XP required till the next level up:</td>
+                    <td></td>
+                    <td id="playerxpnext" style="text-align: right; font-weight: bold;"></td>
+                </tr>
+                <tr>
+                    <td>XP gain planned per day:</td>
+                    <td><input type="number" id="xpgain" value='160000' min='1' style="width: 150px;"/> XP</td>
+                </tr>
+                <tr>
+                    <td><label for="nw">Doing the Nuclear Winter Challenge</label></td>
+                    <td><input type="checkbox" id="nw" checked></td>
+                </tr>
+                <tr>
+                    <td>Season length:</td>
+                    <td><input type="number" id="days" value='70' min='1' style="width: 75px;"/> days</td>
+                </tr>
+                <tr>
+                    <td>&#x1F6C8; Daily Challenge S.C.O.R.E.</td>
+                    <td id='dailyscore'>2000</td>
+                </tr>
+                <tr>
+                    <td title="Excludes the repeatable 'Gain 10000 XP for 100 S.C.O.R.E. points'">&#x1F6C8; Weekly Challenge S.C.O.R.E.</td>
+                    <td title="Excludes the repeatable 'Gain 10000 XP for 100 S.C.O.R.E. points'">7500</td>
+                </tr>
+                <tr>
+                    <td>&#x1F6C8; Total S.C.O.R.E. required</td>
+                    <td id='maxscore'></td>
+                </tr>
+                <tr>
+                    <td colspan='3' style='text-align: center;'><a href='?' id='thelink' target='_blank'>Link to these settings.</a>
+                        &nbsp;&nbsp;&nbsp;
+                        (<a href="?">Clear</a>)
+                    </td>
+                </tr>
+            </table>
+            <hr>
+            <span style="font-size: 24px; font-weight: bold;">Progression</span>
+            <br><span id='tldr' style='font-weight: bold;'>TL;DR</span>
+            <table id='progression' style='border-collapse: collapse;' class='progress'>
+                <tr>
+                    <td rowspan='2'>Day</td>
+                    <td rowspan='2'>Level</td>
+                    <td rowspan='2'>XP</td>
+                    <td colspan='3'>S.C.O.R.E.</td>
+                </tr>
+                <tr>
+                    <td>Rank</td>
+                    <td>&sum; Points</td>
+                    <td>%</td>
+                </tr>
+
+            </table>
+        </center>
+        <script>
+            function scoreAtRank(rank) {
+                if (rank <= 1) {
+                    return 0;
+                }
+                return 1000 + (rank - 2) * 25;
+            }
+
+            var maxscore = 0;
+            for (var i = 2; i <= 100; i++) {
+                maxscore += scoreAtRank(i);
+            }
+            
+            document.getElementById("maxscore").innerText = thousands(maxscore);
+
+            function xpProgressive(level) {
+                return 160 * level * level / 2 - 120 * level;
+            }
+            function xpForLevel(level) {
+                if (level >= 1000) {
+                    return 159880 * (level - 1000) + xpProgressive(1000);
+                }
+                return xpProgressive(level)
+            }
+
+            function xpForNextLevel(level) {
+                if (level >= 1000) {
+                    return 159880;
+                }
+                return 160 * level - 120;
+            }
+
+            function thousands(num) {
+                return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
+            }
+
+            function displayStartXP() {
+                var lvl = parseInt(document.getElementById("playerlevel").value);
+                if (isNaN(lvl) || lvl < 1) {
+                    lvl = 1;
+                }
+                var lvlxp = xpForLevel(lvl);
+
+                document.getElementById("playerxpstart").innerText = thousands(lvlxp) + " XP";
+                
+                var lvlxp2 = xpForLevel(lvl + 1);
+
+                var lvldiff = lvlxp2 - lvlxp;
+
+                var percent = parseInt(document.getElementById("levelprogress").value);
+                if (isNaN(percent) ||percent < 0) {
+                    percent = 0;
+                }
+                if (percent > 100) {
+                    percent = 100;
+                }
+
+                var startXP = Math.floor(lvlxp + lvldiff * percent / 100.0);
+                document.getElementById("playerxpcurrent").innerText = thousands(startXP) + " XP";
+                document.getElementById("playerxpnext").innerText = thousands(lvlxp2 - startXP) + " XP";
+
+
+                return {
+                    startXP: startXP,
+                    startLevel: lvl,
+                    percent: percent
+                };
+            }
+
+            function calculateProgresson() {
+                var tbl = document.getElementById("progression");
+
+                for (var i = tbl.rows.length - 1; i > 1; i--) {
+                    tbl.deleteRow(i);
+                }
+
+                var state = displayStartXP();
+
+                var xp = state.startXP;
+                var level = state.startLevel;
+
+                var xpGain = parseInt(document.getElementById("xpgain").value);
+                var days = parseInt(document.getElementById("days").value);
+                var nw = document.getElementById("nw").checked;
+
+                var dailyScore = nw ? 2000 : 1750;
+                var weeklyScore = 7500;
+                
+
+                var lnk = document.getElementById("thelink");
+                var txt = "?";
+                if (nw) {
+                    txt += "nw";
+                } else {
+                    txt += "nonw";
+                }
+                txt += "&level=" + level;
+                txt += "&percent=" + state.percent;
+                txt += "&days=" + days;
+                txt += "&xpgain=" + xpGain;
+                lnk.href = txt;
+
+                var score = 0;
+                var day = 1;
+                var gainXpProgress = 0;
+                var scoreProgress = 0;
+                var dailyXpRemaining = xpGain;
+                var scoreRank = 1;
+
+                var lastDay = 1;
+                var evenOdd = false;
+                var once = false;
+
+                for (;;) {
+
+                    if (day > days && !once) {
+                        once = true;
+                        rw = tbl.insertRow(tbl.rows.length);
+                        cll = rw.insertCell(rw.cells.length);
+                        cll.innerText = "OUT OF TIME!";
+                        cll.style.textAlign = "center";
+                        cll.style.fontWeight = "bold";
+                        cll.style.color = "red";
+                        cll.colSpan = 6;
+                    }
+
+                    var rw = tbl.insertRow(tbl.rows.length);
+
+                    if (lastDay != day) {
+                        lastDay = day;
+                        evenOdd = !evenOdd;
+                    }
+
+                    if (evenOdd) {
+                        rw.style.backgroundColor = "#E0F0E0";
+                    }
+
+                    if (day > days) {
+                        rw.style.backgroundColor = "#FFCCCC";
+                    }
+
+
+                    var cll = rw.insertCell(rw.cells.length);
+                    cll.innerText = "" + day;
+                    cll.style.textAlign = "right";
+                    
+                    cll = rw.insertCell(rw.cells.length);
+                    cll.innerText = "" + level;
+                    cll.style.textAlign = "right";
+
+                    cll = rw.insertCell(rw.cells.length);
+                    cll.innerText = "" + thousands(xp);
+                    cll.style.textAlign = "right";
+
+                    cll = rw.insertCell(rw.cells.length);
+                    cll.innerText = "" + scoreRank;
+                    cll.style.textAlign = "right";
+
+                    cll = rw.insertCell(rw.cells.length);
+                    cll.innerText = "" + thousands(score);
+                    cll.style.textAlign = "right";
+
+                    cll = rw.insertCell(rw.cells.length);
+                    cll.innerText = (score * 100.0 / maxscore).toFixed(2) + " %";
+                    cll.style.textAlign = "right";
+
+                    if (score >= maxscore) {
+                        break;
+                    }
+
+                    var nextXp = xpForLevel(level + 1);
+                    var xpNeeded = nextXp - xp;
+
+                    if (xpNeeded > dailyXpRemaining) {
+                        xp += dailyXpRemaining;
+                        gainXpProgress += dailyXpRemaining;
+
+                        dailyXpRemaining = xpGain;
+                        day++;
+
+                        var scoreDelta = dailyScore;
+                        if (day % 7 == 0) {
+                            scoreDelta += weeklyScore;
+                        }
+
+                        score += scoreDelta;
+                        scoreProgress += scoreDelta;
+
+                    } else {
+                        xp += xpNeeded;
+                        gainXpProgress += xpNeeded;
+
+                        level++;
+                        dailyXpRemaining -= xpNeeded;
+                    }
+                    while (gainXpProgress >= 10000) {
+                        score += 100;
+                        scoreProgress += 100;
+                        gainXpProgress -= 10000;
+                    }
+                    while (scoreProgress >= scoreAtRank(scoreRank + 1)) {
+                        scoreRank++;
+                        scoreProgress -= scoreAtRank(scoreRank);                   
+                    }
+                }
+
+                var rw = tbl.insertRow(tbl.rows.length);
+                cll = rw.insertCell(rw.cells.length);
+                cll.innerText = "FINISHED!";
+                cll.style.textAlign = "center";
+                cll.style.fontWeight = "bold";
+                cll.colSpan = 6;
+
+                var tldr = document.getElementById("tldr");
+                if (once) {
+                    tldr.style.color = "red";
+                    tldr.innerText = "TL;DR   You will run out of time.";
+                } else {
+                    tldr.style.color = "green";
+                    tldr.innerText = "TL;DR   You'll finish the race within " + day + " days.";
+                }
+            }
+
+            var playerlevel = document.getElementById("playerlevel");
+            playerlevel.oninput = calculateProgresson;
+            var levelprogress = document.getElementById("levelprogress")
+            levelprogress.oninput = calculateProgresson;
+            var days = document.getElementById("days");
+            days.oninput = calculateProgresson;
+            var xpgain = document.getElementById("xpgain");
+            xpgain.oninput = calculateProgresson;
+            
+            var nuclearwinter = document.getElementById("nw");
+            nuclearwinter.oninput = (evt) => {
+                document.getElementById("dailyscore").innerText = nuclearwinter.checked ? "2000" : "1750";
+                calculateProgresson();
+            };
+
+            function paramValue(p) {
+                var idx = p.indexOf("=");
+                if (idx >= 0) {
+                    return p.substring(idx + 1);
+                }
+                return p;
+            }
+
+            var q = location.search;
+            if (q.includes("nw")) {
+                if (q.startsWith("?")) {
+                    q = q.substring(1);
+                }
+
+                var params = q.split("&");
+
+                for (var p of params) {
+                    if (p == "nw") {
+                        nuclearwinter.checked = true;
+                    }
+                    else if (p == "nonw") {
+                        nuclearwinter.checked = false;
+                    }
+                    else if (p.startsWith("level=")) {
+                        playerlevel.value = paramValue(p);
+                    }
+                    else if (p.startsWith("percent=")) {
+                        levelprogress.value = paramValue(p);
+                    }
+                    else if (p.startsWith("days=")) {
+                        days.value = paramValue(p);
+                    }
+                    else if (p.startsWith("xpgain=")) {
+                        xpgain.value = paramValue(p);
+                    }
+                }
+            }
+
+            calculateProgresson();
+        </script>
+    </body>
+</html>
