@@ -34,7 +34,7 @@
     </head>
     <body>
         <center>
-            <span style="font-size: 36px; font-weight: bold;">Fallout 76 S.C.O.R.E. Progression Calculator (0.0.1)</span><br/>
+            <span style="font-size: 36px; font-weight: bold;">Fallout 76 S.C.O.R.E. Progression Calculator (0.0.2)</span><br/>
             <br/>
             <br/>
             <table>
@@ -62,8 +62,27 @@
                     <td><input type="checkbox" id="nw" checked></td>
                 </tr>
                 <tr>
-                    <td>Season length:</td>
-                    <td><input type="number" id="days" value='70' min='1' style="width: 75px;"/> days</td>
+                    <td>Start at S.C.O.R.E. Rank:</td>
+                    <td><input type="number" id="startrank" value='1' min='1' max='99' style="width: 75px;"/></td>
+                    <td id='startscore' style="text-align: right; font-weight: bold;"></td>
+                </tr>
+                <tr>
+                    <td>Season remaining:</td>
+                    <td><input type="number" id="days" value='70' min='1' style="width: 60px;"/> days</td>
+                </tr>
+                <tr>
+                    <td>Double XP weekend:</td>
+                    <td><input type="number" id="doublexpstart" value='16' min='1' style="width: 60px;"/> (start day, inclusive)
+                        <br>
+                        <input type="number" id="doublexpend" value='20' min='1' style="width: 60px;"/> (end day, inclusive)
+                    </td>
+                </tr>
+                <tr>
+                    <td>Double S.C.O.R.E dailies:</td>
+                    <td><input type="number" id="doublescorestart" value='23' min='1' style="width: 60px;"/> (start day, inclusive)
+                        <br>
+                        <input type="number" id="doublescoreend" value='27' min='1' style="width: 60px;"/> (end day, inclusive)
+                    </td>
                 </tr>
                 <tr>
                     <td>&#x1F6C8; Daily Challenge S.C.O.R.E.</td>
@@ -85,9 +104,17 @@
                 </tr>
             </table>
             <hr>
-            <span style="font-size: 24px; font-weight: bold;">Progression</span>
-            <br><span id='tldr' style='font-weight: bold;'>TL;DR</span>
             <table id='progression' style='border-collapse: collapse;' class='progress'>
+                <tr>
+                    <td colspan='6' style='border: none; text-align: center;'>
+                        <span style="font-size: 24px; font-weight: bold;">Progression</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan='6' style='border: none; text-align: center;'>
+                        <span id='tldr' style='font-weight: bold;'>TL;DR</span>
+                    </td>
+                </tr>
                 <tr>
                     <td rowspan='2'>Day</td>
                     <td rowspan='2'>Level</td>
@@ -138,8 +165,12 @@
                 return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
             }
 
+            function valueOf(key) {
+                return parseInt(document.getElementById(key).value);
+            }
+
             function displayStartXP() {
-                var lvl = parseInt(document.getElementById("playerlevel").value);
+                var lvl = valueOf("playerlevel");
                 if (isNaN(lvl) || lvl < 1) {
                     lvl = 1;
                 }
@@ -151,7 +182,7 @@
 
                 var lvldiff = lvlxp2 - lvlxp;
 
-                var percent = parseInt(document.getElementById("levelprogress").value);
+                var percent = valueOf("levelprogress");
                 if (isNaN(percent) ||percent < 0) {
                     percent = 0;
                 }
@@ -174,7 +205,7 @@
             function calculateProgresson() {
                 var tbl = document.getElementById("progression");
 
-                for (var i = tbl.rows.length - 1; i > 1; i--) {
+                for (var i = tbl.rows.length - 1; i > 3; i--) {
                     tbl.deleteRow(i);
                 }
 
@@ -183,19 +214,38 @@
                 var xp = state.startXP;
                 var level = state.startLevel;
 
-                var xpGain = parseInt(document.getElementById("xpgain").value);
+                var xpGain = valueOf("xpgain");
                 if (isNaN(xpGain) || xpGain < 0) {
                     xpGain = 0;
                 }
-                var days = parseInt(document.getElementById("days").value);
+                var days = valueOf("days");
                 if (isNaN(days) || days < 1) {
                     days = 1;
                 }
+
                 var nw = document.getElementById("nw").checked;
 
                 var dailyScore = nw ? 2000 : 1750;
                 var weeklyScore = 7500;
-                
+
+                var scoreRank = valueOf("startrank");
+                if (isNaN(scoreRank) || scoreRank < 1 || scoreRank > 99) {
+                    scoreRank = 1;
+                }
+
+                var score = 0;
+
+                for (var i = 2; i <= scoreRank; i++) {
+                    score += scoreAtRank(i);
+                }
+
+                document.getElementById("startscore").innerText = thousands(score) + " points";
+
+                var doublexpstart = valueOf("doublexpstart");
+                var doublexpend = valueOf("doublexpend");
+
+                var doublescorestart = valueOf("doublescorestart");
+                var doublescoreend = valueOf("doublescoreend");
 
                 var lnk = document.getElementById("thelink");
                 var txt = "?";
@@ -208,14 +258,18 @@
                 txt += "&percent=" + state.percent;
                 txt += "&days=" + days;
                 txt += "&xpgain=" + xpGain;
+                txt += "&startrank=" + scoreRank;
+                txt += "&dblxps=" + doublexpstart;
+                txt += "&dblxpe=" + doublexpend;
+                txt += "&dblscs=" + doublescorestart;
+                txt += "&dblsce=" + doublescoreend;
+
                 lnk.href = txt;
 
-                var score = 0;
                 var day = 1;
                 var gainXpProgress = 0;
                 var scoreProgress = 0;
                 var dailyXpRemaining = xpGain;
-                var scoreRank = 1;
 
                 var lastDay = 1;
                 var evenOdd = false;
@@ -274,6 +328,34 @@
                     cll.innerText = (score * 100.0 / maxscore).toFixed(2) + " %";
                     cll.style.textAlign = "right";
 
+                    var xpscale = 1;
+                    var scorescale = 1;
+
+                    if (doublexpstart <= day && day <= doublexpend) {
+                        xpscale = 2;
+                    }
+                    if (doublescorestart <= day && day <= doublescoreend) {
+                        scorescale = 2;
+                    }
+
+                    if (xpscale > 1 || scorescale > 1) {
+                        cll = rw.insertCell(rw.cells.length);
+                        cll.style.border = "none";
+                        cll.style.backgroundColor = "white";
+                        cll.style.fontStyle = "italic";
+                        var txt = "";
+                        if (xpscale > 1) {
+                            txt += "Double XP";
+                        }
+                        if (scorescale > 1) {
+                            if (xpscale > 1) {
+                                txt += ", ";
+                            }
+                            txt += "Double S.C.O.R.E.";
+                        }
+                        cll.innerText = txt;
+                    }
+
                     if (score >= maxscore) {
                         break;
                     }
@@ -281,14 +363,14 @@
                     var nextXp = xpForLevel(level + 1);
                     var xpNeeded = nextXp - xp;
 
-                    if (xpNeeded > dailyXpRemaining) {
-                        xp += dailyXpRemaining;
-                        gainXpProgress += dailyXpRemaining;
+                    if (xpNeeded > dailyXpRemaining * xpscale) {
+                        xp += dailyXpRemaining * xpscale;
+                        gainXpProgress += dailyXpRemaining * xpscale;
 
                         dailyXpRemaining = xpGain;
                         day++;
 
-                        var scoreDelta = dailyScore;
+                        var scoreDelta = dailyScore * scorescale;
                         if (day % 7 == 0) {
                             scoreDelta += weeklyScore;
                         }
@@ -301,11 +383,11 @@
                         gainXpProgress += xpNeeded;
 
                         level++;
-                        dailyXpRemaining -= xpNeeded;
+                        dailyXpRemaining -= xpNeeded / xpscale;
                     }
                     while (gainXpProgress >= 10000) {
-                        score += 100;
-                        scoreProgress += 100;
+                        score += 100 * scorescale;
+                        scoreProgress += 100 * scorescale;
                         gainXpProgress -= 10000;
                     }
                     while (scoreProgress >= scoreAtRank(scoreRank + 1)) {
@@ -339,6 +421,16 @@
             days.oninput = calculateProgresson;
             var xpgain = document.getElementById("xpgain");
             xpgain.oninput = calculateProgresson;
+            var startrank = document.getElementById("startrank");
+            startrank.oninput = calculateProgresson;
+            var doublexpstart = document.getElementById("doublexpstart");
+            doublexpstart.oninput = calculateProgresson;
+            var doublexpend = document.getElementById("doublexpend");
+            doublexpend.oninput = calculateProgresson;
+            var doublescorestart = document.getElementById("doublescorestart");
+            doublescorestart.oninput = calculateProgresson;
+            var doublescoreend = document.getElementById("doublescoreend");
+            doublescoreend.oninput = calculateProgresson;
             
             var nuclearwinter = document.getElementById("nw");
             nuclearwinter.oninput = (evt) => {
@@ -380,6 +472,21 @@
                     }
                     else if (p.startsWith("xpgain=")) {
                         xpgain.value = paramValue(p);
+                    }
+                    else if (p.startsWith("startrank=")) {
+                        startrank.value = paramValue(p);
+                    }
+                    else if (p.startsWith("dblxps=")) {
+                        doublexpstart.value = paramValue(p);
+                    }
+                    else if (p.startsWith("dblxpe=")) {
+                        doublexpend.value = paramValue(p);
+                    }
+                    else if (p.startsWith("dblscs=")) {
+                        doublescorestart.value = paramValue(p);
+                    }
+                    else if (p.startsWith("dblsce=")) {
+                        doublescoreend.value = paramValue(p);
                     }
                 }
             }
