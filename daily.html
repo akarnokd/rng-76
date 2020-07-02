@@ -875,9 +875,13 @@
                             period: 10,
                         };
             }
-            function scoreCompleteOneEvent(offset) {
+            function scoreCompleteOneEvent(offset, times) {
+                var title = "Complete an event";
+                if (times > 1) {
+                    title += " (x" + times + ")";
+                }
                 return {
-                            name: "Complete an Event",
+                            name: title,
                             offset: offset,
                             period: 10,
                         };
@@ -930,16 +934,36 @@
                             period: 10,
                         };
             }
-            function scoreCompleteOneEvent3(offset) {
+            function scoreKillLegendary1(offset) {
                 return {
-                            name: "Complete an Event (x3)",
+                            name: "Kill/destroy a legendary enemy",
                             offset: offset,
                             period: 10,
                         };
             }
-            function scoreKillLegendary1(offset) {
+
+            function scoreCraftRanged5(offset) {
                 return {
-                            name: "Kill/destroy a legendary enemy",
+                            name: "Craft or scrap a ranged weapon (x5)",
+                            offset: offset,
+                            period: 10,
+                        };
+            }
+
+            function scoreKillCryptid3(offset) {
+                return {
+                            name: "Kill a Cryptid (x3)",
+                            offset: offset,
+                            period: 10,
+                            tipId: "KillCryptid",
+                            tip: "Wendigo (Wendigo Cave), Grafton Monster (Charleston Trainyard),"
+                                + "<br>Snallygaster (Toxic Larry's Meet'n'go) or Mothman (Cultist camps)"
+                        };
+            }
+
+            function scoreRepairArmorWeapon3(offset) {
+                return {
+                            name: "Repair armor or weapon (x3)",
                             offset: offset,
                             period: 10,
                         };
@@ -951,17 +975,20 @@
                 options: [
                     scoreCompleteDailyChallenge5(0),
                     scoreChewBubblegum(0),
-                    scoreCompleteOneEvent(0),
+                    scoreCompleteOneEvent(0, 1),
                     scoreKillScorched10(0),
                     scoreLevelUp1(0),
                     scoreScrapAluminium10(0),
 
                     scoreBuildWallDecor5(1),
                     scoreCollectPurifiedWater3(1),
-                    scoreCompleteOneEvent3(1),
+                    scoreCompleteOneEvent(1, 3),
                     scoreKillLegendary1(1),
 
-
+                    scoreCompleteOneEvent(2, 2),
+                    scoreCraftRanged5(2),
+                    scoreKillCryptid3(2),
+                    scoreRepairArmorWeapon3(2)
                 ]
             };
 
