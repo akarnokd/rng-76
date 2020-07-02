@@ -22,7 +22,7 @@
     </head>
     <body>
         <center>
-            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Daily/Weekly Atom/S.C.O.R.E. Challenges (0.3.0)</span><br/>
+            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Daily/Weekly Atom/S.C.O.R.E. Challenges (0.3.1)</span><br/>
             <br/>
             <br/>
             <table>
@@ -40,8 +40,20 @@
             </table>
         </center>
         <script>
+
+            var oneHourLaterSince = new Date(Date.UTC(2020, 5, 30, 15, 0, 0, 0));
+
+            function normalizeDate(date) {
+                if (date < oneHourLaterSince) {
+                    date.setUTCHours(15, 0, 0, 0);
+                } else {
+                    date.setUTCHours(16, 0, 0, 0);
+                }
+            }
+
             var selectedDate = new Date();
-            selectedDate.setUTCHours(15, 0, 0, 0);
+            normalizeDate(selectedDate);
+            
             var now = new Date();
             if (selectedDate > now) {
                 selectedDate.setDate(selectedDate.getDate() - 1);
@@ -934,7 +946,7 @@
             }
 
             var challengesDailyEra3 = {
-                validStart: new Date(Date.UTC(2020, 5, 30, 15, 0, 0, 0)),
+                validStart: new Date(Date.UTC(2020, 5, 30, 16, 0, 0, 0)),
                 validEnd: undefined,
                 options: [
                     scoreCompleteDailyChallenge5(0),
@@ -1425,7 +1437,7 @@
 
 
             var challengesWeeklyEra3 = {
-                validStart: new Date(Date.UTC(2020, 5, 30, 15, 0, 0, 0)),
+                validStart: new Date(Date.UTC(2020, 5, 30, 16, 0, 0, 0)),
                 validEnd: undefined,
                 options: [
                 ]
@@ -1647,7 +1659,7 @@
 
             function updateChallenges() {
                 // normalize date
-                selectedDate.setUTCHours(15, 0, 0, 0);
+                normalizeDate(selectedDate);
 
                 var endDate = new Date(selectedDate);
                 endDate.setDate(endDate.getDate() + 1);
@@ -1754,7 +1766,7 @@
 
             function updateTimer() {
                 // normalize date
-                selectedDate.setUTCHours(15, 0, 0, 0);
+                normalizeDate(selectedDate);
 
                 var endDate = new Date(selectedDate);
                 endDate.setDate(endDate.getDate() + 1);
