@@ -34,7 +34,7 @@
     </head>
     <body>
         <center>
-            <span style="font-size: 36px; font-weight: bold;">Fallout 76 S.C.O.R.E. Progression Calculator (0.0.2)</span><br/>
+            <span style="font-size: 36px; font-weight: bold;">Fallout 76 S.C.O.R.E. Progression Calculator (0.0.3)</span><br/>
             <br/>
             <br/>
             <table>
@@ -83,6 +83,18 @@
                         <br>
                         <input type="number" id="doublescoreend" value='27' min='1' style="width: 60px;"/> (end day, inclusive)
                     </td>
+                </tr>
+                <tr>
+                    <td>Complete weekly on</td>
+                    <td><select id='completeweekly'>
+                        <option value='1'>Day 1, 8, 15, 22, 29,...</option>
+                        <option value='2'>Day 2, 9, 16, 23, 30,...</option>
+                        <option value='3'>Day 3, 10, 17, 24, 31,...</option>
+                        <option value='4'>Day 4, 11, 18, 25, 32,...</option>
+                        <option value='5'>Day 5, 12, 19, 26, 33,...</option>
+                        <option value='6' selected>Day 6, 13, 20, 27, 34,...</option>
+                        <option value='0' >Day 7, 14, 21, 28, 35,...</option>
+                    </select></td>
                 </tr>
                 <tr>
                     <td>&#x1F6C8; Daily Challenge S.C.O.R.E.</td>
@@ -247,6 +259,10 @@
                 var doublescorestart = valueOf("doublescorestart");
                 var doublescoreend = valueOf("doublescoreend");
 
+                var completeweeklysel = document.getElementById("completeweekly");
+                var completeweekly = completeweeklysel.options[completeweeklysel.selectedIndex].value;
+                
+
                 var lnk = document.getElementById("thelink");
                 var txt = "?";
                 if (nw) {
@@ -263,6 +279,7 @@
                 txt += "&dblxpe=" + doublexpend;
                 txt += "&dblscs=" + doublescorestart;
                 txt += "&dblsce=" + doublescoreend;
+                txt += "&weeklyat=" + completeweekly
 
                 lnk.href = txt;
 
@@ -368,16 +385,15 @@
                         gainXpProgress += dailyXpRemaining * xpscale;
 
                         dailyXpRemaining = xpGain;
-                        day++;
 
                         var scoreDelta = dailyScore * scorescale;
-                        if (day % 7 == 0) {
+                        if (day % 7 == completeweekly) {
                             scoreDelta += weeklyScore;
                         }
 
                         score += scoreDelta;
                         scoreProgress += scoreDelta;
-
+                        day++;
                     } else {
                         xp += xpNeeded;
                         gainXpProgress += xpNeeded;
@@ -431,6 +447,8 @@
             doublescorestart.oninput = calculateProgresson;
             var doublescoreend = document.getElementById("doublescoreend");
             doublescoreend.oninput = calculateProgresson;
+            var completeweekly = document.getElementById("completeweekly");
+            completeweekly.oninput = calculateProgresson;
             
             var nuclearwinter = document.getElementById("nw");
             nuclearwinter.oninput = (evt) => {
@@ -487,6 +505,16 @@
                     }
                     else if (p.startsWith("dblsce=")) {
                         doublescoreend.value = paramValue(p);
+                    }
+                    else if (p.startsWith("weeklyat=")) {
+                        var v = paramValue(p);
+                        for (var i = 0; i < completeweekly.options.length; i++) {
+                            var opt = completeweekly.options[i];
+                            if (opt.value == v) {
+                                opt.selected = true;
+                                break;
+                            }
+                        }
                     }
                 }
             }
