@@ -934,9 +934,13 @@
                             period: 10,
                         };
             }
-            function scoreKillLegendary1(offset) {
+            function scoreKillLegendary(offset, count) {
+                var txt = "Kill/destroy a legendary enemy";
+                if (count > 1) {
+                    txt += " (x" + count + ")";
+                }
                 return {
-                            name: "Kill/destroy a legendary enemy",
+                            name: txt,
                             offset: offset,
                             period: 10,
                         };
@@ -969,6 +973,22 @@
                         };
             }
 
+            function scoreKillCreature15(offset) {
+                return {
+                            name: "Kill a creature (x15)",
+                            offset: offset,
+                            period: 10,
+                        };
+            }
+
+            function scoreCollectAudiotape(offset) {
+                return {
+                            name: "Collect an audio Holotape",
+                            offset: offset,
+                            period: 10,
+                        };
+            }
+
             var challengesDailyEra3 = {
                 validStart: new Date(Date.UTC(2020, 5, 30, 16, 0, 0, 0)),
                 validEnd: undefined,
@@ -983,12 +1003,17 @@
                     scoreBuildWallDecor5(1),
                     scoreCollectPurifiedWater3(1),
                     scoreCompleteOneEvent(1, 3),
-                    scoreKillLegendary1(1),
+                    scoreKillLegendary(1, 1),
 
                     scoreCompleteOneEvent(2, 2),
                     scoreCraftRanged5(2),
                     scoreKillCryptid3(2),
-                    scoreRepairArmorWeapon3(2)
+                    scoreRepairArmorWeapon3(2),
+
+                    scoreCollectAudiotape(3),
+                    scoreKillCreature15(3),
+                    scoreKillLegendary(3, 3),
+                    scoreCompleteOneEvent(3, 1)
                 ]
             };
 
