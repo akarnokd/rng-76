@@ -22,7 +22,7 @@
     </head>
     <body>
         <center>
-            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Daily/Weekly Atom/S.C.O.R.E. Challenges (0.3.1)</span><br/>
+            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Daily/Weekly Atom/S.C.O.R.E. Challenges (0.3.2)</span><br/>
             <br/>
             <br/>
             <table>
@@ -942,7 +942,7 @@
                 return {
                             name: txt,
                             offset: offset,
-                            period: 10,
+                            period: 3,
                         };
             }
 
@@ -989,6 +989,31 @@
                         };
             }
 
+            function scoreClaimWorkshop(offset) {
+                return {
+                            name: "Claim a Workshop",
+                            offset: offset,
+                            period: 10,
+                        };
+            }
+
+            function scoreCollectWood25(offset) {
+                return {
+                            name: "Collect wood (x25)",
+                            offset: offset,
+                            period: 10,
+                        };
+            }
+
+            function scoreCompleteEventInGroup(offset) {
+                return {
+                            name: "Complete an event while in a group",
+                            offset: offset,
+                            period: 10,
+                        };
+            }
+            
+
             var challengesDailyEra3 = {
                 validStart: new Date(Date.UTC(2020, 5, 30, 16, 0, 0, 0)),
                 validEnd: undefined,
@@ -1013,7 +1038,11 @@
                     scoreCollectAudiotape(3),
                     scoreKillCreature15(3),
                     scoreKillLegendary(3, 3),
-                    scoreCompleteOneEvent(3, 1)
+                    scoreCompleteOneEvent(3, 1),
+
+                    scoreClaimWorkshop(4),
+                    scoreCollectWood25(4),
+                    scoreCompleteEventInGroup(4),
                 ]
             };
 
