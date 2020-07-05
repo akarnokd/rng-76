@@ -1014,7 +1014,31 @@
                             period: 10,
                         };
             }
-            
+
+            function scoreBuildFloorWallCamp(offset) {
+                return {
+                            name: "Build floors, walls or roofs in your C.A.M.P. or Workshop (x10)",
+                            offset: offset,
+                            period: 10,
+                        };
+            }
+
+            function scoreEatCookedMeal(offset) {
+                return {
+                            name: "Eat cooked meal (x5)",
+                            offset: offset,
+                            period: 10,
+                        };
+            }
+
+            function scoreKillMoleminer(offset) {
+                return {
+                            name: "Kill a Mole Miner (x10)",
+                            offset: offset,
+                            period: 10,
+                        };
+            }
+
 
             var challengesDailyEra3 = {
                 validStart: new Date(Date.UTC(2020, 5, 30, 16, 0, 0, 0)),
@@ -1045,6 +1069,11 @@
                     scoreClaimWorkshop(4),
                     scoreCollectWood25(4),
                     scoreCompleteEventInGroup(4),
+
+                    scoreCompleteOneEvent(5, 1),
+                    scoreBuildFloorWallCamp(5),
+                    scoreEatCookedMeal(5),
+                    scoreKillMoleminer(5)
                 ]
             };
 
