@@ -942,7 +942,7 @@
                 return {
                             name: txt,
                             offset: offset,
-                            period: 3,
+                            period: 10,
                         };
             }
 
@@ -1039,6 +1039,22 @@
                         };
             }
 
+            function scoreBuySellItem(offset) {
+                return {
+                            name: "Buy from or sell to another player",
+                            offset: offset,
+                            period: 10,
+                        };
+            }
+
+            function scoreKillGhoul10(offset) {
+                return {
+                            name: "Kill a Ghoul (x10)",
+                            offset: offset,
+                            period: 10,
+                        };
+            }
+
 
             var challengesDailyEra3 = {
                 validStart: new Date(Date.UTC(2020, 5, 30, 16, 0, 0, 0)),
@@ -1069,11 +1085,17 @@
                     scoreClaimWorkshop(4),
                     scoreCollectWood25(4),
                     scoreCompleteEventInGroup(4),
+                    scoreKillLegendary(4, 1),
 
                     scoreCompleteOneEvent(5, 1),
                     scoreBuildFloorWallCamp(5),
                     scoreEatCookedMeal(5),
-                    scoreKillMoleminer(5)
+                    scoreKillMoleminer(5),
+
+                    scoreBuySellItem(6),
+                    scoreCompleteOneEvent(6, 1),
+                    scoreEatCookedMeal(6),
+                    scoreKillGhoul10(6)
                 ]
             };
 
