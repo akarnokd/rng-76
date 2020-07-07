@@ -102,7 +102,7 @@
                 </tr>
                 <tr>
                     <td title="Excludes the repeatable 'Gain 10000 XP for 100 S.C.O.R.E. points'">&#x1F6C8; Weekly Challenge S.C.O.R.E.</td>
-                    <td title="Excludes the repeatable 'Gain 10000 XP for 100 S.C.O.R.E. points'">7500</td>
+                    <td title="Excludes the repeatable 'Gain 10000 XP for 100 S.C.O.R.E. points'" id='weeklyscore'>7500</td>
                 </tr>
                 <tr>
                     <td>&#x1F6C8; Total S.C.O.R.E. required</td>
@@ -238,7 +238,7 @@
                 var nw = document.getElementById("nw").checked;
 
                 var dailyScore = nw ? 2000 : 1750;
-                var weeklyScore = 7500;
+                var weeklyScore = nw ? 7500 : 6500;
 
                 var scoreRank = valueOf("startrank");
                 if (isNaN(scoreRank) || scoreRank < 1 || scoreRank > 99) {
@@ -453,6 +453,7 @@
             var nuclearwinter = document.getElementById("nw");
             nuclearwinter.oninput = (evt) => {
                 document.getElementById("dailyscore").innerText = nuclearwinter.checked ? "2000" : "1750";
+                document.getElementById("weeklyscore").innerText = nuclearwinter.checked ? "7500" : "6500";
                 calculateProgresson();
             };
 
@@ -520,6 +521,7 @@
             }
 
             document.getElementById("dailyscore").innerText = nuclearwinter.checked ? "2000" : "1750";
+            document.getElementById("weeklyscore").innerText = nuclearwinter.checked ? "7500" : "6500";
             calculateProgresson();
         </script>
     </body>

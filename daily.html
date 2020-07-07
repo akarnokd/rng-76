@@ -22,7 +22,7 @@
     </head>
     <body>
         <center>
-            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Daily/Weekly Atom/S.C.O.R.E. Challenges (0.3.2)</span><br/>
+            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Daily/Weekly Atom/S.C.O.R.E. Challenges (0.3.3)</span><br/>
             <br/>
             <br/>
             <table>
@@ -872,7 +872,7 @@
                 return {
                             name: "Chew Bubblegum",
                             offset: offset,
-                            period: 10,
+                            period: 100,
                         };
             }
             function scoreCompleteOneEvent(offset, times) {
@@ -883,14 +883,14 @@
                 return {
                             name: title,
                             offset: offset,
-                            period: 10,
+                            period: 100,
                         };
             }
             function scoreKillScorched10(offset) {
                 return {
                             name: "Kill Scorched (x10)",
                             offset: offset,
-                            period: 10,
+                            period: 100,
                         };
             }
             function scoreLevelUp1(offset) {
@@ -904,7 +904,7 @@
                 return {
                             name: "Scrap junk to produce Aluminium (x10)",
                             offset: offset,
-                            period: 10,
+                            period: 100,
                             tipId: "ScoreScrapAluminium",
                             tip: "Scrapping and rebulking Aluminium works best."
                         };
@@ -921,7 +921,7 @@
                 return {
                             name: "Build floor or wall decoration in your C.A.M.P. or Workshop (x5)",
                             offset: offset,
-                            period: 10,
+                            period: 100,
                             tipId: "ScoreWallDecor",
                             tip: "Find the cheapest floor mat and equip Contractor 2 (INT) to have it cost 1 cloth."
                         };
@@ -931,7 +931,7 @@
                 return {
                             name: "Collect purified water (x3)",
                             offset: offset,
-                            period: 10,
+                            period: 100,
                         };
             }
             function scoreKillLegendary(offset, count) {
@@ -942,7 +942,7 @@
                 return {
                             name: txt,
                             offset: offset,
-                            period: 10,
+                            period: 100,
                         };
             }
 
@@ -950,7 +950,7 @@
                 return {
                             name: "Craft or scrap a ranged weapon (x5)",
                             offset: offset,
-                            period: 10,
+                            period: 100,
                         };
             }
 
@@ -958,7 +958,7 @@
                 return {
                             name: "Kill a Cryptid (x3)",
                             offset: offset,
-                            period: 10,
+                            period: 100,
                             tipId: "KillCryptid",
                             tip: "Wendigo (Wendigo Cave), Grafton Monster (Charleston Trainyard),"
                                 + "<br>Snallygaster (Toxic Larry's Meet'n'go) or Mothman (Cultist camps)"
@@ -969,7 +969,7 @@
                 return {
                             name: "Repair armor or weapon (x3)",
                             offset: offset,
-                            period: 10,
+                            period: 100,
                         };
             }
 
@@ -977,7 +977,7 @@
                 return {
                             name: "Kill a creature (x15)",
                             offset: offset,
-                            period: 10,
+                            period: 100,
                         };
             }
 
@@ -985,7 +985,7 @@
                 return {
                             name: "Collect an audio Holotape",
                             offset: offset,
-                            period: 10,
+                            period: 100,
                         };
             }
 
@@ -993,7 +993,7 @@
                 return {
                             name: "Claim a Workshop",
                             offset: offset,
-                            period: 10,
+                            period: 100,
                         };
             }
 
@@ -1001,7 +1001,7 @@
                 return {
                             name: "Collect wood (x25)",
                             offset: offset,
-                            period: 10,
+                            period: 100,
                             tipId: "scoreCollectWood",
                             tip: "You have to pick wood from fallen trees one by one. Scrapping bulk doesn't work."
                         };
@@ -1011,7 +1011,7 @@
                 return {
                             name: "Complete an event while in a group",
                             offset: offset,
-                            period: 10,
+                            period: 100,
                         };
             }
 
@@ -1019,7 +1019,7 @@
                 return {
                             name: "Build floors, walls or roofs in your C.A.M.P. or Workshop (x10)",
                             offset: offset,
-                            period: 10,
+                            period: 100,
                         };
             }
 
@@ -1027,7 +1027,7 @@
                 return {
                             name: "Eat cooked meal (x5)",
                             offset: offset,
-                            period: 10,
+                            period: 100,
                         };
             }
 
@@ -1035,7 +1035,7 @@
                 return {
                             name: "Kill a Mole Miner (x10)",
                             offset: offset,
-                            period: 10,
+                            period: 100,
                         };
             }
 
@@ -1043,7 +1043,7 @@
                 return {
                             name: "Buy from or sell to another player",
                             offset: offset,
-                            period: 10,
+                            period: 100,
                         };
             }
 
@@ -1051,7 +1051,42 @@
                 return {
                             name: "Kill a Ghoul (x10)",
                             offset: offset,
-                            period: 10,
+                            period: 100,
+                        };
+            }
+
+            function scoreDestroyRobot10(offset) {
+                return {
+                            name: "Destroy a robot (x10)",
+                            offset: offset,
+                            period: 100,
+                        };
+            }
+
+            function scoreKillCryptid1(offset) {
+                return {
+                            name: "Kill a Cryptid",
+                            offset: offset,
+                            period: 100,
+                            tipId: "KillCryptid",
+                            tip: "Wendigo (Wendigo Cave), Grafton Monster (Charleston Trainyard),"
+                                + "<br>Snallygaster (Toxic Larry's Meet'n'go) or Mothman (Cultist camps)"
+                        };
+            }
+
+            function scoreKillGlowing(offset) {
+                return {
+                            name: "Kill a glowing creature",
+                            offset: offset,
+                            period: 100,
+                        };
+            }
+
+            function scoreNWDeployCamp(offset) {
+                return {
+                            name: "&#x2622; NW: Deploy a C.A.M.P. (x3)",
+                            offset: offset,
+                            period: 100,
                         };
             }
 
@@ -1095,7 +1130,13 @@
                     scoreBuySellItem(6),
                     scoreCompleteOneEvent(6, 1),
                     scoreEatCookedMeal(6),
-                    scoreKillGhoul10(6)
+                    scoreKillGhoul10(6),
+
+                    scoreCompleteOneEvent(7, 1),
+                    scoreDestroyRobot10(7),
+                    scoreKillCryptid1(7),
+                    scoreKillGlowing(7),
+                    scoreNWDeployCamp(7)
                 ]
             };
 
@@ -1723,6 +1764,56 @@
                         };
             }
 
+            function scoreCompleteEvents10(offset) {
+                return {
+                            name: "Complete an event (x10)",
+                            offset: offset,
+                            period: 28,
+                        };
+            }
+
+            function scoreClaimWorkshop5(offset) {
+                return {
+                            name: "Claim a Workshop (x5)",
+                            offset: offset,
+                            period: 28,
+                        };
+            }
+
+            function scoreCriticalHit25(offset) {
+                return {
+                            name: "Deal critical hit to an enemy (x25)",
+                            offset: offset,
+                            period: 28,
+                            tipId: "ScoreCriticalHit",
+                            tip: "Scoring a critical hit with a Shotgun may still count as 8 critical hits at once."
+                        };
+            }
+
+            function scoreKillCreature20(offset) {
+                return {
+                            name: "Kill a creature (x20)",
+                            offset: offset,
+                            period: 28,
+                        };
+            }
+
+            function scoreKillLegendary3(offset) {
+                return {
+                            name: "Kill/destroy a legendary enemy (x3)",
+                            offset: offset,
+                            period: 28,
+                        };
+            }
+
+            function scoreNWChallenge3(offset) {
+                return {
+                            name: "&#x2622; NW: Complete a Nuclear Winter challenge (x3)",
+                            offset: offset,
+                            period: 28,
+                        };
+            }
+
             addWeekly(challengesWeeklyEra3.options, 0, scoreGainXP10000);
             addWeekly(challengesWeeklyEra3.options, 0, scoreBuildupCamp);
             addWeekly(challengesWeeklyEra3.options, 0, scoreCompleteEventsGroup5);
@@ -1731,6 +1822,15 @@
             addWeekly(challengesWeeklyEra3.options, 0, scoreGatherBuildingSupplies25);
             addWeekly(challengesWeeklyEra3.options, 0, scoreKillLegendaries10);
             addWeekly(challengesWeeklyEra3.options, 0, scoreLevelUp3);
+
+            addWeekly(challengesWeeklyEra3.options, 7, scoreGainXP10000);
+            addWeekly(challengesWeeklyEra3.options, 7, scoreLevelUp3);
+            addWeekly(challengesWeeklyEra3.options, 7, scoreClaimWorkshop5);
+            addWeekly(challengesWeeklyEra3.options, 7, scoreCompleteEvents10);
+            addWeekly(challengesWeeklyEra3.options, 7, scoreCriticalHit25);
+            addWeekly(challengesWeeklyEra3.options, 7, scoreKillCreature20);
+            addWeekly(challengesWeeklyEra3.options, 7, scoreKillLegendary3);
+            addWeekly(challengesWeeklyEra3.options, 7, scoreNWChallenge3);
 
             var challengesWeekly = [
                 challengesWeeklyEra1,
