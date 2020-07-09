@@ -22,7 +22,7 @@
     </head>
     <body style="height: 90%">
         <center>
-            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Weapon Damage Calculator (v3.2.0)</span><br/>
+            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Weapon Damage Calculator (v3.2.1)</span><br/>
         <br/>
         <table id="parent">
             <tr>
@@ -4801,7 +4801,7 @@
             infoMap.set("glowsight", "Each level adds 20% damage against Glowing enemies up to 60% total.");
             infoMap.set("nerdrage", "If the player health is below 20%, gain 10%, 15% and 20% damage based on the perk level.");
             infoMap.set("revenant", "Bonus damage after another player revives you. Each level adds 25% more damage up to 50% total.");
-            infoMap.set("sandman", "Silenced weapons only. Night only. Each level adds 25% more sneak attack damage up to 50% total.");
+            infoMap.set("sandman", "Silenced weapons only, including the bows. Night only. Each level adds 25% more sneak attack damage up to 50% total.");
             infoMap.set("adrenalreaction", 
                 "Damage increased the lower the player's health is, up to 50%."
                 + "<br>When the Strange In Numbers perk is equipped, there benefits are increased by 25%."
@@ -6536,7 +6536,7 @@
                 baseDamage += additiveBoosts;
                 baseDamageEnergy += additiveEnergyBoosts;
 
-                var isSilenced = false;
+                var isSilenced = weap.silencer;
                 var isScoped = false;
 
                 var versusMultiplier = 0;
@@ -6881,13 +6881,14 @@
                     totalDamageMultiply.push(mult);
                     totalDamageEnergyMultiply.push(mult);
                 }
-
-                if (document.getElementById("nighttime" + index + "_yes").checked) {
-                    var sandman = document.getElementById("sandman" + index);
-                    if (sandman != null && sandman.selectedIndex > 0) {
-                        if (isSilenced) {
-                            totalDamageMultiply.push(parseFloat(valueOf(sandman)));
-                            totalDamageEnergyMultiply.push(parseFloat(valueOf(sandman)));
+                if (document.getElementById("sneaking" + index + "_yes").checked) {
+                    if (document.getElementById("nighttime" + index + "_yes").checked) {
+                        var sandman = document.getElementById("sandman" + index);
+                        if (sandman != null && sandman.selectedIndex > 0) {
+                            if (isSilenced) {
+                                totalDamageMultiply.push(parseFloat(valueOf(sandman)));
+                                totalDamageEnergyMultiply.push(parseFloat(valueOf(sandman)));
+                            }
                         }
                     }
                 }
