@@ -1108,6 +1108,44 @@
                         };
             }
 
+            function scoreCompleteDaily(offset) {
+                return {
+                            name: "Complete a Daily Quest",
+                            offset: offset,
+                            period: 100,
+                        };
+            }
+            function scoreCraftScrapPowerArmor(offset) {
+                return {
+                            name: "Craft or scrap a Power Armor piece",
+                            offset: offset,
+                            period: 100,
+                        };
+            }
+            function scoreKillSupermutant10(offset) {
+                return {
+                            name: "Kill a Super Mutant (x10)",
+                            offset: offset,
+                            period: 100,
+                        };
+            }
+            function scoreUsePhotomode(offset) {
+                return {
+                            name: "Use Photo Mode to take a photo",
+                            offset: offset,
+                            period: 100,
+                        };
+            }
+
+            function scoreNWKillCreature(offset) {
+                return {
+                            name: "&#x2622; NW: Kill a creature (x10)",
+                            offset: offset,
+                            period: 100,
+                        };
+            }
+
+
             var challengesDailyEra3 = {
                 validStart: new Date(Date.UTC(2020, 5, 30, 16, 0, 0, 0)),
                 validEnd: undefined,
@@ -1159,7 +1197,13 @@
                     scoreCompleteOneEvent(8, 1),
                     scoreKillScorched10(8),
                     scoreKillLegendary(8),
-                    scoreNWPickLock3(8)
+                    scoreNWPickLock3(8),
+
+                    scoreCompleteDaily(9),
+                    scoreCraftScrapPowerArmor(9),
+                    scoreKillSupermutant10(9),
+                    scoreUsePhotomode(9),
+                    scoreNWKillCreature(9)
                 ]
             };
 
