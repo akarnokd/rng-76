@@ -965,9 +965,10 @@
                         };
             }
 
-            function scoreRepairArmorWeapon3(offset) {
+            function scoreRepairArmorWeapon(offset, count) {
+                var txt = count > 1 ? " (x" + count + ")": "";
                 return {
-                            name: "Repair armor or weapon (x3)",
+                            name: "Repair armor or weapon" + txt,
                             offset: offset,
                             period: 100,
                         };
@@ -1145,6 +1146,13 @@
                         };
             }
 
+            function scoreNWUseStimpak6(offset) {
+                return {
+                            name: "&#x2622; NW: Use a Stimpak (x6)",
+                            offset: offset,
+                            period: 100,
+                        };
+            }
 
             var challengesDailyEra3 = {
                 validStart: new Date(Date.UTC(2020, 5, 30, 16, 0, 0, 0)),
@@ -1165,7 +1173,7 @@
                     scoreCompleteOneEvent(2, 2),
                     scoreCraftRanged5(2),
                     scoreKillCryptid3(2),
-                    scoreRepairArmorWeapon3(2),
+                    scoreRepairArmorWeapon(2, 3),
 
                     scoreCollectAudiotape(3),
                     scoreKillCreature15(3),
@@ -1203,7 +1211,13 @@
                     scoreCraftScrapPowerArmor(9),
                     scoreKillSupermutant10(9),
                     scoreUsePhotomode(9),
-                    scoreNWKillCreature(9)
+                    scoreNWKillCreature(9),
+
+                    scoreBuySellItem(10),
+                    scoreCompleteOneEvent(10, 1),
+                    scoreKillLegendary3(10),
+                    scoreRepairArmorWeapon(10, 10),
+                    scoreNWUseStimpak6(10)
                 ]
             };
 
