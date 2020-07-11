@@ -39,7 +39,7 @@
     </head>
     <body>
         <center>
-            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Experience Calculator (0.0.3)</span><br/>
+            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Experience Calculator (0.0.4)</span><br/>
             <br>
             <a href="#" target='_blank' id='thelink'>Link to this setup</a>
             &nbsp;&nbsp;&nbsp;&nbsp;<a href="?">Clear</a>
@@ -438,10 +438,26 @@
             var curveHard = [
                 { x: 1, y: 15 },
                 { x: 100, y: 200 }
-            ]
+            ];
+
+            var curveMedium = [
+                { x: 1, y: 10 },
+                { x: 100, y: 125 }
+            ];
+
+            var curveBoss = [
+                { x: 1, y: 20 },
+                { x: 100, y: 500 }
+            ];
 
             function xpHard(level) {
                 return interpolate(curveHard, level);
+            }
+            function xpMedium(level) {
+                return interpolate(curveMedium, level);
+            }
+            function xpBoss(level) {
+                return interpolate(curveBoss, level);
             }
 
             var enemies = [
@@ -449,7 +465,62 @@
                     name: "Super Mutant",
                     xp: xpHard,
                     levels: [1, 5, 10, 16, 22, 28, 35, 42, 48, 59, 68, 80, 90, 100, 115]
-                }
+                },
+                {
+                    name: "Scorched",
+                    xp: xpMedium,
+                    levels: [1, 6, 14, 23, 32, 40, 47, 54, 62, 68, 74, 80, 90, 100]
+                },
+                {
+                    name: "Scorchbeast Queen",
+                    xp: xpBoss,
+                    levels: [95]
+                },
+                {
+                    name: "Scorchbeast",
+                    xp: xpBoss,
+                    levels: [50, 65, 80]
+                },
+                {
+                    name: "Ghoul",
+                    xp: xpMedium,
+                    levels: [1, 3, 9, 15, 22, 32, 42, 52, 62]
+                },
+                {
+                    name: "Glowing One",
+                    xp: xpHard,
+                    levels: [22, 32, 40, 58, 75, 95, 115]
+                },
+                {
+                    name: "Yao Guai",
+                    xp: xpHard,
+                    levels: [16, 26, 31, 36, 41, 46, 56, 66, 76, 86, 100, 115]
+                },
+                { 
+                    name: "Fog Crawler",
+                    xp: xpHard,
+                    levels: [39, 51, 63, 75]
+                },
+                {
+                    name: "Sheepsquatch",
+                    xp: xpBoss,
+                    levels: [50, 65, 80, 100]
+                },
+                {
+                    name: "Imposter Sheepsquatch",
+                    xp: xpHard,
+                    levels: [70]
+                },
+                {
+                    name: "Deathclaw",
+                    xp: xpBoss,
+                    levels: [31, 41, 51, 61, 71, 81, 91]
+                },
+                { 
+                    name: "Sentry Bot",
+                    xp: xpBoss,
+                    levels: [23, 30, 40, 45, 50, 60]
+                },
             ];
 
             enemies.sort((a, b) => {
@@ -466,16 +537,90 @@
                 enemiesSel.options.add(opt);
             }
 
-            var events = [
-                {
-                    name: "Public Event: Line in the sand",
+            // _________________________________________________________
+
+            function simpleEvent(name, xp) {
+                return {
+                    name: name,
                     conditions: [
                         {
                             name: "Complete",
-                            xp: 250
+                            xp: xp
                         }
                     ]
-                }
+                };
+            }
+
+            var events = [
+                simpleEvent("Public Event: Line in the sand", 250),
+                {
+                    name: "Daily: Big Game Hunter",
+                    conditions: [
+                        {
+                            name: "No kills",
+                            xp: 25
+                        },
+                        {
+                            name: "Only 1 kill",
+                            xp: 50
+                        },
+                        {
+                            name: "Only 2 kills",
+                            xp: 75
+                        },
+                        {
+                            name: "3 kills",
+                            xp: 100
+                        }
+                    ]
+                },
+                simpleEvent("Daily: Buried with Honor", 200),
+                simpleEvent("Daily: Cop a squatter", 350),
+                simpleEvent("Daily: Dross toss", 300),
+                simpleEvent("Daily: Ecological Balance", 60),
+                {
+                    name: "Daily: Heart of the enemy",
+                    conditions: [
+                        {
+                            name: "First time",
+                            xp: 25 + 994
+                        },
+                        {
+                            name: "Subsequently",
+                            xp: 994
+                        }
+                    ]
+                },
+                simpleEvent("Daily: Idle explosives", 300),
+                simpleEvent("Daily: Lucky mucker", 300),
+                simpleEvent("Mistaken identity", 400),
+                simpleEvent("Daily: Pass the buck", 200),
+                simpleEvent("Daily: Play time", 300),
+                simpleEvent("Daily: Queen of the hunt", 300),
+                simpleEvent("Daily: Someone to talk to", 250),
+                simpleEvent("Daily: Strange brew", 150),
+                simpleEvent("Daily: Target rich environment", 25),
+                simpleEvent("Daily: The chow line", 300),
+                simpleEvent("Daily: Thrill of the grill", 250),
+                simpleEvent("Daily: Trick or treat", 200),
+                simpleEvent("Daily: Waste not", 300),
+                simpleEvent("Event: Always Vigilant", 300),
+                {
+                    name: "Enclave event: A real blast",
+                    conditions: [
+                        {
+                            name: "Lures ignored",
+                            xp: 300
+                        },
+                        {
+                            name: "Lures reset",
+                            xp: 350
+                        }
+                    ]
+
+                },
+                simpleEvent("Event: Back on the beat", 25),
+                simpleEvent("Event: Battle bot", 300),
             ];
 
             events.sort((a, b) => {
@@ -632,9 +777,17 @@
                 document.getElementById(id).innerHTML += info(key);
             }
 
+            function stripHTML(txt) {
+                return txt.replace(/\<br\>/g, "\r\n")
+                        .replace(/\<b\>/g, "")
+                        .replace(/\<\/b\>/g, "")
+                ;
+            }
+
             // add HTML explanation marker
             function info(name) {
-                return "&nbsp;<sup><a href='#' style='font-size: 14; font-weight: bold;' onclick='showinfo(this, \"" + name + "\"); return false;'>?</a></sup>";
+                return "&nbsp;<sup><a href='#' style='font-size: 14; font-weight: bold;' onclick='showinfo(this, \"" + name + "\"); return false;' title=\""
+                + stripHTML(infoMap.get(name)) + "\">?</a></sup>";
             }
 
             // popup for explanation
