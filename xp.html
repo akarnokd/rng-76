@@ -35,11 +35,12 @@
         <center>
             <span style="font-size: 36px; font-weight: bold;">Fallout 76 Experience Calculator (0.0.1)</span><br/>
             <br>
+            <a href="#" target='_blank' id='thelink'>Link to this setup</a>
             <br>
             <table>
                 <tr>
-                    <td>Base intelligence</td>
-                    <td><input type='number' id='baseint' min='1' max='15' value='1' style='width: 75px;'></td>
+                    <td class='sep'>Base intelligence</td>
+                    <td class='sep'><input type='number' id='baseint' min='1' max='15' value='1' style='width: 75px;'></td>
                 </tr>
                 <tr>
                     <td id='infoLegendaryInt'>Legendary intelligence</td>
@@ -220,9 +221,9 @@
                     </td>
                 </tr>
                 <tr>
-                    <td id='infoBobbleheadInt'><label for='bobbleheadint'>Bobblehead: Intelligence</label></td>
+                    <td id='infoBobbleheadInt'><label for='bobbleheadInt'>Bobblehead: Intelligence</label></td>
                     <td>
-                        <input type='checkbox' id='bobbleheadint'>
+                        <input type='checkbox' id='bobbleheadInt'>
                     </td>
                 </tr>
                 <tr>
@@ -241,9 +242,9 @@
                     </td>
                 </tr>
                 <tr>
-                    <td id='infoLeader'>&nbsp;&nbsp;&nbsp;<label for='bobbleheadleader'>Bobblehead: Leader</label></td>
+                    <td id='infoLeader'>&nbsp;&nbsp;&nbsp;<label for='bobbleheadLeader'>Bobblehead: Leader</label></td>
                     <td>
-                        <input type='checkbox' id='bobbleheadleader'>
+                        <input type='checkbox' id='bobbleheadLeader'>
                     </td>
                 </tr>
                 <tr>
@@ -287,7 +288,7 @@
                 <tr>
                     <td id='infoTeamBuilder'>&nbsp;&nbsp;&nbsp;Builder team</td>
                     <td>
-                        <select id='builderTeam'>
+                        <select id='teamBuilder'>
                             <option value=''>Not in team</option>
                             <option value='1'>Alone (+1 INT)</option>
                             <option value='2'>1 Bond (+2 INT)</option>
@@ -299,7 +300,7 @@
                 <tr>
                     <td id='infoTeamEvent'>&nbsp;&nbsp;&nbsp;Event team</td>
                     <td>
-                        <select id='eventTeam'>
+                        <select id='teamEvent'>
                             <option value=''>Not in team</option>
                             <option value='1'>Alone (+25% XP)</option>
                             <option value='2'>1 Bond (+50% XP)</option>
@@ -311,7 +312,7 @@
                 <tr>
                     <td id='infoTeamHunter'>&nbsp;&nbsp;&nbsp;Hunter team</td>
                     <td>
-                        <select id='hunterTeam'>
+                        <select id='teamHunter'>
                             <option value=''>Not in team</option>
                             <option value='1'>Alone (+25% XP)</option>
                             <option value='2'>1 Bond (+50% XP)</option>
@@ -528,13 +529,16 @@
             }
 
             for (var e of document.getElementsByTagName("input")) {
-                if (e.id !== "bobbleheadint" && e.id !== "bobbleheadleader") {
+                if (e.id !== "bobbleheadInt" && e.id !== "bobbleheadLeader") {
                     e.oninput = calculate;
                 }
             }
+            for (var e of document.getElementsByTagName("select")) {
+                e.oninput = calculate;
+            }
 
-            var cbBobbleheadInt = document.getElementById("bobbleheadint");
-            var cbBobbleheadLeader = document.getElementById("bobbleheadleader");
+            var cbBobbleheadInt = document.getElementById("bobbleheadInt");
+            var cbBobbleheadLeader = document.getElementById("bobbleheadLeader");
             cbBobbleheadInt.oninput = function() {
                 if (cbBobbleheadInt.checked) {
                     cbBobbleheadLeader.checked = false;
@@ -757,7 +761,7 @@
                 var eventBonus = 0;
                 var hunterBonus = 0;
 
-                if (teamType == "Public") {
+                if (teamType == "public") {
                     var teamBuilder = valueOf("teamBuilder");
                     if (teamBuilder != "") {
                         int += parseInt(teamBuilder);
@@ -782,10 +786,92 @@
                 var totalInt = get("totalInt");
                 totalInt.innerText = "" + int;
 
-                var totalXP 
-                = get("totalXPBonus");
+                var productXP = 1;
+                for (var x of xp) {
+                    productXP *= 1 + x / 100;
+                }
+
+                var totalXP = get("totalXPBonus");
+                totalXP.innerText = (productXP * 100 - 100).toFixed(2) + " %";
+
+                var productXPEvent = productXP * (1 + eventBonus / 4);
+                var totalXPEvent = get("totalXPBonusEvent");
+                totalXPEvent.innerText = (productXPEvent * 100 - 100).toFixed(2) + " %";
+
+                var productXPHunter = productXP * (1 + hunterBonus / 4);
+                var totalXPHunter = get("totalXPBonusHunter");
+                totalXPHunter.innerText = (productXPHunter * 100 - 100).toFixed(2) + " %";
+
                 var totalBuff = get("totalXPBuff");
+                totalBuff.innerText = (productXP * intToXp(int) * 100 - 100).toFixed(2) + " %";
+
+                var totalBuffEvent = get("totalXPBuffEvent");
+                totalBuffEvent.innerText = (productXPEvent * intToXp(int) * 100 - 100).toFixed(2) + " %";
+
+                var totalBuffHunter = get("totalXPBuffHunter");
+                totalBuffHunter.innerText = (productXPHunter * intToXp(int) * 100 - 100).toFixed(2) + " %";
+
+                generateLink();
             }
+
+            function generateLink() {
+                var lnk = get("thelink");
+
+                var txt = [];
+
+                for (var e of document.getElementsByTagName("input")) {
+                    if (e.type === "radio" || e.type === "checkbox") {
+                        if (e.checked) {
+                            txt.push(e.id + "=true");
+                        }
+                    } else {
+                        txt.push(e.id + "=" + e.value);
+                    }
+                }
+                for (var e of document.getElementsByTagName("select")) {
+                    if (e.selectedIndex > 0) {
+                        txt.push(e.id + "=" + e.options[e.selectedIndex].value);
+                    }
+                }
+
+                lnk.href = "?" + txt.join("&");
+            }
+
+            function intToXp(int) {
+                return 1 + 3 * int / 100;
+            }
+
+            var q = location.search;
+            if (q.length > 1) {
+                if (q.startsWith("?")) {
+                    q = q.substring(1);
+                }
+                var params = q.split("&");
+
+                for (var p of params) {
+                    var kv = p.split("=");
+
+                    var ctrl = get(kv[0]);
+                    if (ctrl != null) {
+                        if (ctrl.selectedIndex !== undefined) {
+                            for (var opt of ctrl.options) {
+                                if (opt.value == kv[1]) {
+                                    opt.selected = true;
+                                    break;
+                                }
+                            }
+                        }
+                        else if (kv[1] == "true") {
+                            ctrl.checked = true;
+                        }
+                        else {
+                            ctrl.value = kv[1];
+                        }
+                    }
+                }
+            }
+
+            calculate();
         </script>
     </body>
 </html>
