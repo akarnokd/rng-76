@@ -28,12 +28,18 @@
             td.total {
                 font-size: 24px;
             }
+            table.enemies {
+                border-collapse: collapse;
+            }
+            table.enemies td {
+                border: 1px solid black;
+            }
         </style>
         <meta name="keywords" content="Fallout,Fallout 76,XP,Experience,SPECIAL,S.P.E.C.I.A.L.,Intelligence,Int,Score,S.C.O.R.E.,level,boost">
     </head>
     <body>
         <center>
-            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Experience Calculator (0.0.2)</span><br/>
+            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Experience Calculator (0.0.3)</span><br/>
             <br>
             <a href="#" target='_blank' id='thelink'>Link to this setup</a>
             &nbsp;&nbsp;&nbsp;&nbsp;<a href="?">Clear</a>
@@ -338,6 +344,12 @@
                     </td>
                 </tr>
                 <tr>
+                    <td id='infoLiveandlove'>&nbsp;&nbsp;&nbsp;Magazine: Live and Love 8</td>
+                    <td>
+                        <input type='checkbox' id='liveandlove'>
+                    </td>
+                </tr>
+                <tr>
                     <td class='sep2 total'>Total intelligence</td>
                     <td class='sep2 total' id='totalInt'>1</td>
                 </tr>
@@ -366,8 +378,121 @@
                     <td id='totalXPBuffHunter'>0 %</td>
                 </tr>
             </table>
+            <br>
+            <table id='enemyTable' class='enemies'>
+                <tr>
+                    <td colspan='3' style='background-color: #FFCC00;'>Enemy:
+                        &nbsp;<select id='enemy'>
+                            <option value=''>pick...</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td style='text-align: center; font-weight: bold;'>Level</td>
+                    <td width='100' style='text-align: center; font-weight: bold;'>XP</td>
+                    <td width='100' style='text-align: center; font-weight: bold;'>&#x2605; XP</td>
+                </tr>
+            </table>
+            <br>
+            <table id='eventTable' class='enemies'>
+                <tr>
+                    <td colspan='3' style='background-color: #FFCC00;'>Event:
+                        &nbsp;<select id='event'>
+                            <option value=''>pick...</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td style='text-align: center; font-weight: bold;'>Condition</td>
+                    <td width='100' style='text-align: center; font-weight: bold;'>XP</td>
+                    <td width='100' style='text-align: center; font-weight: bold;'>Hunter XP</td>
+                </tr>
+            </table>
         </center>
         <script>
+
+            function interpolate(curve, x) {
+                var first = curve[0];
+
+                if (x <= first.x) {
+                    return first.y;
+                }
+
+                var last = curve[curve.length - 1];
+                if (x >= last.x) {
+                    return last.y;
+                }
+
+                for (var i = 0; i < curve.length - 1; i++) {
+                    var p1 = curve[i];
+                    var p2 = curve[i + 1];
+                    if (p1.x <= x && x < p2.x) {
+                        var dx = p2.x - p1.x;
+                        var dy = p2.y - p1.y;
+                        return (x - p1.x) / dx * dy + p1.y;
+                    }
+                }
+                return -1;
+            }
+
+            var curveHard = [
+                { x: 1, y: 15 },
+                { x: 100, y: 200 }
+            ]
+
+            function xpHard(level) {
+                return interpolate(curveHard, level);
+            }
+
+            var enemies = [
+                {
+                    name: "Super Mutant",
+                    xp: xpHard,
+                    levels: [1, 5, 10, 16, 22, 28, 35, 42, 48, 59, 68, 80, 90, 100, 115]
+                }
+            ];
+
+            enemies.sort((a, b) => {
+                return a.name.localeCompare(b.name);
+            });
+
+            var enemiesSel = get("enemy");
+            for (var e of enemies) {
+                var opt = document.createElement("option");
+                opt.text = e.name;
+                opt.value = encodeURIComponent(e.name);
+                opt.xp = e.xp;
+                opt.levels = e.levels
+                enemiesSel.options.add(opt);
+            }
+
+            var events = [
+                {
+                    name: "Public Event: Line in the sand",
+                    conditions: [
+                        {
+                            name: "Complete",
+                            xp: 250
+                        }
+                    ]
+                }
+            ];
+
+            events.sort((a, b) => {
+                return a.name.localeCompare(b.name);
+            });
+
+            var eventsSel = get("event");
+            for (var e of events) {
+                var opt = document.createElement("option");
+                opt.text = e.name;
+                opt.value = encodeURIComponent(e.name);
+                opt.conditions = e.conditions;
+                eventsSel.options.add(opt);
+            }
+
+            // tips ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
             var infoMap = new Map();
 
             infoMap.set("infoLegendaryInt", 
@@ -471,6 +596,9 @@
             infoMap.set("infoRest", 
                 "+5% XP. Includes Well Rested, Kindred Spirit and Lover's Embrace (their duration vary only)."
             );
+            infoMap.set("infoLiveandlove", 
+                "+5% XP while in a team."
+            );
 
             appendInfo("infoLegendaryInt", "infoLegendaryInt");
             appendInfo("infoPlayerHealth", "infoPlayerHealth");
@@ -497,6 +625,7 @@
             appendInfo("infoFoodMutation", "infoFoodMutation");
             appendInfo("infoChem", "infoChem");
             appendInfo("infoRest", "infoRest");
+            appendInfo("infoLiveandlove", "infoLiveandlove");
 
 
             function appendInfo(id, key) {
@@ -814,6 +943,11 @@
                     }
                 }
 
+                if (teamType != "") {
+                    if (valueOf("liveandlove")) {
+                        xp.push(5);                    
+                    }
+                }
                 // ----------------
 
 
@@ -838,16 +972,96 @@
                 var totalXPHunter = get("totalXPBonusHunter");
                 totalXPHunter.innerText = (productXPHunter * 100 - 100).toFixed(2) + " %";
 
+                var totalXPBuff = productXP * intToXp(int);
+                var totalXPBuffEvent = productXPEvent * intToXp(int);
+                var totalXPBuffHunter = productXPHunter * intToXp(int);
+
                 var totalBuff = get("totalXPBuff");
-                totalBuff.innerText = (productXP * intToXp(int) * 100 - 100).toFixed(2) + " %";
+                totalBuff.innerText = (totalXPBuff * 100 - 100).toFixed(2) + " %";
 
                 var totalBuffEvent = get("totalXPBuffEvent");
-                totalBuffEvent.innerText = (productXPEvent * intToXp(int) * 100 - 100).toFixed(2) + " %";
+                totalBuffEvent.innerText = (totalXPBuffEvent * 100 - 100).toFixed(2) + " %";
 
                 var totalBuffHunter = get("totalXPBuffHunter");
-                totalBuffHunter.innerText = (productXPHunter * intToXp(int) * 100 - 100).toFixed(2) + " %";
+                totalBuffHunter.innerText = (totalXPBuffHunter * 100 - 100).toFixed(2) + " %";
 
                 generateLink();
+                populateEnemies(totalXPBuff, totalXPBuffHunter);
+                populateEvents(totalXPBuff, totalXPBuffEvent);
+            }
+
+            function populateEnemies(normalXP, legendaryXP) {
+                var tbl = get("enemyTable");
+
+                for (var i = tbl.rows.length - 1; i > 1; i--) {
+                    tbl.deleteRow(i);
+                }
+
+                var enemy = get("enemy");
+                if (enemy.selectedIndex > 0) {
+                    var opt = enemy.options[enemy.selectedIndex];
+
+                    for (var lvl of opt.levels) {
+                        var xpBase = opt.xp(lvl);
+
+                        var rw = tbl.insertRow(tbl.rows.length);
+                        var cll = rw.insertCell(rw.cells.length);
+                        cll.innerText = "" + lvl;
+                        cll.style.textAlign = "right";
+
+                        cll = rw.insertCell(rw.cells.length);
+                        cll.innerText = "" + Math.floor(xpBase * normalXP);
+                        cll.style.textAlign = "right";
+
+                        cll = rw.insertCell(rw.cells.length);
+                        cll.innerText = "" + Math.floor(xpBase * legendaryXP);
+                        cll.style.textAlign = "right";
+                    }
+                } else {
+                    var rw = tbl.insertRow(tbl.rows.length);
+                    var cll = rw.insertCell(0);
+                    cll.colSpan = '3';
+                    cll.style.textAlign = "center";
+                    cll.style.fontStyle = "italic";
+                    cll.innerText = "Select an enemy.";
+                }
+            }
+
+
+            function populateEvents(normalXP, eventXP) {
+                var tbl = get("eventTable");
+
+                for (var i = tbl.rows.length - 1; i > 1; i--) {
+                    tbl.deleteRow(i);
+                }
+
+                var enemy = get("event");
+                if (enemy.selectedIndex > 0) {
+                    var opt = enemy.options[enemy.selectedIndex];
+
+                    for (var cond of opt.conditions) {
+                        var rw = tbl.insertRow(tbl.rows.length);
+                        var cll = rw.insertCell(rw.cells.length);
+                        cll.innerText = "" + cond.name;
+
+                        var xpBase = cond.xp;
+
+                        cll = rw.insertCell(rw.cells.length);
+                        cll.innerText = "" + Math.floor(xpBase * normalXP);
+                        cll.style.textAlign = "right";
+
+                        cll = rw.insertCell(rw.cells.length);
+                        cll.innerText = "" + Math.floor(xpBase * eventXP);
+                        cll.style.textAlign = "right";
+                    }
+                } else {
+                    var rw = tbl.insertRow(tbl.rows.length);
+                    var cll = rw.insertCell(0);
+                    cll.colSpan = '3';
+                    cll.style.textAlign = "center";
+                    cll.style.fontStyle = "italic";
+                    cll.innerText = "Select an event.";
+                }
             }
 
             function generateLink() {
