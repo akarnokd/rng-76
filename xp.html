@@ -1,0 +1,791 @@
+<html>
+    <head>
+        <title>Fallout 76 Experience Calculator</title>
+        <style>
+            * {
+                font-family: sans-serif;
+                font-size: 20px;
+            }
+            td {
+                padding: 2px;
+            }
+            
+            table.infoTable {
+               border: 1px solid black;
+               border-collapse: collapse;
+            }
+            table.infoTable td {
+               border: 1px solid black;
+            }
+
+            td.sep {
+                border-top: 1px solid black;
+            }
+            td.sep2 {
+                border-top: 3px solid black;
+                border-style: double none none none;
+            }
+            td.total {
+                font-size: 24px;
+            }
+        </style>
+        <meta name="keywords" content="Fallout,Fallout 76,XP,Experience,SPECIAL,S.P.E.C.I.A.L.,Intelligence,Int,Score,S.C.O.R.E.,level,boost">
+    </head>
+    <body>
+        <center>
+            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Experience Calculator (0.0.1)</span><br/>
+            <br>
+            <br>
+            <table>
+                <tr>
+                    <td>Base intelligence</td>
+                    <td><input type='number' id='baseint' min='1' max='15' value='1' style='width: 75px;'></td>
+                </tr>
+                <tr>
+                    <td id='infoLegendaryInt'>Legendary intelligence</td>
+                    <td><input type='number' id='legendaryint' min='0' max='4' value='0' style='width: 75px;'></td>
+                </tr>
+                <tr>
+                    <td id='infoPlayerHealth'>Player health</td>
+                    <td><input type='number' id='playerhealth' min='1' max='100' value='100'> %</td>
+                </tr>
+                <tr>
+                    <td class='sep'>Perks</td>
+                    <td class='sep'>&nbsp;</td>
+                </tr>
+                <tr>
+                    <td id='infoClassFreak'>&nbsp;&nbsp;&nbsp;Class Freak</td>
+                    <td>
+                        <select id='classFreak'>
+                            <option value=''>N/A</option>
+                            <option value='1'>1</option>
+                            <option value='2'>2</option>
+                            <option value='2'>3</option>
+                        </select>
+                        (rank)
+                    </td>
+                </tr>
+                <tr>
+                    <td id='infoColaNut'>&nbsp;&nbsp;&nbsp;Cola Nut</td>
+                    <td>
+                        <select id='colaNut'>
+                            <option value=''>N/A</option>
+                            <option value='1'>1</option>
+                            <option value='2'>2</option>
+                        </select>
+                        (rank)
+                    </td>
+                </tr>
+                <tr>
+                    <td id='infoInspirational'>&nbsp;&nbsp;&nbsp;Inspirational</td>
+                    <td>
+                        <select id='inspirational'>
+                            <option value=''>N/A</option>
+                            <option value='1'>1</option>
+                            <option value='2'>2</option>
+                            <option value='2'>3</option>
+                        </select>
+                        (rank)
+                    </td>
+                </tr>
+                <tr>
+                    <td id='infoNightperson'>&nbsp;&nbsp;&nbsp;Night person</td>
+                    <td>
+                        <select id='nightperson'>
+                            <option value=''>N/A</option>
+                            <option value='1'>1</option>
+                            <option value='2'>2</option>
+                            <option value='2'>3</option>
+                        </select>
+                        (rank)
+                    </td>
+                </tr>
+                <tr>
+                    <td id='infoStrange'>&nbsp;&nbsp;&nbsp;<label for='strange'>Strange in numbers</label></td>
+                    <td>
+                        <input type='checkbox' id='strange'>
+                    </td>
+                </tr>
+                <tr>
+                    <td class='sep'>Mutations</td>
+                    <td class='sep'>&nbsp;</td>
+                </tr>
+                <tr>
+                    <td id='infoFoodMutation'>&nbsp;&nbsp;&nbsp;Food related</td>
+                    <td>
+                        <select id='foodMutation'>
+                            <option value=''>N/A</option>
+                            <option value='Carnivore'>Carnivore</option>
+                            <option value='Herbivore'>Herbivore</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td id='infoEgghead'>&nbsp;&nbsp;&nbsp;<label for='egghead'>Egghead</label></td>
+                    <td>
+                        <input type='checkbox' id='egghead'>
+                    </td>
+                </tr>
+                <tr>
+                    <td id='infoHerdMentality'>&nbsp;&nbsp;&nbsp;<label for='herdmentality'>Herd Mentality</label></td>
+                    <td>
+                        <input type='checkbox' id='herdmentality'>
+                    </td>
+                </tr>
+                <tr>
+                    <td id='infoMarsupial'>&nbsp;&nbsp;&nbsp;<label for='marsupial'>Marsupial</label></td>
+                    <td>
+                        <input type='checkbox' id='marsupial'>
+                    </td>
+                </tr>
+                <tr>
+                    <td class='sep'>Armor</td>
+                    <td class='sep'>&nbsp;</td>
+                </tr>
+                <tr>
+                    <td>&nbsp;&nbsp;&nbsp;Torso</td>
+                    <td>
+                        <input type='checkbox' id='torsoUnyield'><label for='torsoUnyield'>Is Unyielding</label>
+                        &nbsp;&nbsp;&nbsp;<input type='checkbox' id='torsoInt'><label for='torsoInt'>Has +1 INT</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td>&nbsp;&nbsp;&nbsp;Left Arm</td>
+                    <td>
+                        <input type='checkbox' id='leftArmUnyield'><label for='leftArmUnyield'>Is Unyielding</label>
+                        &nbsp;&nbsp;&nbsp;<input type='checkbox' id='leftArmInt'><label for='leftArmInt'>Has +1 INT</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td>&nbsp;&nbsp;&nbsp;Right Arm</td>
+                    <td>
+                        <input type='checkbox' id='rightArmUnyield'><label for='rightArmUnyield'>Is Unyielding</label>
+                        &nbsp;&nbsp;&nbsp;<input type='checkbox' id='rightArmInt'><label for='rightArmInt'>Has +1 INT</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td>&nbsp;&nbsp;&nbsp;Left Leg</td>
+                    <td>
+                        <input type='checkbox' id='leftLegUnyield'><label for='leftLegUnyield'>Is Unyielding</label>
+                        &nbsp;&nbsp;&nbsp;<input type='checkbox' id='leftLegInt'><label for='leftLegInt'>Has +1 INT</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td>&nbsp;&nbsp;&nbsp;Right Leg</td>
+                    <td>
+                        <input type='checkbox' id='rightLegUnyield'><label for='rightLegUnyield'>Is Unyielding</label>
+                        &nbsp;&nbsp;&nbsp;<input type='checkbox' id='rightLegInt'><label for='rightLegInt'>Has +1 INT</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td>&nbsp;&nbsp;&nbsp;Power Armor Helmet</td>
+                    <td>
+                        <input type='checkbox' id='internalDb'><label for='internalDb'>Internal Database (+2 INT)</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td>&nbsp;&nbsp;&nbsp;Underarmor</td>
+                    <td>
+                        <select id='underarmor'>
+                            <option value=''>N/A</option>
+                            <option value='Casual1'>Casual Treated (+1 INT)</option>
+                            <option value='Casual1'>Casual Resistant (+1 INT)</option>
+                            <option value='Casual1'>Casual Protective (+1 INT)</option>
+                            <option value='Casual1'>Casual Shielded (+1 INT)</option>
+                            <option value='Vault2'>Vault Suit Protective (+2 INT)</option>
+                            <option value='Valut3'>Vault Suit Shielded (+3 INT)</option>
+                            <option value='Flanel3'>Flanel Shirt (+3 INT)</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td class='sep' id='infoFoodDrink'>Food/Drink intelligence</td>
+                    <td class='sep'>
+                        <select id='foodInt'>
+                            <option value=''>N/A</option>
+                            <option value='BerryMentats'>Berry Mentats (+5 INT)</option>
+                            <option value='SBBrain'>Broiled Scorchbeast Brain (+3 INT)</option>
+                            <option value='DaddyO'>Daddy-O (+3 INT)</option>
+                            <option value='BrainBombs'>Brain Bombs (+3 INT)</option>
+                            <option value='XCell'>X-Cell (+2 INT)</option>
+                            <option value='TatoFlowerTea'>Steepled Tato Flower Tea (+2 INT)</option>
+                            <option value='StapledAsterTea'>Stapled Aster Tea (+2 INT)</option>
+                            <option value='BrainFungusSoup'>Brain Fungus soup (+2 INT)</option>
+                            <option value='Mentats'>Mentats (+2 INT)</option>
+                            <option value='OwletNuggets'>Owlet Nuggets (+1 INT)</option>
+                            <option value='SBStew'>Scorchbeast Mixed Stew (+1 INT)</option>
+                            <option value='SimpleAsterTea'>Simple Aster Tea (+1 INT)</option>
+                            <option value='Alcohol'>Alcohols (-1 INT)</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td id='infoBobbleheadInt'><label for='bobbleheadint'>Bobblehead: Intelligence</label></td>
+                    <td>
+                        <input type='checkbox' id='bobbleheadint'>
+                    </td>
+                </tr>
+                <tr>
+                    <td class='sep'>XP boosts</td>
+                    <td class='sep'>&nbsp;</td>
+                </tr>
+                <tr>
+                    <td id='infoFoodDrinkXP'>&nbsp;&nbsp;&nbsp;Food/Drink</td>
+                    <td>
+                        <select id='foodXP'>
+                            <option value=''>N/A</option>
+                            <option value='CranberryCobbler'>Cranberry Cobbler (+5% XP)</option>
+                            <option value='CranberryRelish'>Cranberry Relish (+10% XP)</option>
+                            <option value='NukaCranberry'>Nuka Cola Cranberry (+2% XP*)</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td id='infoLeader'>&nbsp;&nbsp;&nbsp;<label for='bobbleheadleader'>Bobblehead: Leader</label></td>
+                    <td>
+                        <input type='checkbox' id='bobbleheadleader'>
+                    </td>
+                </tr>
+                <tr>
+                    <td>&nbsp;&nbsp;&nbsp;Event</td>
+                    <td>
+                        <input type='checkbox' id='eventMothman'><label for='eventMothman' id='infoMothman'>The Path to Enlightement</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td>&nbsp;&nbsp;&nbsp;Community Event</td>
+                    <td>
+                        <select id='community'>
+                            <option value=''>N/A</option>
+                            <option value='DoubleXP'>Double XP</option>
+                            <option value='TripleXP'>Triple XP</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td id='infoLunchbox'>&nbsp;&nbsp;&nbsp;Lunchbox</td>
+                    <td>
+                        <select id='lunchbox'>
+                            <option value=''>N/A</option>
+                            <option value='1'>+25% XP</option>
+                            <option value='2'>+50% XP</option>
+                            <option value='3'>+75% XP</option>
+                            <option value='4'>+100% XP</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td class='sep' id='infoTeamType'>Team</td>
+                    <td class='sep'>
+                        <select id='teamType'>
+                            <option value=''>Solo</option>
+                            <option value='private'>Private</option>
+                            <option value='public'>Public</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td id='infoTeamBuilder'>&nbsp;&nbsp;&nbsp;Builder team</td>
+                    <td>
+                        <select id='builderTeam'>
+                            <option value=''>Not in team</option>
+                            <option value='1'>Alone (+1 INT)</option>
+                            <option value='2'>1 Bond (+2 INT)</option>
+                            <option value='3'>2 Bonds (+3 INT)</option>
+                            <option value='4'>3 Bonds (+4 INT)</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td id='infoTeamEvent'>&nbsp;&nbsp;&nbsp;Event team</td>
+                    <td>
+                        <select id='eventTeam'>
+                            <option value=''>Not in team</option>
+                            <option value='1'>Alone (+25% XP)</option>
+                            <option value='2'>1 Bond (+50% XP)</option>
+                            <option value='3'>2 Bonds (+75% XP)</option>
+                            <option value='4'>3 Bonds (+100% XP)</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td id='infoTeamHunter'>&nbsp;&nbsp;&nbsp;Hunter team</td>
+                    <td>
+                        <select id='hunterTeam'>
+                            <option value=''>Not in team</option>
+                            <option value='1'>Alone (+25% XP)</option>
+                            <option value='2'>1 Bond (+50% XP)</option>
+                            <option value='3'>2 Bonds (+75% XP)</option>
+                            <option value='4'>3 Bonds (+100% XP)</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td class='sep2 total'>Total intelligence</td>
+                    <td class='sep2 total' id='totalInt'>1</td>
+                </tr>
+                <tr>
+                    <td class='total' id='infoTotalXP'>Total XP bonus</td>
+                    <td class='total' id='totalXPBonus'>0 %</td>
+                </tr>
+                <tr>
+                    <td id='infoTotalXPEvent'>&nbsp;&nbsp;&nbsp;Completing events</td>
+                    <td id='totalXPBonusEvent'>0 %</td>
+                </tr>
+                <tr>
+                    <td id='infoTotalXPHunter'>&nbsp;&nbsp;&nbsp;Killing legendaries</td>
+                    <td id='totalXPBonusHunter'>0 %</td>
+                </tr>
+                <tr>
+                    <td class='total' id='infoOverallXP'>Overall XP buff</td>
+                    <td class='total' id='totalXPBuff'>0 %</td>
+                </tr>
+                <tr>
+                    <td id='infoOverallXPEvent'>&nbsp;&nbsp;&nbsp;Completing events</td>
+                    <td id='totalXPBuffEvent'>0 %</td>
+                </tr>
+                <tr>
+                    <td id='infoOverallXPHunter'>&nbsp;&nbsp;&nbsp;Killing legendaries</td>
+                    <td id='totalXPBuffHunter'>0 %</td>
+                </tr>
+            </table>
+        </center>
+        <script>
+            var infoMap = new Map();
+
+            infoMap.set("infoLegendaryInt", 
+                "PTS preview." 
+                + "<br>It is assumed it stacks with the base <b>intelligence</b> regarding XP"
+                 + "<br> but will only unlock up to 15 total slots."
+            );
+            infoMap.set("infoPlayerHealth", 
+                "Affects the <b>intelligence</b> boost from Unyielding armor pieces."
+            );
+
+            infoMap.set("infoEgghead", 
+                "+6 Intelligence at the cost of -3 Strength and -3 Endurance."
+            );
+
+            infoMap.set("infoClassFreak", 
+                "Negative effects of mutations are reduced by 25, 50 or 75%."
+            );
+            infoMap.set("infoHerdMentality", 
+                "+2 Intelligence when in a team (no need for proximity)."
+            );
+            infoMap.set("infoMarsupial", 
+                "-4 Intelligence. See <b>Class Freak</b> perk to reduce the negative effect."
+            );
+            infoMap.set("infoFoodDrink", 
+                "These are mutually exclusive, thus consuming one while another is active will replace that buff."
+            );
+            infoMap.set("infoBobbleheadInt", 
+                "+2 Intelligence. Mutually exclusive with the <b>Leader</b> bobblehead."
+            );
+            infoMap.set("infoLeader", 
+                "+5% XP gained. Mutually exclusive with the <b>Intelligence</b> bobblehead."
+            );
+            infoMap.set("infoColaNut", 
+                "Cola-based drinks have double (rank 1) or triple (rank 2) effects."
+            );
+            infoMap.set("infoFoodDrinkXP", 
+                "These are mutually exclusive, thus consuming one while another is active will replace that buff."
+                + "<br>Note that <b>Nuka Cola Cranberry</b> benefits from <b>Cola Nut</b> and the XP boost is increased accordingly."
+            );
+            infoMap.set("infoMothman", 
+                "Public event with +5% XP reward."
+                 + "<br>Go to the Landview Lighthouse east of Vault 76 and interact with the Wise Mothman at the end."
+            );
+            infoMap.set("infoTeamType", 
+                "Affects the mutations and perks."
+                 + "<br>Private teams do not provide additional intelligence or XP bonus at the moment."
+                 + "<br>You can switch between public teams as bonds persist until you log out or server hop,"
+                 + "<br>therefore, you can pick buffs for multiple team modes in this section."
+            );
+            infoMap.set("infoInspirational", 
+                "Bonus 5, 10 or 15% XP while in a team."
+                 + "<br>Does not work while in a public team alone."
+            );
+            infoMap.set("infoTeamBuilder", 
+                "Bonus intelligence for each player you bonded with."
+                 + "<br>Bond persists even when switching public teams. Logging out or server hopping removes the bond."
+                 + "<br>You can switch to the Events team at the end of events, then back without penalty,"
+                  + "<br>to benefit from the bonus XP for completing an event."
+            );
+
+            infoMap.set("infoTeamEvent", 
+                "Bonus XP for completing events for each player player you bonded with."
+                 + "<br>Bond persists even when switching public teams. Logging out or server hopping removes the bond."
+                 + "<br>You can switch to the Events team at the end of events, then back, to benefit from the bonus XP for completing an event."
+            );
+            infoMap.set("infoTeamHunter", 
+                "Bonus XP for killing legendaries for each player player you bonded with."
+                 + "<br>Bond persists even when switching public teams. Logging out or server hopping removes the bond."
+                 + "<br>You can switch to the Events team at the end of events, then back, to benefit from the bonus XP for completing an event."
+                 + "<br>Note that horde events end when the primary target is killed so there might not be time to switch."
+                 + "<br>Keeping the primary target of horde events alive may result in an unlimited number of mob spawns, of which legendaries may spawn as well."
+            );
+            infoMap.set("infoLunchbox", 
+                "Lunchboxes are rewards from the legendary run. Opening them around other players grants XP boost to you and them."
+                 + "<br>Note that having more than 4 lunchboxes opened results in a <b>glitch</b> where no boost is applied until"
+                 + "<br>the extra lunchboxes above 4 will run out of time."
+            );
+
+            infoMap.set("infoStrange", 
+                "Positive mutations are +25% stronger when teammates are mutated too."
+                + "<br>Doesn't work when in alone in a public team."
+            );
+
+            infoMap.set("infoTotalXP", 
+                "The combined bonus for all the direct XP-boosting settings above."
+            );
+            infoMap.set("infoOverallXP", 
+                "The combined bonus for all the direct XP-boosting settings above and the effects of Intelligence."
+            );
+            infoMap.set("infoNightperson", 
+                "Gain +1, +2 or +3 Intelligence and Perception between 6 PM and 6 AM. Perception perk."
+            );
+
+            infoMap.set("infoFoodMutation", 
+                "Doubles the effect of meat-based (carnivore) or plant-based (herbivore) consumables."
+            );
+
+            appendInfo("infoLegendaryInt", "infoLegendaryInt");
+            appendInfo("infoPlayerHealth", "infoPlayerHealth");
+            appendInfo("infoEgghead", "infoEgghead");
+            appendInfo("infoClassFreak", "infoClassFreak");
+            appendInfo("infoHerdMentality", "infoHerdMentality");
+            appendInfo("infoFoodDrink", "infoFoodDrink");
+            appendInfo("infoBobbleheadInt", "infoBobbleheadInt");
+            appendInfo("infoColaNut", "infoColaNut");
+            appendInfo("infoFoodDrinkXP", "infoFoodDrinkXP");
+            appendInfo("infoLeader", "infoLeader");
+            appendInfo("infoMothman", "infoMothman");
+            appendInfo("infoTeamType", "infoTeamType");
+            appendInfo("infoInspirational", "infoInspirational");
+            appendInfo("infoTeamBuilder", "infoTeamBuilder");
+            appendInfo("infoTeamEvent", "infoTeamEvent");
+            appendInfo("infoTeamHunter", "infoTeamHunter");
+            appendInfo("infoStrange", "infoStrange");
+            appendInfo("infoLunchbox", "infoLunchbox");
+            appendInfo("infoTotalXP", "infoTotalXP");
+            appendInfo("infoOverallXP", "infoOverallXP");
+            appendInfo("infoNightperson", "infoNightperson");
+            appendInfo("infoMarsupial", "infoMarsupial");
+            appendInfo("infoFoodMutation", "infoFoodMutation");
+
+            function appendInfo(id, key) {
+                document.getElementById(id).innerHTML += info(key);
+            }
+
+            // add HTML explanation marker
+            function info(name) {
+                return "&nbsp;<sup><a href='#' style='font-size: 14; font-weight: bold;' onclick='showinfo(this, \"" + name + "\"); return false;'>?</a></sup>";
+            }
+
+            // popup for explanation
+            function showinfo(target, name) {
+                var div = document.getElementById("InfoDiv" + name);
+                if (div == null) {
+                    var div = document.createElement("div");
+                    div.style.border = "1px solid black";
+                    div.style.padding = "3px";
+                    div.style.position = "absolute";
+                    div.style.backgroundColor = "#FFFFD0";
+                    div.style.zIndex = 99;
+                    div.id = "InfoDiv" + name;
+                    var txt = infoMap.get(name);
+
+                    if (txt == null) {
+                        txt = "??? " + name + " ???";
+                    }
+                    txt += "<hr><font style='font-size: 14px'>Click to close.</font>";
+                    div.innerHTML = txt;
+
+                    target.parentElement.appendChild(div);
+                    div.onclick = function() {
+                        target.parentElement.removeChild(div);
+                    }
+                } else {
+                    target.parentElement.removeChild(div);
+                }
+            }
+
+            function valueOf(id) {
+                var node = get(id);
+
+                if (node.selectedIndex !== undefined) {
+                    return node.options[node.selectedIndex].value;
+                }
+                if (node.type !== undefined) {
+                    if (node.type === "checkbox" || node.type === "radio") {
+                        return node.checked;
+                    }
+                    if (node.type === "number") {
+                        return parseInt(node.value);
+                    }
+                }
+                return "";
+            }
+
+            for (var e of document.getElementsByTagName("input")) {
+                if (e.id !== "bobbleheadint" && e.id !== "bobbleheadleader") {
+                    e.oninput = calculate;
+                }
+            }
+
+            var cbBobbleheadInt = document.getElementById("bobbleheadint");
+            var cbBobbleheadLeader = document.getElementById("bobbleheadleader");
+            cbBobbleheadInt.oninput = function() {
+                if (cbBobbleheadInt.checked) {
+                    cbBobbleheadLeader.checked = false;
+                }
+                calculate();
+            };
+            cbBobbleheadLeader.oninput = function() {
+                if (cbBobbleheadLeader.checked) {
+                    cbBobbleheadInt.checked = false;
+                }
+                calculate();
+            };
+
+            function get(id) {
+                return document.getElementById(id);
+            }
+
+            function cap(value, min, max) {
+                if (isNaN(value) || value < min) {
+                    return min;
+                }
+                if (value > max) {
+                    return max;
+                }
+                return value;
+            }
+
+            function unyieldBonus(health) {
+                if (health < 25) {
+                    return 3;
+                }
+                if (health < 50) {
+                    return 2;
+                }
+                if (health < 75) {
+                    return 1;
+                }
+                return 0;
+            }
+
+            function calculate() {
+
+                var int = cap(valueOf("baseint"), 1, 15);
+                var xp = [];
+
+                int += cap(valueOf("legendaryint"), 0, 4);
+
+                // PERKS ================================================
+                
+                var strange = valueOf("strange");
+                var nightperson = valueOf("nightperson");
+                var classFreak = valueOf("classFreak");
+                var colaNut = valueOf("colaNut");
+                var inspire = valueOf("inspirational");
+
+                if (nightperson == "1") {
+                    int += 1;
+                }
+                else if (nightperson == "2") {
+                    int += 2;
+                }
+                else if (nightperson == "3") {
+                    int += 3;
+                }
+
+                // MUTATIONS ================================================
+
+
+                var isEgghead = valueOf("egghead");
+                if (isEgghead) {
+                    if (strange) {
+                        int += 8;
+                    } else {
+                        int += 6;
+                    }
+                }
+
+                var isHerd = valueOf("herdmentality");
+                if (isHerd) {
+                    if (strange) {
+                        int += 3;
+                    } else {
+                        int += 2;
+                    }
+                }
+                
+                var isMarsupial = valueOf("marsupial");
+                if (isMarsupial) {
+                    if (classFreak == "1") {
+                        int -= 3;
+                    }
+                    else if (classFreak == "2") {
+                        int -= 2;
+                    }
+                    else if (classFreak == "3") {
+                        int -= 1;
+                    }
+                    else {
+                        int -= 4;
+                    }
+                }
+
+                // ARMOR ================================================
+                var hp = cap(valueOf("playerhealth"), 1, 100);
+
+                for (var part of ["torso", "leftArm", "rightArm", "leftLeg", "rightLeg"]) {
+                    if (valueOf(part + "Unyield")) {
+                        int += unyieldBonus(hp);
+                    }
+                    if (valueOf(part + "Int")) {
+                        int++;
+                    }
+                }
+
+                if (valueOf("internalDb")) {
+                    int += 2;
+                }
+
+                var underarmor = valueOf("underarmor");
+                if (underarmor != "") {
+                    int += parseInt(underarmor.substring(underarmor.length - 2));
+                }
+
+
+                // CONSUMABLES ==========================================
+
+                var foodMutate = valueOf("foodMutation");
+
+                var foodInt = valueOf("foodInt");
+                if (foodInt != "") {
+                    if (foodInt == "BerryMentats") {
+                        int += 5;
+                    }
+                    if (foodInt == "SBBrain") {
+                        int += foodMutate == "Carnivore" ? 6 : 3;
+                    }
+                    if (foodInt == "DaddyO") {
+                        int += 3;
+                    }
+                    if (foodInt == "BrainBombs") {
+                        int += foodMutate == "Herbivore" ? 6 : 3;
+                    }
+                    if (foodInt == "XCell") {
+                        int += 2;
+                    }
+                    if (foodInt == "TatoFlowerTea") {
+                        int += 2;
+                    }
+                    if (foodInt == "StapledAsterTea") {
+                        int += 2;
+                    }
+                    if (foodInt == "BrainFungusSoup") {
+                        int += foodMutate == "Herbivore" ? 4 : 2;
+                    }
+                    if (foodInt == "Mentats") {
+                        int += 2;
+                    }
+                    if (foodInt == "OwletNuggets") {
+                        int += foodMutate == "Carnivore" ? 2 : 1;
+                    }
+                    if (foodInt == "SBStew") {
+                        int += foodMutate == "Carnivore" ? 2 : 1;
+                    }
+                    if (foodInt == "SimpleAsterTea") {
+                        int++;
+                    }
+                    if (foodInt == "Alcohol") {
+                        int--;
+                    }
+                }
+
+                if (valueOf("bobbleheadInt")) {
+                    int += 2;
+                }
+
+                // XP BOOSTERS =============================================
+
+                var foodXP = valueOf("foodXP");
+                if (foodXP == "CranberryCobbler") {
+                    xp.push(foodMutate == "Herbivore" ? 10 : 5);
+                }
+                if (foodXP == "CranberryRelish") {
+                    xp.push(foodMutate == "Herbivore" ? 20 : 10);
+                }
+                if (foodXP == "NukaCranberry") {
+                    if (colaNut == "1") {
+                        xp.push(4);
+                    }             
+                    else if (colaNut == "2") {
+                        xp.push(6);
+                    }
+                    else {
+                        xp.push(2);
+                    }
+                }
+
+                if (valueOf("bobbleheadLeader")) {
+                    xp.push(5);
+                }
+                if (valueOf("eventMothman")) {
+                    xp.push(5);
+                }
+                
+                var community = valueOf("community");
+                if (community == "DoubleXP") {
+                    xp.push(100);
+                }
+                if (community == "TripleXP") {
+                    xp.push(200);
+                }
+
+                var lunchbox = valueOf("lunchbox");
+                if (lunchbox != "") {
+                    xp.push(25 * parseInt(lunchbox));
+                }
+
+                // TEAM EFFECTS ===============================
+
+                var teamType = valueOf("teamType");
+                var eventBonus = 0;
+                var hunterBonus = 0;
+
+                if (teamType == "Public") {
+                    var teamBuilder = valueOf("teamBuilder");
+                    if (teamBuilder != "") {
+                        int += parseInt(teamBuilder);
+                    }
+
+                    var teamEvent = valueOf("teamEvent");
+                    if (teamEvent != "") {
+                        eventBonus = parseInt(teamEvent);
+                    }
+
+                    var teamHunter = valueOf("teamHunter");
+                    if (teamHunter != "") {
+                        hunterBonus = parseInt(teamHunter);
+                    }
+                }
+
+                // ----------------
+
+
+                int = cap(int, 1, 100);
+
+                var totalInt = get("totalInt");
+                totalInt.innerText = "" + int;
+
+                var totalXP 
+                = get("totalXPBonus");
+                var totalBuff = get("totalXPBuff");
+            }
+        </script>
+    </body>
+</html>
