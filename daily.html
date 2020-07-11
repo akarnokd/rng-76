@@ -1154,6 +1154,30 @@
                         };
             }
 
+            function scoreCraftAmmo50(offset) {
+                return {
+                            name: "Craft Ammo (x50)",
+                            offset: offset,
+                            period: 100,
+                        };
+            }
+
+            function scoreJoinGroup(offset) {
+                return {
+                            name: "Join a group with another Player",
+                            offset: offset,
+                            period: 100,
+                        };
+            }
+
+            function scoreNWIncreaseRank(offset) {
+                return {
+                            name: "&#x2622; NW: Increase your Overseer rank",
+                            offset: offset,
+                            period: 100,
+                        };
+            }
+
             var challengesDailyEra3 = {
                 validStart: new Date(Date.UTC(2020, 5, 30, 16, 0, 0, 0)),
                 validEnd: undefined,
@@ -1217,7 +1241,15 @@
                     scoreCompleteOneEvent(10, 1),
                     scoreKillLegendary3(10),
                     scoreRepairArmorWeapon(10, 10),
-                    scoreNWUseStimpak6(10)
+                    scoreNWUseStimpak6(10),
+
+                    scoreClaimWorkshop(11),
+                    scoreCompleteEventInGroup(11),
+                    scoreCraftAmmo50(11),
+                    scoreJoinGroup(11),
+                    scoreKillCreature20(11),
+                    scoreKillLegendary3(11),
+                    scoreNWIncreaseRank(11)
                 ]
             };
 
