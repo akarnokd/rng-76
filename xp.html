@@ -33,7 +33,7 @@
     </head>
     <body>
         <center>
-            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Experience Calculator (0.0.1)</span><br/>
+            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Experience Calculator (0.0.2)</span><br/>
             <br>
             <a href="#" target='_blank' id='thelink'>Link to this setup</a>
             &nbsp;&nbsp;&nbsp;&nbsp;<a href="?">Clear</a>
@@ -193,9 +193,9 @@
                             <option value='Casual1'>Casual Treated (+1 INT)</option>
                             <option value='Casual1'>Casual Resistant (+1 INT)</option>
                             <option value='Casual1'>Casual Protective (+1 INT)</option>
-                            <option value='Casual1'>Casual Shielded (+1 INT)</option>
+                            <option value='Casual3'>Casual Shielded (+3 INT)</option>
                             <option value='Vault2'>Vault Suit Protective (+2 INT)</option>
-                            <option value='Valut3'>Vault Suit Shielded (+3 INT)</option>
+                            <option value='Valut2'>Vault Suit Shielded (+2 INT)</option>
                             <option value='Flanel3'>Flanel Shirt (+3 INT)</option>
                         </select>
                     </td>
@@ -205,19 +205,27 @@
                     <td class='sep'>
                         <select id='foodInt'>
                             <option value=''>N/A</option>
-                            <option value='BerryMentats'>Berry Mentats (+5 INT)</option>
                             <option value='SBBrain'>Broiled Scorchbeast Brain (+3 INT)</option>
-                            <option value='DaddyO'>Daddy-O (+3 INT)</option>
                             <option value='BrainBombs'>Brain Bombs (+3 INT)</option>
-                            <option value='XCell'>X-Cell (+2 INT)</option>
                             <option value='TatoFlowerTea'>Steepled Tato Flower Tea (+2 INT)</option>
                             <option value='StapledAsterTea'>Stapled Aster Tea (+2 INT)</option>
                             <option value='BrainFungusSoup'>Brain Fungus soup (+2 INT)</option>
-                            <option value='Mentats'>Mentats (+2 INT)</option>
                             <option value='OwletNuggets'>Owlet Nuggets (+1 INT)</option>
                             <option value='SBStew'>Scorchbeast Mixed Stew (+1 INT)</option>
                             <option value='SimpleAsterTea'>Simple Aster Tea (+1 INT)</option>
                             <option value='Alcohol'>Alcohols (-1 INT)</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td id='infoChem'>Chem intelligence</td>
+                    <td>
+                        <select id='chemInt'>
+                            <option value=''>N/A</option>
+                            <option value='BerryMentats'>Berry Mentats (+5 INT)</option>
+                            <option value='DaddyO'>Daddy-O (+3 INT)</option>
+                            <option value='XCell'>X-Cell (+2 INT)</option>
+                            <option value='Mentats'>Mentats (+2 INT)</option>
                         </select>
                     </td>
                 </tr>
@@ -239,6 +247,7 @@
                             <option value='CranberryCobbler'>Cranberry Cobbler (+5% XP)</option>
                             <option value='CranberryRelish'>Cranberry Relish (+10% XP)</option>
                             <option value='NukaCranberry'>Nuka Cola Cranberry (+2% XP*)</option>
+                            <option value='CannedMeatSteew'>Canned Meat Stew (+5% XP)</option>
                         </select>
                     </td>
                 </tr>
@@ -274,6 +283,12 @@
                             <option value='3'>+75% XP</option>
                             <option value='4'>+100% XP</option>
                         </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td id='infoRest'>&nbsp;&nbsp;&nbsp;Rested</td>
+                    <td>
+                        <input type='checkbox' id='wellrested'>
                     </td>
                 </tr>
                 <tr>
@@ -380,6 +395,9 @@
             infoMap.set("infoFoodDrink", 
                 "These are mutually exclusive, thus consuming one while another is active will replace that buff."
             );
+            infoMap.set("infoChem", 
+                "These are mutually exclusive, thus consuming one while another is active will replace that buff."
+            );
             infoMap.set("infoBobbleheadInt", 
                 "+2 Intelligence. Mutually exclusive with the <b>Leader</b> bobblehead."
             );
@@ -450,6 +468,9 @@
             infoMap.set("infoFoodMutation", 
                 "Doubles the effect of meat-based (carnivore) or plant-based (herbivore) consumables."
             );
+            infoMap.set("infoRest", 
+                "+5% XP. Includes Well Rested, Kindred Spirit and Lover's Embrace (their duration vary only)."
+            );
 
             appendInfo("infoLegendaryInt", "infoLegendaryInt");
             appendInfo("infoPlayerHealth", "infoPlayerHealth");
@@ -474,6 +495,9 @@
             appendInfo("infoNightperson", "infoNightperson");
             appendInfo("infoMarsupial", "infoMarsupial");
             appendInfo("infoFoodMutation", "infoFoodMutation");
+            appendInfo("infoChem", "infoChem");
+            appendInfo("infoRest", "infoRest");
+
 
             function appendInfo(id, key) {
                 document.getElementById(id).innerHTML += info(key);
@@ -670,20 +694,11 @@
 
                 var foodInt = valueOf("foodInt");
                 if (foodInt != "") {
-                    if (foodInt == "BerryMentats") {
-                        int += 5;
-                    }
                     if (foodInt == "SBBrain") {
                         int += foodMutate == "Carnivore" ? 6 : 3;
                     }
-                    if (foodInt == "DaddyO") {
-                        int += 3;
-                    }
                     if (foodInt == "BrainBombs") {
                         int += foodMutate == "Herbivore" ? 6 : 3;
-                    }
-                    if (foodInt == "XCell") {
-                        int += 2;
                     }
                     if (foodInt == "TatoFlowerTea") {
                         int += 2;
@@ -693,9 +708,6 @@
                     }
                     if (foodInt == "BrainFungusSoup") {
                         int += foodMutate == "Herbivore" ? 4 : 2;
-                    }
-                    if (foodInt == "Mentats") {
-                        int += 2;
                     }
                     if (foodInt == "OwletNuggets") {
                         int += foodMutate == "Carnivore" ? 2 : 1;
@@ -711,6 +723,22 @@
                     }
                 }
 
+                var chemInt = valueOf("chemInt");
+                if (chemInt != "") {
+                    if (chemInt == "BerryMentats") {
+                        int += 5;
+                    }
+                    if (chemInt == "DaddyO") {
+                        int += 3;
+                    }
+                    if (chemInt == "XCell") {
+                        int += 2;
+                    }
+                    if (chemInt == "Mentats") {
+                        int += 2;
+                    }
+                }
+
                 if (valueOf("bobbleheadInt")) {
                     int += 2;
                 }
@@ -723,6 +751,9 @@
                 }
                 if (foodXP == "CranberryRelish") {
                     xp.push(foodMutate == "Herbivore" ? 20 : 10);
+                }
+                if (foodXP == "CannedMeatStew") {
+                    xp.push(foodMutate == "Carnivore" ? 10 : 5);
                 }
                 if (foodXP == "NukaCranberry") {
                     if (colaNut == "1") {
@@ -754,6 +785,10 @@
                 var lunchbox = valueOf("lunchbox");
                 if (lunchbox != "") {
                     xp.push(25 * parseInt(lunchbox));
+                }
+                var wellrested = valueOf("wellrested");
+                if (wellrested != "") {
+                    xp.push(5);
                 }
 
                 // TEAM EFFECTS ===============================
