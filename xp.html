@@ -521,6 +521,21 @@
                     xp: xpBoss,
                     levels: [23, 30, 40, 45, 50, 60]
                 },
+                {
+                    name: "Mirelurk King",
+                    xp: xpHard,
+                    levels: [30, 40, 50, 65, 80, 100]
+                },
+                {
+                    name: "Mirelurk Queen",
+                    xp: xpBoss,
+                    levels: [20, 35, 50, 65, 80, 100]
+                },
+                {
+                    name: "Mirelurk Hunter",
+                    xp: xpHard,
+                    levels: [24, 34, 46, 58, 70, 85, 100]
+                }
             ];
 
             enemies.sort((a, b) => {
@@ -621,6 +636,177 @@
                 },
                 simpleEvent("Event: Back on the beat", 25),
                 simpleEvent("Event: Battle bot", 300),
+                simpleEvent("Enclave event: Bots on parade", 250),
+                simpleEvent("Event: Census violence", 350),
+                simpleEvent("Event: Collision course", 150),
+                simpleEvent("Public event: Distinguished Guests", 150),
+                simpleEvent("Event: Dogwood die off", 250),
+                simpleEvent("Enclave event: Dropped connection", 250),
+                simpleEvent("Public event: Feed the people", 25),
+                simpleEvent("Event: Fertile soil", 150),
+                simpleEvent("Event: Grafton day", 200),
+                simpleEvent("Public event: Guided meditation", 200),
+                simpleEvent("Public event: Heart of the swamp", 350),
+                simpleEvent("Event: Irrational fear", 300),
+                simpleEvent("Event: It's a trap", 350),
+                simpleEvent("Public event: Jail break", 50),
+                simpleEvent("Public event: Lode baring", 350),
+                simpleEvent("Event: Manhunt", 300),
+                simpleEvent("Event: The messenger", 350),
+                simpleEvent("Public event: One violent night", 250),
+                simpleEvent("Event: Patrol duty", 250),
+                {
+                    name: "Event: Powering up Monongah",
+                    conditions: [
+                        {
+                            name: "Basic repairs",
+                            xp: 450
+                        },
+                        { 
+                            name: "Full repairs",
+                            xp: 600
+                        }
+                    ]
+                },
+                {
+                    name: "Event: Powering up Poseidon",
+                    conditions: [
+                        {
+                            name: "Basic repairs",
+                            xp: 450
+                        },
+                        { 
+                            name: "Full repairs",
+                            xp: 600
+                        }
+                    ]
+                },
+                {
+                    name: "Event: Powering up Thunder Mountain",
+                    conditions: [
+                        {
+                            name: "Basic repairs",
+                            xp: 450
+                        },
+                        { 
+                            name: "Full repairs",
+                            xp: 600
+                        }
+                    ]
+                },
+                simpleEvent("Event: Project beanstalk", 200),
+                simpleEvent("Event: Protest march", 200),
+                simpleEvent("Public event: Scorched earth", 1200),
+                {
+                    name: "Public event: Swarm of Suitors",
+                    conditions: [
+                        {
+                            name: "Suitors killed in time",
+                            xp: 200
+                        },
+                        {
+                            name: "Queen killed",
+                            xp: 0
+                        }
+                    ]
+                },
+                simpleEvent("Public event: Tea time", 150),
+                simpleEvent("Public event: Path to enlightement", 200),
+                simpleEvent("Daily: Operation tidy", 300),
+                simpleEvent("Daily: Stings and things", 300),
+                simpleEvent("Daily: Tipsy-taste test", 250),
+                simpleEvent("Daily: Wasted on Alcohol", 250),
+                simpleEvent("Public event: Campfire tales", 250),
+                simpleEvent("Public event: Encryptid", 800),
+                simpleEvent("Public event: Free range", 400),
+                simpleEvent("Public event: Project paradise", 400),
+                simpleEvent("Public event: Fasnacht day", 250),
+                simpleEvent("Public event: Grahm's meat cook", 500),
+                simpleEvent("Public event: Mischief night", 250),
+                simpleEvent("Public event: Primal cuts", 150),
+                simpleEvent("Daily: Photo opportunity", 700),
+                simpleEvent("Public event: Radiation rumble", 350),
+                { 
+                    name: "Daily: Retirement plan", 
+                    conditions: [
+                        {
+                            name: "First time",
+                            xp: 800,
+                        },
+                        {
+                            name: "2..7 times",
+                            xp: 800,
+                        },
+                        {
+                            name: "8..14 times",
+                            xp: 800,
+                        },
+                        {
+                            name: "15..28 times",
+                            xp: 800,
+                        },
+                        {
+                            name: "29..60 times",
+                            xp: 800,
+                        },
+                        { 
+                            name: "61..180 times",
+                            xp: 800
+                        },
+                        {
+                            name: "181+ times",
+                            xp: 800
+                        }
+                    ] 
+                },
+                {
+                    name: "Event: Riding shotgun",
+                    conditions: [
+                        {
+                            name: "Basic reward",
+                            xp: 200
+                        },
+                        { 
+                            name: "One Brahmin survived",
+                            xp: 300,
+                        },
+                        { 
+                            name: "Both Brahmin survived",
+                            xp: 400,
+                        },
+                        {
+                            name: "Found 1 Package",
+                            xp: 450
+                        },
+                        {
+                            name: "Found 2 Packages too",
+                            xp: 500
+                        },
+                        {
+                            name: "Found 3 Packages too",
+                            xp: 550
+                        },
+                        {
+                            name: "Found 4 Packages too",
+                            xp: 600
+                        }
+                    ]
+                },
+                simpleEvent("Daily: The Importance of Communication", 700),
+                simpleEvent("Daily: Vital equipment", 700),
+                {
+                    name: "Ally: Daily quest (radiant)",
+                    conditions: [
+                        {
+                            name: "Level 39",
+                            xp: interpolate(curveMedium, 39)
+                        },
+                        {
+                            name: "Level 66",
+                            xp: interpolate(curveMedium, 66)
+                        }
+                    ]
+                }
             ];
 
             events.sort((a, b) => {
