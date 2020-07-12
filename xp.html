@@ -360,6 +360,10 @@
                     <td class='sep2 total' id='totalInt'>1</td>
                 </tr>
                 <tr>
+                    <td>&nbsp;&nbsp;&nbsp;Equivalent XP bonus</td>
+                    <td id='totalIntPercent'>3%</td>
+                </tr>
+                <tr>
                     <td class='total' id='infoTotalXP'>Total XP bonus</td>
                     <td class='total' id='totalXPBonus'>0 %</td>
                 </tr>
@@ -457,6 +461,16 @@
             var curveBoss = [
                 { x: 1, y: 20 },
                 { x: 100, y: 500 }
+            ];
+
+            var curveEasy = [
+                { x: 1, y: 5 },
+                { x: 100, y: 75 }
+            ];
+
+            var curveCritter = [
+                { x: 1, y: 2 },
+                { x: 100, y: 40 }
             ];
 
             function xpHard(level) {
@@ -1373,6 +1387,8 @@
 
                 var totalInt = get("totalInt");
                 totalInt.innerText = "" + int.toFixed(2);
+
+                get("totalIntPercent").innerText = (intToXp(int) * 100 - 100).toFixed(2) + " %";
 
                 var productXP = 1;
                 for (var x of xp) {
