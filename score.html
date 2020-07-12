@@ -97,8 +97,12 @@
                     </select></td>
                 </tr>
                 <tr>
+                    <td><label for="nw">Bonus 500 S.C.O.R.E. worth of challenges</label></td>
+                    <td><input type="checkbox" id="bonusdaily" checked></td>
+                </tr>
+                <tr>
                     <td>&#x1F6C8; Daily Challenge S.C.O.R.E.</td>
-                    <td id='dailyscore'>2000</td>
+                    <td id='dailyscore'>2500</td>
                 </tr>
                 <tr>
                     <td title="Excludes the repeatable 'Gain 10000 XP for 100 S.C.O.R.E. points'">&#x1F6C8; Weekly Challenge S.C.O.R.E.</td>
@@ -240,6 +244,11 @@
                 var dailyScore = nw ? 2000 : 1750;
                 var weeklyScore = nw ? 7500 : 6500;
 
+                var bonus = document.getElementById("bonusdaily").checked;
+                if (bonus) {
+                    dailyScore += 500;
+                }
+
                 var scoreRank = valueOf("startrank");
                 if (isNaN(scoreRank) || scoreRank < 1 || scoreRank > 99) {
                     scoreRank = 1;
@@ -279,7 +288,10 @@
                 txt += "&dblxpe=" + doublexpend;
                 txt += "&dblscs=" + doublescorestart;
                 txt += "&dblsce=" + doublescoreend;
-                txt += "&weeklyat=" + completeweekly
+                txt += "&weeklyat=" + completeweekly;
+                if (bonus) {
+                    txt += "&bonusdaily";
+                }
 
                 lnk.href = txt;
 
@@ -451,9 +463,27 @@
             completeweekly.oninput = calculateProgresson;
             
             var nuclearwinter = document.getElementById("nw");
-            nuclearwinter.oninput = (evt) => {
-                document.getElementById("dailyscore").innerText = nuclearwinter.checked ? "2000" : "1750";
+            var bonusdaily = document.getElementById("bonusdaily");
+
+            function updateScoreInfo() {
+                var ds = 1750;
+                if (nuclearwinter.checked) {
+                    ds += 250;
+                }
+                if (bonusdaily.checked) {
+                    ds += 500;
+                }
+                document.getElementById("dailyscore").innerText = "" + ds;
                 document.getElementById("weeklyscore").innerText = nuclearwinter.checked ? "7500" : "6500";
+            }
+
+            nuclearwinter.oninput = (evt) => {
+                updateScoreInfo();                
+                calculateProgresson();
+            };
+
+            bonusdaily.oninput = (evt) => {
+                updateScoreInfo();                
                 calculateProgresson();
             };
 
@@ -474,6 +504,9 @@
                 var params = q.split("&");
 
                 for (var p of params) {
+                    if (p == "bonusdaily") {
+                        bonusdaily.checked = true;
+                    } else
                     if (p == "nw") {
                         nuclearwinter.checked = true;
                     }
@@ -520,8 +553,7 @@
                 }
             }
 
-            document.getElementById("dailyscore").innerText = nuclearwinter.checked ? "2000" : "1750";
-            document.getElementById("weeklyscore").innerText = nuclearwinter.checked ? "7500" : "6500";
+            updateScoreInfo();
             calculateProgresson();
         </script>
     </body>
