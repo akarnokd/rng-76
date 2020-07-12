@@ -22,7 +22,7 @@
     </head>
     <body>
         <center>
-            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Daily/Weekly Atom/S.C.O.R.E. Challenges (0.3.3)</span><br/>
+            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Daily/Weekly Atom/S.C.O.R.E. Challenges (0.3.4)</span><br/>
             <br/>
             <br/>
             <table>
@@ -1016,9 +1016,9 @@
                         };
             }
 
-            function scoreBuildFloorWallCamp(offset) {
+            function scoreBuildFloorWallCamp(offset, count) {
                 return {
-                            name: "Build floors, walls or roofs in your C.A.M.P. or Workshop (x10)",
+                            name: "Build floors, walls or roofs in your C.A.M.P. or Workshop (x " + count + ")",
                             offset: offset,
                             period: 100,
                         };
@@ -1178,6 +1178,28 @@
                         };
             }
 
+            function scoreRankupPerkCard(offset) {
+                return {
+                            name: "Rank up a perk card",
+                            offset: offset,
+                            period: 100,
+                        };
+            }
+            function scoreUsePhotomodeGroup(offset) {
+                return {
+                            name: "Use the photomode while in a group",
+                            offset: offset,
+                            period: 100,
+                        };
+            }
+            function scoreNWRevivePlayer(offset) {
+                return {
+                            name: "&#x2622; NW: Revive a Player",
+                            offset: offset,
+                            period: 100,
+                        };
+            }
+
             var challengesDailyEra3 = {
                 validStart: new Date(Date.UTC(2020, 5, 30, 16, 0, 0, 0)),
                 validEnd: undefined,
@@ -1210,7 +1232,7 @@
                     scoreKillLegendary(4, 1),
 
                     scoreCompleteOneEvent(5, 1),
-                    scoreBuildFloorWallCamp(5),
+                    scoreBuildFloorWallCamp(5, 10),
                     scoreEatCookedMeal(5),
                     scoreKillMoleminer(5),
 
@@ -1249,7 +1271,15 @@
                     scoreJoinGroup(11),
                     scoreKillCreature20(11),
                     scoreKillLegendary3(11),
-                    scoreNWIncreaseRank(11)
+                    scoreNWIncreaseRank(11),
+
+                    scoreBuildFloorWallCamp(12, 5),
+                    scoreCompleteOneEvent(12, 2),
+                    scoreJoinGroup(12),
+                    scoreKillCryptid1(12),
+                    scoreRankupPerkCard(12),
+                    scoreUsePhotomodeGroup(12),
+                    scoreNWRevivePlayer(12)
                 ]
             };
 
