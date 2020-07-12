@@ -39,7 +39,7 @@
     </head>
     <body>
         <center>
-            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Experience Calculator (0.0.5)</span><br/>
+            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Experience Calculator (0.0.6)</span><br/>
             <br>
             <a href="#" target='_blank' id='thelink'>Link to this setup</a>
             &nbsp;&nbsp;&nbsp;&nbsp;<a href="?">Clear</a>
@@ -68,7 +68,7 @@
                             <option value=''>N/A</option>
                             <option value='1'>1</option>
                             <option value='2'>2</option>
-                            <option value='2'>3</option>
+                            <option value='3'>3</option>
                         </select>
                         (rank)
                     </td>
@@ -144,6 +144,12 @@
                     <td id='infoMarsupial'>&nbsp;&nbsp;&nbsp;<label for='marsupial'>Marsupial</label></td>
                     <td>
                         <input type='checkbox' id='marsupial'>
+                    </td>
+                </tr>
+                <tr>
+                    <td id='infoHealingFactor'>&nbsp;&nbsp;&nbsp;<label for='healingfactor'>Healing Factor</label></td>
+                    <td>
+                        <input type='checkbox' id='healingfactor'>
                     </td>
                 </tr>
                 <tr>
@@ -401,6 +407,7 @@
                         &nbsp;<select id='event'>
                             <option value=''>pick...</option>
                         </select>
+                        &nbsp;<a href='https://nukacrypt.com/search' id='eventnukacrypt' target='_blank' title='See this on Nukacrypt'>&#x2622;</a>
                     </td>
                 </tr>
                 <tr>
@@ -551,14 +558,16 @@
                 opt.value = encodeURIComponent(e.name);
                 opt.xp = e.xp;
                 opt.levels = e.levels
+                opt.formid = e.formid;
                 enemiesSel.options.add(opt);
             }
 
             // _________________________________________________________
 
-            function simpleEvent(name, xp) {
+            function simpleEvent(name, xp, formid) {
                 return {
                     name: name,
+                    formid: formid,
                     conditions: [
                         {
                             name: "Complete",
@@ -572,54 +581,82 @@
                 simpleEvent("Public event: Line in the sand", 250),
                 {
                     name: "Daily: Big Game Hunter",
+                    formid: "0011D76B",
                     conditions: [
                         {
-                            name: "No kills",
-                            xp: 25
+                            name: "0 kills + complete",
+                            xp: 500
                         },
                         {
-                            name: "Only 1 kill",
-                            xp: 50
+                            name: "1 kill + complete",
+                            xp: 525
                         },
                         {
-                            name: "Only 2 kills",
-                            xp: 75
+                            name: "2 kills + complete",
+                            xp: 550
                         },
                         {
-                            name: "3 kills",
-                            xp: 100
+                            name: "3 kills + complete",
+                            xp: 575
                         }
                     ]
                 },
                 simpleEvent("Daily: Buried with Honor", 200),
-                simpleEvent("Daily: Cop a squatter", 350),
-                simpleEvent("Daily: Dross toss", 300),
+                simpleEvent("Daily: Cop a squatter", 600, "00116532"),
+                {
+                    name: "Daily: Dross toss",
+                    formid: "00320E08",
+                    conditions: [
+                        {
+                            name: "Not all targets hit",
+                            xp: 300
+                        },
+                        {
+                            name: "All targets hit",
+                            xp: 600
+                        }
+                    ]
+                },
                 simpleEvent("Daily: Ecological Balance", 60),
                 {
                     name: "Daily: Heart of the enemy",
+                    formid: "00065DFE",
                     conditions: [
                         {
                             name: "First time",
-                            xp: 25 + 994
+                            xp: 25 + 800
                         },
                         {
                             name: "Subsequently",
-                            xp: 994
+                            xp: 800
                         }
                     ]
                 },
                 simpleEvent("Daily: Idle explosives", 300),
-                simpleEvent("Daily: Lucky mucker", 300),
+                simpleEvent("Daily: Lucky mucker", 600, "00320E0A"),
                 simpleEvent("Mistaken identity", 400),
                 simpleEvent("Daily: Pass the buck", 200),
-                simpleEvent("Daily: Play time", 300),
+                simpleEvent("Daily: Play time", 600, "00116532"),
                 simpleEvent("Daily: Queen of the hunt", 300),
                 simpleEvent("Daily: Someone to talk to", 250),
                 simpleEvent("Daily: Strange brew", 150),
                 simpleEvent("Daily: Target rich environment", 25),
-                simpleEvent("Daily: The chow line", 300),
+                {
+                    name: "Daily: The chow line",
+                    formid: "00320E09",
+                    conditions: [
+                        {
+                            name: "Run out of time",
+                            xp: 300
+                        },
+                        {
+                            name: "Ate all hotdogs",
+                            xp: 600
+                        }
+                    ]
+                },
                 simpleEvent("Daily: Thrill of the grill", 250),
-                simpleEvent("Daily: Trick or treat", 200),
+                simpleEvent("Daily: Trick or treat", 500, "00137931"),
                 simpleEvent("Daily: Waste not", 300),
                 simpleEvent("Event: Always Vigilant", 300),
                 {
@@ -821,6 +858,7 @@
                 opt.text = e.name;
                 opt.value = encodeURIComponent(e.name);
                 opt.conditions = e.conditions;
+                opt.formid = e.formid;
                 eventsSel.options.add(opt);
             }
 
@@ -932,6 +970,9 @@
             infoMap.set("infoLiveandlove", 
                 "+5% XP while in a team."
             );
+            infoMap.set("infoHealingFactor",
+                "Chem effects are reduced by 55%. The Class Freak perk can change this to 41.25, 27.5 or 13.75%."
+            );
 
             appendInfo("infoLegendaryInt", "infoLegendaryInt");
             appendInfo("infoPlayerHealth", "infoPlayerHealth");
@@ -959,6 +1000,7 @@
             appendInfo("infoChem", "infoChem");
             appendInfo("infoRest", "infoRest");
             appendInfo("infoLiveandlove", "infoLiveandlove");
+            appendInfo("infoHealingFactor", "infoHealingFactor");
 
 
             function appendInfo(id, key) {
@@ -1193,19 +1235,35 @@
                     }
                 }
 
+                var healingFactor = valueOf("healingfactor");
+                var chemBuffMultiply = 1;
+                if (healingFactor) {
+                    var debuff = 0.55;
+                    if (classFreak == '1') {
+                        debuff *= 0.75;
+                    }
+                    if (classFreak == '2') {
+                        debuff *= 0.5;
+                    }
+                    if (classFreak == '3') {
+                        debuff *= 0.25;
+                    }
+                    chemBuffMultiply = 1 - debuff;
+                }
+
                 var chemInt = valueOf("chemInt");
                 if (chemInt != "") {
                     if (chemInt == "BerryMentats") {
-                        int += 5;
+                        int += 5 * chemBuffMultiply;
                     }
                     if (chemInt == "DaddyO") {
-                        int += 3;
+                        int += 3 * chemBuffMultiply;
                     }
                     if (chemInt == "XCell") {
-                        int += 2;
+                        int += 2 * chemBuffMultiply;
                     }
                     if (chemInt == "Mentats") {
-                        int += 2;
+                        int += 2 * chemBuffMultiply;
                     }
                 }
 
@@ -1298,7 +1356,7 @@
                 int = cap(int, 1, 100);
 
                 var totalInt = get("totalInt");
-                totalInt.innerText = "" + int;
+                totalInt.innerText = "" + int.toFixed(2);
 
                 var productXP = 1;
                 for (var x of xp) {
@@ -1386,6 +1444,13 @@
                 var enemy = get("event");
                 if (enemy.selectedIndex > 0) {
                     var opt = enemy.options[enemy.selectedIndex];
+
+                    var nukalink = get("eventnukacrypt");
+                    if (opt.formid !== undefined) {
+                        nukalink.href = "https://nukacrypt.com/database/json/" + opt.formid;
+                    } else {
+                        nukalink.href = "https://nukacrypt.com/search";
+                    }
 
                     for (var cond of opt.conditions) {
                         var rw = tbl.insertRow(tbl.rows.length);
