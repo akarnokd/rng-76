@@ -1203,14 +1203,30 @@
                 // CONSUMABLES ==========================================
 
                 var foodMutate = valueOf("foodMutation");
+                var herbivoreBuff = 1;
+                if (foodMutate == "Herbivore") {
+                    if (strange) {
+                        herbivoreBuff = 2 * 1.25;
+                    } else {
+                        herbivoreBuff = 2;
+                    }
+                }
+                var carnivoreBuff = 1;
+                if (foodMutate == "Carnivore") {
+                    if (strange) {
+                        carnivoreBuff = 2 * 1.25;
+                    } else {
+                        carnivoreBuff = 2;
+                    }
+                }
 
                 var foodInt = valueOf("foodInt");
                 if (foodInt != "") {
                     if (foodInt == "SBBrain") {
-                        int += foodMutate == "Carnivore" ? 6 : 3;
+                        int += carnivoreBuff * 3;
                     }
                     if (foodInt == "BrainBombs") {
-                        int += foodMutate == "Herbivore" ? 6 : 3;
+                        int += herbivoreBuff * 3;
                     }
                     if (foodInt == "TatoFlowerTea") {
                         int += 2;
@@ -1219,13 +1235,13 @@
                         int += 2;
                     }
                     if (foodInt == "BrainFungusSoup") {
-                        int += foodMutate == "Herbivore" ? 4 : 2;
+                        int += herbivoreBuff * 2;
                     }
                     if (foodInt == "OwletNuggets") {
-                        int += foodMutate == "Carnivore" ? 2 : 1;
+                        int += carnivoreBuff * 1;
                     }
                     if (foodInt == "SBStew") {
-                        int += foodMutate == "Carnivore" ? 2 : 1;
+                        int += carnivoreBuff * 1;
                     }
                     if (foodInt == "SimpleAsterTea") {
                         int++;
@@ -1275,13 +1291,13 @@
 
                 var foodXP = valueOf("foodXP");
                 if (foodXP == "CranberryCobbler") {
-                    xp.push(foodMutate == "Herbivore" ? 10 : 5);
+                    xp.push(herbivoreBuff * 5);
                 }
                 if (foodXP == "CranberryRelish") {
-                    xp.push(foodMutate == "Herbivore" ? 20 : 10);
+                    xp.push(herbivoreBuff * 10);
                 }
                 if (foodXP == "CannedMeatStew") {
-                    xp.push(foodMutate == "Carnivore" ? 10 : 5);
+                    xp.push(carnivoreBuff * 5);
                 }
                 if (foodXP == "NukaCranberry") {
                     if (colaNut == "1") {
