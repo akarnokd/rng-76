@@ -1200,6 +1200,14 @@
                         };
             }
 
+            function scoreHackTerminal(offset) {
+                return {
+                    name: "Hack a terminal",
+                            offset: offset,
+                            period: 100,
+                };
+            }
+
             var challengesDailyEra3 = {
                 validStart: new Date(Date.UTC(2020, 5, 30, 16, 0, 0, 0)),
                 validEnd: undefined,
@@ -1279,7 +1287,13 @@
                     scoreKillCryptid1(12),
                     scoreRankupPerkCard(12),
                     scoreUsePhotomodeGroup(12),
-                    scoreNWRevivePlayer(12)
+                    scoreNWRevivePlayer(12),
+
+                    scoreChewBubblegum(13),
+                    scoreCompleteOneEvent(13, 1),
+                    scoreHackTerminal(13),
+                    scoreKillGhoul10(13),
+                    scoreNWDeployCamp(13)
                 ]
             };
 
