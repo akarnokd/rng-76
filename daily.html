@@ -1040,9 +1040,13 @@
                         };
             }
 
-            function scoreBuySellItem(offset) {
+            function scoreBuySellItem(offset, count) {
+                var txt = "";
+                if (count > 1) {
+                    txt += " (x" + count + ")";
+                }
                 return {
-                            name: "Buy from or sell to another player",
+                            name: "Buy from or sell to another player" + txt,
                             offset: offset,
                             period: 100,
                         };
@@ -1138,9 +1142,13 @@
                         };
             }
 
-            function scoreNWKillCreature(offset) {
+            function scoreNWKillCreature(offset, count) {
+                var txt = "";
+                if (count > 1) {
+                    txt = " (x" + count + ")";
+                }
                 return {
-                            name: "&#x2622; NW: Kill a creature (x10)",
+                            name: "&#x2622; NW: Kill a creature" + txt,
                             offset: offset,
                             period: 100,
                         };
@@ -1265,9 +1273,9 @@
                     scoreCraftScrapPowerArmor(9),
                     scoreKillSupermutant10(9),
                     scoreUsePhotomode(9),
-                    scoreNWKillCreature(9),
+                    scoreNWKillCreature(9, 10),
 
-                    scoreBuySellItem(10),
+                    scoreBuySellItem(10, 1),
                     scoreCompleteOneEvent(10, 1),
                     scoreKillLegendary3(10),
                     scoreRepairArmorWeapon(10, 10),
@@ -1293,7 +1301,15 @@
                     scoreCompleteOneEvent(13, 1),
                     scoreHackTerminal(13),
                     scoreKillGhoul10(13),
-                    scoreNWDeployCamp(13)
+                    scoreNWDeployCamp(13),
+
+                    scoreBuySellItem(14, 3),
+                    scoreCompleteDaily(14),
+                    scoreJoinGroup(14),
+                    scoreKillGlowing(14),
+                    scoreKillMoleminer(14),
+                    scoreKillScorched10(14),
+                    scoreNWKillCreature(14, 1)
                 ]
             };
 
@@ -1779,7 +1795,7 @@
                 return {
                             name: "Build up your C.A.M.P. or Workshop (all)",
                             offset: offset,
-                            period: 28,
+                            period: 1400,
                             subchallenges: [
                                 {
                                     name: "Build containers, displays or shelves (x5)",
@@ -1812,7 +1828,7 @@
                 return {
                             name: "Complete Events in group (x5)",
                             offset: offset,
-                            period: 28,
+                            period: 1400,
                             tipId: "ScoreCompleteEventsGroup",
                             tip: "Public teams work too and no need for proximity."
                         };
@@ -1822,7 +1838,7 @@
                 return {
                             name: "Craft or scrap weapons, armor or clothing (x25)",
                             offset: offset,
-                            period: 28,
+                            period: 1400,
                         };
             }
 
@@ -1830,7 +1846,7 @@
                 return {
                             name: "Destroy various robots (any 5)",
                             offset: offset,
-                            period: 28,
+                            period: 1400,
                             tipId: "ScoreDestroyRobots",
                             tip: "Watoga has all sorts of robots.",
                             subchallenges: [
@@ -1866,7 +1882,7 @@
                 return {
                             name: "Gather Building Supplies (any 5)",
                             offset: offset,
-                            period: 14,
+                            period: 1400,
                             tipId: "GatherBuildingSupplies",
                             tip: "You can simply scrap bulk items of these components.",
                             subchallenges: [
@@ -1902,14 +1918,21 @@
                 return {
                             name: "Kill/destroy legendary enemies (x10)",
                             offset: offset,
-                            period: 28,
+                            period: 1400,
+                        };
+            }
+            function scoreKillLegendaries5(offset) {
+                return {
+                            name: "Kill/destroy legendary enemies (x5)",
+                            offset: offset,
+                            period: 1400,
                         };
             }
             function scoreLevelUp3(offset) {
                 return {
                             name: "Level up (x3)",
                             offset: offset,
-                            period: 28,
+                            period: 1400,
                         };
             }
 
@@ -1917,7 +1940,7 @@
                 return {
                             name: "&#x267B; Repeatable: Gain 10.000 XP",
                             offset: offset,
-                            period: 28,
+                            period: 1400,
                         };
             }
 
@@ -1925,7 +1948,7 @@
                 return {
                             name: "Complete an event (x10)",
                             offset: offset,
-                            period: 28,
+                            period: 1400,
                         };
             }
 
@@ -1933,7 +1956,7 @@
                 return {
                             name: "Claim a Workshop (x5)",
                             offset: offset,
-                            period: 28,
+                            period: 1400,
                         };
             }
 
@@ -1941,7 +1964,7 @@
                 return {
                             name: "Deal critical hit to an enemy (x25)",
                             offset: offset,
-                            period: 28,
+                            period: 1400,
                             tipId: "ScoreCriticalHit",
                             tip: "Scoring a critical hit with a Shotgun may still count as 8 critical hits at once."
                         };
@@ -1951,7 +1974,15 @@
                 return {
                             name: "Kill a creature (x20)",
                             offset: offset,
-                            period: 28,
+                            period: 1400,
+                        };
+            }
+
+            function scoreKillCreature30(offset) {
+                return {
+                            name: "Kill a creature (x30)",
+                            offset: offset,
+                            period: 1400,
                         };
             }
 
@@ -1959,7 +1990,7 @@
                 return {
                             name: "Kill/destroy a legendary enemy (x3)",
                             offset: offset,
-                            period: 28,
+                            period: 1400,
                         };
             }
 
@@ -1967,7 +1998,62 @@
                 return {
                             name: "&#x2622; NW: Complete a Nuclear Winter challenge (x3)",
                             offset: offset,
-                            period: 28,
+                            period: 1400,
+                        };
+            }
+
+            function scorekillHugeCreatures(offset) {
+                return {
+                            name: "Kill huge creatures (any 3)",
+                            offset: offset,
+                            period: 1400,
+                            subchallenges: [
+                                {
+                                    name: "Super Mutant Behemoth",
+                                    tipId: "KillHugeSuperMutantBehemoth",
+                                    tip: "From the Vantage Point, go down the road towards south-east to find a pond."
+                                },
+                                {
+                                    name: "Deathclaw",
+                                    tipId: "KillHugeDeathclaw",
+                                    tip: "Check out Deathclaw Island, Hopewell Cave, Thunder Mountain Substation TM-02 north of Watoga."
+                                },
+                                {
+                                    name: "Grafton Monster",
+                                    tipId: "KillHugeGraftonMonster",
+                                    tip: "In the dried up riverbed between the power plant and the train yard."
+                                    + "<br>Near the Charleston Capital fast travel point."
+                                },
+                                {
+                                    name: "Mega Sloth",
+                                    tipId: "KillHugeMegasloth",
+                                    tip: "Check out South of Mosstown, southeast of the South Belle Motel, NAR Repair Yard,"
+                                    + "<br>Cranberry Glade or the Overgrown Sundew Grove."
+                                },
+                                {
+                                    name: "Mirelurk Queen",
+                                    tipId: "KillHugeMirelurkQueen",
+                                    tip: "Check out Highland Marsh (Mire), Quarry X3 (Cranberry Bog) or Sunrise Field (south of Watoga)."
+                                },
+                                {
+                                    name: "Scorchbeast",
+                                    tipId: "KillHugeScorchbeast",
+                                    tip: "Any fissure site."
+                                },
+                                {
+                                    name: "Sheepsquatch",
+                                    tipId: "KillHugeSheepsquatch",
+                                    tip: "Check out the Free Range event or locations such as NAR Repair Yard, Cranberry Glade,"
+                                    + "<br>south of the Freakshow in the crater, south of Huntersville towards the crater, "
+                                    + "<br>north-west of the Treetop house or west between Berkeley Station and Harper's Ferry."
+                                },
+                                {
+                                    name: "Wendigo Colossus",
+                                    tipId: "KillHugeWendigoColossus",
+                                    tip: "Nuke fissure prime so that the Overgrown Sundew Grove is in the nuke radius."
+                                    + "<br>It has a 7% chance of spawning and keep returning in about 10-15 minutes to trigger a fresh location spawn."
+                                },
+                            ]
                         };
             }
 
@@ -1988,6 +2074,15 @@
             addWeekly(challengesWeeklyEra3.options, 7, scoreKillCreature20);
             addWeekly(challengesWeeklyEra3.options, 7, scoreKillLegendary3);
             addWeekly(challengesWeeklyEra3.options, 7, scoreNWChallenge3);
+
+            addWeekly(challengesWeeklyEra3.options, 14, scoreGainXP10000);
+            addWeekly(challengesWeeklyEra3.options, 14, scoreBuildupCamp);
+            addWeekly(challengesWeeklyEra3.options, 14, scoreCompleteEvents10);
+            addWeekly(challengesWeeklyEra3.options, 14, scoreCriticalHit25);
+            addWeekly(challengesWeeklyEra3.options, 14, scoreKillCreature30);
+            addWeekly(challengesWeeklyEra3.options, 14, scorekillHugeCreatures);
+            addWeekly(challengesWeeklyEra3.options, 14, scoreKillLegendaries5);
+            addWeekly(challengesWeeklyEra3.options, 14, scoreLevelUp3);
 
             var challengesWeekly = [
                 challengesWeeklyEra1,
