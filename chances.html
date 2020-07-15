@@ -45,7 +45,7 @@
     </head>
     <body>
         <center>
-            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Drop Chances (0.3.1)</span><br/>
+            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Drop Chances (0.3.2)</span><br/>
             <a href='leveledlist' target='_blank'>How does it work?</a>
             <br/>
             <br/>
@@ -1174,6 +1174,11 @@
                         cll.colSpan = maxCols;
                         var entries = [];
 
+                        // mark entry indexes to match the chance tree
+                        var idx = 0;
+                        for (var e of lvli.Entries) {
+                            e.index = idx++;
+                        }
 
                         // coalesce same entries
                         if (document.getElementById("Coalesce").checked) {
@@ -1228,14 +1233,12 @@
                             }
                         }
 
-                        var entryIndex = 0;
                         for (var entry of entries) {
-
+                            var entryIndex = entry.index;
                             if (!showFail) {
                                 var pass = entry.Conditions === undefined || evaluateConditions(entry.Conditions);
                                 var lvl = decodeValueOverride(entry, "LVLV", "LVOG", "ZZZZ");
                                 if (!pass || (isAllLevel && lvl > settingsLevel) || (!isAllLevel && lvl != closestLevel)) {
-                                    entryIndex++;
                                     continue;
                                 }
                             }
@@ -1394,7 +1397,7 @@
                                 if (itemNode.apriori !== undefined) {
                                     cascadeChance = parentChance * itemNode.apriori;
                                 }
-                                generateTable(innerTable, formIDs, index + 1, chanceNode.items[entryIndex].sublist, cascadeChance);
+                                generateTable(innerTable, formIDs, index + 1, itemNode.sublist, cascadeChance);
 
                                 btn.innerText = "Close";
                                 let closeFormIDs = formIDs.slice(0, index + 1);
@@ -1403,8 +1406,6 @@
                                     renderTable(closeFormIDs);
                                 };
                             }
-
-                            entryIndex++;
                         }
                     }
                 }
