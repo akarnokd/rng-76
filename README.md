@@ -8,3 +8,11 @@ Rng 76 - Hunt for the TSE
 [Purveyor](https://akarnokd.github.io/rng-76/purveyor.html) 
 
 [Drop Simulator](https://akarnokd.github.io/rng-76/dropsim.html)
+
+[Daily challenges](https://akarnokd.github.io/rng-76/daily.html)
+
+[Drop chances](https://akarnokd.github.io/rng-76/chances.html)
+
+[Patch difference](https://akarnokd.github.io/rng-76/patchdiff.html)
+
+[Experience calculator](https://akarnokd.github.io/rng-76/xp.html)
