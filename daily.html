@@ -1216,6 +1216,28 @@
                 };
             }
 
+            function scorePickLock(offset) {
+                return {
+                    name: "Pick a lock",
+                            offset: offset,
+                            period: 100,
+                };
+            }
+            function scorePlantCrop(offset) {
+                return {
+                    name: "Plant crops in your C.A.M.P. or Workshop (x10)",
+                            offset: offset,
+                            period: 100,
+                };
+            }
+            function scoreNWKillPlayer(offset) {
+                return {
+                            name: "&#x2622; NW: Kill a Player",
+                            offset: offset,
+                            period: 100,
+                        };
+            }
+
             var challengesDailyEra3 = {
                 validStart: new Date(Date.UTC(2020, 5, 30, 16, 0, 0, 0)),
                 validEnd: undefined,
@@ -1309,7 +1331,16 @@
                     scoreKillGlowing(14),
                     scoreKillMoleminer(14),
                     scoreKillScorched10(14),
-                    scoreNWKillCreature(14, 1)
+                    scoreNWKillCreature(14, 1),
+
+                    scoreClaimWorkshop(15),
+                    scoreCompleteOneEvent(15, 1),
+                    scoreKillLegendary(15, 1),
+                    scorePickLock(15),
+                    scorePlantCrop(15),
+                    scoreUsePhotomode(15),
+                    scoreNWKillPlayer(15),
+                    
                 ]
             };
 
