@@ -1238,6 +1238,21 @@
                         };
             }
 
+            function scoreEatPrewarFood20(offset) {
+                return {
+                    name: "Eat pre-war food (x20)",
+                            offset: offset,
+                            period: 100,
+                };
+            }
+            function scoreKillCreatureInGroup(offset) {
+                return {
+                    name: "Kill a creature while in a group (x10)",
+                            offset: offset,
+                            period: 100,
+                };
+            }
+
             var challengesDailyEra3 = {
                 validStart: new Date(Date.UTC(2020, 5, 30, 16, 0, 0, 0)),
                 validEnd: undefined,
@@ -1341,6 +1356,13 @@
                     scoreUsePhotomode(15),
                     scoreNWKillPlayer(15),
                     
+                    scoreBuySellItem(16, 3),
+                    scoreCompleteOneEvent(16, 1),
+                    scoreEatPrewarFood20(16),
+                    scoreKillCreatureInGroup(16),
+                    scoreRepairArmorWeapon(16, 3),
+                    scoreUsePhotomodeGroup(16),
+                    scoreNWIncreaseRank(16)
                 ]
             };
 
