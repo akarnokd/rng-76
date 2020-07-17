@@ -1252,6 +1252,14 @@
                             period: 100,
                 };
             }
+            
+            function scoreModArmor(offset) {
+                return {
+                    name: "Mod armor (x5)",
+                            offset: offset,
+                            period: 100,
+                };
+            }
 
             var challengesDailyEra3 = {
                 validStart: new Date(Date.UTC(2020, 5, 30, 16, 0, 0, 0)),
@@ -1362,7 +1370,14 @@
                     scoreKillCreatureInGroup(16),
                     scoreRepairArmorWeapon(16, 3),
                     scoreUsePhotomodeGroup(16),
-                    scoreNWIncreaseRank(16)
+                    scoreNWIncreaseRank(16),
+
+                    scoreCompleteOneEvent(17),
+                    scoreJoinGroup(17),
+                    scoreKillLegendary(17, 1),
+                    scoreKillScorched10(17),
+                    scoreModArmor(17),
+                    scoreNWIncreaseRank(17)
                 ]
             };
 
