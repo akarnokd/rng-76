@@ -1,9 +1,37 @@
 <html>
     <head>
         <title>Program to find the XP formula</title>
+        <style>
+            table {
+                border-collapse: collapse;
+            }
+            td {
+                border: 1px solid black;
+                padding: 3px;
+                text-align: right;
+            }
+        </style>
     </head>
     <body>
         <h1>Program to find the XP formula</h1>
+        <button onclick='calc();'>Calc</button>
+        <br>
+        <span id='result'></span>
+        <table id='tbl'>
+            <tr>
+                <td>Base XP</td>
+                <td>Int</td>
+                <td>Team</td>
+                <td>Rest</td>
+                <td>Relish</td>
+                <td>Inspire</td>
+                <td>Lunch</td>
+                <td>Double</td>
+                <td>Ingame</td>
+                <td>Calc</td>
+                <td>Error</td>
+            </tr>
+        </table>
         <script>
             var data = [
                 entry(48, 102.8, 11, 2, 5, 10, 15, 0, 100, 372),
@@ -61,15 +89,248 @@
                 return {
                     level: level,
                     base: base,
-                    int: int,
-                    team: team,
-                    rest: rest,
-                    relish: relish,
-                    inspire: inspire,
-                    lunch: lunch,
-                    dbl: dbl,
+                    int: int * 0.03,
+                    team: team * 0.03,
+                    rest: rest * 0.01,
+                    relish: relish * 0.01,
+                    inspire: inspire * 0.01,
+                    lunch: lunch * 0.01,
+                    dbl: dbl * 0.01,
                     xp: xp
                 };
+            }
+
+            var properties = [
+                "int", "team", "rest", "relish", "inspire", "lunch", "dbl"
+            ];
+
+            // returns List<List<List<T>>>
+            function partition(ori, m) {
+                if (ori.length < m || m < 1) {
+                    return [];
+                }
+                if (m == 1) {
+                    return [ [ ori.slice() ] ];
+                }
+
+                var result = [];
+
+                var prev1 = partition(ori.slice(0, ori.length - 1), m);
+
+                for (var i = 0; i < prev1.length; i++) {
+                    for (var j = 0; j < prev1[i].length; j++) {
+                        var lst = [];
+                        for (var inner of prev1[i]) {
+                            lst.push(inner.slice());
+                        }
+                        lst[j].push(ori[ori.length - 1]);
+                        result.push(lst);
+                    }
+                }
+
+                var set = [ ori[ori.length - 1] ];
+
+                var prev2 = partition(ori.slice(0, ori.length - 1), m - 1);
+                for (var i = 0; i < prev2.length; i++) {
+                    var lst = prev2[i].slice();
+                    lst.push(set);
+                    result.push(lst);
+                }
+
+                return result;
+            }
+
+            function toStr(list) {
+                var txt = "[";
+                var n = 0;
+                for (var e of list) {
+                    if (n != 0) {
+                        txt += ", ";
+                    }
+                    if (Array.isArray(e)) {
+                        txt += toStr(e);
+                    } else {
+                        txt += e;
+                    }
+                    n++;
+                }
+                txt += "]";
+                return txt;
+            }
+
+            var roundName = "Floor";
+            function round(val) {
+                return Math.floor(val);
+            }
+
+            function calculateEntry(entry, partition, rounding) {
+                var product = (rounding & 1) == 0 ? entry.base : round(entry.base) ;
+
+                var m = 1;
+                for (var p of partition) {
+                    var sum = 1;
+                    for (var q of p) {
+                        sum += entry[q];
+                    }
+                    if ((rounding & (1 << m)) != 0) {
+                        product = round(product * sum);
+                    } else {
+                        product *= sum;
+                    }
+                    m++;
+                }
+
+                return product;
+            }
+
+            function toFormula(partition, rounding) {
+                var txt;
+                
+                if ((rounding & 1) == 0) {
+                    txt = "step1 = base<br>";
+                } else {
+                    txt = "step1 = " + roundName + "(base)<br>";
+                }
+
+                var n = 1;
+                for (var p of partition) {
+
+                    txt += "step" + (n + 2) + " = "
+
+                    var doRounding = (rounding & (1 << n)) != 0;
+                    if (doRounding) {
+                        txt += roundName + "("
+                    }
+
+                    txt += "step" + (n + 1) + " * (1 ";
+                    for (var q of p) {
+                        txt += " + " + q;
+                    }
+                    txt += ")"
+
+                    if (doRounding) {
+                        txt += ")"
+                    }
+                    txt += "<br>";
+                    n++;
+                }
+                return txt;
+            }
+
+            function errorFunc(expected, actual) {
+                return (expected - actual) * (expected - actual);
+            }
+
+            function calc() {
+                var res = document.getElementById("result");
+                res.innerHTML = "";
+
+                /*
+                for (var i = 1; i <= properties.length; i++) {
+                    var span = document.createElement("span");
+                    var txt = toStr(partition(properties, i));
+
+                    span.innerText = txt;
+                    res.appendChild(span);
+                    res.append(document.createElement("br"));
+                }
+                */
+
+                var allPartitions = [];
+                for (var i = 1; i <= properties.length; i++) {
+                    for (var p of partition(properties, i)) {
+
+                        var rm = 1 << (p.length + 1);
+                        for (var r = 0; r < rm; r++) {
+                            var ra = r;
+                            var errorSquare = 0;
+                            for (var d of data) {
+                                var n = calculateEntry(d, p, ra);
+                                var e = d.xp;
+                                errorSquare += errorFunc(e, n);
+                            }
+
+                            allPartitions.push({
+                                partition: p,
+                                error: errorSquare,
+                                round: ra
+                            });
+                        }
+                    }
+                }
+
+                var smallestP = undefined;
+                var smallestErr = undefined;
+                var smallestR = undefined;
+
+                for (var a of allPartitions) {
+                    if (smallestErr === undefined || smallestErr > a.error) {
+                        smallestErr = a.error;
+                        smallestP = a.partition;
+                        smallestR = a.round;
+                    }
+                }
+
+                var span = document.createElement("span");
+                span.innerText = toStr(smallestP);
+                res.appendChild(span);
+                res.append(document.createElement("br"));
+
+                span = document.createElement("span");
+                span.innerHTML = toFormula(smallestP, smallestR);
+                res.appendChild(span);
+                res.append(document.createElement("br"));
+
+                span = document.createElement("span");
+                span.innerText = smallestErr.toFixed(3);
+                res.appendChild(span);
+                
+                res.append(document.createElement("br"));
+
+                var tbl = document.getElementById("tbl")
+
+                for (var i = tbl.rows.length - 1; i > 0; i--) {
+                    tbl.deleteRow(i);
+                }
+
+                for (var d of data) {
+                    var rw = tbl.insertRow(tbl.rows.length);
+
+                    var cll = rw.insertCell(rw.cells.length);
+                    cll.innerText = "" + d.base;
+
+                    cll = rw.insertCell(rw.cells.length);
+                    cll.innerText = "" + (d.int * 100 / 3).toFixed(0);
+
+                    cll = rw.insertCell(rw.cells.length);
+                    cll.innerText = "" + (d.team * 100 / 3).toFixed(0);
+
+                    cll = rw.insertCell(rw.cells.length);
+                    cll.innerText = "" + (d.rest * 100).toFixed(0);
+
+                    cll = rw.insertCell(rw.cells.length);
+                    cll.innerText = "" + (d.relish * 100).toFixed(0);
+
+                    cll = rw.insertCell(rw.cells.length);
+                    cll.innerText = "" + (d.inspire * 100).toFixed(0);
+
+                    cll = rw.insertCell(rw.cells.length);
+                    cll.innerText = "" + (d.lunch * 100).toFixed(0);
+
+                    cll = rw.insertCell(rw.cells.length);
+                    cll.innerText = "" + (d.dbl * 100).toFixed(0);
+
+                    cll = rw.insertCell(rw.cells.length);
+                    cll.innerText = "" + (d.xp).toFixed(1);
+
+                    var n = calculateEntry(d, smallestP, smallestR);
+
+                    cll = rw.insertCell(rw.cells.length);
+                    cll.innerText = "" + (n).toFixed(1);
+
+                    cll = rw.insertCell(rw.cells.length);
+                    cll.innerText = "" + (n - d.xp).toFixed(1);
+                }
             }
         </script>
     </body>
