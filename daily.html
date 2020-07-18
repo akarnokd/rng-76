@@ -1094,6 +1094,13 @@
                             period: 100,
                         };
             }
+            function scoreNWDeployCamp4(offset) {
+                return {
+                            name: "&#x2622; NW: Deploy a C.A.M.P. (x4)",
+                            offset: offset,
+                            period: 100,
+                        };
+            }
 
             function scoreBuildAnythingCamp(offset) {
                 return {
@@ -1261,6 +1268,14 @@
                 };
             }
 
+            function scoreCookMealPlant(offset) {
+                return {
+                    name: "Cook meal with plants of fungi (x5)",
+                    offset: offset,
+                    period: 100
+                }
+            }
+
             var challengesDailyEra3 = {
                 validStart: new Date(Date.UTC(2020, 5, 30, 16, 0, 0, 0)),
                 validEnd: undefined,
@@ -1377,7 +1392,15 @@
                     scoreKillLegendary(17, 1),
                     scoreKillScorched10(17),
                     scoreModArmor(17),
-                    scoreNWIncreaseRank(17)
+                    scoreNWIncreaseRank(17),
+
+                    scoreBuySellItem(18, 3),
+                    scoreClaimWorkshop(18),
+                    scoreCompleteOneEvent(18, 1),
+                    scoreCookMealPlant(18),
+                    scoreDestroyRobot10(18),
+                    scoreKillCryptid1(18),
+                    scoreNWDeployCamp4(18)
                 ]
             };
 
