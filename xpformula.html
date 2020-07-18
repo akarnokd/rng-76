@@ -2,6 +2,10 @@
     <head>
         <title>Program to find the XP formula</title>
         <style>
+            * {
+                font-family: sans-serif;
+                font-size: 20px;
+            }
             table {
                 border-collapse: collapse;
             }
@@ -13,7 +17,7 @@
         </style>
     </head>
     <body>
-        <h1>Program to find the XP formula</h1>
+        <h1>Program to find the XP formula (0.01)</h1>
         <button onclick='calc();'>Calc</button>
         <br>
         <span id='result'></span>
@@ -282,7 +286,7 @@
                 res.append(document.createElement("br"));
 
                 span = document.createElement("span");
-                span.innerText = smallestErr.toFixed(3);
+                span.innerText = "Cumulative error: " + smallestErr.toFixed(3);
                 res.appendChild(span);
                 
                 res.append(document.createElement("br"));
@@ -321,7 +325,7 @@
                     cll.innerText = "" + (d.dbl * 100).toFixed(0);
 
                     cll = rw.insertCell(rw.cells.length);
-                    cll.innerText = "" + (d.xp).toFixed(1);
+                    cll.innerText = "" + (d.xp).toFixed(0);
 
                     var n = calculateEntry(d, smallestP, smallestR);
 
