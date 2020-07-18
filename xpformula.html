@@ -199,14 +199,14 @@
                 var n = 1;
                 for (var p of partition) {
 
-                    txt += "step" + (n + 2) + " = "
+                    txt += "step" + (n + 1) + " = "
 
                     var doRounding = (rounding & (1 << n)) != 0;
                     if (doRounding) {
                         txt += roundName + "("
                     }
 
-                    txt += "step" + (n + 1) + " * (1 ";
+                    txt += "step" + (n) + " * (1 ";
                     for (var q of p) {
                         txt += " + " + q;
                     }
