@@ -1416,7 +1416,15 @@
                     scoreEatCookedMeal(20),
                     scoreKillSupermutant10(20),
                     scoreRankupPerkCard(20),
-                    scoreNWKillPlayer(20)
+                    scoreNWKillPlayer(20),
+
+                    scoreBuySellItem(21, 3),
+                    scoreCompleteOneEvent(21, 2),
+                    scoreHackTerminal(21),
+                    scoreJoinGroup(21),
+                    scoreKillCreature15(21),
+                    scoreKillLegendary(21, 3),
+                    scoreNWKillCreature(21, 5)
                 ]
             };
 
@@ -1940,6 +1948,15 @@
                             tip: "Public teams work too and no need for proximity."
                         };
             }
+            function scoreCompleteEventsGroup3(offset) {
+                return {
+                            name: "Complete Events in group (x3)",
+                            offset: offset,
+                            period: 1400,
+                            tipId: "ScoreCompleteEventsGroup",
+                            tip: "Public teams work too and no need for proximity."
+                        };
+            }
 
             function scoreCraftScrapItems25(offset) {
                 return {
@@ -2077,6 +2094,16 @@
                         };
             }
 
+            function scoreCriticalHit10(offset) {
+                return {
+                            name: "Deal critical hit to an enemy (x10)",
+                            offset: offset,
+                            period: 1400,
+                            tipId: "ScoreCriticalHit",
+                            tip: "Scoring a critical hit with a Shotgun may still count as 8 critical hits at once."
+                        };
+            }
+
             function scoreKillCreature20(offset) {
                 return {
                             name: "Kill a creature (x20)",
@@ -2164,6 +2191,14 @@
                         };
             }
 
+            function scoreHarvestPlantFungi25(offset) {
+                return {
+                            name: "Harvest a wild plant or fungi (x25)",
+                            offset: offset,
+                            period: 1400,
+                        };
+            }
+
             addWeekly(challengesWeeklyEra3.options, 0, scoreGainXP10000);
             addWeekly(challengesWeeklyEra3.options, 0, scoreBuildupCamp);
             addWeekly(challengesWeeklyEra3.options, 0, scoreCompleteEventsGroup5);
@@ -2190,6 +2225,15 @@
             addWeekly(challengesWeeklyEra3.options, 14, scorekillHugeCreatures);
             addWeekly(challengesWeeklyEra3.options, 14, scoreKillLegendaries5);
             addWeekly(challengesWeeklyEra3.options, 14, scoreLevelUp3);
+
+            addWeekly(challengesWeeklyEra3.options, 21, scoreGainXP10000);
+            addWeekly(challengesWeeklyEra3.options, 21, scoreClaimWorkshop5);
+            addWeekly(challengesWeeklyEra3.options, 21, scoreCompleteEventsGroup3);
+            addWeekly(challengesWeeklyEra3.options, 21, scoreCriticalHit10);
+            addWeekly(challengesWeeklyEra3.options, 21, scoreDestroyRobots5);
+            addWeekly(challengesWeeklyEra3.options, 21, scoreHarvestPlantFungi25);
+            addWeekly(challengesWeeklyEra3.options, 21, scoreKillLegendaries10);
+            addWeekly(challengesWeeklyEra3.options, 21, scoreLevelUp3);
 
             var challengesWeekly = [
                 challengesWeeklyEra1,
