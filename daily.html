@@ -1259,7 +1259,15 @@
                             period: 100,
                 };
             }
-            
+
+            function scoreKillCreatureInGroup25(offset) {
+                return {
+                    name: "Kill a creature while in a group (x25)",
+                            offset: offset,
+                            period: 100,
+                };
+            }
+
             function scoreModArmor(offset) {
                 return {
                     name: "Mod armor (x5)",
@@ -1445,7 +1453,7 @@
                     scoreBuildFloorWallCamp(22, 10),
                     scoreBuySellItem(22, 3),
                     scoreCompleteOneEvent(22, 3),
-                    scoreKillCreature25(22),
+                    scoreKillCreatureInGroup25(22),
                     scoreKillCryptid3(22),
                     scoreUsePhotomodeTeammate(22),
                     scoreNWDeployCamp(22)
