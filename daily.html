@@ -1018,7 +1018,7 @@
 
             function scoreBuildFloorWallCamp(offset, count) {
                 return {
-                            name: "Build floors, walls or roofs in your C.A.M.P. or Workshop (x " + count + ")",
+                            name: "Build floors, walls or roofs in your C.A.M.P. or Workshop (x" + count + ")",
                             offset: offset,
                             period: 100,
                         };
@@ -1276,6 +1276,22 @@
                 }
             }
 
+            function scoreKillCreature25(offset) {
+                return {
+                    name: "Kill a creature (x25)",
+                    offset: offset,
+                    period: 100
+                }
+            }
+
+            function scoreUsePhotomodeTeammate(offset) {
+                return {
+                    name: "Use photomode at a teammate's C.A.M.P.",
+                    offset: offset,
+                    period: 100
+                }
+            }
+
             var challengesDailyEra3 = {
                 validStart: new Date(Date.UTC(2020, 5, 30, 16, 0, 0, 0)),
                 validEnd: undefined,
@@ -1424,7 +1440,15 @@
                     scoreJoinGroup(21),
                     scoreKillCreature15(21),
                     scoreKillLegendary(21, 3),
-                    scoreNWKillCreature(21, 5)
+                    scoreNWKillCreature(21, 5),
+
+                    scoreBuildFloorWallCamp(22, 10),
+                    scoreBuySellItem(22, 3),
+                    scoreCompleteOneEvent(22, 3),
+                    scoreKillCreature25(22),
+                    scoreKillCryptid3(22),
+                    scoreUsePhotomodeTeammate(22),
+                    scoreNWDeployCamp(22)
                 ]
             };
 
