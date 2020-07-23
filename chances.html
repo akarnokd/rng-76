@@ -45,7 +45,7 @@
     </head>
     <body>
         <center>
-            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Drop Chances (0.3.2)</span><br/>
+            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Drop Chances (0.3.3)</span><br/>
             <a href='leveledlist' target='_blank'>How does it work?</a>
             <br/>
             <br/>
@@ -551,7 +551,9 @@
             }
 
             function createNukaLink(formID) {
-                return "<a href='https://nukacrypt.com/database/json/" + formID + "' target='_blank' title='See Nukacrypt data.'>&#x2622;&nbsp;"
+                return "<a href='https://nukacrypt.com/database/json/" + formID + "' target='_blank' title='" 
+                    + getDescription(formID) + ". "
+                    + "Click to see the Nukacrypt data.'>&#x2622;&nbsp;"
                     + getGroupID(formID) + ":" + formID + " &lt;" + getEditorID(formID) + "&gt;"
                     + "</a>";
             }
@@ -1003,7 +1005,9 @@
                 var row = parent.insertRow(n);
                 var cll = row.insertCell(row.cells.length);
                 cll.innerHTML = getGroupID(formID) + ":" + formID + " &lt;" + getEditorID(formID) + "&gt; "
-                    + "<a href='https://nukacrypt.com/database/json/" + formID + "' target='_blank' title='See Nukacrypt data.'>&#x2622;</a>"
+                    + "<a href='https://nukacrypt.com/database/json/" + formID + "' target='_blank' title='" 
+                    + getDescription(formID)
+                    + ". Click to see Nukacrypt data.'>&#x2622;</a>"
                     + "&nbsp;" + createOpenNewWindow(formID)
                 ;
                 cll.style.backgroundColor = "#FFCC00";
