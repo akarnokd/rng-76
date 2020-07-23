@@ -1297,7 +1297,15 @@
                     name: "Use photomode at a teammate's C.A.M.P.",
                     offset: offset,
                     period: 100
-                }
+                };
+            }
+
+            function scoreKillGhoul15(offset) {
+                return {
+                    name: "Kill a ghoul (x15)",
+                    offset: offset,
+                    period: 100
+                };
             }
 
             var challengesDailyEra3 = {
@@ -1456,7 +1464,15 @@
                     scoreKillCreatureInGroup25(22),
                     scoreKillCryptid3(22),
                     scoreUsePhotomodeTeammate(22),
-                    scoreNWDeployCamp(22)
+                    scoreNWDeployCamp(22),
+
+                    scoreBuySellItem(23, 3),
+                    scoreCompleteDaily(23),
+                    scoreKillGhoul15(23),
+                    scoreKillLegendary3(23),
+                    scoreModArmor(23),
+                    scoreUsePhotomodeGroup(23),
+                    scoreNWIncreaseRank(23)
                 ]
             };
 
