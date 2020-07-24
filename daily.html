@@ -1308,6 +1308,14 @@
                 };
             }
 
+            function scoreCollectBobblehead(offset) {
+                return {
+                    name: "Collect a bobblehead",
+                    offset: offset,
+                    period: 100
+                };
+            }
+
             var challengesDailyEra3 = {
                 validStart: new Date(Date.UTC(2020, 5, 30, 16, 0, 0, 0)),
                 validEnd: undefined,
@@ -1472,7 +1480,15 @@
                     scoreKillLegendary3(23),
                     scoreModArmor(23),
                     scoreUsePhotomodeGroup(23),
-                    scoreNWIncreaseRank(23)
+                    scoreNWIncreaseRank(23),
+
+                    scoreBuySellItem(24, 3),
+                    scoreChewBubblegum(24),
+                    scoreCollectBobblehead(24),
+                    scoreCompleteOneEvent(24, 2),
+                    scoreKillGlowing(24),
+                    scoreKillLegendary(24, 3),
+                    scoreNWDeployCamp(24)
                 ]
             };
 
