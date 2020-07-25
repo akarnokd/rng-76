@@ -1315,6 +1315,13 @@
                     period: 100
                 };
             }
+            function scoreChewBubblegum3(offset) {
+                return {
+                    name: "Chew bubblegum (x3)",
+                    offset: offset,
+                    period: 100
+                };
+            }
 
             var challengesDailyEra3 = {
                 validStart: new Date(Date.UTC(2020, 5, 30, 16, 0, 0, 0)),
@@ -1488,7 +1495,15 @@
                     scoreCompleteOneEvent(24, 2),
                     scoreKillGlowing(24),
                     scoreKillLegendary(24, 3),
-                    scoreNWDeployCamp(24)
+                    scoreNWDeployCamp(24),
+
+                    scoreBuildWallDecor5(25),
+                    scoreBuySellItem(25, 3),
+                    scoreChewBubblegum3(25),
+                    scoreClaimWorkshop(25),
+                    scoreCompleteOneEvent(25, 1),
+                    scoreDestroyRobot10(25),
+                    scoreNWIncreaseRank(25)
                 ]
             };
 
