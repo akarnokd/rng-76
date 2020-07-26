@@ -1169,6 +1169,14 @@
                         };
             }
 
+            function scoreNWUseStimpak3(offset) {
+                return {
+                            name: "&#x2622; NW: Use a Stimpak (x3)",
+                            offset: offset,
+                            period: 100,
+                        };
+            }
+
             function scoreCraftAmmo50(offset) {
                 return {
                             name: "Craft Ammo (x50)",
@@ -1503,7 +1511,15 @@
                     scoreClaimWorkshop(25),
                     scoreCompleteOneEvent(25, 1),
                     scoreDestroyRobot10(25),
-                    scoreNWIncreaseRank(25)
+                    scoreNWIncreaseRank(25),
+
+                    scoreBuySellItem(26, 3),
+                    scoreClaimWorkshop(26),
+                    scoreCompleteOneEvent(26, 2),
+                    scoreJoinGroup(26),
+                    scoreKillLegendary(26, 3),
+                    scorePlantCrop(26),
+                    scoreNWUseStimpak3(26)
                 ]
             };
 
