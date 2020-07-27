@@ -1331,6 +1331,28 @@
                 };
             }
 
+            function scoreConsumeAlcohol5(offset) {
+                return {
+                    name: "Consume alcohol (x5)",
+                    offset: offset,
+                    period: 100
+                };
+            }
+            function scoreEatPrewarFood5(offset) {
+                return {
+                    name: "Eat pre-war food (x5)",
+                    offset: offset,
+                    period: 100
+                };
+            }
+            function scoreKillDeathclaw3(offset) {
+                return {
+                    name: "Kill a Deathclaw (x3)",
+                    offset: offset,
+                    period: 100
+                };
+            }
+
             var challengesDailyEra3 = {
                 validStart: new Date(Date.UTC(2020, 5, 30, 16, 0, 0, 0)),
                 validEnd: undefined,
@@ -1519,7 +1541,15 @@
                     scoreJoinGroup(26),
                     scoreKillLegendary(26, 3),
                     scorePlantCrop(26),
-                    scoreNWUseStimpak3(26)
+                    scoreNWUseStimpak3(26),
+
+                    scoreBuySellItem(27, 3),
+                    scoreCompleteOneEvent(27, 3),
+                    scoreConsumeAlcohol5(27),
+                    scoreEatPrewarFood5(27),
+                    scoreKillCreature15(27),
+                    scoreKillDeathclaw3(27),
+                    scoreNWDeployCamp(27)
                 ]
             };
 
