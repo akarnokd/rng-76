@@ -868,6 +868,13 @@
                 ]
             };
 
+            function times(text, count) {
+                if (count === undefined || count < 2) {
+                    return text;
+                }
+                return text + " (x" + count + ")";
+            }
+
             function scoreChewBubblegum(offset) {
                 return {
                             name: "Chew Bubblegum",
@@ -935,12 +942,8 @@
                         };
             }
             function scoreKillLegendary(offset, count) {
-                var txt = "Kill/destroy a legendary enemy";
-                if (count > 1) {
-                    txt += " (x" + count + ")";
-                }
                 return {
-                            name: txt,
+                            name: times("Kill/destroy a legendary enemy", count),
                             offset: offset,
                             period: 100,
                         };
@@ -968,7 +971,7 @@
             function scoreRepairArmorWeapon(offset, count) {
                 var txt = count > 1 ? " (x" + count + ")": "";
                 return {
-                            name: "Repair armor or weapon" + txt,
+                            name: times("Repair armor or weapon", count),
                             offset: offset,
                             period: 100,
                         };
@@ -1018,7 +1021,7 @@
 
             function scoreBuildFloorWallCamp(offset, count) {
                 return {
-                            name: "Build floors, walls or roofs in your C.A.M.P. or Workshop (x" + count + ")",
+                            name: times("Build floors, walls or roofs in your C.A.M.P. or Workshop", count),
                             offset: offset,
                             period: 100,
                         };
@@ -1041,12 +1044,8 @@
             }
 
             function scoreBuySellItem(offset, count) {
-                var txt = "";
-                if (count > 1) {
-                    txt += " (x" + count + ")";
-                }
                 return {
-                            name: "Buy from or sell to another player" + txt,
+                            name: times("Buy from or sell to another player", count),
                             offset: offset,
                             period: 100,
                         };
@@ -1150,31 +1149,27 @@
             }
 
             function scoreNWKillCreature(offset, count) {
-                var txt = "";
-                if (count > 1) {
-                    txt = " (x" + count + ")";
-                }
                 return {
-                            name: "&#x2622; NW: Kill a creature" + txt,
+                            name: times("&#x2622; NW: Kill a creature", count),
+                            offset: offset,
+                            period: 100,
+                        };
+            }
+
+            function scoreNWUseStimpak(offset, count) {
+                return {
+                            name: times("&#x2622; NW: Use a Stimpak", count),
                             offset: offset,
                             period: 100,
                         };
             }
 
             function scoreNWUseStimpak6(offset) {
-                return {
-                            name: "&#x2622; NW: Use a Stimpak (x6)",
-                            offset: offset,
-                            period: 100,
-                        };
+                return scoreNWUseStimpak(offset, 6);
             }
 
             function scoreNWUseStimpak3(offset) {
-                return {
-                            name: "&#x2622; NW: Use a Stimpak (x3)",
-                            offset: offset,
-                            period: 100,
-                        };
+                return scoreNWUseStimpak(offset, 3);
             }
 
             function scoreCraftAmmo50(offset) {
@@ -1549,7 +1544,15 @@
                     scoreEatPrewarFood5(27),
                     scoreKillCreature15(27),
                     scoreKillDeathclaw3(27),
-                    scoreNWDeployCamp(27)
+                    scoreNWDeployCamp(27),
+
+                    scoreBuySellItem(28, 3),
+                    scoreCompleteEventInGroup(28),
+                    scoreDestroyRobot10(28),
+                    scoreKillLegendary3(28),
+                    scoreKillMoleminer(28),
+                    scoreUsePhotomode(28),
+                    scoreNWKillCreature(28, 3)
                 ]
             };
 
@@ -2324,6 +2327,24 @@
                         };
             }
 
+            function scoreCompleteEvents5(offset) {
+                return {
+                            name: "Complete an event (x5)",
+                            offset: offset,
+                            period: 1400,
+                        };
+            }
+
+            function scoreCriticalHit50(offset) {
+                return {
+                            name: "Deal critical hit to an enemy (x50)",
+                            offset: offset,
+                            period: 1400,
+                            tipId: "ScoreCriticalHit",
+                            tip: "Scoring a critical hit with a Shotgun may still count as 8 critical hits at once."
+                        };
+            }
+
             addWeekly(challengesWeeklyEra3.options, 0, scoreGainXP10000);
             addWeekly(challengesWeeklyEra3.options, 0, scoreBuildupCamp);
             addWeekly(challengesWeeklyEra3.options, 0, scoreCompleteEventsGroup5);
@@ -2359,6 +2380,16 @@
             addWeekly(challengesWeeklyEra3.options, 21, scoreHarvestPlantFungi25);
             addWeekly(challengesWeeklyEra3.options, 21, scoreKillLegendaries10);
             addWeekly(challengesWeeklyEra3.options, 21, scoreLevelUp3);
+
+            addWeekly(challengesWeeklyEra3.options, 28, scoreGainXP10000);
+            addWeekly(challengesWeeklyEra3.options, 28, scoreBuildupCamp);
+            addWeekly(challengesWeeklyEra3.options, 28, scoreCompleteEvents5);
+            addWeekly(challengesWeeklyEra3.options, 28, scoreCraftScrapItems25);
+            addWeekly(challengesWeeklyEra3.options, 28, scoreCriticalHit50);
+            addWeekly(challengesWeeklyEra3.options, 28, scorekillHugeCreatures);
+            addWeekly(challengesWeeklyEra3.options, 28, scoreKillLegendaries5);
+            addWeekly(challengesWeeklyEra3.options, 28, scoreLevelUp3);
+
 
             var challengesWeekly = [
                 challengesWeeklyEra1,
