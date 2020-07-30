@@ -1134,10 +1134,10 @@ For example, let's consider the following list:
 
 If we roll this list once, we get `Entry1` 50% of the time and `Entry2` 50% of the time. However, if we roll it twice, we can get
 
-- `Entry1` twice, with probability `0.5 * 0.5 = 0.25`, *25%**,
-- `Entry2` twice, with probability `0.5 * 0.5 = 0.25`, *25%**,
-- `Entry1` and `Entry2`, with probability `0.5 * 0.5 = 0.25`, *25%** or
-- `Entry2` and `Entry1`, with probability `0.5 * 0.5 = 0.25`, *25%**.
+- `Entry1` twice, with probability `0.5 * 0.5 = 0.25`, **25%**,
+- `Entry2` twice, with probability `0.5 * 0.5 = 0.25`, **25%**,
+- `Entry1` and `Entry2`, with probability `0.5 * 0.5 = 0.25`, **25%** or
+- `Entry2` and `Entry1`, with probability `0.5 * 0.5 = 0.25`, **25%**.
 
 Consequently, the chance of getting `Entry1` once is 25% + 25% + 25% = 75% just by summing up the cases where `Entry1` appears.
 
