@@ -45,7 +45,7 @@
     </head>
     <body>
         <center>
-            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Drop Chances (0.3.3)</span><br/>
+            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Drop Chances (0.3.4)</span><br/>
             <a href='leveledlist' target='_blank'>How does it work?</a>
             <br/>
             <br/>
@@ -1223,10 +1223,10 @@
                         }
 
                         let settingsLevel = getSettingsValue("MinLevel");
-                        let isAllLevel = (lvli.LVLF & 1) != 0;
+                        let isClosestLevel = (lvli.LVLF & 5) == 0;
                         var closestLevel = 0;
 
-                        if (!isAllLevel) {
+                        if (isClosestLevel) {
                             for (var entry of entries) {
                                 if (entry.Conditions === undefined || evaluateConditions(entry.Conditions)) {
                                     var lvl = decodeValueOverride(entry, "LVLV", "LVOG", "ZZZZ");
@@ -1242,7 +1242,7 @@
                             if (!showFail) {
                                 var pass = entry.Conditions === undefined || evaluateConditions(entry.Conditions);
                                 var lvl = decodeValueOverride(entry, "LVLV", "LVOG", "ZZZZ");
-                                if (!pass || (isAllLevel && lvl > settingsLevel) || (!isAllLevel && lvl != closestLevel)) {
+                                if (!pass || (!isClosestLevel && lvl > settingsLevel) || (closestLevel && lvl != closestLevel)) {
                                     continue;
                                 }
                             }
@@ -1321,9 +1321,9 @@
                             var omissChanceEntry = decodeValue(entry, "LVOV", "LVOC", "LVOT");
                             buildValueEntry(parent, omissChanceEntry, maxCols, "Omission chance", value => value.toFixed(3) + "%");
                             var levelEntry = decodeValue(entry, "LVLV", "LVOG", "ZZZZ");
-                            if (levelEntry.value > 1 || !isAllLevel) {
+                            if (levelEntry.value > 1 || closestLevel) {
                                 buildValueEntry(parent, levelEntry, maxCols, "Minimum level", value => {
-                                    if (isAllLevel) {
+                                    if (!closestLevel) {
                                         if (value <= settingsLevel) {
                                             return value;
                                         }
@@ -2609,7 +2609,7 @@
                     node.conditionMatch = evaluateConditions(lvli.Conditions);
                 }
 
-                var isClosestLevel = (lvli.LVLF & 1) == 0;
+                var isClosestLevel = (lvli.LVLF & 5) == 0;
 
                 if (lvli.Entries !== undefined) {
                     let settingsLevel = getSettingsValue("MinLevel");
