@@ -1348,6 +1348,30 @@
                 };
             }
 
+            function scoreKillCreatureInGroup5(offset) {
+                return {
+                    name: "Kill a creature while in a group (x5)",
+                    offset: offset,
+                    period: 100
+                };
+            }
+
+            function scoreModWeapon(offset) {
+                return {
+                    name: "Mod a weapon (x5)",
+                    offset: offset,
+                    period: 100
+                };
+            }
+
+            function scoreNWSurviveMinutes10(offset) {
+                return {
+                    name: "&#x2622; NW: survive for minutes (x10)",
+                    offset: offset,
+                    period: 100
+                };
+            }
+
             var challengesDailyEra3 = {
                 validStart: new Date(Date.UTC(2020, 5, 30, 16, 0, 0, 0)),
                 validEnd: undefined,
@@ -1560,7 +1584,15 @@
                     scoreKillGhoul10(29),
                     scoreRepairArmorWeapon(29, 3),
                     scoreUsePhotomodeGroup(29),
-                    scoreNWIncreaseRank(29)
+                    scoreNWIncreaseRank(29),
+
+                    scoreBuySellItem(30, 3),
+                    scoreCompleteOneEvent(30, 2),
+                    scoreKillCreatureInGroup5(30),
+                    scoreKillLegendary(30, 1),
+                    scoreKillSupermutant10(30),
+                    scoreModWeapon(30),
+                    scoreNWSurviveMinutes10(30)
                 ]
             };
 
