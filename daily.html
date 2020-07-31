@@ -1372,6 +1372,14 @@
                 };
             }
 
+            function scoreUsePhotomodeOwnCamp(offset) {
+                return {
+                    name: "Use photomode in your own C.A.M.P.",
+                    offset: offset,
+                    period: 100
+                };
+            }
+
             var challengesDailyEra3 = {
                 validStart: new Date(Date.UTC(2020, 5, 30, 16, 0, 0, 0)),
                 validEnd: undefined,
@@ -1592,7 +1600,15 @@
                     scoreKillLegendary(30, 1),
                     scoreKillSupermutant10(30),
                     scoreModWeapon(30),
-                    scoreNWSurviveMinutes10(30)
+                    scoreNWSurviveMinutes10(30),
+
+                    scoreBuySellItem(31, 3),
+                    scoreCompleteOneEvent(31, 3),
+                    scoreCraftAmmo50(31),
+                    scoreJoinGroup(31),
+                    scoreKillScorched10(31),
+                    scoreUsePhotomodeOwnCamp(31),
+                    scoreNWIncreaseRank(31)
                 ]
             };
 
