@@ -45,7 +45,7 @@
     </head>
     <body>
         <center>
-            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Drop Chances (0.3.4)</span><br/>
+            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Drop Chances (0.3.5)</span><br/>
             <a href='leveledlist' target='_blank'>How does it work?</a>
             <br/>
             <br/>
@@ -93,6 +93,7 @@
                         <button id='SpecialListChanceNone' title='Lists which have Chance None nonzero'>ListChanceNone &gt; 0</button>&nbsp;
                         <button id='SpecialGetRandomPercent' title='Lists which have conditions with GetRandomPercent'>GetRandomPercent</button>&nbsp;
                         <button id='SpecialBugged1' title='Lists which are defined Flags=all and Max=1, but they only ever return their first entries'>All/Max=1 always first</button>&nbsp;
+                        <button id='SpecialSelfTest' title='Lists testing the calculations'>Self-test lists</button>&nbsp;
                     </td>
                 </tr>
                 <tr>
@@ -181,6 +182,8 @@
                 console.log(Object.keys(curves).length);
                 */
 
+                createTestLists();
+
                 // find cross references
                 for (var listID in leveledLists) {
 
@@ -216,6 +219,56 @@
                     var ids = q.substring(idx + 8, jdx).split("-");
                     showChain(ids);
                 }
+            }
+
+            function createTestLists() {
+                // An All/Max=1 list with two entries
+                leveledLists["A0000001"] = {
+                    LVLF: 4,
+                    LVMV: 1,
+                    Entries: [
+                        {
+                            Object: "A0000002",
+                            LVIV: 6
+                        },
+                        {
+                            Object: "AA000001"
+                        }
+                    ]
+                };
+                leveledLists["A0000002"] = {
+                    LVLF: 3,
+                    Entries: [
+                        {
+                            Object: "A0000003"
+                        }
+                    ]
+                };
+
+                leveledLists["A0000003"] = {
+                    LVLF: 4,
+                    LVMV: 1,
+                    Entries: [
+                        {
+                            Object: "AA000002",
+                            LVOV: 20
+                        },
+                        {
+                            Object: "AA000003",
+                            //LVOV: 40
+                        }
+                    ]
+                }
+
+                edids["A0000001"] = "LVLITestList_A1 All/Max=1 list with two entries";
+                edids["A0000002"] = "LVLITestList_A2 forEach list with one entry";
+                edids["A0000003"] = "LVLITestList_A3 All/Max=1 list with two entries";
+
+                edids["AA000001"] = "MISCTest_Entry_1 Test Entry 1";
+                edids["AA000002"] = "MISCTest_Entry_2 Test Entry 2";
+                edids["AA000003"] = "MISCTest_Entry_3 Test Entry 3";
+                edids["AA000004"] = "MISCTest_Entry_4 Test Entry 4";
+                edids["AA000005"] = "MISCTest_Entry_5 Test Entry 5";
             }
 
             function findMixedConditions() {
@@ -3282,6 +3335,13 @@
                 }
                 return false;
             });
+
+            document.getElementById("SpecialSelfTest").onclick = evt => { 
+                var fb = document.getElementById("listsearchterm");
+                fb.value = "A000*"
+                document.getElementById("IncludeDebug").checked = true;
+                doSpecialSearch();
+            };
 
             document.getElementById("SpecialBugged1").onclick = evt => doSpecialSearch(entry => {
                 if (isFlagsAll(entry.LVLF) && entry.Entries !== undefined) {
