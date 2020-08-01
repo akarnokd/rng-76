@@ -1380,6 +1380,14 @@
                 };
             }
 
+            function scoreKillSupermutant5(offset) {
+                return {
+                    name: "Kill a Super Mutant (x5)",
+                    offset: offset,
+                    period: 100
+                };
+            }
+
             var challengesDailyEra3 = {
                 validStart: new Date(Date.UTC(2020, 5, 30, 16, 0, 0, 0)),
                 validEnd: undefined,
@@ -1608,7 +1616,15 @@
                     scoreJoinGroup(31),
                     scoreKillScorched10(31),
                     scoreUsePhotomodeOwnCamp(31),
-                    scoreNWIncreaseRank(31)
+                    scoreNWIncreaseRank(31),
+
+                    scoreBuySellItem(32, 3),
+                    scoreChewBubblegum(32),
+                    scoreClaimWorkshop(32),
+                    scoreCompleteOneEvent(32, 2),
+                    scoreKillLegendary(32, 3),
+                    scoreKillSupermutant5(32),
+                    scoreNWDeployCamp(32)
                 ]
             };
 
