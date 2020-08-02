@@ -893,12 +893,15 @@
                             period: 100,
                         };
             }
-            function scoreKillScorched10(offset) {
+            function scoreKillScorched(offset, count) {
                 return {
-                            name: "Kill Scorched (x10)",
+                            name: times("Kill Scorched", count),
                             offset: offset,
                             period: 100,
                         };
+            }
+            function scoreKillScorched10(offset) {
+                return scoreKillScorched(offset, 10);
             }
             function scoreLevelUp1(offset) {
                 return {
@@ -1624,7 +1627,15 @@
                     scoreCompleteOneEvent(32, 2),
                     scoreKillLegendary(32, 3),
                     scoreKillSupermutant5(32),
-                    scoreNWDeployCamp(32)
+                    scoreNWDeployCamp(32),
+
+                    scoreBuildFloorWallCamp(33, 10),
+                    scoreBuySellItem(33, 3),
+                    scoreCompleteEventInGroup(33),
+                    scoreKillLegendary(33, 3),
+                    scoreKillScorched(33, 15),
+                    scoreUsePhotomode(33),
+                    scoreNWSurviveMinutes10(33)
                 ]
             };
 
