@@ -1391,6 +1391,14 @@
                 };
             }
 
+            function scoreKillThreestarLegendary(offset) {
+                return {
+                    name: "Kill a 3-star legendary enemy",
+                    offset: offset,
+                    period: 100
+                };
+            }
+
             var challengesDailyEra3 = {
                 validStart: new Date(Date.UTC(2020, 5, 30, 16, 0, 0, 0)),
                 validEnd: undefined,
@@ -1635,7 +1643,15 @@
                     scoreKillLegendary(33, 3),
                     scoreKillScorched(33, 15),
                     scoreUsePhotomode(33),
-                    scoreNWSurviveMinutes10(33)
+                    scoreNWSurviveMinutes10(33),
+
+                    scoreBuySellItem(34, 3),
+                    scoreCompleteOneEvent(34, 2),
+                    scoreConsumeAlcohol5(34),
+                    scoreEatPrewarFood5(34),
+                    scoreKillCreature25(34),
+                    scoreKillThreestarLegendary(34),
+                    scoreNWIncreaseRank(34)
                 ]
             };
 
