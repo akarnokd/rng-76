@@ -893,12 +893,15 @@
                             period: 100,
                         };
             }
-            function scoreKillScorched10(offset) {
+            function scoreKillScorched(offset, count) {
                 return {
-                            name: "Kill Scorched (x10)",
+                            name: times("Kill Scorched", count),
                             offset: offset,
                             period: 100,
                         };
+            }
+            function scoreKillScorched10(offset) {
+                return scoreKillScorched(offset, 10);
             }
             function scoreLevelUp1(offset) {
                 return {
@@ -1372,6 +1375,22 @@
                 };
             }
 
+            function scoreUsePhotomodeOwnCamp(offset) {
+                return {
+                    name: "Use photomode in your own C.A.M.P.",
+                    offset: offset,
+                    period: 100
+                };
+            }
+
+            function scoreKillSupermutant5(offset) {
+                return {
+                    name: "Kill a Super Mutant (x5)",
+                    offset: offset,
+                    period: 100
+                };
+            }
+
             var challengesDailyEra3 = {
                 validStart: new Date(Date.UTC(2020, 5, 30, 16, 0, 0, 0)),
                 validEnd: undefined,
@@ -1592,7 +1611,31 @@
                     scoreKillLegendary(30, 1),
                     scoreKillSupermutant10(30),
                     scoreModWeapon(30),
-                    scoreNWSurviveMinutes10(30)
+                    scoreNWSurviveMinutes10(30),
+
+                    scoreBuySellItem(31, 3),
+                    scoreCompleteOneEvent(31, 3),
+                    scoreCraftAmmo50(31),
+                    scoreJoinGroup(31),
+                    scoreKillScorched10(31),
+                    scoreUsePhotomodeOwnCamp(31),
+                    scoreNWIncreaseRank(31),
+
+                    scoreBuySellItem(32, 3),
+                    scoreChewBubblegum(32),
+                    scoreClaimWorkshop(32),
+                    scoreCompleteOneEvent(32, 2),
+                    scoreKillLegendary(32, 3),
+                    scoreKillSupermutant5(32),
+                    scoreNWDeployCamp(32),
+
+                    scoreBuildFloorWallCamp(33, 10),
+                    scoreBuySellItem(33, 3),
+                    scoreCompleteEventInGroup(33),
+                    scoreKillLegendary(33, 3),
+                    scoreKillScorched(33, 15),
+                    scoreUsePhotomode(33),
+                    scoreNWSurviveMinutes10(33)
                 ]
             };
 
