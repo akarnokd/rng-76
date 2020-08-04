@@ -1651,7 +1651,15 @@
                     scoreEatPrewarFood5(34),
                     scoreKillCreature25(34),
                     scoreKillThreestarLegendary(34),
-                    scoreNWIncreaseRank(34)
+                    scoreNWIncreaseRank(34),
+
+                    scoreBuildWallDecor5(35),
+                    scoreBuySellItem(35, 3),
+                    scoreChewBubblegum(35),
+                    scoreCompleteOneEvent(35, 3),
+                    scoreKillCryptid1(35),
+                    scoreKillGlowing(35),
+                    scoreNWKillPlayer(35)
                 ]
             };
 
@@ -2444,6 +2452,28 @@
                         };
             }
 
+            function scoreClaimWorkshop3(offset) {
+                return {
+                            name: "Claim a workshop (x3)",
+                            offset: offset,
+                            period: 1400,
+                        };
+            }
+            function scoreCompleteGoldStar(offset) {
+                return {
+                            name: "Complete a Gold Star daily challenge",
+                            offset: offset,
+                            period: 1400,
+                        };
+            }
+            function scoreKillCreature50(offset) {
+                return {
+                            name: "Kill creatures (x50)",
+                            offset: offset,
+                            period: 1400,
+                        };
+            }
+
             addWeekly(challengesWeeklyEra3.options, 0, scoreGainXP10000);
             addWeekly(challengesWeeklyEra3.options, 0, scoreBuildupCamp);
             addWeekly(challengesWeeklyEra3.options, 0, scoreCompleteEventsGroup5);
@@ -2488,6 +2518,16 @@
             addWeekly(challengesWeeklyEra3.options, 28, scorekillHugeCreatures);
             addWeekly(challengesWeeklyEra3.options, 28, scoreKillLegendaries5);
             addWeekly(challengesWeeklyEra3.options, 28, scoreLevelUp3);
+
+            addWeekly(challengesWeeklyEra3.options, 35, scoreGainXP10000);
+            addWeekly(challengesWeeklyEra3.options, 35, scoreClaimWorkshop3);
+            addWeekly(challengesWeeklyEra3.options, 35, scoreCompleteGoldStar);
+            addWeekly(challengesWeeklyEra3.options, 35, scoreCompleteEvents10);
+            addWeekly(challengesWeeklyEra3.options, 35, scoreGatherBuildingSupplies25);
+            addWeekly(challengesWeeklyEra3.options, 35, scoreKillCreature50);
+            addWeekly(challengesWeeklyEra3.options, 35, scoreKillLegendaries5);
+            addWeekly(challengesWeeklyEra3.options, 35, scoreLevelUp3);
+
 
 
             var challengesWeekly = [
