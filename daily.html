@@ -1114,6 +1114,16 @@
                         };
             }
 
+            function scoreBuildAnythingCamp5(offset) {
+                return {
+                            name: "Build anything in your C.A.M.P. or Workshop (x5)",
+                            offset: offset,
+                            period: 100,
+                            tipId: "ScoreBuildAnythingCamp",
+                            tip: "Equip Contractor (INT) and build a rug (Floor decor, 1 cloth) ten times."
+                        };
+            }
+
             function scoreNWPickLock3(offset) {
                 return {
                             name: "&#x2622; NW: Pick a lock (x3)",
@@ -1659,7 +1669,15 @@
                     scoreCompleteOneEvent(35, 3),
                     scoreKillCryptid1(35),
                     scoreKillGlowing(35),
-                    scoreNWKillPlayer(35)
+                    scoreNWKillPlayer(35),
+
+                    scoreBuildAnythingCamp5(36),
+                    scoreBuySellItem(36, 3),
+                    scoreClaimWorkshop(36),
+                    scoreCompleteOneEvent(36, 2),
+                    scoreHackTerminal(36),
+                    scoreKillCreatureInGroup(36),
+                    scoreNWKillCreature(36, 3)
                 ]
             };
 
