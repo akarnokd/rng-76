@@ -22,7 +22,7 @@
     </head>
     <body>
         <center>
-            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Daily/Weekly Atom/S.C.O.R.E. Challenges (0.3.5)</span><br/>
+            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Daily/Weekly Atom/S.C.O.R.E. Challenges (0.4.0)</span><br/>
             <br/>
             <br/>
             <table>
@@ -1409,9 +1409,17 @@
                 };
             }
 
+            function scoreDailyplaceholder(offset) {
+                return {
+                            name: "<i>(Further challenges will be posted when the day comes.)</i>",
+                            offset: offset,
+                            period: 1400,
+                        };
+            }
+
             var challengesDailyEra3 = {
                 validStart: new Date(Date.UTC(2020, 5, 30, 16, 0, 0, 0)),
-                validEnd: undefined,
+                validEnd: new Date(Date.UTC(2020, 8, 8, 16, 0, 0, 0)),
                 options: [
                     scoreCompleteDailyChallenge5(0),
                     scoreChewBubblegum(0),
@@ -1680,6 +1688,15 @@
                     scoreNWKillCreature(36, 3)
                 ]
             };
+
+            var missingDay = 0;
+            for (var e of challengesDailyEra3.options) {
+                missingDay = Math.max(missingDay, e.offset);
+            }
+
+            for (var i = missingDay + 1; i < 70; i++) {
+                challengesDailyEra3.options.push(scoreDailyplaceholder(i));
+            }
 
             var challenges = [
                 challengesDailyEra1,
@@ -2154,7 +2171,7 @@
 
             var challengesWeeklyEra3 = {
                 validStart: new Date(Date.UTC(2020, 5, 30, 16, 0, 0, 0)),
-                validEnd: undefined,
+                validEnd: new Date(Date.UTC(2020, 8, 8, 16, 0, 0, 0)),
                 options: [
                 ]
             };
@@ -2492,6 +2509,14 @@
                         };
             }
 
+            function scoreWeeklyplaceholder(offset) {
+                return {
+                            name: "<i>(Further challenges will be posted when the week comes.)</i>",
+                            offset: offset,
+                            period: 1400,
+                        };
+            }
+
             addWeekly(challengesWeeklyEra3.options, 0, scoreGainXP10000);
             addWeekly(challengesWeeklyEra3.options, 0, scoreBuildupCamp);
             addWeekly(challengesWeeklyEra3.options, 0, scoreCompleteEventsGroup5);
@@ -2546,6 +2571,13 @@
             addWeekly(challengesWeeklyEra3.options, 35, scoreKillLegendaries5);
             addWeekly(challengesWeeklyEra3.options, 35, scoreLevelUp3);
 
+            // placeholder
+            for (var t = 42; t < 70; t += 7) {
+                addWeekly(challengesWeeklyEra3.options, t, scoreGainXP10000);
+                addWeekly(challengesWeeklyEra3.options, t, scoreLevelUp3);
+                addWeekly(challengesWeeklyEra3.options, t, scoreWeeklyplaceholder);
+            }
+
 
 
             var challengesWeekly = [
@@ -2555,9 +2587,196 @@
             ];
 
             // --------------------------------------------------------------------------------------------------------------
+            // Community events
+            function thousands(num) {
+                return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
+            }
+
+            var communityProgress = {
+                steel: {
+                    progress: 75190000,
+                    max: 125000000
+                },
+                concrete: {
+                    progress: 0,
+                    max: 150000000
+                },
+                cork: {
+                    progress: 0,
+                    max: 200000000
+                },
+                plastic: {
+                    progress: 0,
+                    max: 150000000
+                },
+                wood: {
+                    progress: 0,
+                    max: 150000000
+                },
+                cloth: {
+                    progress: 0,
+                    max: 200000000
+                },
+                leather: {
+                    progress: 0,
+                    max: 175000000
+                },
+                glass: {
+                    progress: 0,
+                    max: 250000000
+                },
+            };
+
+            function createDonate(what, progress, active, reward, tipId, tip, after) {
+                var result = {
+                        name: "Donate " + thousands(progress.max) + " " + what,
+                        offset: 0,
+                        period: 1,
+                        tipId: tipId,
+                        tip: tip,
+                        subchallenges: [
+                        ]
+                    };
+
+                if (active) {
+                    result.subchallenges.push({
+                        name: "Progress: <b style='color: green;'>~"
+                             + thousands(progress.progress) + "</b> (" + (progress.progress * 100 / progress.max).toFixed(2) + "%)"
+                             + "&nbsp;&nbsp;<a href='https://fallout.bethesda.net/en/events' target='_blank'style='font-weight: bold; border: 1px solid blue;' title='See status on bethesda.net'>&nbsp;&#x2197;&nbsp;</a>"
+                    });
+
+                    if (progress.progress >= progress.max) {
+                        result.name += " &#128077;";
+                    }
+                } else {
+                    result.subchallenges.push({
+                        name: "<b style='color: magenta;'>Not started yet. Starts on <i>" + after + "</i>.</b>"
+                    });
+                }
+
+                result.subchallenges.push({
+                    name: "Reward: <i>" + reward + "</i>"
+                });
+
+                return result;
+            }
+
+            function createEra1Part1(startDate, index) {
+                var dt = new Date(startDate);
+                dt.setDate(dt.getDate() + index * 4);
+                var et = new Date(dt);
+                et.setDate(et.getDate() + 4);
+
+                return {
+                    validStart: dt,
+                    validEnd: et,
+                    title: "Community Event: Fortifying ATLAS Project Alpha (step " + (index + 1) + ")",
+                    options: [
+                        createDonate("Steel Scrap", communityProgress.steel, true, "Brotherhood of Steel Beret", "atlasDonateSteel", 
+                                "Kill Super Mutants and scrap their weapons."
+                                + "<br>Check out: Huntersville, West Tek, National Isolated Radio Array, General's Steakhouse, Harper's Ferry, Crevasse Dam.")
+                        ,
+                        createDonate("Concrete Scrap", communityProgress.concrete, index >= 1, "Brotherhood of Steel C.A.M.P. Banner", undefined, undefined, "August 8"),
+                        createDonate("Cork Scrap", communityProgress.cork, index >= 2, "High S.C.O.R.E. Double Daily Challenges (August 20 - 24)", undefined, undefined, "August 12"),
+                        createDonate("Plastic", communityProgress.plastic, index >= 3, "Bonus Challenges Week (August 26 - 31)", undefined, undefined, "August 16"),
+                        {
+                            name: "&#x1F6C8; Project Bravo starts on <a href='daily.html?day=2020-08-27'>August 27</a>.",
+                            offset: 0,
+                            period: 1
+                        }
+                    ]
+                }
+            }
+
+            function createEra1Part2(startDate, index) {
+                var dt = new Date(startDate);
+                dt.setDate(dt.getDate() + index * 4);
+                var et = new Date(dt);
+                et.setDate(et.getDate() + 4);
+
+                return {
+                    validStart: dt,
+                    validEnd: et,
+                    title: "Community Event: Fortifying ATLAS Project Bravo (step " + (index + 1) + ")",
+                    options: [
+                        createDonate("Wood Scrap", communityProgress.wood, true, "Steel Dawn Army Fatigues"),
+                        createDonate("Cloth", communityProgress.cloth, index >= 1, "Brotherhood of Steel Collectron Station", undefined, undefined, "August 31"),
+                        createDonate("Leather", communityProgress.leather, index >= 2, "Purveyor 50% off Super Sale (September 10 - 14)", undefined, undefined, "September 4"),
+                        createDonate("Glass", communityProgress.glass, index >= 3, "Meat Week, A Second Helping (September 22 - 28)", undefined, undefined, "September 8"),
+                        {
+                            name: "&#x1F6C8; Project Alpha started on <a href='daily.html?day=2020-08-04'>August 4</a>.",
+                            offset: 0,
+                            period: 1
+                        }
+                    ]
+                }
+            }
+
+            var communityEvents = [
+                createEra1Part1(new Date(Date.UTC(2020, 7, 4, 16, 0, 0, 0)), 0),
+                createEra1Part1(new Date(Date.UTC(2020, 7, 4, 16, 0, 0, 0)), 1),
+                createEra1Part1(new Date(Date.UTC(2020, 7, 4, 16, 0, 0, 0)), 2),
+                createEra1Part1(new Date(Date.UTC(2020, 7, 4, 16, 0, 0, 0)), 3),
+
+                createEra1Part2(new Date(Date.UTC(2020, 7, 27, 16, 0, 0, 0)), 0),
+                createEra1Part2(new Date(Date.UTC(2020, 7, 27, 16, 0, 0, 0)), 1),
+                createEra1Part2(new Date(Date.UTC(2020, 7, 27, 16, 0, 0, 0)), 2),
+                createEra1Part2(new Date(Date.UTC(2020, 7, 27, 16, 0, 0, 0)), 3),
+            ];
+
+            // Season =======================
+
+            var season1 = {
+                validStart: new Date(Date.UTC(2020, 5, 30, 16, 0, 0, 0)),
+                validEnd: new Date(Date.UTC(2020, 8, 8, 16, 0, 0, 0)),
+                title: "Season 1: Captain Cosmos",
+                options: [
+                    
+                ]
+            };
+
+            function scoreAtRank(rank) {
+                if (rank <= 1) {
+                    return 0;
+                }
+                return 1000 + (rank - 2) * 25;
+            }
+
+            var maxscore = 0;
+            for (var i = 2; i <= 100; i++) {
+                maxscore += scoreAtRank(i);
+            }
+
+            var season1Days = 70;
+            for (var i = 0; i < season1Days; i++) {
+                var rankLinear = (100 * (i + 1) / (season1Days)).toFixed(0);
+                var scoreProgress = maxscore * i / season1Days;
+                var rankScore = 1;
+                var scoreSum = 0;
+                while (scoreSum < scoreProgress) {
+                    scoreSum += scoreAtRank(++rankScore);
+                }
+
+                season1.options.push({
+                    name: "Expected rank (constant playtime / day): <b style='color: green;'>" + rankLinear + "</b>",
+                    offset: i,
+                    period: 100
+                });
+                season1.options.push({
+                    name: "Expected rank (constant S.C.O.R.E. / day): <b style='color: green;'>" + rankScore + "</b>",
+                    offset: i,
+                    period: 100
+                });
+            }
+
+            var seasonEvents = [
+                season1
+            ];
+
+            // --------------------------------------------------------------------------------------------------------------
 
             var infoMap = new Map();
-            for (var list of [challenges, challengesWeekly]) {
+            for (var list of [challenges, challengesWeekly, communityEvents]) {
                 for (var challenge of list) {
                     for (var opt of challenge.options) {
                         if (opt.tipId !== undefined) {
@@ -2607,6 +2826,13 @@
                 }
             }
 
+            function insertSeparatorRow(tbl) {
+                var rw = tbl.insertRow(tbl.rows.length);
+                var cll = rw.insertCell(rw.cells.length);
+                cll.colSpan = 2;
+                cll.innerHTML = "&nbsp;";
+            }
+
             function updateChallenges() {
                 // normalize date
                 normalizeDate(selectedDate);
@@ -2638,10 +2864,7 @@
 
                 renderList(tbl, challenges, endDate);
 
-                var rw = tbl.insertRow(tbl.rows.length);
-                var cll = rw.insertCell(rw.cells.length);
-                cll.colSpan = 2;
-                cll.innerHTML = "&nbsp;";
+                insertSeparatorRow(tbl)
 
                 var rw = tbl.insertRow(tbl.rows.length);
                 var cll = rw.insertCell(rw.cells.length);
@@ -2653,9 +2876,84 @@
                 cll.style.border = '1px dotted black';
 
                 renderList(tbl, challengesWeekly, endDate);
+
+                insertSeparatorRow(tbl)
+
+                if (isActive(communityEvents, endDate)) {
+                    var rw = tbl.insertRow(tbl.rows.length);
+                    var cll = rw.insertCell(rw.cells.length);
+                    cll.colSpan = 2;
+                    cll.style.textAlign = "center";
+                    cll.style.fontWeight = "bold";
+                    cll.style.padding = "10px";
+                    cll.innerHTML = "<span style='font-size: 24px;' id='communitytitle'></span><br><span id='remainingcommunity'></span>";
+                    cll.style.border = '1px dotted black';
+
+                    renderList(tbl, communityEvents, endDate, "communitytitle");
+                } else {
+                    var rw = tbl.insertRow(tbl.rows.length);
+                    var cll = rw.insertCell(0);
+
+                    cll.innerText = "No active community event.";
+                    cll.style.textAlign = "center";
+                    cll.style.color = "blue";
+                    cll.style.fontWeight = "bold";
+                    cll.colSpan = 2;
+                    cll.style.padding = "10px";
+                    cll.style.border = '1px dotted black';
+                }
+
+                insertSeparatorRow(tbl)
+
+                if (isActive(seasonEvents, endDate)) {
+                    var rw = tbl.insertRow(tbl.rows.length);
+                    var cll = rw.insertCell(rw.cells.length);
+                    cll.colSpan = 2;
+                    cll.style.textAlign = "center";
+                    cll.style.fontWeight = "bold";
+                    cll.style.padding = "10px";
+                    cll.innerHTML = "<span style='font-size: 24px;' id='seasontitle'></span><br><span id='remainingseason'></span>";
+                    cll.style.border = '1px dotted black';
+
+                    renderList(tbl, seasonEvents, endDate, "seasontitle");
+                } else {
+                    var rw = tbl.insertRow(tbl.rows.length);
+                    var cll = rw.insertCell(0);
+
+                    cll.innerText = "No active season.";
+                    cll.style.textAlign = "center";
+                    cll.style.color = "blue";
+                    cll.style.fontWeight = "bold";
+                    cll.colSpan = 2;
+                    cll.style.padding = "10px";
+                    cll.style.border = '1px dotted black';
+                }
             }
 
-            function renderList(tbl, challenges, endDate) {
+            function isActive(challenges, endDate) {
+                for (var challenge of challenges) {
+                    if (challenge.validStart <= selectedDate
+                        && (challenge.validEnd === undefined || challenge.validEnd >= endDate)) {
+                            return true;
+                    }
+                }
+                return false;
+            }
+
+            function currentStartEndDate(challenges, selectedDate) {
+                for (var challenge of challenges) {
+                    if (challenge.validStart <= selectedDate
+                        && challenge.validEnd > selectedDate) {
+                            return {
+                                start: challenge.validStart,
+                                end: challenge.validEnd
+                            };
+                    }
+                }
+                return selectedDate;
+            }
+
+            function renderList(tbl, challenges, endDate, titleId) {
                 var found = false;
                 // find a valid challenge among the data
                 for (var challenge of challenges) {
@@ -2664,6 +2962,10 @@
 
                         var timeSince = selectedDate.getTime() - challenge.validStart.getTime();
                         var dayDiff = Math.floor(timeSince / 24 / 60 / 60 / 1000);
+
+                        if (titleId !== undefined) {
+                            document.getElementById(titleId).innerHTML = challenge.title;
+                        }
 
                         for (var opt of challenge.options) {
                             var d = dayDiff - opt.offset;
@@ -2704,12 +3006,13 @@
                 }
 
                 if (!found) {
-                    var rw = tbl.insertRow(0);
-                    var cll = rw.insertCell();
+                    var rw = tbl.insertRow(tbl.rows.length);
+                    var cll = rw.insertCell(0);
 
                     cll.innerText = "No information available for this date";
                     cll.style.textAlign = "center";
                     cll.style.color = "red";
+                    cll.colSpan = 2
                 }
 
             }
@@ -2751,6 +3054,27 @@
                         remainingWeekLabel.innerHTML = "Past date. <a href='?'>Return to today.</a>";
                     } else {
                         remainingWeekLabel.innerHTML = "Future date. <a href='?'>Return to today.</a>";
+                    }
+                }
+
+                var communityStartEnd = currentStartEndDate(communityEvents, selectedDate);
+                calcRemainingTime("remainingcommunity", selectedDate, communityStartEnd.start, communityStartEnd.end);
+
+                var seasonStartEnd = currentStartEndDate(seasonEvents, selectedDate);
+                calcRemainingTime("remainingseason", selectedDate, seasonStartEnd.start, seasonStartEnd.end);
+            }
+
+            function calcRemainingTime(target, selectedDate, startDate, endDate) {
+                var now = new Date();
+                var targetLabel = document.getElementById(target);
+                if (targetLabel != null) {
+                    if (startDate <= now && now < endDate) {
+                        var diff = endDate - now;
+                        targetLabel.innerText = formatTime(diff / 1000);
+                    } else if (startDate < now) {
+                        targetLabel.innerHTML = "Past event. <a href='?'>Return to today.</a>";
+                    } else {
+                        targetLabel.innerHTML = "Future event. <a href='?'>Return to today.</a>";
                     }
                 }
             }
