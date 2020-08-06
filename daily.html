@@ -2661,11 +2661,11 @@
                 return result;
             }
 
-            function createEra1Part1(startDate, index) {
+            function createEra1Part1(startDate, index, offset, len) {
                 var dt = new Date(startDate);
-                dt.setDate(dt.getDate() + index * 4);
-                var et = new Date(dt);
-                et.setDate(et.getDate() + 4);
+                dt.setDate(dt.getDate() + offset);
+                var et = new Date(startDate);
+                et.setDate(et.getDate() + offset + len);
 
                 return {
                     validStart: dt,
@@ -2677,8 +2677,8 @@
                                 + "<br>Check out: Huntersville, West Tek, National Isolated Radio Array, General's Steakhouse, Harper's Ferry, Crevasse Dam.")
                         ,
                         createDonate("Concrete Scrap", communityProgress.concrete, index >= 1, "Brotherhood of Steel C.A.M.P. Banner", undefined, undefined, "August 8"),
-                        createDonate("Cork Scrap", communityProgress.cork, index >= 2, "High S.C.O.R.E. Double Daily Challenges (August 20 - 24)", undefined, undefined, "August 12"),
-                        createDonate("Plastic", communityProgress.plastic, index >= 3, "Bonus Challenges Week (August 26 - 31)", undefined, undefined, "August 16"),
+                        createDonate("Cork Scrap", communityProgress.cork, index >= 2, "High S.C.O.R.E. Double Daily Challenges (August 20 - 24)", undefined, undefined, "August 11"),
+                        createDonate("Plastic", communityProgress.plastic, index >= 3, "Bonus Challenges Week (August 26 - 31)", undefined, undefined, "August 15"),
                         {
                             name: "&#x1F6C8; Project Bravo starts on <a href='daily.html?day=2020-08-27'>August 27</a>.",
                             offset: 0,
@@ -2688,11 +2688,11 @@
                 }
             }
 
-            function createEra1Part2(startDate, index) {
+            function createEra1Part2(startDate, index, offset, len) {
                 var dt = new Date(startDate);
-                dt.setDate(dt.getDate() + index * 4);
-                var et = new Date(dt);
-                et.setDate(et.getDate() + 4);
+                dt.setDate(dt.getDate() + offset);
+                var et = new Date(startDate);
+                et.setDate(et.getDate() + offset + len);
 
                 return {
                     validStart: dt,
@@ -2701,8 +2701,8 @@
                     options: [
                         createDonate("Wood Scrap", communityProgress.wood, true, "Steel Dawn Army Fatigues"),
                         createDonate("Cloth", communityProgress.cloth, index >= 1, "Brotherhood of Steel Collectron Station", undefined, undefined, "August 31"),
-                        createDonate("Leather", communityProgress.leather, index >= 2, "Purveyor 50% off Super Sale (September 10 - 14)", undefined, undefined, "September 4"),
-                        createDonate("Glass", communityProgress.glass, index >= 3, "Meat Week, A Second Helping (September 22 - 28)", undefined, undefined, "September 8"),
+                        createDonate("Leather", communityProgress.leather, index >= 2, "Purveyor 50% off Super Sale (September 10 - 14)", undefined, undefined, "September 3"),
+                        createDonate("Glass", communityProgress.glass, index >= 3, "Meat Week, A Second Helping (September 22 - 28)", undefined, undefined, "September 7"),
                         {
                             name: "&#x1F6C8; Project Alpha started on <a href='daily.html?day=2020-08-04'>August 4</a>.",
                             offset: 0,
@@ -2713,15 +2713,15 @@
             }
 
             var communityEvents = [
-                createEra1Part1(new Date(Date.UTC(2020, 7, 4, 16, 0, 0, 0)), 0),
-                createEra1Part1(new Date(Date.UTC(2020, 7, 4, 16, 0, 0, 0)), 1),
-                createEra1Part1(new Date(Date.UTC(2020, 7, 4, 16, 0, 0, 0)), 2),
-                createEra1Part1(new Date(Date.UTC(2020, 7, 4, 16, 0, 0, 0)), 3),
+                createEra1Part1(new Date(Date.UTC(2020, 7, 4, 16, 0, 0, 0)), 0, 0, 4),
+                createEra1Part1(new Date(Date.UTC(2020, 7, 4, 16, 0, 0, 0)), 1, 4, 3),
+                createEra1Part1(new Date(Date.UTC(2020, 7, 4, 16, 0, 0, 0)), 2, 7, 4),
+                createEra1Part1(new Date(Date.UTC(2020, 7, 4, 16, 0, 0, 0)), 3, 11, 3),
 
-                createEra1Part2(new Date(Date.UTC(2020, 7, 27, 16, 0, 0, 0)), 0),
-                createEra1Part2(new Date(Date.UTC(2020, 7, 27, 16, 0, 0, 0)), 1),
-                createEra1Part2(new Date(Date.UTC(2020, 7, 27, 16, 0, 0, 0)), 2),
-                createEra1Part2(new Date(Date.UTC(2020, 7, 27, 16, 0, 0, 0)), 3),
+                createEra1Part2(new Date(Date.UTC(2020, 7, 27, 16, 0, 0, 0)), 0, 0, 4),
+                createEra1Part2(new Date(Date.UTC(2020, 7, 27, 16, 0, 0, 0)), 1, 4, 3),
+                createEra1Part2(new Date(Date.UTC(2020, 7, 27, 16, 0, 0, 0)), 2, 7, 4),
+                createEra1Part2(new Date(Date.UTC(2020, 7, 27, 16, 0, 0, 0)), 3, 11, 3),
             ];
 
             // Season =======================
