@@ -1038,9 +1038,9 @@
                         };
             }
 
-            function scoreKillMoleminer(offset) {
+            function scoreKillMoleminer(offset, count) {
                 return {
-                            name: "Kill a Mole Miner (x10)",
+                            name: times("Kill a Mole Miner", count),
                             offset: offset,
                             period: 100,
                         };
@@ -1139,9 +1139,9 @@
                             period: 100,
                         };
             }
-            function scoreCraftScrapPowerArmor(offset) {
+            function scoreCraftScrapPowerArmor(offset, count) {
                 return {
-                            name: "Craft or scrap a Power Armor piece",
+                            name: times("Craft or scrap a Power Armor piece", count),
                             offset: offset,
                             period: 100,
                         };
@@ -1417,6 +1417,14 @@
                         };
             }
 
+            function scoreDrinkNukaCola(offset, count) {
+                return {
+                    name: times("Drink Nuka Cola", count),
+                    offset: offset,
+                    period: 100,
+                };
+            }
+
             var challengesDailyEra3 = {
                 validStart: new Date(Date.UTC(2020, 5, 30, 16, 0, 0, 0)),
                 validEnd: new Date(Date.UTC(2020, 8, 8, 16, 0, 0, 0)),
@@ -1451,7 +1459,7 @@
                     scoreCompleteOneEvent(5, 1),
                     scoreBuildFloorWallCamp(5, 10),
                     scoreEatCookedMeal(5),
-                    scoreKillMoleminer(5),
+                    scoreKillMoleminer(5, 10),
 
                     scoreBuySellItem(6),
                     scoreCompleteOneEvent(6, 1),
@@ -1471,7 +1479,7 @@
                     scoreNWPickLock3(8),
 
                     scoreCompleteDaily(9),
-                    scoreCraftScrapPowerArmor(9),
+                    scoreCraftScrapPowerArmor(9, 1),
                     scoreKillSupermutant10(9),
                     scoreUsePhotomode(9),
                     scoreNWKillCreature(9, 10),
@@ -1508,7 +1516,7 @@
                     scoreCompleteDaily(14),
                     scoreJoinGroup(14),
                     scoreKillGlowing(14),
-                    scoreKillMoleminer(14),
+                    scoreKillMoleminer(14, 10),
                     scoreKillScorched10(14),
                     scoreNWKillCreature(14, 1),
 
@@ -1619,7 +1627,7 @@
                     scoreCompleteEventInGroup(28),
                     scoreDestroyRobot10(28),
                     scoreKillLegendary3(28),
-                    scoreKillMoleminer(28),
+                    scoreKillMoleminer(28, 10),
                     scoreUsePhotomode(28),
                     scoreNWKillCreature(28, 3),
 
@@ -1685,7 +1693,15 @@
                     scoreCompleteOneEvent(36, 2),
                     scoreHackTerminal(36),
                     scoreKillCreatureInGroup(36),
-                    scoreNWKillCreature(36, 3)
+                    scoreNWKillCreature(36, 3),
+
+                    scoreBuySellItem(37, 3),
+                    scoreCompleteEventInGroup(37),
+                    scoreCraftScrapPowerArmor(37, 3),
+                    scoreDrinkNukaCola(37, 3),
+                    scoreKillGlowing(37),
+                    scoreKillMoleminer(37, 5),
+                    scoreNWUseStimpak3(37)
                 ]
             };
 
