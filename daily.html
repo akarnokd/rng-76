@@ -1089,19 +1089,15 @@
                         };
             }
 
-            function scoreNWDeployCamp(offset) {
+            function scoreNWDeployCamp(offset, count) {
                 return {
-                            name: "&#x2622; NW: Deploy a C.A.M.P. (x3)",
+                            name: times("&#x2622; NW: Deploy a C.A.M.P.", count),
                             offset: offset,
                             period: 100,
                         };
             }
             function scoreNWDeployCamp4(offset) {
-                return {
-                            name: "&#x2622; NW: Deploy a C.A.M.P. (x4)",
-                            offset: offset,
-                            period: 100,
-                        };
+                return scoreNWDeployCamp(offset, 4);
             }
 
             function scoreBuildAnythingCamp(offset) {
@@ -1353,9 +1349,9 @@
                     period: 100
                 };
             }
-            function scoreKillDeathclaw3(offset) {
+            function scoreKillDeathclaw(offset, count) {
                 return {
-                    name: "Kill a Deathclaw (x3)",
+                    name: times("Kill a Deathclaw", count),
                     offset: offset,
                     period: 100
                 };
@@ -1470,7 +1466,7 @@
                     scoreDestroyRobot10(7),
                     scoreKillCryptid1(7),
                     scoreKillGlowing(7),
-                    scoreNWDeployCamp(7),
+                    scoreNWDeployCamp(7, 3),
 
                     scoreBuildAnythingCamp(8),
                     scoreCompleteOneEvent(8, 1),
@@ -1510,7 +1506,7 @@
                     scoreCompleteOneEvent(13, 1),
                     scoreHackTerminal(13),
                     scoreKillGhoul10(13),
-                    scoreNWDeployCamp(13),
+                    scoreNWDeployCamp(13, 3),
 
                     scoreBuySellItem(14, 3),
                     scoreCompleteDaily(14),
@@ -1581,7 +1577,7 @@
                     scoreKillCreatureInGroup25(22),
                     scoreKillCryptid3(22),
                     scoreUsePhotomodeTeammate(22),
-                    scoreNWDeployCamp(22),
+                    scoreNWDeployCamp(22, 3),
 
                     scoreBuySellItem(23, 3),
                     scoreCompleteDaily(23),
@@ -1597,7 +1593,7 @@
                     scoreCompleteOneEvent(24, 2),
                     scoreKillGlowing(24),
                     scoreKillLegendary(24, 3),
-                    scoreNWDeployCamp(24),
+                    scoreNWDeployCamp(24, 3),
 
                     scoreBuildWallDecor5(25),
                     scoreBuySellItem(25, 3),
@@ -1620,8 +1616,8 @@
                     scoreConsumeAlcohol5(27),
                     scoreEatPrewarFood5(27),
                     scoreKillCreature15(27),
-                    scoreKillDeathclaw3(27),
-                    scoreNWDeployCamp(27),
+                    scoreKillDeathclaw(27, 3),
+                    scoreNWDeployCamp(27, 3),
 
                     scoreBuySellItem(28, 3),
                     scoreCompleteEventInGroup(28),
@@ -1661,7 +1657,7 @@
                     scoreCompleteOneEvent(32, 2),
                     scoreKillLegendary(32, 3),
                     scoreKillSupermutant5(32),
-                    scoreNWDeployCamp(32),
+                    scoreNWDeployCamp(32, 3),
 
                     scoreBuildFloorWallCamp(33, 10),
                     scoreBuySellItem(33, 3),
@@ -1701,7 +1697,15 @@
                     scoreDrinkNukaCola(37, 3),
                     scoreKillGlowing(37),
                     scoreKillMoleminer(37, 5),
-                    scoreNWUseStimpak3(37)
+                    scoreNWUseStimpak3(37),
+
+                    scoreBuySellItem(38, 3),
+                    scoreCompleteOneEvent(38, 2),
+                    scoreJoinGroup(38),
+                    scoreKillDeathclaw(38, 1),
+                    scoreKillLegendary(38, 3),
+                    scoreKillScorched10(38),
+                    scoreNWDeployCamp(38, 2)
                 ]
             };
 
@@ -2611,7 +2615,7 @@
 
             var communityProgress = {
                 steel: {
-                    progress: 122410000,
+                    progress: 212340000,
                     max: 125000000
                 },
                 concrete: {
