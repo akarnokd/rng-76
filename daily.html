@@ -1373,9 +1373,9 @@
                 };
             }
 
-            function scoreNWSurviveMinutes10(offset) {
+            function scoreNWSurviveMinutes(offset, count) {
                 return {
-                    name: "&#x2622; NW: survive for minutes (x10)",
+                    name: times("&#x2622; NW: survive for a minute", count),
                     offset: offset,
                     period: 100
                 };
@@ -1641,7 +1641,7 @@
                     scoreKillLegendary(30, 1),
                     scoreKillSupermutant10(30),
                     scoreModWeapon(30),
-                    scoreNWSurviveMinutes10(30),
+                    scoreNWSurviveMinutes(30, 10),
 
                     scoreBuySellItem(31, 3),
                     scoreCompleteOneEvent(31, 3),
@@ -1665,7 +1665,7 @@
                     scoreKillLegendary(33, 3),
                     scoreKillScorched(33, 15),
                     scoreUsePhotomode(33),
-                    scoreNWSurviveMinutes10(33),
+                    scoreNWSurviveMinutes(33, 10),
 
                     scoreBuySellItem(34, 3),
                     scoreCompleteOneEvent(34, 2),
@@ -1713,7 +1713,7 @@
                     scoreDestroyRobot10(39),
                     scoreJoinGroup(39),
                     scoreUsePhotomodeOwnCamp(39),
-                    scoreNWSurviveMinutes10(39),
+                    scoreNWSurviveMinutes(39, 10),
 
                     scoreBuildWallDecor(40, 10),
                     scoreBuySellItem(40, 3),
@@ -1721,7 +1721,7 @@
                     scoreJoinGroup(40),
                     scoreKillLegendary(40, 3),
                     scoreUsePhotomode(40),
-                    scoreNWSurviveMinutes10(40)
+                    scoreNWSurviveMinutes(40, 1)
                 ]
             };
 
