@@ -1381,6 +1381,14 @@
                 };
             }
 
+            function scoreNWTakePhoto(offset) {
+                return {
+                    name: "&#x2622; NW: take a photo",
+                    offset: offset,
+                    period: 100
+                };
+            }
+
             function scoreUsePhotomodeOwnCamp(offset) {
                 return {
                     name: "Use photomode in your own C.A.M.P.",
@@ -1721,7 +1729,15 @@
                     scoreJoinGroup(40),
                     scoreKillLegendary(40, 3),
                     scoreUsePhotomode(40),
-                    scoreNWSurviveMinutes(40, 1)
+                    scoreNWSurviveMinutes(40, 1),
+
+                    scoreBuySellItem(41, 3),
+                    scoreCompleteDaily(41),
+                    scoreCraftScrapPowerArmor(41, 3),
+                    scoreEatCookedMeal(41),
+                    scoreKillCreatureInGroup(41),
+                    scoreKillGhoul10(41),
+                    scoreNWTakePhoto(41)
                 ]
             };
 
