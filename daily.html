@@ -1120,9 +1120,9 @@
                         };
             }
 
-            function scoreNWPickLock3(offset) {
+            function scoreNWPickLock(offset, count) {
                 return {
-                            name: "&#x2622; NW: Pick a lock (x3)",
+                            name: times("&#x2622; NW: Pick a lock", count),
                             offset: offset,
                             period: 100,
                         };
@@ -1429,6 +1429,14 @@
                 };
             }
 
+            function scoreScrapScrews(offset, count) {
+                return {
+                    name: times("Scrap junk to produce screws", count),
+                    offset: offset,
+                    period: 100,
+                };
+            }
+
             var challengesDailyEra3 = {
                 validStart: new Date(Date.UTC(2020, 5, 30, 16, 0, 0, 0)),
                 validEnd: new Date(Date.UTC(2020, 8, 8, 16, 0, 0, 0)),
@@ -1480,7 +1488,7 @@
                     scoreCompleteOneEvent(8, 1),
                     scoreKillScorched10(8),
                     scoreKillLegendary(8),
-                    scoreNWPickLock3(8),
+                    scoreNWPickLock(8, 3),
 
                     scoreCompleteDaily(9),
                     scoreCraftScrapPowerArmor(9, 1),
@@ -1737,7 +1745,15 @@
                     scoreEatCookedMeal(41),
                     scoreKillCreatureInGroup(41),
                     scoreKillGhoul10(41),
-                    scoreNWTakePhoto(41)
+                    scoreNWTakePhoto(41),
+
+                    scoreBuySellItem(42, 3),
+                    scoreChewBubblegum(42),
+                    scoreCompleteOneEvent(42, 1),
+                    scoreCraftAmmo50(42),
+                    scoreKillLegendary(42, 1),
+                    scoreScrapScrews(42, 10),
+                    scoreNWPickLock(42, 2)
                 ]
             };
 
@@ -2623,8 +2639,18 @@
             addWeekly(challengesWeeklyEra3.options, 35, scoreKillLegendaries5);
             addWeekly(challengesWeeklyEra3.options, 35, scoreLevelUp3);
 
+            addWeekly(challengesWeeklyEra3.options, 42, scoreGainXP10000);
+            addWeekly(challengesWeeklyEra3.options, 42, scoreBuildupCamp);
+            addWeekly(challengesWeeklyEra3.options, 42, scoreClaimWorkshop3);
+            addWeekly(challengesWeeklyEra3.options, 42, scoreCompleteGoldStar);
+            addWeekly(challengesWeeklyEra3.options, 42, scoreCompleteEvents5);
+            addWeekly(challengesWeeklyEra3.options, 42, scoreCriticalHit25);
+            addWeekly(challengesWeeklyEra3.options, 42, scoreKillLegendaries10);
+            addWeekly(challengesWeeklyEra3.options, 42, scoreLevelUp3);
+            
+
             // placeholder
-            for (var t = 42; t < 70; t += 7) {
+            for (var t = 49; t < 70; t += 7) {
                 addWeekly(challengesWeeklyEra3.options, t, scoreGainXP10000);
                 addWeekly(challengesWeeklyEra3.options, t, scoreLevelUp3);
                 addWeekly(challengesWeeklyEra3.options, t, scoreWeeklyplaceholder);
@@ -2651,7 +2677,7 @@
                     max: 125000000
                 },
                 concrete: {
-                    progress: 12530000,
+                    progress: 15000001,
                     max: 15000000
                 },
                 cork: {
