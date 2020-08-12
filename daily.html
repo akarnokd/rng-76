@@ -1242,9 +1242,9 @@
                             period: 100,
                 };
             }
-            function scorePlantCrop(offset) {
+            function scorePlantCrop(offset, count) {
                 return {
-                    name: "Plant crops in your C.A.M.P. or Workshop (x10)",
+                    name: times("Plant crops in your C.A.M.P. or Workshop", count),
                             offset: offset,
                             period: 100,
                 };
@@ -1536,7 +1536,7 @@
                     scoreCompleteOneEvent(15, 1),
                     scoreKillLegendary(15, 1),
                     scorePickLock(15),
-                    scorePlantCrop(15),
+                    scorePlantCrop(15, 10),
                     scoreUsePhotomode(15),
                     scoreNWKillPlayer(15),
                     
@@ -1624,7 +1624,7 @@
                     scoreCompleteOneEvent(26, 2),
                     scoreJoinGroup(26),
                     scoreKillLegendary(26, 3),
-                    scorePlantCrop(26),
+                    scorePlantCrop(26, 10),
                     scoreNWUseStimpak3(26),
 
                     scoreBuySellItem(27, 3),
@@ -1753,7 +1753,15 @@
                     scoreCraftAmmo50(42),
                     scoreKillLegendary(42, 1),
                     scoreScrapScrews(42, 10),
-                    scoreNWPickLock(42, 2)
+                    scoreNWPickLock(42, 2),
+
+                    scoreBuySellItem(43, 3),
+                    scoreCollectBobblehead(43),
+                    scoreCompleteOneEvent(43, 1),
+                    scoreKillLegendary(43, 1),
+                    scoreKillScorched(43, 10),
+                    scorePlantCrop(43, 5),
+                    scoreNWDeployCamp(43, 3)
                 ]
             };
 
