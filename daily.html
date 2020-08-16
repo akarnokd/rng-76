@@ -1081,9 +1081,9 @@
                         };
             }
 
-            function scoreKillGlowing(offset) {
+            function scoreKillGlowing(offset, count) {
                 return {
-                            name: "Kill a glowing creature",
+                            name: times("Kill a glowing creature", count),
                             offset: offset,
                             period: 100,
                         };
@@ -1219,9 +1219,9 @@
                             period: 100,
                         };
             }
-            function scoreNWRevivePlayer(offset) {
+            function scoreNWRevivePlayer(offset, count) {
                 return {
-                            name: "&#x2622; NW: Revive a Player",
+                            name: times("&#x2622; NW: Revive a Player", count),
                             offset: offset,
                             period: 100,
                         };
@@ -1481,7 +1481,7 @@
                     scoreCompleteOneEvent(7, 1),
                     scoreDestroyRobot10(7),
                     scoreKillCryptid1(7),
-                    scoreKillGlowing(7),
+                    scoreKillGlowing(7, 1),
                     scoreNWDeployCamp(7, 3),
 
                     scoreBuildAnythingCamp(8),
@@ -1516,7 +1516,7 @@
                     scoreKillCryptid1(12),
                     scoreRankupPerkCard(12),
                     scoreUsePhotomodeGroup(12),
-                    scoreNWRevivePlayer(12),
+                    scoreNWRevivePlayer(12, 1),
 
                     scoreChewBubblegum(13),
                     scoreCompleteOneEvent(13, 1),
@@ -1527,7 +1527,7 @@
                     scoreBuySellItem(14, 3),
                     scoreCompleteDaily(14),
                     scoreJoinGroup(14),
-                    scoreKillGlowing(14),
+                    scoreKillGlowing(14, 1),
                     scoreKillMoleminer(14, 10),
                     scoreKillScorched10(14),
                     scoreNWKillCreature(14, 1),
@@ -1607,7 +1607,7 @@
                     scoreChewBubblegum(24),
                     scoreCollectBobblehead(24),
                     scoreCompleteOneEvent(24, 2),
-                    scoreKillGlowing(24),
+                    scoreKillGlowing(24, 1),
                     scoreKillLegendary(24, 3),
                     scoreNWDeployCamp(24, 3),
 
@@ -1696,7 +1696,7 @@
                     scoreChewBubblegum(35),
                     scoreCompleteOneEvent(35, 3),
                     scoreKillCryptid1(35),
-                    scoreKillGlowing(35),
+                    scoreKillGlowing(35, 1),
                     scoreNWKillPlayer(35),
 
                     scoreBuildAnythingCamp5(36),
@@ -1711,7 +1711,7 @@
                     scoreCompleteEventInGroup(37),
                     scoreCraftScrapPowerArmor(37, 3),
                     scoreDrinkNukaCola(37, 3),
-                    scoreKillGlowing(37),
+                    scoreKillGlowing(37, 1),
                     scoreKillMoleminer(37, 5),
                     scoreNWUseStimpak3(37),
 
@@ -1785,7 +1785,15 @@
                     scoreJoinGroup(46),
                     scoreKillLegendary(46, 1),
                     scoreUsePhotomodeGroup(46),
-                    scoreNWPickLock(46, 1)
+                    scoreNWPickLock(46, 1),
+
+                    scoreBuildAnythingCamp(47),
+                    scoreBuySellItem(47, 3),
+                    scoreCompleteOneEvent(47, 1),
+                    scoreCookMealPlant(47),
+                    scoreKillGlowing(47, 3),
+                    scoreKillSupermutant10(47),
+                    scoreNWRevivePlayer(47, 2)
                 ]
             };
 
