@@ -22,7 +22,7 @@
     </head>
     <body style="height: 90%">
         <center>
-            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Weapon Damage Calculator (v3.2.1)</span><br/>
+            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Weapon Damage Calculator (v3.3.0)</span><br/>
         <br/>
         <table id="parent">
             <tr>
@@ -4998,7 +4998,13 @@
             infoMap.set("ResistanceSBQ", "Scorchbeast Queen<br>32000 health, 300 DR, 300 ER, 300 RR<br>ignores 70% of all kinds of incoming damage.");
             infoMap.set("ResistanceRandal", "Aka the <a href='https://youtu.be/KRJcSsGt6VY?t=512' target='_blank'>Wendigo Colossus ;)</a><br>32000 health, 400 DR, 400 ER, 500 RR<br>"
                 + "ignores 10% of all kinds of incoming damage (PTS, subject to change)<br>"
-             );
+            );
+            infoMap.set("buffcalcmode", "On the PTS and once One Wasteland ships, damage bonus calculation is changed<br>"
+                + "from mostly multiplicative to mostly additive."
+                + "<br><br>It is supposed to apply uniformly but there were inconsistencies"
+                + "found in the PTS<br> regarding damage listed on the weapon card and the floating numbers"
+                + "<br>(after considering resistances)."
+            );
 
             // ~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o
 
@@ -6240,6 +6246,23 @@
                     recalculate(tbl, index, type);
                 };
                 document.getElementById("otherboost" + index ).linkId = "Other";
+
+                // calculation mode
+                row = tbl.insertRow(tbl.rows.length);
+                cell1 = row.insertCell(0);
+                cell1.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;Buff calculation" + info("buffcalcmode");
+                cell2 = row.insertCell(1);
+                cell2.innerHTML = "<input type='radio' id='buffcalcmode" + index + "_mult' name='buffcalcmode" + index + "' value='Mult' checked='checked'><label for='buffcalcmode" + index + "_mult'> Multiply</label>&nbsp;&nbsp;&nbsp;"
+                    + "<input type='radio' id='buffcalcmode" + index + "_add' name='buffcalcmode" + index + "' value='Add'><label for='buffcalcmode" + index + "_add'> Add</label>";
+
+                document.getElementById("buffcalcmode" + index + "_mult").onchange = function() {
+                    recalculate(tbl, index, type);
+                };
+                document.getElementById("buffcalcmode" + index + "_mult").linkId = "Mult";
+                document.getElementById("buffcalcmode" + index + "_add").onchange = function() {
+                    recalculate(tbl, index, type);
+                };
+                document.getElementById("buffcalcmode" + index + "_add").linkId = "Add";
             }
 
             function getAlcoholAndColaBuff(partyMultiplier, colanutMultiplier, buff) {
@@ -6768,6 +6791,9 @@
                     totalDamageEnergyMultiply.push(25);
                 }
 
+                var sneakBonusMultiply = 1;
+                var isSneaking = document.getElementById("sneaking" + index + "_yes").checked;
+
                 // apply selectable buffs
                 for (var buff of buffOpts) {
                     var pmult = partyMultiplier;
@@ -6803,10 +6829,8 @@
                         totalDamageEnergyMultiply.push(buff.teamDamage * pmult);
                     }
 
-                    if (document.getElementById("sneaking" + index + "_yes").checked
-                            && buff.sneakDamage !== undefined) {
-                        totalDamageMultiply.push(buff.sneakDamage * pmult);
-                        totalDamageEnergyMultiply.push(buff.sneakDamage * pmult);
+                    if (isSneaking && buff.sneakDamage !== undefined) {
+                        sneakBonusMultiply += buff.sneakDamage * pmult / 100;
                     }
 
                     if (buff.versusDamage !== undefined) {
@@ -6866,7 +6890,7 @@
                     totalDamageEnergyMultiply.push(parseFloat(valueOf(revenantsel)));
                 }
 
-                if (document.getElementById("sneaking" + index + "_yes").checked) {
+                if (isSneaking) {
                     var mult = 100;
 
                     var ninja = document.getElementById("ninja" + index);
@@ -6878,10 +6902,8 @@
                     if (covertop != null && covertop.selectedIndex > 0) {
                         mult += parseFloat(valueOf(covertop));
                     }
-                    totalDamageMultiply.push(mult);
-                    totalDamageEnergyMultiply.push(mult);
-                }
-                if (document.getElementById("sneaking" + index + "_yes").checked) {
+                    sneakBonusMultiply += mult / 100;
+
                     if (document.getElementById("nighttime" + index + "_yes").checked) {
                         var sandman = document.getElementById("sandman" + index);
                         if (sandman != null && sandman.selectedIndex > 0) {
@@ -6893,28 +6915,46 @@
                     }
                 }
 
+                var isCalcAdd = document.getElementById("buffcalcmode" + index + "_add").checked;
+
                 var totalDamage = baseDamage;
+                var totalDamageEnergy = baseDamageEnergy;
+                var totalDamageRadiation = baseDamageRadiation;
+
                 totalDamageAdditive.forEach(function(v) {
                     totalDamage += v;
                 });
-                totalDamageMultiply.forEach(function(v) {
-                    totalDamage *= 1.0 + v / 100.0;
-                });
-
-                var totalDamageEnergy = baseDamageEnergy;
                 totalDamageEnergyAdditive.forEach(function(v) {
                     totalDamageEnergy += v;
                 });
-                totalDamageEnergyMultiply.forEach(function(v) {
-                    totalDamageEnergy *= 1.0 + v / 100.0;
-                });
-                var totalDamageRadiation = baseDamageRadiation;
                 totalDamageRadiationAdditive.forEach(function(v) {
                     totalDamageRadiation += v;
                 });
-                totalDamageRadiationMultiply.forEach(function(v) {
-                    totalDamageRadiation *= 1.0 + v / 100.0;
-                });
+                
+                if (isCalcAdd) {
+                    totalDamageMultiply.forEach(v => {
+                        totalDamage += baseDamage * v / 100;
+                    });
+                    totalDamageEnergyMultiply.forEach(function(v) {
+                        totalDamageEnergy += baseDamageEnergy * v / 100.0;
+                    });
+                    totalDamageRadiationMultiply.forEach(function(v) {
+                        totalDamageRadiation += baseDamageRadiation * v / 100.0;
+                    });
+                } else {
+                    totalDamageMultiply.forEach(function(v) {
+                        totalDamage *= 1.0 + v / 100.0;
+                    });
+                    totalDamageEnergyMultiply.forEach(function(v) {
+                        totalDamageEnergy *= 1.0 + v / 100.0;
+                    });
+                    totalDamageRadiationMultiply.forEach(function(v) {
+                        totalDamageRadiation *= 1.0 + v / 100.0;
+                    });
+                }
+
+                totalDamage *= sneakBonusMultiply;
+                totalDamageEnergy *= sneakBonusMultiply;
 
                 var baseSpeed = speed;
 
