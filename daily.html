@@ -2879,12 +2879,16 @@
                 season1.options.push({
                     name: "Expected rank (uniform rank gain): <b style='color: green;'>" + rankLinear + "</b>",
                     offset: i,
-                    period: 100
+                    period: 100,
+                    tipId: "LR1RankUniform",
+                    tip: "If you play so that you gain 99 / 70 ~ 1.42 ranks each day on average."
                 });
                 season1.options.push({
                     name: "Expected rank (uniform S.C.O.R.E. gain): <b style='color: green;'>" + rankScore + "</b>",
                     offset: i,
-                    period: 100
+                    period: 100,
+                    tipId: "LR1ScoreUniform",
+                    tip: "If you play so that you earn 220,000 / 70 ~ 3150 S.C.O.R.E. each day on average."
                 });
             }
 
@@ -2895,7 +2899,7 @@
             // --------------------------------------------------------------------------------------------------------------
 
             var infoMap = new Map();
-            for (var list of [challenges, challengesWeekly, communityEvents]) {
+            for (var list of [challenges, challengesWeekly, communityEvents, seasonEvents]) {
                 for (var challenge of list) {
                     for (var opt of challenge.options) {
                         if (opt.tipId !== undefined) {
