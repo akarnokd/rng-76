@@ -1456,6 +1456,16 @@
                     ignore: true
                 };
             }
+            function scoreScrapSprings(offset, count) {
+                return {
+                    name: times("Scrap junk to produce springs", count),
+                    offset: offset,
+                    period: 100,
+                    tipId: "ScoreScrapSprings",
+                    tip: "Just bulk and scrap the bulked springs.",
+                    ignore: true
+                };
+            }
 
             var challengesDailyEra3 = {
                 validStart: new Date(Date.UTC(2020, 5, 30, 16, 0, 0, 0)),
@@ -1828,7 +1838,7 @@
                     scoreCompleteDaily(49),
                     scoreEatPrewarFood5(49),
                     scoreKillMoleminer(49, 10),
-                    scoreScrapScrews(49, 10),
+                    scoreScrapSprings(49, 10),
                     scoreNWKillCreature(49, 1),
 
                     // bonus entries
