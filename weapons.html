@@ -22,7 +22,7 @@
     </head>
     <body style="height: 90%">
         <center>
-            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Weapon Damage Calculator (v3.3.1)</span><br/>
+            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Weapon Damage Calculator (v3.3.2)</span><br/>
         <br/>
         <table id="parent">
             <tr>
@@ -453,6 +453,31 @@
                             ]
                         }
                     ]
+                },
+                {
+                    name: "Cursed Pickaxe",
+                    category: "Two-handed",
+                    info: "WeaponCursedPickaxe",
+                    speed: speedSlow * 1.2,
+                    level: [5, 15, 25, 35, 45],
+                    damage: [32 * 1.15, 41 * 1.15, 48 * 1.15, 55 * 1.15, 60 * 1.15],
+                    mods: [
+                        {
+                            slot: "Blade",
+                            options: [
+                                {
+                                    name: "Standard"
+                                },
+                                {
+                                    name: "Sharp",
+                                    damageMultPercent: 15
+                                }
+                            ]
+                        }
+                    ],
+                    legendaryPrefix: "Bloodied",
+                    // legendaryMajor: "40% power attack",
+                    // legendaryMinor: "90% reduced weight"
                 },
                 {
                     name: "Ski Sword",
@@ -1199,6 +1224,18 @@
                     level: [1,5,15,25,35,45],
                     damage: [15,20,25,30,35,40],
                     mods: []
+                },
+                {
+                    name: "Cursed Shovel",
+                    category: "Two-handed",
+                    info: "WeaponCursedShovel",
+                    speed: speedSlow * 1.2,
+                    level: [1,5,15,25,35,45],
+                    damage: [15 * 1.15, 20 * 1.15, 25 * 1.15, 30 * 1.15, 35 * 1.15, 40 * 1.15],
+                    mods: [],
+                    legendaryPrefix: "Executioner's",
+                    legendaryMajor: "40% increased swing speed",
+                    // legendaryMinor: "90% reduced weight"
                 },
             ]);
 
@@ -2421,6 +2458,33 @@
                             ]
                         }
                     ]
+                },
+                {
+                    name: "Cursed Harpoon Gun",
+                    category: "Heavy",
+                    kind: "ballistic",
+                    explosive: false,
+                    info: "WeaponCursedHarpoonGun",
+                    speed: 0.2 * 1.2,
+                    level: [30, 40, 50],
+                    damage: [125 * 1.15, 150 * 1.15, 175 * 1.15],
+                    mods: [
+                    {
+                            slot: "Ammunition",
+                            options: [
+                                {
+                                    name: "Standard"
+                                },
+                                {
+                                    name: "Flechette",
+                                    damageMultPercent: 100
+                                }
+                            ]
+                        }
+                    ],
+                    legendaryPrefix: "Executioner's",
+                    // legendaryMajor: "40% bashing damage",
+                    // legendaryMinor: "90% reduced weight"
                 },
                 {
                     name: ".44 Pistol",
@@ -5081,7 +5145,25 @@
                 + "<br>Legendary: <i>Anti-armor, 25% faster firerate, 250 DR while reloading</i>"
                 + "<br>Premodded: Heavy Barrel"
                 + "<br>Form ID: <a href='https://nukacrypt.com/database/json/005A21E4' target='_blank'>005A21E4</a>"
-                );
+            );
+            infoMap.set("WeaponCursedPickaxe",
+                "<b>Unique Pickaxe from the Colossal Problem event</b>" 
+                + "<br>Legendary: <i>Bloodied, 40% Power Attack, 90% reduced weight</i>"
+                + "<br>Special feature: 15% more damage, 20% faster swing speed, breaks much faster"
+                + "<br>Form ID: <a href='https://nukacrypt.com/database/json/00002840' target='_blank'>00002840</a>"
+            );
+            infoMap.set("WeaponCursedShovel",
+                "<b>Unique Shovel from the Colossal Problem event</b>" 
+                + "<br>Legendary: <i>Executioner's, 40% Swing Speed, 90% reduced weight</i>"
+                + "<br>Special feature: 15% more damage, 20% faster swing speed, breaks much faster"
+                + "<br>Form ID: <a href='https://nukacrypt.com/database/json/004E2E20' target='_blank'>004E2E20</a>"
+            );
+            infoMap.set("WeaponCursedHarpoonGun",
+                "<b>Unique Harpoon Gun from the Colossal Problem event</b>" 
+                + "<br>Legendary: <i>Executioner's, 40% bashing damage, 90% reduced weight</i>"
+                + "<br>Special feature: 15% more damage, 20% faster fire rate, breaks much faster"
+                + "<br>Form ID: <a href='https://nukacrypt.com/database/json/001109CF' target='_blank'>001109CF</a>"
+            );
 
             infoMap.set("WeaponVATSUnknown",
                 "<b>Unique Alien Blaster from Wastelanders</b>" 
