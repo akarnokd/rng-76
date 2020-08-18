@@ -22,7 +22,7 @@
     </head>
     <body style="height: 90%">
         <center>
-            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Weapon Damage Calculator (v3.3.0)</span><br/>
+            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Weapon Damage Calculator (v3.3.1)</span><br/>
         <br/>
         <table id="parent">
             <tr>
@@ -4082,6 +4082,22 @@
             addEnemy("Floater", []);
             addEnemy("Wendigo Colossus", ["Cryptid", "Wendigo"]);
 
+            addEnemy("Radstag", ["Radstag", "Animal"]);
+            addEnemy("Glowing Radstag", ["Radstag", "Animal", "Glowing"]);
+            addEnemy("Scorched Radstag", ["Radstag", "Scorched"]);
+
+            addEnemy("Radtoad", ["Radtoad", "Animal"]);
+            addEnemy("Glowing Radtoad", ["Radtoad", "Animal", "Glowing"]);
+            addEnemy("Scorched Radtoad", ["Radtoad", "Scorched"]);
+
+            addEnemy("Honeybeast", ["Honeybeast", "Animal"]);
+            addEnemy("Glowing Honeybeast", ["Honeybeast", "Animal", "Glowing"]);
+            addEnemy("Scorched Honeybeast", ["Honeybeast", "Scorched"]);
+
+            addEnemy("Radscorpion", ["Radscorpion", "Bug"]);
+            addEnemy("Glowing Radscorpion", ["Radscorpion", "Bug", "Glowing"]);
+            addEnemy("Scorched Radscorpion", ["Radscorpion", "Scorched"]);
+
             // some enemies are immune to radiation or even heal off it
             var enemyRadiationEffect = new Map();
 
@@ -4652,6 +4668,85 @@
                 return a.desc.localeCompare(b.desc);
             });
 
+            // Big Game Hunter
+            var biggamehunter = [
+                {
+                    id: "BigGameHunt1",
+                    type: "quest",
+                    desc: "+10% DMG vs honeybeasts",
+                    mode: "Ranged,Melee",
+                    versus: ["Honeybeast"],
+                    versusDamage: 10
+                },
+                {
+                    id: "BigGameHunt2",
+                    type: "quest",
+                    desc: "+10% DMG vs mirelurks",
+                    mode: "Ranged,Melee",
+                    versus: ["Mirelurk"],
+                    versusDamage: 10
+                },
+                {
+                    id: "BigGameHunt3",
+                    type: "quest",
+                    desc: "+10% DMG vs radscorpions",
+                    mode: "Ranged,Melee",
+                    versus: ["Grafton Monster"],
+                    versusDamage: 10
+                },
+                {
+                    id: "BigGameHunt4",
+                    type: "quest",
+                    desc: "+10% DMG vs snallygasters",
+                    mode: "Ranged,Melee",
+                    versus: ["Snallygaster"],
+                    versusDamage: 10
+                },
+                {
+                    id: "BigGameHunt5",
+                    type: "quest",
+                    desc: "+10% DMG vs radstags",
+                    mode: "Ranged,Melee",
+                    versus: ["Radstag"],
+                    versusDamage: 10
+                },
+                {
+                    id: "BigGameHunt6",
+                    type: "quest",
+                    desc: "+10% DMG vs radtoads",
+                    mode: "Ranged,Melee",
+                    versus: ["Radtoad"],
+                    versusDamage: 10
+                },
+                {
+                    id: "BigGameHunt7",
+                    type: "quest",
+                    desc: "+10% DMG vs stingwings",
+                    mode: "Ranged,Melee",
+                    versus: ["Stingwing"],
+                    versusDamage: 10
+                },
+                {
+                    id: "BigGameHunt8",
+                    type: "quest",
+                    desc: "+10% DMG vs super mutants",
+                    mode: "Ranged,Melee",
+                    versus: ["Super Mutant"],
+                    versusDamage: 10
+                },
+                {
+                    id: "BigGameHunt9",
+                    type: "quest",
+                    desc: "+10% DMG vs yao guais",
+                    mode: "Ranged,Melee",
+                    versus: ["Yao Guai"],
+                    versusDamage: 10
+                },
+            ];
+            biggamehunter.sort(function(a, b) {
+                return a.desc.localeCompare(b.desc);
+            });
+
             // X_X_X_X_X_X_X_X_X_X_X_X_X_X_X_X_X_X_X_X_X_X_X_X_X_X_X_X_X_X_X_X_X_X_X_X_X_X_X_X_
             // create a mapping of the buffs
 
@@ -4670,6 +4765,9 @@
             }
             for (var qh of queenhunt) {
                 buffMap.set(qh.id, qh);
+            }
+            for (var bgh of biggamehunter) {
+                buffMap.set(bgh.id, bgh);
             }
 
             // -------------------------------------------------------------------------------------
@@ -4957,6 +5055,11 @@
             );
             infoMap.set("queenhunt", 
                 "Select the bonus received from the Daily: Queen of the Hunt."
+            );
+            infoMap.set("biggamehunt", 
+                "Select the bonus received from the Daily: Big Game Hunter."
+                + "<br>The daily awards 3 of these bonuses, but there are no mixed-type enemies that"
+                + "<br>would be affected, thus please pick the one based on your current target enemy."
             );
             infoMap.set("charge", 
                 "Gauss weapons only. Firing without charging the weapon is fast but 50% less damage."
@@ -6236,6 +6339,33 @@
                     recalculate(tbl, index, type);
                 };
 
+                // big game hunter bonus
+                row = tbl.insertRow(tbl.rows.length);
+                cell1 = row.insertCell(0);
+                cell1.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;Big game hunter" + info("biggamehunt");
+                cell2 = row.insertCell(1);
+                cell2.innerHTML = "<select id='biggamehunt" + index + "'></select>"
+                var biggamehuntsel = document.getElementById("biggamehunt" + index);
+                opt = document.createElement("option");
+                biggamehuntsel.add(opt);
+                opt.text = "None";
+                opt.value = "";
+                biggamehuntsel.linkId = "Biggamehunt";
+
+                for (var qh of biggamehunter) {
+                    if (qh.mode.includes(type)) {
+                        opt = document.createElement("option");
+                        biggamehuntsel.add(opt);
+                        opt.text = qh.desc;
+                        opt.value = qh.id;
+                        opt.linkId = linkIdFor(qh, qh.id);
+                    }
+                }
+                biggamehuntsel.selectedIndex = 0;
+                biggamehuntsel.onchange = function() {
+                    recalculate(tbl, index, type);
+                };
+
                 // other damage boost
                 row = tbl.insertRow(tbl.rows.length);
                 cell1 = row.insertCell(0);
@@ -6394,6 +6524,10 @@
                 var qhsel = document.getElementById("queenhunt" + index);
                 if (qhsel.selectedIndex > 0) {
                     buffOpts.push(buffMap.get(valueOf(qhsel)));
+                }
+                var bghsel = document.getElementById("biggamehunt" + index);
+                if (bghsel.selectedIndex > 0) {
+                    buffOpts.push(buffMap.get(valueOf(bghsel)));
                 }
 
                 // party boy/girl multiplier for alcohols
@@ -6931,11 +7065,14 @@
                 });
                 
                 if (isCalcAdd) {
+                    var dmg = baseDamage - additiveBoosts;
+                    var dmgEnergy = baseDamageEnergy - additiveEnergyBoosts;
+
                     totalDamageMultiply.forEach(v => {
-                        totalDamage += baseDamage * v / 100;
+                        totalDamage += dmg * v / 100.0;
                     });
                     totalDamageEnergyMultiply.forEach(function(v) {
-                        totalDamageEnergy += baseDamageEnergy * v / 100.0;
+                        totalDamageEnergy += dmgEnergy * v / 100.0;
                     });
                     totalDamageRadiationMultiply.forEach(function(v) {
                         totalDamageRadiation += baseDamageRadiation * v / 100.0;
