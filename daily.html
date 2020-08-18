@@ -3171,12 +3171,49 @@
                     cll.colSpan = 2;
                     cll.style.padding = "10px";
                     cll.style.border = '1px dotted black';
+                }
 
-                    /*
-                    rw = tbl.insertRow(tbl.rows.length);
-                    cll = rw.insertCell(0);
-                    cll = rw.insertCell(1);
-                    */
+                var prevEvt = undefined;
+                var nextEvt = undefined;
+
+                for (var evt of communityEvents) {
+                    if (evt.validStart < selectedDate) {
+                        if (prevEvt === undefined || prevEvt.validStart < evt.validStart) {
+                            prevEvt = evt;
+                        }
+                    }
+                    if (evt.validStart > selectedDate) {
+                        if (nextEvt === undefined || nextEvt.validStart > evt.validStart) {
+                            nextEvt = evt;
+                        }
+                    }
+                }
+
+                rw = tbl.insertRow(tbl.rows.length);
+                cll = rw.insertCell(0);
+                cll.style.borderTop = '1px dotted green';
+                cll.colSpan = 2;
+
+                var tbl2 = document.createElement("table");
+                cll.appendChild(tbl2);
+
+                tbl2.style.width='100%'
+                rw = tbl2.insertRow(tbl2.rows.length);
+                cll = rw.insertCell(0);
+                cll.style.width='50%';
+                if (prevEvt !== undefined) {
+                    var prevDay = prevEvt.validStart.toISOString().substring(0, 10);
+                    cll.innerHTML = ("<a href='daily.html?day=" + prevDay + "' title='" + prevEvt.title + "'>&lt; Previous<br>" + prevDay + "</a>");
+                }
+                cll = rw.insertCell(1);
+                cll.style.width='50%';
+                if (nextEvt !== undefined) {
+                    var nextDay = nextEvt.validStart.toISOString().substring(0, 10);
+                    cll.innerHTML = ("<a href='daily.html?day=" + nextDay + "' title='" + nextEvt.title + "'>Next &gt;<br>" + nextDay + "</a>");
+                    cll.style.textAlign = "right";
+                } else {
+                    cll.innerHTML = "Next &gt;<br>To be announced";
+                    cll.style.textAlign = "right";
                 }
 
                 insertSeparatorRow(tbl)
