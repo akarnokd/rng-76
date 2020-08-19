@@ -69,6 +69,7 @@
                     // ignored
                 }
             }
+            normalizeDate(selectedDate);
 
             function levelUpFasnacht(offset) {
                 return {
@@ -2994,15 +2995,6 @@
 
             // Season =======================
 
-            var season1 = {
-                validStart: new Date(Date.UTC(2020, 5, 30, 16, 0, 0, 0)),
-                validEnd: new Date(Date.UTC(2020, 8, 8, 16, 0, 0, 0)),
-                title: "Season 1: The Legendary Run",
-                options: [
-                    
-                ]
-            };
-
             function scoreAtRank(rank) {
                 if (rank <= 1) {
                     return 0;
@@ -3015,34 +3007,57 @@
                 maxscore += scoreAtRank(i);
             }
 
-            var season1Days = 70;
-            for (var i = 0; i < season1Days; i++) {
-                var rankLinear = (100 * (i + 1) / (season1Days)).toFixed(0);
-                var scoreProgress = maxscore * i / season1Days;
-                var rankScore = 1;
-                var scoreSum = 0;
-                while (scoreSum < scoreProgress) {
-                    scoreSum += scoreAtRank(++rankScore);
-                }
+            function fillInSeason(season) {
+                var season1Days = 70;
+                for (var i = 0; i < season1Days; i++) {
+                    var rankLinear = (100 * (i + 1) / (season1Days)).toFixed(0);
+                    var scoreProgress = maxscore * i / season1Days;
+                    var rankScore = 1;
+                    var scoreSum = 0;
+                    while (scoreSum < scoreProgress) {
+                        scoreSum += scoreAtRank(++rankScore);
+                    }
 
-                season1.options.push({
-                    name: "Expected rank (uniform rank gain): <b style='color: green;'>" + rankLinear + "</b>",
-                    offset: i,
-                    period: 100,
-                    tipId: "LR1RankUniform",
-                    tip: "If you play so that you gain 99 / 70 ~ 1.42 ranks each day on average."
-                });
-                season1.options.push({
-                    name: "Expected rank (uniform S.C.O.R.E. gain): <b style='color: green;'>" + rankScore + "</b>",
-                    offset: i,
-                    period: 100,
-                    tipId: "LR1ScoreUniform",
-                    tip: "If you play so that you earn 220,000 / 70 ~ 3150 S.C.O.R.E. each day on average."
-                });
+                    season.options.push({
+                        name: "Expected rank (uniform rank gain): <b style='color: green;'>" + rankLinear + "</b>",
+                        offset: i,
+                        period: 100,
+                        tipId: "LR1RankUniform",
+                        tip: "If you play so that you gain 99 / 70 ~ 1.42 ranks each day on average."
+                    });
+                    season.options.push({
+                        name: "Expected rank (uniform S.C.O.R.E. gain): <b style='color: green;'>" + rankScore + "</b>",
+                        offset: i,
+                        period: 100,
+                        tipId: "LR1ScoreUniform",
+                        tip: "If you play so that you earn 220,000 / 70 ~ 3150 S.C.O.R.E. each day on average."
+                    });
+                }
             }
 
+            var season1 = {
+                validStart: new Date(Date.UTC(2020, 5, 30, 16, 0, 0, 0)),
+                validEnd: new Date(Date.UTC(2020, 8, 8, 16, 0, 0, 0)),
+                title: "Season 1: The Legendary Run",
+                options: [
+                    
+                ]
+            };
+            var season2 = {
+                validStart: new Date(Date.UTC(2020, 8, 29, 16, 0, 0, 0)),
+                validEnd: new Date(Date.UTC(2020, 11, 8, 16, 0, 0, 0)),
+                title: "Season 2: March of Freedom",
+                options: [
+                    
+                ]
+            };
+
+            fillInSeason(season1);
+            fillInSeason(season2);
+
             var seasonEvents = [
-                season1
+                season1,
+                season2
             ];
 
             // --------------------------------------------------------------------------------------------------------------
@@ -3103,6 +3118,59 @@
                 var cll = rw.insertCell(rw.cells.length);
                 cll.colSpan = 2;
                 cll.innerHTML = "&nbsp;";
+            }
+
+            function addPrevNext(tbl, list, nonOverlapping) {
+                var prevEvt = undefined;
+                var nextEvt = undefined;
+
+                for (var evt of list) {
+                    if (nonOverlapping) {
+                        if (evt.validEnd < selectedDate) {
+                            if (prevEvt === undefined || prevEvt.validStart < evt.validStart) {
+                                prevEvt = evt;
+                            }
+                        }
+                    } else {
+                        if (evt.validStart < selectedDate) {
+                            if (prevEvt === undefined || prevEvt.validStart < evt.validStart) {
+                                prevEvt = evt;
+                            }
+                        }
+                    }
+                    if (evt.validStart > selectedDate) {
+                        if (nextEvt === undefined || nextEvt.validStart > evt.validStart) {
+                            nextEvt = evt;
+                        }
+                    }
+                }
+
+                var rw = tbl.insertRow(tbl.rows.length);
+                var cll = rw.insertCell(0);
+                cll.style.borderTop = '1px dotted green';
+                cll.colSpan = 2;
+
+                var tbl2 = document.createElement("table");
+                cll.appendChild(tbl2);
+
+                tbl2.style.width='100%'
+                rw = tbl2.insertRow(tbl2.rows.length);
+                cll = rw.insertCell(0);
+                cll.style.width='50%';
+                if (prevEvt !== undefined) {
+                    var prevDay = prevEvt.validStart.toISOString().substring(0, 10);
+                    cll.innerHTML = ("<a href='daily.html?day=" + prevDay + "' title='" + prevEvt.title + "'>&lt; Previous<br>" + prevDay + "</a>");
+                }
+                cll = rw.insertCell(1);
+                cll.style.width='50%';
+                if (nextEvt !== undefined) {
+                    var nextDay = nextEvt.validStart.toISOString().substring(0, 10);
+                    cll.innerHTML = ("<a href='daily.html?day=" + nextDay + "' title='" + nextEvt.title + "'>Next &gt;<br>" + nextDay + "</a>");
+                    cll.style.textAlign = "right";
+                } else {
+                    cll.innerHTML = "Next &gt;<br>To be announced";
+                    cll.style.textAlign = "right";
+                }
             }
 
             function updateChallenges() {
@@ -3175,48 +3243,7 @@
                     cll.style.border = '1px dotted black';
                 }
 
-                var prevEvt = undefined;
-                var nextEvt = undefined;
-
-                for (var evt of communityEvents) {
-                    if (evt.validStart < selectedDate) {
-                        if (prevEvt === undefined || prevEvt.validStart < evt.validStart) {
-                            prevEvt = evt;
-                        }
-                    }
-                    if (evt.validStart > selectedDate) {
-                        if (nextEvt === undefined || nextEvt.validStart > evt.validStart) {
-                            nextEvt = evt;
-                        }
-                    }
-                }
-
-                rw = tbl.insertRow(tbl.rows.length);
-                cll = rw.insertCell(0);
-                cll.style.borderTop = '1px dotted green';
-                cll.colSpan = 2;
-
-                var tbl2 = document.createElement("table");
-                cll.appendChild(tbl2);
-
-                tbl2.style.width='100%'
-                rw = tbl2.insertRow(tbl2.rows.length);
-                cll = rw.insertCell(0);
-                cll.style.width='50%';
-                if (prevEvt !== undefined) {
-                    var prevDay = prevEvt.validStart.toISOString().substring(0, 10);
-                    cll.innerHTML = ("<a href='daily.html?day=" + prevDay + "' title='" + prevEvt.title + "'>&lt; Previous<br>" + prevDay + "</a>");
-                }
-                cll = rw.insertCell(1);
-                cll.style.width='50%';
-                if (nextEvt !== undefined) {
-                    var nextDay = nextEvt.validStart.toISOString().substring(0, 10);
-                    cll.innerHTML = ("<a href='daily.html?day=" + nextDay + "' title='" + nextEvt.title + "'>Next &gt;<br>" + nextDay + "</a>");
-                    cll.style.textAlign = "right";
-                } else {
-                    cll.innerHTML = "Next &gt;<br>To be announced";
-                    cll.style.textAlign = "right";
-                }
+                addPrevNext(tbl, communityEvents, false);
 
                 insertSeparatorRow(tbl)
 
@@ -3243,6 +3270,8 @@
                     cll.style.padding = "10px";
                     cll.style.border = '1px dotted black';
                 }
+
+                addPrevNext(tbl, seasonEvents, true);
             }
 
             function isActive(challenges, endDate) {
