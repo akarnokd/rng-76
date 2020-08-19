@@ -3126,7 +3126,7 @@
 
                 for (var evt of list) {
                     if (nonOverlapping) {
-                        if (evt.validEnd < selectedDate) {
+                        if (evt.validEnd <= selectedDate) {
                             if (prevEvt === undefined || prevEvt.validStart < evt.validStart) {
                                 prevEvt = evt;
                             }
@@ -3448,6 +3448,7 @@
 
             function goDate(delta) {
                 selectedDate.setDate(selectedDate.getDate() + delta);
+                normalizeDate(selectedDate);
                 updateChallenges();
                 updateTimer();
             }
