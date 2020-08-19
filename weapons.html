@@ -22,7 +22,7 @@
     </head>
     <body style="height: 90%">
         <center>
-            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Weapon Damage Calculator (v3.3.2)</span><br/>
+            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Weapon Damage Calculator (v3.3.3)</span><br/>
         <br/>
         <table id="parent">
             <tr>
@@ -3813,7 +3813,7 @@
                 { dr: 300, er: 300, rr: 400 },
                 { dr: 400, er: 400, rr: 500 },
                 { dr: 300, er: 300, rr: 300, name: "SBQ", tip: "ResistanceSBQ", mitigation: 0.3 },
-                { dr: 400, er: 400, rr: 500, name: "Randal", tip: "ResistanceRandal", mitigation: 0.9 },
+                { dr: 400, er: 400, rr: 500, name: "Randal", tip: "ResistanceRandal", mitigation: 0.2 },
             ];
 
             var resistancesSortDefault = function(a, b) {
@@ -5182,7 +5182,7 @@
 
             infoMap.set("ResistanceSBQ", "Scorchbeast Queen<br>32000 health, 300 DR, 300 ER, 300 RR<br>ignores 70% of all kinds of incoming damage.");
             infoMap.set("ResistanceRandal", "Aka the <a href='https://youtu.be/KRJcSsGt6VY?t=512' target='_blank'>Wendigo Colossus ;)</a><br>32000 health, 400 DR, 400 ER, 500 RR<br>"
-                + "ignores 10% of all kinds of incoming damage (PTS, subject to change)<br>"
+                + "ignores 80% of all kinds of incoming damage.<br>"
             );
             infoMap.set("buffcalcmode", "On the PTS and once One Wasteland ships, damage bonus calculation is changed<br>"
                 + "from mostly multiplicative to mostly additive."
