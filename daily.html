@@ -3046,7 +3046,15 @@
             var season2 = {
                 validStart: new Date(Date.UTC(2020, 8, 29, 16, 0, 0, 0)),
                 validEnd: new Date(Date.UTC(2020, 11, 8, 16, 0, 0, 0)),
-                title: "Season 2: March of Freedom",
+                title: "Season 2: Armor Ace",
+                options: [
+                    
+                ]
+            };
+            var season3 = {
+                validStart: new Date(Date.UTC(2020, 11, 29, 16, 0, 0, 0)),
+                validEnd: new Date(Date.UTC(2021, 2, 9, 16, 0, 0, 0)),
+                title: "Season 3: The Zetan Zone (or whatever)",
                 options: [
                     
                 ]
@@ -3054,10 +3062,12 @@
 
             fillInSeason(season1);
             fillInSeason(season2);
+            fillInSeason(season3);
 
             var seasonEvents = [
                 season1,
-                season2
+                season2,
+                season3
             ];
 
             // --------------------------------------------------------------------------------------------------------------
