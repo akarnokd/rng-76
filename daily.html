@@ -1264,17 +1264,9 @@
                             period: 100,
                 };
             }
-            function scoreKillCreatureInGroup(offset) {
+            function scoreKillCreatureInGroup(offset, count) {
                 return {
-                    name: "Kill a creature while in a group (x10)",
-                            offset: offset,
-                            period: 100,
-                };
-            }
-
-            function scoreKillCreatureInGroup25(offset) {
-                return {
-                    name: "Kill a creature while in a group (x25)",
+                    name: times("Kill a creature while in a group", count),
                             offset: offset,
                             period: 100,
                 };
@@ -1352,14 +1344,6 @@
             function scoreKillDeathclaw(offset, count) {
                 return {
                     name: times("Kill a Deathclaw", count),
-                    offset: offset,
-                    period: 100
-                };
-            }
-
-            function scoreKillCreatureInGroup5(offset) {
-                return {
-                    name: "Kill a creature while in a group (x5)",
                     offset: offset,
                     period: 100
                 };
@@ -1573,7 +1557,7 @@
                     scoreBuySellItem(16, 3),
                     scoreCompleteOneEvent(16, 1),
                     scoreEatPrewarFood20(16),
-                    scoreKillCreatureInGroup(16),
+                    scoreKillCreatureInGroup(16, 10),
                     scoreRepairArmorWeapon(16, 3),
                     scoreUsePhotomodeGroup(16),
                     scoreNWIncreaseRank(16),
@@ -1620,7 +1604,7 @@
                     scoreBuildFloorWallCamp(22, 10),
                     scoreBuySellItem(22, 3),
                     scoreCompleteOneEvent(22, 3),
-                    scoreKillCreatureInGroup25(22),
+                    scoreKillCreatureInGroup(22, 25),
                     scoreKillCryptid3(22),
                     scoreUsePhotomodeTeammate(22),
                     scoreNWDeployCamp(22, 3),
@@ -1683,7 +1667,7 @@
 
                     scoreBuySellItem(30, 3),
                     scoreCompleteOneEvent(30, 2),
-                    scoreKillCreatureInGroup5(30),
+                    scoreKillCreatureInGroup(30, 5),
                     scoreKillLegendary(30, 1),
                     scoreKillSupermutant10(30),
                     scoreModWeapon(30),
@@ -1734,7 +1718,7 @@
                     scoreClaimWorkshop(36),
                     scoreCompleteOneEvent(36, 2),
                     scoreHackTerminal(36),
-                    scoreKillCreatureInGroup(36),
+                    scoreKillCreatureInGroup(36, 10),
                     scoreNWKillCreature(36, 3),
 
                     scoreBuySellItem(37, 3),
@@ -1773,7 +1757,7 @@
                     scoreCompleteDaily(41),
                     scoreCraftScrapPowerArmor(41, 3),
                     scoreEatCookedMeal(41),
-                    scoreKillCreatureInGroup(41),
+                    scoreKillCreatureInGroup(41, 10),
                     scoreKillGhoul10(41),
                     scoreNWTakePhoto(41),
 
@@ -1840,6 +1824,14 @@
                     scoreKillMoleminer(49, 10),
                     scoreScrapSprings(49, 10),
                     scoreNWKillCreature(49, 1),
+
+                    scoreBuildFloorWallCamp(50, 3),
+                    scoreBuySellItem(50, 3),
+                    scoreChewBubblegum(50),
+                    scoreClaimWorkshop(50),
+                    scoreCompleteOneEvent(50, 1),
+                    scoreKillCreatureInGroup(50, 15),
+                    scoreNWPickLock(50, 1),
 
                     // bonus entries
                     scoreBonusScoreFortifyDays1(51),
