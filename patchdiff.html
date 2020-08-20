@@ -30,7 +30,7 @@
     </head>
     <body>
         <center>
-            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Patch Difference Viewer (0.0.6)</span><br/>
+            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Patch Difference Viewer (0.0.7)</span><br/>
             <br/>
             <br/>
             <table>
@@ -926,12 +926,160 @@
                             cll.innerHTML = formatEdid(entry.id, entry.rightInfo, versionright);
                         }
 
-                        // TODO diff
                         if (entry.type === "modified") {
+                            tryAppendDiff(tbl, "Flags: ", flagsToText(entry.leftValue.LVLF), flagsToText(entry.rightValue.LVLF));
+                            tryAppendDiff(tbl, "Max: ", entry.leftValue.LVMV, entry.rightValue.LVMV);
+                            tryAppendDiff(tbl, "Max (Global): ", entry.leftValue.LVMG, entry.rightValue.LVMG);
+                            tryAppendDiff(tbl, "Max (Curve): ", entry.leftValue.LVMT, entry.rightValue.LVMT);
+                            tryAppendDiff(tbl, "Chance None: ", entry.leftValue.LVCV, entry.rightValue.LVCV);
+                            tryAppendDiff(tbl, "Chance None (Global): ", entry.leftValue.LVLG, entry.rightValue.LVLG);
+                            tryAppendDiff(tbl, "Chance None (Curve): ", entry.leftValue.LVCT, entry.rightValue.LVCT);
 
+                            var leftList = leveledListEntries(true, entry.leftValue.Entries);
+                            var rightList = leveledListEntries(false, entry.rightValue.Entries);
+
+                            var leftIdx = 0;
+                            var rightIdx = 0;
+
+                            while (leftIdx < leftList.length && rightIdx < rightList.length) {
+                                var leftObj = leftList[leftIdx];
+                                var rightObj = rightList[rightIdx];
+
+                                var c = leftObj.id.localeCompare(rightObj.id);
+
+                                if (c < 0) {
+                                    // removed
+                                    tryAppendDiff(tbl, "* ", formatEdid(leftObj.id, leftObj.info, versionleft), undefined, true);
+                                    leftIdx++;
+                                }
+                                else if (c > 0) {
+                                    tryAppendDiff(tbl, "* ", undefined, formatEdid(rightObj.id, rightObj.info, versionright), true);
+                                    // added
+                                    rightIdx++;
+                                } else {
+                                    // same entry
+                                    // different count
+                                    if (leftObj.count !== rightObj.count) {
+                                        tryAppendDiff(tbl, "* ", 
+                                            formatEdid(leftObj.id, leftObj.info, versionleft) + " (x " + leftObj.count + ")",
+                                            formatEdid(rightObj.id, rightObj.info, versionright) + " (x " + rightObj.count + ")",
+                                            true
+                                        );
+                                    }
+                                    leftIdx++;
+                                    rightIdx++;
+                                }
+                            }
+
+                            while (leftIdx < leftList.length) {
+                                var leftObj = leftList[leftIdx++];
+                                // removed
+                                tryAppendDiff(tbl, "* ", formatEdid(leftObj.id, leftObj.info, versionleft), undefined, true);
+                            }
+                            while (rightIdx < rightList.length) {
+                                var rightObj = rightList[rightIdx++];
+                                // added
+                                tryAppendDiff(tbl, "* ", undefined, formatEdid(rightObj.id, rightObj.info, versionright), true);
+                            }
                         }
                     }
                 }
+            }
+
+            function flagsToText(value) {
+                var result = "(" + value + ")";
+                if ((value & 4) != 0) {
+                    result += " +all";
+                } else
+                if ((value & 64) != 0) {
+                    result += " +first-match-all-conditions";
+                } else {
+                    if ((value & 1) != 0) {
+                        result += " +all-levels";
+                    } else {
+                        result += " +closest-levels"
+                    }
+                    if ((value & 2) != 0) {
+                        result += " +for-each";
+                    } else {
+                        result += " +parent-quantity-randomly"
+                    }
+                }
+                return result;
+            }
+
+            function tryAppendDiff(tbl, title, left, right, noStyle) {
+                if (left !== right) {
+                    var rw = tbl.insertRow(tbl.rows.length);
+                    var cll = rw.insertCell(rw.cells.length);
+                    cll.style.textAlign = "right";
+                    cll.style.paddingRight = "30px";
+                    if (left !== undefined) {
+                        if (noStyle) {
+                            cll.innerHTML = "<i>" + title + left + "</i>"; 
+                        } else {
+                            cll.innerHTML = "<i>" + title + "<span class='highlightvalue'>&nbsp;" + left + "&nbsp;</span></i>";
+                        }
+                    }
+
+                    cll = rw.insertCell(rw.cells.length);
+                    cll.style.textAlign = "center";
+
+                    if (left === undefined && right !== undefined) {
+                        cll.innerText = "+";
+                        cll.style.backgroundColor = "#80FF80"; 
+                    }
+                    else if (left !== undefined && right !== undefined) {
+                        cll.innerHTML = "&#x270E;";
+                        cll.style.backgroundColor = "#FFFF80"; 
+                    } else {
+                        cll.innerText = "-";
+                        cll.style.backgroundColor = "#FF8080"; 
+                    }
+
+                    cll = rw.insertCell(rw.cells.length);
+                    cll.style.paddingLeft = "30px";
+                    if (right !== undefined) {
+                        if (noStyle) {
+                            cll.innerHTML = "<i>" + title + right + "</i>";
+                        } else {
+                            cll.innerHTML = "<i>" + title + "<span class='highlightvalue'>&nbsp;" + right + "&nbsp;</span></i>";
+                        }
+                    }
+                }
+            }
+
+            function leveledListEntries(isLeft, list) {
+                var result = [];
+                if (list !== undefined) {
+                    for (var e of list) {
+                        var f = {
+                            id: e.Object,
+                            info: getInfo(isLeft, e.Object),
+                            count: 0
+                        };
+                        if (e.LVIV !== undefined) {
+                            f.count = e.LVIV;
+                        }
+                        if (e.LVIG !== undefined) {
+                            f.count = e.LVIG;
+                        }
+                        result.push(f);
+                    }
+                    result.sort((a, b) => {
+                        var c = a.id.localeCompare(b.id);
+
+                        if (c == 0) {
+                            if (typeof(a.count) === "string" || typeof(b.count) === "string") {
+                                c = ("" + a.count).localeCompare("" + (b.count));
+                            } else {
+                                c = a.count - b.count;
+                            }
+                        }
+                        return c;
+                    });
+                }
+                return result;
             }
 
             function formatEdid(key, info, patchId) {
