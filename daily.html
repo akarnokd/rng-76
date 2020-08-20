@@ -1452,6 +1452,17 @@
                 };
             }
 
+            function scoreCraftScrapArmor(offset, count) {
+                return {
+                    name: times("Craft or scrap armor", count),
+                    offset: offset,
+                    period: 100,
+                    tipId: "ScoreCraftScrapArmor",
+                    tip: "Leather arms level 1 cost 1 cloth, 1 leather and 2 steel.",
+                    ignore: true
+                };
+            }
+
             var challengesDailyEra3 = {
                 validStart: new Date(Date.UTC(2020, 5, 30, 16, 0, 0, 0)),
                 validEnd: new Date(Date.UTC(2020, 8, 8, 16, 0, 0, 0)),
@@ -1833,6 +1844,14 @@
                     scoreCompleteOneEvent(50, 1),
                     scoreKillCreatureInGroup(50, 15),
                     scoreNWPickLock(50, 1),
+
+                    scoreBuySellItem(51, 3),
+                    scoreCompleteOneEvent(51, 1),
+                    scoreCraftScrapArmor(51, 5),
+                    scoreDestroyRobot10(51),
+                    scoreJoinGroup(51),
+                    scoreKillCreature20(51),
+                    scoreNWSurviveMinutes(51, 15),
 
                     // bonus entries
                     scoreBonusScoreFortifyDays1(51),
