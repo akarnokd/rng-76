@@ -1236,9 +1236,9 @@
                 };
             }
 
-            function scorePickLock(offset) {
+            function scorePickLock(offset, count) {
                 return {
-                    name: "Pick a lock",
+                    name: times("Pick a lock", count),
                             offset: offset,
                             period: 100,
                 };
@@ -1852,6 +1852,14 @@
                     scoreJoinGroup(51),
                     scoreKillCreature20(51),
                     scoreNWSurviveMinutes(51, 15),
+
+                    scoreBuySellItem(52, 3),
+                    scoreKillLegendary(52, 3),
+                    scorePickLock(52, 3),
+                    scoreCompleteOneEvent(52, 1),
+                    scoreKillCreature15(52),
+                    scoreKillCreatureInGroup(52, 10),
+                    scoreNWUseStimpak(52, 3),
 
                     // bonus entries
                     scoreBonusScoreFortifyDays1(51),
