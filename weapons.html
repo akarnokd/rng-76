@@ -1237,6 +1237,43 @@
                     legendaryMajor: "40% increased swing speed",
                     // legendaryMinor: "90% reduced weight"
                 },
+                {
+                    name: "War Glaive",
+                    category: "Two-handed",
+                    speed: speedSlow,
+                    level: [50],
+                    damage: [100],
+                    mods: [
+                        {
+                            slot: "Main",
+                            options: [
+                                {
+                                    name: "Standard"
+                                },
+                                {
+                                    name: "Cryo Blade",
+                                    damageMultPercent: -50,
+                                    addDamageEnergyLeveled: [100] // FIXME cryo damage
+                                },
+                                {
+                                    name: "Flaming Blade",
+                                    damageMultPercent: -50,
+                                    addDamageEnergyLeveled: [100] // FIXME fire damage
+                                },
+                                {
+                                    name: "Plasma Blade",
+                                    damageMultPercent: -50,
+                                    addDamageEnergyLeveled: [100]
+                                },
+                                {
+                                    name: "Shocking Blade",
+                                    damageMultPercent: -50,
+                                    addDamageEnergyLeveled: [100]
+                                },
+                            ]
+                        }
+                    ]
+                }
             ]);
 
             // xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
@@ -7214,12 +7251,22 @@
 
                 cell2.innerHTML = "\u2316&nbsp;" + totalDamage.toFixed(2) 
                     + "&nbsp;&nbsp;&nbsp;\u21AF&nbsp;" + totalDamageEnergy.toFixed(2) 
-                    + "&nbsp;&nbsp;&nbsp;\u2622&nbsp;" + totalDamageRadiation.toFixed(2);
+                    + "&nbsp;&nbsp;&nbsp;\u2622&nbsp;" + totalDamageRadiation.toFixed(2)
+                    /*
+                    + "<br>&#x2744;&nbsp;TBD"
+                    + "&nbsp;&nbsp;&nbsp;&#x1F525;&nbsp;TBD"
+                    */
+                    ;
                 cell4.innerText = totalArmorIgnore.toFixed(2) + " %";
                 cell6.innerText = speed.toFixed(2);
                 cell8.innerHTML = "\u2316&nbsp;" + (totalDamage * speed).toFixed(2) 
                     + "&nbsp;&nbsp;&nbsp;\u21AF&nbsp;" + (totalDamageEnergy * speed).toFixed(2) 
-                    + "&nbsp;&nbsp;&nbsp;\u2622&nbsp;" + (totalDamageRadiation * speed).toFixed(2);
+                    + "&nbsp;&nbsp;&nbsp;\u2622&nbsp;" + (totalDamageRadiation * speed).toFixed(2)
+                    /*
+                    + "<br>&#x2744;&nbsp;TBD"
+                    + "&nbsp;&nbsp;&nbsp;&#x1F525;&nbsp;TBD"
+                    */
+                    ;
 
                 damages[index] = totalDamage;
                 damagesEnergy[index] = totalDamageEnergy;
