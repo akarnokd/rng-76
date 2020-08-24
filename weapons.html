@@ -1241,8 +1241,8 @@
                     name: "War Glaive",
                     category: "Two-handed",
                     speed: speedSlow,
-                    level: [50],
-                    damage: [100],
+                    level: [30, 40, 50],
+                    damage: [62, 72, 82],
                     mods: [
                         {
                             slot: "Main",
@@ -1252,23 +1252,25 @@
                                 },
                                 {
                                     name: "Cryo Blade",
-                                    damageMultPercent: -50,
-                                    addDamageEnergyLeveled: [100] // FIXME cryo damage
+                                    damageBallisticMultPercent: -50,
+                                    addDamageEnergyLeveled: [62, 72, 82], // FIXME cryo damage
+                                    addDamageCryoLeveled: [62, 72, 82] // FIXME cryo damage
                                 },
                                 {
                                     name: "Flaming Blade",
-                                    damageMultPercent: -50,
-                                    addDamageEnergyLeveled: [100] // FIXME fire damage
+                                    damageBallisticMultPercent: -50,
+                                    addDamageEnergyLeveled: [62, 72, 82], // FIXME fire damage
+                                    addDamageFireLeveled: [62, 72, 82] // FIXME fire damage
                                 },
                                 {
                                     name: "Plasma Blade",
-                                    damageMultPercent: -50,
-                                    addDamageEnergyLeveled: [100]
+                                    damageBallisticMultPercent: -50,
+                                    addDamageEnergyLeveled: [62, 72, 82]
                                 },
                                 {
                                     name: "Shocking Blade",
-                                    damageMultPercent: -50,
-                                    addDamageEnergyLeveled: [100]
+                                    damageBallisticMultPercent: -50,
+                                    addDamageEnergyLeveled: [62, 72, 82]
                                 },
                             ]
                         }
@@ -6835,6 +6837,9 @@
                         if (modInfo.damageMultPercent !== undefined) {
                             totalDamageAdditive.push((baseDamage * modInfo.damageMultPercent / 100.0));
                             totalDamageEnergyAdditive.push((baseDamageEnergy * modInfo.damageMultPercent / 100.0));
+                        }
+                        if (modInfo.damageBallisticMultPercent !== undefined) {
+                            totalDamageMultiply.push(modInfo.damageBallisticMultPercent);
                         }
 
                         if (modInfo.ignoreDRPercent !== undefined) {
