@@ -2433,6 +2433,39 @@
                         };
             }
 
+            function scoreBuildupCampAny3(offset) {
+                return {
+                            name: "Build up your C.A.M.P. or Workshop (any 3)",
+                            offset: offset,
+                            period: 1400,
+                            subchallenges: [
+                                {
+                                    name: "Build containers, displays or shelves (x5)",
+                                    tipId: "BuildupCampContainer",
+                                    tip: "Simply build another Stash Box."
+                                },
+                                {
+                                    name: "Build wall or floor decorations (x5)",
+                                    tipId: "BuildupCampFloor",
+                                    tip: "Floor mats are the cheapest to build."
+                                },
+                                {
+                                    name: "Build doors or stairs (x5)",
+                                },
+                                {
+                                    name: "Plant crops or build water sources (x10)",
+                                    tipId: "BuildupCampCrops",
+                                    tip: "Scrap and replant your vegetables."
+                                },
+                                {
+                                    name: "Build generators or lighting (x20)",
+                                    tipId: "BuildupCampLighting",
+                                    tip: "Placing the cheapest standing lamp works."
+                                },
+                            ]
+                        };
+            }
+
             function scoreCompleteEventsGroup5(offset) {
                 return {
                             name: "Complete Events in group (x5)",
@@ -2900,7 +2933,7 @@
             addWeekly(challengesWeeklyEra3.options, 49, scoreLevelUp3);
             
             addWeekly(challengesWeeklyEra3.options, 56, scoreGainXP10000);
-            addWeekly(challengesWeeklyEra3.options, 56, scoreBuildupCamp);
+            addWeekly(challengesWeeklyEra3.options, 56, scoreBuildupCampAny3);
             addWeekly(challengesWeeklyEra3.options, 56, scoreClaimWorkshop10);
             addWeekly(challengesWeeklyEra3.options, 56, scoreCompleteGoldStar);
             addWeekly(challengesWeeklyEra3.options, 56, scoreCompleteEvents10);
