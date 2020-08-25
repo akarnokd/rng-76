@@ -1182,9 +1182,9 @@
                 return scoreNWUseStimpak(offset, 3);
             }
 
-            function scoreCraftAmmo50(offset) {
+            function scoreCraftAmmo(offset, count) {
                 return {
-                            name: "Craft Ammo (x50)",
+                            name: times("Craft Ammo", count),
                             offset: offset,
                             period: 100,
                         };
@@ -1530,7 +1530,7 @@
 
                     scoreClaimWorkshop(11),
                     scoreCompleteEventInGroup(11),
-                    scoreCraftAmmo50(11),
+                    scoreCraftAmmo(11, 50),
                     scoreJoinGroup(11),
                     scoreKillCreature20(11),
                     scoreKillLegendary3(11),
@@ -1687,7 +1687,7 @@
 
                     scoreBuySellItem(31, 3),
                     scoreCompleteOneEvent(31, 3),
-                    scoreCraftAmmo50(31),
+                    scoreCraftAmmo(31, 50),
                     scoreJoinGroup(31),
                     scoreKillScorched10(31),
                     scoreUsePhotomodeOwnCamp(31),
@@ -1776,7 +1776,7 @@
                     scoreBuySellItem(42, 3),
                     scoreChewBubblegum(42),
                     scoreCompleteOneEvent(42, 1),
-                    scoreCraftAmmo50(42),
+                    scoreCraftAmmo(42, 50),
                     scoreKillLegendary(42, 1),
                     scoreScrapScrews(42, 10),
                     scoreNWPickLock(42, 2),
@@ -1884,6 +1884,17 @@
                     scoreKillCreatureInGroup(55, 10),
                     scoreKillLegendary(55, 1),
                     scoreNWKillPlayer(55),
+
+                    scoreBuildWallDecor(56, 5),
+                    scoreBuySellItem(56, 3),
+                    scoreCompleteOneEvent(56, 2),
+                    scoreCraftAmmo(56, 24),
+                    scoreKillDeathclaw(56, 1),
+                    scoreKillMoleminer(56, 10),
+                    scoreRepairArmorWeapon(56, 5),
+                    scoreUsePhotomodeTeammate(56),
+                    scoreNWSurviveMinutes(56, 15),
+
 
                     // bonus entries
                     scoreBonusScoreFortifyDays1(51),
@@ -2557,6 +2568,42 @@
                         };
             }
 
+            function scoreGatherBuildingSupplies25Any3(offset) {
+                return {
+                            name: "Gather Building Supplies (any 3)",
+                            offset: offset,
+                            period: 1400,
+                            tipId: "GatherBuildingSupplies",
+                            tip: "You can simply scrap bulk items of these components.",
+                            subchallenges: [
+                                {
+                                    name: "Aluminium (x25)",
+                                },
+                                {
+                                    name: "Concrete (x25)",
+                                },
+                                {
+                                    name: "Copper (x25)",
+                                },
+                                {
+                                    name: "Fertilizer (x25)",
+                                },
+                                {
+                                    name: "Oil (x25)",
+                                },
+                                {
+                                    name: "Screws, spings or gears (x25)",
+                                },
+                                {
+                                    name: "Steel (x100)"
+                                },
+                                {
+                                    name: "Wood (x100)"
+                                },
+                            ]
+                        };
+            }
+
             function scoreKillLegendaries10(offset) {
                 return {
                             name: "Kill/destroy legendary enemies (x10)",
@@ -2598,6 +2645,13 @@
             function scoreClaimWorkshop5(offset) {
                 return {
                             name: "Claim a Workshop (x5)",
+                            offset: offset,
+                            period: 1400,
+                        };
+            }
+            function scoreClaimWorkshop10(offset) {
+                return {
+                            name: "Claim a Workshop (x10)",
                             offset: offset,
                             period: 1400,
                         };
@@ -2845,9 +2899,23 @@
             addWeekly(challengesWeeklyEra3.options, 49, scoreKillCreature50);
             addWeekly(challengesWeeklyEra3.options, 49, scoreLevelUp3);
             
+            addWeekly(challengesWeeklyEra3.options, 56, scoreGainXP10000);
+            addWeekly(challengesWeeklyEra3.options, 56, scoreBuildupCamp);
+            addWeekly(challengesWeeklyEra3.options, 56, scoreClaimWorkshop10);
+            addWeekly(challengesWeeklyEra3.options, 56, scoreCompleteGoldStar);
+            addWeekly(challengesWeeklyEra3.options, 56, scoreCompleteEvents10);
+            addWeekly(challengesWeeklyEra3.options, 56, scoreCraftScrapItems25);
+            addWeekly(challengesWeeklyEra3.options, 56, scoreCriticalHit25);
+            addWeekly(challengesWeeklyEra3.options, 56, scoreGatherBuildingSupplies25Any3);
+            addWeekly(challengesWeeklyEra3.options, 56, scoreKillCreature50);
+            addWeekly(challengesWeeklyEra3.options, 56, scoreKillLegendaries10);
+            addWeekly(challengesWeeklyEra3.options, 56, scoreLevelUp3);
+            addWeekly(challengesWeeklyEra3.options, 56, scoreBonusScoreFortifyDays2);
+            
+            
 
             // placeholder
-            for (var t = 56; t < 70; t += 7) {
+            for (var t = 63; t < 70; t += 7) {
                 addWeekly(challengesWeeklyEra3.options, t, scoreGainXP10000);
                 addWeekly(challengesWeeklyEra3.options, t, scoreLevelUp3);
                 addWeekly(challengesWeeklyEra3.options, t, scoreWeeklyplaceholder);
