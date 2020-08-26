@@ -1448,7 +1448,6 @@
                     period: 100,
                     tipId: "ScoreScrapSprings",
                     tip: "Just bulk and scrap the bulked springs.",
-                    ignore: true
                 };
             }
 
@@ -1459,7 +1458,14 @@
                     period: 100,
                     tipId: "ScoreCraftScrapArmor",
                     tip: "Leather arms level 1 cost 1 cloth, 1 leather and 2 steel.",
-                    ignore: true
+                };
+            }
+
+            function scoreCollectCaps(offset, count) {
+                return {
+                    name: times("Collect caps", count),
+                    offset: offset,
+                    period: 100,
                 };
             }
 
@@ -1894,6 +1900,16 @@
                     scoreRepairArmorWeapon(56, 5),
                     scoreUsePhotomodeTeammate(56),
                     scoreNWSurviveMinutes(56, 15),
+
+                    scoreBuildWallDecor(57, 5),
+                    scoreBuySellItem(57, 3),
+                    scoreClaimWorkshop(57),
+                    scoreCollectCaps(57, 250),
+                    scoreCollectPurifiedWater(57, 5),
+                    scoreCollectWood25(57),
+                    scoreCompleteDaily(57),
+                    scoreKillCreatureInGroup(57, 15),
+                    scoreNWDeployCamp(57, 2),
 
 
                     // bonus entries
