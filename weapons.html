@@ -22,7 +22,7 @@
     </head>
     <body style="height: 90%">
         <center>
-            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Weapon Damage Calculator (v3.3.4)</span><br/>
+            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Weapon Damage Calculator (v3.3.5)</span><br/>
         <br/>
         <table id="parent">
             <tr>
@@ -5235,6 +5235,7 @@
                 + "<br><br>It is supposed to apply uniformly but there were inconsistencies"
                 + "found in the PTS<br> regarding damage listed on the weapon card and the floating numbers"
                 + "<br>(after considering resistances)."
+                + "<br><br>Note that the 'Add' option currently is not fleshed out and may produce wonky results."
             );
 
             // ~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o
@@ -5388,12 +5389,13 @@
                 }
 
                 cell2.innerHTML = "<select id='level" + index + "'></select>"
+                ;
 
                 var levelsel = document.getElementById("level" + index);
                 levelsel.linkId = "L";
 
                 var weapIdx = document.getElementById("weapon" + index).selectedIndex;
-                var weap = allWeapons.get(type)[weapIdx];
+                let weap = allWeapons.get(type)[weapIdx];
 
                 weap.level.forEach(function(item, idx) {
                     opt = document.createElement("option");
