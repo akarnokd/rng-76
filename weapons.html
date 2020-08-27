@@ -5023,6 +5023,9 @@
                 + "<tr><td>health &gt; 0%</td><td>+50% damage</td><td>+63% damage</td></tr>"
                 + "</table><br/>"
             );
+            infoMap.set("grounded", 
+                "50% less energy damage (for 100% more energy resistance)."
+            );
             infoMap.set("strangeinnumbers", 
                 "Positive mutation effects are 25% stronger if teammates are mutated too."
                 + "<br>Improves the following mutations:"
@@ -5143,6 +5146,10 @@
             );
             infoMap.set("partyperson", 
                 "Effects of alcohol doubles (rank 1) or triples (rank 2)."
+            );
+            infoMap.set("classfreak", 
+                "Negative effects of mutations are reduced by 25%, 50% and 75% respectively."
+                + "<br>Affects the <b>Grounded</b> mutation."
             );
             infoMap.set("colanut", 
                 "Effects of Nuka Cola products doubles (rank 1) or triples (rank 2)."
@@ -6244,6 +6251,53 @@
                         recalculate(tbl, index, type);
                     };
                 }
+
+                row = tbl.insertRow(tbl.rows.length);
+                cell1 = row.insertCell(0);
+                cell1.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;Class freak" + info("classfreak");
+                cell2 = row.insertCell(1);
+                cell2.innerHTML = "<select id='classfreak" + index + "'></select> (rank)"
+                
+                var classfreaksel = document.getElementById("classfreak" + index);
+                opt = document.createElement("option");
+                classfreaksel.add(opt);
+                opt.text = "None";
+                opt.value = "0";
+                classfreaksel.linkId = "Party";
+
+                for (var i = 1; i < 4; i++) {
+                    opt = document.createElement("option");
+                    classfreaksel.add(opt);
+                    opt.text = "" + i;
+                    opt.value = "" + i; // calculated with (1 + value)
+                    opt.linkId = opt.value;
+                }
+                classfreaksel.selectedIndex = 0;
+                classfreaksel.onchange = function() {
+                    recalculate(tbl, index, type);
+                };
+            }
+
+            function createYesNo(tbl, index, type, title, infoId, id, linkId) {
+                row = tbl.insertRow(tbl.rows.length);
+                cell1 = row.insertCell(0);
+                if (info !== undefined) {
+                    cell1.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;" + title + info(infoId);
+                } else {
+                    cell1.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;" + title;
+                }
+                cell2 = row.insertCell(1);
+                cell2.innerHTML = "<input type='radio' id='" + id + index + "_yes' name='" + id + index + "' value='1'><label for='" + id + index + "_yes'> Yes</label>&nbsp;&nbsp;&nbsp;"
+                    + "<input type='radio' id='" + id + index + "_no' name='" + id + index + "' value='0' checked='checked'><label for='" + id + index + "_no'> No</label>";
+
+                document.getElementById(id + index + "_yes").onchange = function() {
+                    recalculate(tbl, index, type);
+                };
+                document.getElementById(id + index + "_yes").linkId = linkId;
+                document.getElementById(id + index + "_no").onchange = function() {
+                    recalculate(tbl, index, type);
+                };
+
             }
 
             function createMutations(tbl, index, type) {
@@ -6252,20 +6306,7 @@
                 cell1.innerText = "Mutations";
                 var cell2 = row.insertCell(1);
 
-                row = tbl.insertRow(tbl.rows.length);
-                cell1 = row.insertCell(0);
-                cell1.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;Adrenal reaction" + info("adrenalreaction");
-                cell2 = row.insertCell(1);
-                cell2.innerHTML = "<input type='radio' id='adrenalreaction" + index + "_yes' name='adrenalreaction" + index + "' value='1'> Yes&nbsp;&nbsp;&nbsp;"
-                    + "<input type='radio' id='adrenalreaction" + index + "_no' name='adrenalreaction" + index + "' value='0' checked='checked'> No";
-
-                document.getElementById("adrenalreaction" + index + "_yes").onchange = function() {
-                    recalculate(tbl, index, type);
-                };
-                document.getElementById("adrenalreaction" + index + "_yes").linkId = "Adrenal";
-                document.getElementById("adrenalreaction" + index + "_no").onchange = function() {
-                    recalculate(tbl, index, type);
-                };
+                createYesNo(tbl, index, type, "Adrenal reaction", "adrenalreaction", "adrenalreaction", "Adrenal");
 
                 if (type === "Melee") {
                     row = tbl.insertRow(tbl.rows.length);
@@ -6284,21 +6325,8 @@
                     };                    
                 }
 
-                row = tbl.insertRow(tbl.rows.length);
-                cell1 = row.insertCell(0);
-                cell1.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;Any other mutation" + info("mutation");
-                cell2 = row.insertCell(1);
-                cell2.innerHTML = "<input type='radio' id='mutation" + index + "_yes' name='mutation" + index + "' value='1'> Yes&nbsp;&nbsp;&nbsp;"
-                    + "<input type='radio' id='mutation" + index + "_no' name='mutation" + index + "' value='0' checked='checked'> No";
-
-                document.getElementById("mutation" + index + "_yes").onchange = function() {
-                    recalculate(tbl, index, type);
-                };
-                document.getElementById("mutation" + index + "_yes").linkId = "Mutation";
-                document.getElementById("mutation" + index + "_no").onchange = function() {
-                    recalculate(tbl, index, type);
-                };
-
+                createYesNo(tbl, index, type, "Grounded", "grounded", "grounded", "Grounded");
+                createYesNo(tbl, index, type, "Any other mutation", "mutation", "mutation", "Mutation");
             }
 
             function createOther(tbl, index, type) {
@@ -7225,6 +7253,21 @@
                 totalDamage *= sneakBonusMultiply;
                 totalDamageEnergy *= sneakBonusMultiply;
 
+                if (document.getElementById("grounded" + index + "_yes").checked) {
+                    var classFreak = valueOf(document.getElementById("classfreak" + index));
+                    if (classFreak == "1") {
+                        totalDamageEnergy *= 1 - 0.5 * 0.75;
+                    } else
+                    if (classFreak == "2") {
+                        totalDamageEnergy *= 1 - 0.5 * 0.5;
+                    } else
+                    if (classFreak == "3") {
+                        totalDamageEnergy *= 1 - 0.5 * 0.25;
+                    } else {
+                        totalDamageEnergy *= 1 - 0.5;
+                    }
+                }
+
                 var baseSpeed = speed;
 
                 totalSpeedAdditive.forEach(function(v) {
@@ -7289,9 +7332,10 @@
             function hasMutation(index) {
                 var adrenalreaction = document.getElementById("adrenalreaction" + index + "_yes").checked;
                 var anymutation = document.getElementById("mutation" + index + "_yes").checked;
+                var grounded = document.getElementById("grounded" + index + "_yes").checked;
                 var tw = document.getElementById("twistedmuscles" + index + "_yes");
                 var twistedmuscles = tw != null && tw.checked;
-                return adrenalreaction || anymutation || twistedmuscles;
+                return adrenalreaction || anymutation || twistedmuscles || grounded;
             }
 
 
