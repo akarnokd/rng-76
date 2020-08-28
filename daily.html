@@ -1031,9 +1031,9 @@
                         };
             }
 
-            function scoreEatCookedMeal(offset) {
+            function scoreEatCookedMeal(offset, count) {
                 return {
-                            name: "Eat cooked meal (x5)",
+                            name: times("Eat cooked meal", count),
                             offset: offset,
                             period: 100,
                         };
@@ -1328,9 +1328,9 @@
                 };
             }
 
-            function scoreConsumeAlcohol5(offset) {
+            function scoreConsumeAlcohol(offset, count) {
                 return {
-                    name: "Consume alcohol (x5)",
+                    name: times("Consume alcohol", count),
                     offset: offset,
                     period: 100
                 };
@@ -1502,12 +1502,12 @@
 
                     scoreCompleteOneEvent(5, 1),
                     scoreBuildFloorWallCamp(5, 10),
-                    scoreEatCookedMeal(5),
+                    scoreEatCookedMeal(5, 5),
                     scoreKillMoleminer(5, 10),
 
                     scoreBuySellItem(6),
                     scoreCompleteOneEvent(6, 1),
-                    scoreEatCookedMeal(6),
+                    scoreEatCookedMeal(6, 5),
                     scoreKillGhoul10(6),
 
                     scoreCompleteOneEvent(7, 1),
@@ -1606,7 +1606,7 @@
                     scoreBuySellItem(20, 3),
                     scoreClaimWorkshop(20),
                     scoreCompleteOneEvent(20),
-                    scoreEatCookedMeal(20),
+                    scoreEatCookedMeal(20, 5),
                     scoreKillSupermutant10(20),
                     scoreRankupPerkCard(20),
                     scoreNWKillPlayer(20),
@@ -1661,7 +1661,7 @@
 
                     scoreBuySellItem(27, 3),
                     scoreCompleteOneEvent(27, 3),
-                    scoreConsumeAlcohol5(27),
+                    scoreConsumeAlcohol(27, 5),
                     scoreEatPrewarFood5(27),
                     scoreKillCreature15(27),
                     scoreKillDeathclaw(27, 3),
@@ -1717,7 +1717,7 @@
 
                     scoreBuySellItem(34, 3),
                     scoreCompleteOneEvent(34, 2),
-                    scoreConsumeAlcohol5(34),
+                    scoreConsumeAlcohol(34, 5),
                     scoreEatPrewarFood5(34),
                     scoreKillCreature25(34),
                     scoreKillThreestarLegendary(34),
@@ -1774,7 +1774,7 @@
                     scoreBuySellItem(41, 3),
                     scoreCompleteDaily(41),
                     scoreCraftScrapPowerArmor(41, 3),
-                    scoreEatCookedMeal(41),
+                    scoreEatCookedMeal(41, 5),
                     scoreKillCreatureInGroup(41, 10),
                     scoreKillGhoul10(41),
                     scoreNWTakePhoto(41),
@@ -1920,6 +1920,16 @@
                     scoreKillScorched(58, 10),
                     scoreModWeapon(58, 3),
                     scoreNWTakePhoto(58),
+
+                    scoreBuySellItem(59, 3),
+                    scoreCompleteOneEvent(59, 3),
+                    scoreConsumeAlcohol(59, 3),
+                    scoreEatCookedMeal(59, 3),
+                    scoreKillCreature25(59),
+                    scoreKillLegendary(59, 1),
+                    scorePlantCrop(59, 3),
+                    scoreRankupPerkCard(59),
+                    scoreNWSurviveMinutes(59, 30),
 
                     // bonus entries
                     scoreBonusScoreFortifyDays1(51),
