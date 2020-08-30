@@ -1273,9 +1273,9 @@
                 };
             }
 
-            function scoreModArmor(offset) {
+            function scoreModArmor(offset, count) {
                 return {
-                    name: "Mod armor (x5)",
+                    name: times("Mod armor", count),
                             offset: offset,
                             period: 100,
                 };
@@ -1584,7 +1584,7 @@
                     scoreJoinGroup(17),
                     scoreKillLegendary(17, 1),
                     scoreKillScorched10(17),
-                    scoreModArmor(17),
+                    scoreModArmor(17, 5),
                     scoreNWIncreaseRank(17),
 
                     scoreBuySellItem(18, 3),
@@ -1631,7 +1631,7 @@
                     scoreCompleteDaily(23),
                     scoreKillGhoul15(23),
                     scoreKillLegendary3(23),
-                    scoreModArmor(23),
+                    scoreModArmor(23, 5),
                     scoreUsePhotomodeGroup(23),
                     scoreNWIncreaseRank(23),
 
@@ -1940,6 +1940,16 @@
                     scoreKillMoleminer(60, 10),
                     scoreModWeapon(60, 3),
                     scoreNWUseStimpak3(60),
+
+                    scoreBuySellItem(61, 3),
+                    scoreClaimWorkshop(61),
+                    scoreCompleteDaily(61),
+                    scoreDestroyRobot10(61),
+                    scoreEatPrewarFood5(61),
+                    scoreKillCryptid1(61),
+                    scoreModArmor(61),
+                    scoreBuildFloorWallCamp(61, 10),
+                    scoreNWDeployCamp(61),
 
                     // bonus entries
                     scoreBonusScoreFortifyDays1(51),
@@ -3032,7 +3042,7 @@
                     max: 150000000
                 },
                 wood: {
-                    progress: 73120000,
+                    progress: 128440000,
                     max: 150000000
                 },
                 cloth: {
