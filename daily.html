@@ -1150,9 +1150,9 @@
                             period: 100,
                         };
             }
-            function scoreUsePhotomode(offset) {
+            function scoreUsePhotomode(offset, count) {
                 return {
-                            name: "Use Photo Mode to take a photo",
+                            name: times("Use Photo Mode to take a photo", count),
                             offset: offset,
                             period: 100,
                         };
@@ -1951,6 +1951,16 @@
                     scoreBuildFloorWallCamp(61, 10),
                     scoreNWDeployCamp(61),
 
+                    scoreBuySellItem(62, 3),
+                    scoreCollectPurifiedWater(62, 3),
+                    scoreCompleteOneEvent(62, 2),
+                    scoreCraftAmmo(62, 50),
+                    scoreKillDeathclaw(62, 1),
+                    scoreKillGhoul10(62),
+                    scoreConsumeAlcohol(62, 3),
+                    scoreUsePhotomode(62, 3),
+                    scoreNWKillCreature(62, 1),
+
                     // bonus entries
                     scoreBonusScoreFortifyDays1(51),
                     scoreBonusScoreFortifyDays1(52),
@@ -1963,6 +1973,7 @@
                     scoreBonusScoreFortifyDays2(59),
                     scoreBonusScoreFortifyDays2(60),
                     scoreBonusScoreFortifyDays2(61),
+                    scoreBonusScoreFortifyDays2(62),
                 ]
             };
 
