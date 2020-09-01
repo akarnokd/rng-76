@@ -1468,6 +1468,14 @@
                     period: 100,
                 };
             }
+            function scoreLatepost(offset) {
+                return {
+                    name: "&#x1F6C8; This day's challenges will be posted a bit later than usual.",
+                    offset: offset,
+                    period: 100,
+                    ignore: true
+                };
+            }
 
             var challengesDailyEra3 = {
                 validStart: new Date(Date.UTC(2020, 5, 30, 16, 0, 0, 0)),
@@ -1960,6 +1968,8 @@
                     scoreConsumeAlcohol(62, 3),
                     scoreUsePhotomode(62, 3),
                     scoreNWKillCreature(62, 1),
+
+                    scoreLatepost(63),
 
                     // bonus entries
                     scoreBonusScoreFortifyDays1(51),
@@ -3053,7 +3063,7 @@
                     max: 150000000
                 },
                 wood: {
-                    progress: 145000000,
+                    progress: 150000003,
                     max: 150000000
                 },
                 cloth: {
