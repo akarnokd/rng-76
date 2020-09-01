@@ -1431,6 +1431,14 @@
                     ignore: true
                 };
             }
+            function scoreBonusLastWeekDaily(offset) {
+                return {
+                    name: "&#x1F6C8; Final week double daily S.C.O.R.E.",
+                    offset: offset,
+                    period: 100,
+                    ignore: true
+                };
+            }
             function scoreBonusScoreFortifyDays2(offset) {
                 return {
                     name: "&#x1F6C8; Fortifying Atlas Reward day: Bonus Challenges Week",
@@ -1969,7 +1977,14 @@
                     scoreUsePhotomode(62, 3),
                     scoreNWKillCreature(62, 1),
 
-                    scoreLatepost(63),
+                    //scoreLatepost(63),
+                    scoreBuildFloorWallCamp(63, 5),
+                    scoreBuySellItem(63, 3),
+                    scoreCompleteOneEvent(63, 3),
+                    scoreCraftAmmo(63, 25),
+                    scoreJoinGroup(63),
+                    scoreKillCreature25(63),
+                    scoreNWSurviveMinutes(63, 15),
 
                     // bonus entries
                     scoreBonusScoreFortifyDays1(51),
@@ -1984,6 +1999,14 @@
                     scoreBonusScoreFortifyDays2(60),
                     scoreBonusScoreFortifyDays2(61),
                     scoreBonusScoreFortifyDays2(62),
+
+                    scoreBonusLastWeekDaily(63),
+                    scoreBonusLastWeekDaily(64),
+                    scoreBonusLastWeekDaily(65),
+                    scoreBonusLastWeekDaily(66),
+                    scoreBonusLastWeekDaily(67),
+                    scoreBonusLastWeekDaily(68),
+                    scoreBonusLastWeekDaily(69),
                 ]
             };
 
@@ -2936,6 +2959,15 @@
                         };
             }
 
+            function scoreBonusLastWeekWeekly(offset) {
+                return {
+                    name: "&#x1F6C8; Final week double weekly S.C.O.R.E.",
+                    offset: offset,
+                    period: 100,
+                    ignore: true
+                };
+            }
+
             addWeekly(challengesWeeklyEra3.options, 0, scoreGainXP10000);
             addWeekly(challengesWeeklyEra3.options, 0, scoreBuildupCamp);
             addWeekly(challengesWeeklyEra3.options, 0, scoreCompleteEventsGroup5);
@@ -3021,15 +3053,26 @@
             addWeekly(challengesWeeklyEra3.options, 56, scoreLevelUp3);
             addWeekly(challengesWeeklyEra3.options, 56, scoreBonusScoreFortifyDays2);
             
+            addWeekly(challengesWeeklyEra3.options, 63, scoreGainXP10000);
+            addWeekly(challengesWeeklyEra3.options, 63, scoreBuildupCamp);
+            addWeekly(challengesWeeklyEra3.options, 63, scoreClaimWorkshop5);
+            addWeekly(challengesWeeklyEra3.options, 63, scoreCompleteGoldStar);
+            addWeekly(challengesWeeklyEra3.options, 63, scoreCompleteEventsGroup5);
+            addWeekly(challengesWeeklyEra3.options, 63, scoreKillCreature50);
+            addWeekly(challengesWeeklyEra3.options, 63, scoreKillLegendaries10);
+            addWeekly(challengesWeeklyEra3.options, 63, scoreLevelUp3);
+
+            addWeekly(challengesWeeklyEra3.options, 63, scoreBonusLastWeekWeekly);
             
 
             // placeholder
+            /*
             for (var t = 63; t < 70; t += 7) {
                 addWeekly(challengesWeeklyEra3.options, t, scoreGainXP10000);
                 addWeekly(challengesWeeklyEra3.options, t, scoreLevelUp3);
                 addWeekly(challengesWeeklyEra3.options, t, scoreWeeklyplaceholder);
             }
-
+            */
 
 
             var challengesWeekly = [
