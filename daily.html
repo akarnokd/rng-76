@@ -1101,19 +1101,9 @@
                 return scoreNWDeployCamp(offset, 4);
             }
 
-            function scoreBuildAnythingCamp(offset) {
+            function scoreBuildAnythingCamp(offset, count) {
                 return {
-                            name: "Build anything in your C.A.M.P. or Workshop (x10)",
-                            offset: offset,
-                            period: 100,
-                            tipId: "ScoreBuildAnythingCamp",
-                            tip: "Equip Contractor (INT) and build a rug (Floor decor, 1 cloth) ten times."
-                        };
-            }
-
-            function scoreBuildAnythingCamp5(offset) {
-                return {
-                            name: "Build anything in your C.A.M.P. or Workshop (x5)",
+                            name: times("Build anything in your C.A.M.P. or Workshop", count),
                             offset: offset,
                             period: 100,
                             tipId: "ScoreBuildAnythingCamp",
@@ -1258,9 +1248,9 @@
                         };
             }
 
-            function scoreEatPrewarFood20(offset) {
+            function scoreEatPrewarFood(offset, count) {
                 return {
-                    name: "Eat pre-war food (x20)",
+                    name: times("Eat pre-war food", count),
                             offset: offset,
                             period: 100,
                 };
@@ -1331,13 +1321,6 @@
             function scoreConsumeAlcohol(offset, count) {
                 return {
                     name: times("Consume alcohol", count),
-                    offset: offset,
-                    period: 100
-                };
-            }
-            function scoreEatPrewarFood5(offset) {
-                return {
-                    name: "Eat pre-war food (x5)",
                     offset: offset,
                     period: 100
                 };
@@ -1532,7 +1515,7 @@
                     scoreKillGlowing(7, 1),
                     scoreNWDeployCamp(7, 3),
 
-                    scoreBuildAnythingCamp(8),
+                    scoreBuildAnythingCamp(8, 10),
                     scoreCompleteOneEvent(8, 1),
                     scoreKillScorched10(8),
                     scoreKillLegendary(8),
@@ -1590,7 +1573,7 @@
                     
                     scoreBuySellItem(16, 3),
                     scoreCompleteOneEvent(16, 1),
-                    scoreEatPrewarFood20(16),
+                    scoreEatPrewarFood(16, 20),
                     scoreKillCreatureInGroup(16, 10),
                     scoreRepairArmorWeapon(16, 3),
                     scoreUsePhotomodeGroup(16),
@@ -1611,7 +1594,7 @@
                     scoreKillCryptid1(18),
                     scoreNWDeployCamp4(18),
 
-                    scoreBuildAnythingCamp(19),
+                    scoreBuildAnythingCamp(19, 10),
                     scoreCompleteEventInGroup(19),
                     scoreHackTerminal(19),
                     scoreKillLegendary(19, 1),
@@ -1678,7 +1661,7 @@
                     scoreBuySellItem(27, 3),
                     scoreCompleteOneEvent(27, 3),
                     scoreConsumeAlcohol(27, 5),
-                    scoreEatPrewarFood5(27),
+                    scoreEatPrewarFood(27, 5),
                     scoreKillCreature15(27),
                     scoreKillDeathclaw(27, 3),
                     scoreNWDeployCamp(27, 3),
@@ -1734,7 +1717,7 @@
                     scoreBuySellItem(34, 3),
                     scoreCompleteOneEvent(34, 2),
                     scoreConsumeAlcohol(34, 5),
-                    scoreEatPrewarFood5(34),
+                    scoreEatPrewarFood(34, 5),
                     scoreKillCreature25(34),
                     scoreKillThreestarLegendary(34),
                     scoreNWIncreaseRank(34),
@@ -1747,7 +1730,7 @@
                     scoreKillGlowing(35, 1),
                     scoreNWKillPlayer(35),
 
-                    scoreBuildAnythingCamp5(36),
+                    scoreBuildAnythingCamp(36, 5),
                     scoreBuySellItem(36, 3),
                     scoreClaimWorkshop(36),
                     scoreCompleteOneEvent(36, 2),
@@ -1835,7 +1818,7 @@
                     scoreUsePhotomodeGroup(46),
                     scoreNWPickLock(46, 1),
 
-                    scoreBuildAnythingCamp(47),
+                    scoreBuildAnythingCamp(47, 10),
                     scoreBuySellItem(47, 3),
                     scoreCompleteOneEvent(47, 1),
                     scoreCookMealPlant(47),
@@ -1845,7 +1828,7 @@
 
                     scoreBuySellItem(48),
                     scoreCompleteOneEvent(48, 1),
-                    scoreEatPrewarFood5(48),
+                    scoreEatPrewarFood(48, 5),
                     scoreKillGlowing(48, 3),
                     scoreKillScorched10(48),
                     scoreUsePhotomodeGroup(48),
@@ -1854,7 +1837,7 @@
                     scoreBuySellItem(49, 3),
                     scoreCollectPurifiedWater(49, 5),
                     scoreCompleteDaily(49),
-                    scoreEatPrewarFood5(49),
+                    scoreEatPrewarFood(49, 5),
                     scoreKillMoleminer(49, 10),
                     scoreScrapSprings(49, 10),
                     scoreNWKillCreature(49, 1),
@@ -1888,7 +1871,7 @@
                     scoreClaimWorkshop(53),
                     scoreCompleteEventInGroup(53),
                     scoreDestroyRobot10(53),
-                    scoreEatPrewarFood5(53),
+                    scoreEatPrewarFood(53, 5),
                     scoreNWDeployCamp(53, 1),
 
                     scoreBuySellItem(54, 3),
@@ -1961,7 +1944,7 @@
                     scoreClaimWorkshop(61),
                     scoreCompleteDaily(61),
                     scoreDestroyRobot10(61),
-                    scoreEatPrewarFood5(61),
+                    scoreEatPrewarFood(61, 5),
                     scoreKillCryptid1(61),
                     scoreModArmor(61, 3),
                     scoreBuildFloorWallCamp(61, 10),
@@ -1985,6 +1968,15 @@
                     scoreJoinGroup(63),
                     scoreKillCreature25(63),
                     scoreNWSurviveMinutes(63, 15),
+
+                    scoreBuildAnythingCamp(64, 3),
+                    scoreBuySellItem(64, 3),
+                    scoreCompleteOneEvent(64, 2),
+                    scoreEatPrewarFood(64, 3),
+                    scoreKillLegendary(64, 1),
+                    scoreUsePhotomodeOwnCamp(64),
+                    scoreNWRevivePlayer(64, 2),
+
 
                     // bonus entries
                     scoreBonusScoreFortifyDays1(51),
