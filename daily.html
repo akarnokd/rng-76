@@ -1468,6 +1468,14 @@
                 };
             }
 
+            function scoreCompleteEventInGroup(offset, count) {
+                return {
+                            name: times("Complete Events in group", count),
+                            offset: offset,
+                            period: 1400,
+                        };
+            }
+
             var challengesDailyEra3 = {
                 validStart: new Date(Date.UTC(2020, 5, 30, 16, 0, 0, 0)),
                 validEnd: new Date(Date.UTC(2020, 8, 8, 16, 0, 0, 0)),
@@ -1977,6 +1985,13 @@
                     scoreUsePhotomodeOwnCamp(64),
                     scoreNWRevivePlayer(64, 2),
 
+                    scoreBuySellItem(65, 3),
+                    scoreCompleteEventInGroup(65, 1),
+                    scoreHackTerminal(65),
+                    scoreKillGhoul15(65),
+                    scoreModWeapon(65, 3),
+                    scoreModArmor(65, 3),
+                    scoreNWDeployCamp(65, 1),
 
                     // bonus entries
                     scoreBonusScoreFortifyDays1(51),
@@ -3309,16 +3324,16 @@
                 ]
             };
             var season2 = {
-                validStart: new Date(Date.UTC(2020, 8, 29, 16, 0, 0, 0)),
-                validEnd: new Date(Date.UTC(2020, 11, 8, 16, 0, 0, 0)),
+                validStart: new Date(Date.UTC(2020, 8, 15, 16, 0, 0, 0)),
+                validEnd: new Date(Date.UTC(2020, 10, 24, 16, 0, 0, 0)),
                 title: "Season 2: Armor Ace",
                 options: [
                     
                 ]
             };
             var season3 = {
-                validStart: new Date(Date.UTC(2020, 11, 29, 16, 0, 0, 0)),
-                validEnd: new Date(Date.UTC(2021, 2, 9, 16, 0, 0, 0)),
+                validStart: new Date(Date.UTC(2020, 11, 1, 16, 0, 0, 0)),
+                validEnd: new Date(Date.UTC(2021, 1, 9, 16, 0, 0, 0)),
                 title: "Season 3: The Zetan Zone (or whatever)",
                 options: [
                     
