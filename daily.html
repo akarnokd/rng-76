@@ -1133,9 +1133,9 @@
                             period: 100,
                         };
             }
-            function scoreKillSupermutant10(offset) {
+            function scoreKillSupermutant(offset, count) {
                 return {
-                            name: "Kill a Super Mutant (x10)",
+                            name: times("Kill a Super Mutant", count),
                             offset: offset,
                             period: 100,
                         };
@@ -1365,14 +1365,6 @@
                 };
             }
 
-            function scoreKillSupermutant5(offset) {
-                return {
-                    name: "Kill a Super Mutant (x5)",
-                    offset: offset,
-                    period: 100
-                };
-            }
-
             function scoreKillThreestarLegendary(offset) {
                 return {
                     name: "Kill a legendary 3-star creature",
@@ -1531,7 +1523,7 @@
 
                     scoreCompleteDaily(9),
                     scoreCraftScrapPowerArmor(9, 1),
-                    scoreKillSupermutant10(9),
+                    scoreKillSupermutant(9, 10),
                     scoreUsePhotomode(9),
                     scoreNWKillCreature(9, 10),
 
@@ -1614,7 +1606,7 @@
                     scoreClaimWorkshop(20),
                     scoreCompleteOneEvent(20),
                     scoreEatCookedMeal(20, 5),
-                    scoreKillSupermutant10(20),
+                    scoreKillSupermutant(20, 10),
                     scoreRankupPerkCard(20),
                     scoreNWKillPlayer(20),
 
@@ -1694,7 +1686,7 @@
                     scoreCompleteOneEvent(30, 2),
                     scoreKillCreatureInGroup(30, 5),
                     scoreKillLegendary(30, 1),
-                    scoreKillSupermutant10(30),
+                    scoreKillSupermutant(30, 10),
                     scoreModWeapon(30, 5),
                     scoreNWSurviveMinutes(30, 10),
 
@@ -1711,7 +1703,7 @@
                     scoreClaimWorkshop(32),
                     scoreCompleteOneEvent(32, 2),
                     scoreKillLegendary(32, 3),
-                    scoreKillSupermutant5(32),
+                    scoreKillSupermutant(32, 5),
                     scoreNWDeployCamp(32, 3),
 
                     scoreBuildFloorWallCamp(33, 10),
@@ -1831,7 +1823,7 @@
                     scoreCompleteOneEvent(47, 1),
                     scoreCookMealPlant(47),
                     scoreKillGlowing(47, 3),
-                    scoreKillSupermutant10(47),
+                    scoreKillSupermutant(47, 10),
                     scoreNWRevivePlayer(47, 2),
 
                     scoreBuySellItem(48),
@@ -1886,7 +1878,7 @@
                     scoreClaimWorkshop(54),
                     scoreCollectBobblehead(54),
                     scoreCompleteOneEvent(54, 2),
-                    scoreKillSupermutant10(54),
+                    scoreKillSupermutant(54, 10),
                     scorePlantCrop(54, 10),
                     scoreNWKillCreature(54, 1),
 
@@ -2000,6 +1992,14 @@
                     scoreKillLegendary(66, 3),
                     scorePickLock(66, 1),
                     scoreNWKillCreature(66, 3),
+
+                    scoreBuySellItem(67, 3),
+                    scoreClaimWorkshop(67),
+                    scoreCompleteOneEvent(67, 3),
+                    scoreJoinGroup(67),
+                    scoreKillLegendary(67, 3),
+                    scoreKillSupermutant(67, 15),
+                    scoreNWIncreaseRank(67),
 
                     // bonus entries
                     scoreBonusScoreFortifyDays1(51),
