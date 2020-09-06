@@ -1063,9 +1063,9 @@
                         };
             }
 
-            function scoreDestroyRobot10(offset) {
+            function scoreDestroyRobot(offset, count) {
                 return {
-                            name: "Destroy a robot (x10)",
+                            name: times("Destroy a robot", count),
                             offset: offset,
                             period: 100,
                         };
@@ -1510,7 +1510,7 @@
                     scoreKillGhoul10(6),
 
                     scoreCompleteOneEvent(7, 1),
-                    scoreDestroyRobot10(7),
+                    scoreDestroyRobot(7, 10),
                     scoreKillCryptid1(7),
                     scoreKillGlowing(7, 1),
                     scoreNWDeployCamp(7, 3),
@@ -1590,7 +1590,7 @@
                     scoreClaimWorkshop(18),
                     scoreCompleteOneEvent(18, 1),
                     scoreCookMealPlant(18),
-                    scoreDestroyRobot10(18),
+                    scoreDestroyRobot(18, 10),
                     scoreKillCryptid1(18),
                     scoreNWDeployCamp4(18),
 
@@ -1647,7 +1647,7 @@
                     scoreChewBubblegum3(25),
                     scoreClaimWorkshop(25),
                     scoreCompleteOneEvent(25, 1),
-                    scoreDestroyRobot10(25),
+                    scoreDestroyRobot(25, 10),
                     scoreNWIncreaseRank(25),
 
                     scoreBuySellItem(26, 3),
@@ -1668,7 +1668,7 @@
 
                     scoreBuySellItem(28, 3),
                     scoreCompleteEventInGroup(28),
-                    scoreDestroyRobot10(28),
+                    scoreDestroyRobot(28, 10),
                     scoreKillLegendary3(28),
                     scoreKillMoleminer(28, 10),
                     scoreUsePhotomode(28),
@@ -1757,7 +1757,7 @@
                     scoreBuySellItem(39, 3),
                     scoreClaimWorkshop(39),
                     scoreCompleteOneEvent(39, 1),
-                    scoreDestroyRobot10(39),
+                    scoreDestroyRobot(39, 10),
                     scoreJoinGroup(39),
                     scoreUsePhotomodeOwnCamp(39),
                     scoreNWSurviveMinutes(39, 10),
@@ -1853,7 +1853,7 @@
                     scoreBuySellItem(51, 3),
                     scoreCompleteOneEvent(51, 1),
                     scoreCraftScrapArmor(51, 5),
-                    scoreDestroyRobot10(51),
+                    scoreDestroyRobot(51, 10),
                     scoreJoinGroup(51),
                     scoreKillCreature20(51),
                     scoreNWSurviveMinutes(51, 15),
@@ -1870,7 +1870,7 @@
                     scoreChewBubblegum(53),
                     scoreClaimWorkshop(53),
                     scoreCompleteEventInGroup(53),
-                    scoreDestroyRobot10(53),
+                    scoreDestroyRobot(53, 10),
                     scoreEatPrewarFood(53, 5),
                     scoreNWDeployCamp(53, 1),
 
@@ -1943,7 +1943,7 @@
                     scoreBuySellItem(61, 3),
                     scoreClaimWorkshop(61),
                     scoreCompleteDaily(61),
-                    scoreDestroyRobot10(61),
+                    scoreDestroyRobot(61, 10),
                     scoreEatPrewarFood(61, 5),
                     scoreKillCryptid1(61),
                     scoreModArmor(61, 3),
@@ -2000,6 +2000,14 @@
                     scoreKillLegendary(67, 3),
                     scoreKillSupermutant(67, 15),
                     scoreNWIncreaseRank(67),
+
+                    scoreBuildAnythingCamp(68, 3),
+                    scoreBuildFloorWallCamp(68, 10),
+                    scoreBuySellItem(68, 3),
+                    scoreCompleteOneEvent(68, 2),
+                    scoreDestroyRobot(68, 15),
+                    scoreKillScorched(68, 15),
+                    scoreNWSurviveMinutes(68, 15),
 
                     // bonus entries
                     scoreBonusScoreFortifyDays1(51),
