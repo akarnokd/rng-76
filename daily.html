@@ -909,6 +909,7 @@
                             name: "Level up",
                             offset: offset,
                             period: 1,
+                            ignore: true
                         };
             }
             function scoreScrapAluminium10(offset) {
@@ -924,7 +925,8 @@
                 return {
                             name: "&#x1F947; Gold: Complete a Daily Challenge (x5)",
                             offset: offset,
-                            period: 1
+                            period: 1,
+                            ignore: true
                         };
             }
 
@@ -2041,23 +2043,43 @@
                 ]
             };
 
-            var missingDay = 0;
-            for (var e of challengesDailyEra3.options) {
-                if (!e.ignore) {
-                    missingDay = Math.max(missingDay, e.offset);
-                }
+            function plusDays(day, count) {
+                day.setDate(day.getDate() + count)
+                return day;
             }
 
-            for (var i = missingDay + 1; i < 70; i++) {
-                challengesDailyEra3.options.push(scoreDailyplaceholder(i));
+            var challengesDailyEra4 = {
+                validStart: new Date(Date.UTC(2020, 8, 15, 16, 0, 0, 0)),
+                validEnd: plusDays(new Date(Date.UTC(2020, 8, 8, 16, 0, 0, 0)), 70),
+                options: [
+                    scoreCompleteDailyChallenge5(0),
+                    scoreLevelUp1(0)
+                ]
             }
 
+ 
             var challenges = [
                 challengesDailyEra1,
                 challengesDailyEra1_2,
                 challengesDailyEra2,
-                challengesDailyEra3
+                challengesDailyEra3,
+                challengesDailyEra4
             ];
+
+            function addPlaceholders(era, func) {
+                var missingDay = -1;
+                for (var e of era.options) {
+                    if (!e.ignore) {
+                        missingDay = Math.max(missingDay, e.offset);
+                    }
+                }
+
+                for (var i = missingDay + 1; i < 70; i++) {
+                    era.options.push(func(i));
+                }
+            }
+            
+            addPlaceholders(challengesDailyEra4, scoreDailyplaceholder);
 
             // ******************************************************************************************************************************
 
@@ -2797,6 +2819,24 @@
                         };
             }
 
+            function scoreFixedLevelUp3(offset) {
+                return {
+                            name: "Level up (x3)",
+                            offset: offset,
+                            period: 7,
+                            ignore: true,
+                        };
+            }
+
+            function scoreFixedGainXP10000(offset) {
+                return {
+                            name: "&#x267B; Repeatable: Gain 10.000 XP",
+                            offset: offset,
+                            period: 7,
+                            ignore: true,
+                        };
+            }
+
             function scoreCompleteEvents10(offset) {
                 return {
                             name: "Complete an event (x10)",
@@ -3105,11 +3145,22 @@
             }
             */
 
+            var challengesWeeklyEra4 = {
+                validStart: new Date(Date.UTC(2020, 8, 15, 16, 0, 0, 0)),
+                validEnd: plusDays(new Date(Date.UTC(2020, 8, 15, 16, 0, 0, 0)), 70),
+                options: [
+                ]
+            };
+            addWeekly(challengesWeeklyEra4.options, 0, scoreFixedGainXP10000),
+            addWeekly(challengesWeeklyEra4.options, 0, scoreFixedLevelUp3)
+
+            addPlaceholders(challengesWeeklyEra4, scoreWeeklyplaceholder);
 
             var challengesWeekly = [
                 challengesWeeklyEra1,
                 challengesWeeklyEra2,
-                challengesWeeklyEra3
+                challengesWeeklyEra3,
+                challengesWeeklyEra4
             ];
 
             // --------------------------------------------------------------------------------------------------------------
@@ -3349,7 +3400,7 @@
             };
             var season2 = {
                 validStart: new Date(Date.UTC(2020, 8, 15, 16, 0, 0, 0)),
-                validEnd: new Date(Date.UTC(2020, 10, 24, 16, 0, 0, 0)),
+                validEnd: plusDays(new Date(Date.UTC(2020, 8, 15, 16, 0, 0, 0)), 70),
                 title: "Season 2: Armor Ace",
                 options: [
                     
@@ -3357,7 +3408,7 @@
             };
             var season3 = {
                 validStart: new Date(Date.UTC(2020, 11, 1, 16, 0, 0, 0)),
-                validEnd: new Date(Date.UTC(2021, 1, 9, 16, 0, 0, 0)),
+                validEnd: plusDays(new Date(Date.UTC(2020, 11, 1, 16, 0, 0, 0)), 70),
                 title: "Season 3: The Zetan Zone (or whatever)",
                 options: [
                     
