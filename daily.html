@@ -22,7 +22,7 @@
     </head>
     <body>
         <center>
-            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Timed Challenges (0.4.2)</span><br/>
+            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Timed Challenges (0.4.3)</span><br/>
             <br/>
             <br/>
             <table>
@@ -3290,21 +3290,11 @@
                 }
             }
 
-            var communityEvents = [
-                createEra1Part1(new Date(Date.UTC(2020, 7, 4, 16, 0, 0, 0)), 0, 0, 4),
-                createEra1Part1(new Date(Date.UTC(2020, 7, 4, 16, 0, 0, 0)), 1, 4, 3),
-                createEra1Part1(new Date(Date.UTC(2020, 7, 4, 16, 0, 0, 0)), 2, 7, 4),
-                createEra1Part1(new Date(Date.UTC(2020, 7, 4, 16, 0, 0, 0)), 3, 11, 3),
-
-                createEra1Part2(new Date(Date.UTC(2020, 7, 27, 16, 0, 0, 0)), 0, 0, 4),
-                createEra1Part2(new Date(Date.UTC(2020, 7, 27, 16, 0, 0, 0)), 1, 4, 3),
-                createEra1Part2(new Date(Date.UTC(2020, 7, 27, 16, 0, 0, 0)), 2, 7, 4),
-                createEra1Part2(new Date(Date.UTC(2020, 7, 27, 16, 0, 0, 0)), 3, 11, 3),
-
-                {
-                    validStart: new Date(Date.UTC(2020, 7, 20, 16, 0, 0, 0)),
-                    validEnd: new Date(Date.UTC(2020, 7, 26, 16, 0, 0, 0)),
-                    title: "Community Event: Meat Week",
+            function createMeatWeek(startDate, days, title) {
+                return {
+                    validStart: startDate,
+                    validEnd: plusDays(new Date(startDate), days),
+                    title: title,
                     options: [
                         {
                             name: "Participate in Event: Primal Cuts in multiple regions",
@@ -3346,6 +3336,53 @@
                         }
                     ]
                 }
+            }
+
+            var meatWeekAgain = createMeatWeek(new Date(Date.UTC(2020, 8, 22, 16, 0, 0, 0)), 6, "Community Event: Meat Week- A second helping");
+            meatWeekAgain.options.push({
+                            name: "&#x1F6C8; Fortifying Atlas Reward",
+                            offset: 0,
+                            period: 1,
+                            tipId: "ScoreFortifyReward3",
+                            tip: "Part 2 Step 4 (250m Glass) challenge completed.",
+                            ignore: true
+                        });
+
+            var communityEvents = [
+                createEra1Part1(new Date(Date.UTC(2020, 7, 4, 16, 0, 0, 0)), 0, 0, 4),
+                createEra1Part1(new Date(Date.UTC(2020, 7, 4, 16, 0, 0, 0)), 1, 4, 3),
+                createEra1Part1(new Date(Date.UTC(2020, 7, 4, 16, 0, 0, 0)), 2, 7, 4),
+                createEra1Part1(new Date(Date.UTC(2020, 7, 4, 16, 0, 0, 0)), 3, 11, 3),
+
+                createEra1Part2(new Date(Date.UTC(2020, 7, 27, 16, 0, 0, 0)), 0, 0, 4),
+                createEra1Part2(new Date(Date.UTC(2020, 7, 27, 16, 0, 0, 0)), 1, 4, 3),
+                createEra1Part2(new Date(Date.UTC(2020, 7, 27, 16, 0, 0, 0)), 2, 7, 4),
+                createEra1Part2(new Date(Date.UTC(2020, 7, 27, 16, 0, 0, 0)), 3, 11, 3),
+
+                createMeatWeek(new Date(Date.UTC(2020, 7, 20, 16, 0, 0, 0)), 6, "Community Event: Meat Week"),
+
+                {
+                    validStart: new Date(Date.UTC(2020, 8, 10, 16, 0, 0, 0)),
+                    validEnd: new Date(Date.UTC(2020, 8, 14, 16, 0, 0, 0)),
+                    title: "Purveyor 50% off sale",
+                    options: [
+                        {
+                            name: "&#x1F6C8; Legendary modules and Vault Steel are still full price",
+                            offset: 0,
+                            period: 1,
+                        },
+                        {
+                            name: "&#x1F6C8; Fortifying Atlas Reward",
+                            offset: 0,
+                            period: 1,
+                            tipId: "ScoreFortifyReward3",
+                            tip: "Part 2 Step 3 (175m Leather) challenge completed.",
+                            ignore: true
+                        }
+                    ]
+                },
+
+                meatWeekAgain,
             ];
 
             // Season =======================
