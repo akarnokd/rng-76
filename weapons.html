@@ -22,7 +22,7 @@
     </head>
     <body style="height: 90%">
         <center>
-            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Weapon Damage Calculator (v3.3.5)</span>
+            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Weapon Damage Calculator (v3.3.6)</span>
             <br/>
             <i>(update for Patch 22's changes in progress and may take several days)</i>
         <br/>
@@ -3480,7 +3480,7 @@
                     speed: 10,
                     level: [20,30,40,50],
                     damage: [0, 0, 0, 0],
-                    damageEnergy: [15,29,22,25],
+                    damageEnergy: [20,25,29,32],
                     mods: []
                 },
                 {
@@ -5000,7 +5000,7 @@
                 "Ranged weapons only. Affects the <b>Explosive</b> legendary effect or the base damage on explosive weapons."
                 + "<br>In addition, teammates each can share their perk card (+20% .. +60%), increasing the percentage bonus to 240%"
             );
-            infoMap.set("tankkiller", "Rifles only. Each level ignores 12% more armor up to 36% total.");
+            infoMap.set("tankkiller", "Rifles and Pistols only. Each level ignores 12% more armor up to 36% total.");
             infoMap.set("bowbeforeme", "Bows and Crossbows only. Each level ignores 12% more armor up to 36% total.");
             infoMap.set("stabilized", "Heavy ballistic weapons only. Each level ignores 15% more armor up to 45% total.");
             infoMap.set("incisor", "Melee weapons only. Each level ignores 25% more armor up to 75% total.");
@@ -5110,8 +5110,10 @@
 
             infoMap.set("buff", 
                 "Set positive or negative damage boosts coming from other effects."
-                + "<br>Note that boosts are typically multiplicative, thus a +50% and a +25% damage boost"
+                + "<br>Pre Patch 22, boosts are typically multiplicative, thus a +50% and a +25% damage boost"
                 + "<br>is not +75% boost but 1.5 * 1.25 = 1.875 or 87.5%."
+                + "<br>Post Patch 22, boosts are additive, thus +50% and +25% damage boost is +75%"
+                + "<br>whereas debuffs are multiplicative, thus -50% and -25% damage debuff is -62.5%."
             );
 
             infoMap.set("martialartist", "Melee weapons only. Each level increases swing speed by 10% and up to 30% total.");
@@ -5240,11 +5242,10 @@
             infoMap.set("ResistanceEarle", "Boss enemy of the Event: A Colossal Problem.<br>32000 health, 400 DR, 400 ER, 500 RR<br>"
                 + "ignores 80% of all kinds of incoming damage.<br>"
             );
-            infoMap.set("buffcalcmode", "On the PTS and once One Wasteland ships, damage bonus calculation is changed<br>"
+            infoMap.set("buffcalcmode", "Patch 22 with One Wasteland changed how damage buffs are calculated<br>"
                 + "from mostly multiplicative to mostly additive."
-                + "<br><br>It is supposed to apply uniformly but there were inconsistencies"
-                + "found in the PTS<br> regarding damage listed on the weapon card and the floating numbers"
-                + "<br>(after considering resistances)."
+                + "<br><br>Generally, bonuses to damage output are additive while debuffs are multiplicative."
+                + "<br>The exceptions known are the Instigating effect, stealth and crit bonuses."
                 + "<br><br>Note that the 'Add' option currently is not fleshed out and may produce wonky results."
             );
 
@@ -5945,7 +5946,7 @@
                         recalculate(tbl, index, type);
                     };
 
-                    if (weap.category === "Rifle") {
+                    if (weap.category === "Rifle" || weap.category === "Pistol") {
                         row = tbl.insertRow(tbl.rows.length);
                         cell1 = row.insertCell(0);
                         cell1.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;Tank killer" + info("tankkiller");
@@ -6543,8 +6544,8 @@
                 cell1 = row.insertCell(0);
                 cell1.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;Buff calculation" + info("buffcalcmode");
                 cell2 = row.insertCell(1);
-                cell2.innerHTML = "<input type='radio' id='buffcalcmode" + index + "_mult' name='buffcalcmode" + index + "' value='Mult' checked='checked'><label for='buffcalcmode" + index + "_mult'> Multiply</label>&nbsp;&nbsp;&nbsp;"
-                    + "<input type='radio' id='buffcalcmode" + index + "_add' name='buffcalcmode" + index + "' value='Add'><label for='buffcalcmode" + index + "_add'> Add</label>";
+                cell2.innerHTML = "<input type='radio' id='buffcalcmode" + index + "_mult' name='buffcalcmode" + index + "' value='Mult'><label for='buffcalcmode" + index + "_mult'> Multiply</label>&nbsp;&nbsp;&nbsp;"
+                    + "<input type='radio' id='buffcalcmode" + index + "_add' name='buffcalcmode" + index + "' value='Add' checked='checked'><label for='buffcalcmode" + index + "_add'> Add</label>";
 
                 document.getElementById("buffcalcmode" + index + "_mult").onchange = function() {
                     recalculate(tbl, index, type);
