@@ -22,7 +22,7 @@
     </head>
     <body>
         <center>
-            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Timed Challenges (0.4.3)</span><br/>
+            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Timed Challenges (0.4.4)</span><br/>
             <br/>
             <br/>
             <table>
@@ -1416,6 +1416,13 @@
                     ignore: true
                 };
             }
+            function scoreCompleteDailyOps(offset, count) {
+                return {
+                    name: times("Complete a Daily Operation", count),
+                    offset: offset,
+                    period: 100,
+                };
+            }
             function scoreBonusScoreFortifyDays2(offset) {
                 return {
                     name: "&#x1F6C8; Fortifying Atlas Reward day: Bonus Challenges Week",
@@ -2053,7 +2060,14 @@
                 validEnd: plusDays(new Date(Date.UTC(2020, 8, 8, 16, 0, 0, 0)), 70),
                 options: [
                     scoreCompleteDailyChallenge5(0),
-                    scoreLevelUp1(0)
+                    scoreLevelUp1(0),
+
+                    scoreBuildFloorWallCamp(0, 5),
+                    scoreBuySellItem(0, 1),
+                    scoreCompleteDailyOps(0, 1),
+                    scoreCompleteOneEvent(0, 1),
+                    scoreKillLegendary(0, 1),
+                    scoreNWSurviveMinutes(0, 10),
                 ]
             }
 
@@ -2852,6 +2866,20 @@
                             period: 1400,
                         };
             }
+            function scoreCollectCaps2500(offset) {
+                return {
+                            name: "Collect Caps (x2500)",
+                            offset: offset,
+                            period: 1400,
+                        };
+            }
+            function scoreCompleteManyDailyOps5(offset) {
+                return {
+                            name: "Complete a <i>Daily Operations</i> daily challenge (x5)",
+                            offset: offset,
+                            period: 1400,
+                        };
+            }
             function scoreClaimWorkshop10(offset) {
                 return {
                             name: "Claim a Workshop (x10)",
@@ -3009,7 +3037,7 @@
             }
             function scoreCompleteGoldStar(offset) {
                 return {
-                            name: "Complete a Gold Star daily challenge",
+                            name: "Complete a <i>Gold Star</i> daily challenge",
                             offset: offset,
                             period: 1400,
                         };
@@ -3151,8 +3179,17 @@
                 options: [
                 ]
             };
-            addWeekly(challengesWeeklyEra4.options, 0, scoreFixedGainXP10000),
-            addWeekly(challengesWeeklyEra4.options, 0, scoreFixedLevelUp3)
+            addWeekly(challengesWeeklyEra4.options, 0, scoreFixedGainXP10000);
+            addWeekly(challengesWeeklyEra4.options, 0, scoreFixedLevelUp3);
+
+            addWeekly(challengesWeeklyEra4.options, 0, scoreBuildupCampAny3);
+            addWeekly(challengesWeeklyEra4.options, 0, scoreClaimWorkshop5);
+            addWeekly(challengesWeeklyEra4.options, 0, scoreCollectCaps2500);
+            addWeekly(challengesWeeklyEra4.options, 0, scoreCompleteManyDailyOps5);
+            addWeekly(challengesWeeklyEra4.options, 0, scoreCompleteGoldStar);
+            addWeekly(challengesWeeklyEra4.options, 0, scoreCompleteEvents5);
+            addWeekly(challengesWeeklyEra4.options, 0, scoreKillCreature50);
+            addWeekly(challengesWeeklyEra4.options, 0, scoreKillLegendaries10);
 
             addPlaceholders(challengesWeeklyEra4, scoreWeeklyplaceholder);
 
