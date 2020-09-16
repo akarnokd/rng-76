@@ -6859,13 +6859,14 @@
                 var enemyTypeSel = document.getElementById("enemytype" + index);
                 var enemytypes = valueOf(enemyTypeSel).split(",");
                 
+                enemySelection[index] = null;
+                enemySelectionName[index] = null;
                 if (enemyTypeSel.selectedIndex > 0) {
                     var opt = enemyTypeSel.options[enemyTypeSel.selectedIndex];
-                    enemySelection[index] = opt.resistances;
-                    enemySelectionName[index] = opt.text;
-                } else {
-                    enemySelection[index] = null;
-                    enemySelectionName[index] = null;
+                    if (opt.resistances !== undefined) {
+                        enemySelection[index] = opt.resistances;
+                        enemySelectionName[index] = opt.text;
+                    }
                 }
 
 
@@ -7527,7 +7528,7 @@
 
                 var resistanceList = [];
                 var resistanceDedup = new Map();
-                if (enemySelection[1] !== null) {
+                if (enemySelection[1] != null) {
                     for (var e of enemySelection[1]) {
                         var key = resistanceKey(e);
                         if (resistanceDedup.get(key) == null) {
@@ -7537,7 +7538,7 @@
                         }
                     }
                 }
-                if (enemySelection[2] !== null) {
+                if (enemySelection[2] != null) {
                     for (var e of enemySelection[2]) {
                         var key = resistanceKey(e);
                         if (resistanceDedup.get(key) == null) {
