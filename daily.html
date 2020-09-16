@@ -22,7 +22,7 @@
     </head>
     <body>
         <center>
-            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Timed Challenges (0.4.4)</span><br/>
+            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Timed Challenges (0.5.0)</span><br/>
             <br/>
             <br/>
             <table>
@@ -883,13 +883,9 @@
                             period: 100,
                         };
             }
-            function scoreCompleteOneEvent(offset, times) {
-                var title = "Complete an event";
-                if (times > 1) {
-                    title += " (x" + times + ")";
-                }
+            function scoreCompleteOneEvent(offset, count) {
                 return {
-                            name: title,
+                            name: times("Complete an event", count),
                             offset: offset,
                             period: 100,
                         };
@@ -2055,6 +2051,61 @@
                 return day;
             }
 
+            function addDailyOps(options, day, location, enemies, mutations) {
+                options.push({
+                    name: "&nbsp;",
+                    offset: day,
+                    period: 100
+                });
+                options.push({
+                    name: "<img src='bos.png' alt='Brotherhood of Steel' style='vertical-align:middle'> <i><u>Daily Operations</u></i>",
+                    offset: day,
+                    period: 100
+                });
+                options.push({
+                    name: "Location: <i>" + location + "</i>",
+                    offset: day,
+                    period: 100
+                });
+                options.push({
+                    name: "Enemies: <i>" + enemies + "</i>",
+                    offset: day,
+                    period: 100
+                });
+                var muts = {
+                    name: "Mutations",
+                    offset: day,
+                    period: 100,
+                    subchallenges: []
+                };
+                for (var m of mutations) {
+                    muts.subchallenges.push({
+                        name: m.name,
+                        tipId: m.tipId,
+                        tip: m.tip
+                    });
+                }
+
+                options.push(muts);
+                options.push({
+                    name: "Rewards: <a href='https://docs.google.com/spreadsheets/d/1Y7YtULG-9k5u5GD6swiIwBVgxspA3Qg6IzLQpJqeNRQ/edit#gid=0' target='_blank'>depend on player level and completion time</a>.",
+                    offset: day,
+                    period: 100
+                });
+            }
+            var dailyOpsPiercingGaze = {
+                name: "Piercing Gaze (always present)",
+                tipId: "DailyOpsPiercing",
+                tip: "Sneaking, stealth and sneak attacks don't work."
+            };
+            var dailyOpsResilient = {
+                name: "Resilient",
+                tipId: "DailyOpsResilient",
+                tip: "Enemies have to be finished via a melee or bashing attack."
+                   + "<br>When ready, they will show 0 damage numbers and glow with red hue."
+            }
+
+
             var challengesDailyEra4 = {
                 validStart: new Date(Date.UTC(2020, 8, 15, 16, 0, 0, 0)),
                 validEnd: plusDays(new Date(Date.UTC(2020, 8, 8, 16, 0, 0, 0)), 70),
@@ -2069,7 +2120,9 @@
                     scoreKillLegendary(0, 1),
                     scoreNWSurviveMinutes(0, 10),
                 ]
-            }
+            };
+
+            addDailyOps(challengesDailyEra4.options, 0, "The Burrows", "Robots", [ dailyOpsPiercingGaze, dailyOpsResilient ]);
 
  
             var challenges = [
