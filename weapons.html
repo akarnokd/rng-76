@@ -22,7 +22,7 @@
     </head>
     <body style="height: 90%">
         <center>
-            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Weapon Damage Calculator (v3.3.6)</span>
+            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Weapon Damage Calculator (v3.3.7)</span>
             <br/>
             <i>(update for Patch 22's changes in progress and may take several days)</i>
         <br/>
@@ -134,10 +134,9 @@
                 {
                     name: "Board",
                     category: "One-handed",
-                    strengthFactor: 0.1,
                     speed: speedSlow,
-                    level: [1, 5, 15, 25, 35, 45],
-                    damage: [14, 18, 22, 26, 30, 33],
+                    level:  [ 1,  5, 15, 25, 35, 45],
+                    damage: [25, 30, 35, 40, 45, 50],
                     mods: [
                         {
                             slot: "Main",
@@ -148,12 +147,12 @@
                                 {
                                     name: "Spiked",
                                     damageMultPercent: 15,
-                                    ignoreDRPercent: 10
+                                    ignoreDRPercent: 15
                                 },
                                 {
                                     name: "Puncturing",
                                     damageMultPercent: 20,
-                                    ignoreDRPercent: 20
+                                    ignoreDRPercent: 15
                                 },
                                 {
                                     name: "Bladed",
@@ -221,11 +220,11 @@
                                 },
                                 {
                                     name: "Peppered",
-                                    damageMultPercent: 4
+                                    damageMultPercent: 16
                                 },
                                 {
                                     name: "Salty",
-                                    damageMultPercent: 16
+                                    damageMultPercent: 5
                                 }
                             ]
                         }
@@ -289,7 +288,6 @@
                     name: "Mole Miner Gauntlet",
                     category: "Unarmed",
                     kind: "unarmed",
-                    strengthFactor: 0.1,
                     speed: speedMedium,
                     level: [20, 30, 40, 50],
                     damage: [30, 35, 40, 45],
@@ -497,11 +495,13 @@
                                 },
                                 {
                                     name: "Metal Shards",
-                                    damageMultPercent: 20,
+                                    damageMultPercent: 16,
+                                    ignoreDRPercent: 15
                                 },
                                 {
                                     name: "Skate",
-                                    damageMultPercent: 10,
+                                    damageMultPercent: 15,
+                                    ignoreDRPercent: 15
                                 }
                             ]
                         }
@@ -527,6 +527,7 @@
                                 {
                                     name: "Spiked",
                                     damageMultPercent: 25,
+                                    ignoreDRPercent: 15
                                 },
                                 {
                                     name: "Chef's",
@@ -561,11 +562,12 @@
                                 {
                                     name: "Spiked",
                                     damageMultPercent: 10,
+                                    ignoreDRPercent: 15,
                                 },
                                 {
                                     name: "Puncturing",
                                     damageMultPercent: 10,
-                                    ignoreDRPercent: 20
+                                    ignoreDRPercent: 15
                                 }
                             ]
                         }
@@ -591,7 +593,7 @@
                                 {
                                     name: "Spiked",
                                     damageMultPercent: 10,
-                                    ignoreDRPercent: 20
+                                    ignoreDRPercent: 15
                                 }
                             ]
                         }
@@ -679,7 +681,6 @@
                 {
                     name: "Pitchfork",
                     category: "Two-handed",
-                    strengthFactor: 0.1,
                     speed: speedMedium,
                     level: [1, 5, 15, 25, 35, 45],
                     damage: [22, 27, 32, 37, 42, 47],
@@ -744,7 +745,6 @@
                 {
                     name: "Walking Cane",
                     category: "One-handed",
-                    strengthFactor: 0.1,
                     speed: speedMedium,
                     level: [1, 5, 10, 20, 30, 40, 50],
                     damage: [17, 19, 22, 27, 32, 37, 42],
@@ -757,12 +757,12 @@
                                 },
                                 {
                                     name: "Barbed",
-                                    damageMultPercent: 10,
-                                    ignoreDRPercent: 20
+                                    damageMultPercent: 16,
+                                    ignoreDRPercent: 15
                                 },
                                 {
                                     name: "Spiked",
-                                    damageMultPercent: 10
+                                    damageMultPercent: 15
                                 }
                             ]
                         }
@@ -837,7 +837,7 @@
                     category: "One-handed",
                     speed: speedVFast,
                     level: [40],
-                    damage: [3],
+                    damage: [2],
                     mods: [
                         {
                             slot: "Blade",
@@ -847,12 +847,11 @@
                                 },
                                 {
                                     name: "Extended",
-                                    damageMultPercent: 66.6,
+                                    damageMultPercent: 100,
                                 },
                                 {
                                     name: "Curved",
-                                    damageMultPercent: 33.3,
-                                    ignoreDRPercent: 20
+                                    damageMultPercent: 50,
                                 }
                             ]
                         }
@@ -863,7 +862,7 @@
                     category: "One-handed",
                     speed: speedVFast,
                     level: [15, 25, 35, 45],
-                    damage: [4, 5, 6, 7],
+                    damage: [2, 4, 6, 8],
                     mods: [ {
                             slot: "Blade",
                             options: [
@@ -979,7 +978,6 @@
                 {
                     name: "Baseball Bat",
                     category: "Two-handed",
-                    strengthFactor: 0.1,
                     speed: speedSlow,
                     level: [1, 5, 15, 25, 35, 45],
                     damage: [28, 35, 40, 45, 50, 55],
@@ -1049,10 +1047,9 @@
                 {
                     name: "Drill",
                     category: "One-handed",
-                    strengthFactor: 0.1,
                     speed: speedVFast,
                     level: [20],
-                    damage: [14],
+                    damage: [1],
                     mods: [
                         {
                             slot: "Main",
@@ -1072,7 +1069,6 @@
                 {
                     name: "Spear",
                     category: "One-handed",
-                    strengthFactor: 0.1,
                     speed: 0.62,
                     level: [15, 25, 35, 45],
                     damage: [43, 48, 53, 58],
@@ -1117,7 +1113,7 @@
                                 {
                                     name: "Spiked",
                                     damageMultPercent: 10,
-                                    ignoreDRPercent: 20
+                                    ignoreDRPercent: 15
                                 }
                             ]
                         }
@@ -1159,7 +1155,7 @@
                                 },
                                 {
                                     name: "Puncturing",
-                                    ignoreDRPercent: 20
+                                    ignoreDRPercent: 15
                                 }
                             ]
                         }]
@@ -1278,6 +1274,128 @@
                             ]
                         }
                     ]
+                },
+                {
+                    name: "Chainsaw",
+                    category: "One-handed",
+                    speed: speedVFast,
+                    damage: [1],
+                    level: [20],
+                    mods: []
+                },
+                {
+                    name: "Commie Whacker",
+                    category: "One-handed",
+                    speed: speedMedium,
+                    damage: [5],
+                    level: [1],
+                    mods: [
+                        {
+                            slot: "Main",
+                            options: [
+                                {
+                                    name: "Standard"
+                                },
+                                {
+                                    name: "Bladed",
+                                    damageMultPercent: 15
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    name: "Golf Club",
+                    category: "Two-handed",
+                    speed: speedSlow,
+                    level:  [ 1],
+                    damage: [24],
+                    mods: [
+                        {
+                            slot: "Main",
+                            options: [
+                                {
+                                    name: "Standard"
+                                },
+                                {
+                                    name: "Puncturing",
+                                    damageMultPercent: 10,
+                                    ignoreDRPercent: 15
+                                },
+                                {
+                                    name: "Bladed",
+                                    damageMultPercent: 15,
+                                },
+                                {
+                                    name: "Heavy",
+                                    damageMultPercent: 15,
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    name: "Pool Cue",
+                    category: "Two-handed",
+                    speed: speedSlow,
+                    level:  [ 1,  5, 15, 25, 35, 45],
+                    damage: [21, 26, 31, 36, 41, 46],
+                    mods: [
+                        {
+                            slot: "Main",
+                            options: [
+                                {
+                                    name: "Standard"
+                                },
+                                {
+                                    name: "Barbed",
+                                    damageMultPercent: 15,
+                                    ignoreDRPercent: 15,
+                                },
+                                {
+                                    name: "Sharp",
+                                    damageMultPercent: 15
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    name: "Sickle",
+                    category: "One-handed",
+                    speed: speedMedium,
+                    level:  [ 1,  5, 10, 20, 30, 40, 50],
+                    damage: [14, 16, 20, 24, 28, 32, 36],
+                    mods: []
+                },
+                {
+                    name: "Switchblade",
+                    category: "One-handed",
+                    speed: speedFast,
+                    level:  [10, 20, 30, 40, 50],
+                    damage: [14, 18, 22, 26, 30],
+                    mods: [
+                        {
+                            slot: "Blade",
+                            options: [
+                                {
+                                    name: "Standard"
+                                },
+                                {
+                                    name: "Serrated",
+                                    damageMultPercent: 15
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    name: "Paddle Ball",
+                    category: "One-handed",
+                    kind: "ballistic",
+                    speed: 2.5,
+                    level: [1],
+                    damage: [1]
                 }
             ]);
 
@@ -1558,7 +1676,7 @@
                     silencer: true,
                     speed: 4,
                     level: [30, 40, 50],
-                    damage: [25, 29, 33],
+                    damage: [26, 29, 33],
                     mods: [
                         {
                             slot: "Receiver",
@@ -3318,7 +3436,7 @@
                     silencer: false,
                     speed: 6.7,
                     level: [15, 25, 35, 45],
-                    damage: [81, 91, 105, 121],
+                    damage: [38, 45, 52, 60],
                     damageRadiation: [50, 50, 50, 50],
                     mods: [
                         {
@@ -3446,7 +3564,7 @@
                     explosive: true,
                     speed: 0.2,
                     level: [15, 25, 35, 45],
-                    damage: [90, 100, 110, 120],
+                    damage: [87, 97, 107, 117],
                     mods: [
                     ]
                 },
@@ -3502,7 +3620,7 @@
                     kind: "ballistic",
                     speed: speedSlow,
                     level: [1],
-                    damage: [100],
+                    damage: [28],
                     mods: []
                 },
                 {
@@ -3763,6 +3881,45 @@
                             ]
                         }
                     ]
+                },
+                {
+                    name: "Flamer",
+                    category: "Heavy",
+                    kind: "energy",
+                    speed: 9.1,
+                    level: [30, 40, 50],
+                    damage: [0, 0, 0],
+                    damageEnergy: [ 29, 32, 36], // FIXME damageFire
+                    mods: [
+                        {
+                            slot: "Tank",
+                            options: [
+                                {
+                                    name: "Standard"
+                                },
+                                {
+                                    name: "Napalm",
+                                    damageMultPercent: 100
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    name: "Flare Gun",
+                    category: "Pistol",
+                    kind: "ballistic",
+                    speed: 0.2,
+                    level: [1],
+                    damage: [5]
+                },
+                {
+                    name: "Syringer",
+                    category: "Rifle",
+                    kind: "ballistic",
+                    speed: 0.3,
+                    level: [1],
+                    damage: [5]
                 },
             ]);
 
@@ -5732,14 +5889,10 @@
                 opt.value = "0";
                 bloodymesssel.linkId = "BloodyMess";
 
-                for (var i = 1; i < 13; i++) {
+                for (var i = 1; i < 4; i++) {
                     opt = document.createElement("option");
                     bloodymesssel.add(opt);
-                    if (i >= 4) {
-                        opt.text = "" + i + " (team)";
-                    } else {
-                        opt.text = "" + i;
-                    }
+                    opt.text = "" + i;
                     opt.value = "" + (i * 5);
                     opt.linkId = opt.value;
                 }
@@ -5792,14 +5945,10 @@
                 opt.value = "0";
                 boost.linkId = "Boost";
 
-                for (var i = 10; i < 121; i += 5) {
+                for (var i = 10; i < 61; i += 5) {
                     opt = document.createElement("option");
                     boost.add(opt);
-                    if (i > 60) {
-                        opt.text = "" + i + " (team)";
-                    } else {
-                        opt.text = "" + i;
-                    }
+                    opt.text = "" + i;
                     opt.value = "" + i;
                     opt.linkId = opt.value;
                 }
@@ -5929,17 +6078,6 @@
                     opt.text = "5 (pre nerf)";
                     opt.value = "100";
                     opt.linkId = opt.value + "N";
-
-                    // teammate combinations
-                    for (var i = 1; i < 24; i++) {
-                        opt = document.createElement("option");
-                        demolition.add(opt);
-                        var perc = (20 + (i - 1) * 10);
-                        opt.text = "" + perc + "% (team)";
-                        opt.value = "" + perc;
-                        opt.linkId = opt.value + "T";
-                    }
-
 
                     demolition.selectedIndex = 0;
                     demolition.onchange = function() {
