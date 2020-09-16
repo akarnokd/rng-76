@@ -22,7 +22,7 @@
     </head>
     <body style="height: 90%">
         <center>
-            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Weapon Damage Calculator (v3.3.7)</span>
+            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Weapon Damage Calculator (v3.3.8)</span>
             <br/>
             <i>(update for Patch 22's changes in progress and may take several days)</i>
         <br/>
@@ -120,6 +120,8 @@
             var damagesRadiation = [0, 0, 0];
             var ignores = [0, 0, 0];
             var speeds = [1, 1, 1];
+            var enemySelection = [ null, null, null ];
+            var enemySelectionName = [ null, null, null ];
 
             // -------------------------------------------------------------------------------
             // Setup weapon data
@@ -4023,23 +4025,16 @@
                 if (a.name === undefined && b.name !== undefined) {
                     return -1;
                 }
-                if (a.dr < b.dr) {
-                    return -1;
-                }
-                if (a.dr > b.dr) {
-                    return 1;
-                }
-                if (a.er < b.er) {
-                    return -1;
-                }
-                if (a.er > b.er) {
-                    return 1;
-                }
-                if (a.rr < b.rr) {
-                    return -1;
-                }
-                if (a.rr > b.rr) {
-                    return 1;
+                for (var key of ["dr", "er", "rr", "cr", "fr", "pr"]) {
+                    var ak = a[key];
+                    var bk = b[key];
+
+                    if (ak < bk) {
+                        return -1;
+                    }
+                    if (ak > bk) {
+                        return 1;
+                    }
                 }
                 if (a.mitigation !== undefined && b.mitigation !== undefined) {
                     return b.mitigation - a.mitigation;
@@ -4261,7 +4256,22 @@
 
             addEnemy("Glowing One", ["Ghoul", "Glowing"]);
 
-            addEnemy("Super Mutant", ["Mutant"]);
+            addEnemy("Super Mutant", ["Mutant"], [
+                { level: 5, dr: 2, er: 2, rr: 2, cr: 2, fr: 2, pr: 2 },
+                { level: 10, dr: 2, er: 2, rr: 2, fr: 2, cr: 2, pr: 2 }, 
+                { level: 16, dr: 25, er: 15, rr: 25, fr: 25, cr: 25, pr: 25 }, 
+                { level: 22, dr: 25, er: 15, rr: 25, fr: 25, cr: 25, pr: 25 }, 
+                { level: 28, dr: 50, er: 25, rr: 50, fr: 50, cr: 50, pr: 50 }, 
+                { level: 35, dr: 75, er: 50, rr: 75, fr: 75, cr: 75, pr: 75 }, 
+                { level: 42, dr: 100, er: 50, rr: 100, fr: 100, cr: 100, pr: 100 }, 
+                { level: 48, dr: 100, er: 50, rr: 100, fr: 100, cr: 100, pr: 100 }, 
+                { level: 59, dr: 135, er: 80, rr: 135, fr: 200, cr: 200, pr: 200 }, 
+                { level: 68, dr: 135, er: 80, rr: 135, fr: 200, cr: 200, pr: 200 }, 
+                { level: 80, dr: 135, er: 80, rr: 135, fr: 300, cr: 300, pr: 300 }, 
+                { level: 90, dr: 135, er: 80, rr: 135, fr: 300, cr: 300, pr: 300 }, 
+                { level: 100, dr: 135, er: 80, rr: 135, fr: 300, cr: 300, pr: 300 }, 
+                { level: 115, dr: 135, er: 80, rr: 135, fr: 300, cr: 300, pr: 300 }, 
+            ]);
 
             addEnemy("Super Mutant Behemoth", ["Mutant"]);
 
@@ -5039,8 +5049,8 @@
 
             // -------------------------------------------------------------------------------------
             
-            function addEnemy(name, keywords) {
-                enemyCategories.push({ name: name, keywords: keywords});
+            function addEnemy(name, keywords, levelResistances) {
+                enemyCategories.push({ name: name, keywords: keywords, leveledResistances: levelResistances });
             }
 
             allWeapons.get("Melee").sort(function(a, b) {
@@ -5805,6 +5815,7 @@
                     opt.text = item.name;
                     opt.value = item.keywords.join();
                     opt.linkId = linkIdFor(item, item.name);
+                    opt.resistances = item.leveledResistances;
                 });
 
                 enemytypesel.onchange = function() {
@@ -6845,7 +6856,18 @@
                 }
 
                 // enemy type selected
-                var enemytypes = valueOf(document.getElementById("enemytype" + index)).split(",");
+                var enemyTypeSel = document.getElementById("enemytype" + index);
+                var enemytypes = valueOf(enemyTypeSel).split(",");
+                
+                if (enemyTypeSel.selectedIndex > 0) {
+                    var opt = enemyTypeSel.options[enemyTypeSel.selectedIndex];
+                    enemySelection[index] = opt.resistances;
+                    enemySelectionName[index] = opt.text;
+                } else {
+                    enemySelection[index] = null;
+                    enemySelectionName[index] = null;
+                }
+
 
                 // team mode
                 var isTeam = document.getElementById("team" + index + "_yes").checked;
@@ -7480,7 +7502,9 @@
                 return adrenalreaction || anymutation || twistedmuscles || grounded;
             }
 
-
+            function resistanceKey(e) {
+                return [e.dr, e.er, e.rr, e.cr, e.fr, e.pr].join(",");
+            }
 
             function recalculateDiff() {
                 var tbl = document.getElementById("table3");
@@ -7500,13 +7524,43 @@
                 var lastDr = null;
                 var aaEnergy = true;
 
-                if (document.getElementById("comparesortdesc").checked) {
-                    enemyResistances.sort(resistancesSortReverse);
-                } else {
-                    enemyResistances.sort(resistancesSortDefault);
+
+                var resistanceList = [];
+                var resistanceDedup = new Map();
+                if (enemySelection[1] !== null) {
+                    for (var e of enemySelection[1]) {
+                        var key = resistanceKey(e);
+                        if (resistanceDedup.get(key) == null) {
+                            resistanceDedup.set(key, 1);
+                            resistanceList.push(e);
+                            e.name = "<b>" + enemySelectionName[1] + " " + e.level + "</b>";
+                        }
+                    }
+                }
+                if (enemySelection[2] !== null) {
+                    for (var e of enemySelection[2]) {
+                        var key = resistanceKey(e);
+                        if (resistanceDedup.get(key) == null) {
+                            resistanceDedup.set(key, 1);
+                            resistanceList.push(e);
+                            e.name = "<b>" + enemySelectionName[2] + " " + e.level + "</b>";
+                        }
+                    }
                 }
 
-                enemyResistances.forEach(function(res) {
+                if (document.getElementById("comparesortdesc").checked) {
+                    resistanceList.sort(resistancesSortReverse);
+                    enemyResistances.sort(resistancesSortReverse);
+                } else {
+                    resistanceList.sort(resistancesSortDefault);
+                    enemyResistances.sort(resistancesSortDefault);
+
+                }
+                for (var e of enemyResistances) {
+                    resistanceList.push(e);
+                }
+
+                resistanceList.forEach(function(res) {
                     var row = tbl.insertRow(tbl.rows.length);
 
                     if (lastDr == null || lastDr != res.dr) {
@@ -7546,7 +7600,11 @@
                         }
                         cell.style = "border: 1px solid black;";
                         cell.colSpan = 3;
-                        cell.title = "DR: " + dr + ", ER: " + res.er + ", RR: " + res.rr; 
+                        if (res.cr !== undefined) {
+                            cell.title = "DR: " + dr + ", ER: " + res.er + ", RR: " + res.rr + ", CR: " + res.cr + ", FR: " + res.fr + ", PR: " + res.pr; 
+                        } else {
+                            cell.title = "DR: " + dr + ", ER: " + res.er + ", RR: " + res.rr;
+                        }
                         if (res.mitigation !== undefined) {
                             cell.title += "\r\n" + ((1 - res.mitigation) * 100).toFixed(0) + "% of all damage ignored";
                         }
