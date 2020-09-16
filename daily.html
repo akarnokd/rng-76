@@ -2093,18 +2093,6 @@
                     period: 100
                 });
             }
-            var dailyOpsPiercingGaze = {
-                name: "Piercing Gaze (always present)",
-                tipId: "DailyOpsPiercing",
-                tip: "Sneaking, stealth and sneak attacks don't work."
-            };
-            var dailyOpsResilient = {
-                name: "Resilient",
-                tipId: "DailyOpsResilient",
-                tip: "Enemies have to be finished via a melee or bashing attack."
-                   + "<br>When ready, they will show 0 damage numbers and glow with red hue."
-            }
-
 
             var challengesDailyEra4 = {
                 validStart: new Date(Date.UTC(2020, 8, 15, 16, 0, 0, 0)),
@@ -2129,8 +2117,25 @@
                 ]
             };
 
+            var dailyOpsPiercingGaze = {
+                name: "Piercing Gaze (always present)",
+                tipId: "DailyOpsPiercing",
+                tip: "Sneaking, stealth and sneak attacks don't work."
+            };
+            var dailyOpsResilient = {
+                name: "Resilient",
+                tipId: "DailyOpsResilient",
+                tip: "Enemies have to be finished via a melee or bashing attack."
+                   + "<br>When ready, they will show 0 damage numbers and glow with red hue."
+            }
+            var dailyOpsVolatile = {
+                name: "Volatile",
+                tipId: "DailyOpsVolatile",
+                tip: "Enemies explode upon death."
+            }
+
             addDailyOps(challengesDailyEra4.options, 0, "The Burrows", "Robots", [ dailyOpsPiercingGaze, dailyOpsResilient ]);
-            addDailyOps(challengesDailyEra4.options, 1, "Vault 94", "Robots", [ dailyOpsPiercingGaze, dailyOpsResilient ]);
+            addDailyOps(challengesDailyEra4.options, 1, "Vault 94", "Blood Eagles", [ dailyOpsPiercingGaze, dailyOpsVolatile ]);
 
  
             var challenges = [
