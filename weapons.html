@@ -22,7 +22,7 @@
     </head>
     <body style="height: 90%">
         <center>
-            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Weapon Damage Calculator (v3.3.8)</span>
+            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Weapon Damage Calculator (v3.3.9)</span>
             <br/>
             <i>(update for Patch 22's changes in progress and may take several days)</i>
         <br/>
@@ -4013,6 +4013,8 @@
                 { dr: 300, er: 300, rr: 300 },
                 { dr: 300, er: 300, rr: 400 },
                 { dr: 400, er: 400, rr: 500 },
+                { dr: 400, er: 500, rr: 500 },
+                { dr: 500, er: 500, rr: 500 },
                 { dr: 300, er: 300, rr: 300, name: "SBQ", tip: "ResistanceSBQ", mitigation: 0.3 },
                 { dr: 400, er: 400, rr: 500, name: "Randal", tip: "ResistanceRandal", mitigation: 0.9 },
                 { dr: 400, er: 400, rr: 500, name: "Earle", tip: "ResistanceEarle", mitigation: 0.2 },
@@ -4053,7 +4055,7 @@
                 [
                     {
                         name: "Assassin's",
-                        versus: ["Player"],
+                        versus: ["Player", "NPC"],
                         versusAddPercent: 10
                     },
                     {
@@ -4140,7 +4142,7 @@
                 [
                     {
                         name: "Assassin's",
-                        versus: ["Player"],
+                        versus: ["Player", "NPC"],
                         versusAddPercent: 10
                     },
                     {
@@ -4250,11 +4252,48 @@
 
             // -------------------------------------------------------------------------------------
             enemyCategories = [];
-            addEnemy("Scorched", ["Scorched"]);
+            addEnemy("Scorched", ["Scorched"], [
+                { level: 1, dr: 2, er: 2, rr: 2, fr: 2, cr: 2, pr: 2 }, 
+                { level: 6, dr: 2, er: 2, rr: 2, fr: 2, cr: 2, pr: 2 }, 
+                { level: 14, dr: 15, er: 15, rr: 150, fr: 15, cr: 15, pr: 15 }, 
+                { level: 23, dr: 30, er: 45, rr: 150, fr: 45, cr: 45, pr: 45 }, 
+                { level: 32, dr: 50, er: 65, rr: 150, fr: 65, cr: 65, pr: 65 }, 
+                { level: 40, dr: 60, er: 65, rr: 150, fr: 65, cr: 65, pr: 65 }, 
+                { level: 47, dr: 70, er: 100, rr: 150, fr: 100, cr: 100, pr: 100 }, 
+                { level: 54, dr: 80, er: 100, rr: 150, fr: 100, cr: 100, pr: 100 }, 
+                { level: 62, dr: 90, er: 100, rr: 150, fr: 100, cr: 100, pr: 100 }, 
+                { level: 68, dr: 100, er: 100, rr: 150, fr: 100, cr: 100, pr: 100 }, 
+                { level: 74, dr: 100, er: 100, rr: 150, fr: 100, cr: 100, pr: 100 }, 
+                { level: 80, dr: 100, er: 100, rr: 150, fr: 100, cr: 100, pr: 100 }, 
+                { level: 90, dr: 100, er: 100, rr: 150, fr: 100, cr: 100, pr: 100 }, 
+                { level: 100, dr: 100, er: 100, rr: 150, fr: 100, cr: 100, pr: 100 }, 
+            ]);
 
-            addEnemy("Feral Ghoul", ["Ghoul"]);
+            addEnemy("Feral Ghoul", ["Ghoul"], [
+                { level: 1, dr: 10, er: 20, rr: 1000, fr: 20, cr: 20, pr: 500 }, 
+                { level: 3, dr: 10, er: 20, rr: 1000, fr: 20, cr: 20, pr: 500 }, 
+                { level: 9, dr: 10, er: 20, rr: 1000, fr: 20, cr: 20, pr: 500 }, 
+                { level: 15, dr: 85, er: 140, rr: 1000, fr: 140, cr: 140, pr: 500 }, 
+                { level: 22, dr: 85, er: 140, rr: 1000, fr: 140, cr: 140, pr: 500 }, 
+                { level: 32, dr: 85, er: 140, rr: 1000, fr: 140, cr: 140, pr: 500 }, 
+                { level: 42, dr: 85, er: 140, rr: 1000, fr: 140, cr: 140, pr: 500 }, 
+                { level: 52, dr: 85, er: 140, rr: 1000, fr: 140, cr: 140, pr: 500 }, 
+                { level: 62, dr: 85, er: 140, rr: 1000, fr: 140, cr: 140, pr: 500 }, 
+                { level: 72, dr: 85, er: 140, rr: 1000, fr: 140, cr: 140, pr: 500 }, 
+                { level: 82, dr: 85, er: 140, rr: 1000, fr: 140, cr: 140, pr: 500 }, 
+                { level: 92, dr: 85, er: 140, rr: 1000, fr: 140, cr: 140, pr: 500 }, 
+                { level: 100, dr: 85, er: 140, rr: 1000, fr: 140, cr: 140, pr: 500 }, 
+            ]);
 
-            addEnemy("Glowing One", ["Ghoul", "Glowing"]);
+            addEnemy("Glowing One", ["Ghoul", "Glowing"], [
+                { level: 22, dr: 115, er: 230, rr: 1000, fr: 230, cr: 230, pr: 500 }, 
+                { level: 32, dr: 115, er: 230, rr: 1000, fr: 230, cr: 230, pr: 500 }, 
+                { level: 40, dr: 115, er: 230, rr: 1000, fr: 230, cr: 230, pr: 500 }, 
+                { level: 58, dr: 115, er: 230, rr: 1000, fr: 230, cr: 230, pr: 500 }, 
+                { level: 75, dr: 115, er: 230, rr: 1000, fr: 230, cr: 230, pr: 500 }, 
+                { level: 95, dr: 115, er: 230, rr: 1000, fr: 230, cr: 230, pr: 500 }, 
+                { level: 100, dr: 115, er: 230, rr: 1000, fr: 230, cr: 230, pr: 500 }, 
+            ]);
 
             addEnemy("Super Mutant", ["Mutant"], [
                 { level: 5, dr: 2, er: 2, rr: 2, cr: 2, fr: 2, pr: 2 },
@@ -4273,107 +4312,709 @@
                 { level: 115, dr: 135, er: 80, rr: 135, fr: 300, cr: 300, pr: 300 }, 
             ]);
 
-            addEnemy("Super Mutant Behemoth", ["Mutant"]);
+            addEnemy("Super Mutant Behemoth", ["Mutant"], [
+                { level: 50, dr: 150, er: 100, rr: 150, fr: 250, cr: 250, pr: 250 }, 
+                { level: 65, dr: 250, er: 200, rr: 250, fr: 300, cr: 300, pr: 300 }, 
+                { level: 80, dr: 250, er: 200, rr: 250, fr: 350, cr: 350, pr: 350 }, 
+                { level: 95, dr: 250, er: 200, rr: 250, fr: 375, cr: 375, pr: 375 }, 
+            ]);
 
-            addEnemy("Mutant Hound", ["Animal"]);
-            addEnemy("Glowing Mutant Hound", ["Animal", "Glowing"]);
-            addEnemy("Scorched Mutant Hound", ["Scorched"]);
+            var mutantHoundResistances = [
+                { level: 8, dr: 15, er: 10, rr: 15, fr: 15, cr: 15, pr: 15 }, 
+                { level: 28, dr: 40, er: 30, rr: 40, fr: 40, cr: 40, pr: 40 }, 
+                { level: 35, dr: 40, er: 30, rr: 40, fr: 40, cr: 40, pr: 40 }, 
+                { level: 50, dr: 40, er: 30, rr: 40, fr: 40, cr: 40, pr: 40 }, 
+                { level: 65, dr: 40, er: 30, rr: 40, fr: 40, cr: 40, pr: 40 }, 
+                { level: 80, dr: 40, er: 30, rr: 40, fr: 40, cr: 40, pr: 40 }, 
+                { level: 95, dr: 40, er: 30, rr: 40, fr: 40, cr: 40, pr: 40 }, 
+            ];
 
-            addEnemy("Radroach", ["Bug"]);
-            addEnemy("Glowing Radroach", ["Bug", "Glowing"]);
-            addEnemy("Scorched Radroach", ["Scorched"]);
+            addEnemy("Mutant Hound", ["Animal"], mutantHoundResistances);
+            addEnemy("Glowing Mutant Hound", ["Animal", "Glowing"], mutantHoundResistances);
+            addEnemy("Scorched Mutant Hound", ["Scorched"], mutantHoundResistances);
 
-            addEnemy("Stingwing", ["Bug"]);
-            addEnemy("Glowing Stingwing", ["Bug", "Glowing"]);
-            addEnemy("Scorched Stingwing", ["Scorched"]);
+            var radroachResistances = [
+                { level: 1, dr: 5, er: 5, rr: 250, fr: 5, cr: 5, pr: 5 }, 
+                { level: 5, dr: 5, er: 5, rr: 250, fr: 5, cr: 5, pr: 5 }, 
+                { level: 10, dr: 5, er: 5, rr: 250, fr: 5, cr: 5, pr: 5 }, 
+            ];
 
-            addEnemy("Bloatfly", ["Bug"]);
-            addEnemy("Glowing Bloatfly", ["Bug", "Glowing"]);
-            addEnemy("Scorched Bloatfly", ["Scorched"]);
+            addEnemy("Radroach", ["Bug"], radroachResistances);
+            addEnemy("Glowing Radroach", ["Bug", "Glowing"], radroachResistances);
+            addEnemy("Scorched Radroach", ["Scorched"], radroachResistances);
 
-            addEnemy("Mirelurk Crab", ["Mirelurk"]);
-            addEnemy("Glowing Mirelurk", ["Mirelurk", "Glowing"]);
-            addEnemy("Scorched Mirelurk", ["Scorched"]);
+            var stingwingResistances = [
+                { level: 10, dr: 20, er: 30, rr: 1000, fr: 30, cr: 30, pr: 250 }, 
+                { level: 18, dr: 30, er: 45, rr: 1000, fr: 45, cr: 45, pr: 250 }, 
+                { level: 30, dr: 40, er: 60, rr: 1000, fr: 60, cr: 60, pr: 250 }, 
+                { level: 42, dr: 50, er: 75, rr: 1000, fr: 75, cr: 75, pr: 250 }, 
+                { level: 54, dr: 60, er: 90, rr: 1000, fr: 90, cr: 90, pr: 250 }, 
+                { level: 66, dr: 60, er: 90, rr: 1000, fr: 90, cr: 90, pr: 250 }, 
+                { level: 78, dr: 60, er: 90, rr: 1000, fr: 90, cr: 90, pr: 250 }, 
+                { level: 90, dr: 60, er: 90, rr: 1000, fr: 90, cr: 90, pr: 250 }, 
+                { level: 100, dr: 60, er: 90, rr: 1000, fr: 90, cr: 90, pr: 250 }, 
+            ];
 
-            addEnemy("Mirelurk King", ["Mirelurk"]);
-            addEnemy("Glowing Mirelurk King", ["Mirelurk", "Glowing"]);
-            addEnemy("Scorched Mirelurk King", ["Scorched"]);
+            addEnemy("Stingwing", ["Bug"], stingwingResistances);
+            addEnemy("Glowing Stingwing", ["Bug", "Glowing"], stingwingResistances);
+            addEnemy("Scorched Stingwing", ["Scorched"], stingwingResistances);
 
-            addEnemy("Mirelurk Queen", ["Mirelurk"]);
-            addEnemy("Glowing Mirelurk Queen", ["Mirelurk", "Glowing"]);
-            addEnemy("Scorched Mirelurk Queen", ["Scorched"]);
+            var bloatflyResistances = [
+                { level: 1, dr: 15, er: 15, rr: 15, fr: 15, cr: 15, pr: 15 }, 
+                { level: 9, dr: 15, er: 15, rr: 15, fr: 15, cr: 15, pr: 15 }, 
+                { level: 17, dr: 15, er: 15, rr: 15, fr: 15, cr: 15, pr: 15 }, 
+                { level: 27, dr: 15, er: 15, rr: 15, fr: 15, cr: 15, pr: 15 }, 
+                { level: 40, dr: 15, er: 15, rr: 15, fr: 15, cr: 15, pr: 15 }, 
+                { level: 55, dr: 15, er: 15, rr: 15, fr: 15, cr: 15, pr: 15 }, 
+                { level: 70, dr: 15, er: 15, rr: 15, fr: 15, cr: 15, pr: 15 }, 
+                { level: 90, dr: 15, er: 15, rr: 15, fr: 15, cr: 15, pr: 15 }, 
+            ];
 
-            addEnemy("Mirelurk Spawn", ["Mirelurk"]);
-            addEnemy("Glowing Mirelurk Spawn", ["Mirelurk", "Glowing"]);
-            addEnemy("Scorched Mirelurk Spawn", ["Scorched"]);
+            addEnemy("Bloatfly", ["Bug"], bloatflyResistances);
+            addEnemy("Glowing Bloatfly", ["Bug", "Glowing"], bloatflyResistances);
+            addEnemy("Scorched Bloatfly", ["Scorched"], bloatflyResistances);
 
-            addEnemy("Scorchbeast", ["Animal", "Scorchbeast"]);
-            addEnemy("Scorchbeast Queen", ["Animal", "Scorchbeast", "Scorchbeast Queen"]);
+            var attackDogResistances = [
+                { level: 1, dr: 5, er: 5, rr: 5, fr: 0, cr: 0, pr: 0 }, 
+                { level: 7, dr: 10, er: 10, rr: 10, fr: 0, cr: 0, pr: 0 }, 
+                { level: 14, dr: 15, er: 15, rr: 15, fr: 0, cr: 0, pr: 0 }, 
+                { level: 21, dr: 20, er: 20, rr: 20, fr: 0, cr: 0, pr: 0 }, 
+            ];
+            addEnemy("Attack Dog", ["Animal"], attackDogResistances);
+            addEnemy("Glowing Attack Dog", ["Animal", "Glowing"], attackDogResistances);
+            addEnemy("Scorched Attack Dog", ["Scorched"], attackDogResistances);
 
-            addEnemy("Yao Guai", ["Animal", "Yao Guai"]);
-            addEnemy("Glowing Yao Guai", ["Animal", "Glowing", "Yao Guai"]);
-            addEnemy("Scorched Yao Guai", ["Animal", "Scorched", "Yao Guai"]);
+            var mirelurkCrabResistances = [
+                { level: 5, dr: 45, er: 40, rr: 200, fr: 40, cr: 200, pr: 200 }, 
+                { level: 12, dr: 90, er: 90, rr: 250, fr: 90, cr: 250, pr: 250 }, 
+                { level: 18, dr: 90, er: 90, rr: 250, fr: 90, cr: 250, pr: 250 }, 
+                { level: 26, dr: 90, er: 90, rr: 250, fr: 90, cr: 250, pr: 250 }, 
+                { level: 34, dr: 90, er: 90, rr: 250, fr: 90, cr: 250, pr: 250 }, 
+                { level: 42, dr: 90, er: 90, rr: 250, fr: 90, cr: 250, pr: 250 }, 
+                { level: 50, dr: 90, er: 90, rr: 250, fr: 90, cr: 250, pr: 250 }, 
+                { level: 58, dr: 90, er: 90, rr: 250, fr: 90, cr: 250, pr: 250 }, 
+                { level: 66, dr: 90, er: 90, rr: 250, fr: 90, cr: 250, pr: 250 }, 
+                { level: 80, dr: 90, er: 90, rr: 250, fr: 90, cr: 250, pr: 250 }, 
+                { level: 95, dr: 90, er: 90, rr: 250, fr: 90, cr: 250, pr: 250 }, 
+                { level: 105, dr: 90, er: 90, rr: 250, fr: 90, cr: 250, pr: 250 }, 
+            ];
 
-            addEnemy("Deathclaw", ["Animal"]);
-            addEnemy("Glowing Deathclaw", ["Animal", "Glowing"]);
-            addEnemy("Scorched Deathclaw", ["Scorched"]);
+            addEnemy("Mirelurk Crab", ["Mirelurk"], mirelurkCrabResistances);
+            addEnemy("Glowing Mirelurk", ["Mirelurk", "Glowing"], mirelurkCrabResistances);
+            addEnemy("Scorched Mirelurk", ["Scorched"], mirelurkCrabResistances);
 
-            addEnemy("Ant", ["Bug"]);
-            addEnemy("Glowing Ant", ["Bug", "Glowing"]);
-            addEnemy("Scorched Ant", ["Scorched"]);
+            var mirelurkKingResistances = [
+                { level: 30, dr: 125, er: 125, rr: 250, fr: 250, cr: 250, pr: 250 }, 
+                { level: 40, dr: 125, er: 125, rr: 250, fr: 250, cr: 250, pr: 250 }, 
+                { level: 50, dr: 125, er: 125, rr: 250, fr: 250, cr: 250, pr: 250 }, 
+                { level: 65, dr: 125, er: 125, rr: 250, fr: 250, cr: 250, pr: 250 }, 
+                { level: 80, dr: 125, er: 125, rr: 250, fr: 250, cr: 250, pr: 250 }, 
+                { level: 100, dr: 125, er: 125, rr: 250, fr: 250, cr: 250, pr: 250 }, 
+            ];
+            addEnemy("Mirelurk King", ["Mirelurk"], mirelurkKingResistances);
+            addEnemy("Glowing Mirelurk King", ["Mirelurk", "Glowing"], mirelurkKingResistances);
+            addEnemy("Scorched Mirelurk King", ["Scorched"], mirelurkKingResistances);
 
-            addEnemy("Protectron", ["Robot"]);
-            addEnemy("Robobrain", ["Robot"]);
-            addEnemy("Sentrybot", ["Robot"]);
-            addEnemy("Assaultron", ["Robot"]);
-            addEnemy("Eyebot", ["Robot"]);
-            addEnemy("Liberator", ["Robot", "Liberator"]);
+            var mirelurkHunterResistances = [
+                { level: 24, dr: 90, er: 90, rr: 250, fr: 250, cr: 250, pr: 250 }, 
+                { level: 34, dr: 90, er: 90, rr: 250, fr: 250, cr: 250, pr: 250 }, 
+                { level: 46, dr: 90, er: 90, rr: 250, fr: 250, cr: 250, pr: 250 }, 
+                { level: 58, dr: 90, er: 90, rr: 250, fr: 250, cr: 250, pr: 250 }, 
+                { level: 70, dr: 90, er: 90, rr: 250, fr: 250, cr: 250, pr: 250 }, 
+                { level: 85, dr: 90, er: 90, rr: 250, fr: 250, cr: 250, pr: 250 }, 
+                { level: 100, dr: 90, er: 90, rr: 250, fr: 250, cr: 250, pr: 250 }, 
+            ];
+            addEnemy("Mirelurk Hunter", ["Mirelurk"], mirelurkHunterResistances);
+            addEnemy("Glowing Mirelurk Hunter", ["Mirelurk", "Glowing"], mirelurkHunterResistances);
+            addEnemy("Scorched Mirelurk Hunter", ["Scorched"], mirelurkHunterResistances);
 
-            addEnemy("Flatwoods Monster", ["Alien", "Cryptid", "Robot", "Flatwoods Monster"]);
+            var mirelurkQueenResistances = [
+                { level: 20, dr: 150, er: 100, rr: 150, fr: 250, cr: 250, pr: 250 }, 
+                { level: 35, dr: 150, er: 100, rr: 150, fr: 250, cr: 250, pr: 250 }, 
+                { level: 50, dr: 150, er: 100, rr: 150, fr: 250, cr: 250, pr: 250 }, 
+                { level: 65, dr: 150, er: 100, rr: 150, fr: 250, cr: 250, pr: 250 }, 
+                { level: 80, dr: 150, er: 100, rr: 150, fr: 250, cr: 250, pr: 250 }, 
+                { level: 100, dr: 150, er: 100, rr: 150, fr: 250, cr: 250, pr: 250 }, 
+            ];
+            addEnemy("Mirelurk Queen", ["Mirelurk"], mirelurkQueenResistances);
+            addEnemy("Glowing Mirelurk Queen", ["Mirelurk", "Glowing"], mirelurkQueenResistances);
+            addEnemy("Scorched Mirelurk Queen", ["Scorched"], mirelurkQueenResistances);
 
-            addEnemy("Snallygaster", ["Cryptid", "Snallygaster"]);
-            addEnemy("Glowing Snallygaster", ["Cryptid", "Snallygaster", "Glowing"]);
-            addEnemy("Scorched Snallygaster", ["Cryptid", "Snallygaster", "Scorched"]);
+            var mirelurkSpawnResistances = [
+                { level: 1, dr: 5, er: 5, rr: 5, fr: 5, cr: 5, pr: 5 }, 
+            ];
+            addEnemy("Mirelurk Spawn", ["Mirelurk"], mirelurkSpawnResistances);
+            addEnemy("Glowing Mirelurk Spawn", ["Mirelurk", "Glowing"], mirelurkSpawnResistances);
+            addEnemy("Scorched Mirelurk Spawn", ["Scorched"], mirelurkSpawnResistances);
 
-            addEnemy("Gulper", []);
-            addEnemy("Glowing Gulper", ["Glowing"]);
-            addEnemy("Scorched Gulper", ["Scorched"]);
+            var scorchbeastResistances = [
+                { level: 50, dr: 125, er: 125, rr: 1000, fr: 125, cr: 125, pr: 125 }, 
+                { level: 65, dr: 150, er: 150, rr: 1000, fr: 150, cr: 150, pr: 150 }, 
+                { level: 80, dr: 200, er: 200, rr: 1000, fr: 200, cr: 200, pr: 200 }, 
+                { level: 100, dr: 300, er: 300, rr: 1000, fr: 300, cr: 300, pr: 300 }, 
+            ];
+            addEnemy("Scorchbeast", ["Animal", "Scorchbeast"], scorchbeastResistances);
+            addEnemy("Scorchbeast Queen", ["Animal", "Scorchbeast", "Scorchbeast Queen"], [
+                { level: 100, dr: 300, er: 300, rr: 1000, fr: 300, cr: 300, pr: 300 }
+            ]);
 
-            addEnemy("Grafton Monster", ["Cryptid", "Grafton Monster"]);
-            addEnemy("Scorched Grafton Monster", ["Cryptid", "Grafton Monster", "Scorched"]);
+            var yaoGuaiResistances = [
+                { level: 16, dr: 100, er: 100, rr: 250, fr: 250, cr: 250, pr: 250 }, 
+                { level: 26, dr: 100, er: 100, rr: 250, fr: 250, cr: 250, pr: 250 }, 
+                { level: 31, dr: 100, er: 100, rr: 250, fr: 250, cr: 250, pr: 250 }, 
+                { level: 36, dr: 100, er: 100, rr: 250, fr: 250, cr: 250, pr: 250 }, 
+                { level: 41, dr: 100, er: 100, rr: 250, fr: 250, cr: 250, pr: 250 }, 
+                { level: 46, dr: 100, er: 100, rr: 250, fr: 250, cr: 250, pr: 250 }, 
+                { level: 56, dr: 100, er: 100, rr: 250, fr: 250, cr: 250, pr: 250 }, 
+                { level: 66, dr: 150, er: 150, rr: 250, fr: 250, cr: 250, pr: 250 }, 
+                { level: 76, dr: 150, er: 150, rr: 250, fr: 250, cr: 250, pr: 250 }, 
+                { level: 86, dr: 150, er: 150, rr: 250, fr: 250, cr: 250, pr: 250 }, 
+                { level: 100, dr: 150, er: 150, rr: 250, fr: 250, cr: 250, pr: 250 }, 
+                { level: 115, dr: 150, er: 150, rr: 250, fr: 250, cr: 250, pr: 250 }, 
+            ];
+            addEnemy("Yao Guai", ["Animal", "Yao Guai"], yaoGuaiResistances);
+            addEnemy("Glowing Yao Guai", ["Animal", "Glowing", "Yao Guai"], yaoGuaiResistances);
+            addEnemy("Scorched Yao Guai", ["Animal", "Scorched", "Yao Guai"], yaoGuaiResistances);
 
-            addEnemy("Angler", ["Cryptid"]);
-            addEnemy("Glowing Angler", ["Cryptid", "Glowing"]);
-            addEnemy("Scorched Angler", ["Cryptid", "Scorched"]);
+            var deathclawResistances = [
+                { level: 21, dr: 150, er: 150, rr: 150, fr: 150, cr: 150, pr: 150 }, 
+                { level: 31, dr: 150, er: 150, rr: 150, fr: 150, cr: 150, pr: 150 }, 
+                { level: 41, dr: 150, er: 150, rr: 150, fr: 150, cr: 150, pr: 150 }, 
+                { level: 51, dr: 300, er: 300, rr: 300, fr: 300, cr: 300, pr: 300 }, 
+                { level: 61, dr: 300, er: 300, rr: 300, fr: 300, cr: 300, pr: 300 }, 
+                { level: 71, dr: 300, er: 300, rr: 300, fr: 300, cr: 300, pr: 300 }, 
+                { level: 81, dr: 300, er: 300, rr: 300, fr: 300, cr: 300, pr: 300 }, 
+                { level: 100, dr: 500, er: 500, rr: 500, fr: 500, cr: 500, pr: 500 }, 
+            ]
+            addEnemy("Deathclaw", ["Animal"], deathclawResistances);
+            addEnemy("Glowing Deathclaw", ["Animal", "Glowing"], deathclawResistances);
+            addEnemy("Scorched Deathclaw", ["Scorched"], deathclawResistances);
 
-            addEnemy("Sheepsquatch", ["Cryptid", "Sheepsquatch"]);
-            addEnemy("Mothman", ["Cryptid", "Mothman"]);
-            addEnemy("Glowing Mothman", ["Cryptid", "Mothman", "Glowing"]);
+            var antResistances = [
+                { level: 1, dr: 10, er: 20, rr: 250, fr: 1000, cr: 250, pr: 250 }, 
+                { level: 4, dr: 10, er: 20, rr: 250, fr: 1000, cr: 250, pr: 250 }, 
+                { level: 8, dr: 10, er: 20, rr: 250, fr: 1000, cr: 250, pr: 250 }, 
+                { level: 12, dr: 10, er: 20, rr: 250, fr: 1000, cr: 250, pr: 250 }, 
+                { level: 16, dr: 40, er: 50, rr: 250, fr: 1000, cr: 250, pr: 250 }, 
+                { level: 20, dr: 40, er: 50, rr: 250, fr: 1000, cr: 250, pr: 250 }, 
+                { level: 24, dr: 50, er: 60, rr: 250, fr: 1000, cr: 250, pr: 250 }, 
+                { level: 28, dr: 50, er: 60, rr: 250, fr: 1000, cr: 250, pr: 250 }, 
+                { level: 32, dr: 50, er: 60, rr: 250, fr: 1000, cr: 250, pr: 250 }, 
+                { level: 40, dr: 50, er: 60, rr: 250, fr: 1000, cr: 250, pr: 250 }, 
+                { level: 50, dr: 50, er: 60, rr: 250, fr: 1000, cr: 250, pr: 250 }, 
+                { level: 65, dr: 50, er: 60, rr: 250, fr: 1000, cr: 250, pr: 250 }, 
+                { level: 80, dr: 50, er: 60, rr: 250, fr: 1000, cr: 250, pr: 250 }, 
+                { level: 95, dr: 50, er: 60, rr: 250, fr: 1000, cr: 250, pr: 250 }, 
+            ];
+            addEnemy("Ant", ["Bug"], antResistances);
+            addEnemy("Glowing Ant", ["Bug", "Glowing"], antResistances);
+            addEnemy("Scorched Ant", ["Scorched"], antResistances);
 
-            addEnemy("Wendigo", ["Cryptid", "Wendigo"]);
-            addEnemy("Glowing Wendigo", ["Cryptid", "Wendigo", "Glowing"]);
-            addEnemy("Scorched Wendigo", ["Cryptid", "Wendigo", "Scorched"]);
+            var radratResistances = [
+                { level: 1, dr: 10, er: 20, rr: 250, fr: 250, cr: 250, pr: 250 }, 
+                { level: 4, dr: 10, er: 20, rr: 250, fr: 250, cr: 250, pr: 250 }, 
+                { level: 8, dr: 10, er: 20, rr: 250, fr: 250, cr: 250, pr: 250 }, 
+                { level: 12, dr: 10, er: 20, rr: 250, fr: 250, cr: 250, pr: 250 }, 
+                { level: 16, dr: 40, er: 50, rr: 250, fr: 250, cr: 250, pr: 250 }, 
+                { level: 20, dr: 40, er: 50, rr: 250, fr: 250, cr: 250, pr: 250 }, 
+                { level: 25, dr: 50, er: 60, rr: 250, fr: 250, cr: 250, pr: 250 }, 
+            ];
+            addEnemy("Radrat", ["Animal"], radratResistances);
+            addEnemy("Glowing Radrat", ["Animal", "Glowing"], radratResistances);
+            addEnemy("Scorched RadRat", ["Scorched"], radratResistances);
+
+            addEnemy("Protectron", ["Robot"], [
+                { level: 5, dr: 2, er: 2, rr: 2, fr: 2, cr: 2, pr: 1000 }, 
+                { level: 14, dr: 20, er: 15, rr: 20, fr: 20, cr: 20, pr: 1000 }, 
+                { level: 26, dr: 75, er: 50, rr: 75, fr: 100, cr: 100, pr: 1000 }, 
+                { level: 36, dr: 75, er: 50, rr: 75, fr: 100, cr: 100, pr: 1000 }, 
+                { level: 100, dr: 400, er: 300, rr: 300, fr: 100, cr: 100, pr: 1000 }, 
+            ]);
+            addEnemy("Robobrain", ["Robot"], [
+                { level: 5, dr: 25, er: 15, rr: 25, fr: 15, cr: 15, pr: 1000 }, 
+                { level: 14, dr: 25, er: 15, rr: 25, fr: 15, cr: 15, pr: 1000 }, 
+                { level: 26, dr: 135, er: 70, rr: 135, fr: 70, cr: 70, pr: 1000 }, 
+                { level: 30, dr: 135, er: 70, rr: 135, fr: 70, cr: 70, pr: 1000 }, 
+                { level: 35, dr: 135, er: 70, rr: 135, fr: 70, cr: 70, pr: 1000 }, 
+                { level: 40, dr: 135, er: 70, rr: 135, fr: 70, cr: 70, pr: 1000 }, 
+                { level: 45, dr: 135, er: 70, rr: 135, fr: 70, cr: 70, pr: 1000 }, 
+                { level: 50, dr: 175, er: 100, rr: 175, fr: 100, cr: 100, pr: 1000 }, 
+                { level: 100, dr: 300, er: 200, rr: 350, fr: 300, cr: 300, pr: 1000 }, 
+            ]);
+            addEnemy("Sentrybot", ["Robot"], [
+                { level: 16, dr: 135, er: 70, rr: 135, fr: 70, cr: 70, pr: 1000 }, 
+                { level: 23, dr: 135, er: 70, rr: 135, fr: 70, cr: 70, pr: 1000 }, 
+                { level: 30, dr: 135, er: 70, rr: 135, fr: 70, cr: 70, pr: 1000 }, 
+                { level: 40, dr: 135, er: 70, rr: 135, fr: 70, cr: 70, pr: 1000 }, 
+                { level: 50, dr: 135, er: 70, rr: 135, fr: 70, cr: 70, pr: 1000 }, 
+                { level: 60, dr: 135, er: 70, rr: 135, fr: 70, cr: 70, pr: 1000 }, 
+                { level: 100, dr: 300, er: 250, rr: 300, fr: 300, cr: 300, pr: 1000 }, 
+            ]);
+            addEnemy("Assaultron", ["Robot"], [
+                { level: 17, dr: 100, er: 50, rr: 130, fr: 500, cr: 500, pr: 500 }, 
+                { level: 24, dr: 130, er: 75, rr: 130, fr: 500, cr: 500, pr: 500 }, 
+                { level: 36, dr: 130, er: 75, rr: 130, fr: 500, cr: 500, pr: 500 }, 
+                { level: 46, dr: 130, er: 75, rr: 130, fr: 500, cr: 500, pr: 500 }, 
+                { level: 100, dr: 130, er: 75, rr: 130, fr: 500, cr: 500, pr: 500 }, 
+            ]);
+            addEnemy("Assaultron Dominator", ["Robot"], [
+                { level: 20, dr: -115, er: -50, rr: 1, fr: -450, cr: -450, pr: -450 }, 
+                { level: 40, dr: -50, er: 75, rr: 75, fr: -350, cr: -350, pr: -350 }, 
+                { level: 100, dr: 1, er: 150, rr: 150, fr: -350, cr: -350, pr: -350 }, 
+            ]);
+            addEnemy("Eyebot", ["Robot"], [
+                { level: 1, dr: 10, er: 10, rr: 10, fr: 10, cr: 10, pr: 1000 }, 
+                { level: 60, dr: 120, er: 120, rr: 120, fr: 120, cr: 120, pr: 1000 }, 
+            ]);
+            addEnemy("Liberator", ["Robot", "Liberator"], [
+                { level: 1, dr: 10, er: 10, rr: 10, fr: 10, cr: 10, pr: 10 }, 
+                { level: 5, dr: 10, er: 10, rr: 10, fr: 10, cr: 10, pr: 10 }, 
+                { level: 10, dr: 10, er: 10, rr: 10, fr: 10, cr: 10, pr: 10 }, 
+                { level: 18, dr: 10, er: 10, rr: 10, fr: 10, cr: 10, pr: 10 }, 
+                { level: 30, dr: 10, er: 10, rr: 10, fr: 10, cr: 10, pr: 10 }, 
+                { level: 42, dr: 10, er: 10, rr: 10, fr: 10, cr: 10, pr: 10 }, 
+                { level: 54, dr: 10, er: 10, rr: 10, fr: 10, cr: 10, pr: 10 }, 
+                { level: 100, dr: 10, er: 10, rr: 10, fr: 10, cr: 10, pr: 10 }, 
+            ]);
+
+            var mrhandyResistances = [
+                { level: 1, dr: 2, er: 2, rr: 2, fr: 2, cr: 2, pr: 1000 }, 
+                { level: 8, dr: 2, er: 2, rr: 2, fr: 2, cr: 2, pr: 1000 }, 
+                { level: 14, dr: 10, er: 5, rr: 10, fr: 100, cr: 100, pr: 1000 }, 
+                { level: 22, dr: 80, er: 70, rr: 80, fr: 100, cr: 100, pr: 1000 }, 
+                { level: 32, dr: 110, er: 100, rr: 110, fr: 100, cr: 100, pr: 1000 }, 
+                { level: 40, dr: 110, er: 100, rr: 110, fr: 100, cr: 100, pr: 1000 }, 
+                { level: 47, dr: 110, er: 100, rr: 110, fr: 100, cr: 100, pr: 1000 }, 
+                { level: 54, dr: 110, er: 100, rr: 110, fr: 100, cr: 100, pr: 1000 }, 
+                { level: 62, dr: 110, er: 100, rr: 110, fr: 100, cr: 100, pr: 1000 }, 
+                { level: 100, dr: 110, er: 100, rr: 110, fr: 100, cr: 100, pr: 1000 }, 
+            ];
+            addEnemy("Mr. Handy", ["Robot"], mrhandyResistances);
+            addEnemy("Mr. Gutsy", ["Robot"], mrhandyResistances);
+
+            addEnemy("Flatwoods Monster", ["Alien", "Cryptid", "Robot", "Flatwoods Monster"], [
+                { level: 30, dr: 150, er: 250, rr: 250, fr: 250, cr: 250, pr: 250 }, 
+                { level: 40, dr: 150, er: 250, rr: 250, fr: 250, cr: 250, pr: 250 }, 
+                { level: 50, dr: 150, er: 250, rr: 250, fr: 250, cr: 250, pr: 250 }, 
+                { level: 75, dr: 200, er: 350, rr: 350, fr: 350, cr: 350, pr: 350 }, 
+                { level: 100, dr: 300, er: 500, rr: 500, fr: 500, cr: 500, pr: 500 }, 
+            ]);
+
+            var snallygasterResistances = [
+                { level: 14, dr: 50, er: 50, rr: 50, fr: 50, cr: 50, pr: 50 }, 
+                { level: 22, dr: 50, er: 50, rr: 50, fr: 50, cr: 50, pr: 50 }, 
+                { level: 30, dr: 150, er: 150, rr: 150, fr: 150, cr: 150, pr: 150 }, 
+                { level: 38, dr: 150, er: 150, rr: 150, fr: 150, cr: 150, pr: 150 }, 
+                { level: 46, dr: 300, er: 300, rr: 300, fr: 300, cr: 300, pr: 300 }, 
+                { level: 54, dr: 300, er: 300, rr: 300, fr: 300, cr: 300, pr: 300 }, 
+                { level: 100, dr: 350, er: 350, rr: 350, fr: 350, cr: 350, pr: 350 }, 
+            ]
+            addEnemy("Snallygaster", ["Cryptid", "Snallygaster"], snallygasterResistances);
+            addEnemy("Glowing Snallygaster", ["Cryptid", "Snallygaster", "Glowing"], snallygasterResistances);
+            addEnemy("Scorched Snallygaster", ["Cryptid", "Snallygaster", "Scorched"], snallygasterResistances);
+
+            var gulperResistances = [
+                { level: 10, dr: 30, er: 30, rr: 250, fr: 100, cr: 100, pr: 1000 }, 
+                { level: 22, dr: 90, er: 90, rr: 250, fr: 100, cr: 100, pr: 1000 }, 
+                { level: 34, dr: 90, er: 90, rr: 250, fr: 100, cr: 100, pr: 1000 }, 
+                { level: 46, dr: 90, er: 90, rr: 250, fr: 100, cr: 100, pr: 1000 }, 
+            ];
+            addEnemy("Gulper", [], gulperResistances);
+            addEnemy("Glowing Gulper", ["Glowing"], gulperResistances);
+            addEnemy("Scorched Gulper", ["Scorched"], gulperResistances);
+
+            var graftonResistances = [
+                { level: 15, dr: 150, er: 75, rr: 75, fr: 75, cr: 150, pr: 1000 }, 
+                { level: 30, dr: 150, er: 75, rr: 75, fr: 75, cr: 150, pr: 1000 }, 
+                { level: 40, dr: 300, er: 150, rr: 150, fr: 75, cr: 150, pr: 1000 }, 
+                { level: 50, dr: 300, er: 150, rr: 150, fr: 75, cr: 150, pr: 1000 }, 
+                { level: 75, dr: 300, er: 150, rr: 150, fr: 75, cr: 150, pr: 1000 }, 
+                { level: 100, dr: 300, er: 150, rr: 150, fr: 75, cr: 150, pr: 1000 }, 
+            ];
+            addEnemy("Grafton Monster", ["Cryptid", "Grafton Monster"], graftonResistances);
+            addEnemy("Scorched Grafton Monster", ["Cryptid", "Grafton Monster", "Scorched"], graftonResistances);
+
+            var anglerResistances = [
+                { level: 15, dr: 150, er: 125, rr: 350, fr: 125, cr: 125, pr: 125 }, 
+                { level: 25, dr: 150, er: 125, rr: 350, fr: 125, cr: 125, pr: 125 }, 
+                { level: 37, dr: 150, er: 125, rr: 350, fr: 125, cr: 125, pr: 125 }, 
+                { level: 51, dr: 150, er: 125, rr: 350, fr: 125, cr: 125, pr: 125 }, 
+                { level: 65, dr: 150, er: 125, rr: 350, fr: 125, cr: 125, pr: 125 }, 
+                { level: 81, dr: 150, er: 125, rr: 350, fr: 125, cr: 125, pr: 125 }, 
+                { level: 100, dr: 150, er: 125, rr: 350, fr: 125, cr: 125, pr: 125 }, 
+            ];
+            addEnemy("Angler", ["Cryptid"], anglerResistances);
+            addEnemy("Glowing Angler", ["Cryptid", "Glowing"], anglerResistances);
+            addEnemy("Scorched Angler", ["Cryptid", "Scorched"], anglerResistances);
+
+            addEnemy("Sheepsquatch", ["Cryptid", "Sheepsquatch"], [
+                { level: 50, dr: 150, er: 150, rr: 150, fr: 150, cr: 150, pr: 150 }, 
+                { level: 65, dr: 200, er: 200, rr: 200, fr: 200, cr: 200, pr: 200 }, 
+                { level: 80, dr: 300, er: 300, rr: 300, fr: 300, cr: 300, pr: 300 }, 
+                { level: 100, dr: 300, er: 300, rr: 300, fr: 300, cr: 300, pr: 300 }, 
+            ]);
+
+            var mothmanResistances = [
+                { level: 35, dr: 150, er: 150, rr: 150, fr: 100, cr: 150, pr: 150 }, 
+                { level: 45, dr: 250, er: 250, rr: 250, fr: 100, cr: 250, pr: 250 }, 
+                { level: 55, dr: 250, er: 250, rr: 250, fr: 100, cr: 250, pr: 250 }, 
+                { level: 65, dr: 250, er: 250, rr: 250, fr: 100, cr: 250, pr: 250 }, 
+                { level: 100, dr: 250, er: 250, rr: 250, fr: 100, cr: 250, pr: 250 }, 
+            ];
+            addEnemy("Mothman", ["Cryptid", "Mothman", "Bug"], mothmanResistances);
+            addEnemy("Glowing Mothman", ["Cryptid", "Mothman", "Glowing", "Bug"], mothmanResistances);
+            addEnemy("Scorched Mothman", ["Cryptid", "Mothman", "Scorched"], mothmanResistances);
+
+            var wendigoResistances = [
+                { level: 15, dr: 100, er: 75, rr: 350, fr: 75, cr: 75, pr: 75 }, 
+                { level: 22, dr: 150, er: 125, rr: 350, fr: 125, cr: 125, pr: 125 }, 
+                { level: 32, dr: 150, er: 125, rr: 350, fr: 125, cr: 125, pr: 125 }, 
+                { level: 42, dr: 150, er: 125, rr: 350, fr: 125, cr: 125, pr: 125 }, 
+                { level: 52, dr: 150, er: 125, rr: 350, fr: 125, cr: 125, pr: 125 }, 
+                { level: 75, dr: 150, er: 125, rr: 350, fr: 125, cr: 125, pr: 125 }, 
+                { level: 100, dr: 150, er: 125, rr: 350, fr: 125, cr: 125, pr: 125 }, 
+            ];
+            addEnemy("Wendigo", ["Cryptid", "Wendigo"], wendigoResistances);
+            addEnemy("Glowing Wendigo", ["Cryptid", "Wendigo", "Glowing"], wendigoResistances);
+            addEnemy("Scorched Wendigo", ["Cryptid", "Wendigo", "Scorched"], wendigoResistances);
 
             addEnemy("Player", ["Player"]);
 
-            addEnemy("Floater", []);
-            addEnemy("Wendigo Colossus", ["Cryptid", "Wendigo"]);
+            addEnemy("Floater", [], [
+                { level: 1, dr: 10, er: 20, rr: 1000, fr: 20, cr: 20, pr: 20 }, 
+                { level: 4, dr: 30, er: 60, rr: 1000, fr: 60, cr: 60, pr: 60 }, 
+                { level: 7, dr: 45, er: 90, rr: 1000, fr: 90, cr: 90, pr: 90 }, 
+                { level: 11, dr: 90, er: 120, rr: 1000, fr: 120, cr: 120, pr: 120 }, 
+                { level: 15, dr: 120, er: 150, rr: 1000, fr: 150, cr: 150, pr: 150 }, 
+                { level: 21, dr: 160, er: 190, rr: 1000, fr: 190, cr: 190, pr: 190 }, 
+                { level: 28, dr: 190, er: 230, rr: 1000, fr: 230, cr: 230, pr: 230 }, 
+                { level: 35, dr: 250, er: 280, rr: 1000, fr: 280, cr: 280, pr: 280 }, 
+                { level: 47, dr: 280, er: 290, rr: 1000, fr: 290, cr: 290, pr: 290 }, 
+                { level: 59, dr: 300, er: 300, rr: 1000, fr: 300, cr: 300, pr: 300 }, 
+                { level: 73, dr: 300, er: 300, rr: 1000, fr: 300, cr: 300, pr: 300 }, 
+            ]);
+            addEnemy("Floater Freezer", [], [
+                { level: 1, dr: 10, er: 10, rr: 1000, fr: 20, cr: 1000, pr: 20 }, 
+                { level: 4, dr: 30, er: 15, rr: 1000, fr: 20, cr: 1000, pr: 60 }, 
+                { level: 7, dr: 40, er: 20, rr: 1000, fr: 20, cr: 1000, pr: 90 }, 
+                { level: 11, dr: 60, er: 30, rr: 1000, fr: 20, cr: 1000, pr: 120 }, 
+                { level: 15, dr: 80, er: 40, rr: 1000, fr: 20, cr: 1000, pr: 150 }, 
+                { level: 21, dr: 100, er: 50, rr: 1000, fr: 20, cr: 1000, pr: 190 }, 
+                { level: 28, dr: 150, er: 75, rr: 1000, fr: 20, cr: 1000, pr: 230 }, 
+                { level: 35, dr: 200, er: 100, rr: 1000, fr: 20, cr: 1000, pr: 280 }, 
+                { level: 47, dr: 225, er: 125, rr: 1000, fr: 20, cr: 1000, pr: 290 }, 
+                { level: 59, dr: 250, er: 150, rr: 1000, fr: 20, cr: 1000, pr: 300 }, 
+                { level: 73, dr: 250, er: 150, rr: 1000, fr: 20, cr: 1000, pr: 300 }, 
+                { level: 100, dr: 400, er: 400, rr: 1000, fr: 20, cr: 1000, pr: 350 }, 
+            ]);
+            addEnemy("Floater Gnasher", [], [
+                { level: 1, dr: 25, er: 25, rr: 1000, fr: 25, cr: 25, pr: 1000 }, 
+                { level: 4, dr: 50, er: 50, rr: 1000, fr: 50, cr: 50, pr: 1000 }, 
+                { level: 7, dr: 75, er: 75, rr: 1000, fr: 75, cr: 75, pr: 1000 }, 
+                { level: 11, dr: 100, er: 90, rr: 1000, fr: 90, cr: 90, pr: 1000 }, 
+                { level: 15, dr: 120, er: 100, rr: 1000, fr: 100, cr: 100, pr: 1000 }, 
+                { level: 21, dr: 200, er: 125, rr: 1000, fr: 125, cr: 125, pr: 1000 }, 
+                { level: 28, dr: 250, er: 150, rr: 1000, fr: 150, cr: 150, pr: 1000 }, 
+                { level: 35, dr: 300, er: 200, rr: 1000, fr: 200, cr: 200, pr: 1000 }, 
+                { level: 47, dr: 325, er: 225, rr: 1000, fr: 225, cr: 225, pr: 1000 }, 
+                { level: 59, dr: 350, er: 250, rr: 1000, fr: 250, cr: 250, pr: 1000 }, 
+                { level: 73, dr: 350, er: 250, rr: 1000, fr: 250, cr: 250, pr: 1000 }, 
+                { level: 100, dr: 400, er: 400, rr: 1000, fr: 250, cr: 250, pr: 1000 }, 
+            ]);
+            addEnemy("Floater Flamer", [], [
+                { level: 1, dr: 10, er: 20, rr: 1000, fr: 1000, cr: 20, pr: 20 }, 
+                { level: 4, dr: 30, er: 60, rr: 1000, fr: 1000, cr: 20, pr: 60 }, 
+                { level: 7, dr: 45, er: 90, rr: 1000, fr: 1000, cr: 20, pr: 90 }, 
+                { level: 11, dr: 90, er: 120, rr: 1000, fr: 1000, cr: 20, pr: 120 }, 
+                { level: 15, dr: 120, er: 150, rr: 1000, fr: 1000, cr: 20, pr: 150 }, 
+                { level: 21, dr: 160, er: 190, rr: 1000, fr: 1000, cr: 20, pr: 190 }, 
+                { level: 28, dr: 190, er: 230, rr: 1000, fr: 1000, cr: 20, pr: 230 }, 
+                { level: 35, dr: 250, er: 280, rr: 1000, fr: 1000, cr: 20, pr: 280 }, 
+                { level: 47, dr: 280, er: 290, rr: 1000, fr: 1000, cr: 20, pr: 290 }, 
+                { level: 59, dr: 300, er: 300, rr: 1000, fr: 1000, cr: 20, pr: 300 }, 
+                { level: 73, dr: 300, er: 300, rr: 1000, fr: 1000, cr: 20, pr: 300 }, 
+                { level: 100, dr: 400, er: 400, rr: 1000, fr: 1000, cr: 20, pr: 350 }, 
+            ]);
 
-            addEnemy("Radstag", ["Radstag", "Animal"]);
-            addEnemy("Glowing Radstag", ["Radstag", "Animal", "Glowing"]);
-            addEnemy("Scorched Radstag", ["Radstag", "Scorched"]);
+            addEnemy("Wendigo Colossus", ["Cryptid", "Wendigo"], [
+                { level: 90, dr: 300, er: 300, rr: 400, fr: 300, cr: 300, pr: 300 }, 
+                { level: 110, dr: 400, er: 400, rr: 500, fr: 400, cr: 400, pr: 400 }, 
+            ]);
+            
+            var fogcrawlerResistances = [
+                { level: 27, dr: 100, er: 100, rr: 100, fr: 100, cr: 1000, pr: 100 }, 
+                { level: 39, dr: 100, er: 100, rr: 100, fr: 100, cr: 1000, pr: 100 }, 
+                { level: 51, dr: 125, er: 100, rr: 125, fr: 100, cr: 1000, pr: 100 }, 
+                { level: 63, dr: 125, er: 100, rr: 125, fr: 100, cr: 1000, pr: 100 }, 
+                { level: 75, dr: 125, er: 100, rr: 125, fr: 100, cr: 1000, pr: 100 }, 
+            ];
+            addEnemy("Flog Crawler", ["Bug"], fogcrawlerResistances);
+            addEnemy("Glowing Flog Crawler", ["Bug", "Glowing"], fogcrawlerResistances);
+            addEnemy("Scorched Flog Crawler", ["Scorched"], fogcrawlerResistances);
 
-            addEnemy("Radtoad", ["Radtoad", "Animal"]);
-            addEnemy("Glowing Radtoad", ["Radtoad", "Animal", "Glowing"]);
-            addEnemy("Scorched Radtoad", ["Radtoad", "Scorched"]);
+            var radstagResistances = [
+                { level: 1, dr: 10, er: 20, rr: 250, fr: 20, cr: 20, pr: 20 }, 
+                { level: 4, dr: 10, er: 20, rr: 250, fr: 20, cr: 20, pr: 20 }, 
+                { level: 10, dr: 30, er: 40, rr: 250, fr: 40, cr: 40, pr: 40 }, 
+                { level: 12, dr: 30, er: 40, rr: 250, fr: 40, cr: 40, pr: 40 }, 
+                { level: 16, dr: 90, er: 50, rr: 250, fr: 50, cr: 50, pr: 50 }, 
+                { level: 21, dr: 90, er: 50, rr: 250, fr: 50, cr: 50, pr: 50 }, 
+                { level: 24, dr: 90, er: 50, rr: 250, fr: 50, cr: 50, pr: 50 }, 
+                { level: 26, dr: 110, er: 60, rr: 250, fr: 60, cr: 60, pr: 60 }, 
+                { level: 32, dr: 110, er: 60, rr: 250, fr: 60, cr: 60, pr: 60 }, 
+                { level: 40, dr: 130, er: 70, rr: 250, fr: 70, cr: 70, pr: 70 }, 
+            ];
+            addEnemy("Radstag", ["Radstag", "Animal"], radstagResistances);
+            addEnemy("Glowing Radstag", ["Radstag", "Animal", "Glowing"], radstagResistances);
+            addEnemy("Scorched Radstag", ["Radstag", "Scorched"], radstagResistances);
 
-            addEnemy("Honeybeast", ["Honeybeast", "Animal"]);
-            addEnemy("Glowing Honeybeast", ["Honeybeast", "Animal", "Glowing"]);
-            addEnemy("Scorched Honeybeast", ["Honeybeast", "Scorched"]);
+            var radtoadResistances = [
+                { level: 5, dr: 25, er: 25, rr: 250, fr: 25, cr: 25, pr: 25 }, 
+                { level: 18, dr: 100, er: 100, rr: 250, fr: 100, cr: 100, pr: 100 }, 
+                { level: 28, dr: 100, er: 100, rr: 250, fr: 100, cr: 100, pr: 100 }, 
+                { level: 40, dr: 150, er: 150, rr: 250, fr: 150, cr: 150, pr: 150 }, 
+                { level: 50, dr: 150, er: 150, rr: 250, fr: 150, cr: 150, pr: 150 }, 
+                { level: 65, dr: 150, er: 150, rr: 250, fr: 150, cr: 150, pr: 150 }, 
+                { level: 80, dr: 150, er: 150, rr: 250, fr: 150, cr: 150, pr: 150 }, 
+                { level: 95, dr: 150, er: 150, rr: 250, fr: 150, cr: 150, pr: 150 }, 
+                { level: 100, dr: 300, er: 300, rr: 500, fr: 300, cr: 300, pr: 300 }, 
+            ];
+            addEnemy("Radtoad", ["Radtoad", "Animal"], radtoadResistances);
+            addEnemy("Glowing Radtoad", ["Radtoad", "Animal", "Glowing"], radtoadResistances);
+            addEnemy("Scorched Radtoad", ["Radtoad", "Scorched"], radtoadResistances);
 
-            addEnemy("Radscorpion", ["Radscorpion", "Bug"]);
-            addEnemy("Glowing Radscorpion", ["Radscorpion", "Bug", "Glowing"]);
-            addEnemy("Scorched Radscorpion", ["Radscorpion", "Scorched"]);
+            var honeybeastResistances = [
+                { level: 16, dr: 75, er: 75, rr: 250, fr: 75, cr: 75, pr: 1000 }, 
+                { level: 26, dr: 100, er: 100, rr: 250, fr: 75, cr: 100, pr: 1000 }, 
+                { level: 36, dr: 125, er: 125, rr: 250, fr: 75, cr: 125, pr: 1000 }, 
+                { level: 46, dr: 150, er: 150, rr: 250, fr: 75, cr: 150, pr: 1000 }, 
+                { level: 56, dr: 175, er: 175, rr: 250, fr: 75, cr: 175, pr: 1000 }, 
+                { level: 70, dr: 175, er: 175, rr: 250, fr: 75, cr: 175, pr: 1000 }, 
+                { level: 80, dr: 175, er: 175, rr: 250, fr: 75, cr: 175, pr: 1000 }, 
+                { level: 90, dr: 175, er: 175, rr: 250, fr: 75, cr: 175, pr: 1000 }, 
+                { level: 100, dr: 175, er: 175, rr: 250, fr: 75, cr: 175, pr: 1000 }, 
+            ];
+            addEnemy("Honeybeast", ["Honeybeast", "Bug"], honeybeastResistances);
+            addEnemy("Glowing Honeybeast", ["Honeybeast", "Bug", "Glowing"], honeybeastResistances);
+            addEnemy("Scorched Honeybeast", ["Honeybeast", "Scorched"], honeybeastResistances);
+
+            var radscorpionResistances = [
+                { level: 14, dr: 50, er: 35, rr: 350, fr: 35, cr: 35, pr: 1000 }, 
+                { level: 22, dr: 150, er: 125, rr: 350, fr: 125, cr: 125, pr: 1000 }, 
+                { level: 30, dr: 150, er: 125, rr: 350, fr: 125, cr: 125, pr: 1000 }, 
+                { level: 38, dr: 150, er: 125, rr: 350, fr: 125, cr: 125, pr: 1000 }, 
+                { level: 46, dr: 150, er: 125, rr: 350, fr: 125, cr: 125, pr: 1000 }, 
+                { level: 54, dr: 150, er: 125, rr: 350, fr: 125, cr: 125, pr: 1000 }, 
+                { level: 64, dr: 150, er: 125, rr: 350, fr: 125, cr: 125, pr: 1000 }, 
+                { level: 75, dr: 150, er: 125, rr: 350, fr: 125, cr: 125, pr: 1000 }, 
+                { level: 90, dr: 150, er: 125, rr: 350, fr: 125, cr: 125, pr: 1000 }, 
+                { level: 105, dr: 150, er: 125, rr: 350, fr: 125, cr: 125, pr: 1000 }, 
+                { level: 120, dr: 150, er: 125, rr: 350, fr: 125, cr: 125, pr: 1000 }, 
+            ];
+            addEnemy("Radscorpion", ["Radscorpion", "Bug"], radscorpionResistances);
+            addEnemy("Glowing Radscorpion", ["Radscorpion", "Bug", "Glowing"], radscorpionResistances);
+            addEnemy("Scorched Radscorpion", ["Radscorpion", "Scorched"], radscorpionResistances);
+
+            var tickResistances = [
+                { level: 1, dr: 5, er: 5, rr: 250, fr: 5, cr: 5, pr: 5 }, 
+                { level: 8, dr: 5, er: 5, rr: 250, fr: 5, cr: 5, pr: 5 }, 
+                { level: 16, dr: 5, er: 5, rr: 250, fr: 5, cr: 5, pr: 5 }, 
+                { level: 26, dr: 5, er: 5, rr: 250, fr: 5, cr: 5, pr: 5 }, 
+                { level: 35, dr: 5, er: 5, rr: 250, fr: 5, cr: 5, pr: 5 }, 
+                { level: 100, dr: 5, er: 5, rr: 250, fr: 5, cr: 5, pr: 5 }, 
+            ];
+            addEnemy("Tick", ["Bug"], tickResistances);
+            addEnemy("Glowing Tick", ["Bug", "Glowing"], tickResistances);
+            addEnemy("Scorched Tick", ["Scorched"], tickResistances);
+
+            var bloodbugResistances = [
+                { level: 2, dr: 1, er: 1, rr: 1, fr: 1, cr: 1, pr: 1 }, 
+                { level: 10, dr: 15, er: 15, rr: 15, fr: 15, cr: 15, pr: 15 }, 
+                { level: 18, dr: 15, er: 15, rr: 15, fr: 15, cr: 15, pr: 15 }, 
+                { level: 26, dr: 25, er: 25, rr: 25, fr: 25, cr: 25, pr: 25 }, 
+                { level: 34, dr: 25, er: 25, rr: 25, fr: 25, cr: 25, pr: 25 }, 
+                { level: 42, dr: 25, er: 25, rr: 25, fr: 25, cr: 25, pr: 25 }, 
+                { level: 50, dr: 25, er: 25, rr: 25, fr: 25, cr: 25, pr: 25 }, 
+                { level: 65, dr: 25, er: 25, rr: 25, fr: 25, cr: 25, pr: 25 }, 
+                { level: 85, dr: 25, er: 25, rr: 25, fr: 25, cr: 25, pr: 25 }, 
+            ];
+            addEnemy("Bloodbug", ["Bug"], bloodbugResistances);
+            addEnemy("Glowing Bloodbug", ["Bug", "Glowing"], bloodbugResistances);
+            addEnemy("Scorched Bloodbug", ["Scorched"], bloodbugResistances);
+
+            addEnemy("Blood Eagle Destroyer", ["Player"], [
+                { level: 20, dr: 1, er: 1, rr: 1, fr: 1, cr: 1, pr: 1 }, 
+                { level: 40, dr: 100, er: 100, rr: 100, fr: 100, cr: 100, pr: 100 }, 
+                { level: 100, dr: 250, er: 250, rr: 250, fr: 250, cr: 250, pr: 250 }, 
+            ]);
+            addEnemy("Super Mutant Firestarter", ["Super Mutant"], [
+                { level: 20, dr: 1, er: 1, rr: 1, fr: 1, cr: 1, pr: 1 }, 
+                { level: 40, dr: 100, er: 100, rr: 100, fr: 100, cr: 100, pr: 100 }, 
+                { level: 100, dr: 250, er: 250, rr: 250, fr: 250, cr: 250, pr: 250 }, 
+            ]);
+
+            var wolfResistances = [
+                { level: 10, dr: 10, er: 10, rr: 10, fr: 10, cr: 10, pr: 10 }, 
+                { level: 20, dr: 15, er: 15, rr: 15, fr: 15, cr: 15, pr: 15 }, 
+                { level: 30, dr: 15, er: 15, rr: 15, fr: 15, cr: 15, pr: 15 }, 
+                { level: 40, dr: 20, er: 20, rr: 20, fr: 20, cr: 20, pr: 20 }, 
+                { level: 50, dr: 20, er: 20, rr: 20, fr: 20, cr: 20, pr: 20 }, 
+                { level: 65, dr: 20, er: 20, rr: 20, fr: 20, cr: 20, pr: 20 }, 
+                { level: 80, dr: 20, er: 20, rr: 20, fr: 20, cr: 20, pr: 20 }, 
+                { level: 95, dr: 20, er: 20, rr: 20, fr: 20, cr: 20, pr: 20 }, 
+                { level: 110, dr: 20, er: 20, rr: 20, fr: 20, cr: 20, pr: 20 }, 
+            ];
+            addEnemy("Wolf", ["Animal"], wolfResistances);
+            addEnemy("Glowing Wolf", ["Animal", "Glowing"], wolfResistances);
+            addEnemy("Scorched Wolf", ["Scorched"], wolfResistances);
+
+            var cricketResistances = [
+                { level: 30, dr: 90, er: 250, rr: 250, fr: 250, cr: 250, pr: 250 }, 
+                { level: 38, dr: 100, er: 250, rr: 250, fr: 250, cr: 250, pr: 250 }, 
+                { level: 46, dr: 110, er: 250, rr: 250, fr: 250, cr: 250, pr: 250 }, 
+                { level: 60, dr: 120, er: 250, rr: 250, fr: 250, cr: 250, pr: 250 }, 
+                { level: 75, dr: 120, er: 250, rr: 250, fr: 250, cr: 250, pr: 250 }, 
+                { level: 95, dr: 120, er: 250, rr: 250, fr: 250, cr: 250, pr: 250 }, 
+                { level: 100, dr: 120, er: 250, rr: 250, fr: 250, cr: 250, pr: 250 }, 
+            ];
+            addEnemy("Cave Cricket", [], cricketResistances);
+            addEnemy("Glowing Cave Cricket", ["Glowing"], cricketResistances);
+            addEnemy("Scorched Cave Cricket", ["Scorched"], cricketResistances);
+
+            var hermitcrabResistances = [
+                { level: 21, dr: 150, er: 100, rr: 150, fr: 100, cr: 100, pr: 100 }, 
+                { level: 31, dr: 150, er: 100, rr: 150, fr: 100, cr: 100, pr: 100 }, 
+                { level: 41, dr: 150, er: 100, rr: 150, fr: 100, cr: 100, pr: 100 }, 
+                { level: 51, dr: 150, er: 100, rr: 150, fr: 100, cr: 100, pr: 100 }, 
+                { level: 100, dr: 300, er: 200, rr: 300, fr: 200, cr: 200, pr: 200 }, 
+            ];
+            addEnemy("Hermit Crab", ["Mirelurk"], hermitcrabResistances);
+            addEnemy("Glowing Hermit Crab", ["Mirelurk", "Glowing"], hermitcrabResistances);
+            addEnemy("Scorched Hermit Crab", ["Scorched"], hermitcrabResistances);
+
+            addEnemy("Human Raider", ["NPC"], [
+                { level: 1, dr: 5, er: 5, rr: 0, fr: 5, cr: 5, pr: 5 }, 
+                { level: 4, dr: 10, er: 10, rr: 0, fr: 10, cr: 10, pr: 10 }, 
+                { level: 7, dr: 20, er: 20, rr: 0, fr: 20, cr: 20, pr: 20 }, 
+                { level: 9, dr: 40, er: 40, rr: 0, fr: 40, cr: 40, pr: 40 }, 
+                { level: 14, dr: 50, er: 50, rr: 0, fr: 50, cr: 50, pr: 50 }, 
+                { level: 21, dr: 60, er: 60, rr: 0, fr: 60, cr: 60, pr: 60 }, 
+                { level: 30, dr: 70, er: 70, rr: 0, fr: 70, cr: 70, pr: 70 }, 
+                { level: 39, dr: 80, er: 80, rr: 0, fr: 80, cr: 80, pr: 80 }, 
+                { level: 50, dr: 90, er: 90, rr: 0, fr: 90, cr: 90, pr: 90 }, 
+                { level: 100, dr: 150, er: 150, rr: 0, fr: 150, cr: 150, pr: 150 }, 
+            ]);
+            addEnemy("Human Settler", ["NPC"], [
+                { level: 1, dr: 5, er: 5, rr: 0, fr: 5, cr: 5, pr: 5 }, 
+                { level: 4, dr: 10, er: 10, rr: 0, fr: 10, cr: 10, pr: 10 }, 
+                { level: 7, dr: 20, er: 20, rr: 0, fr: 20, cr: 20, pr: 20 }, 
+                { level: 9, dr: 40, er: 40, rr: 0, fr: 40, cr: 40, pr: 40 }, 
+                { level: 14, dr: 50, er: 50, rr: 0, fr: 50, cr: 50, pr: 50 }, 
+                { level: 21, dr: 60, er: 60, rr: 0, fr: 60, cr: 60, pr: 60 }, 
+                { level: 30, dr: 70, er: 70, rr: 0, fr: 70, cr: 70, pr: 70 }, 
+                { level: 39, dr: 80, er: 80, rr: 0, fr: 80, cr: 80, pr: 80 }, 
+                { level: 50, dr: 90, er: 90, rr: 0, fr: 90, cr: 90, pr: 90 }, 
+                { level: 100, dr: 150, er: 150, rr: 0, fr: 150, cr: 150, pr: 150 }, 
+            ]);
+            addEnemy("Blood Eagle", ["NPC"], [
+                { level: 1, dr: 5, er: 5, rr: 0, fr: 5, cr: 5, pr: 5 }, 
+                { level: 4, dr: 10, er: 10, rr: 0, fr: 10, cr: 10, pr: 10 }, 
+                { level: 7, dr: 20, er: 20, rr: 0, fr: 20, cr: 20, pr: 20 }, 
+                { level: 9, dr: 40, er: 40, rr: 0, fr: 40, cr: 40, pr: 40 }, 
+                { level: 14, dr: 50, er: 50, rr: 0, fr: 50, cr: 50, pr: 50 }, 
+                { level: 21, dr: 60, er: 60, rr: 0, fr: 60, cr: 60, pr: 60 }, 
+                { level: 30, dr: 70, er: 70, rr: 0, fr: 70, cr: 70, pr: 70 }, 
+                { level: 39, dr: 80, er: 80, rr: 0, fr: 80, cr: 80, pr: 80 }, 
+                { level: 50, dr: 90, er: 90, rr: 0, fr: 90, cr: 90, pr: 90 }, 
+                { level: 100, dr: 150, er: 150, rr: 0, fr: 150, cr: 150, pr: 150 }, 
+            ]);
+
+            var megaslothResistances = [
+                { level: 30, dr: 200, er: 150, rr: 250, fr: 150, cr: 1000, pr: 150 }, 
+                { level: 40, dr: 200, er: 150, rr: 250, fr: 150, cr: 1000, pr: 150 }, 
+                { level: 50, dr: 200, er: 150, rr: 250, fr: 150, cr: 1000, pr: 150 }, 
+                { level: 100, dr: 400, er: 300, rr: 500, fr: 300, cr: 1000, pr: 300 }, 
+            ];
+            addEnemy("Megasloth", ["Animal"], megaslothResistances);
+            addEnemy("Glowing Megasloth", ["Glowing", "Animal"], megaslothResistances);
+            addEnemy("Scorched Megasloth", ["Scorched"], megaslothResistances);
+
+            var moleminerResistances = [
+                { level: 2, dr: 50, er: 25, rr: 250, fr: 25, cr: 25, pr: 25 }, 
+                { level: 4, dr: 50, er: 25, rr: 250, fr: 25, cr: 25, pr: 25 }, 
+                { level: 8, dr: 50, er: 25, rr: 250, fr: 25, cr: 25, pr: 25 }, 
+                { level: 14, dr: 50, er: 25, rr: 250, fr: 25, cr: 25, pr: 25 }, 
+                { level: 22, dr: 100, er: 75, rr: 250, fr: 75, cr: 75, pr: 75 }, 
+                { level: 30, dr: 100, er: 75, rr: 250, fr: 75, cr: 75, pr: 75 }, 
+                { level: 40, dr: 100, er: 75, rr: 250, fr: 75, cr: 75, pr: 75 }, 
+                { level: 50, dr: 100, er: 75, rr: 250, fr: 75, cr: 75, pr: 75 }, 
+                { level: 65, dr: 100, er: 75, rr: 250, fr: 75, cr: 75, pr: 75 }, 
+                { level: 80, dr: 100, er: 75, rr: 250, fr: 75, cr: 75, pr: 75 }, 
+                { level: 100, dr: 100, er: 75, rr: 250, fr: 75, cr: 75, pr: 75 }, 
+            ];
+            addEnemy("Mole Miner", [], moleminerResistances);
+            addEnemy("Glowing Mole Miner", ["Glowing"], moleminerResistances);
+            addEnemy("Scorched Mole Miner", ["Scorched"], moleminerResistances);
+
+            var moleratResistances = [
+                { level: 1, dr: 5, er: 5, rr: 5, fr: 5, cr: 5, pr: 10 }, 
+                { level: 7, dr: 5, er: 5, rr: 5, fr: 5, cr: 5, pr: 10 }, 
+                { level: 14, dr: 5, er: 5, rr: 5, fr: 5, cr: 5, pr: 10 }, 
+                { level: 21, dr: 10, er: 10, rr: 10, fr: 10, cr: 10, pr: 20 }, 
+                { level: 28, dr: 10, er: 10, rr: 10, fr: 10, cr: 10, pr: 20 }, 
+                { level: 35, dr: 10, er: 10, rr: 10, fr: 10, cr: 10, pr: 20 }, 
+                { level: 42, dr: 10, er: 10, rr: 10, fr: 10, cr: 10, pr: 20 }, 
+                { level: 50, dr: 10, er: 10, rr: 10, fr: 10, cr: 10, pr: 20 }, 
+                { level: 65, dr: 10, er: 10, rr: 10, fr: 10, cr: 10, pr: 20 }, 
+                { level: 80, dr: 10, er: 10, rr: 10, fr: 10, cr: 10, pr: 20 }, 
+                { level: 95, dr: 10, er: 10, rr: 10, fr: 10, cr: 10, pr: 20 }, 
+            ];
+            addEnemy("Molerat", ["Animal"], moleratResistances);
+            addEnemy("Glowing Molerat", ["Glowing", "Animal"], moleratResistances);
+            addEnemy("Scorched Molerat", ["Scorched"], moleratResistances);
+
+            addEnemy("Turret", ["Robot"], [
+                { level: 1, dr: 5, er: 5, rr: 5, fr: 5, cr: 5, pr: 1000 }, 
+                { level: 6, dr: 5, er: 5, rr: 5, fr: 5, cr: 5, pr: 1000 }, 
+                { level: 16, dr: 15, er: 15, rr: 15, fr: 15, cr: 15, pr: 1000 }, 
+                { level: 28, dr: 25, er: 25, rr: 25, fr: 25, cr: 25, pr: 1000 }, 
+                { level: 40, dr: 25, er: 25, rr: 25, fr: 25, cr: 25, pr: 1000 }, 
+            ]);
+
+            addEnemy("Turret Bubble", ["Robot"], [
+                { level: 1, dr: 5, er: 5, rr: 5, fr: 0, cr: 0, pr: 0 }, 
+                { level: 7, dr: 5, er: 5, rr: 5, fr: 0, cr: 0, pr: 0 }, 
+                { level: 16, dr: 5, er: 5, rr: 5, fr: 0, cr: 0, pr: 0 }, 
+                { level: 28, dr: 10, er: 10, rr: 10, fr: 0, cr: 0, pr: 0 }, 
+                { level: 40, dr: 10, er: 10, rr: 10, fr: 0, cr: 0, pr: 0 }, 
+                { level: 50, dr: 10, er: 10, rr: 10, fr: 0, cr: 0, pr: 0 }, 
+                { level: 60, dr: 10, er: 10, rr: 10, fr: 0, cr: 0, pr: 0 }, 
+            ]);
+            addEnemy("Vertibird", ["Robot"], [
+                { level: 20, dr: 135, er: 135, rr: 135, fr: 135, cr: 135, pr: 1000 }, 
+                { level: 30, dr: 135, er: 135, rr: 135, fr: 135, cr: 135, pr: 1000 }, 
+                { level: 40, dr: 135, er: 135, rr: 135, fr: 135, cr: 135, pr: 1000 }, 
+                { level: 50, dr: 135, er: 135, rr: 135, fr: 135, cr: 135, pr: 1000 }, 
+            ]);
+            addEnemy("Vertibot", ["Robot"], [
+                { level: 15, dr: 135, er: 135, rr: 135, fr: 135, cr: 135, pr: 1000 }, 
+                { level: 25, dr: 135, er: 135, rr: 135, fr: 135, cr: 135, pr: 1000 }, 
+                { level: 35, dr: 135, er: 135, rr: 135, fr: 135, cr: 135, pr: 1000 }, 
+                { level: 100, dr: 135, er: 135, rr: 135, fr: 135, cr: 135, pr: 1000 }, 
+            ]);
+
+            var viciousDogResistances = [
+                { level: 3, dr: 10, er: 10, rr: 10, fr: 10, cr: 10, pr: 10 }, 
+                { level: 12, dr: 10, er: 10, rr: 10, fr: 10, cr: 10, pr: 10 }, 
+                { level: 20, dr: 15, er: 15, rr: 15, fr: 15, cr: 15, pr: 15 }, 
+                { level: 30, dr: 15, er: 15, rr: 15, fr: 15, cr: 15, pr: 15 }, 
+                { level: 40, dr: 15, er: 15, rr: 15, fr: 15, cr: 15, pr: 15 }, 
+                { level: 50, dr: 20, er: 20, rr: 20, fr: 20, cr: 20, pr: 20 }, 
+                { level: 60, dr: 20, er: 20, rr: 20, fr: 20, cr: 20, pr: 20 }, 
+            ];
+            addEnemy("Vicious Dog", ["Animal"], viciousDogResistances);
+            addEnemy("Glowing Vicious Dog", ["Animal", "Glowing"], viciousDogResistances);
+            addEnemy("Scorched Vicious Dog", ["Scorched"], viciousDogResistances);
 
             // some enemies are immune to radiation or even heal off it
             var enemyRadiationEffect = new Map();
