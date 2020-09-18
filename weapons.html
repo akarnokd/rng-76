@@ -22,7 +22,7 @@
     </head>
     <body style="height: 90%">
         <center>
-            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Weapon Damage Calculator (v3.3.9)</span>
+            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Weapon Damage Calculator (v3.3.10)</span>
             <br/>
             <i>(update for Patch 22's changes in progress and may take several days)</i>
         <br/>
@@ -118,10 +118,21 @@
             var damages = [0, 0, 0];
             var damagesEnergy = [0, 0, 0];
             var damagesRadiation = [0, 0, 0];
+            var damagesFire = [0, 0, 0];
+            var damagesCold = [0, 0, 0];
+            var damagesPoison = [0, 0, 0];
+
             var ignores = [0, 0, 0];
             var speeds = [1, 1, 1];
             var enemySelection = [ null, null, null ];
             var enemySelectionName = [ null, null, null ];
+
+            var baseDamagesBallistic = [0, 0, 0];
+            var baseDamagesEnergy = [0, 0, 0];
+            var baseDamagesRadiation = [0, 0, 0];
+            var baseDamagesFire = [0, 0, 0]; // TODO implement
+            var baseDamagesCold = [0, 0, 0];
+            var baseDamagesPoison = [0, 0, 0];
 
             // -------------------------------------------------------------------------------
             // Setup weapon data
@@ -201,7 +212,7 @@
                                 },
                                 {
                                     name: "Heating coil",
-                                    addDamageEnergyLeveled: [5, 7.5, 10]
+                                    addDamageFireLeveled: [5, 7.5, 10]
                                 }
                             ]
                         }
@@ -917,7 +928,7 @@
                     speed: speedMedium,
                     level: [35, 45],
                     damage: [22, 27],
-                    damageEnergy: [22, 27],
+                    damageFire: [22, 27],
                     mods: [
                     {
                             slot: "Main",
@@ -1254,13 +1265,13 @@
                                 {
                                     name: "Cryo Blade",
                                     damageBallisticMultPercent: -50,
-                                    addDamageEnergyLeveled: [62, 72, 82], // FIXME cryo damage
+                                    //addDamageEnergyLeveled: [62, 72, 82], // FIXME cryo damage
                                     addDamageCryoLeveled: [62, 72, 82] // FIXME cryo damage
                                 },
                                 {
                                     name: "Flaming Blade",
                                     damageBallisticMultPercent: -50,
-                                    addDamageEnergyLeveled: [62, 72, 82], // FIXME fire damage
+                                    //addDamageEnergyLeveled: [62, 72, 82], // FIXME fire damage
                                     addDamageFireLeveled: [62, 72, 82] // FIXME fire damage
                                 },
                                 {
@@ -1484,7 +1495,7 @@
                     },
                     {
                         name: "Cryo",
-                        addDamageEnergyLeveled: [ 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2]
+                        addDamageColdLeveled: [ 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2]
                     },
                     {
                         name: "Explosive",
@@ -1492,11 +1503,11 @@
                     },
                     {
                         name: "Flaming",
-                        addDamageEnergyLeveled: [ 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2]
+                        addDamageFireLeveled: [ 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2]
                     },
                     {
                         name: "Poison",
-                        addDamageBallisticLeveled: [ 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2]
+                        addDamagePoisonLeveled: [ 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2]
                     },
                     {
                         name: "Ultracite",
@@ -2306,7 +2317,7 @@
                                 },
                                 {
                                     name: "Cryo",
-                                    addDamageEnergyLeveled: [ 2, 2, 2, 2]
+                                    addDamageColdLeveled: [ 2, 2, 2, 2]
                                 },
                                 {
                                     name: "Explosive",
@@ -2314,11 +2325,11 @@
                                 },
                                 {
                                     name: "Flaming",
-                                    addDamageEnergyLeveled: [ 2, 2, 2, 2]
+                                    addDamageFireLeveled: [ 2, 2, 2, 2]
                                 },
                                 {
                                     name: "Poison",
-                                    addDamageBallisticLeveled: [ 2, 2, 2, 2]
+                                    addDamagePoisonLeveled: [ 2, 2, 2, 2]
                                 },
                                 {
                                     name: "Prime",
@@ -7426,6 +7437,16 @@
                 var baseDamage = weap.damage[levelIdx];
                 var baseDamageEnergy = weap.damageEnergy !== undefined ? weap.damageEnergy[levelIdx] : 0;
                 var baseDamageRadiation = weap.damageRadiation !== undefined ? weap.damageRadiation[levelIdx] : 0;
+                var baseDamageFire = weap.damageFire !== undefined ? weap.damageFire[levelIdx] : 0;
+                var baseDamageCold = weap.damageCold !== undefined ? weap.damageCold[levelIdx] : 0;
+                var baseDamagePoison = weap.damageCold !== undefined ? weap.damagePoison[levelIdx] : 0;
+
+                var weaponBaseDamageBallistic = baseDamage;
+                var weaponBaseDamageEnergy = baseDamageEnergy;
+                var weaponBaseDamageRadiation = baseDamageRadiation;
+                var weaponBaseDamageCold = baseDamageCold;
+                var weaponBaseDamageFire = baseDamageFire;
+                var weaponBaseDamagePoison = baseDamagePoison;
 
                 var strengthFactor = 0.05;
                 var repairFactor = 1;
@@ -7569,16 +7590,40 @@
                     if (modTypeIdx >= 0) {
                         var modInfo = mod.options[modTypeIdx];
                         if (modInfo.addDamageBallisticLeveled !== undefined) {
-                            baseDamage += modInfo.addDamageBallisticLeveled[levelIdx];
+                            var amount = modInfo.addDamageBallisticLeveled[levelIdx];
+                            weaponBaseDamageBallistic += amount;
+                            baseDamage += amount;
                         }
                         if (modInfo.addDamageEnergyLeveled !== undefined) {
-                            baseDamageEnergy += modInfo.addDamageEnergyLeveled[levelIdx];
+                            var amount = modInfo.addDamageEnergyLeveled[levelIdx];
+                            
+                            baseDamageEnergy += amount;
+                            weaponBaseDamageEnergy += amount;
                         }
                         if (modInfo.addDamageEnergyPercentLeveled !== undefined) {
-                            baseDamageEnergy += (1 + modInfo.addDamageEnergyPercentLeveled[levelIdx] / 100.0) * baseDamage;
+                            var amount = (1 + modInfo.addDamageEnergyPercentLeveled[levelIdx] / 100.0) * baseDamage;
+                            baseDamageEnergy += amount;
+                            weaponBaseDamageEnergy += amount;
                         }
                         if (modInfo.addDamageRadiationLeveled !== undefined) {
-                            baseDamageRadiation += modInfo.addDamageRadiationLeveled[levelIdx];
+                            var amount = modInfo.addDamageRadiationLeveled[levelIdx];
+                            baseDamageRadiation += amount;
+                            weaponBaseDamageRadiation += amount;
+                        }
+                        if (modInfo.addDamageFireLeveled !== undefined) {
+                            var amount = modInfo.addDamageFireLeveled[levelIdx];
+                            baseDamageFire += amount;
+                            weaponBaseDamageFire += amount;
+                        }
+                        if (modInfo.addDamageColdLeveled !== undefined) {
+                            var amount = modInfo.addDamageColdLeveled[levelIdx];
+                            baseDamageCold += amount;
+                            weaponBaseDamageCold += amount;
+                        }
+                        if (modInfo.addDamagePoisonLeveled !== undefined) {
+                            var amount = modInfo.addDamagePoisonLeveled[levelIdx];
+                            baseDamagePoison += amount;
+                            weaponBaseDamagePoison += amount;
                         }
                    }
                 });
@@ -7599,6 +7644,9 @@
 
                 var additiveBoosts = 0;
                 var additiveEnergyBoosts = 0;
+                var additiveFireBoosts = 0;
+                var additiveColdBoosts = 0;
+                var additivePoisonBoosts = 0;
                 var bloodyBoost = 1.0;
 
                 var bloodymess = document.getElementById("bloodymess" + index);
@@ -7607,6 +7655,9 @@
                     bloodyBoost += vbloodyMess;
                     additiveBoosts += baseDamage * vbloodyMess;
                     additiveEnergyBoosts += baseDamageEnergy * vbloodyMess;
+                    additiveFireBoosts += baseDamageFire * vbloodyMess;
+                    additiveColdBoosts += baseDamageCold * vbloodyMess;
+                    additivePoisonBoosts += baseDamagePoison * vbloodyMess;
                 }
 
                 var adrenaline = document.getElementById("adrenaline" + index);
@@ -7617,6 +7668,10 @@
                         var vadrenaline = parseFloat(valueOf(adrenaline) * v / 6.0) / 100.0;
                         additiveBoosts += baseDamage * vadrenaline;
                         additiveEnergyBoosts += baseDamageEnergy * vadrenaline;
+                        additiveFireBoosts += baseDamageFire * vadrenaline;
+                        additiveColdBoosts += baseDamageCold * vadrenaline;
+                        additivePoisonBoosts += baseDamagePoison * vadrenaline;
+
                         bloodyBoost += vadrenaline;
                     }
                 }
@@ -7652,10 +7707,16 @@
                         
                         additiveBoosts += baseDamage * perc / 100.0;
                         additiveEnergyBoosts += baseDamageEnergy * perc / 100.0;
+                        additiveFireBoosts += baseDamageFire * perc / 100.0;
+                        additiveColdBoosts += baseDamageCold * perc / 100.0;
+                        additivePoisonBoosts += baseDamagePoison * perc / 100.0;
                     }
                 }
                 baseDamage += additiveBoosts;
                 baseDamageEnergy += additiveEnergyBoosts;
+                baseDamageFire += additiveFireBoosts;
+                baseDamageCold += additiveColdBoosts;
+                baseDamagePoison += additivePoisonBoosts;
 
                 var isSilenced = weap.silencer;
                 var isScoped = false;
@@ -8020,12 +8081,18 @@
                 var totalDamage = baseDamage;
                 var totalDamageEnergy = baseDamageEnergy;
                 var totalDamageRadiation = baseDamageRadiation;
+                var totalDamageFire = baseDamageFire;
+                var totalDamageCold = baseDamageCold;
+                var totalDamagePoison = baseDamagePoison;
 
                 totalDamageAdditive.forEach(function(v) {
                     totalDamage += v;
                 });
                 totalDamageEnergyAdditive.forEach(function(v) {
                     totalDamageEnergy += v;
+                    totalDamageFire += v;
+                    totalDamageCold += v;
+                    totalDamagePoison += v;
                 });
                 totalDamageRadiationAdditive.forEach(function(v) {
                     totalDamageRadiation += v;
@@ -8034,12 +8101,18 @@
                 if (isCalcAdd) {
                     var dmg = baseDamage - additiveBoosts;
                     var dmgEnergy = baseDamageEnergy - additiveEnergyBoosts;
+                    var dmgFire = baseDamageFire - additiveFireBoosts;
+                    var dmgCold = baseDamageCold - additiveColdBoosts;
+                    var dmgPoison = baseDamagePoison - additivePoisonBoosts;
 
                     totalDamageMultiply.forEach(v => {
                         totalDamage += dmg * v / 100.0;
                     });
                     totalDamageEnergyMultiply.forEach(function(v) {
                         totalDamageEnergy += dmgEnergy * v / 100.0;
+                        totalDamageFire += dmgFire * v / 100.0;
+                        totalDamageCold += dmgCold * v / 100.0;
+                        totalDamagePoison += dmgPoison * v / 100.0;
                     });
                     totalDamageRadiationMultiply.forEach(function(v) {
                         totalDamageRadiation += baseDamageRadiation * v / 100.0;
@@ -8050,6 +8123,9 @@
                     });
                     totalDamageEnergyMultiply.forEach(function(v) {
                         totalDamageEnergy *= 1.0 + v / 100.0;
+                        totalDamageFire *= 1.0 + v / 100.0;
+                        totalDamageCold *= 1.0 + v / 100.0;
+                        totalDamagePoison *= 1.0 + v / 100.0;
                     });
                     totalDamageRadiationMultiply.forEach(function(v) {
                         totalDamageRadiation *= 1.0 + v / 100.0;
@@ -8058,19 +8134,34 @@
 
                 totalDamage *= sneakBonusMultiply;
                 totalDamageEnergy *= sneakBonusMultiply;
+                totalDamageFire *= sneakBonusMultiply;
+                totalDamageCold *= sneakBonusMultiply;
+                totalDamagePoison *= sneakBonusMultiply;
 
                 if (document.getElementById("grounded" + index + "_yes").checked) {
                     var classFreak = valueOf(document.getElementById("classfreak" + index));
                     if (classFreak == "1") {
                         totalDamageEnergy *= 1 - 0.5 * 0.75;
+                        totalDamageFire *= 1 - 0.5 * 0.75;
+                        totalDamageCold *= 1 - 0.5 * 0.75;
+                        totalDamagePoison *= 1 - 0.5 * 0.75;
                     } else
                     if (classFreak == "2") {
                         totalDamageEnergy *= 1 - 0.5 * 0.5;
+                        totalDamageFire *= 1 - 0.5 * 0.5;
+                        totalDamageCold *= 1 - 0.5 * 0.5;
+                        totalDamagePoison *= 1 - 0.5 * 0.5;
                     } else
                     if (classFreak == "3") {
                         totalDamageEnergy *= 1 - 0.5 * 0.25;
+                        totalDamageFire *= 1 - 0.5 * 0.25;
+                        totalDamageCold *= 1 - 0.5 * 0.25;
+                        totalDamagePoison *= 1 - 0.5 * 0.25;
                     } else {
                         totalDamageEnergy *= 1 - 0.5;
+                        totalDamageFire *= 1 - 0.5;
+                        totalDamageCold *= 1 - 0.5;
+                        totalDamagePoison *= 1 - 0.5;
                     }
                 }
 
@@ -8108,27 +8199,36 @@
                 cell2.innerHTML = "\u2316&nbsp;" + totalDamage.toFixed(2) 
                     + "&nbsp;&nbsp;&nbsp;\u21AF&nbsp;" + totalDamageEnergy.toFixed(2) 
                     + "&nbsp;&nbsp;&nbsp;\u2622&nbsp;" + totalDamageRadiation.toFixed(2)
-                    /*
-                    + "<br>&#x2744;&nbsp;TBD"
-                    + "&nbsp;&nbsp;&nbsp;&#x1F525;&nbsp;TBD"
-                    */
+                    + "<br>&#x1F525;&nbsp;" + totalDamageFire.toFixed(2)
+                    + "&nbsp;&nbsp;&nbsp;&#x2744;&nbsp;" + totalDamageCold.toFixed(2)
+                    + "&nbsp;&nbsp;&nbsp;&#x1F4A7;&nbsp;" + totalDamagePoison.toFixed(2)
                     ;
                 cell4.innerText = totalArmorIgnore.toFixed(2) + " %";
                 cell6.innerText = speed.toFixed(2);
                 cell8.innerHTML = "\u2316&nbsp;" + (totalDamage * speed).toFixed(2) 
                     + "&nbsp;&nbsp;&nbsp;\u21AF&nbsp;" + (totalDamageEnergy * speed).toFixed(2) 
                     + "&nbsp;&nbsp;&nbsp;\u2622&nbsp;" + (totalDamageRadiation * speed).toFixed(2)
-                    /*
-                    + "<br>&#x2744;&nbsp;TBD"
-                    + "&nbsp;&nbsp;&nbsp;&#x1F525;&nbsp;TBD"
-                    */
+                    + "<br>&#x1F525;&nbsp;" + (totalDamageFire * speed).toFixed(2)
+                    + "&nbsp;&nbsp;&nbsp;&#x2744;&nbsp;" + (totalDamageCold * speed).toFixed(2)
+                    + "&nbsp;&nbsp;&nbsp;&#x1F4A7;&nbsp;" + (totalDamagePoison * speed).toFixed(2)
                     ;
 
                 damages[index] = totalDamage;
                 damagesEnergy[index] = totalDamageEnergy;
                 damagesRadiation[index] = totalDamageRadiation;
+                damagesFire[index] = totalDamageFire;
+                damagesCold[index] = totalDamageCold;
+                damagesPoison[index] = totalDamagePoison;
+
                 ignores[index] = totalArmorIgnore;
                 speeds[index] = speed;
+
+                baseDamagesBallistic[index] = weaponBaseDamageBallistic;
+                baseDamagesEnergy[index] = weaponBaseDamageEnergy;
+                baseDamagesRadiation[index] = weaponBaseDamageRadiation;
+                baseDamagesFire[index] = weaponBaseDamageFire;
+                baseDamagesCold[index] = weaponBaseDamageCold;
+                baseDamagesPoison[index] = weaponBaseDamagePoison;
 
                 recalculateDiff();
 
@@ -8146,6 +8246,13 @@
 
             function resistanceKey(e) {
                 return [e.dr, e.er, e.rr, e.cr, e.fr, e.pr].join(",");
+            }
+
+            function actualResist(resistance, ignorePercent) {
+                if (resistance === undefined) {
+                    return 0;
+                }
+                return resistance * (1 - Math.min(0.95, (ignorePercent / 100.0)))
             }
 
             function recalculateDiff() {
@@ -8217,20 +8324,35 @@
                     if (res.mitigation !== undefined) {
                         damageMitigation = res.mitigation;
                     }
-                    var dr = res.dr;
-                    var er = res.er;
-                    var leftDr = dr * (1 - Math.min(0.95, (ignores[1] / 100.0)));
-                    var leftEr = aaEnergy ? er * (1 - Math.min(0.95, (ignores[1] / 100.0))) : er;
+                    var leftDr = actualResist(res.dr, ignores[1]);
+                    var leftEr = aaEnergy ? actualResist(res.er, ignores[1]) : res.er;
+                    var leftFr = actualResist(res.fr, ignores[1]); 
+                    var leftCr = actualResist(res.cr, ignores[1]); 
+                    var leftPr = actualResist(res.pr, ignores[1]); 
                     
                     var leftDmg = damageFormula(damages[1], leftDr) * speedFactorLeft * damageMitigation;
-                    var leftDmgEnergy = damageFormula(damagesEnergy[1], leftEr) * speedFactorLeft * damageMitigation;
+                    var leftDmgEnergy = damageFormula(damagesEnergy[1], leftEr, baseDamagesEnergy[1]) * speedFactorLeft * damageMitigation;
                     var leftDmgRadiation = damageFormula(damagesRadiation[1], res.rr) * speedFactorLeft * damageMitigation;
+                    var leftDmgFire = damageFormula(damagesFire[1], res.fr, baseDamagesFire[1]) * speedFactorLeft * damageMitigation;
+                    var leftDmgCold = damageFormula(damagesCold[1], res.cr) * speedFactorLeft * damageMitigation;
+                    var leftDmgPoison = damageFormula(damagesPoison[1], res.pr) * speedFactorLeft * damageMitigation;
 
-                    var rightDr = dr * (1 - Math.min(0.95, (ignores[2] / 100.0)));
-                    var rightEr = aaEnergy ? er * (1 - Math.min(0.95, (ignores[2] / 100.0))) : er;
+                    var leftDmgSum = leftDmg + leftDmgEnergy + leftDmgRadiation + leftDmgFire + leftDmgCold + leftDmgPoison;
+
+                    var rightDr = actualResist(res.dr, ignores[2]);
+                    var rightEr = aaEnergy ? actualResist(res.er, ignores[2]) : res.er;
+                    var rightFr = actualResist(res.fr, ignores[2]); 
+                    var rightCr = actualResist(res.cr, ignores[2]); 
+                    var rightPr = actualResist(res.pr, ignores[2]);
+
                     var rightDmg = damageFormula(damages[2], rightDr) * speedFactorRight * damageMitigation;
-                    var rightDmgEnergy = damageFormula(damagesEnergy[2], rightEr) * speedFactorRight * damageMitigation;
+                    var rightDmgEnergy = damageFormula(damagesEnergy[2], rightEr, baseDamagesEnergy[2]) * speedFactorRight * damageMitigation;
                     var rightDmgRadiation = damageFormula(damagesRadiation[2], res.rr) * speedFactorRight * damageMitigation;
+                    var rightDmgFire = damageFormula(damagesFire[2], res.fr, baseDamagesFire[2]) * speedFactorLeft * damageMitigation;
+                    var rightDmgCold = damageFormula(damagesCold[2], res.cr) * speedFactorLeft * damageMitigation;
+                    var rightDmgPoison = damageFormula(damagesPoison[2], res.pr) * speedFactorLeft * damageMitigation;
+
+                    var rightDmgSum = rightDmg + rightDmgEnergy + rightDmgRadiation + rightDmgFire + rightDmgCold + rightDmgPoison;
 
                     var cidx = 0;
 
@@ -8243,15 +8365,15 @@
                         cell.style = "border: 1px solid black;";
                         cell.colSpan = 3;
                         if (res.cr !== undefined) {
-                            cell.title = "DR: " + dr + ", ER: " + res.er + ", RR: " + res.rr + ", CR: " + res.cr + ", FR: " + res.fr + ", PR: " + res.pr; 
+                            cell.title = "DR: " + res.dr + ", ER: " + res.er + ", RR: " + res.rr + ", CR: " + res.cr + ", FR: " + res.fr + ", PR: " + res.pr; 
                         } else {
-                            cell.title = "DR: " + dr + ", ER: " + res.er + ", RR: " + res.rr;
+                            cell.title = "DR: " + res.dr + ", ER: " + res.er + ", RR: " + res.rr;
                         }
                         if (res.mitigation !== undefined) {
                             cell.title += "\r\n" + ((1 - res.mitigation) * 100).toFixed(0) + "% of all damage ignored";
                         }
                     } else {
-                        cell.innerText = "" + dr;
+                        cell.innerText = "" + res.dr;
                         cell.style = "border: 1px solid black; text-align: right;";
 
                         cell = row.insertCell(cidx++);
@@ -8263,7 +8385,13 @@
                         cell.style = "border: 1px solid black; text-align: right;";
                     }
 
-                    if (damages[1] > 0 || damagesEnergy[1] > 0 || damagesRadiation[1] > 0) {
+                    var hasLeft = damages[1] > 0 || damagesEnergy[1] > 0 || damagesRadiation[1] > 0
+                        || damagesFire[1] > 0 || damagesCold[1] > 0 || damagesPoison[1] > 0;
+
+                    var hasRight = damages[2] > 0 || damagesEnergy[2] > 0 || damagesRadiation[2] > 0
+                        || damagesFire[2] > 0 || damagesCold[2] > 0 || damagesPoison[2] > 0;
+
+                    if (hasLeft) {
                         cell = row.insertCell(cidx++);
                         cell.innerText = leftDr.toFixed(1);
                         cell.style = "border: 1px solid black; text-align: right;";
@@ -8273,10 +8401,14 @@
                         cell.style = "border: 1px solid black; text-align: right;";
 
                         cell = row.insertCell(cidx++);
-                        cell.innerText = (leftDmg + leftDmgEnergy + leftDmgRadiation).toFixed(2);
+                        cell.innerText = (leftDmgSum).toFixed(2);
                         cell.title = "\u2316 " + leftDmg.toFixed(2) 
                             + "    \u21AF " + leftDmgEnergy.toFixed(2) 
-                            + "    \u2622 " + leftDmgRadiation.toFixed(2);
+                            + "    \u2622 " + leftDmgRadiation.toFixed(2)
+                            + "    &#x1F525; " + leftDmgFire.toFixed(2)
+                            + "    \u2744 " + leftDmgCold.toFixed(2)
+                            + "    &#x1F4A7; " + leftDmgPoison.toFixed(2)
+                            ;
                         cell.style = "border: 1px solid black; text-align: right;";
                     } else {
                         cell = row.insertCell(cidx++);
@@ -8287,17 +8419,16 @@
                         cell.style = "border: 1px solid black; text-align: right;";
                     }
 
-                    if ((damages[1] > 0 || damagesEnergy[1] > 0 || damagesRadiation[1] > 0) 
-                            && (damages[2] > 0 || damagesEnergy[2] > 0 || damagesRadiation[2] > 0) > 0) {
+                    if (hasLeft && hasRight) {
                         cell = row.insertCell(cidx++);
-                        cell.innerText = (100 - ((rightDmg + rightDmgEnergy + rightDmgRadiation) / (leftDmg + leftDmgEnergy + leftDmgRadiation)) * 100).toFixed(2) + " %";
+                        cell.innerText = (100 - ((rightDmgSum) / (leftDmgSum)) * 100).toFixed(2) + " %";
                         cell.style = "border: 1px solid black; text-align: right;";
                     } else {
                         cell = row.insertCell(cidx++);
                         cell.style = "border: 1px solid black; text-align: right;";
                     }
 
-                    if (damages[2] > 0 || damagesEnergy[2] > 0 || damagesRadiation[2] > 0) {
+                    if (hasRight) {
                         cell = row.insertCell(cidx++);
                         cell.innerText = rightDr.toFixed(1);
                         cell.style = "border: 1px solid black; text-align: right;";
@@ -8307,10 +8438,13 @@
                         cell.style = "border: 1px solid black; text-align: right;";
 
                         cell = row.insertCell(cidx++);
-                        cell.innerText = (rightDmg + rightDmgEnergy + rightDmgRadiation).toFixed(2);
+                        cell.innerText = (rightDmgSum).toFixed(2);
                         cell.title = "\u2316 " + rightDmg.toFixed(2) 
                             + "    \u21AF " + rightDmgEnergy.toFixed(2) 
-                            + "    \u2622 " + rightDmgRadiation.toFixed(2);
+                            + "    \u2622 " + rightDmgRadiation.toFixed(2)
+                            + "    &#x1F525; " + rightDmgFire.toFixed(2)
+                            + "    \u2744 " + rightDmgCold.toFixed(2)
+                            + "    &#x1F4A7; " + rightDmgPoison.toFixed(2)
                         cell.style = "border: 1px solid black; text-align: right;";
                     } else {
                         cell = row.insertCell(cidx++);
@@ -8334,11 +8468,14 @@
                 });
             }
 
-            function damageFormula(damage, dr) {
-                if (damage <= 0) {
+            function damageFormula(damage, dr, baseDamage) {
+                if (damage <= 0 || dr === undefined || dr < 1) {
                     return damage;
                 }
-                return damage * Math.min(0.99, 0.5 * Math.pow(damage / dr, 0.366));
+                if (baseDamage === undefined) {
+                    baseDamage = damage;
+                }
+                return damage * Math.min(0.99, 0.5 * Math.pow(baseDamage / dr, 0.365));
             }
 
             function valueOf(select) {
