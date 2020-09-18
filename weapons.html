@@ -130,7 +130,7 @@
             var baseDamagesBallistic = [0, 0, 0];
             var baseDamagesEnergy = [0, 0, 0];
             var baseDamagesRadiation = [0, 0, 0];
-            var baseDamagesFire = [0, 0, 0]; // TODO implement
+            var baseDamagesFire = [0, 0, 0];
             var baseDamagesCold = [0, 0, 0];
             var baseDamagesPoison = [0, 0, 0];
 
@@ -938,7 +938,7 @@
                                 },
                                 {
                                     name: "Extra Flame Jets",
-                                    addDamageEnergyLeveled: [8, 9.5]
+                                    addDamageFireLeveled: [8, 9.5]
                                 }
                             ]
                         }
@@ -1265,14 +1265,12 @@
                                 {
                                     name: "Cryo Blade",
                                     damageBallisticMultPercent: -50,
-                                    //addDamageEnergyLeveled: [62, 72, 82], // FIXME cryo damage
-                                    addDamageCryoLeveled: [62, 72, 82] // FIXME cryo damage
+                                    addDamageCryoLeveled: [62, 72, 82]
                                 },
                                 {
                                     name: "Flaming Blade",
                                     damageBallisticMultPercent: -50,
-                                    //addDamageEnergyLeveled: [62, 72, 82], // FIXME fire damage
-                                    addDamageFireLeveled: [62, 72, 82] // FIXME fire damage
+                                    addDamageFireLeveled: [62, 72, 82]
                                 },
                                 {
                                     name: "Plasma Blade",
@@ -3902,7 +3900,7 @@
                     speed: 9.1,
                     level: [30, 40, 50],
                     damage: [0, 0, 0],
-                    damageEnergy: [ 29, 32, 36], // FIXME damageFire
+                    damageFire: [ 29, 32, 36],
                     mods: [
                         {
                             slot: "Tank",
