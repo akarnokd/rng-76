@@ -1465,14 +1465,6 @@
                 };
             }
 
-            function scoreCompleteEventInGroup(offset, count) {
-                return {
-                            name: times("Complete Events in group", count),
-                            offset: offset,
-                            period: 1400,
-                        };
-            }
-
             var challengesDailyEra3 = {
                 validStart: new Date(Date.UTC(2020, 5, 30, 16, 0, 0, 0)),
                 validEnd: new Date(Date.UTC(2020, 8, 8, 16, 0, 0, 0)),
@@ -2129,7 +2121,13 @@
                     scoreDestroyRobot(3, 10),
                     scoreNWKillCreature(3, 1),
 
-                    scoreLatepost(4)
+                    scoreBuySellItem(4),
+                    scoreCompleteDailyOps(4, 1),
+                    scoreRepairArmorWeapon(4, 3),
+                    scoreKillScorched(4, 15),
+                    scoreCompleteEventInGroup(4, 1),
+                    scoreNWDeployCamp(4, 3)
+                    //scoreLatepost(4)
                 ]
             };
 
@@ -2164,6 +2162,7 @@
             addDailyOps(challengesDailyEra4.options, 1, "Vault 94", "Blood Eagles", [ dailyOpsPiercingGaze, dailyOpsVolatile ]);
             addDailyOps(challengesDailyEra4.options, 2, "Valley Galleria", "Super Mutants", [ dailyOpsPiercingGaze, dailyOpsFreezing ]);
             addDailyOps(challengesDailyEra4.options, 3, "The Burning Mine", "Blood Eagles", [ dailyOpsPiercingGaze, dailyOpsCloaked ]);
+            addDailyOps(challengesDailyEra4.options, 4, "Vault 94", "Robots", [ dailyOpsPiercingGaze, dailyOpsFreezing ]);
 
  
             var challenges = [
