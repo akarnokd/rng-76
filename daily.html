@@ -2121,12 +2121,19 @@
                     scoreDestroyRobot(3, 10),
                     scoreNWKillCreature(3, 1),
 
-                    scoreBuySellItem(4),
+                    scoreBuySellItem(4, 1),
                     scoreCompleteDailyOps(4, 1),
                     scoreRepairArmorWeapon(4, 3),
                     scoreKillScorched(4, 15),
                     scoreCompleteEventInGroup(4, 1),
-                    scoreNWDeployCamp(4, 3)
+                    scoreNWDeployCamp(4, 3),
+                    
+                    scoreBuySellItem(5, 1),
+                    scoreCompleteDailyOps(5, 1),
+                    scoreCompleteOneEvent(5, 1),
+                    scoreKillSupermutant(5, 5),
+                    scoreUsePhotomode(5, 1),
+                    scoreNWKillPlayer(5)
                     //scoreLatepost(4)
                 ]
             };
@@ -2164,6 +2171,7 @@
             addDailyOps(challengesDailyEra4.options, 3, "The Burning Mine", "Blood Eagles", [ dailyOpsPiercingGaze, dailyOpsCloaked ]);
             addDailyOps(challengesDailyEra4.options, 4, "Vault 94", "Robots", [ dailyOpsPiercingGaze, dailyOpsFreezing ]);
 
+            addDailyOps(challengesDailyEra4.options, 5, "???", "???", [ dailyOpsPiercingGaze ]);
  
             var challenges = [
                 challengesDailyEra1,
