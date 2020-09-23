@@ -22,7 +22,7 @@
     </head>
     <body style="height: 90%">
         <center>
-            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Weapon Damage Calculator (v3.3.10)</span>
+            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Weapon Damage Calculator (v3.3.11)</span>
             <br/>
             <i>(update for Patch 22's changes in progress and may take several days)</i>
         <br/>
@@ -126,6 +126,7 @@
             var speeds = [1, 1, 1];
             var enemySelection = [ null, null, null ];
             var enemySelectionName = [ null, null, null ];
+            var calcModes = [ null, null, null ];
 
             var baseDamagesBallistic = [0, 0, 0];
             var baseDamagesEnergy = [0, 0, 0];
@@ -6059,11 +6060,15 @@
             infoMap.set("ResistanceEarle", "Boss enemy of the Event: A Colossal Problem.<br>32000 health, 400 DR, 400 ER, 500 RR<br>"
                 + "ignores 80% of all kinds of incoming damage.<br>"
             );
-            infoMap.set("buffcalcmode", "Patch 22 with One Wasteland changed how damage buffs are calculated<br>"
-                + "from mostly multiplicative to mostly additive."
-                + "<br><br>Generally, bonuses to damage output are additive while debuffs are multiplicative."
+            infoMap.set("buffcalcmode", 
+                  "<b><u>Certain major patches changed how damage dealt is calculated:</u></b>"
+                + "<br><br>Before Patch 22 with One Wasteland, damage buffs were mostly multiplicative"
+                + "<br>and more resistances had a diminishing effect on reducing damage."
+                + "<br><br>Patch 22 with One Wasteland changed damage buffs to be mostly additive."
+                + "<br>The exceptions appear to be the Instigating effect, stealth and crit bonuses."
+                + "<br><br>Future patches appear to change the resistance effects to be more linear."
                 + "<br>The exceptions known are the Instigating effect, stealth and crit bonuses."
-                + "<br><br>Note that the 'Add' option currently is not fleshed out and may produce wonky results."
+                + "<br><br>Note that the newer calculation option currently is not fleshed out and may produce wonky results."
             );
 
             // ~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o
@@ -7341,19 +7346,33 @@
                 // calculation mode
                 row = tbl.insertRow(tbl.rows.length);
                 cell1 = row.insertCell(0);
-                cell1.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;Buff calculation" + info("buffcalcmode");
+                cell1.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;Calculation mode" + info("buffcalcmode");
                 cell2 = row.insertCell(1);
-                cell2.innerHTML = "<input type='radio' id='buffcalcmode" + index + "_mult' name='buffcalcmode" + index + "' value='Mult'><label for='buffcalcmode" + index + "_mult'> Multiply</label>&nbsp;&nbsp;&nbsp;"
-                    + "<input type='radio' id='buffcalcmode" + index + "_add' name='buffcalcmode" + index + "' value='Add' checked='checked'><label for='buffcalcmode" + index + "_add'> Add</label>";
+                cell2.innerHTML = "<select id='calcmode" + index + "'></select>"
+                var calcmodesel = document.getElementById("calcmode" + index);
+                calcmodesel.linkId = "CalcMode";
+                opt = document.createElement("option");
+                opt.text = "Patch < 22";
+                opt.value = "P21";
+                opt.linkId = "P21";
+                calcmodesel.add(opt);
 
-                document.getElementById("buffcalcmode" + index + "_mult").onchange = function() {
+                opt = document.createElement("option");
+                opt.text = "Patch 22";
+                opt.value = "P22";
+                opt.selected = true;
+                opt.linkId = "P22";
+                calcmodesel.add(opt);
+
+                opt = document.createElement("option");
+                opt.text = "Patch >= 23";
+                opt.value = "P23";
+                opt.linkId = "P23";
+                calcmodesel.add(opt);
+
+                calcmodesel.onchange = function() {
                     recalculate(tbl, index, type);
                 };
-                document.getElementById("buffcalcmode" + index + "_mult").linkId = "Mult";
-                document.getElementById("buffcalcmode" + index + "_add").onchange = function() {
-                    recalculate(tbl, index, type);
-                };
-                document.getElementById("buffcalcmode" + index + "_add").linkId = "Add";
             }
 
             function getAlcoholAndColaBuff(partyMultiplier, colanutMultiplier, buff) {
@@ -8074,7 +8093,9 @@
                     }
                 }
 
-                var isCalcAdd = document.getElementById("buffcalcmode" + index + "_add").checked;
+                var calcMode = valueOf(document.getElementById("calcmode" + index));
+                calcModes[index] = calcMode;
+                var isCalcAdd = calcMode === "P22" || calcMode === "P23";
 
                 var totalDamage = baseDamage;
                 var totalDamageEnergy = baseDamageEnergy;
@@ -8322,33 +8343,66 @@
                     if (res.mitigation !== undefined) {
                         damageMitigation = res.mitigation;
                     }
-                    var leftDr = actualResist(res.dr, ignores[1]);
-                    var leftEr = aaEnergy ? actualResist(res.er, ignores[1]) : res.er;
-                    var leftFr = actualResist(res.fr, ignores[1]); 
-                    var leftCr = actualResist(res.cr, ignores[1]); 
-                    var leftPr = actualResist(res.pr, ignores[1]); 
+
+                    var index = 1;
+                    var leftIsP23 = calcModes[index] === "P23";
+
+                    var leftDr = actualResist(res.dr, ignores[index]);
+                    var leftEr = aaEnergy ? actualResist(res.er, ignores[index]) : res.er;
+                    var leftRr = res.rr;
+                    var leftFr = actualResist(res.fr, ignores[index]); 
+                    var leftCr = actualResist(res.cr, ignores[index]); 
+                    var leftPr = actualResist(res.pr, ignores[index]);
                     
-                    var leftDmg = damageFormula(damages[1], leftDr) * speedFactorLeft * damageMitigation;
-                    var leftDmgEnergy = damageFormula(damagesEnergy[1], leftEr, baseDamagesEnergy[1]) * speedFactorLeft * damageMitigation;
-                    var leftDmgRadiation = damageFormula(damagesRadiation[1], res.rr) * speedFactorLeft * damageMitigation;
-                    var leftDmgFire = damageFormula(damagesFire[1], res.fr, baseDamagesFire[1]) * speedFactorLeft * damageMitigation;
-                    var leftDmgCold = damageFormula(damagesCold[1], res.cr) * speedFactorLeft * damageMitigation;
-                    var leftDmgPoison = damageFormula(damagesPoison[1], res.pr) * speedFactorLeft * damageMitigation;
+                    var leftDmg = (leftIsP23 ? damageFormulaP23(damages[index], res.dr, ignores[index]) 
+                                             : damageFormula(damages[index], leftDr))
+                         * speedFactorLeft * damageMitigation;
+                    var leftDmgEnergy = (leftIsP23 ? damageFormulaP23(damagesEnergy[index], res.er, ignores[index]) 
+                                             : damageFormula(damagesEnergy[index], leftEr, baseDamagesEnergy[index]))
+                         * speedFactorLeft * damageMitigation;
+                    var leftDmgRadiation = (leftIsP23 ? damageFormulaP23(damagesRadiation[index], res.rr, ignores[index]) 
+                                             : damageFormula(damagesRadiation[index], leftRr))
+                         * speedFactorLeft * damageMitigation;
+                    var leftDmgFire = (leftIsP23 ? damageFormulaP23(damagesFire[index], res.fr, ignores[index]) 
+                                             : damageFormula(damagesFire[index], leftFr, baseDamagesFire[2]))
+                         * speedFactorLeft * damageMitigation;
+                    var leftDmgCold = (leftIsP23 ? damageFormulaP23(damagesCold[index], res.cr, ignores[index]) 
+                                             : damageFormula(damagesCold[index], leftCr))
+                         * speedFactorLeft * damageMitigation;
+                    var leftDmgPoison = (leftIsP23 ? damageFormulaP23(damagesPoison[index], res.pr, ignores[index]) 
+                                             : damageFormula(damagesPoison[index], leftPr))
+                         * speedFactorLeft * damageMitigation;
 
                     var leftDmgSum = leftDmg + leftDmgEnergy + leftDmgRadiation + leftDmgFire + leftDmgCold + leftDmgPoison;
 
-                    var rightDr = actualResist(res.dr, ignores[2]);
-                    var rightEr = aaEnergy ? actualResist(res.er, ignores[2]) : res.er;
-                    var rightFr = actualResist(res.fr, ignores[2]); 
-                    var rightCr = actualResist(res.cr, ignores[2]); 
-                    var rightPr = actualResist(res.pr, ignores[2]);
+                    index = 2;
+                    var rightIsP23 = calcModes[index] === "P23";
 
-                    var rightDmg = damageFormula(damages[2], rightDr) * speedFactorRight * damageMitigation;
-                    var rightDmgEnergy = damageFormula(damagesEnergy[2], rightEr, baseDamagesEnergy[2]) * speedFactorRight * damageMitigation;
-                    var rightDmgRadiation = damageFormula(damagesRadiation[2], res.rr) * speedFactorRight * damageMitigation;
-                    var rightDmgFire = damageFormula(damagesFire[2], res.fr, baseDamagesFire[2]) * speedFactorLeft * damageMitigation;
-                    var rightDmgCold = damageFormula(damagesCold[2], res.cr) * speedFactorLeft * damageMitigation;
-                    var rightDmgPoison = damageFormula(damagesPoison[2], res.pr) * speedFactorLeft * damageMitigation;
+                    var rightDr = actualResist(res.dr, ignores[index]);
+                    var rightEr = aaEnergy ? actualResist(res.er, ignores[index]) : res.er;
+                    var rightRr = res.rr;
+                    var rightFr = actualResist(res.fr, ignores[index]); 
+                    var rightCr = actualResist(res.cr, ignores[index]); 
+                    var rightPr = actualResist(res.pr, ignores[index]);
+
+                    var rightDmg = (rightIsP23 ? damageFormulaP23(damages[index], res.dr, ignores[index]) 
+                                             : damageFormula(damages[index], rightDr))
+                         * speedFactorRight * damageMitigation;
+                    var rightDmgEnergy = (rightIsP23 ? damageFormulaP23(damagesEnergy[index], res.er, ignores[index]) 
+                                             : damageFormula(damagesEnergy[index], rightEr, baseDamagesEnergy[index]))
+                         * speedFactorRight * damageMitigation;
+                    var rightDmgRadiation = (rightIsP23 ? damageFormulaP23(damagesRadiation[index], res.rr, ignores[index]) 
+                                             : damageFormula(damagesRadiation[index], rightRr))
+                         * speedFactorRight * damageMitigation;
+                    var rightDmgFire = (rightIsP23 ? damageFormulaP23(damagesFire[index], res.fr, ignores[index]) 
+                                             : damageFormula(damagesFire[index], rightFr, baseDamagesFire[index]))
+                         * speedFactorRight * damageMitigation;
+                    var rightDmgCold = (rightIsP23 ? damageFormulaP23(damagesCold[index], res.cr, ignores[index]) 
+                                             : damageFormula(damagesCold[index], rightCr))
+                         * speedFactorRight * damageMitigation;
+                    var rightDmgPoison = (rightIsP23 ? damageFormulaP23(damagesPoison[index], res.pr, ignores[index]) 
+                                             : damageFormula(damagesPoison[index], rightPr))
+                         * speedFactorRight * damageMitigation;
 
                     var rightDmgSum = rightDmg + rightDmgEnergy + rightDmgRadiation + rightDmgFire + rightDmgCold + rightDmgPoison;
 
@@ -8419,7 +8473,7 @@
 
                     if (hasLeft && hasRight) {
                         cell = row.insertCell(cidx++);
-                        cell.innerText = (100 - ((rightDmgSum) / (leftDmgSum)) * 100).toFixed(2) + " %";
+                        cell.innerText = (100 * (leftDmgSum / rightDmgSum - 1)).toFixed(2) + " %";
                         cell.style = "border: 1px solid black; text-align: right;";
                     } else {
                         cell = row.insertCell(cidx++);
@@ -8453,10 +8507,9 @@
                         cell.style = "border: 1px solid black; text-align: right;";
                     }
 
-                    if ((damages[1] > 0 || damagesEnergy[1] > 0 || damagesRadiation[1] > 0) 
-                            && (damages[2] > 0 || damagesEnergy[2] > 0 || damagesRadiation[2] > 0) > 0) {
+                    if (hasLeft && hasRight) {
                         cell = row.insertCell(cidx++);
-                        cell.innerText = (100 - ((leftDmg + leftDmgEnergy + leftDmgRadiation) / (rightDmg + rightDmgEnergy + rightDmgRadiation)) * 100).toFixed(2) + " %";
+                        cell.innerText = (100 * (rightDmgSum / leftDmgSum - 1)).toFixed(2) + " %";
                         cell.style = "border: 1px solid black; text-align: right;";
                     } else {
                         cell = row.insertCell(cidx++);
@@ -8474,6 +8527,14 @@
                     baseDamage = damage;
                 }
                 return damage * Math.min(0.99, 0.5 * Math.pow(baseDamage / dr, 0.365));
+            }
+
+            function damageFormulaP23(damage, baseResistance, ignore) {
+                if (damage <= 0) {
+                    return damage;
+                }
+                var resistAdjust = Math.pow((baseResistance + 51) * (1 - 0.01 * ignore), 0.6377);
+                return damage * (1 - Math.max(0.01, Math.min(0.8, 0.01 * resistAdjust)));
             }
 
             function valueOf(select) {
