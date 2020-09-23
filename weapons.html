@@ -6439,20 +6439,24 @@
                 cell1.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;Player health" + info("playerhealth");
                 cell2 = row.insertCell(1);
                 cell2.innerHTML = "<input type='number' id='playerhealth" + index + "' value='100' maxlength='6' style='width: 8em;' min='1' max='100'> %";
-                document.getElementById("playerhealth" + index ).oninput = function() {
+                var playerhealthsel = document.getElementById("playerhealth" + index );
+                playerhealthsel.oninput = function() {
                     recalculate(tbl, index, type);
                 };
-                document.getElementById("playerhealth" + index ).linkId = "PHP";
+                playerhealthsel.linkId = "PHP";
+                playerhealthsel.linkDefault = "100";
 
                 row = tbl.insertRow(tbl.rows.length);
                 cell1 = row.insertCell(0);
                 cell1.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;Enemy health" + info("enemyhealth");
                 cell2 = row.insertCell(1);
                 cell2.innerHTML = "<input type='number' id='enemyhealth" + index + "' value='99' maxlength='6' style='width: 8em;' min='1' max='100'> %";
-                document.getElementById("enemyhealth" + index ).oninput = function() {
+                var enemyhealthsel = document.getElementById("enemyhealth" + index );
+                enemyhealthsel.oninput = function() {
                     recalculate(tbl, index, type);
                 };
-                document.getElementById("enemyhealth" + index ).linkId = "EHP";
+                enemyhealthsel.linkId = "EHP";
+                enemyhealthsel.linkDefault = "99";
 
                 row = tbl.insertRow(tbl.rows.length);
                 cell1 = row.insertCell(0);
@@ -6501,20 +6505,24 @@
                     cell1.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;Furious hit count" + info("furious");
                     cell2 = row.insertCell(1);
                     cell2.innerHTML = "<input type='number' id='furioushits" + index + "' value='0' maxlength='6' style='width: 8em;' min='0' max='30'>";
-                    document.getElementById("furioushits" + index ).oninput = function() {
+                    var furioushitssel = document.getElementById("furioushits" + index );
+                    furioushitssel.oninput = function() {
                         recalculate(tbl, index, type);
                     };
-                    document.getElementById("furioushits" + index ).linkId = "Hits";
+                    furioushitssel.linkId = "Hits";
+                    furioushitssel.linkDefault = "0";
 
                 row = tbl.insertRow(tbl.rows.length);
                     cell1 = row.insertCell(0);
                     cell1.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;Addictions" + info("junkies");
                     cell2 = row.insertCell(1);
                     cell2.innerHTML = "<input type='number' id='junkiescount" + index + "' value='0' maxlength='6' style='width: 8em;' min='0' max='30'>";
-                    document.getElementById("junkiescount" + index ).oninput = function() {
+                    var junkiescountsel = document.getElementById("junkiescount" + index );
+                    junkiescountsel.oninput = function() {
                         recalculate(tbl, index, type);
                     };
-                    document.getElementById("junkiescount" + index ).linkId = "Addicts";
+                    junkiescountsel.linkId = "Addicts";
+                    junkiescountsel.linkDefault = "0";
 
                 var weapIdx = document.getElementById("weapon" + index).selectedIndex;
                 var weap = allWeapons.get(type)[weapIdx];
@@ -7342,10 +7350,12 @@
                 cell1.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;Other bonus damage" + info("buff");
                 cell2 = row.insertCell(1);
                 cell2.innerHTML = "<input type='number' id='otherboost" + index + "' value='0' maxlength='6' style='width: 8em;' min='-1000' max='1000'> %";
-                document.getElementById("otherboost" + index ).oninput = function() {
+                var otherboostsel = document.getElementById("otherboost" + index );
+                otherboostsel.oninput = function() {
                     recalculate(tbl, index, type);
                 };
-                document.getElementById("otherboost" + index ).linkId = "Other";
+                otherboostsel.linkId = "Other";
+                otherboostsel.linkDefault = "0";
 
                 // calculation mode
                 row = tbl.insertRow(tbl.rows.length);
@@ -7355,6 +7365,8 @@
                 cell2.innerHTML = "<select id='calcmode" + index + "'></select>"
                 var calcmodesel = document.getElementById("calcmode" + index);
                 calcmodesel.linkId = "CalcMode";
+                calcmodesel.linkDefault = "P22";
+
                 opt = document.createElement("option");
                 opt.text = "Patch < 22";
                 opt.value = "P21";
