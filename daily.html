@@ -2054,11 +2054,19 @@
                     offset: day,
                     period: 100
                 });
-                options.push({
+                var loc = {
                     name: "Location: <i>" + location + "</i>",
                     offset: day,
                     period: 100
-                });
+                };
+                if (location === "???") {
+                    loc.subchallenges = [
+                        {
+                            name: "&#x1F6C8; Currently, Daily Ops refreshes one hour after the S.C.O.R.E. challenges."
+                        }
+                    ];
+                }
+                options.push(loc);
                 options.push({
                     name: "Enemies: <i>" + enemies + "</i>",
                     offset: day,
@@ -2155,6 +2163,13 @@
                     scoreKillGlowing(8, 1),
                     scoreModArmor(8, 3),
                     scoreNWKillCreature(8, 1),
+
+                    scoreBuySellItem(9, 1),
+                    scoreCompleteDailyOps(9, 1),
+                    scoreCompleteOneEvent(9, 1),
+                    scoreConsumeAlcohol(9, 5),
+                    scoreKillCreatureInGroup(9, 25),
+                    scoreNWRevivePlayer(9, 1)
                     //scoreLatepost(4)
                 ]
             };
@@ -2195,6 +2210,7 @@
             addDailyOps(challengesDailyEra4.options, 6, "The Burning Mine", "Blood Eagles", [ dailyOpsPiercingGaze, dailyOpsVolatile ]);
             addDailyOps(challengesDailyEra4.options, 7, "The Burrows", "Super Mutants", [ dailyOpsPiercingGaze, dailyOpsFreezing ]);
             addDailyOps(challengesDailyEra4.options, 8, "The Burning Mine", "Super Mutants", [ dailyOpsPiercingGaze, dailyOpsCloaked ]);
+            addDailyOps(challengesDailyEra4.options, 9, "???", "???", [ dailyOpsPiercingGaze ]);
  
             var challenges = [
                 challengesDailyEra1,
