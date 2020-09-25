@@ -2606,7 +2606,20 @@
                     speed: 0.3,
                     level: [25, 35, 45],
                     damage: [95, 115, 135],
-                    mods: []
+                    mods: [
+                        {
+                            slot: "Barrel",
+                            options: [
+                                {
+                                    name: "Standard"
+                                },
+                                {
+                                    name: "Light",
+                                    damageMultPercent: -15
+                                }
+                            ]
+                        }
+                    ]
                 },
                 {
                     name: "Harpoon Gun",
@@ -3596,7 +3609,7 @@
                                 },
                                 {
                                     name: "Heavy",
-                                    damageMultPercent: 10,
+                                    damageMultPercent: 12.5,
                                 }
                             ]
                         }
