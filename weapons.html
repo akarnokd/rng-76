@@ -7789,6 +7789,8 @@
 
                 var isSilenced = weap.silencer;
                 var isScoped = false;
+                var applyInstigating = 0; // Percentage
+                var applyNerdrage = 0; // Percentage
 
                 var versusMultiplier = 0;
 
@@ -7889,9 +7891,10 @@
                                 }
                             }
                             if (effInfo.name === "Instigating") {
-                                if (parseFloat(document.getElementById("enemyhealth" + index).value) < 100) {
-                                    perc = 0;
+                                if (parseFloat(document.getElementById("enemyhealth" + index).value) >= 100) {
+                                    applyInstigating = perc;
                                 }
+                                perc = 0;
                             }
                             if (effInfo.name === "Executioner's") {
                                 if (parseFloat(document.getElementById("enemyhealth" + index).value) > 40) {
@@ -8011,8 +8014,7 @@
                 if (nerdrage.selectedIndex > 0) {
                     var health = parseFloat(document.getElementById("playerhealth" + index).value);
                     if (health < 20) {
-                        totalDamageMultiply.push(valueOf(nerdrage));
-                        totalDamageEnergyMultiply.push(valueOf(nerdrage));
+                        applyNerdrage = valueOf(nerdrage);
                     }
                 }
 
@@ -8201,6 +8203,21 @@
                     totalDamageRadiationMultiply.forEach(function(v) {
                         totalDamageRadiation *= 1.0 + v / 100.0;
                     });
+                }
+
+                if (applyInstigating > 0) {
+                    totalDamage *= 1.0 + applyInstigating / 100.0;
+                    totalDamageEnergy *= 1.0 + applyInstigating / 100.0;
+                    totalDamageFire *= 1.0 + applyInstigating / 100.0;
+                    totalDamageCold *= 1.0 + applyInstigating / 100.0;
+                    totalDamagePoison *= 1.0 + applyInstigating / 100.0;
+                }
+                if (applyNerdrage > 0) {
+                    totalDamage *= 1.0 + applyNerdrage / 100.0;
+                    totalDamageEnergy *= 1.0 + applyNerdrage / 100.0;
+                    totalDamageFire *= 1.0 + applyNerdrage / 100.0;
+                    totalDamageCold *= 1.0 + applyNerdrage / 100.0;
+                    totalDamagePoison *= 1.0 + applyNerdrage / 100.0;
                 }
 
                 totalDamage *= sneakBonusMultiply;
