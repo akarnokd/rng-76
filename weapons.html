@@ -22,7 +22,7 @@
     </head>
     <body style="height: 90%">
         <center>
-            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Weapon Damage Calculator (v3.3.12)</span>
+            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Weapon Damage Calculator (v3.3.13)</span>
             <br/>
             <i>(Update to Patch 22 is almost done; a few special cases to iron out but otherwise good to go.)</i>
         <br/>
@@ -88,22 +88,38 @@
                     
                     <table id="table3" style="border: 1px solid black; border-collapse: collapse;">
                         <tr>
-                            <td colspan='3' style="border: 1px solid black;">Enemy</td>
-                            <td colspan="4" style="border: 1px solid black;">Left weapon</td>
-                            <td colspan="4" style="border: 1px solid black;">Right weapon</td>
+                            <td colspan='6' style="border: 1px solid black;">Enemy</td>
+                            <td colspan="8" style="border: 1px solid black;">Left weapon</td>
+                            <td colspan="8" style="border: 1px solid black;">Right weapon</td>
                         </tr>
                         <tr>
-                            <td style="border: 1px solid black;">DR</td>
-                            <td style="border: 1px solid black;">ER</td>
-                            <td style="border: 1px solid black;">RR</td>
-                            <td style="border: 1px solid black;" id='ActualDRLeft'>Actual DR</td>
-                            <td style="border: 1px solid black;" id='ActualERLeft'>Actual ER</td>
-                            <td style="border: 1px solid black;">Damage dealt</td>
-                            <td style="border: 1px solid black;">Compare Right</td>
-                            <td style="border: 1px solid black;" id='ActualDRRight'>Actual DR</td>
-                            <td style="border: 1px solid black;" id='ActualERRight'>Actual ER</td>
-                            <td style="border: 1px solid black;">Damage dealt</td>
-                            <td style="border: 1px solid black;">Compare Left</td>
+                            <td colspan='6' style="border: 1px solid black;">Resistances</td>
+                            <td colspan='6' style="border: 1px solid black;">Actual</td>
+                            <td rowspan='2' style="border: 1px solid black;">Damage</td>
+                            <td rowspan='2'  style="border: 1px solid black;">Compare<br>Right</td>
+                            <td colspan='6' style="border: 1px solid black;">Actual</td>
+                            <td rowspan='2'  style="border: 1px solid black;">Damage</td>
+                            <td rowspan='2'  style="border: 1px solid black;">Compare<br>Left</td>
+                        </tr>
+                        <tr>
+                            <td style="border: 1px solid black;" title='Ballistic Resistance'>DR</td>
+                            <td style="border: 1px solid black;" title='Energy Resistance'>ER</td>
+                            <td style="border: 1px solid black;" title='Radiation Resistance'>RR</td>
+                            <td style="border: 1px solid black;" title='Fire Resistance'>FR</td>
+                            <td style="border: 1px solid black;" title='Cryo Resistance'>CR</td>
+                            <td style="border: 1px solid black;" title='Poison Resistance'>PR</td>
+                            <td style="border: 1px solid black;" id='ActualDRLeft'>DR</td>
+                            <td style="border: 1px solid black;" id='ActualERLeft'>ER</td>
+                            <td style="border: 1px solid black;" id='ActualRRLeft'>RR</td>
+                            <td style="border: 1px solid black;" id='ActualFRLeft'>FR</td>
+                            <td style="border: 1px solid black;" id='ActualCRLeft'>CR</td>
+                            <td style="border: 1px solid black;" id='ActualPRLeft'>PR</td>
+                            <td style="border: 1px solid black;" id='ActualDRRight'>DR</td>
+                            <td style="border: 1px solid black;" id='ActualERRight'>ER</td>
+                            <td style="border: 1px solid black;" id='ActualRRRight'>RR</td>
+                            <td style="border: 1px solid black;" id='ActualFRRight'>FR</td>
+                            <td style="border: 1px solid black;" id='ActualCRRight'>CR</td>
+                            <td style="border: 1px solid black;" id='ActualPRRight'>PR</td>
                         </tr>
                     </table> 
                 </td>
@@ -5956,13 +5972,24 @@
                 + "</ul>"
             );
             infoMap.set("ActualDR", 
-                "Shows the Damage Resistance against ballistic damage after all Ignore Armor mods/effects/perks have been applied to the target."
-                + " Note that Ignore Armor does not currently work with radiation weapons and against radiation resistance."
+                "Shows the Damage Resistance against <b>ballistic damage</b> after all Ignore Armor mods/effects/perks have been applied to the target."
             );
             infoMap.set("ActualER", 
-                "Shows the Damage Resistance against energy damage after all Ignore Armor mods/effects/perks have been applied to the target."
-                + " Note that Ignore Armor does not currently work with radiation weapons and against radiation resistance."
+                "Shows the Damage Resistance against <b>energy damage</b> after all Ignore Armor mods/effects/perks have been applied to the target."
             );
+            infoMap.set("ActualRR", 
+                "Shows the Damage Resistance against <b>radiation damage</b> after all Ignore Armor mods/effects/perks have been applied to the target."
+            );
+            infoMap.set("ActualFR", 
+                "Shows the Damage Resistance against <b>fire damage</b> after all Ignore Armor mods/effects/perks have been applied to the target."
+            );
+            infoMap.set("ActualCR", 
+                "Shows the Damage Resistance against <b>cryo damage</b> after all Ignore Armor mods/effects/perks have been applied to the target."
+            );
+            infoMap.set("ActualPR", 
+                "Shows the Damage Resistance against <b>poison damage</b> after all Ignore Armor mods/effects/perks have been applied to the target."
+            );
+
             infoMap.set("junkies", "With the <b>Junkie's</b> legendary prefix on a weapon, each addiction results in a +10% damage bonus up to +50% total.");
 
             infoMap.set("twistedmuscles", "Grants +25% melee damage (unarmed, one- and two-handed) for -50% accuracy with ranged weapons (not affecting ranged damage).");
@@ -6124,16 +6151,12 @@
             }
 
 
-            document.getElementById("ActualDRLeft").innerHTML =
-                document.getElementById("ActualDRLeft").innerHTML + info("ActualDR");
-            document.getElementById("ActualERLeft").innerHTML =
-                document.getElementById("ActualERLeft").innerHTML + info("ActualER");
-
-            document.getElementById("ActualDRRight").innerHTML =
-                document.getElementById("ActualDRRight").innerHTML + info("ActualDR");
-            document.getElementById("ActualERRight").innerHTML =
-                document.getElementById("ActualERRight").innerHTML + info("ActualER");
-
+            for (var side of ["Left", "Right"]) {
+                for (var res of ["DR", "ER", "RR", "FR", "CR", "PR"]) {
+                    var node = document.getElementById("Actual" + res + side);
+                    node.innerHTML = node.innerHTML + info("Actual" + res);
+                }
+            }
 
             // ----------------------------------------------------------------------
 
@@ -8303,9 +8326,13 @@
                 return resistance * (1 - Math.min(0.95, (ignorePercent / 100.0)))
             }
 
+            function undefinedIsZero(v) {
+                return v === undefined ? 0 : v;
+            }
+
             function recalculateDiff() {
                 var tbl = document.getElementById("table3");
-                for (var i = tbl.rows.length - 1; i > 1; i--) {
+                for (var i = tbl.rows.length - 1; i > 2; i--) {
                     tbl.deleteRow(i);
                 }
 
@@ -8393,7 +8420,7 @@
                                              : damageFormula(damagesRadiation[index], leftRr))
                          * speedFactorLeft * damageMitigation;
                     var leftDmgFire = (leftIsP23 ? damageFormulaP23(damagesFire[index], res.fr, ignores[index]) 
-                                             : damageFormula(damagesFire[index], leftFr, baseDamagesFire[2]))
+                                             : damageFormula(damagesFire[index], leftFr, baseDamagesFire[index]))
                          * speedFactorLeft * damageMitigation;
                     var leftDmgCold = (leftIsP23 ? damageFormulaP23(damagesCold[index], res.cr, ignores[index]) 
                                              : damageFormula(damagesCold[index], leftCr))
@@ -8444,7 +8471,7 @@
                             cell.innerHTML += info(res.tip);
                         }
                         cell.style = "border: 1px solid black;";
-                        cell.colSpan = 3;
+                        cell.colSpan = 6;
                         if (res.cr !== undefined) {
                             cell.title = "DR: " + res.dr + ", ER: " + res.er + ", RR: " + res.rr + ", CR: " + res.cr + ", FR: " + res.fr + ", PR: " + res.pr; 
                         } else {
@@ -8464,6 +8491,18 @@
                         cell = row.insertCell(cidx++);
                         cell.innerText = "" + res.rr;
                         cell.style = "border: 1px solid black; text-align: right;";
+
+                        cell = row.insertCell(cidx++);
+                        cell.innerText = "" + undefinedIsZero(res.fr);
+                        cell.style = "border: 1px solid black; text-align: right;";
+
+                        cell = row.insertCell(cidx++);
+                        cell.innerText = "" + undefinedIsZero(res.cr);
+                        cell.style = "border: 1px solid black; text-align: right;";
+
+                        cell = row.insertCell(cidx++);
+                        cell.innerText = "" + undefinedIsZero(res.pr);
+                        cell.style = "border: 1px solid black; text-align: right;";
                     }
 
                     var hasLeft = damages[1] > 0 || damagesEnergy[1] > 0 || damagesRadiation[1] > 0
@@ -8482,7 +8521,24 @@
                         cell.style = "border: 1px solid black; text-align: right;";
 
                         cell = row.insertCell(cidx++);
+                        cell.innerText = leftRr.toFixed(1);
+                        cell.style = "border: 1px solid black; text-align: right;";
+
+                        cell = row.insertCell(cidx++);
+                        cell.innerText = leftFr.toFixed(1);
+                        cell.style = "border: 1px solid black; text-align: right;";
+
+                        cell = row.insertCell(cidx++);
+                        cell.innerText = leftCr.toFixed(1);
+                        cell.style = "border: 1px solid black; text-align: right;";
+
+                        cell = row.insertCell(cidx++);
+                        cell.innerText = leftPr.toFixed(1);
+                        cell.style = "border: 1px solid black; text-align: right;";
+
+                        cell = row.insertCell(cidx++);
                         cell.innerText = (leftDmgSum).toFixed(2);
+
                         cell.title = "Ballistic: " + leftDmg.toFixed(2) 
                             + "    Energy: " + leftDmgEnergy.toFixed(2) 
                             + "    Radiation: " + leftDmgRadiation.toFixed(2)
@@ -8492,6 +8548,14 @@
                             ;
                         cell.style = "border: 1px solid black; text-align: right;";
                     } else {
+                        cell = row.insertCell(cidx++);
+                        cell.style = "border: 1px solid black; text-align: right;";
+                        cell = row.insertCell(cidx++);
+                        cell.style = "border: 1px solid black; text-align: right;";
+                        cell = row.insertCell(cidx++);
+                        cell.style = "border: 1px solid black; text-align: right;";
+                        cell = row.insertCell(cidx++);
+                        cell.style = "border: 1px solid black; text-align: right;";
                         cell = row.insertCell(cidx++);
                         cell.style = "border: 1px solid black; text-align: right;";
                         cell = row.insertCell(cidx++);
@@ -8519,6 +8583,22 @@
                         cell.style = "border: 1px solid black; text-align: right;";
 
                         cell = row.insertCell(cidx++);
+                        cell.innerText = rightRr.toFixed(1);
+                        cell.style = "border: 1px solid black; text-align: right;";
+
+                        cell = row.insertCell(cidx++);
+                        cell.innerText = rightFr.toFixed(1);
+                        cell.style = "border: 1px solid black; text-align: right;";
+
+                        cell = row.insertCell(cidx++);
+                        cell.innerText = rightCr.toFixed(1);
+                        cell.style = "border: 1px solid black; text-align: right;";
+
+                        cell = row.insertCell(cidx++);
+                        cell.innerText = rightPr.toFixed(1);
+                        cell.style = "border: 1px solid black; text-align: right;";
+
+                        cell = row.insertCell(cidx++);
                         cell.innerText = (rightDmgSum).toFixed(2);
                         cell.title = "Ballistic: " + rightDmg.toFixed(2) 
                             + "    Energy: " + rightDmgEnergy.toFixed(2) 
@@ -8532,6 +8612,14 @@
                         cell.style= "border: 1px solid black; text-align: right;";
                         cell = row.insertCell(cidx++);
                         cell.style= "border: 1px solid black; text-align: right;";
+                        cell = row.insertCell(cidx++);
+                        cell.style = "border: 1px solid black; text-align: right;";
+                        cell = row.insertCell(cidx++);
+                        cell.style = "border: 1px solid black; text-align: right;";
+                        cell = row.insertCell(cidx++);
+                        cell.style = "border: 1px solid black; text-align: right;";
+                        cell = row.insertCell(cidx++);
+                        cell.style = "border: 1px solid black; text-align: right;";
                         cell = row.insertCell(cidx++);
                         cell.style = "border: 1px solid black; text-align: right;";
                     }
