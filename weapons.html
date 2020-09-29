@@ -6406,69 +6406,15 @@
                 cell1.innerText = "Effect parameters";
                 var cell2 = row.insertCell(1);
 
-                row = tbl.insertRow(tbl.rows.length);
-                cell1 = row.insertCell(0);
-                cell1.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;Night time" + info("nighttime");
-                cell2 = row.insertCell(1);
-                cell2.innerHTML = "<input type='radio' id='nighttime" + index + "_yes' name='nighttime" + index + "' value='1'> Yes&nbsp;&nbsp;&nbsp;"
-                    + "<input type='radio' id='nighttime" + index + "_no' name='nighttime" + index + "' value='0' checked='checked'> No";
+                createYesNo(tbl, index, type, "Night time", "nighttime", "nighttime", "Night");
 
-                document.getElementById("nighttime" + index + "_yes").onchange = function() {
-                    recalculate(tbl, index, type);
-                };
-                document.getElementById("nighttime" + index + "_yes").linkId="Night";
-
-                document.getElementById("nighttime" + index + "_no").onchange = function() {
-                    recalculate(tbl, index, type);
-                };
-
-                row = tbl.insertRow(tbl.rows.length);
-                cell1 = row.insertCell(0);
-                cell1.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;Sneaking" + info("sneaking");
-                cell2 = row.insertCell(1);
-                cell2.innerHTML = "<input type='radio' id='sneaking" + index + "_yes' name='sneaking" + index + "' value='1'> Yes&nbsp;&nbsp;&nbsp;"
-                    + "<input type='radio' id='sneaking" + index + "_no' name='sneaking" + index + "' value='0' checked='checked'> No";
-
-                document.getElementById("sneaking" + index + "_yes").onchange = function() {
-                    recalculate(tbl, index, type);
-                };
-                document.getElementById("sneaking" + index + "_yes").linkId = "Sneak";
-                document.getElementById("sneaking" + index + "_no").onchange = function() {
-                    recalculate(tbl, index, type);
-                };
+                createYesNo(tbl, index, type, "Sneaking", "sneaking", "sneaking", "Sneak");
 
                 if (type === "Ranged") {
-                    row = tbl.insertRow(tbl.rows.length);
-                    cell1 = row.insertCell(0);
-                    cell1.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;Aiming" + info("aiming");
-                    cell2 = row.insertCell(1);
-                    cell2.innerHTML = "<input type='radio' id='aiming" + index + "_yes' name='aiming" + index + "' value='1'> Yes&nbsp;&nbsp;&nbsp;"
-                        + "<input type='radio' id='aiming" + index + "_no' name='aiming" + index + "' value='0' checked='checked'> No";
-
-                    document.getElementById("aiming" + index + "_yes").onchange = function() {
-                        recalculate(tbl, index, type);
-                    };
-                    document.getElementById("aiming" + index + "_yes").linkId = "Aim";
-                    document.getElementById("aiming" + index + "_no").onchange = function() {
-                        recalculate(tbl, index, type);
-                    };
-
+                    createYesNo(tbl, index, type, "Aiming", "aiming", "aiming", "Aim");
                 }
 
-                row = tbl.insertRow(tbl.rows.length);
-                cell1 = row.insertCell(0);
-                cell1.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;Team" + info("team");
-                cell2 = row.insertCell(1);
-                cell2.innerHTML = "<input type='radio' id='team" + index + "_yes' name='team" + index + "' value='1'> Yes&nbsp;&nbsp;&nbsp;"
-                    + "<input type='radio' id='team" + index + "_no' name='team" + index + "' value='0' checked='checked'> No";
-
-                document.getElementById("team" + index + "_yes").onchange = function() {
-                    recalculate(tbl, index, type);
-                };
-                document.getElementById("team" + index + "_yes").linkId = "Team";
-                document.getElementById("team" + index + "_no").onchange = function() {
-                    recalculate(tbl, index, type);
-                };
+                createYesNo(tbl, index, type, "Team", "team", "team", "Team");
 
                 row = tbl.insertRow(tbl.rows.length);
                 cell1 = row.insertCell(0);
@@ -6564,20 +6510,7 @@
                 var weap = allWeapons.get(type)[weapIdx];
 
                 if (weap.chargetime !== undefined) {
-                    row = tbl.insertRow(tbl.rows.length);
-                    cell1 = row.insertCell(0);
-                    cell1.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;Charged" + info("charge");
-                    cell2 = row.insertCell(1);
-                    cell2.innerHTML = "<input type='radio' id='charge" + index + "_yes' name='charge" + index + "' value='1'> Yes&nbsp;&nbsp;&nbsp;"
-                        + "<input type='radio' id='charge" + index + "_no' name='charge" + index + "' value='0' checked='checked'> No";
-
-                    document.getElementById("charge" + index + "_yes").onchange = function() {
-                        recalculate(tbl, index, type);
-                    };
-                    document.getElementById("charge" + index + "_no").onchange = function() {
-                        recalculate(tbl, index, type);
-                    };
-                    document.getElementById("charge" + index + "_yes").linkId = "Charged";
+                    createYesNo(tbl, index, type, "Charged", "charge", "charge", "Charged");
                 }
             }
 
@@ -7041,20 +6974,7 @@
                     };
                 }
 
-                row = tbl.insertRow(tbl.rows.length);
-                cell1 = row.insertCell(0);
-                cell1.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;Strange in numbers" + info("strangeinnumbers");
-                cell2 = row.insertCell(1);
-                cell2.innerHTML = "<input type='radio' id='strangeinnumbers" + index + "_yes' name='strangeinnumbers" + index + "' value='1'> Yes&nbsp;&nbsp;&nbsp;"
-                    + "<input type='radio' id='strangeinnumbers" + index + "_no' name='strangeinnumbers" + index + "' value='0' checked='checked'> No";
-
-                document.getElementById("strangeinnumbers" + index + "_yes").onchange = function() {
-                    recalculate(tbl, index, type);
-                };
-                document.getElementById("strangeinnumbers" + index + "_yes").linkId = "Strange";
-                document.getElementById("strangeinnumbers" + index + "_no").onchange = function() {
-                    recalculate(tbl, index, type);
-                };
+                createYesNo(tbl, index, type, "Strange in numbers", "strangeinnumbers", "strangeinnumbers", "Strange");
 
                 row = tbl.insertRow(tbl.rows.length);
                 cell1 = row.insertCell(0);
@@ -7165,20 +7085,7 @@
                 createYesNo(tbl, index, type, "Adrenal reaction", "adrenalreaction", "adrenalreaction", "Adrenal");
 
                 if (type === "Melee") {
-                    row = tbl.insertRow(tbl.rows.length);
-                    cell1 = row.insertCell(0);
-                    cell1.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;Twisted Muscles" + info("twistedmuscles");
-                    cell2 = row.insertCell(1);
-                    cell2.innerHTML = "<input type='radio' id='twistedmuscles" + index + "_yes' name='twistedmuscles" + index + "' value='1'> Yes&nbsp;&nbsp;&nbsp;"
-                        + "<input type='radio' id='twistedmuscles" + index + "_no' name='twistedmuscles" + index + "' value='0' checked='checked'> No";
-
-                    document.getElementById("twistedmuscles" + index + "_yes").onchange = function() {
-                        recalculate(tbl, index, type);
-                    };
-                    document.getElementById("twistedmuscles" + index + "_yes").linkId = "Twisted";
-                    document.getElementById("twistedmuscles" + index + "_no").onchange = function() {
-                        recalculate(tbl, index, type);
-                    };                    
+                    createYesNo(tbl, index, type, "Twisted Muscles", "twistedmuscles", "twistedmuscles", "Twisted");
                 }
 
                 createYesNo(tbl, index, type, "Grounded", "grounded", "grounded", "Grounded");
