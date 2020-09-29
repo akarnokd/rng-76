@@ -6108,7 +6108,7 @@
                 + "<br><br>Before Patch 22 (One Wasteland), damage buffs were mostly multiplicative"
                 + "<br>and more resistances had a diminishing effect on reducing damage."
                 + "<br><br>Patch 22 (One Wasteland) changed damage buffs to be mostly additive."
-                + "<br>The exceptions appear to be the Instigating effect, stealth and crit bonuses."
+                + "<br>The exceptions appear to be the Nerd Rage perk, stealth and crit bonuses."
                 + "<br><br>Future patches appear to change the impact of resistances so that"
                 + "<br>there won't be such a sharp drop in damage output for the same level of resistance,"
                 + "<br>resulting in tougher enemies to receive more damage."
@@ -7698,7 +7698,6 @@
 
                 var isSilenced = weap.silencer;
                 var isScoped = false;
-                var applyInstigating = 0; // Percentage
                 var applyNerdrage = 0; // Percentage
 
                 var versusMultiplier = 0;
@@ -7800,10 +7799,9 @@
                                 }
                             }
                             if (effInfo.name === "Instigating") {
-                                if (parseFloat(document.getElementById("enemyhealth" + index).value) >= 100) {
-                                    applyInstigating = perc;
+                                if (parseFloat(document.getElementById("enemyhealth" + index).value) < 100) {
+                                    perc = 0;
                                 }
-                                perc = 0;
                             }
                             if (effInfo.name === "Executioner's") {
                                 if (parseFloat(document.getElementById("enemyhealth" + index).value) > 40) {
@@ -8114,13 +8112,6 @@
                     });
                 }
 
-                if (applyInstigating > 0) {
-                    totalDamage *= 1.0 + applyInstigating / 100.0;
-                    totalDamageEnergy *= 1.0 + applyInstigating / 100.0;
-                    totalDamageFire *= 1.0 + applyInstigating / 100.0;
-                    totalDamageCold *= 1.0 + applyInstigating / 100.0;
-                    totalDamagePoison *= 1.0 + applyInstigating / 100.0;
-                }
                 if (applyNerdrage > 0) {
                     totalDamage *= 1.0 + applyNerdrage / 100.0;
                     totalDamageEnergy *= 1.0 + applyNerdrage / 100.0;
