@@ -2198,6 +2198,13 @@
                     scoreKillLegendary(13, 3),
                     scoreKillScorched(13, 10),
                     scoreNWKillPlayer(13, 1),
+
+                    scoreCompleteDailyOps(14, 1),
+                    scoreCompleteOneEvent(14, 1),
+                    scoreEatPrewarFood(14, 5),
+                    scoreKillSupermutant(14, 10),
+                    scorePlantCrop(14, 5),
+                    scoreNWSurviveMinutes(14, 10)
                     //scoreLatepost(4)
                 ]
             };
@@ -2243,6 +2250,7 @@
             addDailyOps(challengesDailyEra4.options, 11, "Valley Galleria", "Robots", [ dailyOpsPiercingGaze, dailyOpsVolatile ]);
             addDailyOps(challengesDailyEra4.options, 12, "The Burrows", "Blood Eagles", [ dailyOpsPiercingGaze, dailyOpsCloaked ]);
             addDailyOps(challengesDailyEra4.options, 13, "Vault 94", "Robots", [ dailyOpsPiercingGaze, dailyOpsVolatile ]);
+            addDailyOps(challengesDailyEra4.options, 14, "???", "???", [ dailyOpsPiercingGaze ]);
  
             var challenges = [
                 challengesDailyEra1,
@@ -3052,6 +3060,13 @@
                             period: 1400,
                         };
             }
+            function scoreCompleteManyDailyOps5(offset) {
+                return {
+                            name: "Complete a <i>Daily Operations</i> daily challenge (x5)",
+                            offset: offset,
+                            period: 1400,
+                        };
+            }
             function scoreCompleteManyDailyOps1(offset) {
                 return {
                             name: "Complete a <i>Daily Operations</i> daily challenge",
@@ -3394,6 +3409,15 @@
             addWeekly(challengesWeeklyEra4.options, 7, scorekillHugeCreatures);
             addWeekly(challengesWeeklyEra4.options, 7, scoreRepairArmorWeapon15);
             addWeekly(challengesWeeklyEra4.options, 7, scoreScrapMoney);
+
+            addWeekly(challengesWeeklyEra4.options, 14, scoreBuildupCampAny3);
+            addWeekly(challengesWeeklyEra4.options, 14, scoreClaimWorkshop5);
+            addWeekly(challengesWeeklyEra4.options, 14, scoreCollectCaps2500);
+            addWeekly(challengesWeeklyEra4.options, 14, scoreCompleteManyDailyOps5);
+            addWeekly(challengesWeeklyEra4.options, 14, scoreCompleteGoldStar);
+            addWeekly(challengesWeeklyEra4.options, 14, scoreCompleteEvents5);
+            addWeekly(challengesWeeklyEra4.options, 14, scoreCriticalHit25);
+            addWeekly(challengesWeeklyEra4.options, 14, scoreKillLegendaries10);
 
             addPlaceholders(challengesWeeklyEra4, scoreWeeklyplaceholder);
 
