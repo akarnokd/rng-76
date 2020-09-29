@@ -7516,6 +7516,10 @@
                 var charged = document.getElementById("charge" + index + "_yes");
                 var isCharged = charged != null && charged.checked;
 
+                if (isCharged && weap.chargetime != undefined) {
+                    speed = weap.chargetime;
+                }
+
                 // adjust for melee strength
                 // ~~~~~~~~~~~~~~~~~~~~~~~~~
                 if (type === "Melee") {
@@ -7606,9 +7610,7 @@
 
                 // uncharged shots have default speed but 50% less damage
                 if (weap.chargetime !== undefined) {
-                    if (isCharged) {
-                        speed *= 0.5;
-                    } else {
+                    if (!isCharged) {
                         baseDamage *= 0.5;
                         baseDamageEnergy *= 0.5;
                         baseDamageRadiation *= 0.5;
