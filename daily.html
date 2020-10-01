@@ -2094,6 +2094,15 @@
                 });
             }
 
+            function scoreDoubleDailies(offset) {
+                return {
+                    name: "&#x1F6C8; Double daily S.C.O.R.E.",
+                    offset: offset,
+                    period: 100,
+                    ignore: true
+                };
+            }
+
             var challengesDailyEra4 = {
                 validStart: new Date(Date.UTC(2020, 8, 15, 16, 0, 0, 0)),
                 validEnd: plusDays(new Date(Date.UTC(2020, 8, 15, 16, 0, 0, 0)), 70),
@@ -2213,6 +2222,12 @@
                     scoreRepairArmorWeapon(15, 3),
                     scoreNWRevivePlayer(15, 1),
                     //scoreLatepost(4)
+
+                    scoreDoubleDailies(16),
+                    scoreDoubleDailies(17),
+                    scoreDoubleDailies(18),
+                    scoreDoubleDailies(19),
+                    scoreDoubleDailies(20),
                 ]
             };
 
@@ -3693,8 +3708,14 @@
                 {
                     validStart: new Date(Date.UTC(2020, 9, 1, 16, 0, 0, 0)),
                     validEnd: new Date(Date.UTC(2020, 9, 5, 16, 0, 0, 0)),
-                    title: "Double XP Weekend",
-                    options: []
+                    title: "Double S.C.O.R.E. Weekend",
+                    options: [
+                        {
+                            name: "&#x1F6C8; Daily challenges only.",
+                            offset: 0,
+                            period: 1
+                        }
+                    ]
                 },
                 createTreasureHunt(new Date(Date.UTC(2020, 9, 15, 16, 0, 0, 0)), new Date(Date.UTC(2020, 9, 19, 16, 0, 0, 0))),
                 {
