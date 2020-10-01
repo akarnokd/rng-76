@@ -22,7 +22,7 @@
     </head>
     <body style="height: 90%">
         <center>
-            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Weapon Damage Calculator (v3.3.13)</span>
+            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Weapon Damage Calculator (v3.3.14)</span>
             <br/>
             <i>(Update to Patch 22 is almost done; a few special cases to iron out but otherwise good to go.)</i>
         <br/>
@@ -142,6 +142,7 @@
             var speeds = [1, 1, 1];
             var enemySelection = [ null, null, null ];
             var enemySelectionName = [ null, null, null ];
+            var enemySelectionLevel = [ null, null, null ];
             var calcModes = [ null, null, null ];
 
             var baseDamagesBallistic = [0, 0, 0];
@@ -4080,6 +4081,9 @@
                 if (a.mitigation !== undefined && b.mitigation !== undefined) {
                     return b.mitigation - a.mitigation;
                 }
+                if (a.level !== undefined && b.level !== undefined) {
+                    return a.level - b.level;
+                }
                 return 0;
             };
 
@@ -5993,6 +5997,11 @@
                     + "<li>Glow sight (perk): bonus damage against Glowing enemies</li>"
                 + "</ul>"
             );
+            infoMap.set("enemylevel", 
+                "Pick a specific enemy type from dropdown above."
+                +"<br>Resistances scale with enemy levels and are interpolated"
+                + "<br>if it falls between two preset level in the curve tables."
+            );
 
             infoMap.set("strength", 
                 "Each point in the Strength attribute of the player adds 5% damage."
@@ -6515,6 +6524,17 @@
                 enemytypesel.onchange = function() {
                     recalculate(tbl, index, type);
                 };
+                row = tbl.insertRow(tbl.rows.length);
+                    cell1 = row.insertCell(0);
+                    cell1.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Enemy level" + info("enemylevel");
+                    cell2 = row.insertCell(1);
+                    cell2.innerHTML = "<input type='number' id='enemylevel" + index + "' value='100' maxlength='6' style='width: 5em;' min='1'>";
+                    var enemylevelsel = document.getElementById("enemylevel" + index );
+                    enemylevelsel.oninput = function() {
+                        recalculate(tbl, index, type);
+                    };
+                    enemylevelsel.linkId = "EnemyLvl";
+                    enemylevelsel.linkDefault = "1";
 
                 if (type === "Melee") {
                     row = tbl.insertRow(tbl.rows.length);
@@ -6535,7 +6555,7 @@
                     cell1 = row.insertCell(0);
                     cell1.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;Furious hit count" + info("furious");
                     cell2 = row.insertCell(1);
-                    cell2.innerHTML = "<input type='number' id='furioushits" + index + "' value='0' maxlength='6' style='width: 8em;' min='0' max='30'>";
+                    cell2.innerHTML = "<input type='number' id='furioushits" + index + "' value='0' maxlength='6' style='width: 3em;' min='0' max='30'>";
                     var furioushitssel = document.getElementById("furioushits" + index );
                     furioushitssel.oninput = function() {
                         recalculate(tbl, index, type);
@@ -6547,7 +6567,7 @@
                     cell1 = row.insertCell(0);
                     cell1.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;Addictions" + info("junkies");
                     cell2 = row.insertCell(1);
-                    cell2.innerHTML = "<input type='number' id='junkiescount" + index + "' value='0' maxlength='6' style='width: 8em;' min='0' max='30'>";
+                    cell2.innerHTML = "<input type='number' id='junkiescount" + index + "' value='0' maxlength='6' style='width: 3em;' min='0' max='30'>";
                     var junkiescountsel = document.getElementById("junkiescount" + index );
                     junkiescountsel.oninput = function() {
                         recalculate(tbl, index, type);
@@ -7341,7 +7361,7 @@
                 cell1 = row.insertCell(0);
                 cell1.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;Other bonus damage" + info("buff");
                 cell2 = row.insertCell(1);
-                cell2.innerHTML = "<input type='number' id='otherboost" + index + "' value='0' maxlength='6' style='width: 8em;' min='-1000' max='1000'> %";
+                cell2.innerHTML = "<input type='number' id='otherboost" + index + "' value='0' maxlength='6' style='width: 5em;' min='-1000' max='1000'> %";
                 var otherboostsel = document.getElementById("otherboost" + index );
                 otherboostsel.oninput = function() {
                     recalculate(tbl, index, type);
@@ -7352,7 +7372,7 @@
                 // calculation mode
                 row = tbl.insertRow(tbl.rows.length);
                 cell1 = row.insertCell(0);
-                cell1.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;Calculation mode" + info("buffcalcmode");
+                cell1.innerHTML = "Calculation mode" + info("buffcalcmode");
                 cell2 = row.insertCell(1);
                 cell2.innerHTML = "<select id='calcmode" + index + "'></select>"
                 var calcmodesel = document.getElementById("calcmode" + index);
@@ -7548,11 +7568,13 @@
                 
                 enemySelection[index] = null;
                 enemySelectionName[index] = null;
+                enemySelectionLevel[index] = null;
                 if (enemyTypeSel.selectedIndex > 0) {
                     var opt = enemyTypeSel.options[enemyTypeSel.selectedIndex];
                     if (opt.resistances !== undefined) {
                         enemySelection[index] = opt.resistances;
                         enemySelectionName[index] = opt.text;
+                        enemySelectionLevel[index] = parseInt(document.getElementById("enemylevel" + index).value);
                     }
                 }
 
@@ -8296,6 +8318,58 @@
                 return v === undefined ? 0 : v;
             }
 
+            function linearScale(prev, next, delta) {
+                if (prev === undefined || next === undefined) {
+                    return undefined;
+                }
+                return prev + delta * (next - prev);
+            }
+
+            function interpolateCurve(table, level) {
+                var first = table[0];
+                if (level <= first.level) {
+                    return {
+                        level: first.level,
+                        dr: first.dr,
+                        er: first.er,
+                        rr: first.rr,
+                        fr: first.fr,
+                        cr: first.cr,
+                        pr: first.pr
+                    };
+                }
+                var last = table[table.length - 1];
+                if (last.level <= level) {
+                    return {
+                        level: last.level,
+                        dr: last.dr,
+                        er: last.er,
+                        rr: last.rr,
+                        fr: last.fr,
+                        cr: last.cr,
+                        pr: last.pr
+                    };
+                }
+                for (var i = 0; i < table.length - 1; i++) {
+                    var curr = table[i];
+                    var next = table[i + 1];
+                    if (curr.level <= level && level <= next.level) {
+                        var dx = (level - curr.level) / (1.0 * (next.level - curr.level));
+
+                        return {
+                            level: level,
+                            dr: linearScale(curr.dr, next.dr, dx),
+                            er: linearScale(curr.er, next.er, dx),
+                            rr: linearScale(curr.rr, next.rr, dx),
+                            fr: linearScale(curr.fr, next.fr, dx),
+                            cr: linearScale(curr.cr, next.cr, dx),
+                            pr: linearScale(curr.pr, next.pr, dx),
+                        };
+                    }
+                }
+                return undefined;
+            }
+
             function recalculateDiff() {
                 var tbl = document.getElementById("table3");
                 for (var i = tbl.rows.length - 1; i > 2; i--) {
@@ -8317,23 +8391,47 @@
 
                 var resistanceList = [];
                 var resistanceDedup = new Map();
-                if (enemySelection[1] != null) {
-                    for (var e of enemySelection[1]) {
-                        var key = resistanceKey(e);
-                        if (resistanceDedup.get(key) == null) {
-                            resistanceDedup.set(key, 1);
-                            resistanceList.push(e);
-                            e.name = "<b>" + enemySelectionName[1] + " " + e.level + "</b>";
+                var customKey = undefined;
+                for (var enemyIdx = 1; enemyIdx < 3; enemyIdx++) {
+                    if (enemySelection[enemyIdx] != null) {
+                        for (var e of enemySelection[enemyIdx]) {
+                            var key = resistanceKey(e);
+                            var lvls = resistanceDedup.get(key);
+                            if (lvls == null) {
+                                lvls = [ e.level ];
+                                resistanceDedup.set(key, lvls);
+                                resistanceList.push(e);
+                                e.name = enemySelectionName[enemyIdx];
+                                e.key = key;
+                            } else {
+                                lvls.push(e.level);
+                            }
+                        }
+                        if (enemySelection[enemyIdx].length > 0) {
+                            var customLvl = enemySelectionLevel[enemyIdx];
+                            var customRes = interpolateCurve(enemySelection[enemyIdx], customLvl);
+                            if (customRes !== undefined) {
+                                var key = resistanceKey(customRes);
+                                if (customKey === undefined || customKey !== key) {
+                                    customKey = key;
+                                    resistanceList.push(customRes);
+                                    customRes.name = "&#x1F440; <b>" + enemySelectionName[enemyIdx] + " " + customLvl + "</b>";
+                                    customRes.isCustom = true;
+                                }
+                            }
                         }
                     }
                 }
-                if (enemySelection[2] != null) {
-                    for (var e of enemySelection[2]) {
-                        var key = resistanceKey(e);
-                        if (resistanceDedup.get(key) == null) {
-                            resistanceDedup.set(key, 1);
-                            resistanceList.push(e);
-                            e.name = "<b>" + enemySelectionName[2] + " " + e.level + "</b>";
+
+                for (var re of resistanceList) {
+                    if (re.key !== undefined) {
+                        var lvls = resistanceDedup.get(re.key);
+                        var first = lvls[0];
+                        var last = lvls[lvls.length - 1];
+                        if (first !== last) {
+                            re.name = "<b>" + re.name + " {" + first + ".." + last + "}</b>";
+                        } else {
+                            re.name = "<b>" + re.name + " " + first + "</b>";
                         }
                     }
                 }
@@ -8359,6 +8457,9 @@
                     }
                     if (evenOdd) {
                         row.style.backgroundColor = "#C0FFC0";
+                    }
+                    if (res.isCustom) {
+                        row.style.backgroundColor = "#FFCC00";
                     }
 
                     var damageMitigation = 1;
