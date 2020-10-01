@@ -1754,6 +1754,66 @@
                     ]
                 },
                 {
+                    name: "Whistle In the Dark",
+                    category: "Rifle",
+                    kind: "ballistic",
+                    explosive: false,
+                    silencer: true,
+                    special: true,
+                    info: "WhistleInTheDark",
+                    speed: 4,
+                    level: [30, 40, 50],
+                    damage: [26, 29, 33],
+                    mods: [
+                        {
+                            slot: "Receiver",
+                            options: [
+                                {
+                                    name: "Standard"
+                                },
+                                {
+                                    name: "Automatic",
+                                    damageMultPercent: -10,
+                                    speedAddPercent: 87.5
+                                },
+                                {
+                                    name: "Powerful Automatic",
+                                    damageMultPercent: 11.11,
+                                    speedAddPercent: 87.5
+                                },
+                                {
+                                    name: "Hardened",
+                                    damageMultPercent: 25
+                                },
+                                {
+                                    name: "Scorch killer's",
+                                    damageMultPercent: -20,
+                                    versus: ["Scorched", "Scorchbeast", "Scorchbeast Queen"],
+                                    versusAddPercent: 50
+                                },
+                                {
+                                    name: "Prime",
+                                    damageMultPercent: 25,
+                                    versus: ["Scorched", "Scorchbeast", "Scorchbeast Queen"],
+                                    versusMultPercent: 35
+                                },
+                                {
+                                    name: "Prime Automatic",
+                                    damageMultPercent: 15,
+                                    speedAddPercent: 87.5,
+                                    versus: ["Scorched", "Scorchbeast", "Scorchbeast Queen"],
+                                    versusMultPercent: 35
+                                }
+                            ]
+                        },
+                        standardAPMagazines,
+                        standardMuzzle,
+                        standardSights
+                    ],
+                    legendaryPrefix: "Nocturnal",
+                    // legendaryMajor: "33% VATS"
+                },
+                {
                     name: "Gatling Gun",
                     category: "Heavy",
                     kind: "ballistic",
@@ -6141,6 +6201,12 @@
                 + "<br>Legendary: <i>Medic's, VATS Crit +50% dmg, VATS Crit fills 15% faster</i>"
                 + "<br>Premodded: Sharpshooter's Grip, Long Barrel"
                 + "<br>Form ID: <a href='https://nukacrypt.com/database/json/005A21A2' target='_blank'>005A21A2</a>"
+                );
+            infoMap.set("WhistleInTheDark",
+                "<b>Unique Assault Rifle from Survival mode/Daily Ops.</b>" 
+                + "<br>Legendary: <i>Nocturnal, +33% VATS Hit Chance, +1 Perception</i>"
+                + "<br>Form ID (Survival): <a href='https://nukacrypt.com/database/json/0042B0D2' target='_blank'>0042B0D2</a>"
+                + "<br>Form ID (Daily Ops): <a href='https://nukacrypt.com/database/json/005E51E6' target='_blank'>005E51E6</a>"
                 );
 
             infoMap.set("WeaponOldGuard",
