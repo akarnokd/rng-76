@@ -22,7 +22,7 @@
     </head>
     <body style="height: 90%">
         <center>
-            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Weapon Damage Calculator (v3.3.14)</span>
+            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Weapon Damage Calculator (v3.3.15)</span>
             <br/>
             <i>(Update to Patch 22 is almost done; a few special cases to iron out but otherwise good to go.)</i>
         <br/>
@@ -6132,6 +6132,10 @@
                 "Negative effects of mutations are reduced by 25%, 50% and 75% respectively."
                 + "<br>Affects the <b>Grounded</b> mutation."
             );
+            infoMap.set("tenderizer", 
+                "Target receives 5%, 6% or 7% more damage for a few seconds after one attacks."
+                + "<br>Does not show up currently in the floating damage numbers ingame."
+            );
             infoMap.set("colanut", 
                 "Effects of Nuka Cola products doubles (rank 1) or triples (rank 2)."
                 + "<br>Affects <b>Nuka Cola Dark</b> and <b>Nukashine</b> only."
@@ -6600,7 +6604,7 @@
                         recalculate(tbl, index, type);
                     };
                     enemylevelsel.linkId = "EnemyLvl";
-                    enemylevelsel.linkDefault = "1";
+                    enemylevelsel.linkDefault = "100";
 
                 if (type === "Melee") {
                     row = tbl.insertRow(tbl.rows.length);
@@ -6709,10 +6713,12 @@
                     recalculate(tbl, index, type);
                 };
 
-                document.getElementById("kills" + index ).oninput = function() {
+                var killsel = document.getElementById("kills" + index );
+                killsel.oninput = function() {
                     recalculate(tbl, index, type);
                 };
-                document.getElementById("kills" + index ).linkId = "Kills";
+                killsel.linkId = "Kills";
+                killsel.linkDefault = "6";
 
                 row = tbl.insertRow(tbl.rows.length);
                 cell1 = row.insertCell(0);
@@ -7174,7 +7180,7 @@
                 classfreaksel.add(opt);
                 opt.text = "None";
                 opt.value = "0";
-                classfreaksel.linkId = "Party";
+                classfreaksel.linkId = "ClassFreak";
 
                 for (var i = 1; i < 4; i++) {
                     opt = document.createElement("option");
@@ -7185,6 +7191,31 @@
                 }
                 classfreaksel.selectedIndex = 0;
                 classfreaksel.onchange = function() {
+                    recalculate(tbl, index, type);
+                };
+
+                row = tbl.insertRow(tbl.rows.length);
+                cell1 = row.insertCell(0);
+                cell1.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;Tenderizer" + info("tenderizer");
+                cell2 = row.insertCell(1);
+                cell2.innerHTML = "<select id='tenderizer" + index + "'></select> (rank)"
+                
+                var tenderizersel = document.getElementById("tenderizer" + index);
+                opt = document.createElement("option");
+                tenderizersel.add(opt);
+                opt.text = "None";
+                opt.value = "0";
+                tenderizersel.linkId = "Tenderizer";
+
+                for (var i = 1; i < 4; i++) {
+                    opt = document.createElement("option");
+                    tenderizersel.add(opt);
+                    opt.text = "" + i;
+                    opt.value = "" + (4 + i);
+                    opt.linkId = opt.value;
+                }
+                tenderizersel.selectedIndex = 0;
+                tenderizersel.onchange = function() {
                     recalculate(tbl, index, type);
                 };
             }
@@ -8191,6 +8222,12 @@
                     }
                 }
 
+                var tenderizersel = document.getElementById("tenderizer" + index);
+                if (tenderizersel.selectedIndex > 0) {
+                    totalDamageMultiply.push(parseFloat(valueOf(tenderizersel)));
+                    totalDamageEnergyMultiply.push(parseFloat(valueOf(tenderizersel)));
+                }
+
                 var calcMode = valueOf(document.getElementById("calcmode" + index));
                 calcModes[index] = calcMode;
                 var isCalcAdd = calcMode === "P22" || calcMode === "P23";
@@ -8868,7 +8905,9 @@
                                 }
                             } else
                             if (node.value !== undefined) {
-                                linkStr += node.linkId + "-" + node.value + "_";
+                                if (node.linkDefault === undefined || node.linkDefault !== node.value) {
+                                    linkStr += node.linkId + "-" + node.value + "_";
+                                }
                             }
                         }
                     }
@@ -8955,19 +8994,21 @@
 
                         var paramVal = paramMap.get(node.linkId);
 
-                        if (node.type === "radio") {
-                            if (!node.id.startsWith("wt")) {
-                                node.checked = "true" === paramVal;
-                            }
-                        }
-                        else if (node.options !== undefined) {
-                            for (var opt of node.options) {
-                                if (opt.linkId === paramVal) {
-                                    opt.selected = true;
+                        if (paramVal != null) {
+                            if (node.type === "radio") {
+                                if (!node.id.startsWith("wt")) {
+                                    node.checked = "true" === paramVal;
                                 }
                             }
-                        } else if (node.value !== undefined) {
-                            node.value = paramVal;
+                            else if (node.options !== undefined) {
+                                for (var opt of node.options) {
+                                    if (opt.linkId === paramVal) {
+                                        opt.selected = true;
+                                    }
+                                }
+                            } else if (node.value !== undefined) {
+                                node.value = paramVal;
+                            }
                         }
                     }
                 });
