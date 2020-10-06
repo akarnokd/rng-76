@@ -2261,6 +2261,14 @@
                     scoreCompleteOneEvent(20, 1),
                     scoreKillLegendary(20, 1),
                     scoreNWTakePhoto(20, 1),
+
+                    scoreCompleteDailyOps(21, 1),
+                    scoreCompleteOneEvent(21, 1),
+                    scoreDestroyRobot(21, 10),
+                    scoreEatCookedMeal(21, 5),
+                    scoreRepairArmorWeapon(21, 3),
+                    scoreNWRevivePlayer(21, 2)
+
                 ]
             };
 
@@ -2312,6 +2320,7 @@
             addDailyOps(challengesDailyEra4.options, 18, "Valley Galleria", "Blood Eagles", [ dailyOpsPiercingGaze, dailyOpsResilient ]);
             addDailyOps(challengesDailyEra4.options, 19, "The Burning Mine", "Robots", [ dailyOpsPiercingGaze, dailyOpsFreezing ]);
             addDailyOps(challengesDailyEra4.options, 20, "The Burrows", "Super Mutants", [ dailyOpsPiercingGaze, dailyOpsResilient ]);
+            addDailyOps(challengesDailyEra4.options, 21, "???", "???", [ dailyOpsPiercingGaze ]);
  
             var challenges = [
                 challengesDailyEra1,
@@ -3297,6 +3306,15 @@
                             period: 1400,
                         };
             }
+
+            function scoreCompleteGoldStar2(offset) {
+                return {
+                            name: times("Complete a <i>Gold Star</i> daily challenge", 2),
+                            offset: offset,
+                            period: 1400,
+                        };
+            }
+
             function scoreKillCreature50(offset) {
                 return {
                             name: "Kill creatures (x50)",
@@ -3320,6 +3338,14 @@
                     period: 100,
                     ignore: true
                 };
+            }
+
+            function scoreEatCookedMeal25(offset) {
+                return {
+                            name: "Eat cooked meal (x25)",
+                            offset: offset,
+                            period: 1400,
+                        };
             }
 
             addWeekly(challengesWeeklyEra3.options, 0, scoreGainXP10000);
@@ -3479,6 +3505,15 @@
             addWeekly(challengesWeeklyEra4.options, 14, scoreCompleteEvents5);
             addWeekly(challengesWeeklyEra4.options, 14, scoreCriticalHit25);
             addWeekly(challengesWeeklyEra4.options, 14, scoreKillLegendaries10);
+
+            addWeekly(challengesWeeklyEra4.options, 21, scoreCompleteManyDailyOps5);
+            addWeekly(challengesWeeklyEra4.options, 21, scoreCompleteGoldStar2);
+            addWeekly(challengesWeeklyEra4.options, 21, scoreCompleteEventsGroup5);
+            addWeekly(challengesWeeklyEra4.options, 21, scoreDestroyRobots5);
+            addWeekly(challengesWeeklyEra4.options, 21, scoreEatCookedMeal25);
+            addWeekly(challengesWeeklyEra4.options, 21, scoreHarvestPlantFungi25);
+            addWeekly(challengesWeeklyEra4.options, 21, scoreKillCreature50);
+            addWeekly(challengesWeeklyEra4.options, 21, scoreRepairArmorWeapon15);
 
             addPlaceholders(challengesWeeklyEra4, scoreWeeklyplaceholder);
 
