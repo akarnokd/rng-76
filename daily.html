@@ -2274,7 +2274,42 @@
                     scoreCompleteOneEvent(22, 1),
                     scoreKillSupermutant(22, 10),
                     scoreUsePhotomodeGroup(22, 1),
-                    scoreNWSurviveMinutes(22, 15)
+                    scoreNWSurviveMinutes(22, 15),
+
+                    scoreClaimWorkshop(23, 1),
+                    scoreCompleteDailyOps(23, 1),
+                    scoreCompleteOneEvent(23, 1),
+                    scoreCraftAmmo(23, 50),
+                    scoreKillScorched(23, 10),
+                    scoreNWUseStimpak(23, 2),
+
+                    scoreBuySellItem(24, 1),
+                    scoreCompleteDailyOps(24, 1),
+                    scoreCompleteOneEvent(24, 1),
+                    scoreKillGlowing(24, 3),
+                    scoreUsePhotomodeOwnCamp(24),
+                    scoreNWDeployCamp(24, 2),
+
+                    scoreClaimWorkshop(25, 1),
+                    scoreCollectPurifiedWater(25, 5),
+                    scoreCompleteDailyOps(25, 1),
+                    scoreCompleteOneEvent(25, 1),
+                    scoreKillCreatureInGroup(25, 10),
+                    scoreNWSurviveMinutes(25, 15),
+
+                    scoreBuySellItem(26, 1),
+                    scoreClaimWorkshop(26, 1),
+                    scoreCompleteDailyOps(26, 1),
+                    scoreCompleteOneEvent(26, 1),
+                    scoreKillMoleminer(26, 10),
+                    scoreNWUseStimpak(26, 2),
+
+                    scoreCompleteDailyOps(27, 1),
+                    scoreCompleteOneEvent(27, 1),
+                    scoreJoinGroup(27),
+                    scoreKillCreature25(27),
+                    scoreKillLegendary(27, 3),
+                    scoreNWRevivePlayer(27, 2)
                 ]
             };
 
@@ -2327,7 +2362,12 @@
             addDailyOps(challengesDailyEra4.options, 19, "The Burning Mine", "Robots", [ dailyOpsPiercingGaze, dailyOpsFreezing ]);
             addDailyOps(challengesDailyEra4.options, 20, "The Burrows", "Super Mutants", [ dailyOpsPiercingGaze, dailyOpsResilient ]);
             addDailyOps(challengesDailyEra4.options, 21, "Valley Galleria", "Robots", [ dailyOpsPiercingGaze, dailyOpsResilient ]);
-            addDailyOps(challengesDailyEra4.options, 22, "???", "???", [ dailyOpsPiercingGaze ]);
+            addDailyOps(challengesDailyEra4.options, 22, "The Burning Mine", "Super Mutants", [ dailyOpsPiercingGaze, dailyOpsResilient ]);
+            addDailyOps(challengesDailyEra4.options, 23, "Valley Galleria", "Blood Eagles", [ dailyOpsPiercingGaze, dailyOpsCloaked ]);
+            addDailyOps(challengesDailyEra4.options, 24, "Vault 94", "Super Mutants", [ dailyOpsPiercingGaze, dailyOpsFreezing ]);
+            addDailyOps(challengesDailyEra4.options, 25, "Vault 94", "Blood Eagles", [ dailyOpsPiercingGaze, dailyOpsCloaked ]);
+            addDailyOps(challengesDailyEra4.options, 26, "Vault 94", "Robots", [ dailyOpsPiercingGaze, dailyOpsVolatile ]);
+            addDailyOps(challengesDailyEra4.options, 27, "The Burning Mine", "Blood Eagles", [ dailyOpsPiercingGaze, dailyOpsFreezing ]);
  
             var challenges = [
                 challengesDailyEra1,
@@ -3732,7 +3772,13 @@
                             subchallenges: [
                                 {
                                     name: "They now spawn leveled and all over the map."
-                                }
+                                },
+                                {
+                                    name: "Guaranteed to be legendary."
+                                },
+                                {
+                                    name: "40% chance for a &#x2605;&#x2605;, 5% chance for a &#x2605;&#x2605;&#x2605;."
+                                },
                             ]
                         },
                         {
@@ -3741,7 +3787,7 @@
                             period: 1,
                             subchallenges: [
                                 {
-                                    name: "&#x1F6C8; <i>Reward chances: table coming later.</i>"
+                                    name: "&#x1F6C8; <i>Reward chances: <a href='https://docs.google.com/spreadsheets/u/0/d/1SUyxuJJcYIF5lMtMQmqO0oYs6gSv1BRXnXxgTS1545c/htmlview#gid=847483773' target='_blank'>depends on pail rarity</a>.</i>"
                                 }
                             ]
                         }
