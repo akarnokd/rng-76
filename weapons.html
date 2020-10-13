@@ -7207,12 +7207,13 @@
                 opt.value = "0";
                 tenderizersel.linkId = "Tenderizer";
 
+                var tenderizerValues = [ 5, 7, 10 ];
                 for (var i = 1; i < 4; i++) {
                     opt = document.createElement("option");
                     tenderizersel.add(opt);
                     opt.text = "" + i;
-                    opt.value = "" + (4 + i);
-                    opt.linkId = opt.value;
+                    opt.value = "" + tenderizerValues[i - 1];
+                    opt.linkId = "" + i;
                 }
                 tenderizersel.selectedIndex = 0;
                 tenderizersel.onchange = function() {
