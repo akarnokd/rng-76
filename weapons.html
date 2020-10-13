@@ -6133,7 +6133,7 @@
                 + "<br>Affects the <b>Grounded</b> mutation."
             );
             infoMap.set("tenderizer", 
-                "Target receives 5%, 6% or 7% more damage for a few seconds after one attacks."
+                "Target receives 5%, 7% or 10% more damage for a few seconds after one attacks."
                 + "<br>Does not show up currently in the floating damage numbers ingame."
             );
             infoMap.set("colanut", 
@@ -7213,7 +7213,7 @@
                     tenderizersel.add(opt);
                     opt.text = "" + i;
                     opt.value = "" + tenderizerValues[i - 1];
-                    opt.linkId = "" + i;
+                    opt.linkId = opt.value;
                 }
                 tenderizersel.selectedIndex = 0;
                 tenderizersel.onchange = function() {
