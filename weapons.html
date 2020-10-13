@@ -22,7 +22,7 @@
     </head>
     <body style="height: 90%">
         <center>
-            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Weapon Damage Calculator (v3.3.15)</span>
+            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Weapon Damage Calculator (v3.3.16)</span>
             <br/>
             <i>(Update to Patch 22 is almost done; a few special cases to iron out but otherwise good to go.)</i>
         <br/>
@@ -7490,7 +7490,7 @@
                 calcmodesel.add(opt);
 
                 opt = document.createElement("option");
-                opt.text = "Patch >= 23";
+                opt.text = "Patch > 23";
                 opt.value = "P23";
                 opt.linkId = "P23";
                 calcmodesel.add(opt);
@@ -7866,7 +7866,6 @@
 
                 var isSilenced = weap.silencer;
                 var isScoped = false;
-                var applyNerdrage = 0; // Percentage
 
                 var versusMultiplier = 0;
 
@@ -8089,7 +8088,9 @@
                 if (nerdrage.selectedIndex > 0) {
                     var health = parseFloat(document.getElementById("playerhealth" + index).value);
                     if (health < 20) {
-                        applyNerdrage = valueOf(nerdrage);
+                        var applyNerdrage = valueOf(nerdrage);
+                        totalDamageMultiply.push(applyNerdrage);
+                        totalDamageEnergyMultiply.push(applyNerdrage);
                     }
                 }
 
@@ -8284,14 +8285,6 @@
                     totalDamageRadiationMultiply.forEach(function(v) {
                         totalDamageRadiation *= 1.0 + v / 100.0;
                     });
-                }
-
-                if (applyNerdrage > 0) {
-                    totalDamage *= 1.0 + applyNerdrage / 100.0;
-                    totalDamageEnergy *= 1.0 + applyNerdrage / 100.0;
-                    totalDamageFire *= 1.0 + applyNerdrage / 100.0;
-                    totalDamageCold *= 1.0 + applyNerdrage / 100.0;
-                    totalDamagePoison *= 1.0 + applyNerdrage / 100.0;
                 }
 
                 totalDamage *= sneakBonusMultiply;
