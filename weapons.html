@@ -6140,7 +6140,7 @@
                 + "<br>Affects the <b>Grounded</b> mutation."
             );
             infoMap.set("tenderizer", 
-                "Target receives 5%, 6% or 7% more damage for a few seconds after one attacks."
+                "Target receives 5%, 7% or 10% more damage for a few seconds after one attacks."
                 + "<br>Does not show up currently in the floating damage numbers ingame."
             );
             infoMap.set("colanut", 
@@ -6243,7 +6243,8 @@
                 + "<br><br>Before Patch 22 (One Wasteland), damage buffs were mostly multiplicative"
                 + "<br>and more resistances had a diminishing effect on reducing damage."
                 + "<br><br>Patch 22 (One Wasteland) changed damage buffs to be mostly additive."
-                + "<br>The exceptions appear to be the Nerd Rage perk, stealth and crit bonuses."
+                + "<br><br>Patch 23 changed a few remaining buffs to be additive."
+                + "<br>Stealth and crit bonuses still appear to be multiplicative."
                 + "<br><br>Future patches appear to change the impact of resistances so that"
                 + "<br>there won't be such a sharp drop in damage output for the same level of resistance,"
                 + "<br>resulting in tougher enemies to receive more damage."
@@ -7214,11 +7215,12 @@
                 opt.value = "0";
                 tenderizersel.linkId = "Tenderizer";
 
+                var tenderizerValues = [ 5, 7, 10 ];
                 for (var i = 1; i < 4; i++) {
                     opt = document.createElement("option");
                     tenderizersel.add(opt);
                     opt.text = "" + i;
-                    opt.value = "" + (4 + i);
+                    opt.value = "" + tenderizerValues[i - 1];
                     opt.linkId = opt.value;
                 }
                 tenderizersel.selectedIndex = 0;
