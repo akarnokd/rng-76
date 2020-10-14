@@ -22,7 +22,7 @@
     </head>
     <body style="height: 90%">
         <center>
-            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Weapon Damage Calculator (v3.3.16)</span>
+            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Weapon Damage Calculator (v3.3.17)</span>
             <br/>
             <i>(Update to Patch 22 is almost done; a few special cases to iron out but otherwise good to go.)</i>
         <br/>
@@ -310,6 +310,10 @@
                                 {
                                     name: "Puncturing",
                                     ignoreDRPercent: 20,
+                                },
+                                {
+                                    name: "Heated",
+                                    addDamageEnergyLeveled: [6.7, 8.4, 10]
                                 }
                             ]
                         }
@@ -1241,6 +1245,7 @@
                                 },
                                 {
                                     name: "Shock Pads",
+                                    damageMultPercent: 15,
                                     addDamageEnergyLeveled: [20, 20]
                                 }
                             ]
@@ -6112,6 +6117,8 @@
 
             infoMap.set("twistedmuscles", "Grants +25% melee damage (unarmed, one- and two-handed) for -50% accuracy with ranged weapons (not affecting ranged damage).");
 
+            infoMap.set("talons", "Grants +25% unarmed damage for -4 agility.");
+
             infoMap.set("chems", 
                 "Select a chem to apply extra bonuses."
                 + "<br>Chems are mutually exlusive and you can have only one active at a time."
@@ -7243,6 +7250,9 @@
             }
 
             function createMutations(tbl, index, type) {
+                var weapIdx = document.getElementById("weapon" + index).selectedIndex;
+                var weap = allWeapons.get(type)[weapIdx];
+
                 var row = tbl.insertRow(tbl.rows.length);
                 var cell1 = row.insertCell(0);
                 cell1.innerText = "Mutations";
@@ -7252,6 +7262,10 @@
 
                 if (type === "Melee") {
                     createYesNo(tbl, index, type, "Twisted Muscles", "twistedmuscles", "twistedmuscles", "Twisted");
+
+                    if (weap.category === "Unarmed") {
+                        createYesNo(tbl, index, type, "Talons", "talons", "talons", "Talons");
+                    }
                 }
 
                 createYesNo(tbl, index, type, "Grounded", "grounded", "grounded", "Grounded");
@@ -8096,8 +8110,24 @@
 
                 var twistedMuscles = document.getElementById("twistedmuscles" + index + "_yes");
                 if (twistedMuscles != null && twistedMuscles.checked) {
-                    totalDamageMultiply.push(25);
-                    totalDamageEnergyMultiply.push(25);
+                    if (isStrangeInNumbers) {
+                        totalDamageMultiply.push(31.25);
+                        totalDamageEnergyMultiply.push(31.25);
+                    } else {
+                        totalDamageMultiply.push(25);
+                        totalDamageEnergyMultiply.push(25);
+                    }
+                }
+
+                var talons = document.getElementById("talons" + index + "_yes");
+                if (talons != null && talons.checked) {
+                    if (isStrangeInNumbers) {
+                        totalDamageMultiply.push(31.25);
+                        totalDamageEnergyMultiply.push(31.25);
+                    } else {
+                        totalDamageMultiply.push(25);
+                        totalDamageEnergyMultiply.push(25);
+                    }
                 }
 
                 var sneakBonusMultiply = 1;
@@ -8396,7 +8426,9 @@
                 var grounded = document.getElementById("grounded" + index + "_yes").checked;
                 var tw = document.getElementById("twistedmuscles" + index + "_yes");
                 var twistedmuscles = tw != null && tw.checked;
-                return adrenalreaction || anymutation || twistedmuscles || grounded;
+                var tal = document.getElementById("talons" + index + "_yes");
+                var talons = tal != null && tal.checked;
+                return adrenalreaction || anymutation || twistedmuscles || grounded || talons;
             }
 
             function resistanceKey(e) {
