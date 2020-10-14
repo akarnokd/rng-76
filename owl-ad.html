@@ -1,0 +1,224 @@
+<html>
+    <head>
+        <title>Fallout 76 One Wasteland Attack Damage with multiply</title>
+        <style>
+            * {
+                font-family: sans-serif;
+                font-size: 20px;
+            }
+            td {
+                padding: 2px;
+            }
+            
+            table.infoTable {
+               border: 1px solid black;
+               border-collapse: collapse;
+            }
+            table.infoTable td {
+               border: 1px solid black;
+            }
+
+            .monospaced {
+                font-family: monospace;
+            }
+            .highlightvalue {
+                border: 1px dotted green; 
+                font-weight:bold;
+            }
+
+            html,body {
+                width: 100%;
+                height: 100%;
+                margin: 0
+            }
+        </style>
+        <meta name="keywords" content="Fallout,Fallout 76,One Wasteland">
+    </head>
+    <body>
+        <div style='width: 30%; height: 98%; overflow: scroll; float: left;'>
+            <table id='mainlist'>
+
+            </table>
+        </div>
+        <iframe id='f'scrolling="yes"                           
+            style="height: 98%; width: 69%; float: right; " height="100%" width="69%" align="right">
+
+        </iframe>
+        <script>
+            var data = [
+            'mod_P01B_Burrows_AssaultronBlade [OMOD:0040BD7C]',
+            'mod_AssaultRifle_SCOPE_reflex_Base_Babylon [OMOD:00472C0A]',
+            'mod_Crossbow_null_Babylon [OMOD:00497230]',
+            'MTR05_mod_10mm_Receiver_ScorchedTrainer [OMOD:004F496E]',
+            'mod_Description_MoM_VoiceofSet [OMOD:00522667]',
+            'mod_melee_BoneHammer_Babylon [OMOD:0053ADB8]',
+            'zzzmod_GaussShotgun_Receiver_ScorchedKiller [OMOD:00573747]',
+            'Test_mod_MultAdd "AAA Automatic Receiver" [OMOD:00345D95]',
+            'mod_Minigun_BarrelMinigun_short "Accelerated Barrel" [OMOD:00121D54]',
+            'AAA_mod_melee_TEMPLATE_Aluminum "Aluminum" [OMOD:001777CA]',
+            'TestAudio_Mod_CombatRifle_Receiver_SlowAuto-AmmoConv "Automatic .38 Receiver" [OMOD:00334E7D]',
+            'TestAudio_Mod_CombatRifle_Receiver_FastAuto-AmmoConv "Automatic .38 Receiver" [OMOD:00334E85]',
+            'TestAudio_Mod_PipeGun_receiver_automatic_slow "Automatic Receiver" [OMOD:002C6197]',
+            'TestAudio_Mod_AssaultRifle_receiver_Automatic_Slow "Automatic Receiver" [OMOD:002C619A]',
+            'TestAudio_Mod_CombatRifle_Receiver_Automatic_Slow "Automatic Receiver" [OMOD:002C619D]',
+            'TestAudio_Mod_CombatShotgun_receiver_Automatic_Slow001 "Automatic Receiver" [OMOD:002C61A3]',
+            'TestAudio_Mod_CombatShotgun_receiver_Automatic_base "Automatic Receiver" [OMOD:00334E70]',
+            'TestAudio_Mod_CombatShotgun_receiver_Automatic_Slow "Automatic Receiver" [OMOD:00334E80]',
+            'TestAudio_Mod_AssaultRifle_receiver_Automatic_Fast "Automatic Receiver" [OMOD:00334E84]',
+            'TestAudio_Mod_CombatShotgun_receiver_Automatic_Fast "Automatic Receiver" [OMOD:00334E86]',
+            'TestAudio_Mod_PipeGun_receiver_automatic_Fast "Automatic Receiver" [OMOD:00334E87]',
+            'mod_melee_Board_BladesLarge_Babylon "Bladed" [OMOD:003FEC27]',
+            '_PARENT_mod_melee_weapon_BladesLarge_Babylon "Bladed" [OMOD:003FEC2C]',
+            'POST_mod_Fatman_Barrel_BowlingBall "Bowling Ball Launcher" [OMOD:0043B76C]',
+            'DLC04_mod_Revolver_Receiver_CritDMG "Calibrated Receiver" [OMOD:0052708A]',
+            'mod_melee_WarGlaive_Cryo "Cryo Blade" [OMOD:005D7F29]',
+            'mod_melee_CultistBlade "Cultist Blade" [OMOD:0005A8F2]',
+            'mod_melee_CultistDagger "Cultist Dagger" [OMOD:0000703F]',
+            'EN06_mod_Ranged_HarpoonGun_Custom_Cursed "Cursed Harpoon Gun" [OMOD:005A70C2]',
+            'EN06_mod_melee_Pickaxe_Custom_Cursed "Cursed Pickaxe" [OMOD:005A70C1]',
+            'EN06_mod_melee_Shovel_Custom_Cursed "Cursed Shovel" [OMOD:005A70C0]',
+            'mod_melee_Ripper_Hook "Curved Blade" [OMOD:000FA2FA]',
+            'mod_BlackPowderRifle_Dragon_Barrel "Dragon Barrel" [OMOD:0004694A]',
+            'mod_BlackPowderRifle_Dragon_Receiver "Dragon Receiver" [OMOD:00046949]',
+            'mod_melee_Ripper_BladesLarge "Extended Blade" [OMOD:000FA2F9]',
+            'mod_melee_Shishkebab_ExtraFlameJets_Babylon "Extra Flame Jets" [OMOD:00497245]',
+            'MTNL01_mod_PumpActionShotgun_receiver_Fancy "Fancy Receiver" [OMOD:0036C4B8]',
+            'mod_Chainsaw_Flamer "Flamer" [OMOD:0004DF00]',
+            'mod_Chainsaw_Flamer_Babylon "Flamer" [OMOD:0049722F]',
+            'mod_melee_WarGlaive_Fire "Flaming Blade" [OMOD:005D7F2A]',
+            'mod_AlienBlaster_AlienMag_AmmoConversion "Fusion Mag" [OMOD:001C50A2]',
+            'mod_GaussRifle_SCOPE_reflex_Base_Babylon "Gauss Reflex Sight" [OMOD:005692B3]',
+            'mod_CombatRifle_SCOPE_Ironsights_Glow_Base_Babylon "Glow Sights" [OMOD:003F2680]',
+            'mod_Minigun_Scope_SightReflex_Babylon "Gunner Sight" [OMOD:0045CBC1]',
+            'DLC04_mod_melee_BaseballBat_Heated "Heated Coil" [OMOD:00113D5A]',
+            'AAA_mod_melee_TEMPLATE_ExtraHeavyHead "Heavy" [OMOD:000C73F7]',
+            'AAA_mod_melee_TEMPLATE_HeavyHead "Heavy" [OMOD:000C73F8]',
+            'DLC04_mod_melee_Sledgehammer_ExtraHeavyHead_Rocket_Blades "Heavy Sharp Rocket" [OMOD:00113D57]',
+            'AAA_mod_melee_TEMPLATE_Hook "Hooked" [OMOD:000C73F5]',
+            'mod_melee_ShepherdsCrook_SheepsquatchHorn "Horned Shepherd\'s Crook" [OMOD:00455836]',
+            'mod_SingleActionRevolver_Barrel_Long_Babylon "Long Barrel" [OMOD:0049724F]',
+            'mod_PipeGun_SCOPE_longscope_Base_Babylon "Long Scope" [OMOD:004677AD]',
+            'mod_AssaultRifle_SCOPE_longscope_Base_Babylon "Long Scope" [OMOD:00472C07]',
+            'mod_CombatRifle_SCOPE_LongScope_Base_Babylon "Long Scope" [OMOD:004739CE]',
+            'DLC03_mod_LeverGun_SCOPE_Longscope_Base_Babylon "Long Scope" [OMOD:0047C3AE]',
+            'mod_HuntingRifle_SCOPE_LongScope_Base_Babylon "Long Scope" [OMOD:00482392]',
+            'mod_PipeGun_SCOPE_mediumscope_Base_Babylon "Medium Scope" [OMOD:003F2E44]',
+            'mod_HuntingRifle_SCOPE_MediumScope_Base_Babylon "Medium Scope" [OMOD:004120C3]',
+            'mod_CombatRifle_SCOPE_MediumScope_Base_Babylon "Medium Scope" [OMOD:004120C4]',
+            'test_mod_melee_TESTWEAPON_MULTADD "Melee MULTADD on Base Mod" [OMOD:004E2519]',
+            'Test_mod_MultAdd2 "modifies attack damage" [OMOD:00354E16]',
+            'mod_RegularBow_Scope_ScopesMustHave_Babylon "No Sights" [OMOD:005A7BE1]',
+            'mod_melee_Switchblade_Null_Babylon "No Upgrade" [OMOD:003FEC2F]',
+            'mod_melee_Knife_Null_Babylon "No Upgrade" [OMOD:0040DEF1]',
+            'mod_melee_Machete_Babylon "No Upgrade" [OMOD:00410338]',
+            'dlc01_mod_melee_assaultronblade_Standard_Babylon "No Upgrade" [OMOD:00497206]',
+            'mod_melee_Hatchet_Babylon "No Upgrade" [OMOD:0053ADB6]',
+            'mod_melee_SkiSword_Babylon "No Upgrade" [OMOD:0053ADBA]',
+            'mod_melee_MeatTenderizer_Pepper "Peppered" [OMOD:005528E4]',
+            'mod_melee_Drill_Bit_Piercing "Piercing Drill Bit" [OMOD:00081DC9]',
+            'mod_melee_WarGlaive_Plasma "Plasma Blade" [OMOD:005D7F2B]',
+            'mod_HuntingRifle_receiver_AntiScorchBeast "Prime Receiver" [OMOD:00470A18]',
+            'mod_melee_Sledgehammer_SpikesLarge_Babylon "Puncturing" [OMOD:0040C229]',
+            'DLC03_mod_melee_polehook_Multihook_Babylon "Puncturing" [OMOD:0040DEF4]',
+            'mod_melee_Powerfist_SpikesLarge_Babylon "Puncturing" [OMOD:00410335]',
+            'TestAudio_Mod_10mm_Receiver_Automatic_Slow "Rapid Automatic Receiver" [OMOD:002C6194]',
+            'TestAudio_Mod_10mm_Receiver_Automatic_Fast "Rapid Automatic Receiver" [OMOD:00334E81]',
+            'DLC04_mod_Revolver_Receiver_Damage-HipAccuracy "Refined Receiver" [OMOD:005269C8]',
+            'mod_44_SCOPE_reflex_Base_Babylon "Reflex Sight" [OMOD:0040DEF6]',
+            'mod_10mm_SCOPE_Reflex_Base_Babylon "Reflex Sight" [OMOD:0045CBC6]',
+            'mod_PipeGun_SCOPE_reflex_Base_AutoRifle_Babylon "Reflex Sight" [OMOD:004677A7]',
+            'mod_PipeGun_SCOPE_reflex_Base_Pistol_Babylon "Reflex Sight" [OMOD:004677AE]',
+            'mod_PipeGun_SCOPE_reflex_Base_SMG_Babylon "Reflex Sight" [OMOD:004677AF]',
+            'mod_SubmachineGun_Scope_SightReflex_Babylon "Reflex Sight" [OMOD:004739D9]',
+            'mod_GaussShotgun_Scope_ScopesMustHave_Babylon "Reflex Sight" [OMOD:005A7BE5]',
+            'DLC04_mod_HandMadeGun_SCOPE_reflex_circle_Babylon "Reflex Sight (Circle)" [OMOD:00455525]',
+            'mod_CombatRifle_SCOPE_Reflex_Base_Babylon "Reflex Sight (Dot)" [OMOD:004036F1]',
+            'DLC04_mod_HandMadeGun_SCOPE_reflex_Dot_Babylon "Reflex Sight (Dot)" [OMOD:00482388]',
+            'DLC04_mod_melee_TEMPLATE_Rocket "Rocket" [OMOD:00113F43]',
+            'DLC04_mod_melee_TEMPLATE_Rocket_Spikes "Rocket Spikes" [OMOD:00113F45]',
+            'mod_10mm_Receiver_ScorchedKiller "Scorched Killer\'s Receiver" [OMOD:003C3457]',
+            'mod_Pipegun_Receiver_ScorchedKiller "Scorched Killer\'s Receiver" [OMOD:003C3459]',
+            'mod_10mmSMG_Receiver_ScorchedKiller "Scorched Killer\'s Receiver" [OMOD:003C345A]',
+            'mod_AssaultRifle_Receiver_ScorchedKiller "Scorched Killer\'s Receiver" [OMOD:003C345B]',
+            'mod_CombatRifle_Receiver_ScorchedKiller "Scorched Killer\'s Receiver" [OMOD:003C345C]',
+            'mod_CombatShotgun_Receiver_ScorchedKiller "Scorched Killer\'s Receiver" [OMOD:003C345D]',
+            'mod_DoubleBarrelShotgun_Receiver_ScorchedKiller "Scorched Killer\'s Receiver" [OMOD:003C345E]',
+            'mod_HuntingRifle_Receiver_ScorchedKiller "Scorched Killer\'s Receiver" [OMOD:003C345F]',
+            'mod_SubmachineGun_Receiver_ScorchedKiller "Scorched Killer\'s Receiver" [OMOD:003C3460]',
+            'mod_HandmadeGun_Receiver_ScorchedKiller "Scorched Killer\'s Receiver" [OMOD:003C3461]',
+            'mod_LeverGun_Receiver_ScorchedKiller "Scorched Killer\'s Receiver" [OMOD:003C3462]',
+            'mod_PumpActionShotgun_Receiver_ScorchedKiller "Scorched Killer\'s Receiver" [OMOD:003C6554]',
+            'DLC04_mod_Revolver_Receiver_Damage-CritDMG "Severe Receiver" [OMOD:0052708D]',
+            'mod_melee_Gauntlet_Shock "Shock Pads" [OMOD:005698AC]',
+            'mod_melee_WarGlaive_Shock "Shocking Blade" [OMOD:005D79C8]',
+            'DLC04_mod_Revolver_Scope_ShortScope_Base_Babylon "Short Scope" [OMOD:0040DEF0]',
+            'mod_melee_SuperSledge_Null_Babylon "Standard" [OMOD:0040DEF5]',
+            'mod_melee_CattleProd_Shock_Babylon "Standard" [OMOD:005A7BE7]',
+            'mod_CombatShotgun_SCOPE_ironsights_Glow_Base_Babylon "Standard Glow Sights" [OMOD:00474D08]',
+            'mod_10mmSMG_rearsight_Babylon "Standard Ironsights" [OMOD:00439A3C]',
+            'TestAudio_Mod_SubmachineGun_Receiver_Automatic_Slow "Standard Receiver" [OMOD:002C61A0]',
+            'TestAudio_Mod_SubmachineGun_Receiver_Automatic_Fast "Standard Receiver" [OMOD:00334E93]',
+            'mod_SingleActionRevolver_Receiver_Standard_Babylon "Standard Receiver" [OMOD:00497251]',
+            'DLC03_mod_LeverGun_SCOPE_Ironsights_Base_Babylon "Standard Sights" [OMOD:003F267B]',
+            'mod_PipeRevolver_SCOPE_ironsights_Pistol_Base_Babylon "Standard Sights" [OMOD:003F2E49]',
+            'mod_50CalMachineGun_Sight_Babylon "Standard Sights" [OMOD:00439A44]',
+            'mod_GatlingGun_Scope_SightsIron_Babylon "Standard Sights" [OMOD:0045FC87]',
+            'mod_AssaultRifle_SCOPE_ironsights_Base_Babylon "Standard Sights" [OMOD:00472C06]',
+            'mod_DoubleBarrelShotgun_SCOPE_ironsights_Base_Babylon "Standard Sights" [OMOD:00474D0D]',
+            'mod_44_SCOPE_IronSights_Base_Babylon "Standard Sights" [OMOD:0048238C]',
+            'mod_PumpActionShotgun_SCOPE_ironsights_Base_Babylon "Standard Sights" [OMOD:0049724D]',
+            'AAA_TEMPLATE_mod_melee_TESTWEAPON_MULTADD "TEmplate Melee MULTADD test" [OMOD:004E2518]',
+            '_PARENT_mod_WEAPON_PlasmaGun_Flamer_Babylon "TEMPLATE:  PlasmaGun Flamer" [OMOD:00470753]',
+            '_PARENT_mod_WEAPON_PlasmaGun_Spinner_Babylon "TEMPLATE:  PlasmaGun Spinner" [OMOD:00470754]',
+            '_PARENT_mod_WEAPON_Receiver_AmmoConv_38_Babylon "TEMPLATE: .38 Receiver" [OMOD:00470755]',
+            '_PARENT_mod_WEAPON_Receiver_AmmoConv_45_Babylon "TEMPLATE: .45 Receiver" [OMOD:00470757]',
+            '_PARENT_mod_WEAPON_Receiver_AmmoConv_50_Babylon "TEMPLATE: .50 Receiver" [OMOD:00470759]',
+            '_PARENT_mod_WEAPON_Receiver_Automatic_Solo_Babylon "TEMPLATE: Automatic Receiver" [OMOD:0047075D]',
+            '_PARENT_mod_WEAPON_Receiver_Automatic_Shotgun_Babylon "TEMPLATE: Automatic Shotgun Receiver" [OMOD:0047075C]',
+            '_PARENT_mod_WEAPON_GENERIC_Damage_Solo_Babylon "TEMPLATE: Damage Solo" [OMOD:00470738]',
+            '_PARENT_mod_WEAPON_Penalty_Damage_Small_Babylon "TEMPLATE: DMG penalty" [OMOD:00470750]',
+            '_PARENT_mod_WEAPON_Receiver_AmmoConv_38_dual_Babylon "TEMPLATE: DUAL .38 Receiver" [OMOD:00470756]',
+            '_PARENT_mod_WEAPON_Receiver_AmmoConv_45_dual_Babylon "TEMPLATE: DUAL .45 Receiver" [OMOD:00470758]',
+            '_PARENT_mod_WEAPON_Receiver_AmmoConv_50_dual_Babylon "TEMPLATE: DUAL .50 Receiver" [OMOD:0047075A]',
+            '_PARENT_mod_WEAPON_Receiver_PlasmaPulse "TEMPLATE: Plasma Pulse" [OMOD:00590FC8]',
+            'P01B_mod_Custom_Fixer "The Fixer" [OMOD:0046D29E]',
+            'mod_Custom_TheGutter "The Gutter" [OMOD:005D9D1C]',
+            'mod_melee_Tomahawk "Tomahawk" [OMOD:0042FECE]',
+            '_PARENT_mod_melee_weapon_Turbo "Turbo" [OMOD:005918F9]',
+            'DLC04_mod_Revolver_Receiver_CritDMG-HipAccuracy "Vicious Receiver" [OMOD:0052708B]',
+            ];
+        
+        var mainlist = document.getElementById("mainlist");
+
+        for (var e of data) {
+            var formIdStart = e.indexOf("]");
+            var formID = e.substring(formIdStart - 8, formIdStart);
+
+            var name = "";
+            var nameStart = e.indexOf("\"");
+            if (nameStart > 0) {
+                var nameEnd = e.indexOf("\"", nameStart + 1);
+                name = e.substring(nameStart + 1, nameEnd);
+            }
+
+            var edidEnd = e.indexOf(" ");
+            var edid = e.substring(0, edidEnd);
+
+            var rw = mainlist.insertRow(mainlist.rows.length);
+
+            var cll = rw.insertCell(rw.cells.length);
+            cll.innerHTML = createNukalink(formID, formID);
+
+            cll = rw.insertCell(rw.cells.length);
+            cll.innerHTML = edid + "<br>" + name;
+        }
+
+        function createNukalink(formID, content) {
+            return "<a href='#' onclick='openlink(\"" + formID + "\"); return false;'>" + content + "</a>";
+        }
+        function openlink(formID) {
+            document.getElementById("f").src = "https://nukacrypt.com/database/json/" + formID;
+        }
+        </script>
+    </body>
+</html>
