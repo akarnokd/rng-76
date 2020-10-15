@@ -22,7 +22,7 @@
     </head>
     <body style="height: 90%">
         <center>
-            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Weapon Damage Calculator (v3.3.17)</span>
+            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Weapon Damage Calculator (v3.3.18)</span>
             <br/>
             <i>(Update to Patch 22 is almost done; a few special cases to iron out but otherwise good to go.)</i>
         <br/>
@@ -1721,12 +1721,12 @@
                                 {
                                     name: "Automatic",
                                     damageMultPercent: -10,
-                                    speedAddPercent: 87.5
+                                    speedSet: 7.5
                                 },
                                 {
                                     name: "Powerful Automatic",
                                     damageMultPercent: 11.11,
-                                    speedAddPercent: 87.5
+                                    speedSet: 7.5
                                 },
                                 {
                                     name: "Hardened",
@@ -1747,7 +1747,7 @@
                                 {
                                     name: "Prime Automatic",
                                     damageMultPercent: 15,
-                                    speedAddPercent: 87.5,
+                                    speedSet: 7.5,
                                     versus: ["Scorched", "Scorchbeast", "Scorchbeast Queen"],
                                     versusMultPercent: 35
                                 }
@@ -1779,12 +1779,12 @@
                                 {
                                     name: "Automatic",
                                     damageMultPercent: -10,
-                                    speedAddPercent: 87.5
+                                    speedSet: 7.5
                                 },
                                 {
                                     name: "Powerful Automatic",
                                     damageMultPercent: 11.11,
-                                    speedAddPercent: 87.5
+                                    speedSet: 7.5
                                 },
                                 {
                                     name: "Hardened",
@@ -1805,7 +1805,7 @@
                                 {
                                     name: "Prime Automatic",
                                     damageMultPercent: 15,
-                                    speedAddPercent: 87.5,
+                                    speedSet: 7.5,
                                     versus: ["Scorched", "Scorchbeast", "Scorchbeast Queen"],
                                     versusMultPercent: 35
                                 }
@@ -3078,11 +3078,23 @@
                     damage: [0, 0, 0, 0, 0],
                     damageEnergy: [21, 26, 31, 36, 44],
                     mods: [
-                        {
+                    {
                             slot: "Capacitor",
                             options: [
                                 {
                                     name: "Standard"
+                                },
+                                {
+                                    name: "Hair Trigger",
+                                    speedMultPercent: 33
+                                },
+                                {
+                                    name: "Snappy",
+                                    speedMultPercent: 17
+                                },
+                                {
+                                    name: "Speedy",
+                                    speedMultPercent: 17
                                 },
                                 {
                                     name: "Prime",
@@ -3101,7 +3113,25 @@
                                 {
                                     name: "Sniper",
                                     damageMultPercent: 25
-                                }
+                                },
+                                {
+                                    name: "Standard Automatic",
+                                    damageMultPercent: -10,
+                                    debuffViaMultiply: true,
+                                    speedSet: 7.5
+                                },
+                                {
+                                    name: "True Automatic",
+                                    damageMultPercent: -10,
+                                    debuffViaMultiply: true,
+                                    speedSet: 7.5
+                                },
+                                {
+                                    name: "Stabilized Automatic",
+                                    damageMultPercent: -10,
+                                    debuffViaMultiply: true,
+                                    speedSet: 7.5
+                                },
                             ]
                         }
                     ]
@@ -3124,6 +3154,18 @@
                                     name: "Standard"
                                 },
                                 {
+                                    name: "Hair Trigger",
+                                    speedMultPercent: 33
+                                },
+                                {
+                                    name: "Snappy",
+                                    speedMultPercent: 17
+                                },
+                                {
+                                    name: "Speedy",
+                                    speedMultPercent: 17
+                                },
+                                {
                                     name: "Prime",
                                     damageMultPercent: 25,
                                     versus: ["Scorched", "Scorchbeast", "Scorchbeast Queen"],
@@ -3140,7 +3182,25 @@
                                 {
                                     name: "Sniper",
                                     damageMultPercent: 25
-                                }
+                                },
+                                {
+                                    name: "Standard Automatic",
+                                    damageMultPercent: -10,
+                                    debuffViaMultiply: true,
+                                    speedSet: 7.5
+                                },
+                                {
+                                    name: "True Automatic",
+                                    damageMultPercent: -10,
+                                    debuffViaMultiply: true,
+                                    speedSet: 7.5
+                                },
+                                {
+                                    name: "Stabilized Automatic",
+                                    damageMultPercent: -10,
+                                    debuffViaMultiply: true,
+                                    speedSet: 7.5
+                                },
                             ]
                         }
                     ]
@@ -3156,11 +3216,23 @@
                     damage: [0, 0, 0],
                     damageEnergy: [28, 31, 34],
                     mods: [
-                        {
+                    {
                             slot: "Capacitor",
                             options: [
                                 {
                                     name: "Standard"
+                                },
+                                {
+                                    name: "Hair Trigger",
+                                    speedMultPercent: 33
+                                },
+                                {
+                                    name: "Snappy",
+                                    speedMultPercent: 17
+                                },
+                                {
+                                    name: "Speedy",
+                                    speedMultPercent: 17
                                 },
                                 {
                                     name: "Prime",
@@ -3179,7 +3251,25 @@
                                 {
                                     name: "Sniper",
                                     damageMultPercent: 25
-                                }
+                                },
+                                {
+                                    name: "Standard Automatic",
+                                    damageMultPercent: -10,
+                                    debuffViaMultiply: true,
+                                    speedSet: 7.5
+                                },
+                                {
+                                    name: "True Automatic",
+                                    damageMultPercent: -10,
+                                    debuffViaMultiply: true,
+                                    speedSet: 7.5
+                                },
+                                {
+                                    name: "Stabilized Automatic",
+                                    damageMultPercent: -10,
+                                    debuffViaMultiply: true,
+                                    speedSet: 7.5
+                                },
                             ]
                         }
                     ]
@@ -3195,11 +3285,23 @@
                     damage: [0, 0, 0, 0, 0],
                     damageEnergy: [28, 31, 34],
                     mods: [
-                        {
+                    {
                             slot: "Capacitor",
                             options: [
                                 {
                                     name: "Standard"
+                                },
+                                {
+                                    name: "Hair Trigger",
+                                    speedMultPercent: 33
+                                },
+                                {
+                                    name: "Snappy",
+                                    speedMultPercent: 17
+                                },
+                                {
+                                    name: "Speedy",
+                                    speedMultPercent: 17
                                 },
                                 {
                                     name: "Prime",
@@ -3218,7 +3320,25 @@
                                 {
                                     name: "Sniper",
                                     damageMultPercent: 25
-                                }
+                                },
+                                {
+                                    name: "Standard Automatic",
+                                    damageMultPercent: -10,
+                                    debuffViaMultiply: true,
+                                    speedSet: 7.5
+                                },
+                                {
+                                    name: "True Automatic",
+                                    damageMultPercent: -10,
+                                    debuffViaMultiply: true,
+                                    speedSet: 7.5
+                                },
+                                {
+                                    name: "Stabilized Automatic",
+                                    damageMultPercent: -10,
+                                    debuffViaMultiply: true,
+                                    speedSet: 7.5
+                                },
                             ]
                         }
                     ]
@@ -3533,7 +3653,7 @@
                                 ,
                                 {
                                     name: "Automatic",
-                                    damageMultPercent: -15
+                                    damageMultPercent: -15,
                                 }
                             ]
                         }
@@ -3600,7 +3720,7 @@
                                 {
                                     name: "Automatic",
                                     damageMultPercent: -15,
-                                    speedAddPercent: speedMult(9.1, 2)
+                                    speedSet: 9.1
                                 },
                                 {
                                     name: "Charging",
@@ -7627,6 +7747,9 @@
                 var totalSpeedMultiply = [];
                 var totalSpeedAdditive = [];
 
+                var totalDamageDebuff = [];
+                var totalDamageEnergyDebuff = [];
+
                 var effects = allEffects.get(type);
 
                 if (weap.speed !== undefined) {
@@ -7898,8 +8021,13 @@
                         var modInfo = mod.options[modTypeIdx];
 
                         if (modInfo.damageMultPercent !== undefined) {
-                            totalDamageAdditive.push((baseDamage * modInfo.damageMultPercent / 100.0));
-                            totalDamageEnergyAdditive.push((baseDamageEnergy * modInfo.damageMultPercent / 100.0));
+                            if (modInfo.debuffViaMultiply) {
+                                totalDamageDebuff.push(modInfo.damageMultPercent);
+                                totalDamageEnergyDebuff.push(modInfo.damageMultPercent);
+                            } else {
+                                totalDamageAdditive.push((baseDamage * modInfo.damageMultPercent / 100.0));
+                                totalDamageEnergyAdditive.push((baseDamageEnergy * modInfo.damageMultPercent / 100.0));
+                            }
                         }
                         if (modInfo.damageBallisticMultPercent !== undefined) {
                             totalDamageMultiply.push(modInfo.damageBallisticMultPercent);
@@ -8325,6 +8453,16 @@
                         totalDamageRadiation *= 1.0 + v / 100.0;
                     });
                 }
+
+                totalDamageDebuff.forEach(v => {
+                    totalDamage *= 1.0 + v / 100.0;
+                });
+                totalDamageEnergyDebuff.forEach(v => {
+                    totalDamageEnergy *= 1.0 + v / 100.0;
+                    totalDamageFire *= 1.0 + v / 100.0;
+                    totalDamageCold *= 1.0 + v / 100.0;
+                    totalDamagePoison *= 1.0 + v / 100.0;
+                });
 
                 totalDamage *= sneakBonusMultiply;
                 totalDamageEnergy *= sneakBonusMultiply;
