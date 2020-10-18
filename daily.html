@@ -2374,6 +2374,11 @@
                 tipId: "DailyOpsCloaked",
                 tip: "Enemies are cloaked until they attack (but often even when they attack)."
             }
+            var dailyOpsReroll = {
+                name: "&#x1F6C8; got rerolled",
+                tipId: "DailyOpsReroll",
+                tip: "Sometimes Bethesda rerolls some or all daily ops properties."
+            }
 
             addDailyOps(challengesDailyEra4.options, 0, "The Burrows", "Robots", [ dailyOpsPiercingGaze, dailyOpsResilient ]);
             addDailyOps(challengesDailyEra4.options, 1, "Vault 94", "Blood Eagles", [ dailyOpsPiercingGaze, dailyOpsVolatile ]);
@@ -2407,7 +2412,7 @@
             addDailyOps(challengesDailyEra4.options, 29, "The Burning Mine", "Super Mutants", [ dailyOpsPiercingGaze, dailyOpsFreezing ]);
             addDailyOps(challengesDailyEra4.options, 30, "Valley Galleria", "Super Mutants", [ dailyOpsPiercingGaze, dailyOpsResilient ]);
             addDailyOps(challengesDailyEra4.options, 31, "The Burrows", "Blood Eagles", [ dailyOpsPiercingGaze, dailyOpsResilient ]);
-            addDailyOps(challengesDailyEra4.options, 32, "The Burning Mine", "Robots", [ dailyOpsPiercingGaze, dailyOpsResilient ]);
+            addDailyOps(challengesDailyEra4.options, 32, "The Burning Mine", "Robots", [ dailyOpsPiercingGaze, dailyOpsResilient, dailyOpsFreezing, dailyOpsReroll ]);
  
             var challenges = [
                 challengesDailyEra1,
