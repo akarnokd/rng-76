@@ -971,7 +971,6 @@
             }
 
             function scoreRepairArmorWeapon(offset, count) {
-                var txt = count > 1 ? " (x" + count + ")": "";
                 return {
                             name: times("Repair armor or weapon", count),
                             offset: offset,
@@ -2103,6 +2102,23 @@
                 };
             }
 
+            function scoreF1st(offset) {
+                return {
+                    name: "&#x2605;&#x2605; <i>Fallout 1st</i> free trial days &#x2605;&#x2605;",
+                    offset: offset,
+                    period: 100,
+                    ignore: true,
+                    subchallenges: [
+                        {
+                            name: "Claim the Scrap Box from the Atom Shop."
+                        },
+                        {
+                            name: "Once over, you can still get stuff out from the Scrap Box."
+                        }
+                    ]
+                };
+            }
+
             var challengesDailyEra4 = {
                 validStart: new Date(Date.UTC(2020, 8, 15, 16, 0, 0, 0)),
                 validEnd: plusDays(new Date(Date.UTC(2020, 8, 15, 16, 0, 0, 0)), 70),
@@ -2358,7 +2374,15 @@
                     scoreCompleteOneEvent(34, 1),
                     scoreDrinkNukaCola(34, 5),
                     scoreKillDeathclaw(34, 1),
-                    scoreNWSurviveMinutes(34, 10)
+                    scoreNWSurviveMinutes(34, 10),
+
+                    scoreCollectPurifiedWater(35, 5),
+                    scoreCompleteDailyOps(35, 1),
+                    scoreCompleteOneEvent(35, 1),
+                    scoreCraftRanged5(35),
+                    scoreKillScorched(35, 15),
+                    scoreNWPickLock(35, 1),
+                    scoreF1st(35)
                 ]
             };
 
@@ -2429,6 +2453,7 @@
             addDailyOps(challengesDailyEra4.options, 32, "The Burning Mine", "Robots", [ dailyOpsPiercingGaze, dailyOpsResilient, dailyOpsFreezing, dailyOpsReroll ]);
             addDailyOps(challengesDailyEra4.options, 33, "Valley Galleria", "Robots", [ dailyOpsPiercingGaze, dailyOpsCloaked ]);
             addDailyOps(challengesDailyEra4.options, 34, "The Burrows", "Blood Eagles", [ dailyOpsPiercingGaze, dailyOpsFreezing ]);
+            addDailyOps(challengesDailyEra4.options, 35, "???", "???", [ dailyOpsPiercingGaze ]);
  
             var challenges = [
                 challengesDailyEra1,
@@ -3571,6 +3596,9 @@
             function scoreRepairArmorWeapon15(offset) {
                 return scoreRepairArmorWeapon(offset, 15);
             }
+            function scoreRepairArmorWeapon10(offset) {
+                return scoreRepairArmorWeapon(offset, 10);
+            }
             function scoreScrapMoney(offset) {
                 return {
                     name: times("Scrap pre-war money", 100),
@@ -3579,6 +3607,9 @@
                     tipId: "ScoreScrapPreWarMoney100",
                     tip: "Do the <b>Event: Collision Course</b> at the Morgantown Airport.<br>The goverment aid drop at the end has guaranteed 101 pre-war money."
                 };
+            }
+            function scoreConsumeAlcohol25(offset) {
+                return scoreConsumeAlcohol(offset, 25);
             }
 
             var challengesWeeklyEra4 = {
@@ -3634,6 +3665,16 @@
             addWeekly(challengesWeeklyEra4.options, 28, scorekillHugeCreatures);
             addWeekly(challengesWeeklyEra4.options, 28, scoreKillLegendaries10);
             addWeekly(challengesWeeklyEra4.options, 28, scoreScrapMoney);
+
+            addWeekly(challengesWeeklyEra4.options, 35, scoreBuildupCamp);
+            addWeekly(challengesWeeklyEra4.options, 35, scoreCompleteManyDailyOps5);
+            addWeekly(challengesWeeklyEra4.options, 35, scoreCompleteGoldStar);
+            addWeekly(challengesWeeklyEra4.options, 35, scoreCompleteEvents10);
+            addWeekly(challengesWeeklyEra4.options, 35, scoreConsumeAlcohol25);
+            addWeekly(challengesWeeklyEra4.options, 35, scoreKillCreature50);
+            addWeekly(challengesWeeklyEra4.options, 35, scoreKillLegendaries10);
+            addWeekly(challengesWeeklyEra4.options, 35, scoreRepairArmorWeapon10);
+
 
             addPlaceholders(challengesWeeklyEra4, scoreWeeklyplaceholder);
 
@@ -3921,7 +3962,28 @@
                     validStart: new Date(Date.UTC(2020, 9, 22, 16, 0, 0, 0)),
                     validEnd: new Date(Date.UTC(2020, 9, 26, 16, 0, 0, 0)),
                     title: "Bombs Drop Week",
-                    options: []
+                    options: [
+                        {
+                            name: "Purveyor 25% sale",
+                            offset: 0,
+                            period: 1,
+                            subchallenges: [
+                                {
+                                    name: "&#x1F6C8; Legendary modules and Vault Steel are still full price",
+                                }
+                            ]
+                        },
+                        {
+                            name: "Double XP weekend",
+                            offset: 0,
+                            period: 1
+                        },
+                        {
+                            name: "Double daily S.C.O.R.E. weekend",
+                            offset: 0,
+                            period: 1
+                        },
+                    ]
                 },
                 createTreasureHunt(new Date(Date.UTC(2020, 10, 5, 16, 0, 0, 0)), new Date(Date.UTC(2020, 10, 9, 16, 0, 0, 0))),
                 {
