@@ -2400,6 +2400,16 @@
                     scoreNWTakePhoto(37),
                     scoreDoubleDailies(37),
                     scoreF1st(37),
+
+                    scoreBuySellItem(38, 1),
+                    scoreCompleteDailyOps(38, 1),
+                    scoreCompleteOneEvent(38, 1),
+                    scoreKillCreature20(38),
+                    scorePlantCrop(38, 10),
+
+                    scoreNWSurviveMinutes(38, 10),
+                    scoreDoubleDailies(38),
+                    scoreF1st(38),
                 ]
             };
 
@@ -2473,6 +2483,7 @@
             addDailyOps(challengesDailyEra4.options, 35, "Vault 94", "Blood Eagles", [ dailyOpsPiercingGaze, dailyOpsCloaked ]);
             addDailyOps(challengesDailyEra4.options, 36, "Valley Galleria", "Blood Eagles", [ dailyOpsPiercingGaze, dailyOpsFreezing ]);
             addDailyOps(challengesDailyEra4.options, 37, "Vault 94", "Super Mutants", [ dailyOpsPiercingGaze, dailyOpsVolatile ]);
+            addDailyOps(challengesDailyEra4.options, 38, "???", "???", [ dailyOpsPiercingGaze ]);
  
             var challenges = [
                 challengesDailyEra1,
@@ -4002,6 +4013,41 @@
                             offset: 0,
                             period: 1
                         },
+                    ]
+                },
+                {
+                    validStart: new Date(Date.UTC(2020, 9, 29, 16, 0, 0, 0)),
+                    validEnd: new Date(Date.UTC(2020, 10, 2, 16, 0, 0, 0)),
+                    title: "Halloween Fasnacht",
+                    options: [
+                        {
+                            name: "Visit Helvetia every exact hour to start the public event",
+                            offset: 0,
+                            period: 1
+                        },
+                        {
+                            name: "Perform 5 tasks to have the robots in place",
+                            offset: 0,
+                            period: 1,
+                        },
+                        {
+                            name: "Protect the robots at 3 ambush points",
+                            offset: 0,
+                            period: 1,
+                            subchallenges: [
+                                {
+                                    name: "Use Friendly Fire and Shishkebab to heal the robots."
+                                },
+                                {
+                                    name: "Focus on grenade/molotov throwing Super Mutants."
+                                }
+                            ]
+                        },
+                        {
+                            name: "Rewards: <a href='https://docs.google.com/spreadsheets/d/1DVUs-pRpATIpE6HrNoEySblUVnBUm-ry3RG1KTaAyzc/edit#gid=0' target='_blank'>depends on how many robots make it</a>.",
+                            offset: 0,
+                            period: 1
+                        }
                     ]
                 },
                 createTreasureHunt(new Date(Date.UTC(2020, 10, 5, 16, 0, 0, 0)), new Date(Date.UTC(2020, 10, 9, 16, 0, 0, 0))),
