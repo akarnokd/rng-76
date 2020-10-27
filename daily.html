@@ -2434,6 +2434,13 @@
                     scoreKillCryptid1(41),
                     scoreKillLegendary(41, 3),
                     scoreNWSurviveMinutes(41, 10),
+
+                    scoreBuySellItem(42, 1),
+                    scoreCompleteDailyOps(42, 1),
+                    scoreCompleteOneEvent(42, 1),
+                    scoreKillMoleminer(42, 15),
+                    scoreRepairArmorWeapon(42, 3),
+                    scoreNWKillCreature(42, 1)
                 ]
             };
 
@@ -2511,6 +2518,7 @@
             addDailyOps(challengesDailyEra4.options, 39, "The Burning Mine", "Super Mutants", [ dailyOpsPiercingGaze, dailyOpsFreezing ]);
             addDailyOps(challengesDailyEra4.options, 40, "Vault 94", "Blood Eagles", [ dailyOpsPiercingGaze, dailyOpsVolatile ]);
             addDailyOps(challengesDailyEra4.options, 41, "Valley Galleria", "Robots", [ dailyOpsPiercingGaze, dailyOpsFreezing ]);
+            addDailyOps(challengesDailyEra4.options, 42, "???", "???", [ dailyOpsPiercingGaze ]);
  
             var challenges = [
                 challengesDailyEra1,
@@ -3731,6 +3739,15 @@
             addWeekly(challengesWeeklyEra4.options, 35, scoreKillCreature50);
             addWeekly(challengesWeeklyEra4.options, 35, scoreKillLegendaries10);
             addWeekly(challengesWeeklyEra4.options, 35, scoreRepairArmorWeapon10);
+
+            addWeekly(challengesWeeklyEra4.options, 42, scoreClaimWorkshop5);
+            addWeekly(challengesWeeklyEra4.options, 42, scoreCollectCaps2500);
+            addWeekly(challengesWeeklyEra4.options, 42, scoreCompleteManyDailyOps1);
+            addWeekly(challengesWeeklyEra4.options, 42, scoreCompleteGoldStar);
+            addWeekly(challengesWeeklyEra4.options, 42, scoreCompleteEvents10);
+            addWeekly(challengesWeeklyEra4.options, 42, scoreEatPrewarFood25);
+            addWeekly(challengesWeeklyEra4.options, 42, scoreKillGlowing10);
+            addWeekly(challengesWeeklyEra4.options, 42, scorekillHugeCreatures);
 
 
             addPlaceholders(challengesWeeklyEra4, scoreWeeklyplaceholder);
