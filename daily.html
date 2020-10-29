@@ -2448,7 +2448,14 @@
                     scoreCompleteOneEvent(43, 1),
                     scoreKillGhoul15(43, 15),
                     scoreUsePhotomodeGroup(43),
-                    scoreNWSurviveMinutes(43, 10)
+                    scoreNWSurviveMinutes(43, 10),
+
+                    scoreCompleteDailyOps(44, 1),
+                    scoreBuySellItem(44, 1),
+                    scoreClaimWorkshop(44),
+                    scoreCompleteOneEvent(44, 1),
+                    scoreKillScorched(44, 15),
+                    scoreNWUseStimpak(44, 3)
                 ]
             };
 
@@ -2528,6 +2535,7 @@
             addDailyOps(challengesDailyEra4.options, 41, "Valley Galleria", "Robots", [ dailyOpsPiercingGaze, dailyOpsFreezing ]);
             addDailyOps(challengesDailyEra4.options, 42, "The Burning Mine", "Robots", [ dailyOpsPiercingGaze, dailyOpsFreezing ]);
             addDailyOps(challengesDailyEra4.options, 43, "Vault 94", "Robots", [ dailyOpsPiercingGaze, dailyOpsFreezing ]);
+            addDailyOps(challengesDailyEra4.options, 44, "???", "???", [ dailyOpsPiercingGaze ]);
  
             var challenges = [
                 challengesDailyEra1,
@@ -4097,10 +4105,30 @@
                             ]
                         },
                         {
-                            name: "Rewards: <a href='https://docs.google.com/spreadsheets/d/1DVUs-pRpATIpE6HrNoEySblUVnBUm-ry3RG1KTaAyzc/edit#gid=0' target='_blank'>depends on how many robots make it</a>.",
+                            name: "Rewards: <a href='https://docs.google.com/spreadsheets/d/1DVUs-pRpATIpE6HrNoEySblUVnBUm-ry3RG1KTaAyzc/edit#gid=0' target='_blank'>depend on how many robots make it</a>.",
                             offset: 0,
                             period: 1
-                        }
+                        },
+                        {
+                            name: "&nbsp;",
+                            offset: 0,
+                            period: 1,
+                        },
+                        {
+                            name: "Purveyor 25% sale",
+                            offset: 0,
+                            period: 1,
+                            subchallenges: [
+                                {
+                                    name: "&#x1F6C8; Legendary modules and Vault Steel are still full price",
+                                }
+                            ]
+                        },
+                        {
+                            name: "Double XP weekend",
+                            offset: 0,
+                            period: 1
+                        },
                     ]
                 },
                 createTreasureHunt(new Date(Date.UTC(2020, 10, 5, 16, 0, 0, 0)), new Date(Date.UTC(2020, 10, 9, 16, 0, 0, 0))),
