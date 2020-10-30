@@ -2121,7 +2121,7 @@
 
             var challengesDailyEra4 = {
                 validStart: new Date(Date.UTC(2020, 8, 15, 16, 0, 0, 0)),
-                validEnd: plusDays(new Date(Date.UTC(2020, 8, 15, 16, 0, 0, 0)), 70),
+                validEnd: plusDays(new Date(Date.UTC(2020, 8, 15, 16, 0, 0, 0)), 91),
                 options: [
                     scoreCompleteDailyChallenge5(0),
                     scoreLevelUp1(0),
@@ -2545,7 +2545,7 @@
                 challengesDailyEra4
             ];
 
-            function addPlaceholders(era, func) {
+            function addPlaceholders(era, func, seasonLength) {
                 var missingDay = -1;
                 for (var e of era.options) {
                     if (!e.ignore) {
@@ -2553,12 +2553,12 @@
                     }
                 }
 
-                for (var i = missingDay + 1; i < 70; i++) {
+                for (var i = missingDay + 1; i < seasonLength; i++) {
                     era.options.push(func(i));
                 }
             }
             
-            addPlaceholders(challengesDailyEra4, scoreDailyplaceholder);
+            addPlaceholders(challengesDailyEra4, scoreDailyplaceholder, 91);
 
             // ******************************************************************************************************************************
 
@@ -3659,16 +3659,6 @@
 
             addWeekly(challengesWeeklyEra3.options, 63, scoreBonusLastWeekWeekly);
             
-
-            // placeholder
-            /*
-            for (var t = 63; t < 70; t += 7) {
-                addWeekly(challengesWeeklyEra3.options, t, scoreGainXP10000);
-                addWeekly(challengesWeeklyEra3.options, t, scoreLevelUp3);
-                addWeekly(challengesWeeklyEra3.options, t, scoreWeeklyplaceholder);
-            }
-            */
-
             function scoreKillGlowing10(offset) {
                 return scoreKillGlowing(offset, 10);
             }
@@ -3696,7 +3686,7 @@
 
             var challengesWeeklyEra4 = {
                 validStart: new Date(Date.UTC(2020, 8, 15, 16, 0, 0, 0)),
-                validEnd: plusDays(new Date(Date.UTC(2020, 8, 15, 16, 0, 0, 0)), 70),
+                validEnd: plusDays(new Date(Date.UTC(2020, 8, 15, 16, 0, 0, 0)), 91),
                 options: [
                 ]
             };
@@ -3767,7 +3757,7 @@
             addWeekly(challengesWeeklyEra4.options, 42, scorekillHugeCreatures);
 
 
-            addPlaceholders(challengesWeeklyEra4, scoreWeeklyplaceholder);
+            addPlaceholders(challengesWeeklyEra4, scoreWeeklyplaceholder, 91);
 
             var challengesWeekly = [
                 challengesWeeklyEra1,
@@ -4191,11 +4181,10 @@
                 maxscore += scoreAtRank(i);
             }
 
-            function fillInSeason(season) {
-                var season1Days = 70;
-                for (var i = 0; i < season1Days; i++) {
-                    var rankLinear = (100 * (i + 1) / (season1Days)).toFixed(0);
-                    var scoreProgress = maxscore * i / season1Days;
+            function fillInSeason(season, seasonDays) {
+                for (var i = 0; i < seasonDays; i++) {
+                    var rankLinear = (100 * (i + 1) / (seasonDays)).toFixed(0);
+                    var scoreProgress = maxscore * i / seasonDays;
                     var rankScore = 1;
                     var scoreSum = 0;
                     while (scoreSum < scoreProgress) {
@@ -4207,14 +4196,14 @@
                         offset: i,
                         period: 100,
                         tipId: "LR1RankUniform",
-                        tip: "If you play so that you gain 99 / 70 ~ 1.42 ranks each day on average."
+                        tip: "If you play so that you gain 99 / " + seasonDays + " ~ " + (99/seasonDays).toFixed(2) + " ranks each day on average."
                     });
                     season.options.push({
                         name: "Expected rank (uniform S.C.O.R.E. gain): <b style='color: green;'>" + rankScore + "</b>",
                         offset: i,
                         period: 100,
                         tipId: "LR1ScoreUniform",
-                        tip: "If you play so that you earn 220,000 / 70 ~ 3150 S.C.O.R.E. each day on average."
+                        tip: "If you play so that you earn 220,000 / " + seasonDays + " ~ " + (220000 / seasonDays).toFixed(0) + " S.C.O.R.E. each day on average."
                     });
                 }
             }
@@ -4229,24 +4218,24 @@
             };
             var season2 = {
                 validStart: new Date(Date.UTC(2020, 8, 15, 16, 0, 0, 0)),
-                validEnd: plusDays(new Date(Date.UTC(2020, 8, 15, 16, 0, 0, 0)), 70),
+                validEnd: plusDays(new Date(Date.UTC(2020, 8, 15, 16, 0, 0, 0)), 91),
                 title: "Season 2: Armor Ace",
                 options: [
                     
                 ]
             };
             var season3 = {
-                validStart: new Date(Date.UTC(2020, 11, 1, 16, 0, 0, 0)),
-                validEnd: plusDays(new Date(Date.UTC(2020, 11, 1, 16, 0, 0, 0)), 70),
+                validStart: new Date(Date.UTC(2020, 11, 22, 16, 0, 0, 0)),
+                validEnd: plusDays(new Date(Date.UTC(2020, 11, 22, 16, 0, 0, 0)), 70),
                 title: "Season 3: The Zetan Zone (or whatever)",
                 options: [
                     
                 ]
             };
 
-            fillInSeason(season1);
-            fillInSeason(season2);
-            fillInSeason(season3);
+            fillInSeason(season1, 70);
+            fillInSeason(season2, 91);
+            fillInSeason(season3, 70);
 
             var seasonEvents = [
                 season1,
