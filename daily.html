@@ -1385,6 +1385,9 @@
                     period: 100,
                 };
             }
+            function scoreDrinkNukaCola25(offset) {
+                return scoreDrinkNukaCola(offset, 25);
+            }
 
             function scoreScrapScrews(offset, count) {
                 return {
@@ -2484,6 +2487,13 @@
                     scoreCompleteOneEvent(48, 1),
                     scoreKillSupermutant(48, 10),
                     scoreNWKillPlayer(48),
+
+                    scoreBuySellItem(49, 1),
+                    scoreCompleteDailyOps(49, 1),
+                    scoreCompleteOneEvent(49, 1),
+                    scoreJoinGroup(49),
+                    scoreKillCryptid1(49),
+                    scoreNWSurviveMinutes(49, 10),
                 ]
             };
 
@@ -2568,6 +2578,7 @@
             addDailyOps(challengesDailyEra4.options, 46, "Vault 94", "Super Mutants", [ dailyOpsPiercingGaze, dailyOpsCloaked ]);
             addDailyOps(challengesDailyEra4.options, 47, "Valley Galleria", "Super Mutants", [ dailyOpsPiercingGaze, dailyOpsFreezing ]);
             addDailyOps(challengesDailyEra4.options, 48, "The Burning Mine", "Robots", [ dailyOpsPiercingGaze, dailyOpsCloaked ]);
+            addDailyOps(challengesDailyEra4.options, 49, "???", "???", [ dailyOpsPiercingGaze ]);
  
             var challenges = [
                 challengesDailyEra1,
@@ -3787,6 +3798,16 @@
             addWeekly(challengesWeeklyEra4.options, 42, scoreEatPrewarFood25);
             addWeekly(challengesWeeklyEra4.options, 42, scoreKillGlowing10);
             addWeekly(challengesWeeklyEra4.options, 42, scorekillHugeCreatures);
+
+            addWeekly(challengesWeeklyEra4.options, 49, scoreBuildupCampAny3);
+            addWeekly(challengesWeeklyEra4.options, 49, scoreCompleteManyDailyOps5);
+            addWeekly(challengesWeeklyEra4.options, 49, scoreScrapMoney);
+            addWeekly(challengesWeeklyEra4.options, 49, scoreCompleteGoldStar);
+            addWeekly(challengesWeeklyEra4.options, 49, scoreCompleteEvents10);
+            addWeekly(challengesWeeklyEra4.options, 49, scoreDestroyRobots3);
+            addWeekly(challengesWeeklyEra4.options, 49, scoreDrinkNukaCola25);
+            addWeekly(challengesWeeklyEra4.options, 49, scoreHarvestPlantFungi50);
+            addWeekly(challengesWeeklyEra4.options, 49, scoreKillLegendaries10);
 
 
             addPlaceholders(challengesWeeklyEra4, scoreWeeklyplaceholder, 91);
