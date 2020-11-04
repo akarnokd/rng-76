@@ -22,7 +22,7 @@
     </head>
     <body>
         <center>
-            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Timed Challenges (0.5.0)</span><br/>
+            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Timed Challenges (0.6.0)</span><br/>
             <br/>
             <br/>
             <table>
@@ -42,12 +42,18 @@
         <script>
 
             var oneHourLaterSince = new Date(Date.UTC(2020, 5, 30, 15, 0, 0, 0));
+            var shiftDate2 = new Date(Date.UTC(2020, 10, 3, 16, 0, 0, 0));
 
             function normalizeDate(date) {
                 if (date < oneHourLaterSince) {
                     date.setUTCHours(15, 0, 0, 0);
-                } else {
+                } else 
+                if (date < shiftDate2)
+                {
                     date.setUTCHours(16, 0, 0, 0);
+                }
+                else {
+                    date.setUTCHours(17, 0, 0, 0);
                 }
             }
 
@@ -2124,7 +2130,7 @@
 
             var challengesDailyEra4 = {
                 validStart: new Date(Date.UTC(2020, 8, 15, 16, 0, 0, 0)),
-                validEnd: plusDays(new Date(Date.UTC(2020, 8, 15, 16, 0, 0, 0)), 91),
+                validEnd: plusDays(new Date(Date.UTC(2020, 8, 15, 16, 0, 0, 0)), 49),
                 options: [
                     scoreCompleteDailyChallenge5(0),
                     scoreLevelUp1(0),
@@ -2487,13 +2493,6 @@
                     scoreCompleteOneEvent(48, 1),
                     scoreKillSupermutant(48, 10),
                     scoreNWKillPlayer(48),
-
-                    scoreBuySellItem(49, 1),
-                    scoreCompleteDailyOps(49, 1),
-                    scoreCompleteOneEvent(49, 1),
-                    scoreJoinGroup(49),
-                    scoreKillCryptid1(49),
-                    scoreNWSurviveMinutes(49, 10),
                 ]
             };
 
@@ -2578,14 +2577,39 @@
             addDailyOps(challengesDailyEra4.options, 46, "Vault 94", "Super Mutants", [ dailyOpsPiercingGaze, dailyOpsCloaked ]);
             addDailyOps(challengesDailyEra4.options, 47, "Valley Galleria", "Super Mutants", [ dailyOpsPiercingGaze, dailyOpsFreezing ]);
             addDailyOps(challengesDailyEra4.options, 48, "The Burning Mine", "Robots", [ dailyOpsPiercingGaze, dailyOpsCloaked ]);
-            addDailyOps(challengesDailyEra4.options, 49, "Valley Galleria", "Robots", [ dailyOpsPiercingGaze, dailyOpsFreezing ]);
+
+            var challengesDailyEra5 = {
+                validStart: new Date(Date.UTC(2020, 10, 3, 17, 0, 0, 0)),
+                validEnd: plusDays(new Date(Date.UTC(2020, 10, 3, 17, 0, 0, 0)), 42),
+                options: [
+                    scoreCompleteDailyChallenge5(0),
+                    scoreLevelUp1(0),
+
+                    scoreBuySellItem(0, 1),
+                    scoreCompleteDailyOps(0, 1),
+                    scoreCompleteOneEvent(0, 1),
+                    scoreJoinGroup(0),
+                    scoreKillCryptid1(0),
+                    scoreNWSurviveMinutes(0, 10),
+
+                    scoreClaimWorkshop(1),
+                    scoreCompleteDailyOps(1, 1),
+                    scoreCompleteOneEvent(1, 1),
+                    scoreKillMoleminer(1, 10),
+                    scoreModWeapon(1, 3),
+                    scoreNWPickLock(1, 1)
+                ]
+            };
+            addDailyOps(challengesDailyEra5.options, 0, "Valley Galleria", "Robots", [ dailyOpsPiercingGaze, dailyOpsFreezing ]);
+            addDailyOps(challengesDailyEra5.options, 1, "Vault 94", "Robots", [ dailyOpsPiercingGaze, dailyOpsCloaked ]);
  
             var challenges = [
                 challengesDailyEra1,
                 challengesDailyEra1_2,
                 challengesDailyEra2,
                 challengesDailyEra3,
-                challengesDailyEra4
+                challengesDailyEra4,
+                challengesDailyEra5,
             ];
 
             function addPlaceholders(era, func, seasonLength) {
@@ -2601,7 +2625,7 @@
                 }
             }
             
-            addPlaceholders(challengesDailyEra4, scoreDailyplaceholder, 91);
+            addPlaceholders(challengesDailyEra5, scoreDailyplaceholder, 42);
 
             // ******************************************************************************************************************************
 
@@ -3730,7 +3754,7 @@
 
             var challengesWeeklyEra4 = {
                 validStart: new Date(Date.UTC(2020, 8, 15, 16, 0, 0, 0)),
-                validEnd: plusDays(new Date(Date.UTC(2020, 8, 15, 16, 0, 0, 0)), 91),
+                validEnd: plusDays(new Date(Date.UTC(2020, 8, 15, 16, 0, 0, 0)), 49),
                 options: [
                 ]
             };
@@ -3806,24 +3830,34 @@
             addWeekly(challengesWeeklyEra4.options, 42, scoreKillGlowing10);
             addWeekly(challengesWeeklyEra4.options, 42, scorekillHugeCreatures);
 
-            addWeekly(challengesWeeklyEra4.options, 49, scoreBuildupCampAny3);
-            addWeekly(challengesWeeklyEra4.options, 49, scoreCompleteManyDailyOps5);
-            addWeekly(challengesWeeklyEra4.options, 49, scoreScrapMoney);
-            addWeekly(challengesWeeklyEra4.options, 49, scoreCompleteGoldStar);
-            addWeekly(challengesWeeklyEra4.options, 49, scoreCompleteEvents10);
-            addWeekly(challengesWeeklyEra4.options, 49, scoreDestroyRobots3);
-            addWeekly(challengesWeeklyEra4.options, 49, scoreDrinkNukaCola25);
-            addWeekly(challengesWeeklyEra4.options, 49, scoreHarvestPlantFungi50);
-            addWeekly(challengesWeeklyEra4.options, 49, scoreKillLegendaries10);
+
+            var challengesWeeklyEra5 = {
+                validStart: new Date(Date.UTC(2020, 10, 3, 17, 0, 0, 0)),
+                validEnd: plusDays(new Date(Date.UTC(2020, 10, 3, 17, 0, 0, 0)), 42),
+                options: [
+                ]
+            };
 
 
-            addPlaceholders(challengesWeeklyEra4, scoreWeeklyplaceholder, 91);
+            addWeekly(challengesWeeklyEra5.options, 0, scoreFixedGainXP10000);
+            addWeekly(challengesWeeklyEra5.options, 0, scoreBuildupCampAny3);
+            addWeekly(challengesWeeklyEra5.options, 0, scoreCompleteManyDailyOps5);
+            addWeekly(challengesWeeklyEra5.options, 0, scoreScrapMoney);
+            addWeekly(challengesWeeklyEra5.options, 0, scoreCompleteGoldStar);
+            addWeekly(challengesWeeklyEra5.options, 0, scoreCompleteEvents10);
+            addWeekly(challengesWeeklyEra5.options, 0, scoreDestroyRobots3);
+            addWeekly(challengesWeeklyEra5.options, 0, scoreDrinkNukaCola25);
+            addWeekly(challengesWeeklyEra5.options, 0, scoreHarvestPlantFungi50);
+            addWeekly(challengesWeeklyEra5.options, 0, scoreKillLegendaries10);
+
+            addPlaceholders(challengesWeeklyEra5, scoreWeeklyplaceholder, 42);
 
             var challengesWeekly = [
                 challengesWeeklyEra1,
                 challengesWeeklyEra2,
                 challengesWeeklyEra3,
-                challengesWeeklyEra4
+                challengesWeeklyEra4,
+                challengesWeeklyEra5,
             ];
 
             // --------------------------------------------------------------------------------------------------------------
@@ -4181,35 +4215,35 @@
                         },
                     ]
                 },
-                createTreasureHunt(new Date(Date.UTC(2020, 10, 5, 16, 0, 0, 0)), new Date(Date.UTC(2020, 10, 9, 16, 0, 0, 0))),
+                createTreasureHunt(new Date(Date.UTC(2020, 10, 5, 17, 0, 0, 0)), new Date(Date.UTC(2020, 10, 9, 17, 0, 0, 0))),
                 {
-                    validStart: new Date(Date.UTC(2020, 10, 10, 16, 0, 0, 0)),
-                    validEnd: new Date(Date.UTC(2020, 10, 16, 16, 0, 0, 0)),
+                    validStart: new Date(Date.UTC(2020, 10, 10, 17, 0, 0, 0)),
+                    validEnd: new Date(Date.UTC(2020, 10, 16, 17, 0, 0, 0)),
                     title: "Bonus Challenges Week",
                     options: []
                 },
                 {
-                    validStart: new Date(Date.UTC(2020, 10, 17, 16, 0, 0, 0)),
-                    validEnd: new Date(Date.UTC(2020, 10, 23, 16, 0, 0, 0)),
+                    validStart: new Date(Date.UTC(2020, 10, 17, 17, 0, 0, 0)),
+                    validEnd: new Date(Date.UTC(2020, 10, 23, 17, 0, 0, 0)),
                     title: "Double S.C.O.R.E. Week",
                     options: []
                 },
-                createTreasureHunt(new Date(Date.UTC(2020, 10, 26, 16, 0, 0, 0)), new Date(Date.UTC(2020, 10, 30, 16, 0, 0, 0))),
+                createTreasureHunt(new Date(Date.UTC(2020, 10, 26, 17, 0, 0, 0)), new Date(Date.UTC(2020, 10, 30, 17, 0, 0, 0))),
                 {
-                    validStart: new Date(Date.UTC(2020, 11, 10, 16, 0, 0, 0)),
-                    validEnd: new Date(Date.UTC(2020, 11, 14, 16, 0, 0, 0)),
+                    validStart: new Date(Date.UTC(2020, 11, 10, 17, 0, 0, 0)),
+                    validEnd: new Date(Date.UTC(2020, 11, 14, 17, 0, 0, 0)),
                     title: "Double XP Weekend",
                     options: []
                 },
                 {
-                    validStart: new Date(Date.UTC(2020, 11, 17, 16, 0, 0, 0)),
-                    validEnd: new Date(Date.UTC(2020, 11, 24, 16, 0, 0, 0)),
+                    validStart: new Date(Date.UTC(2020, 11, 17, 17, 0, 0, 0)),
+                    validEnd: new Date(Date.UTC(2020, 11, 24, 17, 0, 0, 0)),
                     title: "Holiday Scorched",
                     options: []
                 },
                 {
-                    validStart: new Date(Date.UTC(2020, 11, 24, 16, 0, 0, 0)),
-                    validEnd: new Date(Date.UTC(2020, 11, 28, 16, 0, 0, 0)),
+                    validStart: new Date(Date.UTC(2020, 11, 24, 17, 0, 0, 0)),
+                    validEnd: new Date(Date.UTC(2020, 11, 28, 17, 0, 0, 0)),
                     title: "Holiday Scorched & Purveyor 25% Off Sale",
                     options: [
                         {
@@ -4220,8 +4254,8 @@
                     ]
                 },
                 {
-                    validStart: new Date(Date.UTC(2020, 11, 28, 16, 0, 0, 0)),
-                    validEnd: new Date(Date.UTC(2020, 11, 31, 16, 0, 0, 0)),
+                    validStart: new Date(Date.UTC(2020, 11, 28, 17, 0, 0, 0)),
+                    validEnd: new Date(Date.UTC(2020, 11, 31, 17, 0, 0, 0)),
                     title: "Holiday Scorched",
                     options: []
                 },
@@ -4278,15 +4312,15 @@
             };
             var season2 = {
                 validStart: new Date(Date.UTC(2020, 8, 15, 16, 0, 0, 0)),
-                validEnd: plusDays(new Date(Date.UTC(2020, 8, 15, 16, 0, 0, 0)), 91),
+                validEnd: new Date(Date.UTC(2020, 11, 15, 17, 0, 0, 0)),
                 title: "Season 2: Armor Ace",
                 options: [
                     
                 ]
             };
             var season3 = {
-                validStart: new Date(Date.UTC(2020, 11, 22, 16, 0, 0, 0)),
-                validEnd: plusDays(new Date(Date.UTC(2020, 11, 22, 16, 0, 0, 0)), 70),
+                validStart: new Date(Date.UTC(2020, 11, 22, 17, 0, 0, 0)),
+                validEnd: plusDays(new Date(Date.UTC(2020, 11, 22, 17, 0, 0, 0)), 70),
                 title: "Season 3: The Zetan Zone (or whatever)",
                 options: [
                     
