@@ -161,20 +161,18 @@
             document.getElementById("maxscore").innerText = thousands(maxscore);
 
             function xpProgressive(level) {
-                return 160 * level * level / 2 - 120 * level;
+                if (level < 2) {
+                    return 0;
+                }
+                return 80 * level * level - 40 * level - 40;
             }
+
+
             function xpForLevel(level) {
                 if (level >= 1000) {
                     return 159880 * (level - 1000) + xpProgressive(1000);
                 }
                 return xpProgressive(level)
-            }
-
-            function xpForNextLevel(level) {
-                if (level >= 1000) {
-                    return 159880;
-                }
-                return 160 * level - 120;
             }
 
             function thousands(num) {
