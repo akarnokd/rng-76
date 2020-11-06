@@ -5410,7 +5410,6 @@
                 createStrengthOnly("Bourbon", "Bourbon"),
                 createStrengthOnly("ChallysMilk", "Chally's Milk"),
                 createStrengthOnly("CranberryMoonshine", "Cranberry Moonshine"),
-                /*
                 {
                     id: "FirecrackerBerryJuice",
                     type: "alcohol",
@@ -5418,7 +5417,6 @@
                     mode: "Melee,Ranged",
                     criticalDamage: 15
                 },
-                */
                 {
                     id: "HighVoltageHefe",
                     type: "alcohol",
@@ -5471,7 +5469,6 @@
                     mode: "Melee",
                     strength: 2
                 },
-                /*
                 {
                     id: "SteepedThistleTea",
                     type: "alcohol",
@@ -5479,8 +5476,6 @@
                     mode: "Melee,Ranged",
                     criticalDamage: 20
                 },
-                */
-                /*
                 {
                     id: "SweetMutfruitTea",
                     type: "alcohol",
@@ -5488,7 +5483,6 @@
                     mode: "Melee,Ranged",
                     criticalDamage: 20
                 },
-                */
                 createStrengthOnly("Vodka", "Vodka"),
                 {
                     id: "Whiskey",
@@ -5635,7 +5629,6 @@
                     mode: "Melee",
                     damage: 15
                 },
-                /*
                 {
                     id: "Grognak4",
                     type: "magazine",
@@ -5643,7 +5636,6 @@
                     mode: "Melee",
                     criticalDamage: 30
                 },
-                */
                 {
                     id: "Grognak5",
                     type: "magazine",
@@ -5661,7 +5653,6 @@
                     versus: ["Robot"],
                     versusDamage: 15
                 },
-                /*
                 {
                     id: "GunsAndBullets2",
                     type: "magazine",
@@ -5670,17 +5661,14 @@
                     kind: "laser",
                     criticalDamage: 30
                 },
-                */
-                /*
                 {
                     id: "GunsAndBullets3",
                     type: "magazine",
-                    desc: "Guns & Bullets... # 3 (+30% crit DMG w/ ballistic)",
+                    desc: "Guns... # 3 (+30% crit DMG w/ ballistic)",
                     mode: "Ranged",
-                    kind: "ballistic"
+                    kind: "ballistic",
                     criticalDamage: 30
                 },
-                */
                 {
                     id: "GunsAndBullets7",
                     type: "magazine",
@@ -5696,7 +5684,6 @@
                     versus: ["Yao Guai"],
                     versusDamage: 15
                 },
-                /*
                 {
                     id: "GunsAndBullets9",
                     type: "magazine",
@@ -5705,7 +5692,6 @@
                     kind: "plasma",
                     criticalDamage: 30
                 },
-                */
                 {
                     id: "GunsAndBullets10",
                     type: "magazine",
@@ -5772,7 +5758,6 @@
                     versus: ["Mothman"],
                     versusDamage: 15
                 },
-                /*
                 {
                     id: "TeslaScience7",
                     type: "magazine",
@@ -5794,9 +5779,8 @@
                     desc: "Tesla... # 9 (+15% crit DMG w/ heavy)",
                     mode: "Ranged",
                     criticalDamage: 15,
-                    only: "heavy"
+                    only: "Heavy"
                 },
-                */
                // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
                {
                     id: "USCovertOps4",
@@ -7440,6 +7424,25 @@
                 createYesNo(tbl, index, type, "Any other mutation", "mutation", "mutation", "Mutation");
             }
 
+            function buffFilter(buff, weap, type) {
+                if (buff.mode.includes(type)) {
+                    if (buff.except !== undefined && buff.except.includes(weap.category)) {
+                        return false;
+                    }
+                    if (buff.only !== undefined && !buff.only.includes(weap.category)) {
+                        return false;
+                    }
+                    if (buff.weapon !== undefined && !buff.weapon.includes(weap.name)) {
+                        return false;
+                    }
+                    if (buff.kind !== undefined && weap.kind !== undefined && !buff.kind.includes(weap.kind)) {
+                        return false;
+                    }
+                    return true;
+                }
+                return false;
+            }
+
             function createOther(tbl, index, type) {
                 var weapIdx = document.getElementById("weapon" + index).selectedIndex;
                 var weap = allWeapons.get(type)[weapIdx];
@@ -7490,13 +7493,7 @@
                 alcoholsel.linkId = "Alcohol";
 
                 for (var alc of alcohols) {
-                    if (alc.mode.includes(type)) {
-                        if (alc.except !== undefined && alc.except.includes(weap.category)) {
-                            continue;
-                        }
-                        if (alc.only !== undefined && !alc.only.includes(weap.category)) {
-                            continue;
-                        }
+                    if (buffFilter(alc, weap, type)) {
                         opt = document.createElement("option");
                         alcoholsel.add(opt);
                         opt.text = alc.desc;
@@ -7523,13 +7520,7 @@
                 bobbleheadsel.linkId = "Bobble";
 
                 for (var bh of bobbleheads) {
-                    if (bh.mode.includes(type)) {
-                        if (bh.except !== undefined && bh.except.includes(weap.category)) {
-                            continue;
-                        }
-                        if (bh.only !== undefined && !bh.only.includes(weap.category)) {
-                            continue;
-                        }
+                    if (buffFilter(bh, weap, type)) {
                         opt = document.createElement("option");
                         bobbleheadsel.add(opt);
                         opt.text = bh.desc;
@@ -7556,19 +7547,7 @@
                 magazinesel.linkId = "Magazine";
 
                 for (var mag of magazines) {
-                    if (mag.mode.includes(type)) {
-                        if (mag.except !== undefined && mag.except.includes(weap.category)) {
-                            continue;
-                        }
-                        if (mag.only !== undefined && !mag.only.includes(weap.category)) {
-                            continue;
-                        }
-                        if (mag.weapon !== undefined && !mag.weapon.includes(weap.name)) {
-                            continue;
-                        }
-                        if (mag.kind !== undefined && weap.kind !== undefined && !mag.kind.includes(weap.kind)) {
-                            continue;
-                        }
+                    if (buffFilter(mag, weap, type)) {
                         opt = document.createElement("option");
                         magazinesel.add(opt);
                         opt.text = mag.desc;
@@ -8329,7 +8308,7 @@
 
                 // apply selectable buffs
                 for (var buff of buffOpts) {
-                    var pmult = partyMultiplier;
+                    var pmult = 1 + partyMultiplier;
                     if (buff.type !== "alcohol") {
                         pmult = 1;
                     }
@@ -8383,6 +8362,9 @@
 
                         totalDamageMultiply.push(udmg * buffMultiply);
                         totalDamageEnergyMultiply.push(udmg * buffMultiply);
+                    }
+                    if (buff.criticalDamage !== undefined) {
+                        critMultiplier += buff.criticalDamage * pmult;
                     }
                 }
 
