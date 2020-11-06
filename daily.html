@@ -2597,11 +2597,19 @@
                     scoreCompleteOneEvent(1, 1),
                     scoreKillMoleminer(1, 10),
                     scoreModWeapon(1, 3),
-                    scoreNWPickLock(1, 1)
+                    scoreNWPickLock(1, 1),
+
+                    scoreBuySellItem(2, 1),
+                    scoreCompleteDailyOps(2, 1),
+                    scoreCompleteOneEvent(2, 1),
+                    scoreKillLegendary(2, 1),
+                    scoreKillScorched(2, 10),
+                    scoreNWSurviveMinutes(2, 10),
                 ]
             };
             addDailyOps(challengesDailyEra5.options, 0, "Valley Galleria", "Robots", [ dailyOpsPiercingGaze, dailyOpsFreezing ]);
             addDailyOps(challengesDailyEra5.options, 1, "Vault 94", "Robots", [ dailyOpsPiercingGaze, dailyOpsCloaked ]);
+            addDailyOps(challengesDailyEra5.options, 2, "The Burning Mine", "Robots", [ dailyOpsPiercingGaze, dailyOpsFreezing ]);
  
             var challenges = [
                 challengesDailyEra1,
@@ -4218,8 +4226,14 @@
                 createTreasureHunt(new Date(Date.UTC(2020, 10, 5, 17, 0, 0, 0)), new Date(Date.UTC(2020, 10, 9, 17, 0, 0, 0))),
                 {
                     validStart: new Date(Date.UTC(2020, 10, 10, 17, 0, 0, 0)),
-                    validEnd: new Date(Date.UTC(2020, 10, 16, 17, 0, 0, 0)),
+                    validEnd: new Date(Date.UTC(2020, 10, 12, 17, 0, 0, 0)),
                     title: "Bonus Challenges Week",
+                    options: []
+                },
+                {
+                    validStart: new Date(Date.UTC(2020, 10, 12, 17, 0, 0, 0)),
+                    validEnd: new Date(Date.UTC(2020, 10, 16, 17, 0, 0, 0)),
+                    title: "Bonus Challenges Week + Mystery Pick",
                     options: []
                 },
                 {
