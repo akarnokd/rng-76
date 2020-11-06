@@ -4470,6 +4470,12 @@
                         damageMultPercent: 10
                     },
                     {
+                        name: "VATSCrit50",
+                        linkId: "VATSCrit50",
+                        text: "VATS Crit +50% damage",
+                        criticalDamage: 50,
+                    },
+                    {
                         name: "25% increased fire rate",
                         linkId: "FFR",
                         //speedMultPercent: 25
@@ -8113,6 +8119,9 @@
                             var dmg = modInfo.addDamageExplosiveLeveled[levelIdx];
                             totalDamageAdditive.push(dmg * perc * bloodyBoost);
                         }
+                        if (modInfo.criticalDamage !== undefined) {
+                            critMultiplier += modInfo.criticalDamage;
+                        }
                     }
                 });
 
@@ -8217,6 +8226,9 @@
                         }
                         if (effInfo.speedAddPercent !== undefined) {
                             totalSpeedAdditive.push(effInfo.speedAddPercent);
+                        }
+                        if (effInfo.criticalDamage !== undefined) {
+                            critMultiplier += effInfo.criticalDamage;
                         }
                     }
                 });
