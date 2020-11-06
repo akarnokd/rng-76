@@ -22,7 +22,7 @@
     </head>
     <body style="height: 90%">
         <center>
-            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Weapon Damage Calculator (v3.3.18)</span>
+            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Weapon Damage Calculator (v3.3.20)</span>
             <br/>
             <i>(Update to Patch 22 is almost done; a few special cases to iron out but otherwise good to go.)</i>
         <br/>
@@ -6153,6 +6153,13 @@
                     + "<li>Live and Love #2</li>"
                 + "</ul>"
             );
+            infoMap.set("crit", 
+                "Perform a critical hit that adds bonus damage."
+                + "<br>Weapon mods, perks, chems and food items can increase the bonus."
+                + "<br>"
+                + "<br>Note that one can't sustain crits for each hit thus the DPS calculation"
+                + "<br>is informational only, not achievable legitimately ingame."
+            );
 
             infoMap.set("playerhealth", 
                 "Enables the following effects/mods/perks when player is not at full health:"
@@ -6208,6 +6215,13 @@
                 + "<br>is not +75% boost but 1.5 * 1.25 = 1.875 or 87.5%."
                 + "<br>Post Patch 22, boosts are additive, thus +50% and +25% damage boost is +75%"
                 + "<br>whereas debuffs are multiplicative, thus -50% and -25% damage debuff is -62.5%."
+            );
+
+            infoMap.set("hitspeed", 
+                "Adjust the hit speed of the weapon via percentage (positive or negative)"
+                + "<br>on top of any other speed effects."
+                + "<br>For example, a -25% speed reduction is equivalent to a 0.75 speed multiplier."
+                + "<br>For example, a 40% speed boost is equivalent to a 1.40 speed multiplier."
             );
 
             infoMap.set("martialartist", "Melee weapons only. Each level increases swing speed by 10% and up to 30% total.");
@@ -6675,6 +6689,8 @@
                 }
 
                 createYesNo(tbl, index, type, "Team", "team", "team", "Team");
+
+                createYesNo(tbl, index, type, "Critical", "crit", "crit", "Crit");
 
                 row = tbl.insertRow(tbl.rows.length);
                 cell1 = row.insertCell(0);
@@ -7606,6 +7622,18 @@
                 otherboostsel.linkId = "Other";
                 otherboostsel.linkDefault = "0";
 
+                row = tbl.insertRow(tbl.rows.length);
+                cell1 = row.insertCell(0);
+                cell1.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;Hit speed boost" + info("hitspeed");
+                cell2 = row.insertCell(1);
+                cell2.innerHTML = "<input type='number' id='speedboost" + index + "' value='0' maxlength='6' style='width: 5em;' min='-1000' max='1000'> %";
+                var speedboostsel = document.getElementById("speedboost" + index );
+                speedboostsel.oninput = function() {
+                    recalculate(tbl, index, type);
+                };
+                speedboostsel.linkId = "Speed";
+                speedboostsel.linkDefault = "0";
+
                 // calculation mode
                 row = tbl.insertRow(tbl.rows.length);
                 cell1 = row.insertCell(0);
@@ -8012,6 +8040,9 @@
 
                 var versusMultiplier = 0;
 
+                var critMultiplier = 0;
+                var isCrit = document.getElementById("crit" + index + "_yes").checked;
+
                 // apply mod effects
                 // ~~~~~~~~~~~~~~~~~
                 weap.mods.forEach(function(mod, idx) {
@@ -8392,8 +8423,13 @@
 
                 var tenderizersel = document.getElementById("tenderizer" + index);
                 if (tenderizersel.selectedIndex > 0) {
-                    totalDamageMultiply.push(parseFloat(valueOf(tenderizersel)));
-                    totalDamageEnergyMultiply.push(parseFloat(valueOf(tenderizersel)));
+                    totalDamageDebuff.push(parseFloat(valueOf(tenderizersel)));
+                    totalDamageEnergyDebuff.push(parseFloat(valueOf(tenderizersel)));
+                }
+
+                if (isCrit) {
+                    totalDamageMultiply.push(100 + critMultiplier);
+                    totalDamageEnergyMultiply.push(100 + critMultiplier);
                 }
 
                 var calcMode = valueOf(document.getElementById("calcmode" + index));
@@ -8506,6 +8542,12 @@
                 totalSpeedMultiply.forEach(function(v) {
                     speed *= 1.0 + v / 100.0;
                 });
+
+                var speedboostsel = document.getElementById("speedboost" + index);
+                var speedboostval = parseFloat(speedboostsel.value);
+                if (speedboostval < 0 || speedboostval > 0) {
+                    speed *= Math.max(0.000001, 1.0 + speedboostval / 100.0);
+                }
 
                 // enemy immunities
                 var enemyTypeSel = document.getElementById("enemytype" + index);
