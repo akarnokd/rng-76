@@ -6278,6 +6278,9 @@
                 "Target receives 5%, 7% or 10% more damage for a few seconds after one attacks."
                 + "<br>Does not show up currently in the floating damage numbers ingame."
             );
+            infoMap.set("bettercrits", 
+                "V.A.T.S. critial hits do +20%, +30% or +40% damage respectively."
+            );
             infoMap.set("colanut", 
                 "Effects of Nuka Cola products doubles (rank 1) or triples (rank 2)."
                 + "<br>Affects <b>Nuka Cola Dark</b> and <b>Nukashine</b> only."
@@ -7364,6 +7367,32 @@
                 tenderizersel.onchange = function() {
                     recalculate(tbl, index, type);
                 };
+
+                row = tbl.insertRow(tbl.rows.length);
+                cell1 = row.insertCell(0);
+                cell1.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;Better Criticals" + info("bettercrits");
+                cell2 = row.insertCell(1);
+                cell2.innerHTML = "<select id='bettercrits" + index + "'></select> (rank)"
+                
+                var bettercritssel = document.getElementById("bettercrits" + index);
+                opt = document.createElement("option");
+                bettercritssel.add(opt);
+                opt.text = "None";
+                opt.value = "0";
+                bettercritssel.linkId = "BetterCrits";
+
+                var tenderizerValues = [ 20, 30, 40 ];
+                for (var i = 1; i < 4; i++) {
+                    opt = document.createElement("option");
+                    bettercritssel.add(opt);
+                    opt.text = "" + i;
+                    opt.value = "" + tenderizerValues[i - 1];
+                    opt.linkId = opt.value;
+                }
+                bettercritssel.selectedIndex = 0;
+                bettercritssel.onchange = function() {
+                    recalculate(tbl, index, type);
+                };
             }
 
             function createYesNo(tbl, index, type, title, infoId, id, linkId) {
@@ -8037,7 +8066,7 @@
 
                 var versusMultiplier = 0;
 
-                var critMultiplier = 0;
+                var critMultiplier = 200;
                 var isCrit = document.getElementById("crit" + index + "_yes").checked;
 
                 // apply mod effects
@@ -8424,9 +8453,9 @@
                     totalDamageEnergyDebuff.push(parseFloat(valueOf(tenderizersel)));
                 }
 
-                if (isCrit) {
-                    totalDamageMultiply.push(100 + critMultiplier);
-                    totalDamageEnergyMultiply.push(100 + critMultiplier);
+                var bettercritssel = document.getElementById("bettercrits" + index);
+                if (bettercritssel.selectedIndex > 0) {
+                    critMultiplier += parseFloat(valueOf(bettercritssel));
                 }
 
                 var calcMode = valueOf(document.getElementById("calcmode" + index));
@@ -8502,6 +8531,14 @@
                 totalDamageFire *= sneakBonusMultiply;
                 totalDamageCold *= sneakBonusMultiply;
                 totalDamagePoison *= sneakBonusMultiply;
+
+                if (isCrit) {
+                    totalDamage *= critMultiplier / 100;
+                    totalDamageEnergy *= critMultiplier / 100;
+                    totalDamageFire *= critMultiplier / 100;
+                    totalDamageCold *= critMultiplier / 100;
+                    totalDamagePoison *= critMultiplier / 100;
+                }
 
                 if (document.getElementById("grounded" + index + "_yes").checked) {
                     var classFreak = valueOf(document.getElementById("classfreak" + index));
