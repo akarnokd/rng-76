@@ -22,7 +22,7 @@
     </head>
     <body style="height: 90%">
         <center>
-            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Weapon Damage Calculator (v3.3.21)</span>
+            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Weapon Damage Calculator (v3.3.22)</span>
             <br/>
             <i>(Update to Patch 22 is almost done; a few special cases to iron out but otherwise good to go.)</i>
         <br/>
@@ -1518,6 +1518,25 @@
                 versus: ["Scorched", "Scorchbeast", "Scorchbeast Queen"],
                 versusAddPercent: 50
             };
+            var viciousMod = {
+                name: "Vicious",
+                criticalDamageMultiply: 17
+            };
+            var fierceMod = {
+                name: "Fierce",
+                speedAddPercent: 25,
+                criticalDamageMultiply: 17
+            };
+            var snappyMod = {
+                name: "Snappy",
+                speedAddPercent: 25,
+                criticalDamageMultiply: 17
+            };
+            var severeMod = {
+                name: "Severe",
+                criticalDamageMultiply: 17,
+                damageMultPercent: 12.5
+            };
 
             function createCombatRifleReceivers(isFixer) {
                 return {
@@ -1555,13 +1574,10 @@
                         },
                         {
                             name: "Critical .38",
-                            criticalDamageMultiply: 17
+                            criticalDamageMultiply: 17,
+                            damageMultPercent: -25
                         },
-                        {
-                            name: "Severe",
-                            damageMultPercent: 8.75,
-                            criticalDamageMultiply: 17
-                        },
+                        severeMod,
                         {
                             name: "Steadfast",
                             speedSet: 4,
@@ -1571,22 +1587,17 @@
                             speedSet: 7.5,
                             criticalDamageMultiply: 17
                         },
-                        {
-                            name: "Snappy",
-                            criticalDamageMultiply: 17
-                        },
+                        snappyMod,
                         {
                             name: "True"
-                        },
-                        {
-                            name: "Vicious",
-                            criticalDamageMultiply: 17
                         },
                         {
                             name: "Calibrated",
                             criticalDamageMultiply: 34,
                             preinstalled: isFixer
                         },
+                        severeMod,
+                        viciousMod,
                         {
                             name: "Vigorous",
                             speedSet: 4,
@@ -1651,6 +1662,10 @@
                             name: "Calibrated Beta Wave",
                             criticalDamageMultiply: 34,
                             addDamageFireLeveled: [3, 3, 3, 3]
+                        },
+                        {
+                            name: "Vicious",
+                            criticalDamageMultiply: 17
                         },
                         {
                             name: "Refined Beta Wave",
@@ -1728,10 +1743,7 @@
                             name: "Hair Trigger",
                             speedMultPercent: 33
                         },
-                        {
-                            name: "Snappy",
-                            speedMultPercent: 17
-                        },
+                        snappyMod,
                         {
                             name: "Speedy",
                             speedMultPercent: 17
@@ -1739,6 +1751,12 @@
                         {
                             name: "Calibrated",
                             criticalDamageMultiply: 34
+                        },
+                        viciousMod,
+                        {
+                            name: "Severe Beta Wave",
+                            criticalDamageMultiply: 17,
+                            addDamageFireLeveled: [3, 3, 3, 3, 3, 3, 3]
                         },
                         primeMod,
                     ]
@@ -1786,6 +1804,10 @@
                             name: "Standard"
                         },
                         {
+                            name: "Hardened",
+                            damageMultPercent: 25
+                        },
+                        {
                             name: "Refined",
                             damageMultPercent: 12.5,
                             preinstalled: weaponName === "Old Guard's"
@@ -1794,10 +1816,8 @@
                             name: "Calibrated",
                             criticalDamageMultiply: 34
                         },
-                        {
-                            name: "Hardened",
-                            damageMultPercent: 25
-                        },
+                        severeMod,
+                        viciousMod,
                         scorchKillerMod,
                         primeMod
                     ]
@@ -1822,8 +1842,157 @@
                         name: "Hasty .38",
                         damageMultPercent: -25,
                         speedSet: 4,
-                     },
+                    },
+                    {
+                        name: "Critical .38",
+                        damageMultPercent: -25,
+                        criticalDamageMultiply: 17
+                    },
+                    snappyMod,
+                    severeMod,
+                    viciousMod,
                     primeMod
+                ]
+            };
+
+            var standardAssaultRifleReceivers = {
+                slot: "Receiver",
+                options: [
+                    {
+                        name: "Standard"
+                    },
+                    {
+                        name: "Automatic",
+                        damageMultPercent: -10,
+                        speedSet: 7.5
+                    },
+                    {
+                        name: "Powerful Automatic",
+                        damageMultPercent: 11.11,
+                        speedSet: 7.5
+                    },
+                    {
+                        name: "Hardened",
+                        damageMultPercent: 25
+                    },
+                    viciousMod,
+                    {
+                        name: "Tweaked Automatic",
+                        damageMultPercent: -10,
+                        speedSet: 7.5,
+                        criticalDamageMultiply: 17,
+                    },
+                    scorchKillerMod,
+                    primeMod,
+                    {
+                        name: "Prime Automatic",
+                        damageMultPercent: 15,
+                        speedSet: 7.5,
+                        versus: ["Scorched", "Scorchbeast", "Scorchbeast Queen"],
+                        versusMultPercent: 35
+                    }
+                ]
+            };
+
+            var pipeGunReceivers = {
+                slot: "Receiver",
+                options: [
+                    {
+                        name: "Standard"
+                    },
+                    {
+                        name: "Hardened",
+                        damageMultPercent: 25
+                    },
+                    {
+                        name: "Calibrated",
+                        criticalDamageMultiply: 34
+                    },
+                    snappyMod,
+                    severeMod,
+                    viciousMod,
+                    {
+                        name: "Hasty .45",
+                        speedAddPercent: 25,
+                        damageMultPercent: 8
+                    },
+                    {
+                        name: "Refined .45",
+                        damageMultPercent: 12.5
+                    },
+                    {
+                        name: "Precise .45",
+                        damageMultPercent: 8
+                    },
+                    {
+                        name: "Critical .45",
+                        criticalDamageMultiply: 17,
+                        damageMultPercent: 8
+                    },
+                    {
+                        name: "Automatic",
+                        damageMultPercent: -10,
+                        speedAddPercent: 50
+                    },
+                    {
+                        name: "Powerful Automatic",
+                        damageMultPercent: 11.11,
+                        speedAddPercent: 50
+                    },
+                    {
+                        name: "Tweaked Automatic",
+                        criticalDamageMultiply: 17,
+                        speedSet: 7.5
+                    },
+                    {
+                        name: "Prime Automatic",
+                        damageMultPercent: 15,
+                        speedAddPercent: 50,
+                        versus: ["Scorched", "Scorchbeast", "Scorchbeast Queen"],
+                        versusMultPercent: 35
+                    }
+                ]
+            };
+
+            var pipeRevolverReceivers = {
+                slot: "Receiver",
+                options: [
+                    {
+                        name: "Standard"
+                    },
+                    {
+                        name: "Hardened",
+                        damageMultPercent: 25
+                    },
+                    {
+                        name: "Calibrated",
+                        criticalDamageMultiply: 34
+                    },
+                    severeMod,
+                    snappyMod,
+                    viciousMod,
+                    {
+                        name: ".38",
+                        speedMultPercent: -10,
+                        damageMultPercent: -12.5
+                    },
+                    {
+                        name: "Refined .38",
+                        speedMultPercent: -10,
+                        damageMultPercent: -12.5
+                    },
+                    {
+                        name: "Precise .38",
+                        speedMultPercent: -10,
+                        damageMultPercent: -25,
+                    },
+                    {
+                        name: "Critical .38",
+                        criticalDamageMultiply: 17,
+                        speedMultPercent: -10,
+                        damageMultPercent: -25
+                    },
+                    primeMod,
                 ]
             };
 
@@ -1849,17 +2018,48 @@
                                     damageMultPercent: 25
                                 },
                                 {
+                                    name: "Speedy",
+                                    speedAddPercent: 25
+                                },
+                                {
+                                    name: "Hair Trigger",
+                                    speedAddPercent: 25
+                                },
+                                {
+                                    name: "Refined",
+                                    damageMultPercent: 12.5,
+                                },
+                                {
+                                    name: "Tuned",
+                                    damageMultPercent: 12.5,
+                                    speedAddPercent: 25
+                                },
+                                {
                                     name: "Calibrated",
                                     criticalDamageMultiply: 34
                                 },
+                                fierceMod,
+                                severeMod,
+                                viciousMod,
                                 {
                                     name: "Automatic",
                                     damageMultPercent: -10,
                                     speedSet: 7.5
                                 },
                                 {
+                                    name: "Tweaked Automatic",
+                                    damageMultPercent: 12.5,
+                                    speedSet: 7.5,
+                                    criticalDamageMultiply: 17
+                                },
+                                {
+                                    name: "Tweaked Automatic (bugged)",
+                                    damageMultPercent: 12.5,
+                                    speedSet: 7.5
+                                },
+                                {
                                     name: "Powerful Automatic",
-                                    damageMultPercent: 11.11,
+                                    damageMultPercent: 12.5,
                                     speedSet: 7.5
                                 },
                                 scorchKillerMod,
@@ -1908,6 +2108,11 @@
                                     speedAddPercent: 25
                                 },
                                 {
+                                    name: "Critical .38",
+                                    damageMultPercent: -25,
+                                    criticalDamageMultiply: 17
+                                },
+                                {
                                     name: ".50",
                                     damageMultPercent: 33.3
                                 },
@@ -1917,9 +2122,17 @@
                                     speedAddPercent: 25
                                 },
                                 {
+                                    name: "Critical .50",
+                                    damageMultPercent: 22.5,
+                                    criticalDamageMultiply: 17
+                                },
+                                {
                                     name: "Calibrated",
                                     criticalDamageMultiply: 34
                                 },
+                                snappyMod,
+                                severeMod,
+                                viciousMod,
                                 scorchKillerMod,
                                 primeMod,
                             ]
@@ -1952,6 +2165,12 @@
                                 {
                                     name: "Calibrated",
                                     criticalDamageMultiply: 34
+                                },
+                                severeMod,
+                                {
+                                    name: "Fierce",
+                                    criticalDamageMultiply: 17,
+                                    speedAddPercent: 25
                                 },
                                 scorchKillerMod,
                                 primeMod,
@@ -1991,41 +2210,7 @@
                     level: [30, 40, 50],
                     damage: [26, 29, 33],
                     mods: [
-                        {
-                            slot: "Receiver",
-                            options: [
-                                {
-                                    name: "Standard"
-                                },
-                                {
-                                    name: "Automatic",
-                                    damageMultPercent: -10,
-                                    speedSet: 7.5
-                                },
-                                {
-                                    name: "Powerful Automatic",
-                                    damageMultPercent: 11.11,
-                                    speedSet: 7.5
-                                },
-                                {
-                                    name: "Hardened",
-                                    damageMultPercent: 25
-                                },
-                                {
-                                    name: "Calibrated",
-                                    criticalDamageMultiply: 34
-                                },
-                                scorchKillerMod,
-                                primeMod,
-                                {
-                                    name: "Prime Automatic",
-                                    damageMultPercent: 15,
-                                    speedSet: 7.5,
-                                    versus: ["Scorched", "Scorchbeast", "Scorchbeast Queen"],
-                                    versusMultPercent: 35
-                                }
-                            ]
-                        },
+                        standardAssaultRifleReceivers,
                         standardAPMagazines,
                         standardMuzzle,
                         createStandardSights("", true, true)
@@ -2043,37 +2228,7 @@
                     level: [30, 40, 50],
                     damage: [26, 29, 33],
                     mods: [
-                        {
-                            slot: "Receiver",
-                            options: [
-                                {
-                                    name: "Standard"
-                                },
-                                {
-                                    name: "Automatic",
-                                    damageMultPercent: -10,
-                                    speedSet: 7.5
-                                },
-                                {
-                                    name: "Powerful Automatic",
-                                    damageMultPercent: 11.11,
-                                    speedSet: 7.5
-                                },
-                                {
-                                    name: "Hardened",
-                                    damageMultPercent: 25
-                                },
-                                scorchKillerMod,
-                                primeMod,
-                                {
-                                    name: "Prime Automatic",
-                                    damageMultPercent: 15,
-                                    speedSet: 7.5,
-                                    versus: ["Scorched", "Scorchbeast", "Scorchbeast Queen"],
-                                    versusMultPercent: 35
-                                }
-                            ]
-                        },
+                        standardAssaultRifleReceivers,
                         standardAPMagazines,
                         standardMuzzle,
                         createStandardSights("", true, true)
@@ -2348,7 +2503,8 @@
                                 {
                                     name: "Tweaked Automatic",
                                     damageMultPercent: 11.11,
-                                    speedAddPercent: 10
+                                    speedAddPercent: 10,
+                                    criticalDamageMultiply: 17
                                 },
                                 {
                                     name: "Hardened",
@@ -2358,10 +2514,8 @@
                                     name: "Refined",
                                     damageMultPercent: 12.5
                                 },
-                                {
-                                    name: "Severe",
-                                    damageMultPercent: 12.5
-                                },
+                                severeMod,
+                                viciousMod,
                                 scorchKillerMod,
                                 primeMod,
                                 {
@@ -2401,6 +2555,9 @@
                                     name: "Calibrated",
                                     criticalDamageMultiply: 34
                                 },
+                                snappyMod,
+                                severeMod,
+                                viciousMod,
                                 scorchKillerMod,
                                 primeMod,
                             ]
@@ -2431,6 +2588,11 @@
                                     name: "Calibrated",
                                     criticalDamageMultiply: 34
                                 },
+                                fierceMod,
+                                severeMod,
+                                viciousMod,
+                                scorchKillerMod,
+                                primeMod
                             ]
                         }
                     ]
@@ -2510,6 +2672,14 @@
                                     name: "Calibrated",
                                     criticalDamageMultiply: 34
                                 },
+                                severeMod,
+                                viciousMod,
+                                fierceMod,
+                                {
+                                    name: "Tweaked Automatic",
+                                    speedSet: 7.5,
+                                    criticalDamageMultiply: 17
+                                },
                                 scorchKillerMod,
                                 primeMod,
                                 {
@@ -2560,14 +2730,14 @@
                                     name: "Vigorous",
                                     damageMultPercent: 12.5
                                 },
-                                {
-                                    name: "Severe",
-                                    damageMultPercent: 12.5
-                                },
+                                severeMod,
                                 {
                                     name: "Severe (Bugged)",
-                                    damageMultPercent: 12.5 + 25
+                                    damageMultPercent: 12.5 + 25,
+                                    criticalDamageMultiply: 17
                                 },
+                                viciousMod,
+                                fierceMod,
                                 primeMod,
                             ]
                         }
@@ -2758,6 +2928,9 @@
                                     name: "Calibrated",
                                     criticalDamageMultiply: 34
                                 },
+                                severeMod,
+                                fierceMod,
+                                viciousMod,
                                 primeMod
                             ]
                         }
@@ -2808,48 +2981,6 @@
                     ]
                 },
                 {
-                    name: "Pipe Pistol",
-                    category: "Pistol",
-                    kind: "ballistic",
-                    explosive: false,
-                    speed: 6,
-                    level: [1, 5, 10, 20, 30, 40, 50],
-                    damage: [12, 13, 15, 18, 21, 23, 26],
-                    mods: [
-                        {
-                            slot: "Receiver",
-                            options: [
-                                {
-                                    name: "Standard"
-                                },
-                                {
-                                    name: "Hardened",
-                                    damageMultPercent: 25
-                                },
-                                {
-                                    name: "Powerful Automatic",
-                                    damageMultPercent: 11.11,
-                                    speedAddPercent: 50
-                                },
-                                {
-                                    name: "Calibrated",
-                                    criticalDamageMultiply: 34
-                                },
-                                scorchKillerMod,
-                                primeMod,
-                                {
-                                    name: "Prime Automatic",
-                                    damageMultPercent: 15,
-                                    speedAddPercent: 50,
-                                    versus: ["Scorched", "Scorchbeast", "Scorchbeast Queen"],
-                                    versusMultPercent: 35
-                                }
-                            ]
-                        },
-                        standardAPMagazines
-                    ]
-                },
-                {
                     name: "Pipe Revolver Pistol",
                     category: "Pistol",
                     kind: "ballistic",
@@ -2858,23 +2989,7 @@
                     level: [1, 5, 10, 20, 30, 40, 50],
                     damage: [27, 31, 36, 40, 45, 50, 55],
                     mods: [
-                        {
-                            slot: "Receiver",
-                            options: [
-                                {
-                                    name: "Standard"
-                                },
-                                {
-                                    name: "Hardened",
-                                    damageMultPercent: 25
-                                },
-                                {
-                                    name: "Calibrated",
-                                    criticalDamageMultiply: 34
-                                },
-                                primeMod,
-                            ]
-                        }
+                        pipeRevolverReceivers
                     ]
                 },
                 {
@@ -2886,23 +3001,20 @@
                     level: [1, 5, 10, 20, 30, 40, 50],
                     damage: [27, 31, 36, 40, 45, 50, 55],
                     mods: [
-                        {
-                            slot: "Receiver",
-                            options: [
-                                {
-                                    name: "Standard"
-                                },
-                                {
-                                    name: "Hardened",
-                                    damageMultPercent: 25
-                                },
-                                {
-                                    name: "Calibrated",
-                                    criticalDamageMultiply: 34
-                                },
-                                primeMod
-                            ]
-                        }
+                        pipeRevolverReceivers
+                    ]
+                },
+                {
+                    name: "Pipe Pistol",
+                    category: "Pistol",
+                    kind: "ballistic",
+                    explosive: false,
+                    speed: 6,
+                    level: [1, 5, 10, 20, 30, 40, 50],
+                    damage: [12, 13, 15, 18, 21, 23, 26],
+                    mods: [
+                        pipeGunReceivers,
+                        standardAPMagazines
                     ]
                 },
                 {
@@ -2914,39 +3026,7 @@
                     level: [1, 5, 10, 20, 30, 40, 50],
                     damage: [12, 13, 15, 18, 21, 23, 26],
                     mods: [
-                        {
-                            slot: "Receiver",
-                            options: [
-                                {
-                                    name: "Standard"
-                                },
-                                {
-                                    name: "Hardened",
-                                    damageMultPercent: 25
-                                },
-                                {
-                                    name: "Calibrated",
-                                    criticalDamageMultiply: 34
-                                },
-                                {
-                                    name: "Automatic",
-                                    damageMultPercent: -10,
-                                    speedAddPercent: 50
-                                },
-                                {
-                                    name: "Powerful Automatic",
-                                    damageMultPercent: 11.11,
-                                    speedAddPercent: 50
-                                },
-                                {
-                                    name: "Prime Automatic",
-                                    damageMultPercent: 15,
-                                    speedAddPercent: 50,
-                                    versus: ["Scorched", "Scorchbeast", "Scorchbeast Queen"],
-                                    versusMultPercent: 35
-                                }
-                            ]
-                        },
+                        pipeGunReceivers,
                         standardAPMagazines
                     ]
                 },
@@ -3010,6 +3090,14 @@
                                 {
                                     name: "Calibrated",
                                     criticalDamageMultiply: 34
+                                },
+                                severeMod,
+                                viciousMod,
+                                snappyMod,
+                                {
+                                    name: "Tweaked Auto",
+                                    criticalDamageMultiply: 17,
+                                    speedSet: 7.5,
                                 },
                                 primeMod
                             ]
@@ -3104,6 +3192,7 @@
                                     name: "Calibrated",
                                     criticalDamageMultiply: 34,
                                 },
+                                viciousMod,
                                 primeMod,
                             ]
                         },
@@ -3148,6 +3237,7 @@
                                     name: "Calibrated",
                                     criticalDamageMultiply: 34,
                                 },
+                                viciousMod,
                                 primeMod
                             ]
                         },
@@ -3521,6 +3611,7 @@
                                     name: "Refined",
                                     damageMultPercent: 12.5
                                 },
+                                viciousMod,
                                 primeMod
                             ]
                         },
@@ -3622,6 +3713,7 @@
                                     name: "Hardened",
                                     damageMultPercent: 25
                                 },
+                                viciousMod,
                                 primeMod
                             ]
                         }
@@ -4946,9 +5038,10 @@
                     {
                         id: "Overdrive",
                         type: "chem",
-                        desc: "Overdrive (+15% DMG)",
+                        desc: "Overdrive (+15% DMG, +15% crit DMG)",
                         mode: "Melee,Ranged",
-                        damage: 15
+                        damage: 15,
+                        criticalDamage: 15
                     },
                     {
                         id: "Psycho",
@@ -5698,12 +5791,19 @@
             );
             infoMap.set("grounded", 
                 "50% less energy damage (for 100% more energy resistance)."
+                + "<br>The <b>Class Freak</b> perk ranks reduce the penalty to -37.5%, -25% and -12.5% respectively."
+            );
+            infoMap.set("eagleeyes", 
+                "+25% critical damage, -4 Strength (and +4 Perception)."
+                + "<br>The <b>Strange in Numbers</b> perk increases the bonus to 31.25%."
+                + "<br>The <b>Class Freak</b> perk ranks reduce the strength penalty to -3, -2 and -1 respectively."
             );
             infoMap.set("strangeinnumbers", 
                 "Positive mutation effects are 25% stronger if teammates are mutated too."
                 + "<br>Improves the following mutations:"
                 + "<ul>"
                     + "<li>Adrenal Reaction</li>"
+                    + "<li>Eagle Eyes</li>"
                 + "</ul>"
                 + "<br>Enable <b>Team</b> to enable this perk."
             );
@@ -5834,7 +5934,7 @@
 
             infoMap.set("junkies", "With the <b>Junkie's</b> legendary prefix on a weapon, each addiction results in a +10% damage bonus up to +50% total.");
 
-            infoMap.set("twistedmuscles", "Grants +25% melee damage (unarmed, one- and two-handed) for -50% accuracy with ranged weapons (not affecting ranged damage).");
+            infoMap.set("twistedmuscles", "Grants +25% melee damage (unarmed, one- and two-handed) for<br>-50% accuracy with ranged weapons (not affecting ranged damage).");
 
             infoMap.set("talons", "Grants +25% unarmed damage for -4 agility.");
 
@@ -5856,7 +5956,7 @@
             );
             infoMap.set("classfreak", 
                 "Negative effects of mutations are reduced by 25%, 50% and 75% respectively."
-                + "<br>Affects the <b>Grounded</b> mutation."
+                + "<br>Affects the <b>Grounded</b> and <b>Eagle Eyes</b> mutation."
             );
             infoMap.set("tenderizer", 
                 "Target receives 5%, 7% or 10% more damage for a few seconds after one attacks."
@@ -7021,6 +7121,7 @@
                 }
 
                 createYesNo(tbl, index, type, "Grounded", "grounded", "grounded", "Grounded");
+                createYesNo(tbl, index, type, "Eagle Eyes", "eagleeyes", "eagleeyes", "EagleEyes");
                 createYesNo(tbl, index, type, "Any other mutation", "mutation", "mutation", "Mutation");
             }
 
@@ -7464,6 +7565,14 @@
                     speed = weap.chargetime;
                 }
 
+                var classFreak = valueOf(document.getElementById("classfreak" + index));
+                var critMultiplier = 200;
+                // some crit modulations are multiplicative
+                var critMultiplierMultiply = [];
+                var isCrit = document.getElementById("crit" + index + "_yes").checked;
+
+                var isEagleEyes = document.getElementById("eagleeyes" + index + "_yes").checked;
+
                 // adjust for melee strength
                 // ~~~~~~~~~~~~~~~~~~~~~~~~~
                 if (type === "Melee") {
@@ -7495,6 +7604,20 @@
                         }
                     });
 
+                    if (isEagleEyes) {
+                        if (classFreak == "1") {
+                            strengthPoints -= 3;
+                        } else 
+                        if (classFreak == "2") {
+                            strengthPoints -= 2;
+                        } else
+                        if (classFreak == "3") {
+                            strengthPoints -= 1;
+                        } else {
+                            strengthPoints -= 4;
+                        }
+                    }
+
                     strengthPoints = Math.max(1, strengthPoints);
 
                     var strLabel = document.getElementById("strengthactual" + index);
@@ -7505,6 +7628,14 @@
                     }
 
                     baseDamage *= (1 + strengthPoints * strengthFactor) * repairFactor;
+                }
+
+                if (isEagleEyes) {
+                    if (isStrangeInNumbers && isTeam) {
+                        critMultiplier += 25 * 1.25;
+                    } else {
+                        critMultiplier += 25;
+                    }
                 }
 
                 // add damage types from mods
@@ -7644,11 +7775,6 @@
                 var isScoped = false;
 
                 var versusMultiplier = 0;
-
-                var critMultiplier = 200;
-                // some crit modulations are multiplicative
-                var critMultiplierMultiply = [];
-                var isCrit = document.getElementById("crit" + index + "_yes").checked;
 
                 // apply mod effects
                 // ~~~~~~~~~~~~~~~~~
@@ -8137,7 +8263,6 @@
                 }
 
                 if (document.getElementById("grounded" + index + "_yes").checked) {
-                    var classFreak = valueOf(document.getElementById("classfreak" + index));
                     if (classFreak == "1") {
                         totalDamageEnergy *= 1 - 0.5 * 0.75;
                         totalDamageFire *= 1 - 0.5 * 0.75;
@@ -8247,7 +8372,8 @@
                 var twistedmuscles = tw != null && tw.checked;
                 var tal = document.getElementById("talons" + index + "_yes");
                 var talons = tal != null && tal.checked;
-                return adrenalreaction || anymutation || twistedmuscles || grounded || talons;
+                var eae = document.getElementById("eagleeyes" + index + "_yes").checked;
+                return adrenalreaction || anymutation || twistedmuscles || grounded || talons || eae;
             }
 
             function resistanceKey(e) {
