@@ -5904,6 +5904,10 @@
                 + "<br>For example, a -25% speed reduction is equivalent to a 0.75 speed multiplier."
                 + "<br>For example, a 40% speed boost is equivalent to a 1.40 speed multiplier."
             );
+            infoMap.set("critboost", 
+                "Adjust the critical damage bonus via an additive percentage (positive or negative)."
+                + "<br>For example, a plain critical hit is a 2x multiplier. A +40% crit boost is a 2.4x multiplier."
+            );
 
             infoMap.set("martialartist", "Melee weapons only. Each level increases swing speed by 10% and up to 30% total.");
 
@@ -7340,6 +7344,18 @@
                 speedboostsel.linkId = "Speed";
                 speedboostsel.linkDefault = "0";
 
+                row = tbl.insertRow(tbl.rows.length);
+                cell1 = row.insertCell(0);
+                cell1.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;Criticals boost" + info("critboost");
+                cell2 = row.insertCell(1);
+                cell2.innerHTML = "<input type='number' id='critboost" + index + "' value='0' maxlength='6' style='width: 5em;' min='-1000' max='1000'> %";
+                var critboostsel = document.getElementById("critboost" + index );
+                critboostsel.oninput = function() {
+                    recalculate(tbl, index, type);
+                };
+                critboostsel.linkId = "CritBoost";
+                critboostsel.linkDefault = "0";
+
                 // calculation mode
                 row = tbl.insertRow(tbl.rows.length);
                 cell1 = row.insertCell(0);
@@ -8252,6 +8268,10 @@
                 totalDamagePoison *= sneakBonusMultiply;
 
                 if (isCrit) {
+
+                    var critboost = parseFloat(document.getElementById("critboost" + index).value);
+                    critMultiplier += critboost;
+
                     for (var critm of critMultiplierMultiply) {
                         critMultiplier *= 1.0 + critm / 100.0
                     }
