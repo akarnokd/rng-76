@@ -22,7 +22,7 @@
     </head>
     <body style="height: 90%">
         <center>
-            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Weapon Damage Calculator (v3.3.20)</span>
+            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Weapon Damage Calculator (v3.3.21)</span>
             <br/>
             <i>(Update to Patch 22 is almost done; a few special cases to iron out but otherwise good to go.)</i>
         <br/>
@@ -1471,39 +1471,6 @@
                 ]  
             };
 
-            var standardSights = {
-                slot: "Sights",
-                options: [
-                    {
-                        name: "Standard"
-                    },
-                    {
-                        name: "Short scope",
-                        scope: true
-                    },
-                    {
-                        name: "Medium scope",
-                        scope: true
-                    },
-                    {
-                        name: "Long scope",
-                        scope: true
-                    },
-                    {
-                        name: "Short night vision scope",
-                        scope: true
-                    },
-                    {
-                        name: "Medium night vision scope",
-                        scope: true
-                    },
-                    {
-                        name: "Long night vision scope",
-                        scope: true
-                    },
-                ]
-            }
-
             var standardArrows = {
                 slot: "Arrow",
                 options: [
@@ -1539,6 +1506,326 @@
                 ]
             };
 
+            var primeMod = {
+                name: "Prime",
+                damageMultPercent: 25,
+                versus: ["Scorched", "Scorchbeast", "Scorchbeast Queen"],
+                versusMultPercent: 35
+            };
+            var scorchKillerMod = {
+                name: "Scorch killer's",
+                damageMultPercent: -20,
+                versus: ["Scorched", "Scorchbeast", "Scorchbeast Queen"],
+                versusAddPercent: 50
+            };
+
+            function createCombatRifleReceivers(isFixer) {
+                return {
+                    slot: "Receiver",
+                    options: [
+                        {
+                            name: "Standard"
+                        },
+                        {
+                            name: "Automatic",
+                            damageMultPercent: -10,
+                            speedSet: 7.5,
+                        },
+                        {
+                            name: "Powerful Automatic",
+                            damageMultPercent: 11.11,
+                            speedSet: 7.5,
+                        },
+                        {
+                            name: "Hair Triggered",
+                            speedSet: 5,
+                        },
+                        {
+                            name: "Focused",
+                            speedSet: 7.5,
+                        },
+                        {
+                            name: "Hasty .38",
+                            damageMultPercent: -25,
+                            speedSet: 4,
+                        },
+                        {
+                            name: "Refined .38",
+                            damageMultPercent: -8.75,
+                        },
+                        {
+                            name: "Critical .38",
+                            criticalDamageMultiply: 17
+                        },
+                        {
+                            name: "Severe",
+                            damageMultPercent: 8.75,
+                            criticalDamageMultiply: 17
+                        },
+                        {
+                            name: "Steadfast",
+                            speedSet: 4,
+                        },
+                        {
+                            name: "Tweaked Automatic",
+                            speedSet: 7.5,
+                            criticalDamageMultiply: 17
+                        },
+                        {
+                            name: "Snappy",
+                            criticalDamageMultiply: 17
+                        },
+                        {
+                            name: "True"
+                        },
+                        {
+                            name: "Vicious",
+                            criticalDamageMultiply: 17
+                        },
+                        {
+                            name: "Calibrated",
+                            criticalDamageMultiply: 34,
+                            preinstalled: isFixer
+                        },
+                        {
+                            name: "Vigorous",
+                            speedSet: 4,
+                        },
+                        {
+                            name: "Hardened",
+                            damageMultPercent: 25
+                        },
+                        scorchKillerMod,
+                        primeMod,
+                        {
+                            name: "Prime Automatic",
+                            damageMultPercent: 15,
+                            speedSet: 7.5,
+                            versus: ["Scorched", "Scorchbeast", "Scorchbeast Queen"],
+                            versusMultPercent: 35
+                        }
+                    ]
+                };
+            }
+
+            function createPlasmaBarrels(isSlugBuster) {
+                return {
+                    slot: "Barrel",
+                    options: [
+                        {
+                            name: "Standard"
+                        },
+                        {
+                            name: "Flamer",
+                            damageMultPercent: 25
+                        },
+                        {
+                            name: "Splitter",
+                            damageMultPercent: 10
+                        },
+                        {
+                            name: "Sniper",
+                            damageMultPercent: 50,
+                            preinstalled: isSlugBuster
+                        },
+                        {
+                            name: "Automatic",
+                            damageMultPercent: -15
+                        }
+                    ]
+                };
+            }
+
+            function createPlasmaCapacitors(isSlugBuster) {
+                return {
+                    slot: "Capacitor",
+                    options: [
+                        {
+                            name: "Standard"
+                        },
+                        {
+                            name: "Calibrated",
+                            criticalDamageMultiply: 34
+                        },
+                        {
+                            name: "Calibrated Beta Wave",
+                            criticalDamageMultiply: 34,
+                            addDamageFireLeveled: [3, 3, 3, 3]
+                        },
+                        {
+                            name: "Refined Beta Wave",
+                            preinstalled: isSlugBuster
+                        }
+                    ]
+                };
+            }
+
+            function createStandardSights(weaponType, hasReflex, hasRecon) {
+                var result = {
+                    slot: "Sights",
+                    options: [
+                        {
+                            name: "None"
+                        }
+                    ]
+                };
+
+                if (hasReflex) {
+                    result.options.push({
+                        name: "Reflex Sight",
+                    });
+                }
+
+                result.options.push({
+                    name: "Short Scope",
+                    scope: true
+                });
+                result.options.push({
+                    name: "Medium Scope",
+                    scrope: true
+                });
+                result.options.push({
+                    name: "Long Scope",
+                    scrope: true
+                });
+
+                result.options.push({
+                    name: "Short Night Vision Scope",
+                    scope: true,
+                });
+                result.options.push({
+                    name: "Medium Night Vision Scope",
+                    scope: true,
+                    preinstalled: weaponType === "Slug Buster"
+                });
+                result.options.push({
+                    name: "Long Night Vision Scope",
+                    scope: true,
+                });
+
+                if (hasRecon) {
+                    result.options.push({
+                        name: "Short Recon Scope",
+                        scope: true
+                    });
+                    result.options.push({
+                        name: "Long Recon Scope",
+                        scope: true
+                    });
+                }
+
+                return result;
+            }
+
+            function createLaserCapacitors() {
+                return {
+                    slot: "Capacitor",
+                    options: [
+                        {
+                            name: "Standard"
+                        },
+                        {
+                            name: "Hair Trigger",
+                            speedMultPercent: 33
+                        },
+                        {
+                            name: "Snappy",
+                            speedMultPercent: 17
+                        },
+                        {
+                            name: "Speedy",
+                            speedMultPercent: 17
+                        },
+                        {
+                            name: "Calibrated",
+                            criticalDamageMultiply: 34
+                        },
+                        primeMod,
+                    ]
+                };
+            }
+
+            function createLaserBarrels() {
+                return {
+                    slot: "Barrel",
+                    options: [
+                        {
+                            name: "Standard"
+                        },
+                        {
+                            name: "Sniper",
+                            damageMultPercent: 25
+                        },
+                        {
+                            name: "Standard Automatic",
+                            damageMultPercent: -10,
+                            debuffViaMultiply: true,
+                            speedSet: 7.5
+                        },
+                        {
+                            name: "True Automatic",
+                            damageMultPercent: -10,
+                            debuffViaMultiply: true,
+                            speedSet: 7.5
+                        },
+                        {
+                            name: "Stabilized Automatic",
+                            damageMultPercent: -10,
+                            debuffViaMultiply: true,
+                            speedSet: 7.5
+                        },
+                    ]
+                };
+            }
+
+            function createSMGReceiver(weaponName) {
+                return {
+                    slot: "Receiver",
+                    options: [
+                        {
+                            name: "Standard"
+                        },
+                        {
+                            name: "Refined",
+                            damageMultPercent: 12.5,
+                            preinstalled: weaponName === "Old Guard's"
+                        },
+                        {
+                            name: "Calibrated",
+                            criticalDamageMultiply: 34
+                        },
+                        {
+                            name: "Hardened",
+                            damageMultPercent: 25
+                        },
+                        scorchKillerMod,
+                        primeMod
+                    ]
+                }
+            }
+
+            var pipeBoltActionReceivers = {
+                slot: "Receiver",
+                options: [
+                    {
+                        name: "Standard"
+                    },
+                    {
+                        name: "Hardened",
+                        damageMultPercent: 25
+                    },
+                    {
+                        name: "Calibrated",
+                        criticalDamageMultiply: 34
+                    },
+                    {
+                        name: "Hasty .38",
+                        damageMultPercent: -25,
+                        speedSet: 4,
+                     },
+                    primeMod
+                ]
+            };
 
             allWeapons.set("Ranged", [
                 {
@@ -1562,6 +1849,10 @@
                                     damageMultPercent: 25
                                 },
                                 {
+                                    name: "Calibrated",
+                                    criticalDamageMultiply: 34
+                                },
+                                {
                                     name: "Automatic",
                                     damageMultPercent: -10,
                                     speedSet: 7.5
@@ -1571,18 +1862,8 @@
                                     damageMultPercent: 11.11,
                                     speedSet: 7.5
                                 },
-                                {
-                                    name: "Scorch killer's",
-                                    damageMultPercent: -20,
-                                    versus: ["Scorched", "Scorchbeast", "Scorchbeast Queen"],
-                                    versusAddPercent: 50
-                                },
-                                {
-                                    name: "Prime",
-                                    damageMultPercent: 25,
-                                    versus: ["Scorched", "Scorchbeast", "Scorchbeast Queen"],
-                                    versusMultPercent: 35
-                                },
+                                scorchKillerMod,
+                                primeMod,
                                 {
                                     name: "Prime Automatic",
                                     damageMultPercent: 15,
@@ -1594,7 +1875,7 @@
                         },
                         standardAPMagazines,
                         standardMuzzle,
-                        standardSights
+                        createStandardSights("", true, false)
                     ]
                 },
                 {
@@ -1622,26 +1903,30 @@
                                     damageMultPercent: -25
                                 },
                                 {
+                                    name: "Hasty .38",
+                                    damageMultPercent: -25,
+                                    speedAddPercent: 25
+                                },
+                                {
                                     name: ".50",
                                     damageMultPercent: 33.3
                                 },
                                 {
-                                    name: "Scorch killer's",
-                                    damageMultPercent: -20,
-                                    versus: ["Scorched", "Scorchbeast", "Scorchbeast Queen"],
-                                    versusAddPercent: 50
+                                    name: "Hasty .50",
+                                    damageMultPercent: 22.5,
+                                    speedAddPercent: 25
                                 },
                                 {
-                                    name: "Prime",
-                                    damageMultPercent: 40,
-                                    versus: ["Scorched", "Scorchbeast", "Scorchbeast Queen"],
-                                    versusMultPercent: 35
+                                    name: "Calibrated",
+                                    criticalDamageMultiply: 34
                                 },
+                                scorchKillerMod,
+                                primeMod,
                             ]
                         },
                         standardAPMagazines,
                         standardMuzzle,
-                        standardSights
+                        createStandardSights("", true, true)
                     ]
                 },
                 {
@@ -1665,21 +1950,15 @@
                                     damageMultPercent: 25
                                 },
                                 {
-                                    name: "Scorch killer's",
-                                    damageMultPercent: -20,
-                                    versus: ["Scorched", "Scorchbeast", "Scorchbeast Queen"],
-                                    versusAddPercent: 50
+                                    name: "Calibrated",
+                                    criticalDamageMultiply: 34
                                 },
-                                {
-                                    name: "Prime",
-                                    damageMultPercent: 25,
-                                    versus: ["Scorched", "Scorchbeast", "Scorchbeast Queen"],
-                                    versusMultPercent: 35
-                                },
+                                scorchKillerMod,
+                                primeMod,
                             ]
                         },
                         standardMuzzle,
-                        standardSights
+                        createStandardSights("", true, false)
                     ]
                 },
                 {
@@ -1733,17 +2012,11 @@
                                     damageMultPercent: 25
                                 },
                                 {
-                                    name: "Scorch killer's",
-                                    damageMultPercent: -20,
-                                    versus: ["Scorched", "Scorchbeast", "Scorchbeast Queen"],
-                                    versusAddPercent: 50
+                                    name: "Calibrated",
+                                    criticalDamageMultiply: 34
                                 },
-                                {
-                                    name: "Prime",
-                                    damageMultPercent: 25,
-                                    versus: ["Scorched", "Scorchbeast", "Scorchbeast Queen"],
-                                    versusMultPercent: 35
-                                },
+                                scorchKillerMod,
+                                primeMod,
                                 {
                                     name: "Prime Automatic",
                                     damageMultPercent: 15,
@@ -1755,7 +2028,7 @@
                         },
                         standardAPMagazines,
                         standardMuzzle,
-                        standardSights
+                        createStandardSights("", true, true)
                     ]
                 },
                 {
@@ -1790,18 +2063,8 @@
                                     name: "Hardened",
                                     damageMultPercent: 25
                                 },
-                                {
-                                    name: "Scorch killer's",
-                                    damageMultPercent: -20,
-                                    versus: ["Scorched", "Scorchbeast", "Scorchbeast Queen"],
-                                    versusAddPercent: 50
-                                },
-                                {
-                                    name: "Prime",
-                                    damageMultPercent: 25,
-                                    versus: ["Scorched", "Scorchbeast", "Scorchbeast Queen"],
-                                    versusMultPercent: 35
-                                },
+                                scorchKillerMod,
+                                primeMod,
                                 {
                                     name: "Prime Automatic",
                                     damageMultPercent: 15,
@@ -1813,7 +2076,7 @@
                         },
                         standardAPMagazines,
                         standardMuzzle,
-                        standardSights
+                        createStandardSights("", true, true)
                     ],
                     legendaryPrefix: "Nocturnal",
                     // legendaryMajor: "33% VATS"
@@ -1837,12 +2100,7 @@
                                     name: "Speedy",
                                     speedAddPercent: 25
                                 },
-                                {
-                                    name: "Prime",
-                                    damageMultPercent: 25,
-                                    versus: ["Scorched", "Scorchbeast", "Scorchbeast Queen"],
-                                    versusMultPercent: 35
-                                }
+                                primeMod
                             ]
                         }
                     ]
@@ -1867,12 +2125,7 @@
                                     damageMultPercent: -10,
                                     speedAddPercent: 650
                                 },
-                                {
-                                    name: "Prime",
-                                    damageMultPercent: 25,
-                                    versus: ["Scorched", "Scorchbeast", "Scorchbeast Queen"],
-                                    versusMultPercent: 35
-                                }
+                                primeMod
                             ]
                         }
                     ]
@@ -1892,12 +2145,7 @@
                                 {
                                     name: "Standard"
                                 },
-                                {
-                                    name: "Prime",
-                                    damageMultPercent: 25,
-                                    versus: ["Scorched", "Scorchbeast", "Scorchbeast Queen"],
-                                    versusMultPercent: 35
-                                },
+                                primeMod
                             ]
                         },
                         {
@@ -1932,12 +2180,7 @@
                                 {
                                     name: "Standard"
                                 },
-                                {
-                                    name: "Prime",
-                                    damageMultPercent: 25,
-                                    versus: ["Scorched", "Scorchbeast", "Scorchbeast Queen"],
-                                    versusMultPercent: 35
-                                },
+                                primeMod
                             ]
                         },
                         {
@@ -1973,12 +2216,7 @@
                                 {
                                     name: "Standard"
                                 },
-                                {
-                                    name: "Prime",
-                                    damageMultPercent: 25,
-                                    versus: ["Scorched", "Scorchbeast", "Scorchbeast Queen"],
-                                    versusMultPercent: 35
-                                },
+                                primeMod
                             ]
                         }
                     ]
@@ -2008,12 +2246,7 @@
                                     damageMultPercent: 25,
                                     speedAddPercent: -35
                                 },
-                                {
-                                    name: "Prime",
-                                    damageMultPercent: 25,
-                                    versus: ["Scorched", "Scorchbeast", "Scorchbeast Queen"],
-                                    versusMultPercent: 35
-                                },
+                                primeMod
                             ]
                         }
                     ]
@@ -2028,90 +2261,7 @@
                     level: [20, 30, 40, 50],
                     damage: [28, 32, 36, 40],
                     mods: [
-                        {
-                            slot: "Receiver",
-                            options: [
-                            {
-                                    name: "Standard"
-                                },
-                                {
-                                    name: "Automatic",
-                                    damageMultPercent: -10,
-                                    speedSet: 7.5,
-                                },
-                                {
-                                    name: "Powerful Automatic",
-                                    damageMultPercent: 11.11,
-                                    speedSet: 7.5,
-                                },
-                                {
-                                    name: "Hair Triggered",
-                                    speedSet: 5,
-                                },
-                                {
-                                    name: "Focused",
-                                    speedSet: 7.5,
-                                },
-                                {
-                                    name: "Hasty .38",
-                                    damageMultPercent: -25,
-                                    speedSet: 4,
-                                },
-                                {
-                                    name: "Refined .38",
-                                    damageMultPercent: -8.75,
-                                },
-                                {
-                                    name: "Severe",
-                                    damageMultPercent: 8.75,
-                                },
-                                {
-                                    name: "Steadfast",
-                                    speedSet: 4,
-                                },
-                                {
-                                    name: "Tweaked Automatic",
-                                    speedSet: 7.5,
-                                },
-                                {
-                                    name: "True"
-                                },
-                                {
-                                   name: "Vicious"
-                                },
-                                {
-                                   name: "Calibrated",
-                                   preinstalled: true
-                                },
-                                {
-                                   name: "Vigorous",
-                                   speedSet: 4,
-                                },
-                                {
-                                    name: "Hardened",
-                                    damageMultPercent: 25
-                                },
-                                {
-                                    name: "Scorch killer's",
-                                    damageMultPercent: -20,
-                                    versus: ["Scorched", "Scorchbeast", "Scorchbeast Queen"],
-                                    versusAddPercent: 50
-                                },
-                                {
-                                    name: "Prime",
-                                    damageMultPercent: 25,
-                                    versus: ["Scorched", "Scorchbeast", "Scorchbeast Queen"],
-                                    versusMultPercent: 35
-                                },
-                                {
-                                    name: "Prime Automatic",
-                                    damageMultPercent: 15,
-                                    speedSet: 7.5,
-                                    versus: ["Scorched", "Scorchbeast", "Scorchbeast Queen"],
-                                    versusMultPercent: 35
-                                }
-                            ]
-                        },
+                        createCombatRifleReceivers(false),
                         standardAPMagazines,
                         standardMuzzle
                     ]
@@ -2126,90 +2276,7 @@
                     level: [20, 30, 40, 50],
                     damage: [33, 38, 43, 48],
                     mods: [
-                        {
-                            slot: "Receiver",
-                            options: [
-                                {
-                                    name: "Standard"
-                                },
-                                {
-                                    name: "Automatic",
-                                    damageMultPercent: -10,
-                                    speedSet: 7.5,
-                                },
-                                {
-                                    name: "Powerful Automatic",
-                                    damageMultPercent: 11.11,
-                                    speedSet: 7.5,
-                                },
-                                {
-                                    name: "Hair Triggered",
-                                    speedSet: 5,
-                                },
-                                {
-                                    name: "Focused",
-                                    speedSet: 7.5,
-                                },
-                                {
-                                    name: "Hasty .38",
-                                    damageMultPercent: -25,
-                                    speedSet: 4,
-                                },
-                                {
-                                    name: "Refined .38",
-                                    damageMultPercent: -8.75,
-                                },
-                                {
-                                    name: "Severe",
-                                    damageMultPercent: 8.75,
-                                },
-                                {
-                                    name: "Steadfast",
-                                    speedSet: 4,
-                                },
-                                {
-                                    name: "Tweaked Automatic",
-                                    speedSet: 7.5,
-                                },
-                                {
-                                    name: "True"
-                                },
-                                {
-                                   name: "Vicious"
-                                },
-                                {
-                                   name: "Calibrated",
-                                   preinstalled: true
-                                },
-                                {
-                                   name: "Vigorous",
-                                   speedSet: 4,
-                                },
-                                {
-                                    name: "Hardened",
-                                    damageMultPercent: 25
-                                },
-                                {
-                                    name: "Scorch killer's",
-                                    damageMultPercent: -20,
-                                    versus: ["Scorched", "Scorchbeast", "Scorchbeast Queen"],
-                                    versusAddPercent: 50
-                                },
-                                {
-                                    name: "Prime",
-                                    damageMultPercent: 25,
-                                    versus: ["Scorched", "Scorchbeast", "Scorchbeast Queen"],
-                                    versusMultPercent: 35
-                                },
-                                {
-                                    name: "Prime Automatic",
-                                    damageMultPercent: 15,
-                                    speedSet: 7.5,
-                                    versus: ["Scorched", "Scorchbeast", "Scorchbeast Queen"],
-                                    versusMultPercent: 35
-                                }
-                            ]
-                        },
+                        createCombatRifleReceivers(true),
                         {
                             slot: "Magazine",
                             options: [
@@ -2295,18 +2362,8 @@
                                     name: "Severe",
                                     damageMultPercent: 12.5
                                 },
-                                {
-                                    name: "Scorch killer's",
-                                    damageMultPercent: -20,
-                                    versus: ["Scorched", "Scorchbeast", "Scorchbeast Queen"],
-                                    versusAddPercent: 50
-                                },
-                                {
-                                    name: "Prime",
-                                    damageMultPercent: 25,
-                                    versus: ["Scorched", "Scorchbeast", "Scorchbeast Queen"],
-                                    versusMultPercent: 35
-                                },
+                                scorchKillerMod,
+                                primeMod,
                                 {
                                     name: "Prime Automatic",
                                     damageMultPercent: 15,
@@ -2341,17 +2398,11 @@
                                     damageMultPercent: 25
                                 },
                                 {
-                                    name: "Scorch killer's",
-                                    damageMultPercent: -20,
-                                    versus: ["Scorched", "Scorchbeast", "Scorchbeast Queen"],
-                                    versusAddPercent: 50
+                                    name: "Calibrated",
+                                    criticalDamageMultiply: 34
                                 },
-                                {
-                                    name: "Prime",
-                                    damageMultPercent: 25,
-                                    versus: ["Scorched", "Scorchbeast", "Scorchbeast Queen"],
-                                    versusMultPercent: 35
-                                }
+                                scorchKillerMod,
+                                primeMod,
                             ]
                         },
                         standardMuzzle
@@ -2375,7 +2426,11 @@
                                 {
                                     name: "Powerful",
                                     damageMultPercent: 15
-                                }
+                                },
+                                {
+                                    name: "Calibrated",
+                                    criticalDamageMultiply: 34
+                                },
                             ]
                         }
                     ]
@@ -2416,12 +2471,7 @@
                                     name: "Poison",
                                     addDamagePoisonLeveled: [ 5, 5, 5, 5]
                                 },
-                                {
-                                    name: "Prime",
-                                    damageMultPercent: 25,
-                                    versus: ["Scorched", "Scorchbeast", "Scorchbeast Queen"],
-                                    versusMultPercent: 35
-                                }
+                                primeMod,
                             ]
                         }
                     ]
@@ -2457,17 +2507,11 @@
                                     damageMultPercent: 25
                                 },
                                 {
-                                    name: "Scorch killer's",
-                                    damageMultPercent: -20,
-                                    versus: ["Scorched", "Scorchbeast", "Scorchbeast Queen"],
-                                    versusAddPercent: 50
+                                    name: "Calibrated",
+                                    criticalDamageMultiply: 34
                                 },
-                                {
-                                    name: "Prime",
-                                    damageMultPercent: 25,
-                                    versus: ["Scorched", "Scorchbeast", "Scorchbeast Queen"],
-                                    versusMultPercent: 35
-                                },
+                                scorchKillerMod,
+                                primeMod,
                                 {
                                     name: "Prime Automatic",
                                     damageMultPercent: 15,
@@ -2501,6 +2545,10 @@
                                     damageMultPercent: 25
                                 },
                                 {
+                                    name: "Calibrated",
+                                    criticalDamageMultiply: 34
+                                },
+                                {
                                     name: "Refined",
                                     damageMultPercent: 12.5
                                 },
@@ -2520,12 +2568,7 @@
                                     name: "Severe (Bugged)",
                                     damageMultPercent: 12.5 + 25
                                 },
-                                {
-                                    name: "Prime",
-                                    damageMultPercent: 25,
-                                    versus: ["Scorched", "Scorchbeast", "Scorchbeast Queen"],
-                                    versusMultPercent: 35
-                                },
+                                primeMod,
                             ]
                         }
                     ]
@@ -2554,18 +2597,8 @@
                                     name: "Hardened",
                                     damageMultPercent: 25
                                 },
-                                {
-                                    name: "Scorch killer's",
-                                    damageMultPercent: -20,
-                                    versus: ["Scorched", "Scorchbeast", "Scorchbeast Queen"],
-                                    versusAddPercent: 50
-                                },
-                                {
-                                    name: "Prime",
-                                    damageMultPercent: 25,
-                                    versus: ["Scorched", "Scorchbeast", "Scorchbeast Queen"],
-                                    versusMultPercent: 35
-                                }
+                                scorchKillerMod,
+                                primeMod
                             ]
                         },
                         standardMuzzle
@@ -2581,34 +2614,7 @@
                     level: [10, 20, 30, 40, 50],
                     damage: [17, 19, 23, 28, 34],
                     mods: [
-                        {
-                            slot: "Receiver",
-                            options: [
-                                {
-                                    name: "Standard"
-                                },
-                                {
-                                    name: "Refined",
-                                    damageMultPercent: 12.5,
-                                },
-                                {
-                                    name: "Hardened",
-                                    damageMultPercent: 25
-                                },
-                                {
-                                    name: "Scorch killer's",
-                                    damageMultPercent: -20,
-                                    versus: ["Scorched", "Scorchbeast", "Scorchbeast Queen"],
-                                    versusAddPercent: 50
-                                },
-                                {
-                                    name: "Prime",
-                                    damageMultPercent: 25,
-                                    versus: ["Scorched", "Scorchbeast", "Scorchbeast Queen"],
-                                    versusMultPercent: 35
-                                }
-                            ]
-                        },
+                        createSMGReceiver(""),
                         {
                             slot: "Magazine",
                             options: [
@@ -2637,35 +2643,7 @@
                     level: [10, 20, 30, 40, 50],
                     damage: [17, 19, 23, 28, 34],
                     mods: [
-                        {
-                            slot: "Receiver",
-                            options: [
-                                {
-                                    name: "Standard"
-                                },
-                                {
-                                    name: "Refined",
-                                    damageMultPercent: 12.5,
-                                    preinstalled: true
-                                },
-                                {
-                                    name: "Hardened",
-                                    damageMultPercent: 25
-                                },
-                                {
-                                    name: "Scorch killer's",
-                                    damageMultPercent: -20,
-                                    versus: ["Scorched", "Scorchbeast", "Scorchbeast Queen"],
-                                    versusAddPercent: 50
-                                },
-                                {
-                                    name: "Prime",
-                                    damageMultPercent: 25,
-                                    versus: ["Scorched", "Scorchbeast", "Scorchbeast Queen"],
-                                    versusMultPercent: 35
-                                }
-                            ]
-                        },
+                        createSMGReceiver("Old Guard's"),
                         {
                             slot: "Magazine",
                             options: [
@@ -2775,7 +2753,12 @@
                                 {
                                     name: "Hardened",
                                     damageMultPercent: 25
-                                }
+                                },
+                                {
+                                    name: "Calibrated",
+                                    criticalDamageMultiply: 34
+                                },
+                                primeMod
                             ]
                         }
                     ]
@@ -2809,18 +2792,7 @@
                     level: [1, 5, 10, 20, 30, 40, 50],
                     damage: [40, 45, 50, 55, 60, 65, 70],
                     mods: [
-                        {
-                            slot: "Receiver",
-                            options: [
-                                {
-                                    name: "Standard"
-                                },
-                                {
-                                    name: "Hardened",
-                                    damageMultPercent: 25
-                                }
-                            ]
-                        }
+                        pipeBoltActionReceivers
                     ]
                 },
                 {
@@ -2832,18 +2804,7 @@
                     level: [1, 5, 10, 20, 30, 40, 50],
                     damage: [40, 45, 50, 55, 60, 65, 70],
                     mods: [
-                        {
-                            slot: "Receiver",
-                            options: [
-                                {
-                                    name: "Standard"
-                                },
-                                {
-                                    name: "Hardened",
-                                    damageMultPercent: 25
-                                }
-                            ]
-                        }
+                        pipeBoltActionReceivers
                     ]
                 },
                 {
@@ -2871,17 +2832,11 @@
                                     speedAddPercent: 50
                                 },
                                 {
-                                    name: "Scorch killer's",
-                                    damageMultPercent: -20,
-                                    versus: ["Scorched", "Scorchbeast", "Scorchbeast Queen"],
-                                    versusAddPercent: 50
+                                    name: "Calibrated",
+                                    criticalDamageMultiply: 34
                                 },
-                                {
-                                    name: "Prime",
-                                    damageMultPercent: 25,
-                                    versus: ["Scorched", "Scorchbeast", "Scorchbeast Queen"],
-                                    versusMultPercent: 35
-                                },
+                                scorchKillerMod,
+                                primeMod,
                                 {
                                     name: "Prime Automatic",
                                     damageMultPercent: 15,
@@ -2914,11 +2869,10 @@
                                     damageMultPercent: 25
                                 },
                                 {
-                                    name: "Prime",
-                                    damageMultPercent: 25,
-                                    versus: ["Scorched", "Scorchbeast", "Scorchbeast Queen"],
-                                    versusMultPercent: 35
+                                    name: "Calibrated",
+                                    criticalDamageMultiply: 34
                                 },
+                                primeMod,
                             ]
                         }
                     ]
@@ -2943,11 +2897,10 @@
                                     damageMultPercent: 25
                                 },
                                 {
-                                    name: "Prime",
-                                    damageMultPercent: 25,
-                                    versus: ["Scorched", "Scorchbeast", "Scorchbeast Queen"],
-                                    versusMultPercent: 35
+                                    name: "Calibrated",
+                                    criticalDamageMultiply: 34
                                 },
+                                primeMod
                             ]
                         }
                     ]
@@ -2970,6 +2923,10 @@
                                 {
                                     name: "Hardened",
                                     damageMultPercent: 25
+                                },
+                                {
+                                    name: "Calibrated",
+                                    criticalDamageMultiply: 34
                                 },
                                 {
                                     name: "Automatic",
@@ -3023,12 +2980,7 @@
                                     name: "Perforating",
                                     ignoreDRPercent: 40
                                 },
-                                {
-                                    name: "Prime",
-                                    damageMultPercent: 25,
-                                    versus: ["Scorched", "Scorchbeast", "Scorchbeast Queen"],
-                                    versusMultPercent: 35
-                                },
+                                primeMod
                             ]
                         },
                         standardMuzzle
@@ -3056,11 +3008,10 @@
                                     damageMultPercent: 25,
                                 },
                                 {
-                                    name: "Prime",
-                                    damageMultPercent: 25,
-                                    versus: ["Scorched", "Scorchbeast", "Scorchbeast Queen"],
-                                    versusMultPercent: 35
+                                    name: "Calibrated",
+                                    criticalDamageMultiply: 34
                                 },
+                                primeMod
                             ]
                         },
                         standardAPMagazines,
@@ -3078,62 +3029,8 @@
                     damage: [0, 0, 0, 0, 0],
                     damageEnergy: [21, 26, 31, 36, 44],
                     mods: [
-                    {
-                            slot: "Capacitor",
-                            options: [
-                                {
-                                    name: "Standard"
-                                },
-                                {
-                                    name: "Hair Trigger",
-                                    speedMultPercent: 33
-                                },
-                                {
-                                    name: "Snappy",
-                                    speedMultPercent: 17
-                                },
-                                {
-                                    name: "Speedy",
-                                    speedMultPercent: 17
-                                },
-                                {
-                                    name: "Prime",
-                                    damageMultPercent: 25,
-                                    versus: ["Scorched", "Scorchbeast", "Scorchbeast Queen"],
-                                    versusMultPercent: 35
-                                },
-                            ]
-                        },
-                        {
-                            slot: "Barrel",
-                            options: [
-                                {
-                                    name: "Standard"
-                                },
-                                {
-                                    name: "Sniper",
-                                    damageMultPercent: 25
-                                },
-                                {
-                                    name: "Standard Automatic",
-                                    damageMultPercent: -10,
-                                    debuffViaMultiply: true,
-                                    speedSet: 7.5
-                                },
-                                {
-                                    name: "True Automatic",
-                                    damageMultPercent: -10,
-                                    debuffViaMultiply: true,
-                                    speedSet: 7.5
-                                },
-                                {
-                                    name: "Stabilized Automatic",
-                                    damageMultPercent: -10,
-                                    debuffViaMultiply: true,
-                                    speedSet: 7.5
-                                },
-                            ]
-                        }
+                        createLaserCapacitors(),
+                        createLaserBarrels()
                     ]
                 },
                 {
@@ -3147,62 +3044,8 @@
                     damage: [0, 0, 0, 0, 0],
                     damageEnergy: [21, 26, 31, 36, 44],
                     mods: [
-                        {
-                            slot: "Capacitor",
-                            options: [
-                                {
-                                    name: "Standard"
-                                },
-                                {
-                                    name: "Hair Trigger",
-                                    speedMultPercent: 33
-                                },
-                                {
-                                    name: "Snappy",
-                                    speedMultPercent: 17
-                                },
-                                {
-                                    name: "Speedy",
-                                    speedMultPercent: 17
-                                },
-                                {
-                                    name: "Prime",
-                                    damageMultPercent: 25,
-                                    versus: ["Scorched", "Scorchbeast", "Scorchbeast Queen"],
-                                    versusMultPercent: 35
-                                },
-                            ]
-                        },
-                        {
-                            slot: "Barrel",
-                            options: [
-                                {
-                                    name: "Standard"
-                                },
-                                {
-                                    name: "Sniper",
-                                    damageMultPercent: 25
-                                },
-                                {
-                                    name: "Standard Automatic",
-                                    damageMultPercent: -10,
-                                    debuffViaMultiply: true,
-                                    speedSet: 7.5
-                                },
-                                {
-                                    name: "True Automatic",
-                                    damageMultPercent: -10,
-                                    debuffViaMultiply: true,
-                                    speedSet: 7.5
-                                },
-                                {
-                                    name: "Stabilized Automatic",
-                                    damageMultPercent: -10,
-                                    debuffViaMultiply: true,
-                                    speedSet: 7.5
-                                },
-                            ]
-                        }
+                        createLaserCapacitors(),
+                        createLaserBarrels()
                     ]
                 },
                 {
@@ -3216,62 +3059,8 @@
                     damage: [0, 0, 0],
                     damageEnergy: [28, 31, 34],
                     mods: [
-                    {
-                            slot: "Capacitor",
-                            options: [
-                                {
-                                    name: "Standard"
-                                },
-                                {
-                                    name: "Hair Trigger",
-                                    speedMultPercent: 33
-                                },
-                                {
-                                    name: "Snappy",
-                                    speedMultPercent: 17
-                                },
-                                {
-                                    name: "Speedy",
-                                    speedMultPercent: 17
-                                },
-                                {
-                                    name: "Prime",
-                                    damageMultPercent: 25,
-                                    versus: ["Scorched", "Scorchbeast", "Scorchbeast Queen"],
-                                    versusMultPercent: 35
-                                },
-                            ]
-                        },
-                        {
-                            slot: "Barrel",
-                            options: [
-                                {
-                                    name: "Standard"
-                                },
-                                {
-                                    name: "Sniper",
-                                    damageMultPercent: 25
-                                },
-                                {
-                                    name: "Standard Automatic",
-                                    damageMultPercent: -10,
-                                    debuffViaMultiply: true,
-                                    speedSet: 7.5
-                                },
-                                {
-                                    name: "True Automatic",
-                                    damageMultPercent: -10,
-                                    debuffViaMultiply: true,
-                                    speedSet: 7.5
-                                },
-                                {
-                                    name: "Stabilized Automatic",
-                                    damageMultPercent: -10,
-                                    debuffViaMultiply: true,
-                                    speedSet: 7.5
-                                },
-                            ]
-                        }
+                        createLaserCapacitors(),
+                        createLaserBarrels()
                     ]
                 },
                 {
@@ -3285,62 +3074,8 @@
                     damage: [0, 0, 0, 0, 0],
                     damageEnergy: [28, 31, 34],
                     mods: [
-                    {
-                            slot: "Capacitor",
-                            options: [
-                                {
-                                    name: "Standard"
-                                },
-                                {
-                                    name: "Hair Trigger",
-                                    speedMultPercent: 33
-                                },
-                                {
-                                    name: "Snappy",
-                                    speedMultPercent: 17
-                                },
-                                {
-                                    name: "Speedy",
-                                    speedMultPercent: 17
-                                },
-                                {
-                                    name: "Prime",
-                                    damageMultPercent: 25,
-                                    versus: ["Scorched", "Scorchbeast", "Scorchbeast Queen"],
-                                    versusMultPercent: 35
-                                },
-                            ]
-                        },
-                        {
-                            slot: "Barrel",
-                            options: [
-                                {
-                                    name: "Standard"
-                                },
-                                {
-                                    name: "Sniper",
-                                    damageMultPercent: 25
-                                },
-                                {
-                                    name: "Standard Automatic",
-                                    damageMultPercent: -10,
-                                    debuffViaMultiply: true,
-                                    speedSet: 7.5
-                                },
-                                {
-                                    name: "True Automatic",
-                                    damageMultPercent: -10,
-                                    debuffViaMultiply: true,
-                                    speedSet: 7.5
-                                },
-                                {
-                                    name: "Stabilized Automatic",
-                                    damageMultPercent: -10,
-                                    debuffViaMultiply: true,
-                                    speedSet: 7.5
-                                },
-                            ]
-                        }
+                        createLaserCapacitors(),
+                        createLaserBarrels()
                     ]
                 },
                 {
@@ -3361,11 +3096,15 @@
                                     name: "Standard"
                                 },
                                 {
-                                    name: "Prime",
-                                    damageMultPercent: 25,
-                                    versus: ["Scorched", "Scorchbeast", "Scorchbeast Queen"],
-                                    versusMultPercent: 35
+                                    name: "Severe Beta Wave",
+                                    criticalDamageMultiply: 34,
+                                    addDamageFireLeveled: [3, 3, 3]
                                 },
+                                {
+                                    name: "Calibrated",
+                                    criticalDamageMultiply: 34,
+                                },
+                                primeMod,
                             ]
                         },
                         {
@@ -3401,11 +3140,15 @@
                                     name: "Standard"
                                 },
                                 {
-                                    name: "Prime",
-                                    damageMultPercent: 25,
-                                    versus: ["Scorched", "Scorchbeast", "Scorchbeast Queen"],
-                                    versusMultPercent: 35
+                                    name: "Severe Beta Wave",
+                                    criticalDamageMultiply: 34,
+                                    addDamageFireLeveled: [3, 3, 3]
                                 },
+                                {
+                                    name: "Calibrated",
+                                    criticalDamageMultiply: 34,
+                                },
+                                primeMod
                             ]
                         },
                         {
@@ -3434,31 +3177,9 @@
                     damage: [15, 21, 25, 29],
                     damageEnergy: [15, 21, 25, 29],
                     mods: [
-                        {
-                            slot: "Barrel",
-                            options: [
-                                {
-                                    name: "Standard"
-                                },
-                                {
-                                    name: "Flamer",
-                                    damageMultPercent: 25
-                                },
-                                {
-                                    name: "Splitter",
-                                    damageMultPercent: 10
-                                },
-                                {
-                                    name: "Sniper",
-                                    damageMultPercent: 50
-                                }
-                                ,
-                                {
-                                    name: "Automatic",
-                                    damageMultPercent: -15
-                                }
-                            ]
-                        }
+                        createPlasmaBarrels(false),
+                        createPlasmaCapacitors(false),
+                        createStandardSights("", true, true)
                     ]
                 },
                 {
@@ -3472,31 +3193,9 @@
                     damage: [15, 21, 25, 29],
                     damageEnergy: [15, 21, 25, 29],
                     mods: [
-                    {
-                            slot: "Barrel",
-                            options: [
-                                {
-                                    name: "Standard"
-                                },
-                                {
-                                    name: "Flamer",
-                                    damageMultPercent: 25
-                                },
-                                {
-                                    name: "Splitter",
-                                    damageMultPercent: 10
-                                },
-                                {
-                                    name: "Sniper",
-                                    damageMultPercent: 50
-                                }
-                                ,
-                                {
-                                    name: "Automatic",
-                                    damageMultPercent: -15
-                                }
-                            ]
-                        }
+                        createPlasmaBarrels(false),
+                        createPlasmaCapacitors(false),
+                        createStandardSights("", true, true)
                     ]
                 },
                 {
@@ -3512,48 +3211,12 @@
                     damage: [15, 21, 25, 29],
                     damageEnergy: [15, 21, 25, 29],
                     mods: [
-                        {
-                            slot: "Barrel",
-                            options: [
-                                {
-                                    name: "Standard"
-                                },
-                                {
-                                    name: "Flamer",
-                                    damageMultPercent: 25
-                                },
-                                {
-                                    name: "Splitter",
-                                    damageMultPercent: 10
-                                },
-                                {
-                                    name: "Sniper",
-                                    damageMultPercent: 50,
-                                    preinstalled: true
-                                }
-                                ,
-                                {
-                                    name: "Automatic",
-                                    damageMultPercent: -15
-                                }
-                            ]
-                        },
-                        {
-                            slot: "Scope",
-                            options: [
-                                {
-                                    name: "None"
-                                },
-                                {
-                                    name: "Medium Night Vision Scope",
-                                    scope: true,
-                                    preinstalled: true
-                                }
-                            ]
-                        }
+                        createPlasmaBarrels(true),
+                        createPlasmaCapacitors(true),
+                        createStandardSights("Slug Buster", true, true)
                     ],
                     legendaryPrefix: "Anti-armor",
-                    // legendaryMajor: "VATS Crits do +50% damage",
+                    legendaryMajor: "VATS Crits do +50% damage",
                     // legendaryMinor: "90% reduced weight"
                 },
                 {
@@ -3573,12 +3236,7 @@
                                 {
                                     name: "Standard"
                                 },
-                                {
-                                    name: "Prime",
-                                    damageMultPercent: 25,
-                                    versus: ["Scorched", "Scorchbeast", "Scorchbeast Queen"],
-                                    versusMultPercent: 35
-                                },
+                                primeMod
                             ]
                         }
                     ]
@@ -3594,31 +3252,9 @@
                     damage: [24, 28, 32],
                     damageEnergy: [24, 28, 32],
                     mods: [
-                        {
-                            slot: "Barrel",
-                            options: [
-                                {
-                                    name: "Standard"
-                                },
-                                {
-                                    name: "Flamer",
-                                    damageMultPercent: 25
-                                },
-                                {
-                                    name: "Splitter",
-                                    damageMultPercent: 10
-                                },
-                                {
-                                    name: "Sniper",
-                                    damageMultPercent: 50
-                                }
-                                ,
-                                {
-                                    name: "Automatic",
-                                    damageMultPercent: -15
-                                }
-                            ]
-                        }
+                        createPlasmaBarrels(false),
+                        createPlasmaCapacitors(false),
+                        createStandardSights("", true, true)
                     ]
                 },
                 {
@@ -3632,31 +3268,9 @@
                     damage: [24, 28, 32],
                     damageEnergy: [24, 28, 32],
                     mods: [
-                        {
-                            slot: "Barrel",
-                            options: [
-                                {
-                                    name: "Standard"
-                                },
-                                {
-                                    name: "Flamer",
-                                    damageMultPercent: 25
-                                },
-                                {
-                                    name: "Splitter",
-                                    damageMultPercent: 10
-                                },
-                                {
-                                    name: "Sniper",
-                                    damageMultPercent: 50
-                                }
-                                ,
-                                {
-                                    name: "Automatic",
-                                    damageMultPercent: -15,
-                                }
-                            ]
-                        }
+                        createPlasmaBarrels(false),
+                        createPlasmaCapacitors(false),
+                        createStandardSights("", true, true)
                     ]
                 },
                 {
@@ -3843,7 +3457,8 @@
                     level: [20,30,40,50],
                     damage: [0, 0, 0, 0],
                     damageEnergy: [20,25,29,32],
-                    mods: []
+                    mods: [],
+                    legendaryMajor: "VATS Crits do +50% damage",
                 },
                 {
                     name: "Tomahawk",
@@ -3906,12 +3521,7 @@
                                     name: "Refined",
                                     damageMultPercent: 12.5
                                 },
-                                {
-                                    name: "Prime",
-                                    damageMultPercent: 25,
-                                    versus: ["Scorched", "Scorchbeast", "Scorchbeast Queen"],
-                                    versusMultPercent: 35
-                                }
+                                primeMod
                             ]
                         },
                         {
@@ -3962,12 +3572,7 @@
                                 {
                                     name: "None"
                                 },
-                                {
-                                    name: "Prime",
-                                    damageMultPercent: 25,
-                                    versus: ["Scorched", "Scorchbeast", "Scorchbeast Queen"],
-                                    versusMultPercent: 35
-                                },
+                                primeMod,
                                 {
                                     name: "Dynamo",
                                     addDamageEnergyLeveled: [3, 3]
@@ -4017,12 +3622,7 @@
                                     name: "Hardened",
                                     damageMultPercent: 25
                                 },
-                                {
-                                    name: "Prime",
-                                    damageMultPercent: 25,
-                                    versus: ["Scorched", "Scorchbeast", "Scorchbeast Queen"],
-                                    versusMultPercent: 35
-                                }
+                                primeMod
                             ]
                         }
                     ]
@@ -4044,15 +3644,14 @@
                                     name: "Standard"
                                 },
                                 {
+                                    name: "Calibrated",
+                                    criticalDamageMultiply: 34
+                                },
+                                {
                                     name: "Pulse",
                                     damageMultPercent: -15
                                 },
-                                {
-                                    name: "Prime",
-                                    damageMultPercent: 25,
-                                    versus: ["Scorched", "Scorchbeast", "Scorchbeast Queen"],
-                                    versusMultPercent: 35
-                                }
+                                primeMod
                             ]
                         }
                     ]
@@ -4103,12 +3702,7 @@
                                     name: "Fancy",
                                     speedAddPercent: 30
                                 },
-                                {
-                                    name: "Prime",
-                                    damageMultPercent: 25,
-                                    versus: ["Scorched", "Scorchbeast", "Scorchbeast Queen"],
-                                    versusMultPercent: 35
-                                }
+                                primeMod
                             ]
                         }
                     ]
@@ -4470,9 +4064,9 @@
                         damageMultPercent: 10
                     },
                     {
-                        name: "VATSCrit50",
+                        name: "VATS Crits do +50% damage",
                         linkId: "VATSCrit50",
-                        text: "VATS Crit +50% damage",
+                        text: "VATS Crits do +50% damage",
                         criticalDamage: 50,
                     },
                     {
@@ -6142,7 +5736,7 @@
             );
             infoMap.set("crit", 
                 "Perform a critical hit that adds bonus damage."
-                + "<br>Weapon mods, perks, chems and food items can increase the bonus."
+                + "<br>Weapon mods, perks, magazines, chems and food items can increase the bonus."
                 + "<br>"
                 + "<br>Note that one can't sustain crits for each hit thus the DPS calculation"
                 + "<br>is informational only, not achievable legitimately ingame."
@@ -8052,6 +7646,8 @@
                 var versusMultiplier = 0;
 
                 var critMultiplier = 200;
+                // some crit modulations are multiplicative
+                var critMultiplierMultiply = [];
                 var isCrit = document.getElementById("crit" + index + "_yes").checked;
 
                 // apply mod effects
@@ -8121,6 +7717,9 @@
                         }
                         if (modInfo.criticalDamage !== undefined) {
                             critMultiplier += modInfo.criticalDamage;
+                        }
+                        if (modInfo.criticalDamageMultiply !== undefined) {
+                            critMultiplierMultiply.push(modInfo.criticalDamageMultiply);
                         }
                     }
                 });
@@ -8229,7 +7828,7 @@
                         }
                         if (effInfo.criticalDamage !== undefined) {
                             critMultiplier += effInfo.criticalDamage;
-                        }
+                        }                       
                     }
                 });
 
@@ -8527,6 +8126,9 @@
                 totalDamagePoison *= sneakBonusMultiply;
 
                 if (isCrit) {
+                    for (var critm of critMultiplierMultiply) {
+                        critMultiplier *= 1.0 + critm / 100.0
+                    }
                     totalDamage *= critMultiplier / 100;
                     totalDamageEnergy *= critMultiplier / 100;
                     totalDamageFire *= critMultiplier / 100;
