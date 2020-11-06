@@ -6365,7 +6365,7 @@
             function createSelectLegendaryParameter(tbl, index, type) {
                 var row = tbl.insertRow(tbl.rows.length);
                 var cell1 = row.insertCell(0);
-                cell1.innerText = "Effect parameters";
+                cell1.innerText = "Parameters";
                 var cell2 = row.insertCell(1);
 
                 createYesNo(tbl, index, type, "Night time", "nighttime", "nighttime", "Night");
@@ -7154,7 +7154,7 @@
 
                 var row = tbl.insertRow(tbl.rows.length);
                 var cell1 = row.insertCell(0);
-                cell1.innerText = "Other";
+                cell1.innerText = "Consumables";
                 var cell2 = row.insertCell(1);
 
                 // chems
@@ -7319,10 +7319,15 @@
                     recalculate(tbl, index, type);
                 };
 
+                var row = tbl.insertRow(tbl.rows.length);
+                var cell1 = row.insertCell(0);
+                cell1.innerText = "Boosts";
+                var cell2 = row.insertCell(1);
+
                 // other damage boost
                 row = tbl.insertRow(tbl.rows.length);
                 cell1 = row.insertCell(0);
-                cell1.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;Other bonus damage" + info("buff");
+                cell1.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;Damage" + info("buff");
                 cell2 = row.insertCell(1);
                 cell2.innerHTML = "<input type='number' id='otherboost" + index + "' value='0' maxlength='6' style='width: 5em;' min='-1000' max='1000'> %";
                 var otherboostsel = document.getElementById("otherboost" + index );
@@ -7334,7 +7339,7 @@
 
                 row = tbl.insertRow(tbl.rows.length);
                 cell1 = row.insertCell(0);
-                cell1.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;Hit speed boost" + info("hitspeed");
+                cell1.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;Hit speed" + info("hitspeed");
                 cell2 = row.insertCell(1);
                 cell2.innerHTML = "<input type='number' id='speedboost" + index + "' value='0' maxlength='6' style='width: 5em;' min='-1000' max='1000'> %";
                 var speedboostsel = document.getElementById("speedboost" + index );
@@ -7346,7 +7351,7 @@
 
                 row = tbl.insertRow(tbl.rows.length);
                 cell1 = row.insertCell(0);
-                cell1.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;Criticals boost" + info("critboost");
+                cell1.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;Criticals" + info("critboost");
                 cell2 = row.insertCell(1);
                 cell2.innerHTML = "<input type='number' id='critboost" + index + "' value='0' maxlength='6' style='width: 5em;' min='-1000' max='1000'> %";
                 var critboostsel = document.getElementById("critboost" + index );
