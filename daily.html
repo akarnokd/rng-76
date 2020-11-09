@@ -22,7 +22,7 @@
     </head>
     <body>
         <center>
-            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Timed Challenges (0.6.0)</span><br/>
+            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Timed Challenges (0.7.0)</span><br/>
             <br/>
             <br/>
             <table>
@@ -4250,15 +4250,41 @@
                 createTreasureHunt(new Date(Date.UTC(2020, 10, 5, 17, 0, 0, 0)), new Date(Date.UTC(2020, 10, 9, 17, 0, 0, 0))),
                 {
                     validStart: new Date(Date.UTC(2020, 10, 10, 17, 0, 0, 0)),
-                    validEnd: new Date(Date.UTC(2020, 10, 12, 17, 0, 0, 0)),
+                    validEnd: new Date(Date.UTC(2020, 10, 16, 17, 0, 0, 0)),
                     title: "Bonus Challenges Week",
-                    options: []
+                    options: [
+                        {
+                            name: "Earn more S.C.O.R.E. with bonus daily challenges.",
+                            offset: 0,
+                            period: 1
+                        }
+                    ]
                 },
                 {
                     validStart: new Date(Date.UTC(2020, 10, 12, 17, 0, 0, 0)),
                     validEnd: new Date(Date.UTC(2020, 10, 16, 17, 0, 0, 0)),
-                    title: "Bonus Challenges Week + Mystery Pick",
-                    options: []
+                    title: "Mystery Pick days",
+                    options: [
+                        {
+                            name: "Visit the Purveyor for a special 60 Scrip offer.",
+                            offset: 0,
+                            period: 1,
+                            subchallenges: [
+                                {
+                                    name: "&#x1F6C8; Guaranteed &#x2605;&#x2605;&#x2605; item roll."
+                                },
+                                {
+                                    name: "&#x1F6C8; 1/3 chance for getting armor, melee or ranged weapons."
+                                },
+                                {
+                                    name: "&#x1F6C8; The Fixer, Secret Service Armor, Tenderizer, etc."
+                                },
+                                {
+                                    name: "&nbsp;&nbsp;&nbsp;&nbsp;can roll if you learned their plan."
+                                }
+                            ]
+                        }
+                    ]
                 },
                 {
                     validStart: new Date(Date.UTC(2020, 10, 17, 17, 0, 0, 0)),
@@ -4275,14 +4301,14 @@
                 },
                 {
                     validStart: new Date(Date.UTC(2020, 11, 17, 17, 0, 0, 0)),
-                    validEnd: new Date(Date.UTC(2020, 11, 24, 17, 0, 0, 0)),
+                    validEnd: new Date(Date.UTC(2020, 11, 31, 17, 0, 0, 0)),
                     title: "Holiday Scorched",
                     options: []
                 },
                 {
                     validStart: new Date(Date.UTC(2020, 11, 24, 17, 0, 0, 0)),
                     validEnd: new Date(Date.UTC(2020, 11, 28, 17, 0, 0, 0)),
-                    title: "Holiday Scorched & Purveyor 25% Off Sale",
+                    title: "Purveyor 25% Off Sale",
                     options: [
                         {
                             name: "&#x1F6C8; Legendary modules and Vault Steel are still full price",
@@ -4290,12 +4316,6 @@
                             period: 1,
                         }
                     ]
-                },
-                {
-                    validStart: new Date(Date.UTC(2020, 11, 28, 17, 0, 0, 0)),
-                    validEnd: new Date(Date.UTC(2020, 11, 31, 17, 0, 0, 0)),
-                    title: "Holiday Scorched",
-                    options: []
                 },
             ];
 
@@ -4535,16 +4555,22 @@
                 insertSeparatorRow(tbl)
 
                 if (isActive(communityEvents, endDate)) {
-                    var rw = tbl.insertRow(tbl.rows.length);
-                    var cll = rw.insertCell(rw.cells.length);
-                    cll.colSpan = 2;
-                    cll.style.textAlign = "center";
-                    cll.style.fontWeight = "bold";
-                    cll.style.padding = "10px";
-                    cll.innerHTML = "<span style='font-size: 24px;' id='communitytitle'></span><br><span id='remainingcommunity'></span>";
-                    cll.style.border = '1px dotted black';
+                    var currChallenges = currentChallenges(communityEvents, selectedDate);
+                    var i = 1;
+                    for (var challenge of currChallenges) {
+                        var rw = tbl.insertRow(tbl.rows.length);
+                        var cll = rw.insertCell(rw.cells.length);
+                        cll.colSpan = 2;
+                        cll.style.textAlign = "center";
+                        cll.style.fontWeight = "bold";
+                        cll.style.padding = "10px";
+                        cll.innerHTML = "<span style='font-size: 24px;' id='communitytitle" + i + "'></span><br><span id='remainingcommunity" + i + "'></span>";
+                        cll.style.border = '1px dotted black';
 
-                    renderList(tbl, communityEvents, endDate, "communitytitle");
+                        renderList(tbl, [challenge], endDate, "communitytitle" + i);
+
+                        i++;
+                    }
                 } else {
                     var rw = tbl.insertRow(tbl.rows.length);
                     var cll = rw.insertCell(0);
@@ -4599,21 +4625,34 @@
                 return false;
             }
 
-            function currentStartEndDate(challenges, selectedDate) {
+            function currentChallenges(challenges, selecteDate) {
+                var result = [];
                 for (var challenge of challenges) {
                     if (challenge.validStart <= selectedDate
                         && challenge.validEnd > selectedDate) {
-                            return {
-                                start: challenge.validStart,
-                                end: challenge.validEnd
-                            };
+                            result.push(challenge);
                     }
                 }
-                return selectedDate;
+                return result;
+            }
+
+            function currentStartEndDate(challenges, selectedDate) {
+                var result = [];
+                for (var challenge of challenges) {
+                    if (challenge.validStart <= selectedDate
+                        && challenge.validEnd > selectedDate) {
+                            result.push({
+                                start: challenge.validStart,
+                                end: challenge.validEnd
+                            });
+                    }
+                }
+                return result;
             }
 
             function renderList(tbl, challenges, endDate, titleId) {
                 var found = false;
+                var titles = [];
                 // find a valid challenge among the data
                 for (var challenge of challenges) {
                     if (challenge.validStart <= selectedDate
@@ -4623,7 +4662,7 @@
                         var dayDiff = Math.floor(timeSince / 24 / 60 / 60 / 1000);
 
                         if (titleId !== undefined) {
-                            document.getElementById(titleId).innerHTML = challenge.title;
+                            titles.push(challenge.title);
                         }
 
                         for (var opt of challenge.options) {
@@ -4660,8 +4699,12 @@
                         }
 
                         found = true;
-                        break;
+                        //break;
                     }
+                }
+
+                if (titles.length != 0) {
+                    document.getElementById(titleId).innerHTML = titles.join("<br>+&nbsp;");
                 }
 
                 if (!found) {
@@ -4716,11 +4759,19 @@
                     }
                 }
 
-                var communityStartEnd = currentStartEndDate(communityEvents, selectedDate);
-                calcRemainingTime("remainingcommunity", selectedDate, communityStartEnd.start, communityStartEnd.end);
+                var communityStartEnds = currentStartEndDate(communityEvents, selectedDate);
+                var i = 1;
+                for (var communityStartEnd of communityStartEnds) {
+                    calcRemainingTime("remainingcommunity" + i, selectedDate, communityStartEnd.start, communityStartEnd.end);
+                    i++;
+                }
 
-                var seasonStartEnd = currentStartEndDate(seasonEvents, selectedDate);
-                calcRemainingTime("remainingseason", selectedDate, seasonStartEnd.start, seasonStartEnd.end);
+                var seasonStartEnds = currentStartEndDate(seasonEvents, selectedDate);
+                var i = 1;
+                for (var seasonStartEnd of seasonStartEnds) {
+                    calcRemainingTime("remainingseason" /* + i */, selectedDate, seasonStartEnd.start, seasonStartEnd.end);
+                    i++;
+                }
             }
 
             function calcRemainingTime(target, selectedDate, startDate, endDate) {
