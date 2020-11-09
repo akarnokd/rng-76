@@ -2626,6 +2626,13 @@
                     scoreKillScorched(5, 15),
                     scoreRepairArmorWeapon(5, 3),
                     scoreNWTakePhoto(5),
+
+                    scoreBuildFloorWallCamp(6, 5),
+                    scoreBuySellItem(6, 1),
+                    scoreCompleteDailyOps(6, 1),
+                    scoreCompleteOneEvent(6, 1),
+                    scoreKillGhoul15(6),
+                    scoreNWSurviveMinutes(6, 10)
                 ]
             };
             addDailyOps(challengesDailyEra5.options, 0, "Valley Galleria", "Robots", [ dailyOpsPiercingGaze, dailyOpsFreezing ]);
@@ -2634,6 +2641,7 @@
             addDailyOps(challengesDailyEra5.options, 3, "Vault 94", "Blood Eagles", [ dailyOpsPiercingGaze, dailyOpsFreezing ]);
             addDailyOps(challengesDailyEra5.options, 4, "The Burning Mine", "Robots", [ dailyOpsPiercingGaze, dailyOpsFreezing ]);
             addDailyOps(challengesDailyEra5.options, 5, "Valley Galleria", "Robots", [ dailyOpsPiercingGaze, dailyOpsCloaked ]);
+            addDailyOps(challengesDailyEra5.options, 6, "Vault 94", "Blood Eagles", [ dailyOpsPiercingGaze, dailyOpsFreezing ]);
  
             var challenges = [
                 challengesDailyEra1,
@@ -4333,7 +4341,7 @@
                 maxscore += scoreAtRank(i);
             }
 
-            function fillInSeason(season, seasonDays) {
+            function fillInSeason(season, seasonDays, seasonId) {
                 for (var i = 0; i < seasonDays; i++) {
                     var rankLinear = (100 * (i + 1) / (seasonDays)).toFixed(0);
                     var scoreProgress = maxscore * i / seasonDays;
@@ -4347,14 +4355,14 @@
                         name: "Expected rank (uniform rank gain): <b style='color: green;'>" + rankLinear + "</b>",
                         offset: i,
                         period: 100,
-                        tipId: "LR1RankUniform",
+                        tipId: seasonId + "RankUniform",
                         tip: "If you play so that you gain 99 / " + seasonDays + " ~ " + (99/seasonDays).toFixed(2) + " ranks each day on average."
                     });
                     season.options.push({
                         name: "Expected rank (uniform S.C.O.R.E. gain): <b style='color: green;'>" + rankScore + "</b>",
                         offset: i,
                         period: 100,
-                        tipId: "LR1ScoreUniform",
+                        tipId: seasonId + "ScoreUniform",
                         tip: "If you play so that you earn 220,000 / " + seasonDays + " ~ " + (220000 / seasonDays).toFixed(0) + " S.C.O.R.E. each day on average."
                     });
                 }
@@ -4385,9 +4393,9 @@
                 ]
             };
 
-            fillInSeason(season1, 70);
-            fillInSeason(season2, 91);
-            fillInSeason(season3, 70);
+            fillInSeason(season1, 70, "LR1");
+            fillInSeason(season2, 91, "LR2");
+            fillInSeason(season3, 70, "LR3");
 
             var seasonEvents = [
                 season1,
