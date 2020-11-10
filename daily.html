@@ -2111,6 +2111,23 @@
                 };
             }
 
+            function scoreBonusWeekDaily(offset) {
+                return {
+                    name: "&#x1F6C8; Bonus daily challenges",
+                    offset: offset,
+                    period: 100,
+                    ignore: true
+                };
+            }
+            function scoreBonusWeekWeekly(offset) {
+                return {
+                    name: "&#x1F6C8; Bonus weekly challenges",
+                    offset: offset,
+                    period: 100,
+                    ignore: true
+                };
+            }
+
             function scoreF1st(offset) {
                 return {
                     name: "&#x2605;&#x2605; <i>Fallout 1st</i> free trial days &#x2605;&#x2605;",
@@ -2632,7 +2649,17 @@
                     scoreCompleteDailyOps(6, 1),
                     scoreCompleteOneEvent(6, 1),
                     scoreKillGhoul15(6),
-                    scoreNWSurviveMinutes(6, 10)
+                    scoreNWSurviveMinutes(6, 10),
+
+                    scoreBuySellItem(7, 1),
+                    scoreClaimWorkshop(7),
+                    scoreCollectCaps(7, 250),
+                    scoreCompleteDailyOps(7, 1),
+                    scoreCompleteOneEvent(7, 1),
+                    scoreCraftAmmo(7, 50),
+                    scoreKillSupermutant(7, 10),
+                    scoreNWTakePhoto(7),
+                    scoreBonusWeekDaily(7),
                 ]
             };
             addDailyOps(challengesDailyEra5.options, 0, "Valley Galleria", "Robots", [ dailyOpsPiercingGaze, dailyOpsFreezing ]);
@@ -2642,6 +2669,7 @@
             addDailyOps(challengesDailyEra5.options, 4, "The Burning Mine", "Robots", [ dailyOpsPiercingGaze, dailyOpsFreezing ]);
             addDailyOps(challengesDailyEra5.options, 5, "Valley Galleria", "Robots", [ dailyOpsPiercingGaze, dailyOpsCloaked ]);
             addDailyOps(challengesDailyEra5.options, 6, "Vault 94", "Blood Eagles", [ dailyOpsPiercingGaze, dailyOpsFreezing ]);
+            addDailyOps(challengesDailyEra5.options, 7, "The Burrows", "Robots", [ dailyOpsPiercingGaze, dailyOpsFreezing ]);
  
             var challenges = [
                 challengesDailyEra1,
@@ -3078,9 +3106,13 @@
             }
 
 
-            function addWeekly(target, offset, func) {
+            function addWeekly(target, offset, func, param) {
                 for (var i = offset; i < offset + 7; i++) {
-                    target.push(func(i));
+                    if (param === undefined) {
+                        target.push(func(i));
+                    } else {
+                        target.push(func(i, param));
+                    }
                 }
             }
 
@@ -3890,6 +3922,21 @@
             addWeekly(challengesWeeklyEra5.options, 0, scoreHarvestPlantFungi50);
             addWeekly(challengesWeeklyEra5.options, 0, scoreKillLegendaries10);
 
+            addWeekly(challengesWeeklyEra5.options, 7, scoreLevelUp3);
+            addWeekly(challengesWeeklyEra5.options, 7, scoreBuildAnythingCamp, 15);
+            addWeekly(challengesWeeklyEra5.options, 7, scoreBuildWallDecor, 25);
+            addWeekly(challengesWeeklyEra5.options, 7, scoreBuySellItem, 25);
+            addWeekly(challengesWeeklyEra5.options, 7, scoreCollectCaps2500);
+            addWeekly(challengesWeeklyEra5.options, 7, scoreCompleteManyDailyOps5);
+            addWeekly(challengesWeeklyEra5.options, 7, scoreCompleteEvents10);
+            addWeekly(challengesWeeklyEra5.options, 7, scoreHarvestPlantFungi25);
+            addWeekly(challengesWeeklyEra5.options, 7, scoreKillCreature50);
+            addWeekly(challengesWeeklyEra5.options, 7, scorekillHugeCreatures);
+            addWeekly(challengesWeeklyEra5.options, 7, scoreKillLegendaries10);
+            addWeekly(challengesWeeklyEra5.options, 7, scoreBonusWeekWeekly);
+
+            
+
             addPlaceholders(challengesWeeklyEra5, scoreWeeklyplaceholder, 42);
 
             var challengesWeekly = [
@@ -4262,7 +4309,7 @@
                     title: "Bonus Challenges Week",
                     options: [
                         {
-                            name: "Earn more S.C.O.R.E. with bonus daily challenges.",
+                            name: "Earn more S.C.O.R.E. with bonus daily and weekly challenges.",
                             offset: 0,
                             period: 1
                         }
