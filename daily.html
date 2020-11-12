@@ -4443,8 +4443,8 @@
                 ]
             };
             var season3 = {
-                validStart: new Date(Date.UTC(2020, 11, 22, 17, 0, 0, 0)),
-                validEnd: plusDays(new Date(Date.UTC(2020, 11, 22, 17, 0, 0, 0)), 70),
+                validStart: new Date(Date.UTC(2020, 11, 15, 17, 0, 0, 0)),
+                validEnd: plusDays(new Date(Date.UTC(2020, 11, 15, 17, 0, 0, 0)), 70),
                 title: "Season 3: The Scribe of Avalon",
                 options: [
                     
@@ -4454,6 +4454,14 @@
             fillInSeason(season1, 70, "LR1");
             fillInSeason(season2, 91, "LR2");
             fillInSeason(season3, 70, "LR3");
+
+            for (var i = 56; i < 91; i++) {
+                season2.options.push({
+                    name: "&#x1F6C8; Note that Season 3 will start right after this season.",
+                    offset: i,
+                    period: 100
+                })
+            }
 
             var seasonEvents = [
                 season1,
