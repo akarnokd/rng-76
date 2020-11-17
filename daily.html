@@ -2720,6 +2720,13 @@
                     scoreUsePhotomodeGroup(13),
                     scoreNWSurviveMinutes(13, 10),
                     scoreBonusWeekDaily(13),
+
+                    scoreClaimWorkshop(14),
+                    scoreCompleteDailyOps(14),
+                    scoreCompleteOneEvent(14, 1),
+                    scoreKillCreature25(14),
+                    scoreUsePhotomodeGroup(14),
+                    scoreNWUseStimpak(14, 1),                    
                 ]
             };
 
@@ -2737,6 +2744,7 @@
             addDailyOps(challengesDailyEra5.options, 11, "Vault 94", "Robots", [ dailyOpsPiercingGaze, dailyOpsResilient ]);
             addDailyOps(challengesDailyEra5.options, 12, "The Burning Mine", "Robots", [ dailyOpsPiercingGaze, dailyOpsResilient ]);
             addDailyOps(challengesDailyEra5.options, 13, "Valley Galleria", "Robots", [ dailyOpsPiercingGaze, dailyOpsVolatile ]);
+            addDailyOps(challengesDailyEra5.options, 14, "Vault 94", "Super Mutants", [ dailyOpsPiercingGaze, dailyOpsVolatile ]);
  
             var challenges = [
                 challengesDailyEra1,
@@ -3977,6 +3985,15 @@
                 ]
             };
 
+            function scoreDoubleWeeklyScore(offset) {
+                return {
+                    name: "&#x1F6C8; Double S.C.O.R.E. for weekly challenges",
+                    offset: offset,
+                    period: 100,
+                    ignore: true
+                };
+            }
+
 
             addWeekly(challengesWeeklyEra5.options, 0, scoreFixedGainXP10000);
             addWeekly(challengesWeeklyEra5.options, 0, scoreBuildupCampAny3);
@@ -4002,6 +4019,16 @@
             addWeekly(challengesWeeklyEra5.options, 7, scoreKillLegendaries10);
             addWeekly(challengesWeeklyEra5.options, 7, scoreBonusWeekWeekly);
 
+            addWeekly(challengesWeeklyEra5.options, 14, scoreLevelUp3);
+            addWeekly(challengesWeeklyEra5.options, 14, scoreBuildupCampAny3);
+            addWeekly(challengesWeeklyEra5.options, 14, scoreCompleteManyDailyOps5);
+            addWeekly(challengesWeeklyEra5.options, 14, scoreCompleteEvents10);
+            addWeekly(challengesWeeklyEra5.options, 14, scoreKillCreature50);
+            addWeekly(challengesWeeklyEra5.options, 14, scoreKillGlowing10);
+            addWeekly(challengesWeeklyEra5.options, 14, scoreKillLegendaries10);
+            addWeekly(challengesWeeklyEra5.options, 14, scoreRepairArmorWeapon10);
+            addWeekly(challengesWeeklyEra5.options, 14, scoreScrapMoney);
+            addWeekly(challengesWeeklyEra5.options, 14, scoreDoubleWeeklyScore);
             
 
             addPlaceholders(challengesWeeklyEra5, scoreWeeklyplaceholder, 42);
@@ -4425,7 +4452,13 @@
                     validStart: new Date(Date.UTC(2020, 10, 17, 17, 0, 0, 0)),
                     validEnd: new Date(Date.UTC(2020, 10, 23, 17, 0, 0, 0)),
                     title: "Double S.C.O.R.E. Week",
-                    options: []
+                    options: [
+                        {
+                            name: "Weekly challenges give double S.C.O.R.E.",
+                            offset: 0,
+                            period: 1
+                        }
+                    ]
                 },
                 createTreasureHunt(new Date(Date.UTC(2020, 10, 26, 17, 0, 0, 0)), new Date(Date.UTC(2020, 10, 30, 17, 0, 0, 0))),
                 {
