@@ -22,7 +22,7 @@
     </head>
     <body style="height: 90%">
         <center>
-            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Weapon Damage Calculator (v3.3.22)</span>
+            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Weapon Damage Calculator (v3.3.23)</span>
             <br/>
             <i>(Update to Patch 22 is almost done; a few special cases to iron out but otherwise good to go.)</i>
         <br/>
@@ -7519,6 +7519,16 @@
                     speed = weap.speed;
                 }
 
+                var meleeFactor = 0;
+                if (weap.category == "Unarmed") {
+                    strengthFactor = 0.1;
+                    meleeFactor = 0.05;
+                }
+
+                var calcMode = valueOf(document.getElementById("calcmode" + index));
+                calcModes[index] = calcMode;
+                var isCalcAdd = calcMode === "P22" || calcMode === "P23";
+
                 // prepare selectable buffs
                 var buffOpts = [];
                 var chemsel = document.getElementById("chem" + index);
@@ -7656,7 +7666,13 @@
                         strLabel.innerHTML = "";
                     }
 
-                    baseDamage *= (1 + strengthPoints * strengthFactor) * repairFactor;
+                    if (isCalcAdd) {
+                        var strBonus = 100 * (strengthPoints * strengthFactor + meleeFactor);
+                        totalDamageMultiply.push(strBonus);
+                        totalDamageEnergyMultiply.push(strBonus);
+                    } else {
+                        baseDamage *= (1 + strengthPoints * strengthFactor) * repairFactor;
+                    }
                 }
 
                 if (isEagleEyes) {
@@ -8205,10 +8221,6 @@
                 if (bettercritssel.selectedIndex > 0) {
                     critMultiplier += parseFloat(valueOf(bettercritssel));
                 }
-
-                var calcMode = valueOf(document.getElementById("calcmode" + index));
-                calcModes[index] = calcMode;
-                var isCalcAdd = calcMode === "P22" || calcMode === "P23";
 
                 var totalDamage = baseDamage;
                 var totalDamageEnergy = baseDamageEnergy;
