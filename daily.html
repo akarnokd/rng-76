@@ -2769,6 +2769,13 @@
                     scoreKillGhoul15(20),
                     scoreRepairArmorWeapon(20, 3),
                     scoreNWKillPlayer(20),
+
+                    scoreBuildAnythingCamp(21, 5),
+                    scoreCompleteDailyOps(21, 1),
+                    scoreCompleteOneEvent(21, 1),
+                    scoreDrinkNukaCola(21, 3),
+                    scoreKillCreatureInGroup(21, 25),
+                    scoreNWDeployCamp(21, 1),
                 ]
             };
 
@@ -2793,6 +2800,7 @@
             addDailyOps(challengesDailyEra5.options, 18, "The Burrows", "Blood Eagles", [ dailyOpsPiercingGaze, dailyOpsCloaked ]);
             addDailyOps(challengesDailyEra5.options, 19, "The Burning Mine", "Robots", [ dailyOpsPiercingGaze, dailyOpsResilient ]);
             addDailyOps(challengesDailyEra5.options, 20, "Vault 94", "Robots", [ dailyOpsPiercingGaze, dailyOpsResilient ]);
+            addDailyOps(challengesDailyEra5.options, 21, "The Burning Mine", "Robots", [ dailyOpsPiercingGaze, dailyOpsCloaked ]);
  
             var challenges = [
                 challengesDailyEra1,
@@ -4077,6 +4085,15 @@
             addWeekly(challengesWeeklyEra5.options, 14, scoreRepairArmorWeapon10);
             addWeekly(challengesWeeklyEra5.options, 14, scoreScrapMoney);
             
+            addWeekly(challengesWeeklyEra5.options, 21, scoreLevelUp3);
+            addWeekly(challengesWeeklyEra5.options, 21, scoreBuildAnythingCamp, 25);
+            addWeekly(challengesWeeklyEra5.options, 21, scoreCollectCaps2500);
+            addWeekly(challengesWeeklyEra5.options, 21, scoreCompleteManyDailyOps5);
+            addWeekly(challengesWeeklyEra5.options, 21, scoreCompleteGoldStar);
+            addWeekly(challengesWeeklyEra5.options, 21, scoreDestroyRobots5);
+            addWeekly(challengesWeeklyEra5.options, 21, scoreDestroyRobots5);
+            addWeekly(challengesWeeklyEra5.options, 21, scoreEatPrewarFood25);
+            addWeekly(challengesWeeklyEra5.options, 21, scoreRepairArmorWeapon10);
 
             addPlaceholders(challengesWeeklyEra5, scoreWeeklyplaceholder, 42);
 
