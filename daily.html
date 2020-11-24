@@ -4293,11 +4293,11 @@
                             ignore: true
                         });
 
-            function createTreasureHunt(startDate, endDate) {
+            function createTreasureHunt(startDate, endDate, isWeek) {
                 return {
                     validStart: startDate,
                     validEnd: endDate,
-                    title: "Treause Hunter Weekend",
+                    title: isWeek ? "Treause Hunter Week" : "Treasure Hunter Weekend",
                     options: [
                         {
                             name: "Hunt Treasure Hunter Mole Miners",
@@ -4512,7 +4512,7 @@
                         },
                     ]
                 },
-                createTreasureHunt(new Date(Date.UTC(2020, 10, 24, 17, 0, 0, 0)), new Date(Date.UTC(2020, 10, 30, 17, 0, 0, 0))),
+                createTreasureHunt(new Date(Date.UTC(2020, 10, 24, 17, 0, 0, 0)), new Date(Date.UTC(2020, 10, 30, 17, 0, 0, 0)), true),
                 {
                     validStart: new Date(Date.UTC(2020, 11, 1, 17, 0, 0, 0)),
                     validEnd: new Date(Date.UTC(2020, 11, 7, 17, 0, 0, 0)),
