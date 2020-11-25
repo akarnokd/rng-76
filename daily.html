@@ -2726,7 +2726,56 @@
                     scoreCompleteOneEvent(14, 1),
                     scoreKillCreature25(14),
                     scoreUsePhotomodeGroup(14),
-                    scoreNWUseStimpak(14, 1),                    
+                    scoreNWUseStimpak(14, 1),
+
+                    scoreBuySellItem(15, 3),
+                    scoreCompleteDailyOps(15, 1),
+                    scoreCompleteOneEvent(15, 1),
+                    scoreKillCryptid3(15),
+                    scoreKillLegendary(15, 1),
+                    scoreNWTakePhoto(15),               
+
+                    scoreBuildFloorWallCamp(16, 5),
+                    scoreCompleteDailyOps(16, 1),
+                    scoreCompleteOneEvent(16, 1),
+                    scoreHackTerminal(16),
+                    scoreKillDeathclaw(16, 1),
+                    scoreNWKillPlayer(16),
+
+                    scoreBuySellItem(17, 3),
+                    scoreCompleteDailyOps(17, 1),
+                    scoreCompleteOneEvent(17, 1),
+                    scoreCraftScrapPowerArmor(17, 3),
+                    scoreKillSupermutant(17, 15),
+                    scoreNWKillCreature(17, 1),
+
+                    scoreCompleteDailyOps(18, 1),
+                    scoreCompleteOneEvent(18, 1),
+                    scoreJoinGroup(18),
+                    scoreKillScorched(18, 15),
+                    scorePlantCrop(18, 5),
+                    scoreNWDeployCamp(18, 1),
+
+                    scoreClaimWorkshop(19),
+                    scoreCompleteDailyOps(19, 1),
+                    scoreCompleteOneEvent(19, 1),
+                    scoreKillMoleminer(19, 15),
+                    scorePickLock(19, 1),
+                    scoreNWSurviveMinutes(19, 10),
+
+                    scoreBuySellItem(20, 1),
+                    scoreCompleteDailyOps(20, 1),
+                    scoreCompleteOneEvent(20, 1),
+                    scoreKillGhoul15(20),
+                    scoreRepairArmorWeapon(20, 3),
+                    scoreNWKillPlayer(20),
+
+                    scoreBuildAnythingCamp(21, 5),
+                    scoreCompleteDailyOps(21, 1),
+                    scoreCompleteOneEvent(21, 1),
+                    scoreDrinkNukaCola(21, 3),
+                    scoreKillCreatureInGroup(21, 25),
+                    scoreNWDeployCamp(21, 1),
                 ]
             };
 
@@ -2745,6 +2794,13 @@
             addDailyOps(challengesDailyEra5.options, 12, "The Burning Mine", "Robots", [ dailyOpsPiercingGaze, dailyOpsResilient ]);
             addDailyOps(challengesDailyEra5.options, 13, "Valley Galleria", "Robots", [ dailyOpsPiercingGaze, dailyOpsVolatile ]);
             addDailyOps(challengesDailyEra5.options, 14, "Vault 94", "Super Mutants", [ dailyOpsPiercingGaze, dailyOpsVolatile ]);
+            addDailyOps(challengesDailyEra5.options, 15, "The Burning Mine", "Robots", [ dailyOpsPiercingGaze, dailyOpsResilient ]);
+            addDailyOps(challengesDailyEra5.options, 16, "The Burrows", "Super Mutants", [ dailyOpsPiercingGaze, dailyOpsVolatile ]);
+            addDailyOps(challengesDailyEra5.options, 17, "The Burning Mine", "Robots", [ dailyOpsPiercingGaze, dailyOpsFreezing ]);
+            addDailyOps(challengesDailyEra5.options, 18, "The Burrows", "Blood Eagles", [ dailyOpsPiercingGaze, dailyOpsCloaked ]);
+            addDailyOps(challengesDailyEra5.options, 19, "The Burning Mine", "Robots", [ dailyOpsPiercingGaze, dailyOpsResilient ]);
+            addDailyOps(challengesDailyEra5.options, 20, "Vault 94", "Robots", [ dailyOpsPiercingGaze, dailyOpsResilient ]);
+            addDailyOps(challengesDailyEra5.options, 21, "The Burning Mine", "Robots", [ dailyOpsPiercingGaze, dailyOpsCloaked ]);
  
             var challenges = [
                 challengesDailyEra1,
@@ -4029,6 +4085,15 @@
             addWeekly(challengesWeeklyEra5.options, 14, scoreRepairArmorWeapon10);
             addWeekly(challengesWeeklyEra5.options, 14, scoreScrapMoney);
             
+            addWeekly(challengesWeeklyEra5.options, 21, scoreLevelUp3);
+            addWeekly(challengesWeeklyEra5.options, 21, scoreBuildAnythingCamp, 25);
+            addWeekly(challengesWeeklyEra5.options, 21, scoreCollectCaps2500);
+            addWeekly(challengesWeeklyEra5.options, 21, scoreCompleteManyDailyOps5);
+            addWeekly(challengesWeeklyEra5.options, 21, scoreCompleteGoldStar);
+            addWeekly(challengesWeeklyEra5.options, 21, scoreDestroyRobots5);
+            addWeekly(challengesWeeklyEra5.options, 21, scoreDestroyRobots5);
+            addWeekly(challengesWeeklyEra5.options, 21, scoreEatPrewarFood25);
+            addWeekly(challengesWeeklyEra5.options, 21, scoreRepairArmorWeapon10);
 
             addPlaceholders(challengesWeeklyEra5, scoreWeeklyplaceholder, 42);
 
@@ -4228,11 +4293,11 @@
                             ignore: true
                         });
 
-            function createTreasureHunt(startDate, endDate) {
+            function createTreasureHunt(startDate, endDate, isWeek) {
                 return {
                     validStart: startDate,
                     validEnd: endDate,
-                    title: "Treause Hunter Weekend",
+                    title: isWeek ? "Treause Hunter Week" : "Treasure Hunter Weekend",
                     options: [
                         {
                             name: "Hunt Treasure Hunter Mole Miners",
@@ -4447,7 +4512,7 @@
                         },
                     ]
                 },
-                createTreasureHunt(new Date(Date.UTC(2020, 10, 24, 17, 0, 0, 0)), new Date(Date.UTC(2020, 10, 30, 17, 0, 0, 0))),
+                createTreasureHunt(new Date(Date.UTC(2020, 10, 24, 17, 0, 0, 0)), new Date(Date.UTC(2020, 10, 30, 17, 0, 0, 0)), true),
                 {
                     validStart: new Date(Date.UTC(2020, 11, 1, 17, 0, 0, 0)),
                     validEnd: new Date(Date.UTC(2020, 11, 7, 17, 0, 0, 0)),
