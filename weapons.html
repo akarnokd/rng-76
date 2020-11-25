@@ -4040,6 +4040,68 @@
                     level: [1],
                     damage: [5]
                 },
+                {
+                    name: "Crusader Pistol",
+                    category: "Pistol",
+                    kind: "ballistic",
+                    speed: 6.7,
+                    level: [30, 35, 40, 45, 50],
+                    damage: [25, 28, 30, 33, 35],
+                    mods: [
+                        {
+                            slot: "Receiver",
+                            options: [
+                                {
+                                    name: "Standard"
+                                },
+                                {
+                                    name: "5.56",
+                                    damageMultPercent: 100.0 / 6.0
+                                },
+                                {
+                                    name: "Cryo",
+                                    addDamageColdLeveled: [5, 5, 6, 6, 7]
+                                },
+                                {
+                                    name: "Fusion",
+                                    addDamageEnergyLeveled: [50, 50, 50, 50, 50],
+                                    removeBallisticDamage: true
+                                },
+                                {
+                                    name: "Pyro",
+                                    addDamageFireLeveled: [5, 5, 6, 6, 7]
+                                }
+                            ]
+                        },
+                        {
+                            slot: "Sights",
+                            options: [
+                                {
+                                    name: "Standard"
+                                },
+                                {
+                                    name: "Reflex"
+                                },
+                                { 
+                                    name: "Short Scope",
+                                    scope: true
+                                }
+                            ]
+                        },
+                        {
+                            slot: "Muzzle",
+                            options: [
+                                {
+                                    name: "Standard"
+                                },
+                                {
+                                    name: "Suppressor",
+                                    silencer: true
+                                }
+                            ]
+                        }
+                    ]
+                }
             ]);
 
             // uuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu
@@ -7910,6 +7972,9 @@
                             var amount = modInfo.addDamageBallisticLeveled[levelIdx];
                             weaponBaseDamageBallistic += amount;
                             baseDamage += amount;
+                        }
+                        if (modInfo.removeBallisticDamage) {
+                            baseDamage = 0;
                         }
                         if (modInfo.addDamageEnergyLeveled !== undefined) {
                             var amount = modInfo.addDamageEnergyLeveled[levelIdx];
