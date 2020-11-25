@@ -22,7 +22,7 @@
     </head>
     <body style="height: 90%">
         <center>
-            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Weapon Damage Calculator (v3.3.24)</span>
+            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Weapon Damage Calculator (v3.3.25)</span>
             <br/>
             <i>(Update to Patch 22 is almost done; a few special cases to iron out but otherwise good to go.)</i>
         <br/>
@@ -1288,7 +1288,7 @@
                                 {
                                     name: "Cryo Blade",
                                     damageBallisticMultPercent: -50,
-                                    addDamageCryoLeveled: [62, 72, 82]
+                                    addDamageColdLeveled: [62, 72, 82]
                                 },
                                 {
                                     name: "Flaming Blade",
@@ -1327,7 +1327,7 @@
                                 {
                                     name: "Cryo Blade",
                                     damageBallisticMultPercent: -50,
-                                    addDamageCryoLeveled: [62, 72, 82]
+                                    addDamageColdLeveled: [62, 72, 82]
                                 },
                                 {
                                     name: "Flaming Blade",
@@ -1470,6 +1470,45 @@
                     speed: 2.5,
                     level: [1],
                     damage: [1]
+                },
+                {
+                    name: "Plasma Cutter",
+                    category: "One-handed",
+                    speed: speedSlow,
+                    meleeFactor: 0,
+                    level: [30, 40, 50],
+                    damage: [56, 65, 74],
+                    mods: [
+                        {
+                            slot: "Blade",
+                            options: [
+                                {
+                                    name: "Standard",
+                                    damageBallisticMultPercent: -65,
+                                    debuffViaMultiply: true,
+                                    addDamageEnergyLeveled: [51, 59, 68]
+                                },
+                                {
+                                    name: "Flaming",
+                                    damageBallisticMultPercent: -50,
+                                    debuffViaMultiply: true,
+                                    addDamageFireLeveled: [51, 59, 68]
+                                },
+                                {
+                                    name: "Shocking",
+                                    damageBallisticMultPercent: -50,
+                                    debuffViaMultiply: true,
+                                    addDamageEnergyLeveled: [51, 59, 68]
+                                },
+                                {
+                                    name: "Cryo",
+                                    damageBallisticMultPercent: -50,
+                                    debuffViaMultiply: true,
+                                    addDamageColdLeveled: [51, 59, 68]
+                                },
+                            ]
+                        }
+                    ]
                 }
             ]);
 
@@ -3631,7 +3670,7 @@
                                 {
                                     name: "Cryo",
                                     speedMultPercent: 100.0 / 6.0,
-                                    addDamageCryoLeveled: [79]
+                                    addDamageColdLeveled: [79]
                                 }
                             ]
                         },
@@ -7696,6 +7735,12 @@
                     strengthFactor = 0.1;
                     meleeFactor = 0.05;
                 }
+                if (weap.strengthFactor !== undefined) {
+                    strengthFactor = weap.strengthFactor;
+                }
+                if (weap.meleeFactor !== undefined) {
+                    meleeFactor = weap.meleeFactor;
+                }
 
                 var calcMode = valueOf(document.getElementById("calcmode" + index));
                 calcModes[index] = calcMode;
@@ -7841,7 +7886,7 @@
                     if (isCalcAdd) {
                         var strBonus = 100 * (strengthPoints * strengthFactor + meleeFactor);
                         totalDamageMultiply.push(strBonus);
-                        totalDamageEnergyMultiply.push(strBonus);
+                        //totalDamageEnergyMultiply.push(strBonus);
                     } else {
                         baseDamage *= (1 + strengthPoints * strengthFactor) * repairFactor;
                     }
@@ -8011,7 +8056,11 @@
                             }
                         }
                         if (modInfo.damageBallisticMultPercent !== undefined) {
-                            totalDamageMultiply.push(modInfo.damageBallisticMultPercent);
+                            if (modInfo.debuffViaMultiply) {
+                                totalDamageDebuff.push(modInfo.damageBallisticMultPercent);
+                            } else {
+                                totalDamageMultiply.push(modInfo.damageBallisticMultPercent);
+                            }
                         }
 
                         if (modInfo.ignoreDRPercent !== undefined) {
