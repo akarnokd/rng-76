@@ -941,6 +941,15 @@
                             tip: "Find the cheapest floor mat and equip Contractor 2 (INT) to have it cost 1 cloth."
                         };
             }
+            function scoreBuildWallDecorShelter(offset, count) {
+                return {
+                            name: times("Build floor or wall decoration in your Shelter", count),
+                            offset: offset,
+                            period: 100,
+                            tipId: "ScoreWallDecorShelter",
+                            tip: "Find the cheapest floor mat and equip Contractor 2 (INT) to have it cost 1 cloth."
+                        };
+            }
 
             function scoreCollectPurifiedWater(offset, count) {
                 return {
@@ -1033,6 +1042,29 @@
                             period: 100,
                         };
             }
+            function scoreBuildFloorWallShelter(offset, count) {
+                return {
+                            name: times("Build floors, walls or roofs in your Shelter", count),
+                            offset: offset,
+                            period: 100,
+                            tipId: "ScoreBuildFloorWallShelter",
+                            tip: "Equip Contractor 2 (INT) to save on material cost."
+                        };
+            }
+            function scoreVisitOwnShelter(offset, count) {
+                return {
+                            name: times("Visit your own Shelter", count),
+                            offset: offset,
+                            period: 100,
+                        };
+            }
+            function scoreVisitAnotherShelter(offset, count) {
+                return {
+                            name: times("Visit another Player's Shelter", count),
+                            offset: offset,
+                            period: 100,
+                        };
+            }
 
             function scoreEatCookedMeal(offset, count) {
                 return {
@@ -1110,6 +1142,15 @@
                             offset: offset,
                             period: 100,
                             tipId: "ScoreBuildAnythingCamp",
+                            tip: "Equip Contractor (INT) and build a rug (Floor decor, 1 cloth) ten times."
+                        };
+            }
+            function scoreBuildAnythingShelter(offset, count) {
+                return {
+                            name: times("Build anything in your Shelter", count),
+                            offset: offset,
+                            period: 100,
+                            tipId: "ScoreBuildAnythingShelter",
                             tip: "Equip Contractor (INT) and build a rug (Floor decor, 1 cloth) ten times."
                         };
             }
@@ -2775,6 +2816,11 @@
                     scoreCompleteOneEvent(21, 1),
                     scoreDrinkNukaCola(21, 3),
                     scoreKillCreatureInGroup(21, 25),
+                    scoreBuildAnythingShelter(21, 5),
+                    scoreBuildWallDecorShelter(21, 5),
+                    scoreBuildFloorWallShelter(21, 5),
+                    scoreVisitAnotherShelter(21, 1),
+                    scoreVisitOwnShelter(21, 1),
                     scoreNWDeployCamp(21, 1),
                 ]
             };
@@ -3368,8 +3414,11 @@
             }
 
             function scoreCompleteEventsGroup5(offset) {
+                return scoreCompleteEventsGroup(offset, 5);
+            }
+            function scoreCompleteEventsGroup(offset, count) {
                 return {
-                            name: "Complete Events in group (x5)",
+                            name: times("Complete Events in group", count),
                             offset: offset,
                             period: 1400,
                             tipId: "ScoreCompleteEventsGroup",
@@ -3377,13 +3426,7 @@
                         };
             }
             function scoreCompleteEventsGroup3(offset) {
-                return {
-                            name: "Complete Events in group (x3)",
-                            offset: offset,
-                            period: 1400,
-                            tipId: "ScoreCompleteEventsGroup",
-                            tip: "Public teams work too and no need for proximity."
-                        };
+                return scoreCompleteEventsGroup(offset, 3);
             }
 
             function scoreCraftScrapItems25(offset) {
@@ -3619,6 +3662,13 @@
             function scoreCompleteManyDailyOps5(offset) {
                 return {
                             name: "Complete a <i>Daily Operations</i> daily challenge (x5)",
+                            offset: offset,
+                            period: 1400,
+                        };
+            }
+            function scoreCompleteShelterChallenges(offset, count) {
+                return {
+                            name: times("Complete a <i>Shelter</i> daily challenge", count),
                             offset: offset,
                             period: 1400,
                         };
@@ -3942,9 +3992,9 @@
             function scoreRepairArmorWeapon10(offset) {
                 return scoreRepairArmorWeapon(offset, 10);
             }
-            function scoreScrapMoney(offset) {
+            function scoreScrapMoney(offset, count) {
                 return {
-                    name: times("Scrap pre-war money", 100),
+                    name: times("Scrap pre-war money", count),
                     offset: offset,
                     period: 1400,
                     tipId: "ScoreScrapPreWarMoney100",
@@ -3981,7 +4031,7 @@
             addWeekly(challengesWeeklyEra4.options, 7, scoreKillGlowing10);
             addWeekly(challengesWeeklyEra4.options, 7, scorekillHugeCreatures);
             addWeekly(challengesWeeklyEra4.options, 7, scoreRepairArmorWeapon15);
-            addWeekly(challengesWeeklyEra4.options, 7, scoreScrapMoney);
+            addWeekly(challengesWeeklyEra4.options, 7, scoreScrapMoney, 100);
 
             addWeekly(challengesWeeklyEra4.options, 14, scoreLevelUp3);
             addWeekly(challengesWeeklyEra4.options, 14, scoreBuildupCampAny3);
@@ -4011,7 +4061,7 @@
             addWeekly(challengesWeeklyEra4.options, 28, scoreEatPrewarFood25);
             addWeekly(challengesWeeklyEra4.options, 28, scorekillHugeCreatures);
             addWeekly(challengesWeeklyEra4.options, 28, scoreKillLegendaries10);
-            addWeekly(challengesWeeklyEra4.options, 28, scoreScrapMoney);
+            addWeekly(challengesWeeklyEra4.options, 28, scoreScrapMoney, 100);
 
             addWeekly(challengesWeeklyEra4.options, 35, scoreLevelUp3);
             addWeekly(challengesWeeklyEra4.options, 35, scoreBuildupCamp);
@@ -4054,7 +4104,7 @@
             addWeekly(challengesWeeklyEra5.options, 0, scoreFixedGainXP10000);
             addWeekly(challengesWeeklyEra5.options, 0, scoreBuildupCampAny3);
             addWeekly(challengesWeeklyEra5.options, 0, scoreCompleteManyDailyOps5);
-            addWeekly(challengesWeeklyEra5.options, 0, scoreScrapMoney);
+            addWeekly(challengesWeeklyEra5.options, 0, scoreScrapMoney, 100);
             addWeekly(challengesWeeklyEra5.options, 0, scoreCompleteGoldStar);
             addWeekly(challengesWeeklyEra5.options, 0, scoreCompleteEvents10);
             addWeekly(challengesWeeklyEra5.options, 0, scoreDestroyRobots3);
@@ -4083,7 +4133,7 @@
             addWeekly(challengesWeeklyEra5.options, 14, scoreKillGlowing10);
             addWeekly(challengesWeeklyEra5.options, 14, scoreKillLegendaries10);
             addWeekly(challengesWeeklyEra5.options, 14, scoreRepairArmorWeapon10);
-            addWeekly(challengesWeeklyEra5.options, 14, scoreScrapMoney);
+            addWeekly(challengesWeeklyEra5.options, 14, scoreScrapMoney, 100);
             
             addWeekly(challengesWeeklyEra5.options, 21, scoreLevelUp3);
             addWeekly(challengesWeeklyEra5.options, 21, scoreBuildAnythingCamp, 25);
@@ -4091,9 +4141,16 @@
             addWeekly(challengesWeeklyEra5.options, 21, scoreCompleteManyDailyOps5);
             addWeekly(challengesWeeklyEra5.options, 21, scoreCompleteGoldStar);
             addWeekly(challengesWeeklyEra5.options, 21, scoreDestroyRobots5);
-            addWeekly(challengesWeeklyEra5.options, 21, scoreDestroyRobots5);
             addWeekly(challengesWeeklyEra5.options, 21, scoreEatPrewarFood25);
             addWeekly(challengesWeeklyEra5.options, 21, scoreRepairArmorWeapon10);
+            addWeekly(challengesWeeklyEra5.options, 21, scoreVisitAnotherShelter, 2);
+            addWeekly(challengesWeeklyEra5.options, 21, scoreVisitOwnShelter, 2);
+            addWeekly(challengesWeeklyEra5.options, 21, scoreCompleteShelterChallenges, 1);
+            addWeekly(challengesWeeklyEra5.options, 21, scoreScrapMoney, 150);
+            addWeekly(challengesWeeklyEra5.options, 21, scoreConsumeAlcohol25);
+            addWeekly(challengesWeeklyEra5.options, 21, scoreKillCreature50);
+            addWeekly(challengesWeeklyEra5.options, 21, scoreClaimWorkshop5);
+            addWeekly(challengesWeeklyEra5.options, 21, scoreCompleteEventsGroup, 10);
 
             addPlaceholders(challengesWeeklyEra5, scoreWeeklyplaceholder, 42);
 
