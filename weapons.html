@@ -22,7 +22,7 @@
     </head>
     <body style="height: 90%">
         <center>
-            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Weapon Damage Calculator (v3.3.25)</span>
+            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Weapon Damage Calculator (v3.3.26)</span>
             <br/>
             <i>(Update to Patch 22 is almost done; a few special cases to iron out but otherwise good to go.)</i>
         <br/>
@@ -8116,6 +8116,9 @@
                     }
                 });
 
+                var legendaryTwoShot = false;
+                var legendaryExplosive = 0;
+
                 // Apply unconditional effects
                 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~
                 effects.forEach(function(effect, idx) {
@@ -8132,6 +8135,9 @@
                                         perc *= 1 + parseFloat(valueOf(demolitionsel)) / 100.0
                                     }
                                     perc *= 1 + (explosiveBobbleheadPercent / 100.0);
+                                    // Explosive appears to be still multiplicative
+                                    legendaryExplosive = perc;
+                                    perc = 0;
                                 }
                                 if (effInfo.name === "Aiming") {
                                     if (!document.getElementById("aiming" + index + "_yes").checked) {
@@ -8145,6 +8151,7 @@
                                     totalDamageRadiationAdditive.push(Math.floor(baseDamageRadiation * perc / 100.0));
                                     // do not add it as a flat boost
                                     perc = 0;
+                                    legendaryTwoShot = true;
                                 }
                             }
                             if (effInfo.name === "Nocturnal") {
@@ -8223,6 +8230,15 @@
                         }                       
                     }
                 });
+
+                // TSE duplicates the explosive effect
+                if (legendaryExplosive > 0) {
+                    if (legendaryTwoShot) {
+                        totalDamageDebuff.push(legendaryExplosive * 2);
+                    } else {
+                        totalDamageDebuff.push(legendaryExplosive);
+                    }
+                }
 
                 var tankkiller = document.getElementById("tankkiller" + index);
                 if (tankkiller != null && tankkiller.selectedIndex > 0) {
