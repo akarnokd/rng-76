@@ -3557,7 +3557,44 @@
                     speed: 0.2,
                     level: [20, 30, 40, 50],
                     damage: [105, 125, 145, 155],
+                    mods: []
+                },
+                {
+                    name: "Hellstorm Missile Launcher",
+                    category: "Heavy",
+                    explosive: true,
+                    speed: 0.14,
+                    level: [50],
+                    damage: [200],
                     mods: [
+                        {
+                            slot: "Barrel",
+                            options: [
+                                {
+                                    name: "Standard"
+                                },
+                                {
+                                    name: "Napalm",
+                                    speedMultPercent: 100.0 / 6.0,
+                                    addDamageFireLeveled: [35]
+                                },
+                                {
+                                    name: "Enhanced",
+                                    speedMultPercent: 100.0 / 6.0,
+                                    damageMultPercent: -20
+                                },
+                                {
+                                    name: "Plasma",
+                                    speedMultPercent: 100.0 / 6.0,
+                                    addDamageEnergyLeveled: [80]
+                                },
+                                {
+                                    name: "Cryo",
+                                    speedMultPercent: 100.0 / 6.0,
+                                    addDamageCryoLeveled: [79]
+                                }
+                            ]
+                        }
                     ]
                 },
                 {
