@@ -22,7 +22,7 @@
     </head>
     <body style="height: 90%">
         <center>
-            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Weapon Damage Calculator (v3.3.23)</span>
+            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Weapon Damage Calculator (v3.3.24)</span>
             <br/>
             <i>(Update to Patch 22 is almost done; a few special cases to iron out but otherwise good to go.)</i>
         <br/>
@@ -2945,6 +2945,45 @@
                     ]
                 },
                 {
+                    name: "The Fact Finder",
+                    category: "Pistol",
+                    kind: "ballistic",
+                    explosive: false,
+                    special: true,
+                    info: "WeaponTheFactFinder",
+                    speed: 0.6,
+                    level: [5, 15, 25, 35, 45],
+                    damage: [40, 45, 50, 55, 60],
+                    mods: [
+                        {
+                            slot: "Receiver",
+                            options: [
+                                {
+                                    name: "Standard"
+                                },
+                                {
+                                    name: "Hardened",
+                                    damageMultPercent: 25
+                                },
+                                {
+                                    name: "Calibrated",
+                                    criticalDamageMultiply: 34
+                                },
+                                severeMod,
+                                fierceMod,
+                                viciousMod,
+                                primeMod,
+                                {
+                                    name: "Stabilized Bull Barrel",
+                                    preinstalled: true
+                                }
+                            ]
+                        }
+                    ],
+                    legendaryPrefix: "Two shot",
+                    legendaryMajor: "Explosive"
+                },
+                {
                     name: "Black Powder Pistol",
                     category: "Pistol",
                     kind: "ballistic",
@@ -3279,6 +3318,26 @@
                         createPlasmaCapacitors(false),
                         createStandardSights("", true, true)
                     ]
+                },
+                {
+                    name: "Mind Over Matter",
+                    category: "Pistol",
+                    kind: "plasma",
+                    explosive: false,
+                    silencer: false,
+                    special: true,
+                    info: "WeaponMindOverMatter",
+                    speed: 3.3,
+                    level: [15, 25, 35, 45],
+                    damage: [15, 21, 25, 29],
+                    damageEnergy: [15, 21, 25, 29],
+                    mods: [
+                        createPlasmaBarrels(false),
+                        createPlasmaCapacitors(false),
+                        createStandardSights("", true, true)
+                    ],
+                    legendaryPrefix: "Ghoul slayer's",
+                    legendaryMajor: "Aiming"
                 },
                 {
                     name: "Plasma Rifle",
@@ -6060,6 +6119,17 @@
                 + "<br>Premodded: Refined receiver, Piercing Magazine"
                 + "<br>Hidden effect: better firerate than the default 10mm SMG"
                 + "<br>Form ID: <a href='https://nukacrypt.com/database/json/0059A82F' target='_blank'>0059A82F</a>"
+                );
+            infoMap.set("WeaponMindOverMatter",
+                "<b>Unique Plasma Pistol from Steel Dawn</b>" 
+                + "<br>Legendary: <i>Ghoul Slayer's, +10% damage while aiming, +50% DR while aiming</i>"
+                + "<br>Form ID: <a href='https://nukacrypt.com/database/json/005EA441' target='_blank'>005EA441</a>"
+                );
+            infoMap.set("WeaponTheFactFinder",
+                "<b>Unique .44 Pistol from Wastelanders</b>" 
+                + "<br>Legendary: <i>Two shot, Explosive 25% reduced VATS AP cost</i>"
+                + "<br>Premodded: Stabilized Bull Barrel, Reflex Sight, True Grip"
+                + "<br>Form ID: <a href='https://nukacrypt.com/database/json/005D038D ' target='_blank'>005D038D</a>"
                 );
 
             infoMap.set("ResistanceSBQ", "Scorchbeast Queen<br>32000 health, 300 DR, 300 ER, 300 RR, 300 FR, 300 CR, 300 PR<br>ignores 70% of all kinds of incoming damage.");
