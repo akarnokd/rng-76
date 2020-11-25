@@ -1310,6 +1310,46 @@
                     ]
                 },
                 {
+                    name: "Oathbreaker",
+                    category: "Two-handed",
+                    speed: speedSlow,
+                    special: true,
+                    info: "WeaponOathbreaker",
+                    level: [30, 40, 50],
+                    damage: [62, 72, 82],
+                    mods: [
+                        {
+                            slot: "Main",
+                            options: [
+                                {
+                                    name: "Standard"
+                                },
+                                {
+                                    name: "Cryo Blade",
+                                    damageBallisticMultPercent: -50,
+                                    addDamageCryoLeveled: [62, 72, 82]
+                                },
+                                {
+                                    name: "Flaming Blade",
+                                    damageBallisticMultPercent: -50,
+                                    addDamageFireLeveled: [62, 72, 82]
+                                },
+                                {
+                                    name: "Plasma Blade",
+                                    damageBallisticMultPercent: -50,
+                                    addDamageEnergyLeveled: [62, 72, 82],
+                                    preinstalled: true
+                                },
+                                {
+                                    name: "Shocking Blade",
+                                    damageBallisticMultPercent: -50,
+                                    addDamageEnergyLeveled: [62, 72, 82]
+                                },
+                            ]
+                        }
+                    ]
+                },
+                {
                     name: "Chainsaw",
                     category: "One-handed",
                     speed: speedVFast,
@@ -6183,9 +6223,15 @@
                 );
             infoMap.set("WeaponTheFactFinder",
                 "<b>Unique .44 Pistol from Wastelanders</b>" 
-                + "<br>Legendary: <i>Two shot, Explosive 25% reduced VATS AP cost</i>"
+                + "<br>Legendary: <i>Two shot, Explosive, 25% reduced VATS AP cost</i>"
                 + "<br>Premodded: Stabilized Bull Barrel, Reflex Sight, True Grip"
-                + "<br>Form ID: <a href='https://nukacrypt.com/database/json/005D038D ' target='_blank'>005D038D</a>"
+                + "<br>Form ID: <a href='https://nukacrypt.com/database/json/005D038D' target='_blank'>005D038D</a>"
+                );
+                infoMap.set("WeaponOathbreaker",
+                "<b>Unique War Glaive from Steel Dawn</b>" 
+                + "<br>Legendary: <i>Suppressor's, 40% more power attack damage, 40% less damage while power attacking</i>"
+                + "<br>Premodded: Plasma Blade"
+                + "<br>Form ID: <a href='https://nukacrypt.com/database/json/005E897C' target='_blank'>005E897C</a>"
                 );
 
             infoMap.set("ResistanceSBQ", "Scorchbeast Queen<br>32000 health, 300 DR, 300 ER, 300 RR, 300 FR, 300 CR, 300 PR<br>ignores 70% of all kinds of incoming damage.");
