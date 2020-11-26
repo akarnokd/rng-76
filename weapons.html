@@ -22,7 +22,7 @@
     </head>
     <body style="height: 90%">
         <center>
-            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Weapon Damage Calculator (v3.3.26)</span>
+            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Weapon Damage Calculator (v3.3.27)</span>
             <br/>
             <i>(Update to <i>One Wasteland</i> is almost done; a few special cases to iron out but otherwise good to go.)</i>
         <br/>
@@ -3589,7 +3589,7 @@
                     speed: 9.1,
                     level: [25, 35, 45],
                     damage: [0, 0, 0],
-                    damageEnergy: [24, 30, 36],
+                    damageCold: [24, 30, 36],
                     mods: [
                         {
                             slot: "Barrel",
@@ -3599,9 +3599,9 @@
                                 },
                                 {
                                     name: "Chrystallizing",
-                                    damageMultPercent: -25,
+                                    damageMultPercent: -30,
+                                    debuffViaMultiply: true,
                                     speedAddPercent: -25,
-                                    addDamageBallisticLeveled: [25 / 0.75, 25 / 0.75, 25 / 0.75]
                                 }
                             ]
                         }
@@ -4008,7 +4008,7 @@
                     speed: 9.1,
                     level: [30, 40, 50],
                     damage: [0, 0, 0],
-                    damageFire: [ 29, 32, 36],
+                    damageFire: [29, 32, 36],
                     mods: [
                         {
                             slot: "Tank",
@@ -4018,7 +4018,26 @@
                                 },
                                 {
                                     name: "Napalm",
-                                    damageMultPercent: 100
+                                    damageMultPercent: 80,
+                                    debuffViaMultiply: true
+                                }
+                            ]
+                        },
+                        {
+                            slot: "Nozzle",
+                            options: [
+                                {
+                                    name: "Standard"
+                                },
+                                {
+                                    name: "Compression",
+                                    damageMultPercent: 20,
+                                    debuffViaMultiply: true
+                                },
+                                {
+                                    name: "Vaporization",
+                                    damageMultPercent: 80,
+                                    debuffViaMultiply: true
                                 }
                             ]
                         }
@@ -7757,7 +7776,7 @@
                 var baseDamageRadiation = weap.damageRadiation !== undefined ? weap.damageRadiation[levelIdx] : 0;
                 var baseDamageFire = weap.damageFire !== undefined ? weap.damageFire[levelIdx] : 0;
                 var baseDamageCold = weap.damageCold !== undefined ? weap.damageCold[levelIdx] : 0;
-                var baseDamagePoison = weap.damageCold !== undefined ? weap.damagePoison[levelIdx] : 0;
+                var baseDamagePoison = weap.damagePosion !== undefined ? weap.damagePoison[levelIdx] : 0;
 
                 var weaponBaseDamageBallistic = baseDamage;
                 var weaponBaseDamageEnergy = baseDamageEnergy;
@@ -8116,8 +8135,8 @@
                                 totalDamageDebuff.push(modInfo.damageMultPercent);
                                 totalDamageEnergyDebuff.push(modInfo.damageMultPercent);
                             } else {
-                                totalDamageAdditive.push((baseDamage * modInfo.damageMultPercent / 100.0));
-                                totalDamageEnergyAdditive.push((baseDamageEnergy * modInfo.damageMultPercent / 100.0));
+                                totalDamageMultiply.push(modInfo.damageMultPercent);
+                                totalDamageEnergyMultiply.push(modInfo.damageMultPercent);
                             }
                         }
                         if (modInfo.damageBallisticMultPercent !== undefined) {
