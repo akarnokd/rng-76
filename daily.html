@@ -2169,6 +2169,15 @@
                 };
             }
 
+            function scoreKillBloodEagle(offset, count) {
+                return {
+                    name: times("Kill a Blood Eagle", count),
+                    offset: offset,
+                    period: 100,
+                    ignore: true
+                };
+            }
+
             function scoreF1st(offset) {
                 return {
                     name: "&#x2605;&#x2605; <i>Fallout 1st</i> free trial days &#x2605;&#x2605;",
@@ -2888,7 +2897,15 @@
                     scoreKillGlowing(27, 3),
                     scoreVisitOwnShelter(27, 1),
                     scoreVisitAnotherShelter(27, 1),
-                    scoreNWDeployCamp(27, 1)
+                    scoreNWDeployCamp(27, 1),
+
+                    scoreBuySellItem(28, 3),
+                    scoreCompleteDailyOps(28, 1),
+                    scoreCompleteOneEvent(28, 1),
+                    scoreKillBloodEagle(28, 15),
+                    scoreVisitOwnShelter(28, 1),
+                    scoreNWPickLock(28, 1),
+                    scoreDoubleDailies(28)
                 ]
             };
 
@@ -2920,6 +2937,7 @@
             addDailyOps(challengesDailyEra5.options, 25, "Valley Galleria", "Blood Eagles", [ dailyOpsPiercingGaze, dailyOpsCloaked ]);
             addDailyOps(challengesDailyEra5.options, 26, "The Burrows", "Robots", [ dailyOpsPiercingGaze, dailyOpsFreezing ]);
             addDailyOps(challengesDailyEra5.options, 27, "The Burning Mine", "Blood Eagles", [ dailyOpsPiercingGaze, dailyOpsCloaked ]);
+            addDailyOps(challengesDailyEra5.options, 28, "Valley Galleria", "Super Mutants", [ dailyOpsPiercingGaze, dailyOpsFreezing ]);
  
             var challenges = [
                 challengesDailyEra1,
@@ -4225,6 +4243,17 @@
             addWeekly(challengesWeeklyEra5.options, 21, scoreClaimWorkshop5);
             addWeekly(challengesWeeklyEra5.options, 21, scoreCompleteEventsGroup, 10);
 
+            addWeekly(challengesWeeklyEra5.options, 28, scoreLevelUp3);
+            addWeekly(challengesWeeklyEra5.options, 28, scoreCollectCaps2500);
+            addWeekly(challengesWeeklyEra5.options, 28, scoreCompleteManyDailyOps5);
+            addWeekly(challengesWeeklyEra5.options, 28, scoreCompleteGoldStar);
+            addWeekly(challengesWeeklyEra5.options, 28, scoreCompleteEvents10);
+            addWeekly(challengesWeeklyEra5.options, 28, scoreHarvestPlantFungi50);
+            addWeekly(challengesWeeklyEra5.options, 28, scoreKillGlowing10);
+            addWeekly(challengesWeeklyEra5.options, 28, scoreRepairArmorWeapon10);
+            addWeekly(challengesWeeklyEra5.options, 28, scoreVisitOwnShelter, 3);
+            addWeekly(challengesWeeklyEra5.options, 28, scoreDoubleWeeklyScore);
+
             addPlaceholders(challengesWeeklyEra5, scoreWeeklyplaceholder, 42);
 
             var challengesWeekly = [
@@ -4645,9 +4674,20 @@
                 createTreasureHunt(new Date(Date.UTC(2020, 10, 24, 17, 0, 0, 0)), new Date(Date.UTC(2020, 10, 30, 17, 0, 0, 0)), true),
                 {
                     validStart: new Date(Date.UTC(2020, 11, 1, 17, 0, 0, 0)),
-                    validEnd: new Date(Date.UTC(2020, 11, 7, 17, 0, 0, 0)),
+                    validEnd: new Date(Date.UTC(2020, 11, 8, 17, 0, 0, 0)),
                     title: "Double S.C.O.R.E. Week",
-                    options: []
+                    options: [
+                        {
+                            name: "Double for Daily Challanges",
+                            offset: 0,
+                            period: 1
+                        },
+                        {
+                            name: "Double for Weekly Challanges",
+                            offset: 0,
+                            period: 1
+                        }
+                    ]
                 },
                 {
                     validStart: new Date(Date.UTC(2020, 11, 10, 17, 0, 0, 0)),
