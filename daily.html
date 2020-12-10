@@ -4788,8 +4788,25 @@
                 {
                     validStart: new Date(Date.UTC(2020, 11, 10, 17, 0, 0, 0)),
                     validEnd: new Date(Date.UTC(2020, 11, 14, 17, 0, 0, 0)),
-                    title: "Double XP Weekend",
-                    options: []
+                    title: "Double XP &amp; Double Vendor Caps Weekend",
+                    options: [
+                        {
+                            name: "Vendors have double (2800) caps",
+                            offset: 0,
+                            period: 1,
+                            subchallenges: [
+                                {
+                                    name: "This is only for the duration of this event"
+                                },
+                                {
+                                    name: "All vendors have a shared pool of caps"
+                                },
+                                {
+                                    name: "You may need to wait for the 20 hour reset to happen"
+                                }
+                            ]
+                        }
+                    ]
                 },
                 {
                     validStart: new Date(Date.UTC(2020, 11, 17, 17, 0, 0, 0)),
