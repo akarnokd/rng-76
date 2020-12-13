@@ -225,6 +225,15 @@
                     var ids = q.substring(idx + 8, jdx).split("-");
                     showChain(ids);
                 }
+                if (q.includes("itemsearchterm=")) {
+                    var idx = q.indexOf("itemsearchterm=");
+                    var jdx = q.indexOf("&", idx + 15);
+                    if (jdx < 0) {
+                        jdx = q.length;
+                    }
+                    document.getElementById("itemsearchterm").value = q.substring(idx + 15, jdx);
+                    searchItems();                    
+                }
             }
 
             function createTestLists() {
