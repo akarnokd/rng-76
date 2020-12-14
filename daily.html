@@ -2178,6 +2178,15 @@
                 };
             }
 
+            function scoreKillCultist(offset, count) {
+                return {
+                    name: times("Kill a Cultist", count),
+                    offset: offset,
+                    period: 100,
+                    ignore: true
+                };
+            }
+
             function scoreF1st(offset) {
                 return {
                     name: "&#x2605;&#x2605; <i>Fallout 1st</i> free trial days &#x2605;&#x2605;",
@@ -2995,6 +3004,13 @@
                     scoreKillMoleminer(40, 15),
                     scoreVisitAnotherShelter(40, 1),
                     scoreNWKillCreature(40, 1),
+
+                    scoreClaimWorkshop(41, 1),
+                    scoreCollectCaps(41, 250),
+                    scoreCompleteOneEvent(41, 1),
+                    scoreKillCultist(41, 15),
+                    scoreVisitOwnShelter(41, 1),
+                    scoreNWSurviveMinutes(41, 10),
                 ]
             };
 
@@ -3039,6 +3055,7 @@
             addDailyOps(challengesDailyEra5.options, 38, "Vault 94", "Blood Eagles", [ dailyOpsPiercingGaze, dailyOpsFreezing ]);
             addDailyOps(challengesDailyEra5.options, 39, "Valley Galleria", "Super Mutants", [ dailyOpsPiercingGaze, dailyOpsVolatile ]);
             addDailyOps(challengesDailyEra5.options, 40, "The Burrows", "Blood Eagles", [ dailyOpsPiercingGaze, dailyOpsFreezing ]);
+            addDailyOps(challengesDailyEra5.options, 41, "The Burning Mine", "Super Mutants", [ dailyOpsPiercingGaze, dailyOpsCloaked ]);
  
             var challenges = [
                 challengesDailyEra1,
