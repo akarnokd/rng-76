@@ -992,6 +992,13 @@
                             period: 100,
                         };
             }
+            function scoreRepairArmorWeaponPA(offset, count) {
+                return {
+                            name: times("Repair Armor, Weapon or Power Armor", count),
+                            offset: offset,
+                            period: 100,
+                        };
+            }
 
             function scoreKillCreature15(offset) {
                 return {
@@ -3063,10 +3070,17 @@
                 options: [
                     scoreCompleteDailyChallenge5(0),
                     scoreLevelUp1(0),
+
+                    scoreBuildWallDecorShelter(0, 5),
+                    scoreBuySellItem(0, 3),
+                    scoreCompleteDailyOps(0, 1),
+                    scoreCompleteOneEvent(0, 1),
+                    scoreKillDeathclaw(0, 1),
+                    scoreNWDeployCamp(0, 1),
                 ]
             }
 
-            //addDailyOps(challengesDailyEra6.options, 0, "??? Maintenance ongoing", "???", [ dailyOpsPiercingGaze ]);
+            addDailyOps(challengesDailyEra6.options, 0, "Vault 94", "Robots", [ dailyOpsPiercingGaze, dailyOpsVolatile ]);
 
             var challenges = [
                 challengesDailyEra1,
@@ -4413,6 +4427,16 @@
                 ]
             };
             addWeekly(challengesWeeklyEra6.options, 0, scoreFixedGainXP10000);
+
+            addWeekly(challengesWeeklyEra6.options, 0, scoreLevelUp3);
+            addWeekly(challengesWeeklyEra6.options, 0, scoreClaimWorkshop5);
+            addWeekly(challengesWeeklyEra6.options, 0, scoreCollectCaps, 1500);
+            addWeekly(challengesWeeklyEra6.options, 0, scoreCompleteDailyOps, 5);
+            addWeekly(challengesWeeklyEra6.options, 0, scoreCompleteGoldStar);
+            addWeekly(challengesWeeklyEra6.options, 0, scoreCompleteEvents10);
+            addWeekly(challengesWeeklyEra6.options, 0, scoreKillLegendaries10);
+            addWeekly(challengesWeeklyEra6.options, 0, scoreRepairArmorWeaponPA, 10);
+            addWeekly(challengesWeeklyEra6.options, 0, scoreVisitOwnShelter, 1);
 
             addPlaceholders(challengesWeeklyEra6, scoreWeeklyplaceholder, 70);
 
