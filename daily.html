@@ -3057,6 +3057,17 @@
             addDailyOps(challengesDailyEra5.options, 40, "The Burrows", "Blood Eagles", [ dailyOpsPiercingGaze, dailyOpsFreezing ]);
             addDailyOps(challengesDailyEra5.options, 41, "The Burning Mine", "Super Mutants", [ dailyOpsPiercingGaze, dailyOpsCloaked ]);
  
+            var challengesDailyEra6 = {
+                validStart: new Date(Date.UTC(2020, 11, 15, 17, 0, 0, 0)),
+                validEnd: plusDays(new Date(Date.UTC(2020, 11, 15, 17, 0, 0, 0)), 70),
+                options: [
+                    scoreCompleteDailyChallenge5(0),
+                    scoreLevelUp1(0),
+                ]
+            }
+
+            //addDailyOps(challengesDailyEra6.options, 0, "??? Maintenance ongoing", "???", [ dailyOpsPiercingGaze ]);
+
             var challenges = [
                 challengesDailyEra1,
                 challengesDailyEra1_2,
@@ -3064,6 +3075,7 @@
                 challengesDailyEra3,
                 challengesDailyEra4,
                 challengesDailyEra5,
+                challengesDailyEra6,
             ];
 
             function addPlaceholders(era, func, seasonLength) {
@@ -3080,6 +3092,7 @@
             }
             
             addPlaceholders(challengesDailyEra5, scoreDailyplaceholder, 42);
+            addPlaceholders(challengesDailyEra6, scoreDailyplaceholder, 70);
 
             // ******************************************************************************************************************************
 
@@ -4393,12 +4406,23 @@
 
             addPlaceholders(challengesWeeklyEra5, scoreWeeklyplaceholder, 42);
 
+            var challengesWeeklyEra6 = {
+                validStart: new Date(Date.UTC(2020, 11, 15, 17, 0, 0, 0)),
+                validEnd: plusDays(new Date(Date.UTC(2020, 11, 15, 17, 0, 0, 0)), 70),
+                options: [
+                ]
+            };
+            addWeekly(challengesWeeklyEra6.options, 0, scoreFixedGainXP10000);
+
+            addPlaceholders(challengesWeeklyEra6, scoreWeeklyplaceholder, 70);
+
             var challengesWeekly = [
                 challengesWeeklyEra1,
                 challengesWeeklyEra2,
                 challengesWeeklyEra3,
                 challengesWeeklyEra4,
                 challengesWeeklyEra5,
+                challengesWeeklyEra6,
             ];
 
             // --------------------------------------------------------------------------------------------------------------
