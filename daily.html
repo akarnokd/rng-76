@@ -41,8 +41,8 @@
         </center>
         <script>
 
-            var oneHourLaterSince = new Date(Date.UTC(2020, 5, 30, 15, 0, 0, 0));
-            var shiftDate2 = new Date(Date.UTC(2020, 10, 3, 16, 0, 0, 0));
+            var oneHourLaterSince = ofDate(2020, 5, 30, 15);
+            var shiftDate2 = ofDate(2020, 10, 3, 16);
 
             function normalizeDate(date) {
                 if (date < oneHourLaterSince) {
@@ -737,8 +737,8 @@
             }
 
             var challengesDailyEra1 = {
-                validStart: new Date(Date.UTC(2020, 3, 22, 15, 0, 0, 0)),
-                validEnd: new Date(Date.UTC(2020, 4, 31, 15, 0, 0, 0)),
+                validStart: ofDate(2020, 3, 22, 15),
+                validEnd: ofDate(2020, 4, 31, 15),
                 options: [
                     levelUpFasnacht(0),
                     levelUpWhitesprings(1),
@@ -789,8 +789,8 @@
             };
 
             var challengesDailyEra1_2 = {
-                validStart: new Date(Date.UTC(2020, 4, 31, 15, 0, 0, 0)),
-                validEnd: new Date(Date.UTC(2020, 5, 1, 15, 0, 0, 0)),
+                validStart: ofDate(2020, 4, 31, 15),
+                validEnd: ofDate(2020, 5, 1, 15),
                 options: [
                     levelUpWhitesprings(0),
                     {
@@ -825,8 +825,8 @@
             };
 
             var challengesDailyEra2 = {
-                validStart: new Date(Date.UTC(2020, 5, 1, 15, 0, 0, 0)),
-                validEnd: new Date(Date.UTC(2020, 5, 30, 15, 0, 0, 0)),
+                validStart: ofDate(2020, 5, 1, 15),
+                validEnd: ofDate(2020, 5, 30, 15),
                 options: [
                     levelUpFasnacht(0),
                     levelUpWatoga(1),
@@ -1522,8 +1522,8 @@
             }
 
             var challengesDailyEra3 = {
-                validStart: new Date(Date.UTC(2020, 5, 30, 16, 0, 0, 0)),
-                validEnd: new Date(Date.UTC(2020, 8, 8, 16, 0, 0, 0)),
+                validStart: ofDate(2020, 5, 30, 16),
+                validEnd: ofDate(2020, 8, 8, 16),
                 options: [
                     scoreCompleteDailyChallenge5(0),
                     scoreChewBubblegum(0),
@@ -2212,8 +2212,8 @@
             }
 
             var challengesDailyEra4 = {
-                validStart: new Date(Date.UTC(2020, 8, 15, 16, 0, 0, 0)),
-                validEnd: plusDays(new Date(Date.UTC(2020, 8, 15, 16, 0, 0, 0)), 49),
+                validStart: ofDate(2020, 8, 15, 16),
+                validEnd: plusDays(ofDate(2020, 8, 15, 16), 49),
                 options: [
                     scoreCompleteDailyChallenge5(0),
                     scoreLevelUp1(0),
@@ -2662,8 +2662,8 @@
             addDailyOps(challengesDailyEra4.options, 48, "The Burning Mine", "Robots", [ dailyOpsPiercingGaze, dailyOpsCloaked ]);
 
             var challengesDailyEra5 = {
-                validStart: new Date(Date.UTC(2020, 10, 3, 17, 0, 0, 0)),
-                validEnd: plusDays(new Date(Date.UTC(2020, 10, 3, 17, 0, 0, 0)), 42),
+                validStart: ofDate(2020, 10, 3, 17),
+                validEnd: plusDays(ofDate(2020, 10, 3, 17), 42),
                 options: [
                     scoreCompleteDailyChallenge5(0),
                     scoreLevelUp1(0),
@@ -3065,8 +3065,8 @@
             addDailyOps(challengesDailyEra5.options, 41, "The Burning Mine", "Super Mutants", [ dailyOpsPiercingGaze, dailyOpsCloaked ]);
  
             var challengesDailyEra6 = {
-                validStart: new Date(Date.UTC(2020, 11, 15, 17, 0, 0, 0)),
-                validEnd: plusDays(new Date(Date.UTC(2020, 11, 15, 17, 0, 0, 0)), 70),
+                validStart: ofDate(2020, 11, 15, 17),
+                validEnd: plusDays(ofDate(2020, 11, 15, 17), 70),
                 options: [
                     scoreCompleteDailyChallenge5(0),
                     scoreLevelUp1(0),
@@ -3530,8 +3530,8 @@
             }
 
             var challengesWeeklyEra1 = {
-                validStart: new Date(Date.UTC(2020, 3, 21, 15, 0, 0, 0)),
-                validEnd: new Date(Date.UTC(2020, 5, 23, 15, 0, 0, 0)),
+                validStart: ofDate(2020, 3, 21, 15),
+                validEnd: ofDate(2020, 5, 23, 15),
                 options: []
             };
 
@@ -3564,8 +3564,8 @@
             addWeekly(challengesWeeklyEra1.options, 21, prepareFeast);
 
             var challengesWeeklyEra2 = {
-                validStart: new Date(Date.UTC(2020, 5, 23, 15, 0, 0, 0)),
-                validEnd: new Date(Date.UTC(2020, 5, 30, 15, 0, 0, 0)),
+                validStart: ofDate(2020, 5, 23, 15),
+                validEnd: ofDate(2020, 5, 30, 15),
                 options: []
             };
 
@@ -3577,8 +3577,8 @@
 
 
             var challengesWeeklyEra3 = {
-                validStart: new Date(Date.UTC(2020, 5, 30, 16, 0, 0, 0)),
-                validEnd: new Date(Date.UTC(2020, 8, 8, 16, 0, 0, 0)),
+                validStart: ofDate(2020, 5, 30, 16),
+                validEnd: ofDate(2020, 8, 8, 16),
                 options: [
                 ]
             };
@@ -4251,8 +4251,8 @@
             }
 
             var challengesWeeklyEra4 = {
-                validStart: new Date(Date.UTC(2020, 8, 15, 16, 0, 0, 0)),
-                validEnd: plusDays(new Date(Date.UTC(2020, 8, 15, 16, 0, 0, 0)), 49),
+                validStart: ofDate(2020, 8, 15, 16),
+                validEnd: plusDays(ofDate(2020, 8, 15, 16), 49),
                 options: [
                 ]
             };
@@ -4330,8 +4330,8 @@
 
 
             var challengesWeeklyEra5 = {
-                validStart: new Date(Date.UTC(2020, 10, 3, 17, 0, 0, 0)),
-                validEnd: plusDays(new Date(Date.UTC(2020, 10, 3, 17, 0, 0, 0)), 42),
+                validStart: ofDate(2020, 10, 3, 17),
+                validEnd: plusDays(ofDate(2020, 10, 3, 17), 42),
                 options: [
                 ]
             };
@@ -4421,8 +4421,8 @@
             addPlaceholders(challengesWeeklyEra5, scoreWeeklyplaceholder, 42);
 
             var challengesWeeklyEra6 = {
-                validStart: new Date(Date.UTC(2020, 11, 15, 17, 0, 0, 0)),
-                validEnd: plusDays(new Date(Date.UTC(2020, 11, 15, 17, 0, 0, 0)), 70),
+                validStart: ofDate(2020, 11, 15, 17),
+                validEnd: plusDays(ofDate(2020, 11, 15, 17), 70),
                 options: [
                 ]
             };
@@ -4627,7 +4627,7 @@
                 }
             }
 
-            var meatWeekAgain = createMeatWeek(new Date(Date.UTC(2020, 8, 22, 16, 0, 0, 0)), 6, "Community Event: Meat Week - A second helping");
+            var meatWeekAgain = createMeatWeek(ofDate(2020, 8, 22, 16), 6, "Community Event: Meat Week - A second helping");
             meatWeekAgain.options.push({
                             name: "&#x1F6C8; Fortifying Atlas Reward",
                             offset: 0,
@@ -4673,22 +4673,119 @@
                 };
             }
 
+            function createPurveyor(start, end, sale, mystery) {
+                var txt = "Purveyor ";
+                if (sale > 0) {
+                    txt += sale + "% off sale"
+                    if (mystery) {
+                        txt += " &amp; ";
+                    }
+                }
+                if (mystery) {
+                    txt += "Mystery Pick"
+                }
+
+                txt += " days";
+                var result = {
+                    validStart: start,
+                    validEnd: end,
+                    title: txt,
+                    options: [
+                    ]
+                };
+                if (sale > 0) {
+                    var opt = {
+                        name: "Purveyor " + sale + "% sale",
+                        offset: 0,
+                        period: 1,
+                        subchallenges: [
+                            {
+                                name: "&#x1F6C8; Legendary modules and Vault Steel are still full price",
+                            }
+                        ]
+                    };
+                    result.options.push(opt);
+
+                    if (mystery) {
+                        opt.subchallenges.push({
+                                    name: "&#x1F6C8; The Mystery Pick is also discounted",
+                        });
+                    }
+                }
+                if (mystery) {
+                    var opt = {
+                        name: "Visit the Purveyor for a special 60 Scrip offer.",
+                        offset: 0,
+                        period: 1,
+                        subchallenges: [
+                            {
+                                name: "&#x1F6C8; Guaranteed &#x2605;&#x2605;&#x2605; item roll."
+                            },
+                            {
+                                name: "&#x1F6C8; 1/3 chance for getting armor, melee or ranged weapons."
+                            },
+                            {
+                                name: "&#x1F6C8; The Fixer, Secret Service Armor, Tenderizer, etc."
+                            },
+                            {
+                                name: "&nbsp;&nbsp;&nbsp;&nbsp;can roll if you learned their plan."
+                            }
+                        ]
+                    };
+                    if (sale > 0) {
+                        opt.name = "Visit the Purveyor for a special <s>60</s> 45 Scrip offer."
+                    }
+
+                    result.options.push(opt);
+                }
+
+                return result;
+            }
+
+            function createScripSurplus(start, end) {
+                return {
+                    validStart: start,
+                    validEnd: end,
+                    title: "Scrip Surplus Weekend",
+                    options: [
+                        {
+                            name: "Scrip Machines have 300 scrip per day",
+                            offset: 0,
+                            period: 1,
+                            subchallenges: [
+                                {
+                                    name: "This is only for the duration of this event"
+                                },
+                                {
+                                    name: "You may need to wait for the 20 hour reset to happen"
+                                }
+                            ]
+                        },
+                        {
+                            name: "&#x1F6C8; Note that the above is inferred from the naming<br>&nbsp;&nbsp;&nbsp;&nbsp;but yet to be confirmed.",
+                            offset: 0,
+                            period: 1
+                        }
+                    ]
+                };
+            }
+
             var communityEvents = [
-                createEra1Part1(new Date(Date.UTC(2020, 7, 4, 16, 0, 0, 0)), 0, 0, 4),
-                createEra1Part1(new Date(Date.UTC(2020, 7, 4, 16, 0, 0, 0)), 1, 4, 3),
-                createEra1Part1(new Date(Date.UTC(2020, 7, 4, 16, 0, 0, 0)), 2, 7, 4),
-                createEra1Part1(new Date(Date.UTC(2020, 7, 4, 16, 0, 0, 0)), 3, 11, 3),
+                createEra1Part1(ofDate(2020, 7, 4, 16), 0, 0, 4),
+                createEra1Part1(ofDate(2020, 7, 4, 16), 1, 4, 3),
+                createEra1Part1(ofDate(2020, 7, 4, 16), 2, 7, 4),
+                createEra1Part1(ofDate(2020, 7, 4, 16), 3, 11, 3),
 
-                createEra1Part2(new Date(Date.UTC(2020, 7, 27, 16, 0, 0, 0)), 0, 0, 4),
-                createEra1Part2(new Date(Date.UTC(2020, 7, 27, 16, 0, 0, 0)), 1, 4, 3),
-                createEra1Part2(new Date(Date.UTC(2020, 7, 27, 16, 0, 0, 0)), 2, 7, 4),
-                createEra1Part2(new Date(Date.UTC(2020, 7, 27, 16, 0, 0, 0)), 3, 11, 3),
+                createEra1Part2(ofDate(2020, 7, 27, 16), 0, 0, 4),
+                createEra1Part2(ofDate(2020, 7, 27, 16), 1, 4, 3),
+                createEra1Part2(ofDate(2020, 7, 27, 16), 2, 7, 4),
+                createEra1Part2(ofDate(2020, 7, 27, 16), 3, 11, 3),
 
-                createMeatWeek(new Date(Date.UTC(2020, 7, 20, 16, 0, 0, 0)), 6, "Community Event: Meat Week"),
+                createMeatWeek(ofDate(2020, 7, 20, 16), 6, "Community Event: Meat Week"),
 
                 {
-                    validStart: new Date(Date.UTC(2020, 8, 10, 16, 0, 0, 0)),
-                    validEnd: new Date(Date.UTC(2020, 8, 14, 16, 0, 0, 0)),
+                    validStart: ofDate(2020, 8, 10, 16),
+                    validEnd: ofDate(2020, 8, 14, 16),
                     title: "Purveyor 50% off sale",
                     options: [
                         {
@@ -4710,8 +4807,8 @@
                 meatWeekAgain,
 
                 {
-                    validStart: new Date(Date.UTC(2020, 9, 1, 16, 0, 0, 0)),
-                    validEnd: new Date(Date.UTC(2020, 9, 5, 16, 0, 0, 0)),
+                    validStart: ofDate(2020, 9, 1, 16),
+                    validEnd: ofDate(2020, 9, 5, 16),
                     title: "Double S.C.O.R.E. Weekend",
                     options: [
                         {
@@ -4721,10 +4818,10 @@
                         }
                     ]
                 },
-                createTreasureHunt(new Date(Date.UTC(2020, 9, 15, 16, 0, 0, 0)), new Date(Date.UTC(2020, 9, 19, 16, 0, 0, 0))),
+                createTreasureHunt(ofDate(2020, 9, 15, 16), ofDate(2020, 9, 19, 16)),
                 {
-                    validStart: new Date(Date.UTC(2020, 9, 22, 16, 0, 0, 0)),
-                    validEnd: new Date(Date.UTC(2020, 9, 26, 16, 0, 0, 0)),
+                    validStart: ofDate(2020, 9, 22, 16),
+                    validEnd: ofDate(2020, 9, 26, 16),
                     title: "Bombs Drop Weekend",
                     options: [
                         {
@@ -4750,8 +4847,8 @@
                     ]
                 },
                 {
-                    validStart: new Date(Date.UTC(2020, 9, 29, 16, 0, 0, 0)),
-                    validEnd: new Date(Date.UTC(2020, 10, 2, 16, 0, 0, 0)),
+                    validStart: ofDate(2020, 9, 29, 16),
+                    validEnd: ofDate(2020, 10, 2, 16),
                     title: "Halloween Fasnacht",
                     options: [
                         {
@@ -4804,10 +4901,10 @@
                         },
                     ]
                 },
-                createTreasureHunt(new Date(Date.UTC(2020, 10, 5, 17, 0, 0, 0)), new Date(Date.UTC(2020, 10, 9, 17, 0, 0, 0))),
+                createTreasureHunt(ofDate(2020, 10, 5, 17), ofDate(2020, 10, 9, 17)),
                 {
-                    validStart: new Date(Date.UTC(2020, 10, 10, 17, 0, 0, 0)),
-                    validEnd: new Date(Date.UTC(2020, 10, 16, 17, 0, 0, 0)),
+                    validStart: ofDate(2020, 10, 10, 17),
+                    validEnd: ofDate(2020, 10, 16, 17),
                     title: "Bonus Challenges Week",
                     options: [
                         {
@@ -4817,49 +4914,11 @@
                         }
                     ]
                 },
+                createPurveyor(ofDate(2020, 10, 12, 17), ofDate(2020, 10, 16, 17), 25, true),
+                createTreasureHunt(ofDate(2020, 10, 24, 17), ofDate(2020, 10, 30, 17), true),
                 {
-                    validStart: new Date(Date.UTC(2020, 10, 12, 17, 0, 0, 0)),
-                    validEnd: new Date(Date.UTC(2020, 10, 16, 17, 0, 0, 0)),
-                    title: "Purveyor Mystery Pick and 25% off days",
-                    options: [
-                        {
-                            name: "Visit the Purveyor for a special <s>60</s> 45 Scrip offer.",
-                            offset: 0,
-                            period: 1,
-                            subchallenges: [
-                                {
-                                    name: "&#x1F6C8; Guaranteed &#x2605;&#x2605;&#x2605; item roll."
-                                },
-                                {
-                                    name: "&#x1F6C8; 1/3 chance for getting armor, melee or ranged weapons."
-                                },
-                                {
-                                    name: "&#x1F6C8; The Fixer, Secret Service Armor, Tenderizer, etc."
-                                },
-                                {
-                                    name: "&nbsp;&nbsp;&nbsp;&nbsp;can roll if you learned their plan."
-                                }
-                            ]
-                        },
-                        {
-                            name: "Purveyor 25% sale",
-                            offset: 0,
-                            period: 1,
-                            subchallenges: [
-                                {
-                                    name: "&#x1F6C8; Legendary modules and Vault Steel are still full price",
-                                },
-                                {
-                                    name: "&#x1F6C8; The Mystery Pick is also discounted",
-                                }
-                            ]
-                        },
-                    ]
-                },
-                createTreasureHunt(new Date(Date.UTC(2020, 10, 24, 17, 0, 0, 0)), new Date(Date.UTC(2020, 10, 30, 17, 0, 0, 0)), true),
-                {
-                    validStart: new Date(Date.UTC(2020, 11, 1, 17, 0, 0, 0)),
-                    validEnd: new Date(Date.UTC(2020, 11, 8, 17, 0, 0, 0)),
+                    validStart: ofDate(2020, 11, 1, 17),
+                    validEnd: ofDate(2020, 11, 8, 17),
                     title: "Double S.C.O.R.E. Week",
                     options: [
                         {
@@ -4875,8 +4934,8 @@
                     ]
                 },
                 {
-                    validStart: new Date(Date.UTC(2020, 11, 10, 17, 0, 0, 0)),
-                    validEnd: new Date(Date.UTC(2020, 11, 14, 17, 0, 0, 0)),
+                    validStart: ofDate(2020, 11, 10, 17),
+                    validEnd: ofDate(2020, 11, 14, 17),
                     title: "Double XP &amp; Double Vendor Caps Weekend",
                     options: [
                         {
@@ -4898,8 +4957,8 @@
                     ]
                 },
                 {
-                    validStart: new Date(Date.UTC(2020, 11, 17, 17, 0, 0, 0)),
-                    validEnd: new Date(Date.UTC(2021, 0, 4, 17, 0, 0, 0)),
+                    validStart: ofDate(2020, 11, 17, 17),
+                    validEnd: ofDate(2021, 0, 4, 17),
                     title: "Holiday Scorched",
                     options: [
                         {
@@ -4932,8 +4991,8 @@
                     ]
                 },
                 {
-                    validStart: new Date(Date.UTC(2020, 11, 24, 17, 0, 0, 0)),
-                    validEnd: new Date(Date.UTC(2020, 11, 28, 17, 0, 0, 0)),
+                    validStart: ofDate(2020, 11, 24, 17),
+                    validEnd: ofDate(2020, 11, 28, 17),
                     title: "Purveyor 25% Off Sale",
                     options: [
                         {
@@ -4943,7 +5002,134 @@
                         }
                     ]
                 },
+                {
+                    validStart: ofDate(2021, 0, 7, 17),
+                    validEnd: ofDate(2021, 0, 11, 17),
+                    title: "Double S.C.O.R.E. Weekend",
+                    options: [
+                        {
+                            name: "Double for Daily Challanges",
+                            offset: 0,
+                            period: 1
+                        }
+                    ]
+                },
+                createPurveyor(ofDate(2021, 0, 14, 17), ofDate(2021, 0, 18, 17), 25, true),
+                {
+                    validStart: ofDate(2021, 0, 21, 17),
+                    validEnd: ofDate(2021, 0, 25, 17),
+                    title: "Double XP Weekend",
+                    options: []
+                },
+                createScripSurplus(ofDate(2021, 0, 28, 17), ofDate(2021, 1, 1, 17)),
+                {
+                    validStart: ofDate(2021, 1, 4, 17),
+                    validEnd: ofDate(2021, 1, 8, 17),
+                    title: "Double S.C.O.R.E. Weekend",
+                    options: [
+                        {
+                            name: "Double for Daily Challanges",
+                            offset: 0,
+                            period: 1
+                        }
+                    ]
+                },
+                createTreasureHunt(ofDate(2021, 1, 11, 17), ofDate(2021, 1, 15, 17), false),
+                createPurveyor(ofDate(2021, 1, 11, 17), ofDate(2021, 1, 15, 17), 25, false),
+                {
+                    validStart: ofDate(2021, 1, 16, 17),
+                    validEnd: ofDate(2021, 1, 22, 17),
+                    title: "Fasnacht",
+                    options: [
+                        {
+                            name: "Visit Helvetia every exact hour to start the public event",
+                            offset: 0,
+                            period: 1
+                        },
+                        {
+                            name: "Perform 5 tasks to have the robots in place",
+                            offset: 0,
+                            period: 1,
+                        },
+                        {
+                            name: "Protect the robots at 3 ambush points",
+                            offset: 0,
+                            period: 1,
+                            subchallenges: [
+                                {
+                                    name: "Use Friendly Fire and Shishkebab to heal the robots."
+                                },
+                                {
+                                    name: "Focus on grenade/molotov throwing Super Mutants."
+                                }
+                            ]
+                        },
+                        {
+                            name: "Rewards: <a href='https://docs.google.com/spreadsheets/d/1DVUs-pRpATIpE6HrNoEySblUVnBUm-ry3RG1KTaAyzc/edit#gid=0' target='_blank'>depend on how many robots make it</a>.",
+                            offset: 0,
+                            period: 1
+                        },
+                    ]
+                },
+                {
+                    validStart: ofDate(2021, 1, 23, 17),
+                    validEnd: ofDate(2021, 2, 1, 17),
+                    title: "Gold Rush Week",
+                    options: [
+                        {
+                            name: "Double Treasure Notes awarded by quests and events",
+                            offset: 0,
+                            period: 1,
+                            subchallenges: [
+                                {
+                                    name: "You have to complete the Wastelanders questline to earn notes"
+                                },
+                                {
+                                    name: "Public Events reward Treasure Notes"
+                                },
+                                {
+                                    name: "Turn notes into Bullion at the faction HQs"
+                                }
+                            ]
+                        },
+                        {
+                            name: "&#x1F6C8; Note that the above is inferred from the naming<br>&nbsp;&nbsp;&nbsp;but yet to be confirmed.",
+                            offset: 0,
+                            period: 1
+                        }
+                    ]
+                },
+                {
+                    validStart: ofDate(2021, 2, 4, 17),
+                    validEnd: ofDate(2021, 2, 8, 17),
+                    title: "Vendor Caps-a-Plenty Weekend",
+                    options: [
+                        {
+                            name: "Vendors have double (2800) caps",
+                            offset: 0,
+                            period: 1,
+                            subchallenges: [
+                                {
+                                    name: "This is only for the duration of this event"
+                                },
+                                {
+                                    name: "All vendors have a shared pool of caps"
+                                },
+                                {
+                                    name: "You may need to wait for the 20 hour reset to happen"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                createPurveyor(ofDate(2021, 2, 11, 17), ofDate(2021, 2, 15, 17), 25, true),
+                createScripSurplus(ofDate(2021, 2, 18, 17), ofDate(2021, 2, 22, 17)),
+                createTreasureHunt(ofDate(2021, 2, 25, 17), ofDate(2021, 2, 29, 17), false)
             ];
+
+            function ofDate(year, month, day, hour) {
+                return new Date(Date.UTC(year, month, day, hour, 0, 0, 0));
+            }
 
             // Season =======================
 
@@ -4987,25 +5173,33 @@
             }
 
             var season1 = {
-                validStart: new Date(Date.UTC(2020, 5, 30, 16, 0, 0, 0)),
-                validEnd: new Date(Date.UTC(2020, 8, 8, 16, 0, 0, 0)),
+                validStart: ofDate(2020, 5, 30, 16),
+                validEnd: ofDate(2020, 8, 8, 16),
                 title: "Season 1: The Legendary Run",
                 options: [
                     
                 ]
             };
             var season2 = {
-                validStart: new Date(Date.UTC(2020, 8, 15, 16, 0, 0, 0)),
-                validEnd: new Date(Date.UTC(2020, 11, 15, 17, 0, 0, 0)),
+                validStart: ofDate(2020, 8, 15, 16),
+                validEnd: ofDate(2020, 11, 15, 17),
                 title: "Season 2: Armor Ace",
                 options: [
                     
                 ]
             };
             var season3 = {
-                validStart: new Date(Date.UTC(2020, 11, 15, 17, 0, 0, 0)),
-                validEnd: plusDays(new Date(Date.UTC(2020, 11, 15, 17, 0, 0, 0)), 70),
+                validStart: ofDate(2020, 11, 15, 17),
+                validEnd: plusDays(ofDate(2020, 11, 15, 17), 70),
                 title: "Season 3: The Scribe of Avalon",
+                options: [
+                    
+                ]
+            };
+            var season4 = {
+                validStart: ofDate(2021, 2, 2, 17),
+                validEnd: plusDays(ofDate(2021, 2, 2, 17), 70),
+                title: "Season 4: ",
                 options: [
                     
                 ]
@@ -5014,6 +5208,7 @@
             fillInSeason(season1, 70, "LR1");
             fillInSeason(season2, 91, "LR2");
             fillInSeason(season3, 70, "LR3");
+            fillInSeason(season4, 70, "LR4");
 
             for (var i = 56; i < 91; i++) {
                 season2.options.push({
@@ -5030,11 +5225,19 @@
                     period: 100
                 });
             }
+            for (var i = 0; i < 70; i++) {
+                season4.options.push({
+                    name: "&#x1F6C8; Note that the start date, name and length<br>&nbsp;&nbsp;&nbsp;&nbsp;of Season 4 is not yet known.",
+                    offset: i,
+                    period: 100
+                });
+            }
 
             var seasonEvents = [
                 season1,
                 season2,
-                season3
+                season3,
+                season4
             ];
 
             // --------------------------------------------------------------------------------------------------------------
