@@ -34,7 +34,7 @@
     </head>
     <body>
         <center>
-            <span style="font-size: 36px; font-weight: bold;">Fallout 76 S.C.O.R.E. Progression Calculator (0.0.5)</span><br/>
+            <span style="font-size: 36px; font-weight: bold;">Fallout 76 S.C.O.R.E. Progression Calculator (0.0.6)</span><br/>
             <br/>
             <br/>
             <table>
@@ -231,7 +231,13 @@
                 }
 
                 var dailyScore = parseInt(document.getElementById("dailyscore").value);
+                if (isNaN(dailyScore) || dailyScore < 250) {
+                    dailyScore = 250;
+                }
                 var weeklyScore = parseInt(document.getElementById("weeklyscore").value);
+                if (isNaN(weeklyScore) || weeklyScore < 500) {
+                    weeklyScore = 500;
+                }
 
                 var scoreRank = valueOf("startrank");
                 if (isNaN(scoreRank) || scoreRank < 1 || scoreRank > 99) {
