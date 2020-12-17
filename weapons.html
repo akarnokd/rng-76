@@ -22,7 +22,7 @@
     </head>
     <body style="height: 90%">
         <center>
-            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Weapon Damage Calculator (v3.3.27)</span>
+            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Weapon Damage Calculator (v3.3.28)</span>
             <br/>
             <i>(Update to <i>One Wasteland</i> is almost done; a few special cases to iron out but otherwise good to go.)</i>
         <br/>
@@ -7793,6 +7793,10 @@
                 var totalDamageEnergyAdditive = [];
                 var totalDamageEnergyMultiply = [];
 
+                var totalDamageFireAdditive = [];
+                var totalDamageColdAdditive = [];
+                var totalDamagePoisonAdditive = [];
+
                 var totalDamageRadiationAdditive = [];
                 var totalDamageRadiationMultiply = [];
 
@@ -8231,6 +8235,9 @@
                                     totalDamageAdditive.push(Math.floor(baseDamage * perc / 100.0));
                                     totalDamageEnergyAdditive.push(Math.floor(baseDamageEnergy * perc / 100.0));
                                     totalDamageRadiationAdditive.push(Math.floor(baseDamageRadiation * perc / 100.0));
+                                    totalDamageFireAdditive.push(Math.floor(baseDamageFire * perc / 100.0));
+                                    totalDamageColdAdditive.push(Math.floor(baseDamageCold * perc / 100.0));
+                                    totalDamagePoisonAdditive.push(Math.floor(baseDamagePoison * perc / 100.0));
                                     // do not add it as a flat boost
                                     perc = 0;
                                     legendaryTwoShot = true;
@@ -8553,8 +8560,14 @@
                 });
                 totalDamageEnergyAdditive.forEach(function(v) {
                     totalDamageEnergy += v;
+                });
+                totalDamageFireAdditive.forEach(function(v) {
                     totalDamageFire += v;
+                });
+                totalDamageColdAdditive.forEach(function(v) {
                     totalDamageCold += v;
+                });
+                totalDamagePoisonAdditive.forEach(function(v) {
                     totalDamagePoison += v;
                 });
                 totalDamageRadiationAdditive.forEach(function(v) {
