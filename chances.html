@@ -100,6 +100,7 @@
                         <button id='SpecialListChanceNone' title='Lists which have Chance None nonzero'>ListChanceNone &gt; 0</button>&nbsp;
                         <button id='SpecialGetRandomPercent' title='Lists which have conditions with GetRandomPercent'>GetRandomPercent</button>&nbsp;
                         <button id='SpecialBugged1' title='Lists which are defined Flags=all and Max=1, but they only ever return their first entries'>All/Max=1 always first</button>&nbsp;
+                        <button id='SpecialBugged2' title='Lists which are defined Flags=0 and having conditions on entries'>Random/Conditioned</button>&nbsp;
                         <button id='SpecialSelfTest' title='Lists testing the calculations'>Self-test lists</button>&nbsp;
                     </td>
                 </tr>
@@ -3376,6 +3377,18 @@
                                         }
                                     }
                                 }
+                            }
+                        }
+                    }
+                }
+                return false;
+            });
+            document.getElementById("SpecialBugged2").onclick = evt => doSpecialSearch(entry => {
+                if (entry.LVLF === 0 || entry.LVLF === 1) {
+                    if (entry.Entries !== undefined) {
+                        for (var e of entry.Entries) {
+                            if (e.Conditions !== undefined) {
+                                return true;
                             }
                         }
                     }
