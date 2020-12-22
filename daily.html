@@ -914,6 +914,15 @@
                             ignore: true
                         };
             }
+            function scoreLevelUp(offset, count) {
+                return {
+                            name: times("Level up", count),
+                            offset: offset,
+                            period: 100,
+                            ignore: true
+                        };
+            }
+
             function scoreScrapAluminium10(offset) {
                 return {
                             name: "Scrap junk to produce Aluminium (x10)",
@@ -928,6 +937,14 @@
                             name: "&#x1F947; Gold: Complete a Daily Challenge (x5)",
                             offset: offset,
                             period: 1,
+                            ignore: true
+                        };
+            }
+            function scoreCompleteDailyChallenge(offset, count) {
+                return {
+                            name: times("&#x1F947; Gold: Complete a Daily Challenge", count),
+                            offset: offset,
+                            period: 100,
                             ignore: true
                         };
             }
@@ -3068,9 +3085,8 @@
                 validStart: ofDate(2020, 11, 15, 17),
                 validEnd: plusDays(ofDate(2020, 11, 15, 17), 70),
                 options: [
-                    scoreCompleteDailyChallenge5(0),
-                    scoreLevelUp1(0),
-
+                    scoreCompleteDailyChallenge(0, 5),
+                    scoreLevelUp(0, 1),
                     scoreBuildWallDecorShelter(0, 5),
                     scoreBuySellItem(0, 3),
                     scoreCompleteDailyOps(0, 1),
@@ -3078,6 +3094,8 @@
                     scoreKillDeathclaw(0, 1),
                     scoreNWDeployCamp(0, 1),
 
+                    scoreCompleteDailyChallenge(1, 5),
+                    scoreLevelUp(1, 1),
                     scoreCompleteDailyOps(1, 1),
                     scoreCompleteOneEvent(1, 1),
                     scoreCraftAmmo(1, 50),
@@ -3085,6 +3103,8 @@
                     scoreVisitAnotherShelter(1, 1),
                     scoreNWKillCreature(1, 1),
                     
+                    scoreCompleteDailyChallenge(2, 5),
+                    scoreLevelUp(2, 1),
                     scoreBuildFloorWallShelter(2, 5),
                     scoreBuySellItem(2, 3),
                     scoreCompleteDailyOps(2, 1),
@@ -3092,6 +3112,8 @@
                     scoreKillGlowing(2, 1),
                     scoreNWKillPlayer(2, 1),
 
+                    scoreCompleteDailyChallenge(3, 5),
+                    scoreLevelUp(3, 1),
                     scoreCompleteDailyOps(3, 1),
                     scoreCompleteOneEvent(3, 1),
                     scoreDrinkNukaCola(3, 5),
@@ -3099,6 +3121,8 @@
                     scoreVisitOwnShelter(3, 1),
                     scoreNWSurviveMinutes(3, 10),
 
+                    scoreCompleteDailyChallenge(4, 5),
+                    scoreLevelUp(4, 1),
                     scoreBuildAnythingShelter(4, 5),
                     scoreBuySellItem(4, 3),
                     scoreCompleteDailyOps(4, 1),
@@ -3106,6 +3130,8 @@
                     scoreKillLegendaries10(4, 1),
                     scoreNWPickLock(4, 1),
 
+                    scoreCompleteDailyChallenge(5, 5),
+                    scoreLevelUp(5, 1),
                     scoreClaimWorkshop(5, 1),
                     scoreCompleteDailyOps(5, 1),
                     scoreCompleteOneEvent(5, 1),
@@ -3113,6 +3139,8 @@
                     scoreVisitAnotherShelter(5, 1),
                     scoreNWTakePhoto(5, 1),
 
+                    scoreCompleteDailyChallenge(6, 5),
+                    scoreLevelUp(6, 1),
                     scoreBuildWallDecorShelter(6, 5),
                     scoreBuySellItem(6, 3),
                     scoreCompleteDailyOps(6, 1),
@@ -3120,6 +3148,8 @@
                     scoreKillBloodEagle(6, 15),
                     scoreNWUseStimpak(6, 1),
 
+                    scoreCompleteDailyChallenge(7, 3),
+                    scoreLevelUp(7, 1),
                     scoreCompleteDailyOps(7, 1),
                     scoreCompleteOneEvent(7, 1),
                     scoreEatPrewarFood(7, 5),
