@@ -1201,6 +1201,13 @@
                             period: 100,
                         };
             }
+            function scoreScrapPowerArmor(offset, count) {
+                return {
+                            name: times("Scrap a Power Armor piece", count),
+                            offset: offset,
+                            period: 100,
+                        };
+            }
             function scoreKillSupermutant(offset, count) {
                 return {
                             name: times("Kill a Super Mutant", count),
@@ -3219,6 +3226,15 @@
                     scoreCompleteOneEvent(14, 1),
                     scoreKillCreatureInGroup(14, 25),
                     scoreUsePhotomode(14, 1),
+
+                    scoreCompleteDailyChallenge(15, 5),
+                    scoreLevelUp(15, 1),
+                    scoreCompleteDailyOps(15, 1),
+                    scoreCompleteOneEvent(15, 1),
+                    scoreCraftScrapPowerArmor(15, 1),
+                    scoreJoinGroup(15),
+                    scoreKillGhoul15(15),
+                    scoreVisitOwnShelter(15, 1)
                 ]
             }
 
@@ -3237,6 +3253,7 @@
             addDailyOps(challengesDailyEra6.options, 12, "The Burning Mine", "Blood Eagles", [ dailyOpsPiercingGaze, dailyOpsResilient ]);
             addDailyOps(challengesDailyEra6.options, 13, "Vault 94", "Blood Eagles", [ dailyOpsPiercingGaze, dailyOpsVolatile ]);
             addDailyOps(challengesDailyEra6.options, 14, "Valley Galleria", "Robots", [ dailyOpsPiercingGaze, dailyOpsResilient ]);
+            addDailyOps(challengesDailyEra6.options, 15, "Vault 94", "Blood Eagles", [ dailyOpsPiercingGaze, dailyOpsFreezing ]);
 
             var challenges = [
                 challengesDailyEra1,
