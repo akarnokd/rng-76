@@ -22,7 +22,7 @@
     </head>
     <body style="height: 90%">
         <center>
-            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Weapon Damage Calculator (v3.3.29)</span>
+            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Weapon Damage Calculator (v3.3.30)</span>
             <br/>
             <i>(Update to <i>One Wasteland</i> is almost done; a few special cases to iron out but otherwise good to go.)</i>
         <br/>
@@ -1879,6 +1879,37 @@
                 };
             }
 
+            function createMuzzleWithBeam(basedamages) {
+                var splitter = [];
+                var splitterbugged = [];
+                for (var d of basedamages) {
+                    splitter.push(d * 1.1);
+                    splitterbugged.push(d * 4.4)
+                }
+                return {
+                            slot: "Muzzle",
+                            options: [
+                                {
+                                    name: "Standard"
+                                },
+                                {
+                                    name: "Beam Splitter",
+                                    addDamageEnergyLeveled: splitter,
+                                    speedMultPercent: -10,
+                                },
+                                {
+                                    name: "Beam Splitter (bugged)",
+                                    addDamageEnergyLeveled: splitterbugged,
+                                    speedMultPercent: -10,
+                                },
+                                {
+                                    name: "Beam Focuser"
+                                }
+                            ]
+                        };
+
+            }
+
             function createSMGReceiver(weaponName) {
                 return {
                     slot: "Receiver",
@@ -3248,7 +3279,8 @@
                     damageEnergy: [21, 26, 31, 36, 44],
                     mods: [
                         createLaserCapacitors(),
-                        createLaserBarrels()
+                        createLaserBarrels(),
+                        createMuzzleWithBeam([21, 26, 31, 36, 44])
                     ]
                 },
                 {
@@ -3263,7 +3295,8 @@
                     damageEnergy: [21, 26, 31, 36, 44],
                     mods: [
                         createLaserCapacitors(),
-                        createLaserBarrels()
+                        createLaserBarrels(),
+                        createMuzzleWithBeam([21, 26, 31, 36, 44])
                     ]
                 },
                 {
@@ -3278,7 +3311,8 @@
                     damageEnergy: [28, 31, 34],
                     mods: [
                         createLaserCapacitors(),
-                        createLaserBarrels()
+                        createLaserBarrels(),
+                        createMuzzleWithBeam([28, 31, 34])
                     ]
                 },
                 {
@@ -3293,7 +3327,8 @@
                     damageEnergy: [28, 31, 34],
                     mods: [
                         createLaserCapacitors(),
-                        createLaserBarrels()
+                        createLaserBarrels(),
+                        createMuzzleWithBeam([28, 31, 34])
                     ]
                 },
                 {
@@ -3486,7 +3521,7 @@
                     damage: [0, 0, 0],
                     damageEnergy: [43, 50, 58],
                     mods: [
-                    {
+                        {
                             slot: "Receiver",
                             options: [
                                 {
@@ -3494,7 +3529,8 @@
                                 },
                                 primeMod
                             ]
-                        }
+                        },
+                        createMuzzleWithBeam([43, 50, 58])
                     ]
                 },
                 {
@@ -4447,7 +4483,7 @@
                     },
                     {
                         name: "ExplosiveOld",
-                        text: "Explosive (pre nerf)",
+                        text: "Explosive (legacy)",
                         damageMultPercent: 100
                     },
                     {
@@ -8224,6 +8260,7 @@
 
                 var legendaryTwoShot = false;
                 var legendaryExplosive = 0;
+                var legacyExplosive = false;
 
                 // Apply unconditional effects
                 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -8244,6 +8281,7 @@
                                     // Explosive appears to be still multiplicative
                                     legendaryExplosive = perc;
                                     perc = 0;
+                                    legacyExplosive = effInfo.name.includes("ExplosiveOld");
                                 }
                                 if (effInfo.name === "Aiming") {
                                     if (!document.getElementById("aiming" + index + "_yes").checked) {
@@ -8342,10 +8380,13 @@
 
                 // TSE duplicates the explosive effect
                 if (legendaryExplosive > 0) {
+                    var explosiveBonus = legendaryExplosive;
                     if (legendaryTwoShot) {
-                        totalDamageDebuff.push(legendaryExplosive * 2);
-                    } else {
-                        totalDamageDebuff.push(legendaryExplosive);
+                        explosiveBonus *= 2;
+                    }
+                    totalDamageDebuff.push(explosiveBonus);
+                    if (legacyExplosive) {
+                        totalDamageEnergyDebuff.push(explosiveBonus);
                     }
                 }
 
