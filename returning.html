@@ -351,7 +351,7 @@
                             description: "We’ve added several new locations and updated a number of existing ones that you’ll delve into during your journey with the Brotherhood."
                         },
                         {
-                            category: "Items,Challenges,Daily Ops",
+                            category: "Items,Challenge,Daily Ops",
                             name: "Gear Up with New Rewards",
                             description: "Progress through the Steel Dawn questline and complete Daily Ops to earn a host of cosmetic, C.A.M.P., and item rewards,<br>including the following new weapons and armor straight from the Brotherhood arsenal:<br>"
                                 + "Crusader Pistol, Plasma Cutter, Hellstorm Missile Launcher, Brotherhood Recon Armor."
@@ -832,6 +832,36 @@
                 }
             ];
 
+            var categoryToCount = {
+                "Main Quest" : 'mainCount',
+                "Side Quest" : 'sideCount',
+                "Misc Quest" : 'miscCount',
+                "Event" : 'eventCount',
+                "Season" : 'seasonCount',
+                "Daily Ops": 'dopsCount',
+                "Challenge" : 'challengesCount',
+                "C.A.M.P." : 'campCount',
+                "Shelter" : 'shelterCount',
+                "Balance" : 'balanceCount',
+                "Locations" : 'locationCount',
+                "Items" : 'itemsCount',
+                "Perks" : 'perkCount',
+                "NPC" : 'npcCount',
+                "PvP" : 'pvpCount',
+                "Atomic Shop" : 'atxCount',
+                "Fallout 1st" : 'f1stCount',
+                "Bugfix" : 'bugfixCount',
+                "Exploit" : 'exploitCount',
+                "Stability" : 'stabilityCount',
+                "Performance" : 'performanceCount',
+                "Sound" : 'soundCount',
+                "UI" : 'uiCount',
+                "Other" : 'otherCount',
+                "PC" : 'pcCount',
+                "Playstation" : 'psCount',
+                "XBox" : 'xboxCount'
+            };
+
             function filterByKeywords(note, keywords) {
                 return keywords === ""
                     || note.name.toLowerCase().includes(keywords)
@@ -960,6 +990,7 @@
 
                 var patchesInRange = 0;
                 var notesFilteredOut = false;
+                var categoryCounters = {};
 
                 var sortDir = get("sortDate").checked ? 1 : -1;
                 releaseNotes.sort((a, b) => {
@@ -1044,29 +1075,50 @@
                                 if (note.link !== undefined) {
                                     cll.innerHTML = "<a href='" + note.link + "' target='_blank'>&#x2197; Wiki</a>";
                                 }
+
+                                for (var cat of note.category.split(",")) {
+                                    var counter = categoryToCount[cat];
+                                    if (counter !== undefined) {
+                                        if (categoryCounters[cat] === undefined) {
+                                            categoryCounters[cat] = 0;
+                                        }
+                                        categoryCounters[cat]++;
+                                    } else {
+                                        alert("Debug: missing counter for category " + cat);
+                                    }
+                                }
                             }
                         } else {
                             notesFilteredOut = true;
                         }
                     }
+                }
+                if (tbl.rows.length === 0) {
+                    var rw = tbl.insertRow(tbl.rows.length);
 
-                    if (tbl.rows.length === 0) {
-                        var rw = tbl.insertRow(tbl.rows.length);
+                    var cll = rw.insertCell(rw.cells.length);
+                    cll.style.textAlign = "center";
+                    cll.style.fontSize = "30px";
+                    
+                    if (notesFilteredOut) {
+                        rw.style.backgroundColor = "#FFFFC0";
+                        rw.innerHTML = "&#x24D8; Changes were filtered out. &#x24D8;"
+                    } else
+                    if (patchesInRange === 0) {
+                        rw.style.backgroundColor = "#C0FFC0";
 
-                        var cll = rw.insertCell(rw.cells.length);
-                        cll.style.textAlign = "center";
-                        cll.style.fontSize = "30px";
-                        
-                        if (notesFilteredOut) {
-                            rw.style.backgroundColor = "#FFFFC0";
-                            rw.innerHTML = "&#x24D8; Changes were filtered out. &#x24D8;"
-                        } else
-                        if (patchesInRange === 0) {
-                            rw.style.backgroundColor = "#C0FFC0";
+                        rw.innerHTML = "&#x2705; You missed nothing. &#x2705;";
+                    }
+                }
 
-                            rw.innerHTML = "&#x2705; You missed nothing. &#x2705;";
-                        }
+                for (var cat in categoryToCount) {
+                    var span = get(categoryToCount[cat]);
+                    var amount = categoryCounters[cat];
 
+                    if (amount === undefined) {
+                        span.innerText = "";
+                    } else {
+                        span.innerText = " (" + amount + ")";
                     }
                 }
             }
