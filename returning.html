@@ -1,0 +1,1128 @@
+<html>
+    <head>
+        <title>Fallout 76 Returning Player Here, What's Changed?</title>
+        <style>
+            * {
+                font-family: sans-serif;
+                font-size: 20px;
+            }
+            td {
+                padding: 2px;
+            }
+            
+            table.infoTable {
+               border: 1px solid black;
+               border-collapse: collapse;
+            }
+            table.infoTable td {
+               border: 1px solid black;
+            }
+        </style>
+        <meta name="keywords" content="Fallout,Fallout 76,Return,Returning,Player,Release,Release Notes,Search,Filter">
+    </head>
+    <body>
+        <center>
+            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Returning Player Here, What's Changed?</span><br/>
+            <span>(v0.1.0)</span>
+            <br/>
+            <br/>
+            <table>
+                <tr>
+                    <td><b>When did you leave?</b></td>
+                    <td><input id='leaveDate' type='date' value="2018-11-14"></td>
+                    <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                    <td><b>When did you come back?</b></td>
+                    <td><input id='returnDate' type='date'></td>
+                </tr>
+            </table>
+            <table>
+                <tr>
+                    <td style="text-align: center;">
+                        <label><input type='checkbox' id='filterMain' checked> Main Quests <span id='mainCount'></span></label>&nbsp;&nbsp;&nbsp;
+                        <label><input type='checkbox' id='filterSide' checked> Side Quests <span id='sideCount'></span></label>&nbsp;&nbsp;&nbsp;
+                        <label><input type='checkbox' id='filterMisc' checked> Misc Quests <span id='miscCount'></span></label>&nbsp;&nbsp;&nbsp;
+                        <label><input type='checkbox' id='filterEvent' checked> Events <span id='eventCount'></span></label>&nbsp;&nbsp;&nbsp;
+                        <label><input type='checkbox' id='filterSeason' checked> Season <span id='seasonCount'></span></label>&nbsp;&nbsp;&nbsp;
+                        <label><input type='checkbox' id='filterDops' checked> Daily Ops <span id='dopsCount'></span></label>&nbsp;&nbsp;&nbsp;
+                        <label><input type='checkbox' id='filterChallenges' checked> Challenges <span id='challengesCount'></span></label>&nbsp;&nbsp;&nbsp;
+                        <br>
+                        <label><input type='checkbox' id='filterCAMP' checked> C.A.M.P./Workshop <span id='campCount'></span></label>&nbsp;&nbsp;&nbsp;
+                        <label><input type='checkbox' id='filterShelter' checked> Shelter <span id='shelterCount'></span></label>&nbsp;&nbsp;&nbsp;
+                        <label><input type='checkbox' id='filterBalance' checked> Balance <span id='balanceCount'></span></label>&nbsp;&nbsp;&nbsp;
+                        <label><input type='checkbox' id='filterLocation' checked> Locations <span id='locationCount'></span></label>&nbsp;&nbsp;&nbsp;
+                        <label><input type='checkbox' id='filterItem' checked> Items <span id='itemsCount'></span></label>&nbsp;&nbsp;&nbsp;
+                        <label><input type='checkbox' id='filterPerk' checked> Perks <span id='perkCount'></span></label>&nbsp;&nbsp;&nbsp;
+                        <label><input type='checkbox' id='filterNPC' checked> NPCs <span id='npcCount'></span></label>&nbsp;&nbsp;&nbsp;
+                        <label><input type='checkbox' id='filterPvP' checked> PvP <span id='pvpCount'></span></label>&nbsp;&nbsp;&nbsp;
+                        <label><input type='checkbox' id='filterAtx' checked> Atomic Shop <span id='atxCount'></span></label>&nbsp;&nbsp;&nbsp;
+                        <label><input type='checkbox' id='filterF1st' checked> Fallout 1st <span id='f1stCount'></span></label>&nbsp;&nbsp;&nbsp;
+                        <br>
+                        <label><input type='checkbox' id='filterBug' checked> Bugfixes <span id='bugfixCount'></span></label>&nbsp;&nbsp;&nbsp;
+                        <label><input type='checkbox' id='filterExploit' checked> Exploits <span id='exploitCount'></span></label>&nbsp;&nbsp;&nbsp;
+                        <label><input type='checkbox' id='filterStability' checked> Stability <span id='stabilityCount'></span></label>&nbsp;&nbsp;&nbsp;
+                        <label><input type='checkbox' id='filterPerformance' checked> Performance <span id='performanceCount'></span></label>&nbsp;&nbsp;&nbsp;
+                        <label><input type='checkbox' id='filterSound' checked> Sound <span id='soundCount'></span></label>&nbsp;&nbsp;&nbsp;
+                        <label><input type='checkbox' id='filterUI' checked> User Interface <span id='uiCount'></span></label>&nbsp;&nbsp;&nbsp;
+                        <label><input type='checkbox' id='filterOther' checked> Other changes <span id='otherCount'></span></label>&nbsp;&nbsp;&nbsp;
+                        <br>
+                        <label><input type='checkbox' id='filterPC' checked> PC <span id='pcCount'></span></label>&nbsp;&nbsp;&nbsp;
+                        <label><input type='checkbox' id='filterPS' checked> Playstation <span id='psCount'></span></label>&nbsp;&nbsp;&nbsp;
+                        <label><input type='checkbox' id='filterXB' checked> XBox <span id='xboxCount'></span></label>&nbsp;&nbsp;&nbsp;
+                    </td>
+                    <td>
+                        <button id='checkAll'>All</button>&nbsp;<button id='checkNone'>None</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2" style="text-align: center;">
+                        <b title='Case insensitive, description of notes includes the text entered here.'>Filter descriptions:&nbsp;
+                            <input id='keywordFilter' type="text" style='width: 250px;'></b>
+                        &nbsp;&nbsp;&nbsp;
+                        <label><input type='checkbox' id='sortDate' checked> Sort by oldest first</label>
+                        &nbsp;&nbsp;&nbsp;
+                        <a id='theLink' href="#" target="_blank">&#x2197; Link to these settings</a>
+                    </td>
+                </tr>
+            </table>
+            <hr>
+            <table id='releaseNotesTable' style="border-collapse: collapse;">
+            </table>
+        </center>
+        <script>
+            function ofDate(year, month, day) {
+                return new Date(Date.UTC(year, month, day, 0, 0, 0));
+            }
+            function get(idStr) {
+                return document.getElementById(idStr);
+            }
+
+            var releaseNotes = [
+                {
+                    patch: "24-A",
+                    descripton: "Scribe of Avalon Update",
+                    date: ofDate(2020, 11, 15),
+                    reddit: "https://www.reddit.com/r/fo76/comments/kdnjgu/fallout_76_scribe_of_avalon_update_notes_december/",
+                    bethesda: "https://fallout.bethesda.net/en/article/5taGWKjR5NZkJTNgEGYwzj/fallout-76-scribe-of-avalon-update-notes-december-15-2020",
+                    notes: [
+                        {
+                            category: "Season",
+                            name: "Season 3: Scribe of Avalon",
+                            description: "The new Scoreboard features 100 ranks to achieve as you and Inkwell work to find and preserve technology in Avalon over the coming months.",
+                            link: "https://fallout.fandom.com/wiki/The_Scribe_of_Avalon_(season)"
+                        },
+                        {
+                            category: "Season",
+                            name: "New Rankup Rewards",
+                            description: "Power Armor paints, Weapon Skins, Outfits, themed cosmetics, C.A.M.P. items, in-game currencies, consumables,<br> Perk Card Packs, Lite Allies, Backpack Flairs, Perfectly Preserved Bubblegum, the Antique Speed Bag, and Perk Coins"
+                        },
+                        {
+                            category: "Season,Fallout 1st",
+                            name: "Fallout 1st limited rewards",
+                            description: "Bonus rewards to the Scoreboard for Fallout 1st Members at certain rank milestones, which can be claimed in addition to the normal rewards those ranks offer."
+                        },
+                        {
+                            category: "Challenge",
+                            name: "New challenge types",
+                            description: "Shelters-themed Challenges, and Challenges to take down different enemies, like Blood Eagles and Mothman Cultists.",
+                        },
+                        {
+                            category: "Other",
+                            name: "Weight Bench",
+                            description: "Weight Bench reward from Season 2 is now available for purchase from Gold Bullion vendors."
+                        },
+                        {
+                            category: "C.A.M.P.",
+                            name: "\"Core Vault\" Objects",
+                            description: "We’ve added a few new items to the set of “Core Vault” C.A.M.P. objects that are unlocked after you complete the \"Home Expansion\" quest,<br>including a Foundation version of the Core Vault Floor, a new Doorway Wall, and a Vault-themed door to match."
+                        },
+                        {
+                            category: "Bugfix",
+                            name: "Power Armor",
+                            description: "The headlamp on the Blue Demon Power Armor Helmet now shines in the correct direction in third-person view."
+                        },
+                        {
+                            category: "Bugfix",
+                            name: "Underarmor",
+                            description: "The Brotherhood of Steel Camouflage Infantry Uniform no longer clips through equipped outfits."
+                        },
+                        {
+                            category: "Bugfix,C.A.M.P.",
+                            name: "Ammo Converter",
+                            description: "Flamer Fuel can now be sold using the 100x sell option, and Railroad Spikes can be purchased using the 100x buy option."
+                        },
+                        {
+                            category: "Bugfix,C.A.M.P.",
+                            name: "Defenses",
+                            description: "The Encampment Gate is now centered between its posts."
+                        },
+                        {
+                            category: "Bugfix,C.A.M.P.",
+                            name: "Defenses",
+                            description: "Encampment Fences can now be snapped to the left side of the Encampment Gate."
+                        },
+                        {
+                            category: "Bugfix,Exploit,C.A.M.P.",
+                            name: "Exploit",
+                            description: "Addressed a C.A.M.P. budget exploit related to Patio Chairs."
+                        },
+                        {
+                            category: "Bugfix,C.A.M.P.",
+                            name: "Spooky Sound Machine",
+                            description: "The Spooky Sound Machine can now be placed at the same time as the Fog Machine."
+                        },
+                        {
+                            category: "Bugfix,C.A.M.P.",
+                            name: "Vault Catwalk",
+                            description: "Straight sections of Vault Catwalk can now be properly snapped to corner pieces."
+                        },
+                        {
+                            category: "Bugfix,Challenge",
+                            name: "Combat",
+                            description: "Killing the Scorchbeast Queen now counts toward “Kill Different Kinds of Tough Enemies” Combat Challenge progress."
+                        },
+                        {
+                            category: "Bugfix,Challenge",
+                            name: "Combat",
+                            description: "Killing the Flatwoods Monster now counts toward “Kill an Alien” subchallenge progress for the “Kill different kinds of human-like creatures” Combat Challenge."
+                        },
+                        {
+                            category: "Bugfix,Challenge",
+                            name: "Combat",
+                            description: "Killing a Small Frog now counts toward “Kill Different Kinds of Critters” Combat Challenge progress."
+                        },
+                        {
+                            category: "Bugfix,Challenge",
+                            name: "Combat",
+                            description: "Killing a Hermit Crab now counts toward “Kill Different Kinds of Arthropods” Combat Challenge progress."
+                        },
+                        {
+                            category: "Bugfix,Challenge",
+                            name: "Combat",
+                            description: "Killing Mirelurks and Fog Crawlers now counts toward “Kill Different Kinds of Aquatic or Semi-Aquatic Creatures” Combat Challenge progress."
+                        },
+                        {
+                            category: "Bugfix,Challenge",
+                            name: "Combat",
+                            description: "Killing Cave Crickets now counts toward “Kill different Kinds of Insects and Bugs” Combat Challenge progress."
+                        },
+                        {
+                            category: "Bugfix,Challenge",
+                            name: "Daily",
+                            description: "Fixed an issue that prevented some Holotapes from counting toward “Listen to an Audio Holotape” Daily Challenge progress."
+                        },
+                        {
+                            category: "Bugfix,Challenge",
+                            name: "World",
+                            description: "The “Discover the Overseer’s C.A.M.P.” World Challenge now displays the correct reward icon in the Challenge menu."
+                        },
+                        {
+                            category: "Bugfix",
+                            name: "Armor",
+                            description: "Red Viper Armor Skins can now be favorited for use in Nuclear Winter."
+                        },
+                        {
+                            category: "Bugfix",
+                            name: "Headwear",
+                            description: "Red Viper and Camouflage Skins can now be applied to the Urban Scout Mask."
+                        },
+                        {
+                            category: "Bugfix",
+                            name: "Plans",
+                            description: "Fixed an issue that prevented the Plan for the Poodle Sleeping Bag from dropping as a reward for level 50+ players in Daily Ops."
+                        },
+                        {
+                            category: "Bugfix,Stability,PC",
+                            name: "Client Stability",
+                            description: "Fixed a PC client crash that could occur when fighting Scorched in the Forest."
+                        },
+                        {
+                            category: "Bugfix,Stability,Playstation",
+                            name: "Client Stability",
+                            description: "Fixed a PlayStation 4 client crash that could occur when exiting another player’s Vault Atrium Shelter."
+                        },
+                        {
+                            category: "Bugfix,Stability,XBox",
+                            name: "Client Stability",
+                            description: "Fixed an Xbox One client crash that could occur when entering the Foundation Supply Room during the “Supplying Demands” quest."
+                        },
+                        {
+                            category: "Bugfix,Performance",
+                            name: "Performance",
+                            description: "Fixed an issue that could cause client hitching during gameplay."
+                        },
+                        {
+                            category: "Bugfix,Main Quest",
+                            name: "Property Rights (Steel Dawn)",
+                            description: "Sheena no longer spawns inside a wall during the “Speak to Sheena” objective."
+                        },
+                        {
+                            category: "Bugfix,Shelter",
+                            name: "Build",
+                            description: "Floors and other objects can now be built at the spawn point inside Shelters, excluding items like Traps and Pressure Plates."
+                        },
+                        {
+                            category: "Bugfix,Shelter",
+                            name: "Floor Décor:",
+                            description: "Potted Plants can now be built near Shelter ceilings more easily, and no longer sometimes place outside the playable area."
+                        },
+                        {
+                            category: "Bugfix,Shelter",
+                            name: "Entrances",
+                            description: "Fixed a case where Large Shelter Entrances could not be placed near water."
+                        },
+                        {
+                            category: "Bugfix,Shelter",
+                            name: "Entrances",
+                            description: "Objects built on top of Large Shelter Entrances no longer clip through the pre-existing metal beams."
+                        },
+                        {
+                            category: "Bugfix,Shelter",
+                            name: "Programmable Objects",
+                            description: "Light Boxes, Switches, Cycling Lights, and other objects that can be “programmed” now retain their settings between play sessions."
+                        },
+                        {
+                            category: "Bugfix,Shelter",
+                            name: "Wall Décor",
+                            description: "Fixed an issue that could cause the Eat-o-tronic to clip into the floor when built inside the Vault Lobby Shelter."
+                        },
+                        {
+                            category: "Bugfix,Shelter",
+                            name: "Wallpapers",
+                            description: "Only Wallpapers that the player owns can be placed inside of Shelters."
+                        },
+                        {
+                            category: "Bugfix,Shelter",
+                            name: "Wires",
+                            description: "Wires attached between Generators and certain powered objects, like Decontamination Showers, now persist after exiting and re-entering a Shelter."
+                        },
+                        {
+                            category: "Bugfix,Sound",
+                            name: "Collectron Stations",
+                            description: "Added Sound effects that will play when opening or closing the container attached to Collectron Stations."
+                        },
+                        {
+                            category: "Bugfix,UI,Atomic Shop",
+                            name: "Atomic Shop",
+                            description: "Fixed an issue that could prevent further menu navigation in the Atomic Shop after purchasing a Bundle."
+                        },
+                        {
+                            category: "Bugfix,UI",
+                            name: "Help Menu",
+                            description: "Added Shelters information to the Fallout 76 Help Menu."
+                        },
+                        {
+                            category: "Bugfix,UI",
+                            name: "Inventory",
+                            description: "Opening a Holiday Gift no longer causes the player’s current selection to automatically move up one row in the Aid menu."
+                        },
+                        {
+                            category: "Bugfix,UI",
+                            name: "Scoreboard",
+                            description: "Purchasing multiple rank-ups quickly no longer sometimes causes the rank-up button to become non-functional."
+                        },
+                    ]
+                },
+                {
+                    patch: "24",
+                    descripton: "Steel Dawn Update",
+                    date: ofDate(2020, 10, 24),
+                    reddit: "https://www.reddit.com/r/fo76/comments/k0emrg/fallout_76_steel_dawn_update_notes_november_24/",
+                    bethesda: "https://fallout.bethesda.net/en/article/7sARlh1E2yHEwVnKrsyqIv/fallout-76-steel-dawn-update-notes-november-24-2020",
+                    notes: [
+                        {
+                            category: "Main Quest",
+                            name: "Steel Dawn",
+                            description: "The Brotherhood of Steel is back! Explore the first chapter of their story,meet new characters, visit new and updated locations<br>and unlock rewards as you experience the all-new Steel Dawn questline.",
+                            link: "https://fallout.fandom.com/wiki/Steel_Dawn"
+                        },
+                        {
+                            category: "Main Quest",
+                            name: "Complete New Quests",
+                            description: "Meet the new Brotherhood arrivals and begin your journey through the Steel Dawn questline by heading to Fort Atlas<br>(formerly ATLAS Observatory) in the Savage Divide region of Appalachia.",
+                        },
+                        {
+                            category: "NPC",
+                            name: "Meet New Faces",
+                            description: "Get acquainted with new characters, like Paladin Rahmani, Knight Shin, Scribe Valdez, and many others who have arrived in Appalachia with the Steel Dawn Update."
+                        },
+                        {
+                            category: "Locations",
+                            name: "Explore New locations",
+                            description: "We’ve added several new locations and updated a number of existing ones that you’ll delve into during your journey with the Brotherhood."
+                        },
+                        {
+                            category: "Items,Challenges,Daily Ops",
+                            name: "Gear Up with New Rewards",
+                            description: "Progress through the Steel Dawn questline and complete Daily Ops to earn a host of cosmetic, C.A.M.P., and item rewards,<br>including the following new weapons and armor straight from the Brotherhood arsenal:<br>"
+                                + "Crusader Pistol, Plasma Cutter, Hellstorm Missile Launcher, Brotherhood Recon Armor."
+                        },
+                        {
+                            category: "UI",
+                            name: "Main Menu Updates",
+                            description: "The Brotherhood has taken over the game’s Main Menu with an all-new background video and music."
+                        },
+                        {
+                            category: "Shelter",
+                            name: "C.A.M.P. Shelters",
+                            description: "Head underground with C.A.M.P. Shelters, which are instanced interiors that you can add to your C.A.M.P. and customize to flex your creativity as a builder.",
+                            link: "https://fallout.fandom.com/wiki/Shelters"
+                        },
+                        {
+                            category: "Shelter,Misc Quest",
+                            name: "Home Expansion",
+                            description: "We’ve added a brief new quest, called “Home Expansion,” to the game that all players must complete in order to gain access to the C.A.M.P. Shelters feature.",
+                            link: "https://fallout.fandom.com/wiki/Home_Expansion"
+                        },
+                        {
+                            category: "Shelter",
+                            name: "Vault Utility Room",
+                            description: "After completing the “Home Expansion” quest, all players can claim the Vault Utility Room for free in the Atomic Shop."
+                        },
+                        {
+                            category: "Shelter,Fallout 1st",
+                            name: "Vault Lobby",
+                            description: "Fallout 1st Members can claim this medium-sized Shelter this month in the Fallout 1st section of the Atomic Shop. In the future, it will be available to all players for Atoms."
+                        },
+                        {
+                            category: "Shelter,Atomic Shop",
+                            name: "Vault Atrium",
+                            description: "The largest of our first three Shelters, the Vault Atrium can be purchased using Atoms."
+                        },
+                        {
+                            category: "Atomic Shop",
+                            name: "Dynamic Bundle Pricing",
+                            description: "If you own one or more items in a bundle, its Atom price will automatically reduce accordingly. The more items you already have, the lower your adjusted price."
+                        },
+                        {
+                            category: "Atomic Shop",
+                            name: "Backpack Flair",
+                            description: "Add even more personality to your characters with Backpack Flair! We’ve added two Backpack Flair slots to the modify menu for Backpacks that you can use to add cosmetic Flair."
+                        },
+                        {
+                            category: "Fallout 1st,Atomic Shop,UI",
+                            name: "Atomic Shop Discounts",
+                            description: "Items that have special discounts for Fallout 1st Members will now appear in the Fallout 1st section of the Atomic Shop while they are on sale."
+                        },
+                        {
+                            category: "Items",
+                            name: "Lunchboxes",
+                            description: "In addition to earning Lunchbox rewards from a Season Scoreboard, or buying them with Gold Bullion in-game, you can now purchase them for Atoms in the Atomic Shop."
+                        },
+                        {
+                            category: "UI",
+                            name: "Help Menu",
+                            description: "Lunchbox buff descriptions and the chances to receive each buff have been added to the “Lunchboxes” section of the Help Menu."
+                        },
+                        {
+                            category: "Daily Ops,Items",
+                            name: "New Items",
+                            description: "We’ve added a number of new rare rewards that you can earn by completing Daily Ops.<br>They include Plans to craft Brotherhood Recon Armor, the Crusader Pistol, Plasma Cutter, and Hellstorm Missile Launcher."
+                        },
+                        {
+                            category: "Daily Ops,Balance",
+                            name: "Plan Rewards",
+                            description: "Say goodbye to duplicate Plans! Non-tradeable item Plans that can be awarded by Daily Ops, like the War Glaive Plan, will no longer continue to drop as rewards after you’ve learned them."
+                        },
+                        {
+                            category: "Daily Ops,Balance",
+                            name: "Mutations and Enemies",
+                            description: "To help keep Daily Ops feeling fresh each day, we’ve made an adjustment to prevent the same enemy mutation and faction from appearing two days in a row."
+                        },
+                        {
+                            category: "Balance",
+                            name: "Hunger and Thirst Debuffs",
+                            description: "Penalties for depleteing hunger and thirst meters have been removed."
+                        },
+                        {
+                            category: "Balance",
+                            name: "Hunger",
+                            description: "Gain +15 Max HP when partially fed, up to +35 Max HP, +35% Disease Resist, and +1 Strength when fully fed."
+                        },
+                        {
+                            category: "Balance",
+                            name: "Thirst",
+                            description: "Gain +15% AP Regeneration when partially hydrated, up to +35% AP Regeneration, +35% Disease Resist, and +1 Endurance when fully hydrated."
+                        },
+                        {
+                            category: "Items",
+                            name: "Holiday Gifts",
+                            description: "Increased the weight of Holiday Gifts to 1 pound each, and made them untradeable."
+                        },
+                        {
+                            category: "PvP",
+                            name: "Pacifist Mode",
+                            description: "When Pacifist Mode becomes available to new characters at level 5, it will now be toggled on by default."
+                        },
+                        {
+                            category: "UI",
+                            name: "Map",
+                            description: "Added a Fast Travel point and Map marker for Vault 51."
+                        },
+                        {
+                            category: "Bugfix,NPC",
+                            name: "Settler Forager",
+                            description: "Players can once again receive Daily Quests from the Settler Forager Ally."
+                        },
+                        {
+                            category: "Bugfix",
+                            name: "Animations",
+                            description: "Human NPCs that have both legs crippled no longer appear to fall down and then immediately stand back up.<br>Instead, they will remain standing, but they will remain immobile until one leg is healed."
+                        },
+                        {
+                            category: "Bugfix,Items",
+                            name: "Power Armor",
+                            description: "Players’ posteriors are now properly protected while wearing Enclave Power Armor."
+                        },
+                        {
+                            category: "Bugfix,Items",
+                            name: "Weapons",
+                            description: "Turbo-Fert Fertilizer Grenades no longer appear to explode twice on detonation."
+                        },
+                        {
+                            category: "Bugfix,Items",
+                            name: "Weapons",
+                            description: "Charging up the Gauss Pistol and then holstering it no longer causes a small portion of the weapon model to disappear."
+                        },
+                        {
+                            category: "Bugfix,C.A.M.P.",
+                            name: "General",
+                            description: "Grass and small plants are once again visually removed when placing Foundations and other large C.A.M.P. objects on top of them."
+                        },
+                        {
+                            category: "Bugfix,C.A.M.P.",
+                            name: "Brotherhood Field Station",
+                            description: "Closed up a hole in the Field Station’s ceiling."
+                        },
+                        {
+                            category: "Bugfix,C.A.M.P.",
+                            name: "Décor",
+                            description: "Players can now build Powered Lawn Flamingos without having learned the base Lawn Flamingo Plan."
+                        },
+                        {
+                            category: "Bugfix,C.A.M.P.",
+                            name: "Encampment Bridge",
+                            description: "Fixed an issue that could allow Encampment Bridge pieces to remain floating in mid-air after removing connecting pieces."
+                        },
+                        {
+                            category: "Bugfix,C.A.M.P.",
+                            name: "Encampment Fence",
+                            description: "The Encampment Fence now spins at its center point when rotating the object in build mode, and its explosion visual effects also appear at its center point when the Fence is destroyed."
+                        },
+                        {
+                            category: "Bugfix,C.A.M.P.,Exploit",
+                            name: "Exploit",
+                            description: "Traps now have a minimum distance that they can be placed from other Traps. C.A.M.P.s and Blueprints containing Traps that are stacked on top of each other can no longer be placed."
+                        },
+                        {
+                            category: "Bugfix,C.A.M.P.,Exploit",
+                            name: "Exploit",
+                            description: "Addressed a C.A.M.P. budget exploit related to Wires."
+                        },
+                        {
+                            category: "Bugfix,C.A.M.P.,Exploit",
+                            name: "Exploit",
+                            description: "Addressed an item exploit related to Collectron Stations."
+                        },
+                        {
+                            category: "Bugfix,C.A.M.P.",
+                            name: "Rocket Rides",
+                            description: "Can no longer be placed clipping into other objects."
+                        },
+                        {
+                            category: "Bugfix,C.A.M.P.",
+                            name: "Super Reactor",
+                            description: "Now scraps into Aluminum, Copper, and Rubber, instead of just Rubber."
+                        },
+                        {
+                            category: "Bugfix",
+                            name: "Explosion Damage",
+                            description: "Fixed an issue that caused non-physical explosions from weapons, like Floater Grenades, to deal less damage than intended."
+                        },
+                        {
+                            category: "Bugfix",
+                            name: "VATS",
+                            description: "Greatly improved the accuracy of chance to hit percentages when using VATS."
+                        },
+                        {
+                            category: "Bugfix",
+                            name: "VATS",
+                            description: "Hits that successfully strike the target now deal damage correctly."
+                        },
+                        {
+                            category: "Bugfix",
+                            name: "VATS",
+                            description: "Fixed an issue that could cause VATS to close when line of sight to the targeted enemy became partially obstructed."
+                        },
+                        {
+                            category: "Bugfix",
+                            name: "VATS",
+                            description: "Continuing to fire a Flamer or Cryolator after closing VATS no longer stops those weapons from damaging enemies."
+                        },
+                        {
+                            category: "Bugfix",
+                            name: "VATS",
+                            description: "Corrected the damage dealt when firing the Tesla Rifle and uncharged Gauss Weapons in VATS."
+                        },
+                        {
+                            category: "Bugfix,Daily Ops",
+                            name: "Contextual Ammo",
+                            description: "Enemies in Daily Ops now correctly drop Shotgun Shells when using the Fancy Shotgun."
+                        },
+                        {
+                            category: "Bugfix,Daily Ops",
+                            name: "Bosses",
+                            description: "Daily Ops Bosses no longer sometimes swap their unique weapons for weapons from nearby creature corpses."
+                        },
+                        {
+                            category: "Bugfix,Daily Ops",
+                            name: "Bosses",
+                            description: "The Super Mutant Daily Ops Boss is no longer disarmed after being staggered."
+                        },
+                        {
+                            category: "Bugfix,Daily Ops",
+                            name: "Operation Report",
+                            description: "After achieving Paladin Tier or higher, the rewards list in the Operation Report now correctly includes both of the player’s legendary item rewards."
+                        },
+                        {
+                            category: "Bugfix,Daily Ops",
+                            name: "Vault 94",
+                            description: "Fixed an issue causing certain doors inside Vault 94 to display a button prompt without any text."
+                        },
+                        {
+                            category: "Bugfix",
+                            name: "Blood Eagles",
+                            description: "Can no longer be turned into Scorched Blood Eagles by Scorchbeasts."
+                        },
+                        {
+                            category: "Bugfix",
+                            name: "Earle Williams",
+                            description: "Can no longer turn into an Ash Pile or a Goo Pile on death, nor dismembered by the Bloody Mess Perk."
+                        },
+                        {
+                            category: "Bugfix",
+                            name: "Scorchbeast Queen",
+                            description: "No longer clips into the terrain during her strafe attack."
+                        },
+                        {
+                            category: "Bugfix,Items",
+                            name: "Apparel",
+                            description: "Fixed several instances where Enclave Underarmor could clip through different apparel, like the Bomber Jacket and the Pint-Sized Slasher Outift."
+                        },
+                        {
+                            category: "Bugfix,Items",
+                            name: "Armor",
+                            description: "Sturdy and Heavy Metal Left Leg Armor can now drop as legendary items."
+                        },
+                        {
+                            category: "Bugfix,Items",
+                            name: "Armor",
+                            description: "Players can now correctly remove Misc. Mods from Armor pieces."
+                        },
+                        {
+                            category: "Bugfix,Items",
+                            name: "Armor",
+                            description: "Secret Service Armor with the Weightless legendary attribute no longer counteracts cloaking granted by the Chameleon Mutation."
+                        },
+                        {
+                            category: "Bugfix,Items",
+                            name: "Gamma Gun",
+                            description: "Firing rapidly no longer sometimes causes the Gamma Gun to fire more rounds than the magazine contains."
+                        },
+                        {
+                            category: "Bugfix,Items",
+                            name: "Gauss Minigun",
+                            description: "The crosshair no longer persists on top of the Gauss Minigun’s sights while aiming after applying the Gunner Sights mod."
+                        },
+                        {
+                            category: "Bugfix,Items",
+                            name: "Gauss Shotgun",
+                            description: "Can no longer spawn with the Explosive legendary effect."
+                        },
+                        {
+                            category: "Bugfix,Items",
+                            name: "Heavy Weapons",
+                            description: "The Cryolator now correctly deals cryo damage, and the Flamer deals fire damage."
+                        },
+                        {
+                            category: "Bugfix,Items",
+                            name: "Mods",
+                            description: "Weapons that have Heated Mods applied now correctly deal Fire damage."
+                        },
+                        {
+                            category: "Bugfix,Items",
+                            name: "Mods",
+                            description: "The Refrigerated Backpack Mod now consistently reduces the food spoilage rate by 50%."
+                        },
+                        {
+                            category: "Bugfix,Items",
+                            name: "Mods",
+                            description: "Weighted Armor Mods now ignore 5 points of enemy Damage Resist in addition to the 10% they ignored previously.<br>This will improve situations where Weighted mods had very little effect on enemies who already had low Damage Resists."
+                        },
+                        {
+                            category: "Bugfix,Items",
+                            name: "Pump-Action Shotgun",
+                            description: "Increased Pump-Action Shotgun Bash damage so that it is in line with Rifles and other Shotguns."
+                        },
+                        {
+                            category: "Bugfix,Items",
+                            name: "Recipes",
+                            description: "The Radstag Redemption, Mirelurk Boil, and Headhunters Headcheese Recipe Notes now correctly unlock the ability to craft those items."
+                        },
+                        {
+                            category: "Bugfix,Items",
+                            name: "Thrown Weapons",
+                            description: "The following weapons now deal the correct damage types, and they are properly enhanced by the Demolition Expert Perk Card:<br>"
+                                + "Cryogenic Grenade, Cryo Mine, Floater Grenades, Plasma Grenade, Molotov Cocktail"
+                        },
+                        {
+                            category: "Bugfix,Items",
+                            name: "War Glaive:",
+                            description: "Added Copper to the War Glaive’s crafting requirements and removed the Plasma Core requirement."
+                        },
+                        {
+                            category: "Bugfix",
+                            name: "Carnivore",
+                            description: "The following items now count as meat when affected by the Carnivore Mutation:<br>"
+                            + "Canned Dog Food, Deathclaw Eggs and Omelettes, Frog Eggs, Imitation Seafood, Mirelurk Eggs and Omelettes,<br>"
+                            + "Mothman Eggs, Pork n’ Beans, Radscorpion Eggs and Omelettes, Radtoad Eggs and Omelettes, Radtoad Omelettes,<br>"
+                            + "Salisbury Steak (Preserved), Yum Yum Deviled Eggs<br>"
+                        },
+                        {
+                            category: "Bugfix",
+                            name: "Herbivore",
+                            description: "The following items now count as plant-based food when affected by the Herbivore Mutation:<br>"
+                            + "Cajun Rice & Beans, Firecap Tasty Souffle, InstaMash, Preserved InstaMash, Vegetarian Ham"
+                        },
+                        {
+                            category: "Bugfix,NPC",
+                            name: "Animations",
+                            description: "Corrected a number of issues that could cause various world NPCs to play incorrect animations or temporarily stop animating."
+                        },
+                        {
+                            category: "Bugfix,NPC",
+                            name: "Fisher",
+                            description: "No longer plays an animation as though he is using a terminal when he is not near one."
+                        },
+                        {
+                            category: "Bugfix,NPC",
+                            name: "The Overseer",
+                            description: "No longer sometimes becomes stuck when heading to the presentation room during “Overseer, Overseen.”"
+                        },
+                        {
+                            category: "Bugfix,NPC",
+                            name: "Whitespring Bots",
+                            description: "Sentry Bots and Doorman Protectrons now respond properly when players interact with them."
+                        },
+                        {
+                            category: "Bugfix,Stability",
+                            name: "Client Stability",
+                            description: "Fixed an issue that could cause a client crash when loading into a world."
+                        },
+                        {
+                            category: "Bugfix,Stability",
+                            name: "Server Stability",
+                            description: "Addressed a server crash that could occur when loading into a world."
+                        },
+                        {
+                            category: "Bugfix,Performance",
+                            name: "Server Performance",
+                            description: "Players will no longer receive an error when joining a Daily Op while using furniture."
+                        },
+                        {
+                            category: "Bugfix,Performance",
+                            name: "Performance",
+                            description: "Addressed an issue that could result in a performance drop when viewing the Season Scoreboard."
+                        },
+                        {
+                            category: "Bugfix,Perks",
+                            name: "Animal Friend",
+                            description: "Removed outdated level requirement wording from the Perk Card description."
+                        },
+                        {
+                            category: "Bugfix,Perks",
+                            name: "Chem Fiend",
+                            description: "Now correctly increases the duration of all effects granted by Berry Mentats."
+                        },
+                        {
+                            category: "Bugfix,Perks",
+                            name: "Nerd Rage",
+                            description: "Fixed an issue causing Nerd Rage to grant its damage bonus while above 20% health."
+                        },
+                        {
+                            category: "Bugfix,Perks",
+                            name: "Wasteland Whisperer",
+                            description: "Removed outdated level requirement wording from the Perk Card description."
+                        },
+                        {
+                            category: "Bugfix,Side Quest",
+                            name: "Ally",
+                            description: "Thicker than Water: Watoga Underground is now properly instanced."
+                        },
+                        {
+                            category: "Bugfix,Event",
+                            name: "Defend",
+                            description: "Billings Homestead: Enemies no longer get stuck or spawn in nearby water during Workshop events at Billings Homestead."
+                        },
+                        {
+                            category: "Bugfix,Event",
+                            name: "Free Range",
+                            description: "Beefed up Brahmin health and resistances during the Free Range event."
+                        },
+                        {
+                            category: "Bugfix,Event",
+                            name: "Project Paradise",
+                            description: "Friendly creatures that appear after completely filling the habitat troughs now have a consistent max level of 100."
+                        },
+                        {
+                            category: "Bugfix,Event",
+                            name: "Scorched Earth",
+                            description: "Now correctly grants a 3-star legendary item reward on completion."
+                        },
+                        {
+                            category: "Bugfix,Sound",
+                            name: "Armor Ace Shooting Gallery",
+                            description: "Joining a Daily Op while using the Armor Ace Shooting Gallery no longer causes its sound effects to play continuously."
+                        },
+                        {
+                            category: "Bugfix,Sound",
+                            name: "Boney Death Tambo",
+                            description: "Added unique sound effects to the Boney Death Tambo Skin."
+                        },
+                        {
+                            category: "Bugfix,Sound",
+                            name: "Communist Bunker",
+                            description: "Sound effects no longer continue to play after the door has finished opening or closing."
+                        },
+                        {
+                            category: "Bugfix,Sound",
+                            name: "Encampment Fence",
+                            description: "Corrected the sound effects that play when opening the Encampment Fence Gate."
+                        },
+                        {
+                            category: "Bugfix,Sound",
+                            name: "Hounds Reclining Sofa Chairs",
+                            description: "Now play sound effects when players sit in them."
+                        },
+                        {
+                            category: "Bugfix,Sound",
+                            name: "Theremin",
+                            description: "Now plays one of two different songs, depending on the in-game time of day."
+                        },
+                        {
+                            category: "Bugfix,UI",
+                            name: "Map",
+                            description: "Bloody Frank’s is now labeled correctly on the Map."
+                        },
+                        {
+                            category: "Bugfix,UI",
+                            name: "Scoreboard",
+                            description: "On PC, pressing the Spacebar while viewing the Scoreboard in-game no longer incorrectly opens the Challenge Menu."
+                        },
+                        {
+                            category: "Bugfix,Locations",
+                            name: "Pathing",
+                            description: "Fixed a number of objects in the world that players could path through or clip into."
+                        },
+                        {
+                            category: "Bugfix,Locations",
+                            name: "Pathing",
+                            description: "Fixed several locations throughout the world where players could become stuck."
+                        },
+                    ]
+                }
+            ];
+
+            function filterByKeywords(note, keywords) {
+                return keywords === ""
+                    || note.name.toLowerCase().includes(keywords)
+                    || (note.description !== undefined && note.description.toLowerCase().includes(keywords))
+                ;
+            }
+
+            function createLink() {
+                var items = [];
+
+                items.push("leave=" + get("leaveDate").value);
+                items.push("return=" + get("returnDate").value);
+                
+                for (var element  of document.getElementsByTagName("input")) {
+                    if (element.id.startsWith("filter") && element.type === "checkbox" && element.checked) {
+                        items.push(element.id.substring(6));
+                    }
+                }
+                if (get("sortDate").checked) {
+                    items.push("sortOldest");
+                }
+                items.push("filter=" + encodeURIComponent(get("keywordFilter").value));
+
+                return "?" + items.join("&");
+            }
+
+            function updateTable() {
+                var tbl = get("releaseNotesTable");
+
+                for (var i = tbl.rows.length - 1; i >= 0; i--) {
+                    tbl.deleteRow(i);
+                }
+
+                var minDate = new Date(get("leaveDate").valueAsNumber);
+                var maxDate = new Date(get("returnDate").valueAsNumber);
+
+                var filter = [];
+
+                get("theLink").href = createLink();
+
+                if (get("filterMain").checked) {
+                    filter.push("Main Quest");
+                }
+                if (get("filterSide").checked) {
+                    filter.push("Side Quest");
+                }
+                if (get("filterMisc").checked) {
+                    filter.push("Misc Quest");
+                }
+                if (get("filterBug").checked) {
+                    filter.push("Bugfix");
+                }
+                if (get("filterAtx").checked) {
+                    filter.push("Atomic Shop");
+                }
+                if (get("filterSeason").checked) {
+                    filter.push("Season");
+                }
+                if (get("filterOther").checked) {
+                    filter.push("Other");
+                }
+                if (get("filterCAMP").checked) {
+                    filter.push("C.A.M.P.");
+                    filter.push("Workshop");
+                    filter.push("Shelter");
+                }
+                if (get("filterF1st").checked) {
+                    filter.push("Fallout 1st");
+                }
+                if (get("filterChallenges").checked) {
+                    filter.push("Challenge");
+                }
+                if (get("filterExploit").checked) {
+                    filter.push("Exploit");
+                }
+                if (get("filterStability").checked) {
+                    filter.push("Stability");
+                }
+                if (get("filterPerformance").checked) {
+                    filter.push("Performance");
+                }
+                if (get("filterPC").checked) {
+                    filter.push("PC");
+                }
+                if (get("filterPS").checked) {
+                    filter.push("Playstation");
+                }
+                if (get("filterXB").checked) {
+                    filter.push("XBox");
+                }
+                if (get("filterEvent").checked) {
+                    filter.push("Event");
+                }
+                if (get("filterShelter").checked) {
+                    filter.push("Shelter");
+                }
+                if (get("filterSound").checked) {
+                    filter.push("Sound");
+                }
+                if (get("filterUI").checked) {
+                    filter.push("UI");
+                }
+                if (get("filterBalance").checked) {
+                    filter.push("Balance");
+                }
+                if (get("filterLocation").checked) {
+                    filter.push("Location");
+                }
+                if (get("filterNPC").checked) {
+                    filter.push("NPC");
+                }
+                if (get("filterItem").checked) {
+                    filter.push("Items");
+                }
+                if (get("filterDops").checked) {
+                    filter.push("Daily Ops");
+                }
+                if (get("filterPvP").checked) {
+                    filter.push("PvP");
+                }
+                if (get("filterPerk").checked) {
+                    filter.push("Perks");
+                }
+
+                var keywords = get("keywordFilter").value.toLowerCase();
+
+                var patchesInRange = 0;
+                var notesFilteredOut = false;
+
+                var sortDir = get("sortDate").checked ? 1 : -1;
+                releaseNotes.sort((a, b) => {
+                    if (a.date < b.date) {
+                        return -sortDir;
+                    } else
+                    if (a.date > b.date) {
+                        return sortDir;
+                    }
+                    return 0;
+                });
+
+                for (var releaseNote of releaseNotes) {
+                    if (releaseNote.date >= minDate && releaseNote.date < maxDate) {
+
+                        patchesInRange++;
+
+                        var filteredNotes = [];
+
+                        for (var note of releaseNote.notes) {
+                            for (var f of filter) {
+                                if (note.category.includes(f) && filterByKeywords(note, keywords)) {
+                                    filteredNotes.push(note);
+                                    break;
+                                }
+                            }
+                        }
+
+                        if (filteredNotes.length !== 0) {
+                            var rw = tbl.insertRow(tbl.rows.length);
+                            rw.style.border = "1px solid black";
+                            rw.style.backgroundColor = "#F0F0F0";
+
+                            var cll = rw.insertCell(rw.cells.length);
+                            cll.innerText = releaseNote.date.toLocaleDateString();
+                            cll.style.paddingRight = "20px";
+                            cll.noWrap = true;
+
+                            cll = rw.insertCell(rw.cells.length);
+                            cll.style.fontSize = "30px";
+                            cll.style.fontWeight = "bold";
+                            cll.innerHTML = "Patch " + releaseNote.patch;
+                            cll.colSpan = 2;
+                            if (releaseNote.descripton !== undefined) {
+                                cll.innerHTML += "<br><i><span style='font-size: 20; font-weight:bold;'>" + releaseNote.descripton + "</span></i>";
+                            }
+
+                            cll = rw.insertCell(rw.cells.length);
+                            cll.noWrap = true;
+                            var links = [];
+                            if (releaseNote.bethesda !== undefined) {
+                                links.push("<a href='" + releaseNote.bethesda + "' target='_blank'>&#x2197; Bethesda.net</a>");
+                            }
+                            if (releaseNote.reddit !== undefined) {
+                                links.push("<a href='" + releaseNote.reddit + "' target='_blank'>&#x2197; Reddit</a>");
+                            }
+                            cll.innerHTML = links.join("<br>");
+
+                            for (var note of filteredNotes) {
+                                rw = tbl.insertRow(tbl.rows.length);
+                                
+                                cll = rw.insertCell(rw.cells.length);
+                                cll.innerHTML = "&nbsp;&nbsp;&nbsp;";
+
+                                cll = rw.insertCell(rw.cells.length);
+                                cll.style.fontWeight = "bold";
+                                cll.style.paddingRight = "20px";
+                                cll.innerHTML = "" + note.category.replace(/,/g, ",<br>") + "";
+                                cll.style.verticalAlign = "top";
+                                cll.style.borderBottom = "1px dotted black";
+
+                                cll = rw.insertCell(rw.cells.length);
+                                cll.innerHTML = "<b style='font-size: 24;'>" + note.name + "</b>";
+                                cll.style.borderBottom = "1px dotted black";
+                                
+                                if (note.description !== undefined) {
+                                    cll.innerHTML += "<br><div style='font-size: 20; padding-left: 20px;'>" + note.description + "</div>";
+                                }
+
+                                cll = rw.insertCell(rw.cells.length);
+                                cll.style.borderBottom = "1px dotted black";
+                                if (note.link !== undefined) {
+                                    cll.innerHTML = "<a href='" + note.link + "' target='_blank'>&#x2197; Wiki</a>";
+                                }
+                            }
+                        } else {
+                            notesFilteredOut = true;
+                        }
+                    }
+
+                    if (tbl.rows.length === 0) {
+                        var rw = tbl.insertRow(tbl.rows.length);
+
+                        var cll = rw.insertCell(rw.cells.length);
+                        cll.style.textAlign = "center";
+                        cll.style.fontSize = "30px";
+                        
+                        if (notesFilteredOut) {
+                            rw.style.backgroundColor = "#FFFFC0";
+                            rw.innerHTML = "&#x24D8; Changes were filtered out. &#x24D8;"
+                        } else
+                        if (patchesInRange === 0) {
+                            rw.style.backgroundColor = "#C0FFC0";
+
+                            rw.innerHTML = "&#x2705; You missed nothing. &#x2705;";
+                        }
+
+                    }
+                }
+            }
+
+            get("returnDate").valueAsNumber = new Date().getTime();
+
+            get("leaveDate").oninput = updateTable;
+            get("returnDate").oninput = updateTable;
+
+            for (var element  of document.getElementsByTagName("input")) {
+                if (element.id.startsWith("filter") && element.type === "checkbox") {
+                    element.oninput = updateTable;
+                }
+            }
+
+            function forAllFilters(checked) {
+                for (var element  of document.getElementsByTagName("input")) {
+                    if (element.id.startsWith("filter") && element.type === "checkbox") {
+                        element.checked = checked;
+                    }
+                }
+                updateTable();
+            }
+            get("checkAll").onclick = evt => forAllFilters(true);
+            get("checkNone").onclick = evt => forAllFilters(false);
+            get("keywordFilter").oninput = updateTable;
+            get("sortDate").oninput = updateTable;
+
+            var q = location.search;
+
+            if (q !== "" && q.includes("leave")) {
+                if (q.startsWith("?")) {
+                    q = q.substring(1);
+                }
+                var items = q.split("&");
+                for (var element  of document.getElementsByTagName("input")) {
+                    if (element.id.startsWith("filter") && element.type === "checkbox") {
+                        element.checked = items.includes(element.id.substring(6));
+                    }
+                }
+                get("sortDate").checked = items.includes("sortOldest");
+
+                for (var item of items) {
+                    if (item.startsWith("leave=")) {
+                        get("leaveDate").value = item.substring(6);
+                    }
+                    if (item.startsWith("return=")) {
+                        get("returnDate").value = item.substring(7);
+                    }
+                    if (item.startsWith("filter=")) {
+                        get("keywordFilter").value = item.substring(7);
+                    }
+                }
+            }
+
+            updateTable();
+        </script>
+    </body>
+</html>
