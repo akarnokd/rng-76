@@ -16,3 +16,5 @@ Rng 76 - Hunt for the TSE
 [Patch difference](https://akarnokd.github.io/rng-76/patchdiff.html)
 
 [Experience calculator](https://akarnokd.github.io/rng-76/xp.html)
+
+[Returning Player](https://akarnokd.github.io/rng-76/returning.html)
