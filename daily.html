@@ -3344,6 +3344,15 @@
                     scoreKillLegendary(27, 1),
                     scoreVisitOwnShelter(27, 1),
                     scoreNWTakePhoto(27, 1),
+
+                    scoreCompleteDailyChallenge(28, 5),
+                    scoreLevelUp(28, 1),
+                    scoreCompleteDailyOps(28, 1),
+                    scoreCompleteOneEvent(28, 1),
+                    scoreBuildWallDecorShelter(28, 5),
+                    scoreKillLegendary(28, 1),
+                    scoreKillScorched(28, 15),
+                    scoreNWKillPlayer(28, 1),
                 ]
             }
 
@@ -3375,6 +3384,7 @@
             addDailyOps(challengesDailyEra6.options, 25, "Valley Galleria", "Robots", [ dailyOpsPiercingGaze, dailyOpsResilient ]);
             addDailyOps(challengesDailyEra6.options, 26, "The Burrows", "Super Mutants", [ dailyOpsPiercingGaze, dailyOpsFreezing ]);
             addDailyOps(challengesDailyEra6.options, 27, "Valley Galleria", "Robots", [ dailyOpsPiercingGaze, dailyOpsCloaked ]);
+            addDailyOps(challengesDailyEra6.options, 28, "The Burrows", "Blood Eagles", [ dailyOpsPiercingGaze, dailyOpsVolatile ]);
 
             var challenges = [
                 challengesDailyEra1,
@@ -4769,6 +4779,16 @@
             addWeekly(challengesWeeklyEra6.options, 21, scoreCompleteEvents10);
             addWeekly(challengesWeeklyEra6.options, 21, scoreKillGlowing10);
             addWeekly(challengesWeeklyEra6.options, 21, scoreVisitAnotherShelter, 5);
+
+            addWeekly(challengesWeeklyEra6.options, 28, scoreLevelUp3);
+            addWeekly(challengesWeeklyEra6.options, 28, scoreClaimWorkshop5);
+            addWeekly(challengesWeeklyEra6.options, 28, scoreCompleteDailyOps, 5);
+            addWeekly(challengesWeeklyEra6.options, 28, scoreCompleteGoldStar2);
+            addWeekly(challengesWeeklyEra6.options, 28, scoreCompleteEvents5);
+            addWeekly(challengesWeeklyEra6.options, 28, scoreDestroyRobots5);
+            addWeekly(challengesWeeklyEra6.options, 28, scoreKillLegendaries10);
+            addWeekly(challengesWeeklyEra6.options, 28, scoreRepairArmorWeaponPA, 10);
+            addWeekly(challengesWeeklyEra6.options, 28, scoreScrapMoney, 250);
 
 
             addPlaceholders(challengesWeeklyEra6, scoreWeeklyplaceholder, 70);
