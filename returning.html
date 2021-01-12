@@ -23,7 +23,7 @@
     <body>
         <center>
             <span style="font-size: 36px; font-weight: bold;">Fallout 76 Returning Player Here, What's Changed?</span><br/>
-            <span>(v0.2.0)</span>
+            <span>(v0.3.0)</span>
             <br/>
             <br/>
             <table>
@@ -89,7 +89,7 @@
                         &nbsp;&nbsp;&nbsp;
                         <label><input type='checkbox' id='filterBugExclude'> Exclude Bugfixes</label>  
                         &nbsp;&nbsp;&nbsp;
-                        <button id='clear' onclick='history.pushState("", document.title, window.location.pathname)'>Reset</button>
+                        <button id='clear' onclick='location.search=""; location.hash=""'>Reset</button>
                     </td>
                 </tr>
             </table>
@@ -392,7 +392,7 @@
                         {
                             category: "Shelter,Fallout 1st",
                             name: "Vault Lobby",
-                            description: "Fallout 1st Members can claim this medium-sized Shelter this month in the Fallout 1st section of the Atomic Shop. In the future, it will be available to all players for Atoms."
+                            description: "Fallout 1st Members can claim this medium-sized Shelter this month in the Fallout 1st section of the Atomic Shop. <br>In the future, it will be available to all players for Atoms."
                         },
                         {
                             category: "Shelter,Atomic Shop",
@@ -407,7 +407,7 @@
                         {
                             category: "Atomic Shop",
                             name: "Backpack Flair",
-                            description: "Add even more personality to your characters with Backpack Flair! We’ve added two Backpack Flair slots to the modify menu for Backpacks that you can use to add cosmetic Flair."
+                            description: "Add even more personality to your characters with Backpack Flair! We’ve added two Backpack Flair slots to the modify menu<br>for Backpacks that you can use to add cosmetic Flair."
                         },
                         {
                             category: "Fallout 1st,Atomic Shop,UI",
@@ -417,7 +417,7 @@
                         {
                             category: "Items",
                             name: "Lunchboxes",
-                            description: "In addition to earning Lunchbox rewards from a Season Scoreboard, or buying them with Gold Bullion in-game, you can now purchase them for Atoms in the Atomic Shop."
+                            description: "In addition to earning Lunchbox rewards from a Season Scoreboard, or buying them with Gold Bullion in-game,<br>you can now purchase them for Atoms in the Atomic Shop."
                         },
                         {
                             category: "UI",
@@ -517,12 +517,12 @@
                         {
                             category: "Bugfix,C.A.M.P.",
                             name: "Encampment Fence",
-                            description: "The Encampment Fence now spins at its center point when rotating the object in build mode, and its explosion visual effects also appear at its center point when the Fence is destroyed."
+                            description: "The Encampment Fence now spins at its center point when rotating the object in build mode, and its explosion visual effects also appear<br>at its center point when the Fence is destroyed."
                         },
                         {
                             category: "Bugfix,C.A.M.P.,Exploit",
                             name: "Exploit",
-                            description: "Traps now have a minimum distance that they can be placed from other Traps. C.A.M.P.s and Blueprints containing Traps that are stacked on top of each other can no longer be placed."
+                            description: "Traps now have a minimum distance that they can be placed from other Traps. C.A.M.P.s and Blueprints containing Traps<br>that are stacked on top of each other can no longer be placed."
                         },
                         {
                             category: "Bugfix,C.A.M.P.,Exploit",
@@ -1102,7 +1102,7 @@
                         {
                             category: "Bugfix,UI,Daily Ops",
                             name: "Buttons",
-                            description: "Addressed issues that could result from the Scoreboard and Operation Report being mapped to the same button when completing a Challenge and a Daily Op at the same time.",
+                            description: "Addressed issues that could result from the Scoreboard and Operation Report being mapped to the same button when<br>completing a Challenge and a Daily Op at the same time.",
                         },
                         {
                             category: "Bugfix,UI,Challenge",
@@ -1738,7 +1738,7 @@
                 {
                     id: "P21",
                     patch: "21",
-                    descripton: "The Legendary Run",
+                    descripton: "Fortifying ATLAS",
                     date: ofDate(2020, 7, 4),
                     reddit: "https://www.reddit.com/r/fo76/comments/i3k4rr/fallout_76_update_21_patch_notes_august_4_2020/",
                     bethesda: "https://fallout.bethesda.net/en/article/2Z8aZWK1CISDkxWAcwQhw8/fallout-76-update-21-patch-notes-august-4-2020",
@@ -2163,7 +2163,528 @@
                             description: "Fixed multiple locations in the world where players could become stuck in or near clutter and other objects."
                         },
                     ]
-                }
+                },
+                {
+                    id: "P20",
+                    patch: "20",
+                    descripton: "The Legendary Run",
+                    date: ofDate(2020, 5, 30),
+                    reddit: "https://www.reddit.com/r/fo76/comments/hio4tb/fallout_76_update_20_patch_notes_june_30_2020/",
+                    bethesda: "https://fallout.bethesda.net/en/article/47XE9Dbh3weAd5kusOIA8p/fallout-76-update-20-patch-notes-june-30-2020",
+                    notes: [
+                        {
+                            category: "Season,Challenge",
+                            name: "Season 1: The Legendary Run",
+                            description: "Today’s patch adds the new 76 Seasons system to the game, which includes a new account-wide progression system that will overhaul<br>our current Challenges and offer you lots of in-game rewards.",
+                            link: "https://fallout.fandom.com/wiki/The_Legendary_Run_(season)"
+                        },
+                        {
+                            category: "Season,Items",
+                            name: "New Rewards",
+                            description: "There are 100 Ranks to achieve in total during Season 1, and more than 40 new cosmetic items up for grabs along the way.",
+                        },
+                        {
+                            category: "Challenge",
+                            name: "New Challenges",
+                            description: "Daily and Weekly Challenges now award S.C.O.R.E. instead of Atoms, and completing them is the primary way to progress during a Season.",
+                        },
+                        {
+                            category: "Other,UI",
+                            name: "Public Teams",
+                            description: "We’ve added a new “Public Teams” tab to the top of the Social Menu that you can select to browse all Public Teams in your current world,<br>join one, or create a team of your own.",
+                        },
+                        {
+                            category: "Other,Balance",
+                            name: "Public Team bonuses",
+                            description: "While on a Public Team, you will receive a small buff that’s themed to align with your current Team Goal.<br>Over time, you and your new teammates will form Bonds, and each bonded teammate you have will add another stack to your Team Goal buff.",
+                        },
+                        {
+                            category: "Balance,PvP",
+                            name: "Team PVP",
+                            description: "We’ve adjusted the rules of team PVP for both private and Public Teams so that a team member<br>who engages in PVP with an outside player no longer also flags their teammates for PVP",
+                        },
+                        {
+                            category: "Sound",
+                            name: "Music",
+                            description: "We’ve added some out-of-this-world tunes to the Atomic Shop to delight your ears during The Legendary Run.",
+                        },
+                        {
+                            category: "UI",
+                            name: "Icons",
+                            description: "Based on community feedback, we’ve added a unique Mole Miner-themed icon to the Map and in the Compass to better indicate the Purveyor’s location.",
+                        },
+                        {
+                            category: "UI",
+                            name: "Map",
+                            description: "Teammate markers on the Map have been enlarged and animated to make them easier to identify.<br>Additionally, teammate names and player icons now only appear on your Map when you hover over their Map markers.",
+                        },
+                        {
+                            category: "UI,Sound",
+                            name: "Settings",
+                            description: "The Chat Volume audio setting is now completely independent of the Master Volume setting.",
+                        },
+                        {
+                            category: "Bugfix",
+                            name: "Animations",
+                            description: "The Rustic Water Mill now spins correctly.",
+                        },
+                        {
+                            category: "Bugfix",
+                            name: "Animations",
+                            description: "The Stanley Skin for Grognak’s Axe now uses the correct two-handed swing animation when attacking in third-person view.",
+                        },
+                        {
+                            category: "Bugfix",
+                            name: "Animations",
+                            description: "Fixed an issue causing the character to hold the Tesla Rifle incorrectly after using the Secret Service Armor Jetpack in third-person view.",
+                        },
+                        {
+                            category: "Bugfix,Visual",
+                            name: "Art",
+                            description: "The Treasure Hunter and Insurgent Hats no longer remove hair or facial hair when equipped.",
+                        },
+                        {
+                            category: "Bugfix,Visual",
+                            name: "Art",
+                            description: "The preview image for the Experimental Pip-Boy Schematic no longer appears backwards when inspecting the item in menus.",
+                        },
+                        {
+                            category: "Bugfix,Visual",
+                            name: "Art",
+                            description: "The preview image for the Stanley Skin for Grognak’s Axe no longer extends beyond the screen when inspecting the item in menus.",
+                        },
+                        {
+                            category: "Bugfix,Visual",
+                            name: "Art",
+                            description: "The preview image for the Hazmat Cooler Backpack no longer shows the Nuka-Cola Backpack when inspecting the item in menus.",
+                        },
+                        {
+                            category: "Bugfix,Visual",
+                            name: "Art",
+                            description: "The Red Rocket Ranger Power Armor torso no longer clips through other Power Armor arm pieces.",
+                        },
+                        {
+                            category: "Bugfix,Sound",
+                            name: "Effects",
+                            description: "Visual and sound effects no longer persist after destroying the Ring of Fire Pit.",
+                        },
+                        {
+                            category: "Bugfix,C.A.M.P.",
+                            name: "Containers",
+                            description: "Fixed an issue preventing items from being assigned to Fermenters, Vending Machines, Kegs, Punch Bowls, and Refrigerators while at max C.A.M.P. budget.",
+                        },
+                        {
+                            category: "Bugfix,C.A.M.P.,Exploit",
+                            name: "Exploit",
+                            description: "Addressed a C.A.M.P. budget exploit related to the Circus Cage.",
+                        },
+                        {
+                            category: "Bugfix,C.A.M.P.",
+                            name: "Grain Silo",
+                            description: "Fixed an issue allowing the Grain Silo to be placed floating in the air.",
+                        },
+                        {
+                            category: "Bugfix,C.A.M.P.,UI,Atomic Shop,Fallout 1st",
+                            name: "Modify",
+                            description: "The \"Replace\" option in the Modify menu no-longer shows non-buildable Atomic Shop, Fallout 1st, and Gold Bullion<br>objects when building in a teammate’s C.A.M.P. or Workshop.",
+                        },
+                        {
+                            category: "Bugfix,C.A.M.P.",
+                            name: "Punji Boards",
+                            description: "Can no longer be stacked on top of each other.",
+                        },
+                        {
+                            category: "Bugfix,C.A.M.P.",
+                            name: "Red Rocket Garage Door",
+                            description: "Fixed an issue causing the Red Rocket Garage Door to be replaced by an incorrect and non-functional item.",
+                        },
+                        {
+                            category: "Bugfix,C.A.M.P.",
+                            name: "Seedy Shed",
+                            description: "Allies and Collectrons can now enter and exit the Seedy Shed more easily.",
+                        },
+                        {
+                            category: "Bugfix,C.A.M.P.,Fallout 1st",
+                            name: "Survival Tent",
+                            description: "The no-build area around a Survival Tent no longer remains in the world after the Tent owner logs out or switches worlds.",
+                        },
+                        {
+                            category: "Bugfix,C.A.M.P.",
+                            name: "Turrets",
+                            description: "Fixed an issue causing Turrets that have been destroyed and then repaired to have a significant delay when engaging enemies.",
+                        },
+                        {
+                            category: "Bugfix,Challenge",
+                            name: "General",
+                            description: "Fixed an issue that could cause Daily and Weekly Challenges to complete themselves automatically.",
+                        },
+                        {
+                            category: "Challenge",
+                            name: "Social",
+                            description: "Added “Dabney Homestead” as a subchallenge for the “Claim Different Workshops” Challenge.",
+                        },
+                        {
+                            category: "Challenge",
+                            name: "World",
+                            description: "Added “Campfire Tales,” “Free Range,” and “Project Paradise” as subchallenges for the “Complete Different Events” Challenge.",
+                        },
+                        {
+                            category: "Challenge",
+                            name: "World",
+                            description: "emoved “The Battle that Never Was” from the subchallenges for the “Complete Different Events” Challenge.",
+                        },
+                        {
+                            category: "Challenge",
+                            name: "World",
+                            description: "Added “The Importance of Communication,” “Photo Opportunity,” “Retirement Plan,” and “Vital Equipment”<br>as subchallenges for the “Complete Different Daily Quests” Challenge.",
+                        },
+                        {
+                            category: "Bugfix,Exploit",
+                            name: "Exploit",
+                            description: "Addressed an issue that could result in a player becoming invulnerable after dying under very specific circumstances.",
+                        },
+                        {
+                            category: "Bugfix,Items",
+                            name: "VATS",
+                            description: "Charging weapons, like Gauss weapons or the Bow, now correctly deal damage based on how much they were charged when fired in VATS.",
+                        },
+                        {
+                            category: "Bugfix",
+                            name: "Scorchbeasts",
+                            description: "Can no longer be turned into Ash or Goo Piles on death.",
+                        },
+                        {
+                            category: "Balance",
+                            name: "Wendigo Colossus",
+                            description: "The Wendigo Colossus now has a flat 10% chance to spawn when nuking one of its potential spawn locations.",
+                        },
+                        {
+                            category: "Bugfix,Items",
+                            name: "Armor",
+                            description: "Mods can now be correctly applied to Robot Armor arm pieces.",
+                        },
+                        {
+                            category: "Bugfix,Items",
+                            name: "Armor",
+                            description: "The Shadowed Mod can now be applied to all armor types.",
+                        },
+                        {
+                            category: "Bugfix,Items",
+                            name: "Backpacks",
+                            description: "The preview image for Backpacks crafted prior to Update 19 are no longer rotated incorrectly when inspecting them in menus.",
+                        },
+                        {
+                            category: "Bugfix,Items,NPC",
+                            name: "Berry Mentats",
+                            description: "Now correctly highlight quest-related NPCs, like Sol.",
+                        },
+                        {
+                            category: "Items,Balance",
+                            name: "Bow",
+                            description: "Standard Arrow range for the Bow and Compound Bow reduced to match all other Arrow types.",
+                        },
+                        {
+                            category: "Bugfix,Items",
+                            name: "Bow",
+                            description: "Bows and Crossbows with the Plasma Mod now correctly deal energy damage in addition to their normal damage.",
+                        },
+                        {
+                            category: "Bugfix,Items,UI",
+                            name: "Grognak’s Axe",
+                            description: "When modified with the Stanley Skin, Grognak’s Axe now correctly appears in Weapon Workbenches.",
+                        },
+                        {
+                            category: "Items,PvP",
+                            name: "Nuke Mines",
+                            description: "Radiation from Nuke Mines no longer affects friendly or neutral players.",
+                        },
+                        {
+                            category: "Bugfix,Items",
+                            name: "Outfits",
+                            description: "The Rootin’ Tootin’ Cowboy Outfit can now be crafted correctly using an Armor Workbench.",
+                        },
+                        {
+                            category: "Bugfix,Items",
+                            name: "Plasma Caster",
+                            description: "Players now learn to craft Ultracite Plasma Ammo after learning the Prime Receiver Plan for the Plasma Caster.",
+                        },
+                        {
+                            category: "Bugfix,Items",
+                            name: "Power Armor",
+                            description: "The Jetpack Power Armor Mod can no longer be applied to Ultracite Power Armor pieces other than the torso.",
+                        },
+                        {
+                            category: "Bugfix,Items",
+                            name: "Power Armor",
+                            description: "Placing a Fusion Core into a set of Power Armor no longer sometimes causes equipped Power Armor pieces to visually disappear from the Chassis.",
+                        },
+                        {
+                            category: "Bugfix,Items",
+                            name: "Underarmor",
+                            description: "Added a number of Mod Plans to the game for Secret Service Underarmor. Purchase them from Regs in Vault 79 using Gold Bullion.",
+                        },
+                        {
+                            category: "Mutation,PvP",
+                            name: "Electrically Charged",
+                            description: "Will no longer proc when attacked by another player outside of PVP.",
+                        },
+                        {
+                            category: "Bugfix,NPC,Daily Quest",
+                            name: "Allies",
+                            description: "Beckett now correctly offers Daily Quests after completing his main questline.",
+                        },
+                        {
+                            category: "Bugfix,NPC,Daily Quest",
+                            name: "Allies",
+                            description: "Fixed an issue that could prevent the Raider Punk from offering the player new Daily Quests.",
+                        },
+                        {
+                            category: "Bugfix,NPC",
+                            name: "Allies",
+                            description: "The message the appears when scrapping the Raider Punk’s Radio now correctly indicates that all of his equipped items will be removed.",
+                        },
+                        {
+                            category: "Bugfix,NPC",
+                            name: "Crater",
+                            description: "Fixed an issue that previously allowed enemies to target and attack Axel, Creed, and Rocksy in Crater.",
+                        },
+                        {
+                            category: "Bugfix,NPC",
+                            name: "Rocksy",
+                            description: "Is now stationary and can always be found leaning against the School Bus in Crater.",
+                        },
+                        {
+                            category: "Bugfix,NPC",
+                            name: "Smiley",
+                            description: "No longer accepts Caps from players attempting to purchase additional Gold Bullion after they have already reached the Gold Bullion limit.",
+                        },
+                        {
+                            category: "Bugfix,NPC",
+                            name: "Ward",
+                            description: "Is now stationary and can now always be found sitting behind his desk in the trailer in Foundation.",
+                        },
+                        {
+                            category: "Bugfix,NPC",
+                            name: "Wren",
+                            description: "Is now stationary and can always be found at her console in Crater.",
+                        },
+                        {
+                            category: "Bugfix,Stability",
+                            name: "Client Stability",
+                            description: "Addressed a client crash that could occur when the player was loading into an area with NPCs.",
+                        },
+                        {
+                            category: "Bugfix,Stability",
+                            name: "Client Stability",
+                            description: "Addressed a client crash related to the Pip-Boy inventory.",
+                        },
+                        {
+                            category: "Bugfix,Stability",
+                            name: "Client Stability",
+                            description: "Fixed a client crash that could occur in Nuclear Winter when loading into a completely full match.",
+                        },
+                        {
+                            category: "Bugfix,Stability",
+                            name: "Server Stability",
+                            description: "Addressed a server crash that could occur when modifying equipped items in the inventory.",
+                        },
+                        {
+                            category: "Bugfix,Stability",
+                            name: "Server Stability",
+                            description: "Addressed a server crash related to pathing.",
+                        },
+                        {
+                            category: "Bugfix,Stability",
+                            name: "Server Stability",
+                            description: "Addressed an issue that could sometimes result in a server crash when multiple explosion effects were present at once.",
+                        },
+                        {
+                            category: "Bugfix,Stability",
+                            name: "Server Stability",
+                            description: "Fixed a server crash related to projectiles.",
+                        },
+                        {
+                            category: "Bugfix,Stability",
+                            name: "Server Stability",
+                            description: "Addressed multiple server crashes that could occur during normal gameplay.",
+                        },
+                        {
+                            category: "Bugfix,Stability",
+                            name: "Server Stability",
+                            description: "Addressed a server crash related to inventory items that have legendary attributes.",
+                        },
+                        {
+                            category: "Bugfix,Stability",
+                            name: "Server Stability",
+                            description: "Addressed a crash that could occur when ending dialogue with an NPC.",
+                        },
+                        {
+                            category: "Bugfix,Stability",
+                            name: "Server Stability",
+                            description: "Addressed a server crash that could occur when loading into a cell.",
+                        },
+                        {
+                            category: "Bugfix,Perks",
+                            name: "Cannibal",
+                            description: "The Cannibal Perk no longer allows players to eat non-humanoid corpses.",
+                        },
+                        {
+                            category: "Bugfix,Perks",
+                            name: "Hard Bargain",
+                            description: "Now correctly reduces the Duchess’ prices at the Wayward.",
+                        },
+                        {
+                            category: "Bugfix,Perks",
+                            name: "Mysterious Stranger",
+                            description: "Fixed an issue where the Mysterious Stranger would sometimes not attack.",
+                        },
+                        {
+                            category: "Bugfix,Perks",
+                            name: "Perk Card Packs",
+                            description: "Fixed a bug preventing some Perk Cards from appearing in Perk Card Packs.",
+                        },
+                        {
+                            category: "Bugfix,Event",
+                            name: "AWOL Armaments",
+                            description: "Players are now correctly notified and removed from the event after leaving the event area.",
+                        },
+                        {
+                            category: "Bugfix,Main Quest",
+                            name: "Cheating Death",
+                            description: "The objective to “Speak with the Tracker” no longer re-appears when re-entering Carleton Mine after completing the instanced portion of the quest.",
+                        },
+                        {
+                            category: "Bugfix,Main Quest",
+                            name: "Fun and Games",
+                            description: "Moving to meet up with Ra-Ra too quickly after saving her from the second set of laser turrets<br>no longer sometimes causes her to become stuck or run in the wrong direction.",
+                        },
+                        {
+                            category: "Bugfix,Main Quest",
+                            name: "Hunter for Hire",
+                            description: "Choosing a dialogue option that has a SPECIAL check when speaking with Daniel no longer closes the conversation early.",
+                        },
+                        {
+                            category: "Bugfix,Main Quest",
+                            name: "Secrets Revealed",
+                            description: "Fixed an issue that could cause A.C. to become unresponsive under specific circumstances, which blocked quest progression.",
+                        },
+                        {
+                            category: "Bugfix,Main Quest",
+                            name: "Strange Bedfellows",
+                            description: "Players can now correctly select Aldridge’s [Charisma +8] dialogue option.",
+                        },
+                        {
+                            category: "Bugfix,Main Quest",
+                            name: "Strength in Numbers",
+                            description: "Now correctly awards Caps on completion in addition to its other rewards.",
+                        },
+                        {
+                            category: "Bugfix,Side Quest",
+                            name: "Thicker Than Water",
+                            description: "Beckett can no longer be lured out of Watoga Underground during the quest.",
+                        },
+                        {
+                            category: "Bugfix,Daily Quest",
+                            name: "Vital Equipment",
+                            description: "Choosing to donate the reward no longer skips the rest of the conversation with Ward.",
+                        },
+                        {
+                            category: "Bugfix,Sound",
+                            name: "Eyebots",
+                            description: "Now correctly play explosion sound effects when destroyed.",
+                        },
+                        {
+                            category: "Bugfix,Sound,C.A.M.P.",
+                            name: "Rustic Water Mill",
+                            description: "Sound effects no longer continue to play after the Rustic Water Mill has been destroyed.",
+                        },
+                        {
+                            category: "Bugfix,UI",
+                            name: "Containers",
+                            description: "Fixed an issue that could cause the Transfer button to be greyed out and unusable when attempting to access some containers.",
+                        },
+                        {
+                            category: "Bugfix,UI",
+                            name: "Controls",
+                            description: "Fixed an issue that could prevent PC players from using the mouse to equip and unequip Perk Cards.",
+                        },
+                        {
+                            category: "Bugfix,UI",
+                            name: "HUD",
+                            description: "Healing Rad damage (via Decontamination Shower, RadAway, etc.) no longer displays a positive number of Rads above the Health bar in the HUD.",
+                        },
+                        {
+                            category: "Bugfix,UI",
+                            name: "HUD",
+                            description: "The player’s health bar no longer overlaps the Power Armor HUD while the Pip-Boy is open.",
+                        },
+                        {
+                            category: "Bugfix,UI,NW",
+                            name: "Icons",
+                            description: "Player Icons awarded by Nuclear Winter Challenges now appear correctly in-game while equipped.",
+                        },
+                        {
+                            category: "Bugfix,UI,Items",
+                            name: "Item Naming",
+                            description: "Modifying a Combat Rifle no longer causes “Combat Rifle” to appear twice in the weapon’s name.",
+                        },
+                        {
+                            category: "Bugfix,UI",
+                            name: "Notifications",
+                            description: "The “You can’t do that while in Power Armor” notification now correctly appears when attempting to perform activities<br>that can’t be done in Power Armor, like playing musical instruments.",
+                        },
+                        {
+                            category: "Bugfix,UI",
+                            name: "Pip-Boy",
+                            description: "Quests now sort in alphabetical order in the Pip-Boy.",
+                        },
+                        {
+                            category: "Bugfix,UI",
+                            name: "Pip-Boy",
+                            description: "While affected by the Wendigo Colossus’s Fear ability, the Effects tab in the Pip-Boy now displays the description “Uncontrollable Fear.”",
+                        },
+                        {
+                            category: "Bugfix,UI",
+                            name: "Respawn",
+                            description: "Fixed an issue causing players to lose carry weight bonuses while dead, which could prevent them from respawning at locations other than Vault 76.",
+                        },
+                        {
+                            category: "Bugfix,UI",
+                            name: "Settings",
+                            description: "Changes players make to their Chat audio setting are now properly saved after restarting the game client.",
+                        },
+                        {
+                            category: "Bugfix,UI",
+                            name: "Teams",
+                            description: "A player who has been kicked from their team after dying in an instance will no longer load back into that team’s instance.",
+                        },
+                        {
+                            category: "Bugfix,Locations",
+                            name: "General",
+                            description: "Fixed multiple locations in the world where players could become stuck.",
+                        },
+                        {
+                            category: "Bugfix,Locations",
+                            name: "Random Encounters",
+                            description: "Addressed an issue that was causing random encounter objects like cooking stations, tents, etc., to suddenly disappear.",
+                        },
+                        {
+                            category: "Bugfix,NW,Exploit",
+                            name: "Exploit",
+                            description: "Addressed an exploit that could allow the player to become immune to taking damage from the Storm and from taking Rad damage.",
+                        },
+                        {
+                            category: "Bugfix,NW",
+                            name: "Localization",
+                            description: "Attempting to join Nuclear Winter while running a non-English version of the game no longer disconnects the player for having modified game files.",
+                        },
+                        {
+                            category: "Bugfix,NW,Perks",
+                            name: "Perks",
+                            description: "Fixed an issue causing attacks with the Overly Generous Perk Card equipped to deal less than the intended amount of Rad damage.",
+                        },
+                    ]
+                },
             ];
 
             var categoryToCount = {
@@ -2438,6 +2959,7 @@
                                 cll = rw.insertCell(rw.cells.length);
                                 cll.innerHTML = "<b style='font-size: 24;'>" + note.name + "</b>";
                                 cll.style.borderBottom = "1px dotted black";
+                                cll.vAlign = "top";
                                 
                                 if (note.description !== undefined) {
                                     cll.innerHTML += "<br><div style='font-size: 20; padding-left: 20px;'>" + note.description + "</div>";
