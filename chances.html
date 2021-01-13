@@ -95,6 +95,7 @@
                         <button id='SpecialAllMax2' title='Lists with Flags=all and Max&gt;1'>All/Max&gt;1</button>&nbsp;
                         <button id='SpecialAllMaxGlobal' title='Lists with flags=all and Max=Global value'>All/Max=Global</button>&nbsp;
                         <button id='SpecialFirst' title='Lists with flags=first-match-all-conditions'>First</button>&nbsp;
+                        <button id='SpecialFirstSub' title='Lists with flags=first-match-all-conditions and having sublists'>First+Sublist</button>&nbsp;
                         <button id='SpecialForEach' title='Lists with flags=for-each'>ForEach</button>&nbsp;
                         <button id='SpecialPickRandom' title='Lists with flags=not all and not for-each'>PickRandom</button>&nbsp;
                         <button id='SpecialListChanceNone' title='Lists which have Chance None nonzero'>ListChanceNone &gt; 0</button>&nbsp;
@@ -2090,10 +2091,10 @@
 
                 var entries = [];
                 var hasConditionChance = false;
-                var isEach = isFlagsEach(node.flags);
+                var isRandom = (node.flags & 126) == 0;
 
                 for (var entry of node.items) {
-                    if (entry.levelMatch && (!isEach || entry.conditionMatch)) {
+                    if (entry.levelMatch && (isRandom || entry.conditionMatch)) {
                         entries.push(entry);
                         hasConditionChance |= entry.conditionChance < 1;
                     }
@@ -2119,13 +2120,13 @@
                     return computeAllMany(entries, node.max, listSelfChance);
                 }
                 var rolls = 1;
-                if (isEach && parent !== undefined && parent.quantity > 1) {
+                if (!isRandom && parent !== undefined && parent.quantity > 1) {
                     rolls = parent.quantity;
                 }
-                if (hasConditionChance && isEach) {
+                if (hasConditionChance && !isRandom) {
                     return computeCombinatorialPick(entries, listSelfChance, rolls);
                 }
-                return computeUniformPick(entries, listSelfChance, rolls, isEach);
+                return computeUniformPick(entries, listSelfChance, rolls, !isRandom);
             }
 
             function computeCombinatorialPick(entries, listSelfChance, quantity) {
@@ -3407,6 +3408,28 @@
             document.getElementById("SpecialAllMax2").onclick = evt => doSpecialSearch(entry => isFlagsAll(entry.LVLF) && entry.LVMV > 1);
             document.getElementById("SpecialAllMaxGlobal").onclick = evt => doSpecialSearch(entry => isFlagsAll(entry.LVLF) && entry.LVMG !== undefined);
             document.getElementById("SpecialFirst").onclick = evt => doSpecialSearch(entry => isFlagsFirst(entry.LVLF));
+            document.getElementById("SpecialFirstSub").onclick = evt => doSpecialSearch(entry => {
+                if (isFlagsFirst(entry.LVLF)) {
+                    if (entry.Entries !== undefined) {
+                        for (var e of entry.Entries) {
+                            var sub = leveledLists[e.Object];
+                            if (sub) {
+                                if (sub.Conditions !== undefined) {
+                                    return true;
+                                }
+                                if (sub.Entries !== undefined) {
+                                    for (var se of sub.Entries) {
+                                        if (entry.Conditions !== undefined) {
+                                            return true;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                return false;
+            });
             document.getElementById("SpecialForEach").onclick = evt => doSpecialSearch(entry => isFlagsEach(entry.LVLF));
             document.getElementById("SpecialPickRandom").onclick = evt => doSpecialSearch(entry => !isFlagsAll(entry.LVLF) && !isFlagsEach(entry.LVLF) && !isFlagsFirst(entry.LVLF));
             document.getElementById("SpecialListChanceNone").onclick = evt => doSpecialSearch(entry => entry.LVCV > 0 || entry.LVCG !== undefined);
