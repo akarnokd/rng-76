@@ -1359,7 +1359,42 @@
                     speed: speedVFast,
                     damage: [1],
                     level: [20],
-                    mods: []
+                    mods: [
+                        {
+                            slot: "Bar",
+                            options: [
+                                {
+                                    name: "Standard"
+                                },
+                                {
+                                    name: "Dual",
+                                    damageMultPercent: 50
+                                },
+                                {
+                                    name: "Bow",
+                                    damageMultPercent: 25,
+                                    ignoreDRPercent: 10
+                                },
+                                {
+                                    name: "Long Bow"
+                                }
+                            ]
+                        },
+                        {
+                            slot: "Scope",
+                            options: [
+                                {
+                                    name: "Standard"
+                                },
+                                {
+                                    name: "Flame",
+                                    damageBallisticMultPercent: 20,
+                                    debuffViaMultiply: true,
+                                    addDamageFireLeveled: [ 10 ]
+                                }
+                            ]
+                        }
+                    ]
                 },
                 {
                     name: "Commie Whacker",
