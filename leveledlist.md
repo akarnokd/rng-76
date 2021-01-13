@@ -152,14 +152,14 @@ One complication is that if **bit 2** of the flag is set (called *use all* in to
 
 #### entry conditions
 
-The list entries can have their own conditions that determine if those entries should be considered at all. If an entry's
-condition doesn't pass, it will be ignored in the subsequent step.
+The evaluation time of the entry conditions depends on the list flags. Given the flag attribute `LVLF`, if **bit 1** is
+set (named *for each entry* in  tools), the condition is evaluated first and the game builds a pruned list. 
 
-Thus, the game builds a pruned list by removing any entries whose conditions don't pass.
+In any other list flag setting (basically, *use all* and *first entry where conditions match* modes), the entries are not pruned and once an entry has been picked, the condition is evaluated. If the condition is not met, depending on the flags, the processing is either resumed with the next entry or the list is considered empty. In principle, the outcome with or without pruning in these kinds of lists are the same.
 
 For example, given a list of 
 
-    [
+    [ // flags: 1, +for-each
        Entry1 (HasKeyword(K1) == 1),
        Entry2 ()
     ]
@@ -167,9 +167,20 @@ For example, given a list of
 - If keyword `K1` is not present on the subject/target, the pruned list will only hold `Entry2`. 
 - If `K1` is present, the pruned list will hold both `Entry1` and `Entry2`.
 
+However, if the list flag has **bit 1** clear
+
+    [
+        // flags: 0
+       Entry1 (HasKeyword(K1) == 1),
+       Entry2 ()
+    ]
+
+- If keyword `K1` is not present on the subject/target, there is a 50% chance `Entry1` is picked and the list is considered empty.
+- If `K1` is present, both `Entry1` and `Entry2` have 50% chance and the list will be always non-empty.
+
 ### 4. pick an entry or entries
 
-The evaluation of the pruned entry list can happen in multiple ways, depending on the flags associated with the leveled list.
+The evaluation of the (possibly pruned) entry list can happen in multiple ways, depending on the flags associated with the leveled list.
 
 The flag attribute `LVLF` is a bitfield indicating how to proceed.
 
@@ -177,7 +188,7 @@ Currently, 4 evaluation modes have been explored:
 
 #### **bit 2** is set
 
-If **bit 2** is set (named *all* in tools), every entry in the pruned list is consulted and collected up to be the result of this list.
+If **bit 2** is set (named *all* in tools), every entry in the list is consulted and collected up to be the result of this list.
 
 For this mode, the *maximum* attribute can limit the total number of the entries in the results. The *maximum* number is extracted from the
 
@@ -193,7 +204,7 @@ However, since each entry can have its `chanceNone` defined and non-zero, the ou
 - `LVOC` global value or
 - `LVOT` curve table where the indexer is the `LVOC` global value.
 
-Thus, for each entry in the pruned list, if a PRNG is rolled less than the entry's `chanceNone` percentage, the entry is ignored.
+Thus, for each entry in the list, if a PRNG is rolled less than the entry's `chanceNone` percentage, the entry is ignored.
 
 For example, given a list of
 
@@ -364,8 +375,9 @@ Thus, if an entry was picked uniform random before, a PRNG is rolled and if less
 
 #### **bit 1** is clear
 
-If **bit 1** is clear and if this list is embedded in another leveled list, the list itself is evaluated once, similar to the [**bit 1** set](#bit-1-is-set) case above,
-and the item quantities are multiplied by the parent leveled list referencing entry's quantity.
+If **bit 1** is clear, the list is *not pruned* based on entry condition. The list is evaluated once and an entry is picked at uniform random and its condition is evaluated. If the condition doesn't matches, the list is considered empty.
+
+If this list is embedded in another leveled list, the item quantities are multiplied by the parent leveled list referencing entry's quantity.
 
 Example:
 
@@ -407,11 +419,14 @@ Given the evaluation methods in the previous section, luckily, the drop chances 
 
 For the most part, conditions can be considered as pre-calculated. I.e., given a specific game state, the conditions and minimum level requirements
 on the leveled lists and entries can be pre-processed, thus a tree of leveled list can be pruned upfront so that the chance calculations
-only have to deal with present entries.
+only have to deal with present entries. 
 
 Therefore, an entry's chance information has only to consider its own `chanceNone` and, if it references another list, the chance that sublist evaluates to be empty itself, recursively applied if necessary.
 
 However, one complication comes from conditions, such as `GetRandomPercent`, where the condition has to be converted into a probability on the list or on the entry it uses. Effectively, such conditions can act as another `chanceNone` value, to be combined with the list's/entry's own `chanceNone` value.
+
+An exception to this is when the **bits 1..6** of the list's flag are set to zero (i.e., the list is not all, not for-each and not-first). In this case, the list is not pruned upfront and the conditions are evaluated after an entry has been picked at uniform random. In this case, the probability of the entry is zero if the condition doesn't match.
+
 
 Consequently, the probability a list itself is considered in the first place is:
 
@@ -916,7 +931,22 @@ for (var entry of entries) {
 return 1 - sum;
 ```
 
-Here, since the entries are chosen independently, the chance of an empty list is basically subtracting the sum of
+However, one has to consider **bit 1** of the flags too. If it is cleared, the list will have entries whose conditions have to be checked post entry pick, which will affect the apriori chance of the entry. If the conditions don't match, the aprioryChance will be zero. If the entry has `conditionChance < 1` , the `aprioriChance` has to be updated. 
+
+```javascript
+
+    entry.aprioriChance = (1 - entry.chanceNone) * uniformChance;
+
+    if ((flags & 1) == 0) {
+        if (!entry.conditionMatch) {
+            entry.aprioriChance = 0;
+        } else {
+            entry.aprioriChance *= entry.conditionChance;
+        }
+    }
+```
+
+Since the entries are chosen independently, the chance of an empty list is basically subtracting the sum of
 overall entry chances from 1.
 
 For example, given the following list
@@ -980,7 +1010,7 @@ With 3 items to chose from:
 
 Again, if a bit is 1 multiply by the presence chance, if the bit is zero, multiply by the not present chance. Then divide each bit pattern by the number of 1 bits.
 
-Let's build the formula. We'll have to consider 2 to the power of the size of the pruned list:
+Let's build the formula. We'll have to consider 2 to the power of the size of the (pruned) list:
 
 ```javascript
 var n = entries.length;
