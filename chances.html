@@ -45,7 +45,7 @@
     </head>
     <body>
         <center>
-            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Drop Chances (0.3.8)</span><br/>
+            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Drop Chances (0.3.9)</span><br/>
             <a href='leveledlist' target='_blank'>How does it work?</a>
             <br/>
             <br/>
@@ -287,6 +287,65 @@
                 edids["AA000003"] = "MISCTest_Entry_3 Test Entry 3";
                 edids["AA000004"] = "MISCTest_Entry_4 Test Entry 4";
                 edids["AA000005"] = "MISCTest_Entry_5 Test Entry 5";
+
+                // Create test list for foreach+condition entries
+
+                leveledLists["A0000004"] = {
+                    LVLF: 3,
+                    Entries: [
+                        {
+                            Object: "AA000001"
+                        },
+                        {
+                            Object: "AA000002",
+                            Conditions: [
+                                {
+                                    "Operator": 0,
+                                    "Value": 1.0,
+                                    "Function": 4955,
+                                    "FunctionName": "HasEntitlement",
+                                    "Param1Ref": "005ACF95",
+                                    "Param1Value": 8.339661E-39,
+                                    "Param2Ref": "00000000",
+                                    "Param2Value": 0.0,
+                                    "RunOn": "Subject"
+                                }
+                            ]
+                        },
+                        {
+                            Object: "AA000003"
+                        }
+                    ]
+                };
+                leveledLists["A0000005"] = {
+                    LVLF: 0,
+                    Entries: [
+                        {
+                            Object: "AA000001"
+                        },
+                        {
+                            Object: "AA000002",
+                            Conditions: [
+                                {
+                                    "Operator": 0,
+                                    "Value": 1.0,
+                                    "Function": 4955,
+                                    "FunctionName": "HasEntitlement",
+                                    "Param1Ref": "005ACF95",
+                                    "Param1Value": 8.339661E-39,
+                                    "Param2Ref": "00000000",
+                                    "Param2Value": 0.0,
+                                    "RunOn": "Subject"
+                                }
+                            ]
+                        },
+                        {
+                            Object: "AA000003"
+                        }
+                    ]
+                }
+                edids["A0000004"] = "LVLITestList_A4 for-each + condition entries";
+                edids["A0000005"] = "LVLITestList_A4 one-random + condition entries";
             }
 
             function findMixedConditions() {
@@ -2031,9 +2090,10 @@
 
                 var entries = [];
                 var hasConditionChance = false;
+                var isEach = isFlagsEach(node.flags);
 
                 for (var entry of node.items) {
-                    if (entry.conditionMatch && entry.levelMatch) {
+                    if (entry.levelMatch && (!isEach || entry.conditionMatch)) {
                         entries.push(entry);
                         hasConditionChance |= entry.conditionChance < 1;
                     }
@@ -2059,13 +2119,13 @@
                     return computeAllMany(entries, node.max, listSelfChance);
                 }
                 var rolls = 1;
-                if (isFlagsEach(node.flags) && parent !== undefined && parent.quantity > 1) {
+                if (isEach && parent !== undefined && parent.quantity > 1) {
                     rolls = parent.quantity;
                 }
-                if (hasConditionChance) {
+                if (hasConditionChance && isEach) {
                     return computeCombinatorialPick(entries, listSelfChance, rolls);
                 }
-                return computeUniformPick(entries, listSelfChance, rolls);
+                return computeUniformPick(entries, listSelfChance, rolls, isEach);
             }
 
             function computeCombinatorialPick(entries, listSelfChance, quantity) {
@@ -2166,13 +2226,20 @@
                 return listSelfChance * empty / monteCarloCount + (1 - listSelfChance);
             }
 
-            function computeUniformPick(entries, listSelfChance, quantity) {
+            function computeUniformPick(entries, listSelfChance, quantity, isEach) {
                 var uniformChance = listSelfChance / entries.length;
                 var sum = 0;
 
                 for (var entry of entries) {
 
                     entry.apriori = (1 - entry.chanceNone) * uniformChance;
+                    if (!isEach) {
+                        if (!entry.conditionMatch) {
+                            entry.apriori = 0;
+                        } else {
+                            entry.aprioiry *= entry.conditionChance;
+                        }
+                    }
 
                     var sublistChance = getSublistChance(entry);
 
@@ -2498,15 +2565,16 @@
                             }
                         } else {
                             var rerolls = 1;
+                            var isEach = isFlagsEach(node.flags);
 
-                            if (isFlagsEach(node.flags) && parentEntry != null && parentEntry.quantity > 1) {
+                            if (isEach && parentEntry != null && parentEntry.quantity > 1) {
                                 rerolls = parentEntry.quantity;
                             }
 
                             for (var i = 0; i < rerolls; i++) {
                                 var entriesToPickFrom = [];
                                 for (var entry of node.items) {
-                                    if (entry.levelMatch && entry.conditionMatch && simulateConditionRoll(entry)) {
+                                    if (entry.levelMatch && (!isEach || (entry.conditionMatch && simulateConditionRoll(entry)))) {
                                         entriesToPickFrom.push(entry);
                                     }
                                 }
@@ -2515,12 +2583,14 @@
                                     var pickIndex = Math.floor(entriesToPickFrom.length * Math.random());
                                     var pick = entriesToPickFrom[pickIndex];
                                     if (simulateChanceNoneRoll(pick)) {
-                                        if (pick.sublist === undefined) {
-                                            result.push(pick);
-                                        } else {
-                                            var subresult = simulateNode(pick.sublist, pick);
-                                            for (var subentry of subresult) {
-                                                result.push(subentry);
+                                        if (isEach || (pick.conditionMatch && simulateConditionRoll(pick))) {
+                                            if (pick.sublist === undefined) {
+                                                result.push(pick);
+                                            } else {
+                                                var subresult = simulateNode(pick.sublist, pick);
+                                                for (var subentry of subresult) {
+                                                    result.push(subentry);
+                                                }
                                             }
                                         }
                                     }
@@ -3384,7 +3454,7 @@
                 return false;
             });
             document.getElementById("SpecialBugged2").onclick = evt => doSpecialSearch(entry => {
-                if (entry.LVLF === 0 || entry.LVLF === 1) {
+                if (entry.LVLF === undefined || entry.LVLF === 0 || entry.LVLF === 1) {
                     if (entry.Entries !== undefined) {
                         for (var e of entry.Entries) {
                             if (e.Conditions !== undefined) {
