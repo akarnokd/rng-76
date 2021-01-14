@@ -57,6 +57,7 @@
                         <label><input type='checkbox' id='filterMutation' checked> Mutations <span id='mutationCount'></span></label>&nbsp;&nbsp;&nbsp;
                         <label><input type='checkbox' id='filterNPC' checked> NPCs <span id='npcCount'></span></label>&nbsp;&nbsp;&nbsp;
                         <label><input type='checkbox' id='filterPvP' checked> PvP <span id='pvpCount'></span></label>&nbsp;&nbsp;&nbsp;
+                        <label><input type='checkbox' id='filterSurvival' checked> Survival Mode <span id='survivalCount'></span></label>&nbsp;&nbsp;&nbsp;
                         <label><input type='checkbox' id='filterNW' checked> Nuclear Winter <span id='nwCount'></span></label>&nbsp;&nbsp;&nbsp;
                         <label><input type='checkbox' id='filterAtx' checked> Atomic Shop <span id='atxCount'></span></label>&nbsp;&nbsp;&nbsp;
                         <label><input type='checkbox' id='filterF1st' checked> Fallout 1st <span id='f1stCount'></span></label>
@@ -5521,8 +5522,8 @@
                     bethesda: "https://fallout.bethesda.net/en/article/4ZKOaWgcjj9ShSaduDeyI7/fallout-76-inside-the-vault-september-updates?utm_source=Community&utm_medium=Social&sf109189438=1",
                     notes: [
                         {
-                            category: "Other",
-                            name: "Survival Mode",
+                            category: "Survival",
+                            name: "Removal",
                             description: "Now, with Nuclear Winter offering its own unique competitive flavor and our biggest update yet on the horizon,<br>we have decided to disable the Survival Mode Beta on October 1.",
                         },
                     ]
@@ -6134,7 +6135,7 @@
                             description: "Display Cases are new C.A.M.P. objects that you can use to show off the Weapons, Magazines, Bobbleheads, and other items you’ve collected."
                         },
                         {
-                            category: "Locations,Atomic Shop",
+                            category: "Locations,Atomic Shop,Survival",
                             name: "Atomic Shop",
                             description: "A standee has been added to the Berkeley Springs Train Station that can be activated to visit the Atomic Shop while playing in an Adventure or Survival Mode world."
                         },
@@ -6339,7 +6340,7 @@
                             description: "Players can remain on the same screen when opening Perk Card Packs to open them more quickly."
                         },
                         {
-                            category: "Bugfix,Visual,NW",
+                            category: "Bugfix,Visual,NW,Survival",
                             name: "Animation",
                             description: "Stimpak animations no longer fail to play when returning to Adventure or Survival Mode after a Nuclear Winter match."
                         },
@@ -6599,12 +6600,12 @@
                             description: "Fixed an issue that could cause direction markers to appear incorrect in the Compass and on the Map after using an Emote."
                         },
                         {
-                            category: "Bugfix,UI",
+                            category: "Bugfix,UI,Survival",
                             name: "Survival Mode",
                             description: "The “Top 3” leaderboard widget has been removed from the Map in Survival Mode to match previous changes<br>that disabled Map highlights for the Top 3 ranked players in a Survival World."
                         },
                         {
-                            category: "Bugfix,UI",
+                            category: "Bugfix,UI,Survival",
                             name: "Survival Mode",
                             description: "Removed mention of Map highlights for the Top 3 ranked players on the Survival Mode More Info page."
                         },
@@ -6720,6 +6721,1164 @@
                         }
                     ]
                 },
+                {
+                    id: "P11A",
+                    patch: "11.5",
+                    descripton: "Meat Week and Bugfixes Update",
+                    date: ofDate(2019, 7, 1),
+                    reddit: "https://www.reddit.com/r/fo76/comments/ckp09c/fallout_76_patch_115_notes_august_1_2019/",
+                    bethesda: "https://fallout.bethesda.net/en/article/2KNOC09rmYSXpkBUPAUUvv/fallout-76-patch-11-5-notes-august-1-2019",
+                    notes: [
+                        {
+                            category: "Event",
+                            name: "New Seasonal Event: Meat Week",
+                            description: "Grahm is hosting a barbeque for all his human friends during the Meat Week Seasonal Event, and you’re invited!<br>However, he’s going to need a whole lot of meat and a few helping hands to make sure everyone has a great time and can eat their fill.",
+                            link: "https://fallout.fandom.com/wiki/Meat_Week",
+                        },
+                        {
+                            category: "Event",
+                            name: "Primal Cuts",
+                            description: "Join Primal Cuts events in different regions of Appalachia to take down Prime Beasts and gather some Prime Meat.<br>Primal Cuts events begin every 15 minutes in three regions of Appalachia at once.",
+                            link: "https://fallout.fandom.com/wiki/Primal_Cuts"
+                        },
+                        {
+                            category: "Event",
+                            name: "Grahm's Meat Cook",
+                            description: "To celebrate Meat Week, Grahm is hosting a Meat Cook for all his favorite humans every hour on the hour near Vault 76 in the Forest.<br>Help Grahm complete a variety of activities, like putting out fires, playing music, spinning meat spits, cleaning up after Chally, and more to help ensure his party is a hit.",
+                            link: "https://fallout.fandom.com/wiki/Grahm's_Meat-Cook"
+                        },                        
+                        {
+                            category: "Sound",
+                            name: "Radio",
+                            description: "The cover of “Ring of Fire” from the Nuclear Winter trailer has been added to the Appalachia Radio playlist.",
+                        },
+                        {
+                            category: "Bugfix,Visual,C.A.M.P.",
+                            name: "Animation",
+                            description: "The Cardinal Windchime now animates correctly when placed.",
+                        },
+                        {
+                            category: "Bugfix,Visual,Event",
+                            name: "Graphics",
+                            description: "Lightning visual effects that appear when activating Pylons during the Encryptid Event no longer appear on the player’s screen.",
+                        },
+                        {
+                            category: "Bugfix,Visual,Items",
+                            name: "Power Armor",
+                            description: "The Elder rank Brotherhood of Steel Power Armor Paint has received an updated paint job, featuring a more metallic finish.",
+                        },
+                        {
+                            category: "Bugfix,Visual,Items",
+                            name: "Power Armor",
+                            description: "Added an Officer insignia to the Officer rank Brotherhood of Steel Power Armor Paint.",
+                        },
+                        {
+                            category: "Bugfix,Visual",
+                            name: "Textures",
+                            description: "While wearing the Nuka Girl Rocketsuit, the character’s midriff no longer displays texture issues.",
+                        },
+                        {
+                            category: "Bugfix,C.A.M.P.",
+                            name: "Fertilizer Producers",
+                            description: "No longer consume more C.A.M.P. budget than intended.",
+                        },
+                        {
+                            category: "Bugfix,C.A.M.P.",
+                            name: "Billboard",
+                            description: "Lengthened the legs of the Billboard so they appear to sink into the ground when placed on sloped terrain.",
+                        },
+                        {
+                            category: "Bugfix,Items",
+                            name: "Headwear",
+                            description: "The Wasteland Trapper Mask now correctly offers resistance to environmental hazards.",
+                        },
+                        {
+                            category: "Bugfix,Items",
+                            name: "Minigun",
+                            description: "Applying the Chrome Plating Minigun Paint now correctly adds “Chrome” to the Minigun’s name in menus.",
+                        },
+                        {
+                            category: "Bugfix,Items",
+                            name: "Power Armor",
+                            description: "The Hellfire Power Armor Paint’s Headlamp no longer appears to the side of the helmet when activated.",
+                        },
+                        {
+                            category: "Bugfix,Items",
+                            name: "Power Armor",
+                            description: "Headlamp lights no longer appear near the player’s feet when using a Power Armor Paint in Adventure Mode that was unlocked by ranking-up in Nuclear Winter.",
+                        },
+                        {
+                            category: "Bugfix,Items",
+                            name: "Power Armor",
+                            description: "The Inspect menu now correctly displays the selected item when inspecting items equipped to a Power Armor Chassis.",
+                        },
+                        {
+                            category: "Bugfix,Items",
+                            name: "Power Armor",
+                            description: "Addressed a rare issue that could prevent a player from exiting Power Armor on level terrain.",
+                        },
+                        {
+                            category: "Bugfix,NW",
+                            name: "Enemies",
+                            description: "Fixed an issue that could cause a ghoul to spawn inside an inaccessible building in Sutton.",
+                        },
+                        {
+                            category: "Bugfix,NW,Perks,Items",
+                            name: "Weapons",
+                            description: "The Cowboy Perk now correctly increases Laser Auto Pistol damage when equipped.",
+                        },
+                        {
+                            category: "Bugfix,Stability",
+                            name: "Server Stability",
+                            description: "Implemented an improvement for server stability.",
+                        },
+                        {
+                            category: "Bugfix,Sound,C.A.M.P.",
+                            name: "Vending Machines",
+                            description: "Music will no longer play when attempting to access a Vending Machine that’s currently in use by another player.",
+                        },
+                        {
+                            category: "Bugfix,UI,Atomic Shop",
+                            name: "Atomic Shop",
+                            description: "Fixed an issue preventing PC players in China, Latin America, and Taiwan from purchasing Atoms.",
+                        },
+                        {
+                            category: "Bugfix,UI,Atomic Shop",
+                            name: "Atomic Shop",
+                            description: "On PC, the “Confirm” button that appears when inspecting an item in the Atomic Shop can now be clicked to purchase that item.",
+                        },
+                        {
+                            category: "Bugfix,UI,Atomic Shop",
+                            name: "Atomic Shop",
+                            description: "Fixed an issue that could prevent the Atomic Shop from visually updating when switching categories after entering<br>the Atomic Shop from locations other than the Main Menu.",
+                        },
+                        {
+                            category: "Bugfix,UI,C.A.M.P.",
+                            name: "Notifications",
+                            description: "When attempting to assign an item to a Vending Machine or Fermenter that is full, an error message will now appear to indicate that the item could not be assigned.",
+                        },
+                    ]
+                },
+                {
+                    id: "P11A",
+                    patch: "11-A",
+                    descripton: "Hotfix",
+                    date: ofDate(2019, 6, 25),
+                    reddit: "https://www.reddit.com/r/fo76/comments/cho7dn/fallout_76_hotfix_notes_july_25_2019/",
+                    bethesda: "https://fallout.bethesda.net/en/article/6kxcGxeZ63Uxx8LqEYFIc3/fallout-76-hotfix-notes-july-25-2019",
+                    notes: [
+                        {
+                            category: "Balance,Survival",
+                            name: "Scoreboards",
+                            description: "Players ranked in the Top 3 on the Scoreboards are no longer highlighted on the Map.<br>The Scoreboards will remain in-place so that players can check their stats and rankings, but the Map can no longer be used to track the positions of the Top 3.",
+                        },
+                        {
+                            category: "Balance,Survival",
+                            name: "Weapon Damage",
+                            description: "Survival Mode PVP damage bonus multipliers have been removed so that base weapon damage more closely matches Adventure Mode.",
+                        },
+                        {
+                            category: "Balance,Survival",
+                            name: "Weapon Damage",
+                            description: "Non-base-weapon damage bonuses have been reduced to create more balanced engagements that are less dependent on specific builds.",
+                        },
+                        {
+                            category: "Balance,Survival,PvP",
+                            name: "Weapon Damage",
+                            description: "The maximum damage per shot that can be dealt by weapons in PVP has been reduced.",
+                        },
+                        {
+                            category: "Bugfix,UI",
+                            name: "Controls",
+                            description: "Addressed an issue that could cause the game controls to become unresponsive when entering Power Armor from the front.",
+                        },
+                        {
+                            category: "Bugfix,UI,NW",
+                            name: "Controls",
+                            description: "Addressed an issue that could cause Power Armor to become unresponsive when returning to Adventure Mode from Nuclear Winter.",
+                        },
+                        {
+                            category: "Bugfix,Stability",
+                            name: "Client Stability",
+                            description: "Addressed an issue that could cause a player wearing Power Armor to crash when Fast Traveling to a teammate.",
+                        },
+                        {
+                            category: "Bugfix,Stability",
+                            name: "Server Stability",
+                            description: "Addressed a pair of issues that could cause a server to crash during a Nuclear Winter match.",
+                        },
+                        {
+                            category: "Bugfix,UI",
+                            name: "Enemies",
+                            description: "Fixed an issue that could cause non-legendary creatures to display “Legendary” in their names.",
+                        },
+                        {
+                            category: "Bugfix,UI,Event",
+                            name: "Events",
+                            description: "Fixed an issue that could prevent rewards from being displayed on-screen after completing an Event.",
+                        },
+                        {
+                            category: "Bugfix,UI,Items",
+                            name: "Power Armor",
+                            description: "Pieces of Power Armor that the player has renamed no longer lose their custom names when they are recalled to the player’s inventory.",
+                        },
+                    ]
+                },
+                {
+                    id: "P11",
+                    patch: "11",
+                    descripton: "Balance and Bugfix Update",
+                    date: ofDate(2019, 6, 16),
+                    reddit: "https://www.reddit.com/r/fo76/comments/cdxj6g/fallout_76_patch_11_notes_july_16_2019/",
+                    bethesda: "https://fallout.bethesda.net/en/article/6XdkW9ENbXzmFb0qDadc4D/fallout-76-patch-11-notes-july-16-2019",
+                    notes: [
+                        {
+                            category: "Bugfix,Items,Performance",
+                            name: "Power Armor Improvements",
+                            description: "We’ve reworked the underlying systems behind Power Armor to address a ton of Power Armor related bugs, improve performance,<br>and help the entire system function more smoothly overall.",
+                        },
+                        {
+                            category: "Items,Other",
+                            name: "Power Armor one-time side effects",
+                            description: "Power Armor pieces may have been unequipped from Power Armor Chassis you own and moved from your Stash to your inventory, or vice versa.<br>You will need to re-equip those pieces after logging in.",
+                        },
+                        {
+                            category: "Items,Other",
+                            name: "Power Armor one-time side effects",
+                            description: "Some players may receive an extra Power Armor chassis or extra Power Armor pieces in their inventory or Stash that weren’t present prior to Patch 11. <br>These are items that didn’t save correctly when you originally collected them, and the Power Armor improvements mentioned above have restored them.",
+                        },
+                        {
+                            category: "Items,Visual",
+                            name: "Power Armor",
+                            description: "A new animation plays upon entering Power Armor from a Power Armor Station.",
+                        },
+                        {
+                            category: "Atomic Shop,UI",
+                            name: "Featured Screen Rework",
+                            description: "he Atomic Shop’s Featured Screen has received a face lift. Many more items and offers will now appear at once,<br>making it easier to see the current set of featured items at a glance.",
+                        },
+                        {
+                            category: "Atomic Shop,UI",
+                            name: "Basic Repair Kits",
+                            description: "When purchasing Basic Repair Kits, players can now select which character they’d like to receive them.",
+                        },
+                        {
+                            category: "C.A.M.P.,Items",
+                            name: "Bulk Junk",
+                            description: "The “Scrap All Junk” option no longer automatically scraps Bulk Junk at Workbenches.<br>Bulk Junk will continue to be automatically scrapped for necessary components while Crafting or Repairing.",
+                        },
+                        {
+                            category: "C.A.M.P.",
+                            name: "Punch Bowl",
+                            description: "Party on! Players can once again add alcohol to, or drink alcohol from, Punch Bowls.",
+                        },
+                        {
+                            category: "C.A.M.P.,Items,Balance",
+                            name: "44 Pistol",
+                            description: "Nuclear Material has been replaced by Gears in the crafting requirements for all .44 Pistol mods except the Prime Receiver.",
+                        },
+                        {
+                            category: "C.A.M.P.,Items,Balance,Perks",
+                            name: "Ski Sword",
+                            description: "The crafting requirements for the Skate Mod have been reduced and the Makeshift Warrior Perk requirement has been removed.",
+                        },
+                        {
+                            category: "Performance,Items",
+                            name: "Loot",
+                            description: "Legendary items dropped as loot by a legendary enemy will now appear much quicker on that enemy’s corpse.",
+                        },
+                        {
+                            category: "Items",
+                            name: "Loot",
+                            description: "Deathclaws now have a chance to drop Deathclaw Hides on death."
+                        },
+                        {
+                            category: "Items",
+                            name: "Loot",
+                            description: "Acid can now drop as loot when killing Cave Crickets."
+                        },
+                        {
+                            category: "Locations",
+                            name: "Respawn",
+                            description: "Dying in an interior location, such as The Burrows, now automatically respawns players near where they entered that location in most cases."
+                        },
+                        {
+                            category: "Balance,Items",
+                            name: "Spoilage",
+                            description: "All raw Food items and Fluxes now last 50% longer before spoiling."
+                        },
+                        {
+                            category: "Balance,Items",
+                            name: "Spoilage",
+                            description: "Fast Traveling no longer causes Food and Drinks to take Condition loss."
+                        },
+                        {
+                            category: "Bugfix,Items",
+                            name: "Stealth Boys",
+                            description: "Can now be used while wearing Power Armor."
+                        },
+                        {
+                            category: "UI",
+                            name: "Combat",
+                            description: "A slight blurring effect now appears on screen when taking damage to better indicate that the character experiencing pain."
+                        },
+                        {
+                            category: "UI",
+                            name: "Item Descriptions",
+                            description: "Additional information is now displayed in the menus for Legendary items, Mods, and Recipes."
+                        },
+                        {
+                            category: "UI",
+                            name: "Instruments",
+                            description: "Players can now rotate the game camera while playing musical instruments."
+                        },
+                        {
+                            category: "UI",
+                            name: "Map",
+                            description: "Improved Map marker ordering and selection to help address how icons are highlighted when several markers overlap each other on the Map."
+                        },
+                        {
+                            category: "UI",
+                            name: "Purveyor",
+                            description: "Weapon and Armor model previews now appear in the Purveyor’s trade menu when browsing item categories."
+                        },
+                        {
+                            category: "UI",
+                            name: "Settings",
+                            description: "An \"Enable Power Armor HUD\" option has been added to the Display settings, which can be toggled to decide whether to display<br>the Power Armor HUD or the standard HUD while wearing Power Armor."
+                        },
+                        {
+                            category: "Balance",
+                            name: "Gameplay Improvements for New Players",
+                            description: "We’ve made a number of changes to the early-game to help Dwellers who are just stepping out of Vault 76 better adapt to life in the Wasteland."
+                        },
+                        {
+                            category: "Balance,C.A.M.P.",
+                            name: "C.A.M.P. Deployment",
+                            description: "Redeploying a camp shortly after a deployment no longer incurs a Caps penalty."
+                        },
+                        {
+                            category: "Balance,Challenge",
+                            name: "Challenges",
+                            description: "The rewards for many early-game Challenges have been reworked and now award items that will help a new player survive,<br>such as Aid, Weapons, Armor, and etc., instead of Atoms."
+                        },
+                        {
+                            category: "Balance",
+                            name: "Diseases",
+                            description: "Players must now be level 15 or higher to receive a disease."
+                        },
+                        {
+                            category: "Balance,Locations",
+                            name: "Enemies: Ash Heap",
+                            description: "The level range for creature spawns has been reduced from 15 – 35 to 15 – 20 in the following locations:<br>Belching Betty, Ashforge, and The Rusty Pick.<br><b>Note: enemy levels have been rebalanced since in Patch 22: One Wasteland.</b>"
+                        },
+                        {
+                            category: "Balance,Locations",
+                            name: "Enemies: Savage Divide",
+                            description: "The level range for creature spawns has been reduced from 15 – 99 to 15 – 25 in the following locations:<br>Top of the World, Pleasant Valley Ski Resort, Pleasant Valley Cabins, Pleasant Valley Train Station, NAR Regional, Fissure Site Tau,<br>Cliffwatch, South Cutthroat Camp, and Beckwith Farm.<br><b>Note: enemy levels have been rebalanced since in Patch 22: One Wasteland.</b>"
+                        },
+                        {
+                            category: "Balance,Locations",
+                            name: "Enemies: Toxic Valley",
+                            description: "The level range for creature spawns has been reduced from 10 - 25 to 10 – 15 in the following locations:<br>Cobbleton Farm, Becker Farm, Grafton, Clarksburg, Eastern Regional Pen, and Smith Farm.<br><b>Note: enemy levels have been rebalanced since in Patch 22: One Wasteland.</b>"
+                        },
+                        {
+                            category: "Balance,Event",
+                            name: "Fertile Soil",
+                            description: "Fertile Soil now triggers in a smaller area and is confined to the Vault-Tec Agricultural Research Center."
+                        },
+                        {
+                            category: "Balance,Locations",
+                            name: "Fast Travel",
+                            description: "Cap costs when Fast Traveling have been reduced for players under level 25."
+                        },
+                        {
+                            category: "Balance,Items,Misc Quest",
+                            name: "Holotapes",
+                            description: "Government Supply Requisition Holotapes will no longer spawn in Flatwoods and cannot be looted by players who have not yet reached level 10 or higher."
+                        },
+                        {
+                            category: "Balance",
+                            name: "Random Encounters",
+                            description: "Removed a random encounter that could cause a large group of Level 5 Protectrons to spawn for low level players on the road to Flatwoods."
+                        },
+                        {
+                            category: "Balance,NW,Perks",
+                            name: "Frog Legs",
+                            description: "Jumping in rapid succession now temporarily reduces maximum jump height and requires a short rest to recuperate."
+                        },
+                        {
+                            category: "Balance,NW,Perks",
+                            name: "Master Perk Cards",
+                            description: "Select Master Perk Cards have received bonus damage reductions:<br>Commando Master, Heavy Gunner Master, Guerrilla Master, Rifleman Master, Shotgun Master, Demolition Expert"
+                        },
+                        {
+                            category: "Balance,NW,Items",
+                            name: "Explosive Weapons",
+                            description: "Greatly increased the damage that explosive weapons deal against C.A.M.P. objects and Structures."
+                        },
+                        {
+                            category: "Balance,NW,Items",
+                            name: "Laser Auto Pistol",
+                            description: "The Laser Auto pistol no longer fires multiple beams per shot."
+                        },
+                        {
+                            category: "Balance,NW,Items",
+                            name: "Scoped Hunting Rifle",
+                            description: "Reduced the size Scoped Hunting Rifle’s magazine from 5 to 1."
+                        },
+                        {
+                            category: "Bugfix,Locations",
+                            name: "Environment",
+                            description: "Fixed several locations where enemies could become stuck."
+                        },
+                        {
+                            category: "Bugfix,Locations",
+                            name: "Environment",
+                            description: "Adjusted a few objects that could clip into the terrain or other environment objects inside Abandoned Mine Shaft Elaine."
+                        },
+                        {
+                            category: "Bugfix,Locations",
+                            name: "Environment",
+                            description: "Adjusted objects in several locations where players could become stuck."
+                        },
+                        {
+                            category: "Bugfix,Locations",
+                            name: "Environment",
+                            description: "Fixed an issue that could cause a player to clip through a table in a garage in Sutton."
+                        },
+                        {
+                            category: "Bugfix,Locations",
+                            name: "Environment",
+                            description: "The security door latch on a shed across the street from Mama Dolce’s is no longer floating."
+                        },
+                        {
+                            category: "Bugfix,Visual",
+                            name: "Graphics",
+                            description: "Tracer rounds fired by a Hunting Rifle with the Scorched Killer’s mod now display the correct visual effects."
+                        },
+                        {
+                            category: "Bugfix,Visual",
+                            name: "Graphics",
+                            description: "The art for the Cannibal Perk no longer flickers when it is not actively being highlighted by the player in the Perk menu."
+                        },
+                        {
+                            category: "Bugfix,Visual",
+                            name: "Graphics",
+                            description: "Eyebots in the Arktos Pharma Biome Labs have received updated paint to match other bots in the area."
+                        },
+                        {
+                            category: "Bugfix,Visual",
+                            name: "Lighting",
+                            description: "Replaced a lightbulb above one of the bathroom stalls in Watoga High School."
+                        },
+                        {
+                            category: "Bugfix,C.A.M.P.",
+                            name: "Blueprints",
+                            description: "Fixed an issue that would cause some \"floating errors\" while trying to place a blueprint."
+                        },
+                        {
+                            category: "Bugfix,C.A.M.P.",
+                            name: "Blueprints",
+                            description: "Addressed a rare issue that could prevent the player from building in their C.A.M.P."
+                        },
+                        {
+                            category: "Bugfix,C.A.M.P.",
+                            name: "Blueprints",
+                            description: "C.A.M.P and Workshop Blueprints names are now sorted alphabetically in the list."
+                        },
+                        {
+                            category: "Bugfix,C.A.M.P.,Atomic Shop",
+                            name: "Cooking Stove",
+                            description: "The Red Enamel variant of the Cooking Stove now correctly indicates that it is an Atomic Shop item in the Build Menu."
+                        },
+                        {
+                            category: "Bugfix,C.A.M.P.,Locations,Exploit",
+                            name: "Exploit",
+                            description: "Addressed an exploit allowing players to place a C.A.M.P. in an unintended area in Charleston."
+                        },
+                        {
+                            category: "Bugfix,C.A.M.P.",
+                            name: "Fasnacht Objects",
+                            description: "Adjusted several Fasnacht-themed C.A.M.P. objects to reduce instances that could result in clipping."
+                        },
+                        {
+                            category: "Bugfix,C.A.M.P.",
+                            name: "Foundations",
+                            description: "Can no longer be placed entirely underground."
+                        },
+                        {
+                            category: "Bugfix,C.A.M.P.",
+                            name: "Foundations",
+                            description: "Fixed several issues related to Foundations that could result in errors like \"Part of this structure would be inaccessible\"."
+                        },
+                        {
+                            category: "Bugfix,C.A.M.P.",
+                            name: "Keypads",
+                            description: "Fixed an issue that would sometimes prevent certain keypads from being interactive."
+                        },
+                        {
+                            category: "Bugfix,C.A.M.P.",
+                            name: "Locks",
+                            description: "Players can now correctly change the Lockpicking difficulty of a locked object without needing to first remove the Lock."
+                        },
+                        {
+                            category: "Bugfix,C.A.M.P.,UI",
+                            name: "Modify",
+                            description: "Repeatedly selecting and deselecting objects in the Modify menu no longer sometimes causes the player to become stuck editing an object."
+                        },
+                        {
+                            category: "Bugfix,C.A.M.P.",
+                            name: "Radios",
+                            description: "Now play audio immediately after they are powered on."
+                        },
+                        {
+                            category: "Bugfix,C.A.M.P.",
+                            name: "Repair",
+                            description: "Pioneer Scout Posters and Banners can now be repaired."
+                        },
+                        {
+                            category: "Bugfix,C.A.M.P.",
+                            name: "Wall Décor",
+                            description: "Fixed an issue that could cause Wall Décor items to appear to float in certain situations."
+                        },
+                        {
+                            category: "Bugfix,C.A.M.P.",
+                            name: "Wall Décor",
+                            description: "Addressed an issue that could prevent objects from being placed on Walls correctly."
+                        },
+                        {
+                            category: "Bugfix,C.A.M.P.",
+                            name: "Walls",
+                            description: "Fixed a bug preventing to place a half-wall on top of another half-wall when it's placed on a foundation."
+                        },
+                        {
+                            category: "Bugfix,C.A.M.P.",
+                            name: "Waving Santa",
+                            description: "No longer continues to play sound effects after it has been toggled off or becomes unpowered."
+                        },
+                        {
+                            category: "Bugfix,C.A.M.P.",
+                            name: "Workshops",
+                            description: "Fixed an issue where resource amounts in the UI would not update after repairing a workshop item outside of build mode."
+                        },
+                        {
+                            category: "Bugfix,Challenge",
+                            name: "General",
+                            description: "To earn credit for Challenges that require players to kill creatures, like the \"Kill Different Types of Tough Enemies\" Challenge,<br>they no longer need to land the killing blow."
+                        },
+                        {
+                            category: "Bugfix,Challenge",
+                            name: "Combat",
+                            description: "The rewards displayed after completing the “Craft Some Ammo” challenge now correctly list “Gunpowder”."
+                        },
+                        {
+                            category: "Bugfix,Challenge",
+                            name: "World",
+                            description: "The Metalworker Possum Badge subchallenge “Visit New River Gorge” has been removed."
+                        },
+                        {
+                            category: "Bugfix,Challenge",
+                            name: "World",
+                            description: "Fixed an issue preventing several Musician Possum Badge subchallenges from completing correctly when playing various Instruments."
+                        },
+                        {
+                            category: "Bugfix,Challenge",
+                            name: "World",
+                            description: "Removed several Photographer Possum Badge subchallenges that were difficult to complete."
+                        },
+                        {
+                            category: "Bugfix,Challenge",
+                            name: "World",
+                            description: "Changed the word “Collect” to “Acquire” in the Collector Possum Badge subchallenge descriptions."
+                        },
+                        {
+                            category: "Bugfix",
+                            name: "A.I.",
+                            description: "Implemented an improvement to help reduce cases where creatures could become stuck in a non-responsive state."
+                        },
+                        {
+                            category: "Bugfix",
+                            name: "Anglers",
+                            description: "Fixed an issue that could cause Anglers to flee from players it could not reach rather than using its ranged attack."
+                        },
+                        {
+                            category: "Bugfix,Locations",
+                            name: "Robobrains",
+                            description: "Can no longer spawn stuck inside Protectron Pods in Atlas Observatory."
+                        },
+                        {
+                            category: "Bugfix",
+                            name: "Sentry Bots",
+                            description: "Legendary Sentry Bots no longer explode twice on death."
+                        },
+                        {
+                            category: "Bugfix",
+                            name: "Ticks",
+                            description: "Ticks no longer are full of blood of bloodless enemies or structures."
+                        },
+                        {
+                            category: "Bugfix,Items,Visual",
+                            name: "Bloodied",
+                            description: "Weapons with the Bloodied Legendary Mod now displayed the correct amount of damage in the Pip-Boy as the player takes or heals damage.<br>This was a visual issue and the Mod’s actual damage values have not been changed."
+                        },
+                        {
+                            category: "Bugfix,Items",
+                            name: "Brain Bombs",
+                            description: "Brain Bombs now correctly have a Condition bar and can spoil like other Food items."
+                        },
+                        {
+                            category: "Bugfix,Items,Exploit",
+                            name: "Exploit",
+                            description: "Addressed an exploit that could cause a Magazine or Bobblehead to become duplicated."
+                        },
+                        {
+                            category: "Bugfix,Exploit",
+                            name: "Exploit",
+                            description: "Addressed an exploit that could prevent the player from being killed by Radiation damage."
+                        },
+                        {
+                            category: "Bugfix,Items",
+                            name: "Gauss Rife",
+                            description: "The Shielded Barrel mod description now correctly states that it provides “Superior Range” when applied."
+                        },
+                        {
+                            category: "Balance,Items",
+                            name: "Handmade Rifle",
+                            description: "The Drum Magazine Mod for the Handmade rifle now correctly increases the Handmade Rifle’s ammo capacity by 50%,<br>which is consistent with Drum Magazine mods for other weapons."
+                        },
+                        {
+                            category: "Bugfix,Items",
+                            name: "Iguana Soup",
+                            description: "Iguana Bits are now required to craft Iguana Soup, rather than Squirrel Bits."
+                        },
+                        {
+                            category: "Bugfix,Items",
+                            name: "Marine Armor",
+                            description: "The recipe for the \"Dense Marine Armor Torso\" mod is now properly labeled."
+                        },
+                        {
+                            category: "Bugfix,Items",
+                            name: "Plasma Weapons",
+                            description: "Fixed an issue that could sometimes cause Plasma Weapon attacks to pass through a target without dealing damage."
+                        },
+                        {
+                            category: "Bugfix,Items",
+                            name: "Power Armor",
+                            description: "The Targeting HUD mod for X-01 Power Armor will no longer appear as an option in the Power Armor Station menu<br>if the player has not yet learned the required Plan."
+                        },
+                        {
+                            category: "Bugfix,Items",
+                            name: "Power Armor",
+                            description: "When the Stealth Boy Power Armor mod’s Stealth Field is active, its effect description in the Pip-Boy’s Effects tab<br>now correctly lists that it drains Action Points."
+                        },
+                        {
+                            category: "Bugfix,Items",
+                            name: "Power Armor",
+                            description: "Broken pieces of Armor will now remain equipped when exiting Power Armor."
+                        },
+                        {
+                            category: "Bugfix,Items",
+                            name: "Power Armor",
+                            description: "Repeatedly entering and exiting a set of Power Armor in a Power Armor Station no longer sometimes causes the player to become stuck in their Power Armor."
+                        },
+                        {
+                            category: "Bugfix,Items",
+                            name: "Power Armor",
+                            description: "Stimpaks can no longer be used if the player’s health is already full while wearing Power Armor."
+                        },
+                        {
+                            category: "Bugfix,Items",
+                            name: "ProSnap Deluxe Camera",
+                            description: "Fixed an issue that could prevent the player from transferring their Camera into their Stash."
+                        },
+                        {
+                            category: "Bugfix,Items",
+                            name: "Pump Action Shotguns",
+                            description: "Applying the Responder’s paint to a Pump Action Shotgun now correctly adds “Responder’s” to the weapon’s name."
+                        },
+                        {
+                            category: "Bugfix,Items,Locations",
+                            name: "Scorched Ashes",
+                            description: "Removed two piles of Scorched Ashes from the church in Helvetia that could be consumed but had no other function."
+                        },
+                        {
+                            category: "Bugfix,Items",
+                            name: "Ultracite Laser Gun",
+                            description: "No longer appears to fire Plasma projectiles after applying the Automatic mod."
+                        },
+                        {
+                            category: "Bugfix,Items",
+                            name: "Weapons",
+                            description: "Oil Spills can now be ignited by a wider variety of weapons."
+                        },
+                        {
+                            category: "Bugfix,Event",
+                            name: "Defend Monongah Power Plant",
+                            description: "Adjusted enemy spawns when defending the Monongah Power Plant Workshop so that attackers will approach from the outskirts of the Workshop."
+                        },
+                        {
+                            category: "Bugfix,Event",
+                            name: "Free Range",
+                            description: "Addressed several issues that could block Brahmin movement during the Free Range event."
+                        },
+                        {
+                            category: "Bugfix,Event",
+                            name: "Line in the Sand",
+                            description: "Scorched no longer begin attacking Allegheny Asylum before the event begins."
+                        },
+                        {
+                            category: "Bugfix,Event",
+                            name: "Line in the Sand",
+                            description: "Adjusted a Scorchbeast spawn location during the event."
+                        },
+                        {
+                            category: "Bugfix,Event",
+                            name: "Line in the Sand",
+                            description: "Scorched that are spawned during the event now more reliably receive quest objective markers."
+                        },
+                        {
+                            category: "Bugfix,Misc Quest,Locations",
+                            name: "Possum Junior Roboticist Tour",
+                            description: "Logging out before visiting the first tour stop no longer causes voiceover lines to replay when logging back in."
+                        },
+                        {
+                            category: "Bugfix,Event",
+                            name: "Project Paradise",
+                            description: "Fixed an issue causing enemies to spawn continuously during the Project Paradise Event."
+                        },
+                        {
+                            category: "Bugfix,Event",
+                            name: "Project Paradise",
+                            description: "Fixed an issue that could cause Moist Radkelp to persist indefinitely the player’s inventory after completing “Radkelp in Habitat C” objective."
+                        },
+                        {
+                            category: "Bugfix,Side Quest",
+                            name: "Safe for Work",
+                            description: "Removed a copy of the “Patrol 4: Medical Center” Holotape that did not work correctly."
+                        },
+                        {
+                            category: "Bugfix,Side Quest",
+                            name: "The Order of the Tadpole",
+                            description: "Fixed an issue that could prevent the player from restarting or completing the “Listen to Scout Leader Jaggy” objective<br>correctly if they died while Scout Leader Jaggy was speaking."
+                        },
+                        {
+                            category: "Bugfix,Misc Quest,Items",
+                            name: "Unsolved: Picnic Panic",
+                            description: "Removed an extra copy of Mary’s Diary Page."
+                        },
+                        {
+                            category: "Bugfix,Misc Quest,Items",
+                            name: "Unsolved: Picnic Panic",
+                            description: "Addressed issues that could result in lost Quest progress or duplicate Quest items."
+                        },
+                        {
+                            category: "Bugfix,Stability",
+                            name: "Loading",
+                            description: "Attempting to report a player while loading into a world no longer sometimes causes an infinite loading screen."
+                        },
+                        {
+                            category: "Bugfix,Performance",
+                            name: "Performance",
+                            description: "Reduced the time it takes to return to the Main Menu after leaving a world."
+                        },
+                        {
+                            category: "Bugfix,Performance,Items",
+                            name: "Performance",
+                            description: "Addressed a performance issue relating to Quest items."
+                        },
+                        {
+                            category: "Bugfix,Perks",
+                            name: "Pain Train",
+                            description: "The effects of Pain Train no longer hit NPCs or creatures who are not hostile to the player."
+                        },
+                        {
+                            category: "Bugfix,Sound",
+                            name: "Frog Jar",
+                            description: "Attempting to interact with an empty Frog Jar in the player’s inventory no longer cause frog sound effects to play."
+                        },
+                        {
+                            category: "Bugfix,Sound",
+                            name: "Gunfire",
+                            description: "Fixed an issue in all game modes that could cause gunfire sound effects to loop endlessly."
+                        },
+                        {
+                            category: "Bugfix,Sound",
+                            name: "Legendary Exchange Machine",
+                            description: "Reduced the volume of Legendary Exchange Machine sound effects."
+                        },
+                        {
+                            category: "Bugfix,Sound,Side Quest",
+                            name: "Pioneer Scouts Swimming Test",
+                            description: "Voiceover processing has been added to the Swimming Instructor’s line that plays when the player attempts the test without a swimsuit."
+                        },
+                        {
+                            category: "Bugfix,Sound,Side Quest",
+                            name: "Scout Leader Jaggy",
+                            description: "Voiceover processing has been added to Scout Leader Jaggy’s first line of dialogue."
+                        },
+                        {
+                            category: "Bugfix,Sound,Items",
+                            name: "Weapon Impacts",
+                            description: "The Rolling Pin, Bone Club, and Ski Sword now play sound effects that more closely match their weapon types when striking enemies."
+                        },
+                        {
+                            category: "Bugfix,Sound",
+                            name: "Workbenches",
+                            description: "Tinker’s and Brewing Workbenches no longer play sound effects endlessly if the Workbench owner leaves the world while it’s being used by another player."
+                        },
+                        {
+                            category: "Bugfix,UI",
+                            name: "General",
+                            description: "Fixed typos across several areas of the game."
+                        },
+                        {
+                            category: "Bugfix,UI,Atomic Shop",
+                            name: "Atomic Shop",
+                            description: "The Atomic Shop’s top navigation bar no longer remains visible behind the purchase confirmation screen when purchasing Atoms."
+                        },
+                        {
+                            category: "Bugfix,UI,Atomic Shop,XBox",
+                            name: "Atomic Shop",
+                            description: "On Xbox, the left-hand category list no longer displays incorrectly after scrolling to the bottom of the list and then back up."
+                        },
+                        {
+                            category: "Bugfix,UI,Atomic Shop",
+                            name: "Atomic Shop",
+                            description: "Fixed an issue where the \"Need Atoms\" prompt in the Atomic Shop could remain visible when trying to back out of the prompt."
+                        },
+                        {
+                            category: "Bugfix,UI",
+                            name: "Change Appearance",
+                            description: "Addressed an issue preventing skin color from applying to a character's face in the Change Appearance menu."
+                        },
+                        {
+                            category: "Bugfix,UI",
+                            name: "Combat",
+                            description: "Using the Quick Swap button now more consistently switches to an alternate weapon, and no longer swaps to broken or unusable weapons."
+                        },
+                        {
+                            category: "Bugfix,UI",
+                            name: "Combat",
+                            description: "Damage indicators now appear on-screen when hit by a missile launcher, plasma gun, or other weapon projectiles."
+                        },
+                        {
+                            category: "Bugfix,UI,Daily Quest",
+                            name: "Combat",
+                            description: "Hit markers will now correctly appear when damaging destructible objects, such as the Strangler Heart during the Heart of the Enemy Daily Quest."
+                        },
+                        {
+                            category: "Bugfix,UI,XBox,Survival",
+                            name: "Controls",
+                            description: "On Xbox, resetting the controls to default settings and then joining a Survival mode world no longer sometimes prevents<br>the player from accessing Containers or Workbenches."
+                        },
+                        {
+                            category: "Bugfix,UI",
+                            name: "Controls",
+                            description: "Fixed an issue that could cause the controls to become unresponsive when interacting with a Power Armor Station while sprinting with a ranged weapon equipped."
+                        },
+                        {
+                            category: "Bugfix,UI",
+                            name: "Dropped Loot",
+                            description: "The objective to “Retrieve your dropped loot” that appears on death now only completes once all dropped loot has been taken."
+                        },
+                        {
+                            category: "Bugfix,UI",
+                            name: "Fermenter",
+                            description: "Condition bars are no longer displayed on items that have been assigned to a Vending Machine when viewing the item list from a Fermenter."
+                        },
+                        {
+                            category: "Bugfix,UI,C.A.M.P.",
+                            name: "Fermenter",
+                            description: "Attempting to assign a fully fermented drink to the Fermenter no longer causes a C.A.M.P. budget-related error message to display."
+                        },
+                        {
+                            category: "Bugfix,UI",
+                            name: "HUD",
+                            description: "Removed a series of dashes that could appear in the top-left corner of the screen when playing in 16:10 resolutions."
+                        },
+                        {
+                            category: "Bugfix,UI",
+                            name: "Inspect",
+                            description: "Weapons that have alternate appearances from their base models, such as Enclave and Ultracite weapons, now display correctly in the Inspect menu."
+                        },
+                        {
+                            category: "Bugfix,UI",
+                            name: "Localization",
+                            description: "The word “Free!” is no longer truncated on free items in the Atomic Shop when running the game client in languages other than English."
+                        },
+                        {
+                            category: "Bugfix,UI",
+                            name: "Map",
+                            description: "Adjusted Wanted icons so they are less likely to prevent interactions with nearby Map markers."
+                        },
+                        {
+                            category: "Bugfix,UI",
+                            name: "Map",
+                            description: "A large Nuke Zone indicator will no longer appear over a normal Nuke Zone indicator on the Map after switching to Adventure mode from Nuclear Winter."
+                        },
+                        {
+                            category: "Bugfix,UI",
+                            name: "Pacifist Mode",
+                            description: "No longer appears enabled for characters below level 5 in Adventure Mode after playing a Nuclear Winter match."
+                        },
+                        {
+                            category: "Bugfix,UI,Daily Quest,C.A.M.P.",
+                            name: "Personal Terminal",
+                            description: "Fixed an issue that could prevent currently available Daily Quests from appearing under the Biv entry in the Personal Terminal."
+                        },
+                        {
+                            category: "Bugfix,UI,Items",
+                            name: "Pip-Boy",
+                            description: "Junk item component counts no longer display 0 in the Pip-Boy’s Component View after joining a world."
+                        },
+                        {
+                            category: "Bugfix,UI,C.A.M.P.",
+                            name: "Respawn",
+                            description: "Players can now correctly respawn at their C.A.M.P.s when they are overencumbered."
+                        },
+                        {
+                            category: "Bugfix,UI,Event,Main Quest,Side Quest,Misc Quest,Daily Quest",
+                            name: "Rewards",
+                            description: "Ammo and other items are no longer sometimes split into multiple entries in the rewards list that appears after completing a Quest or Event."
+                        },
+                        {
+                            category: "Bugfix,UI,Items",
+                            name: "Scrapping",
+                            description: "When choosing \"Scrap All Junk\" at a workbench, the component list is now sorted alphabetically."
+                        },
+                        {
+                            category: "Bugfix,UI",
+                            name: "Sorting",
+                            description: "Fixed an issue that prevented the sort-by-spoil option from working correctly in Container, Vendors, and Trade menus.<br>Additionally, the sort-by-spoil option now places the lowest-condition items at the top of the list, so it's easier to find items that are nearly expired."
+                        },
+                        {
+                            category: "Bugfix,UI",
+                            name: "Trade",
+                            description: "The “Requested” label now correctly displays in the Trade menu."
+                        },
+                        {
+                            category: "Bugfix,UI",
+                            name: "Tutorials",
+                            description: "The Brewing Station tutorial no longer reappears after disconnecting and logging back in."
+                        },
+                        {
+                            category: "Bugfix,UI",
+                            name: "Vending",
+                            description: "If a player buys the same type of item multiple times from another player’s Vending Machine, like stacks of .308 Ammo,the seller will now correctly receive<br> separate notifications displaying the amount sold each time, rather than the total amount sold across all of those transactions."
+                        },
+                        {
+                            category: "Bugfix,UI,C.A.M.P.",
+                            name: "Vending",
+                            description: "When using a Vending Machine, the items assigned to that machine now correctly sort to the top of the list."
+                        },
+                        {
+                            category: "Bugfix,UI,C.A.M.P.",
+                            name: "Vending",
+                            description: "Fixed an issue that could prevent players from scrolling through their inventory to mark additional items for sale in a Vending Machine."
+                        },
+                        {
+                            category: "Bugfix,UI,C.A.M.P.",
+                            name: "Vending",
+                            description: "Fix an issue where vending information is incorrectly cleared when the character is loaded."
+                        },
+                        {
+                            category: "Bugfix,UI,C.A.M.P.",
+                            name: "Vending",
+                            description: "Fixed an issue where sometimes players would remain in the player vending menu if the camp was moved or the vending machine was scrapped or stored."
+                        },
+                        {
+                            category: "Bugfix,NW,Visual",
+                            name: "Graphics",
+                            description: "Smoke visual effects in the Storm no longer move in the wrong direction the first time the play area constricts."
+                        },
+                        {
+                            category: "Bugfix,NW,Visual",
+                            name: "Graphics",
+                            description: "Fixed an issue that could prevent nuclear blast visual effects from appearing in third person view."
+                        },
+                        {
+                            category: "Bugfix,NW,Visual",
+                            name: "Graphics",
+                            description: "Clouds in the Storm no longer occasionally change colors or flicker."
+                        },
+                        {
+                            category: "Bugfix,NW,Visual",
+                            name: "Grass",
+                            description: "Now visually burns after the Storm passes over the player."
+                        },
+                        {
+                            category: "Bugfix,NW,C.A.M.P.",
+                            name: "Lamps",
+                            description: "When placed in players’ C.A.M.P.s, lamps can no longer be activated during Nuclear Winter matches."
+                        },
+                        {
+                            category: "Bugfix,NW,C.A.M.P.",
+                            name: "Statues",
+                            description: "Hero of the Wasteland Statues in players’ C.A.M.P.s can no longer be activated during Nuclear Winter matches."
+                        },
+                        {
+                            category: "Bugfix,NW,C.A.M.P.",
+                            name: "Turrets",
+                            description: "Can now correctly deal damage to enemy structures that were built using a Quick Kit."
+                        },
+                        {
+                            category: "Bugfix,NW",
+                            name: "Duffle Bags",
+                            description: "Players can now walk through Duffle Bags dropped by other players on death."
+                        },
+                        {
+                            category: "Bugfix,NW,Locations",
+                            name: "New River Gorge",
+                            description: "Adjusted objects in a location in New River Gorge where players could become stuck."
+                        },
+                        {
+                            category: "Bugfix,NW,Items",
+                            name: "Automatic Laser Rifles",
+                            description: "Automatic Laser Rifles now correctly benefit from Commando Perks rather than Rifleman Perks."
+                        },
+                        {
+                            category: "Bugfix,NW,Items",
+                            name: "Duffle Bags",
+                            description: "Players will now drop a duffle bag if disconnected."
+                        },
+                        {
+                            category: "Bugfix,NW,Items,Exploit",
+                            name: "Exploit",
+                            description: "Addressed an exploit affecting an issue of Grognak the Barbarian Magazine."
+                        },
+                        {
+                            category: "Bugfix,NW,Items",
+                            name: "Minigun",
+                            description: "The Shredder mod can no longer be used to damage or kill other characters during Nuclear Winter matches."
+                        },
+                        {
+                            category: "Bugfix,NW,Items",
+                            name: "Power Armor",
+                            description: "Adjusted a Power Armor spawn location at New River Gorge Resort to prevent a potential animation issue."
+                        },
+                        {
+                            category: "Bugfix,NW,Items",
+                            name: "Power Armor",
+                            description: "Players no longer sometimes appear to slide or float when entering Power Armor."
+                        },
+                        {
+                            category: "Bugfix,NW,Items",
+                            name: "Power Armor",
+                            description: "Addressed an issue that could cause certain Power Armor paints to be replaced by the War Rider paint during Nuclear Winter matches."
+                        },
+                        {
+                            category: "Bugfix,NW,Items",
+                            name: "Western Revolvers",
+                            description: "Fixed an issue that could cause a Scoped Western Revolver to incorrectly spawn as an unmodded Western Revolver."
+                        },
+                        {
+                            category: "Bugfix,NW,Stability",
+                            name: "Login",
+                            description: "Fixed an issue that could cause some players to become logged out after every Nuclear Winter match."
+                        },
+                        {
+                            category: "Bugfix,NW,Stability,C.A.M.P.",
+                            name: "Stability",
+                            description: "Addressed an issue that could cause players to become disconnected during Nuclear Winter matches when building in their C.A.M.P.s."
+                        },
+                        {
+                            category: "Bugfix,NW,Performance",
+                            name: "Performance",
+                            description: "Implemented an improvement affecting memory usage."
+                        },
+                        {
+                            category: "Bugfix,NW,Perks",
+                            name: "Bullet Shield",
+                            description: "No longer displays its bonus resistance notification every time the player fires a heavy weapon in Nuclear Winter."
+                        },
+                        {
+                            category: "Bugfix,NW,Perks",
+                            name: "Ground Pounder",
+                            description: "Fixed an issue causing Ground Pounder to not work with Automatic Combat Rifles."
+                        },
+                        {
+                            category: "Bugfix,NW,Perks",
+                            name: "Last Laugh",
+                            description: "Grenades dropped when a player with Last Laugh is downed can no longer damage the player that dropped them."
+                        },
+                        {
+                            category: "Bugfix,NW,Perks",
+                            name: "Lock Detector",
+                            description: "Has been renamed “Hack Detector” to reduce confusion about this Perk Card’s functionality."
+                        },
+                        {
+                            category: "Bugfix,NW,Sound",
+                            name: "Vault 51",
+                            description: "The volume of impact sound effects has been reduced for punches thrown by candidates inside Vault 51."
+                        },
+                        {
+                            category: "Bugfix,NW,UI,Exploit",
+                            name: "Exploit",
+                            description: "Addressed an exploit related to Reviving another player."
+                        },
+                        {
+                            category: "Bugfix,NW,UI",
+                            name: "Localization",
+                            description: "Fixed an issue that caused three-digit Overseer Ranks to display incorrectly in Chinese and Korean."
+                        },
+                        {
+                            category: "Bugfix,NW,UI",
+                            name: "Localization",
+                            description: "Fixed an issue in Chinese versions that would cause The Storm’s movement timer to display incorrectly while in Spectator mode."
+                        },
+                        {
+                            category: "Bugfix,NW,UI",
+                            name: "Match Summary",
+                            description: "Team Placement text no longer flickers when opening and closing the Spectator menu on the Match Summary screen."
+                        },
+                        {
+                            category: "Bugfix,NW,UI",
+                            name: "Match Summary",
+                            description: "Upcoming rewards are no longer missing icons on the match summary screen."
+                        },
+                        {
+                            category: "Bugfix,NW,UI",
+                            name: "Nameplates",
+                            description: "Enemy nameplates and health now only appear to players who have damaged them within the last 5 seconds."
+                        },
+                        {
+                            category: "Bugfix,NW,UI",
+                            name: "Nameplates",
+                            description: "Teammate nameplates will no longer follow players when they are spectating."
+                        },
+                        {
+                            category: "Bugfix,NW,UI",
+                            name: "Revive",
+                            description: "Fixed an issue that could cause a revive attempt to fail even though it appeared successful."
+                        },
+                        {
+                            category: "Bugfix,NW,UI",
+                            name: "Revive",
+                            description: "Fixed a rare issue where players could be revived with incorrect amounts of health."
+                        },
+                        {
+                            category: "Bugfix,NW,UI",
+                            name: "Select Deployment",
+                            description: "The \"Select Deployment Location\" button will no longer display after the spawn countdown timer concludes."
+                        },
+                        {
+                            category: "Bugfix,NW,UI,Playstation",
+                            name: "Social",
+                            description: "On PS4, disconnecting and reconnecting while queuing for a Nuclear Winter match no longer causes issues with sign in or Social Menu functionality."
+                        },
+                        {
+                            category: "Bugfix,NW,UI",
+                            name: "Sorting",
+                            description: "The sort-by-spoil option no longer incorrectly appears, and Aid items can now only be sorted by weight."
+                        },
+                        {
+                            category: "Bugfix,NW,UI",
+                            name: "Terminals",
+                            description: "Can no longer be activated in the same moment that the “Select Deployment Location” screen appears."
+                        },
+                    ]
+                },
             ];
 
             var categoryToCount = {
@@ -6754,6 +7913,7 @@
                 "Mutation" : "mutationCount",
                 "Daily Quest" : "dailyCount",
                 "NW" : "nwCount",
+                "Survival" : "survivalCount",
             };
 
             function filterByKeywords(note, keywords) {
@@ -6891,6 +8051,9 @@
                 }
                 if (get("filterNW").checked) {
                     filter.push("NW");
+                }
+                if (get("filterSurvival").checked) {
+                    filter.push("Survival");
                 }
                 if (get("filterBugExclude").checked) {
                     filterExclude.push("Bugfix");
