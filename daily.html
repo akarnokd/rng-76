@@ -5460,8 +5460,25 @@
                 {
                     validStart: ofDate(2021, 0, 21, 17),
                     validEnd: ofDate(2021, 0, 25, 17),
-                    title: "Double XP Weekend",
-                    options: []
+                    title: "Double XP &amp; Double Vendor Caps Weekend",
+                    options: [
+                        {
+                            name: "Vendors have double (2800) caps",
+                            offset: 0,
+                            period: 1,
+                            subchallenges: [
+                                {
+                                    name: "This is only for the duration of this event"
+                                },
+                                {
+                                    name: "All vendors have a shared pool of caps"
+                                },
+                                {
+                                    name: "You may need to wait for the 20 hour reset to happen"
+                                }
+                            ]
+                        }
+                    ]
                 },
                 createScripSurplus(ofDate(2021, 0, 28, 17), ofDate(2021, 1, 1, 17)),
                 {
