@@ -23,7 +23,7 @@
     <body>
         <center>
             <span style="font-size: 36px; font-weight: bold;">Fallout 76 Returning Player Here, What's Changed?</span><br/>
-            <span>(v0.6.0)</span>
+            <span>(v0.7.0)</span>
             <br/>
             <br/>
             <table>
@@ -84,7 +84,12 @@
                         <b title='Case insensitive, description of notes includes the text entered here.'>Filter descriptions:&nbsp;
                             <input id='keywordFilter' type="text" style='width: 250px;'></b>
                         &nbsp;&nbsp;&nbsp;
-                        <label><input type='checkbox' id='sortDate' checked> Sort by oldest first</label>
+                        Sort by: <select id='sorting'>
+                            <option value='SortByDateAsc'>Oldest First</option>
+                            <option value='SortByDateDesc'>Newest First</option>
+                            <option value='SortByNotesAsc'>Smaller notes first</option>
+                            <option value='SortByNotesDesc'>Larger notes first</option>
+                            </select>
                         &nbsp;&nbsp;&nbsp;
                         <a id='theLink' href="#" target="_blank">&#x2197; Link to these settings</a>
                         &nbsp;&nbsp;&nbsp;
@@ -1677,6 +1682,21 @@
                             category: "Bugfix,Locations,C.A.M.P.,Exploit",
                             name: "Fort Defiance",
                             description: "The No C.A.M.P. zone at Fort Defiance has been expanded to include the road in front of Allegheny Asylum<br>to resolve an exploit affecting enemy spawns during the Line in the Sand event."
+                        },
+                    ]
+                },
+                {
+                    id: "P21-B",
+                    patch: "21-B",
+                    descripton: "Console release of Patch 21-A",
+                    date: ofDate(2020, 7, 24),
+                    reddit: "https://www.reddit.com/r/fo76/comments/ic2o2p/link_pc_hotfix_notes_18th_august_2020_on/",
+                    bethesda: "https://fallout.bethesda.net/en/article/2uZWTGKr44jRhx8wuCaGU8/fallout-76-hotfix-notes-august-18-2020",
+                    notes: [
+                        {
+                            category: "Other,XBox,Playstation",
+                            name: "Patch",
+                            description: "Console release of Patch 21-A",
                         },
                     ]
                 },
@@ -11316,6 +11336,1546 @@
                         },
                     ]
                 },
+                {
+                    id: "P6",
+                    patch: "6",
+                    descripton: "Balance and Bugfix Update",
+                    date: ofDate(2019, 1, 19),
+                    reddit: "https://www.reddit.com/r/fo76/comments/asat8r/fallout_76_patch_notes_february_19_2019/",
+                    bethesda: "https://fallout.bethesda.net/en/article/21zDUJWJbcIyv2vKmvSSjB/fallout-76-patch-notes-february-19-2019",
+                    notes: [
+                        {
+                            category: "UI",
+                            name: "Server Maintenance",
+                            description: "As we work on world servers that have been running for a long time and hitting some lag issues, we’ll be performing maintenance<br>on those servers more frequently. You may receive an in-game message alerting you to this maintenance when it occurs,<br>and you may be asked to join another world.",
+                        },
+                        {
+                            category: "Balance,Items",
+                            name: "Power Armor",
+                            description: "The amount of springs required to craft and repair level 25, 35, and 45 Excavator Power Armor Legs has been significantly reduced.",
+                        },
+                        {
+                            category: "Balance,Items",
+                            name: "Weapons",
+                            description: "Flare Guns have been removed from the legendary weapon list, as they can’t benefit from legendary mods.",
+                        },
+                        {
+                            category: "Balance,C.A.M.P.",
+                            name: "Stash Limit",
+                            description: "The storage limit for the stash has been increased from 600 to 800 pounds.",
+                        },
+                        {
+                            category: "C.A.M.P.,UI",
+                            name: "C.A.M.P. Placement",
+                            description: "If a player’s current C.A.M.P. location is occupied upon joining a world, a message will now display which gives them option to stay<br>in the current world or attempt to join a new one.",
+                        },
+                        {
+                            category: "Balance,C.A.M.P.",
+                            name: "Workshops",
+                            description: "Players no longer need to interact with claimed Workshops directly to contest ownership, and Workshops can now be contested and<br>captured from anywhere within the build area.",
+                        },
+                        {
+                            category: "Balance",
+                            name: "Scorchbeasts",
+                            description: "ncreased the timer between successive Sonic Scream volleys to 10 seconds for Scorchbeasts and the Scorchbeast Queen<br>in order to reduce the frequency of these attacks.",
+                        },
+                        {
+                            category: "PvP,Sound",
+                            name: "Sound Effects",
+                            description: "Pulling the pin on a grenade to prime it before throwing now play audible sound effects for nearby players.",
+                        },
+                        {
+                            category: "Sound",
+                            name: "Map",
+                            description: "Sound effects now play when placing or moving custom Map markers.",
+                        },
+                        {
+                            category: "UI",
+                            name: "Player Icons",
+                            description: "Hovering over a player’s name on the Map will now display their current player icon.",
+                        },
+                        {
+                            category: "UI,C.A.M.P.",
+                            name: "Player Icons",
+                            description: "Hovering over an owned Workshop on the Map will now display the current owner’s player icon.",
+                        },
+                        {
+                            category: "UI,C.A.M.P.",
+                            name: "Turrets",
+                            description: "Viewing a Turret placed by another player in their C.A.M.P. or at a Workshop will now display the owner’s name and player icon in the Turret’s nameplate.",
+                        },
+                        {
+                            category: "UI",
+                            name: "Voice Chat",
+                            description: "The color of Voice Chat speaker icons on player nameplates now update based on that player’s current status:<br>Neutral players display a pale-yellow icon, Allies display gold, and Hostile and Wanted display red.",
+                        },
+                        {
+                            category: "Bugfix,Stability",
+                            name: "Loading",
+                            description: "Addressed an issue that could cause controls to lock up if the player opened the Pip-Boy immediately after encountering a loading screen.",
+                        },
+                        {
+                            category: "Bugfix,Stability",
+                            name: "Loading",
+                            description: "Fixed an issue that could cause the player to encounter an infinite loading screen if they quit to the main menu immediately after joining a world.",
+                        },
+                        {
+                            category: "Bugfix,Stability",
+                            name: "Loading",
+                            description: "Fixed an issue on PC that could result in an infinite loading screen if multiple players on a team joined a world simultaneously.",
+                        },
+                        {
+                            category: "Bugfix,Stability",
+                            name: "Loading",
+                            description: "Fixed an issue that could cause a player to encounter an infinite loading screen due to an inventory discrepancy.",
+                        },
+                        {
+                            category: "Bugfix,Performance",
+                            name: "Performance",
+                            description: "Addressed an issue that could cause hitching while scrapping items.",
+                        },
+                        {
+                            category: "Bugfix,Performance",
+                            name: "Performance",
+                            description: "Attempting to craft many items at very high speed will now result in a delay of up to 1 second between subsequent crafting attempts after the first few. <br>This was done to help improve server performance and should not affect normal crafting.",
+                        },
+                        {
+                            category: "Bugfix,Performance",
+                            name: "Performance",
+                            description: "Addressed an issue that could impact server performance when scrapping a large number of items in rapid succession.",
+                        },
+                        {
+                            category: "Bugfix,Performance",
+                            name: "Performance",
+                            description: "Addressed an issue that could cause reduced framerates when many players were firing weapons simultaneously in the same area.",
+                        },
+                        {
+                            category: "Bugfix,Stability",
+                            name: "Stability",
+                            description: "Addressed a crash that could occur when interacting with a Power Armor Station while wearing Power Armor.",
+                        },
+                        {
+                            category: "Bugfix,Visual",
+                            name: "Apparel",
+                            description: "Hair no longer clips through the Nuka-Girl Rocketsuit helmet.",
+                        },
+                        {
+                            category: "Bugfix,Visual",
+                            name: "Apparel",
+                            description: "Underarmor no longer remains visible while wearing the Silver Shroud costume.",
+                        },
+                        {
+                            category: "Bugfix,Visual",
+                            name: "Emotes",
+                            description: "Fixed an issue causing reduced framerates during the Snowball Fight! Emote’s animation.",
+                        },
+                        {
+                            category: "Bugfix,Visual",
+                            name: "Enemies",
+                            description: "Fixed an issue that could cause a second head to appear on a specific Scorched variant after decapitating it via headshot.",
+                        },
+                        {
+                            category: "Bugfix,Visual",
+                            name: "Graphics",
+                            description: "Switching outfits or weapons while the Chameleon mutation or legendary effect is active no longer causes those items to appear visible to other players.",
+                        },
+                        {
+                            category: "Bugfix,Visual",
+                            name: "Nuke Code Pieces",
+                            description: "Letters and Numbers displayed by Nuke Code Pieces will no longer appear misaligned on pickup.",
+                        },
+                        {
+                            category: "Bugfix,Visual,Perks",
+                            name: "Perks",
+                            description: "The throwing arc displayed by the Fire in the Hole perk now remains visible if the player moves while holding a fragmentation grenade.",
+                        },
+                        {
+                            category: "Bugfix,Visual",
+                            name: "Photomode",
+                            description: "Returning to first-person view after exiting Photomode with a ranged weapon equipped no longer causes the character model’s hands<br>to appear offset or dark graphic effects to appear onscreen.",
+                        },
+                        {
+                            category: "Bugfix,C.A.M.P.",
+                            name: "Blueprints",
+                            description: "Blueprints containing a mirror ball can now be placed correctly and no longer cause an “Object is floating.” error message to display.",
+                        },
+                        {
+                            category: "Bugfix,C.A.M.P.",
+                            name: "Blueprints",
+                            description: "Attempting to place a blueprint containing objects that have been placed on shelves no longer causes an “Object needs support” error message to display.",
+                        },
+                        {
+                            category: "Bugfix,C.A.M.P.",
+                            name: "Blueprints",
+                            description: "Blueprint names now support a maximum of 25 characters.",
+                        },
+                        {
+                            category: "Bugfix,C.A.M.P.",
+                            name: "Budget",
+                            description: "Tamed creatures no longer permanently consume C.A.M.P. budget after they are killed.",
+                        },
+                        {
+                            category: "Bugfix,C.A.M.P.",
+                            name: "C.A.M.P.",
+                            description: "Fixed an issue that could cause a C.A.M.P. dialog to display to a new character before they had placed their C.A.M.P. for the first time.",
+                        },
+                        {
+                            category: "Bugfix,C.A.M.P.",
+                            name: "Crafting",
+                            description: " Fixed an issue that could prevent items from being crafted or repaired despite having the required materials<br>if those materials were split between the inventory and stash.",
+                        },
+                        {
+                            category: "Bugfix,C.A.M.P.",
+                            name: "Crafting",
+                            description: "Players who have exceeded the absolute weight limit of 1,500 lbs plus their current maximum carry weight<br>are now correctly notified that they are unable to craft items while over the limit.",
+                        },
+                        {
+                            category: "Bugfix,C.A.M.P.,Exploit",
+                            name: "Exploit",
+                            description: "Addressed an exploit that could allow items to be duplicated when moving C.A.M.P. locations.",
+                        },
+                        {
+                            category: "Bugfix,C.A.M.P.,Exploit",
+                            name: "Exploit",
+                            description: "Addressed an exploit that could allow items to be duplicated if a blueprint failed to save properly.",
+                        },
+                        {
+                            category: "Bugfix,C.A.M.P.",
+                            name: "Recipes and Plans",
+                            description: "Fixed an issue that could prevent a player from crafting a Recipe or Plan they had previously learned.",
+                        },
+                        {
+                            category: "Bugfix,C.A.M.P.",
+                            name: "Scrapping",
+                            description: "Bleached Dogwood is now protected from autoscrapping when crafting. However, it can still be scrapped manually.",
+                        },
+                        {
+                            category: "Bugfix,C.A.M.P.",
+                            name: "Workbenches",
+                            description: "Attempting to place a Power Armor Station on a foundation in a structure that has multiple levels no longer<br>causes the station to be placed on the second floor.",
+                        },
+                        {
+                            category: "Bugfix,Items",
+                            name: "Scorchbeast Queen",
+                            description: "The Scorchbeast Queen can now correctly drop Plans from the full range of Ultracite Power Armor Mod Plans in her loot list,<br>and players now correctly receive a random roll from her loot list.",
+                        },
+                        {
+                            category: "Bugfix",
+                            name: "Mothman",
+                            description: "Fixed an issue in which Mothman would not leave the area when approached or respond to attacks.",
+                        },
+                        {
+                            category: "Bugfix,Items",
+                            name: "Apparel",
+                            description: "The Clean Clown Outfit now correctly counts toward completion of the \"Kill Wendigos\" side mission at Freddie's House of Scares.",
+                        },
+                        {
+                            category: "Bugfix,Items",
+                            name: "Apparel",
+                            description: "The Nuka-Girl Rocketsuit can no longer be equipped or unequipped while wearing Power Armor.",
+                        },
+                        {
+                            category: "Bugfix,Items",
+                            name: "Apparel",
+                            description: "The Nuka-Girl Rocketsuit outfit has been separated into two pieces - the body piece and the upper helmet.",
+                        },
+                        {
+                            category: "Bugfix,Items",
+                            name: "Armor",
+                            description: "The Punishing legendary effect no longer reflects “slap” damage dealt by another player. This should prevent cases where a player<br>wearing Punishing armor could become Wanted unintentionally due to reflected damage that killed their attacker.",
+                        },
+                        {
+                            category: "Bugfix,Items",
+                            name: "Armor",
+                            description: "Fixed an issue causing damage reflected by the Punishing legendary effect to be reduced based on the defending player’s resistances.",
+                        },
+                        {
+                            category: "Bugfix,Items",
+                            name: "Cap Containers",
+                            description: "Now award the correct number of Caps and no longer generate only 1 Cap as loot.",
+                        },
+                        {
+                            category: "Bugfix,Items,Exploit",
+                            name: "Exploit",
+                            description: "Removed an apparel Recipe that was not intended to be available in-game, as well as items created using that Recipe.",
+                        },
+                        {
+                            category: "Bugfix,Items",
+                            name: "Headlamps",
+                            description: "Removed an erroneously added Atomic Shop flag from all non-Mothman Power Armor Head Lamps.<br>Also added a separate red Mothman headlamp that works once Mothman Power Armor is equipped.",
+                        },
+                        {
+                            category: "Bugfix,Items",
+                            name: "Holotapes",
+                            description: "Choosing to stop a Holotape now correctly stops that Holotape from continuing to play.",
+                        },
+                        {
+                            category: "Bugfix,Items",
+                            name: "Mods",
+                            description: "Aiming down the sights after applying the Recon Sensors mod to a Power Armor helmet now correctly marks enemies on the compass.",
+                        },
+                        {
+                            category: "Bugfix,Items",
+                            name: "Power Armor",
+                            description: "Resistances are no longer incorrectly reduced when entering Power Armor while wearing Underarmor.",
+                        },
+                        {
+                            category: "Bugfix,Items",
+                            name: "Power Armor",
+                            description: "Now correctly prioritizes using the Fusion Core in the player’s inventory that has the least remaining charge, rather than selecting them at random.",
+                        },
+                        {
+                            category: "Bugfix,Items",
+                            name: "Power Armor",
+                            description: "Fixed an issue that could allow Power Armor pieces with Atomic Shop paints applied to be transferred into containers.",
+                        },
+                        {
+                            category: "Bugfix,Items",
+                            name: "Weapons",
+                            description: "The M79 Grenade Launcher and the Auto Grenade Launcher are now classified as heavy weapons, and correctly benefit<br>from all heavy weapons perks except Heavy Gunner, as they benefit from Demolitions Expert instead.",
+                        },
+                        {
+                            category: "Bugfix,Perks",
+                            name: "Last Laugh",
+                            description: "Explosive Bait is no longer dropped on death while the Last Laugh perk is equipped.",
+                        },
+                        {
+                            category: "Bugfix,Perks",
+                            name: "Martial Artist",
+                            description: "Now only applies its attack speed bonus to melee weapons and no longer incorrectly increases the Gatling Gun’s rate of fire.",
+                        },
+                        {
+                            category: "Bugfix,Perks",
+                            name: "Ricochet",
+                            description: "The Ricochet perk fanfare no longer displays repeatedly when its effects are triggered multiple times in quick succession.",
+                        },
+                        {
+                            category: "Bugfix,Perks",
+                            name: "Team Effects",
+                            description: "A team invite must be accepted, and a team formed, before team-based perks, such as Squad Maneuvers, will apply their team effects.",
+                        },
+                        {
+                            category: "Bugfix,PvP",
+                            name: "Respawn",
+                            description: "Being killed by a friend, selecting “Respawn”, and then using the Social Menu to respawn at a that friend’s location<br>no longer causes those players to remain hostile toward each other.",
+                        },
+                        {
+                            category: "Bugfix,UI,Event",
+                            name: "Quest Containers",
+                            description: "Non-quest items can no longer be transferred into the Feed the People and Path to Enlightenment event quest containers.",
+                        },
+                        {
+                            category: "Bugfix,Main Quest",
+                            name: "One of Us",
+                            description: "The Congressional Access Card is no longer lost if the player is disconnected or the server crashes.",
+                        },
+                        {
+                            category: "Bugfix,Survival,UI",
+                            name: "Addictions",
+                            description: "Fixed an issue which prevented Addictions currently affecting the character from displaying in the Pip-Boy’s Status menu.",
+                        },
+                        {
+                            category: "Bugfix,Survival",
+                            name: "Diseases",
+                            description: "Rad Worms now only increases radiation damage taken by 50%, and no longer incorrectly increases Mutation and other effects.",
+                        },
+                        {
+                            category: "Bugfix,Survival,Mutation",
+                            name: "Mutations",
+                            description: "Fixed an inconsistent interaction between the Class Freak, Barbarian, and Evasive perks that could cause them to stop functioning<br>while affected by the Herd Mentality mutation.",
+                        },
+                        {
+                            category: "Bugfix,Survival,Mutation",
+                            name: "Mutations",
+                            description: "The Healing Factor mutation no longer causes players to become invincible while in the downed state.",
+                        },
+                        {
+                            category: "Bugfix,UI,C.A.M.P.",
+                            name: "C.A.M.P.",
+                            description: "A player’s name will now correctly appear onscreen when viewing their C.A.M.P., even if that player is not nearby.",
+                        },
+                        {
+                            category: "Bugfix,UI",
+                            name: "Controls",
+                            description: "Plugging in a controller after launching Fallout 76 on PC using a keyboard and mouse no longer causes the button indicators<br>for interactable objects, like containers or workbenches, to disappear until the client is relaunched.",
+                        },
+                        {
+                            category: "Bugfix,UI",
+                            name: "Controls",
+                            description: "Pressing the Quick Swap key (Default: Left D-pad) after the current weapon breaks now correctly swaps to an alternate weapon.",
+                        },
+                        {
+                            category: "Bugfix,UI",
+                            name: "Crosshairs",
+                            description: "Fixed an issue causing crosshairs to expand and contract incorrectly for players running the game using 21:9 aspect ratios.",
+                        },
+                        {
+                            category: "Bugfix,UI",
+                            name: "Game Camera",
+                            description: "Changing the face preset in the Change Appearance menu outside of Vault 76 no longer causes<br>the camera to show an unintended angle in third-person view.",
+                        },
+                        {
+                            category: "Bugfix,UI",
+                            name: "Holotapes",
+                            description: "Attempting to play a blank terminal holotape no longer causes the Pip-Boy to display a blank screen.",
+                        },
+                        {
+                            category: "Bugfix,UI,Perks",
+                            name: "Localization",
+                            description: "“Perk Card Pack” text that displays when opening a new Perk Card Pack is now correctly localized in non-English versions of the game client.",
+                        },
+                        {
+                            category: "Bugfix,UI",
+                            name: "Map",
+                            description: "Fixed an issue that could prevent player icons from displaying on the Map when choosing a respawn location.",
+                        },
+                        {
+                            category: "Bugfix,UI",
+                            name: "Map",
+                            description: "Overencumbered players who die inside a Nuke Zone can now correctly respawn at the nearest Map marker.",
+                        },
+                        {
+                            category: "Bugfix,UI",
+                            name: "Notifications",
+                            description: "“Ammo Removed” messages no longer appear onscreen when harvesting flora or other materials shortly after firing a weapon.",
+                        },
+                        {
+                            category: "Bugfix,UI,PC",
+                            name: "Notifications",
+                            description: "The “You have joined a team.” notification now correctly displays console controls, rather than PC hotkeys, in its subtitle text while playing on consoles.",
+                        },
+                        {
+                            category: "Bugfix,UI",
+                            name: "Notifications",
+                            description: "Fixed an issue where players could sometimes receive a “Max weight limit reached.” message when attempting to trade with other players.",
+                        },
+                        {
+                            category: "Bugfix,UI,Atomic Shop",
+                            name: "Photomode Frames",
+                            description: "Photomode frames that were purchased from the Atomic Shop now correctly display the Atom symbol in the photomode menu.",
+                        },
+                        {
+                            category: "Bugfix,UI,Atomic Shop,PC",
+                            name: "Shop",
+                            description: "Fixed an issue on PC that could cause controls to lock up when purchasing Atoms.",
+                        },
+                        {
+                            category: "Bugfix,UI,Atomic Shop",
+                            name: "Shop",
+                            description: "Purchasing multiple items from the Atomic Shop in quick succession no longer prevents those items from appearing<br>in crafting menus until the client is relaunched.",
+                        },
+                        {
+                            category: "Bugfix,UI",
+                            name: "Shop",
+                            description: "Preview images have been added for the Kill, Laugh, Love Neon Sign.",
+                        },
+                        {
+                            category: "Bugfix,UI",
+                            name: "Teams",
+                            description: "Attempting to join a teammate in a world from the main menu using the social menu no longer causes a message to display<br>stating that they will be removed from the team.",
+                        },
+                        {
+                            category: "Bugfix,UI",
+                            name: "Teams",
+                            description: "Fixed an issue that could prevent team members from loading into a world with the team leader after the leader selected “Play”.",
+                        },
+                        {
+                            category: "Bugfix,UI",
+                            name: "Teams",
+                            description: "Fixed an issue in which the \"Play with Team\" option on the Main Menu became non-functional when attempting to rejoin<br>teammates in a world following a crash or disconnect.",
+                        },
+                        {
+                            category: "Bugfix,UI",
+                            name: "Transfer Menu",
+                            description: "The transfer bar now correctly stops at 1 when scrolling to reduce the transfer quantity.",
+                        },
+                        {
+                            category: "Bugfix,UI",
+                            name: "Voice Chat",
+                            description: "The voice chat speaker icon now correctly appears in player nameplates, in team chat, and in the area chat list when a player is speaking.",
+                        },
+                    ]
+                },
+                {
+                    id: "P5A",
+                    patch: "5-A",
+                    descripton: "Hotfix",
+                    date: ofDate(2019, 0, 31),
+                    reddit: "https://www.reddit.com/r/fo76/comments/alttx6/fallout_76_hotfix_notes_january_31_2019/",
+                    bethesda: "https://fallout.bethesda.net/article/44hSMCa7BGSxsftNvbMUQT/fallout-76-hotfix-notes-january-31-2019",
+                    notes: [
+                        {
+                            category: "Bugfix,C.A.M.P.",
+                            name: "Bulk Scrap",
+                            description: "Bulk items now correctly autoscrap when crafting and making repairs.",
+                        },
+                        {
+                            category: "Bugfix,Items",
+                            name: "Bobby Pins",
+                            description: "Reduced the weight of Bobby Pins from 0.1 to 0.001.",
+                        },
+                        {
+                            category: "Bugfix,UI,Items",
+                            name: "Plans and Recipes",
+                            description: "Plans and Recipes that a player has learned with one character will no longer display a (Known) tag for their<br>other characters that have not yet learned that plan.",
+                        },
+                    ]
+                },
+                {
+                    id: "P5",
+                    patch: "5",
+                    descripton: "Balance and Bugfix Update",
+                    date: ofDate(2019, 0, 29),
+                    reddit: "https://www.reddit.com/r/fo76/comments/al0bl3/fallout_76_patch_notes_january_29_2019/",
+                    bethesda: "https://fallout.bethesda.net/article/2J2ong0O2B6GAI1AeIdGcp/fallout-76-patch-notes-january-29-2019",
+                    notes: [
+                        {
+                            category: "Bugfix,Performance",
+                            name: "Performance",
+                            description: "Several additional improvements have been made to in-game performance.",
+                        },
+                        {
+                            category: "Bugfix,Stability",
+                            name: "Stability",
+                            description: "The Fallout 76 game client and servers have received additional stability improvements.",
+                        },
+                        {
+                            category: "Balance,Perks",
+                            name: "Perks",
+                            description: "The damage bonuses provided by each rank of the Demolition Expert perk have been reduced from +20%/40%/60%/80%/100% to<br>+20%/30%/40%/50%/60% to match other weapon perk damage bonuses.",
+                        },
+                        {
+                            category: "Balance,Perks",
+                            name: "Perks",
+                            description: "The condition loss bonuses provided by each rank of the White Knight and Licensed Plumber perks have been reduced from 30%/60%/90% to<br>20%/40%/60%, and their repair bonuses have also been reduced, to match the Power Patcher perk.",
+                        },
+                        {
+                            category: "Balance,Items",
+                            name: "Weapons",
+                            description: "The Explosive legendary mod’s damage bonus has been reduced from +100% to +20% of base weapon damage, with explosive radius damage.",
+                        },
+                        {
+                            category: "Balance,Items",
+                            name: "Weapons",
+                            description: "The Two Shot legendary effect’s damage bonus has been reduced from +100% to +25% of base weapon damage.",
+                        },
+                        {
+                            category: "Balance,Items",
+                            name: "Weapons",
+                            description: "Flamers, Cryolators, plasma weapons, and laser weapons can no longer spawn with the Explosive legendary mod.",
+                        },
+                        {
+                            category: "C.A.M.P.,Items",
+                            name: "Scrapping",
+                            description: "Loose weapon and armor mods are now protected from autoscrapping when crafting.<br>However, they can still be scrapped manually if a player wants to break them down into scrap components.",
+                        },
+                        {
+                            category: "C.A.M.P.",
+                            name: "Turrets",
+                            description: "An “(Owned)” tag will now appear next to the names of Turrets a player has built in their C.A.M.P. or a workshop.",
+                        },
+                        {
+                            category: "Balance",
+                            name: "Carry Weight",
+                            description: "Is now capped to an absolute limit of 1,500 pounds over the character’s current maximum carry weight.<br>Characters will be unable to exceed this new weight limit moving forward.<br>Characters who already exceed this limit will be unable to add any additional items or caps to their inventories<br>until they have reduced their carry weight below the cap.",
+                        },
+                        {
+                            category: "Exploit",
+                            name: "Cap Stashes",
+                            description: "To help address cap exploits, caps stashes have been turned into containers, which allows them to properly reset and provide players with instanced loot.",
+                        },
+                        {
+                            category: "UI,Items",
+                            name: "Plans and Recipes",
+                            description: "When viewing a plan or recipe in a menu, a “(Known)” tag will now appear next to the names of recipes and plans the player has already learned.",
+                        },
+                        {
+                            category: "UI",
+                            name: "VATS",
+                            description: "Now saves the last limb targeted by the player and will attempt to re-target that limb the next time VATS is activated.",
+                        },
+                        {
+                            category: "UI,Items",
+                            name: "Vendors",
+                            description: "Recipes and Plans in Vendor inventories are no longer randomized and can now be reliably sourced from those Vendors,<br>with the exception of some minor Workshop and C.A.M.P. Plans.",
+                        },
+                        {
+                            category: "Balance",
+                            name: "Plans and Recipes",
+                            description: "Since many Plans and Recipes can now be sourced reliably from Vendors, we've also increased their Cap costs accordingly.",
+                        },
+                        {
+                            category: "PvP",
+                            name: "Hunter/Hunted",
+                            description: "A server-wide message will now appear when a player joins the Hunter/Hunted queue. This message will only be displayed once per player to avoid spam.<br>An additional server-wide message will be displayed when Hunter/Hunted is ready to begin in order to give other players a final chance to join.",
+                        },
+                        {
+                            category: "Balance,Main Quest",
+                            name: "Belly of the Beast",
+                            description: "A new “Ultracite Power Armor” entry has been added to Taggerdy’s Terminal on the top floor of Fort Defiance,<br>offering Ultracite Power Armor plans to those who read it.",
+                        },
+                        {
+                            category: "UI,Main Quest",
+                            name: "First Contact",
+                            description: "A new miscellaneous objective will now appear upon reaching the Overseer's C.A.M.P. for the first time,<br>prompting the player to place a C.A.M.P. of their own.",
+                        },
+                        {
+                            category: "UI,Misc Quest",
+                            name: "Gauley Mine",
+                            description: "A new miscellaneous objective will now appear at Gauley Mine to introduce players to Ore Deposits.",
+                        },
+                        {
+                            category: "Balance,Event",
+                            name: "Monster Mash",
+                            description: "The amount of XP awarded per round during this event has been reduced from 350 to 100.",
+                        },
+                        {
+                            category: "Bugfix,Visual,Locations",
+                            name: "Lighting",
+                            description: "Lighting no longer flickers throughout Arktos Pharma.",
+                        },
+                        {
+                            category: "Bugfix,Visual,Items",
+                            name: "Apparel",
+                            description: "Fixed an issue that could cause a character’s legs to show through the Rose Dress while it is equipped.",
+                        },
+                        {
+                            category: "Bugfix,C.A.M.P.",
+                            name: "Artillery",
+                            description: "Fixed an issue that could prevent Artillery from being placed in valid locations.",
+                        },
+                        {
+                            category: "Bugfix,C.A.M.P.",
+                            name: "Blueprints",
+                            description: "Addressed an issue preventing players from placing a stored blueprint containing posts that were placed partially underground<br>when the blueprint was originally saved.",
+                        },
+                        {
+                            category: "Bugfix,C.A.M.P.",
+                            name: "Budget",
+                            description: "crapping a stored blueprint that contained wires will now correctly remove those wires from the C.A.M.P. budget.",
+                        },
+                        {
+                            category: "Bugfix,C.A.M.P.,Exploit",
+                            name: "Exploit",
+                            description: "Addressed an exploit that could allow players to duplicate their stored blueprints.",
+                        },
+                        {
+                            category: "Bugfix,C.A.M.P.,Exploit",
+                            name: "Exploit",
+                            description: "Addressed an exploit that could allow players to reduce their carry weight to a negative value.",
+                        },
+                        {
+                            category: "Bugfix,C.A.M.P.",
+                            name: "Foundations",
+                            description: "Fixed an issue that could cause a “Cannot place item: Needs support” message to display when editing a partially floating foundation.",
+                        },
+                        {
+                            category: "Bugfix,C.A.M.P.",
+                            name: "Power Armor Station",
+                            description: "Players can no longer view power armor they do not own when attempting to access a power armor station that’s occupied by another player.",
+                        },
+                        {
+                            category: "Bugfix,C.A.M.P.",
+                            name: "Scrapping",
+                            description: "Ignition Cores crafted for the Earth Mover event are no longer automatically scrapped when using the Scrap All Junk option at a Workbench.",
+                        },
+                        {
+                            category: "Bugfix,C.A.M.P.",
+                            name: "Scrapping",
+                            description: "Junk items that need to be manually scrapped are no longer automatically scrapped for components when attempting to craft.",
+                        },
+                        {
+                            category: "Bugfix,C.A.M.P.",
+                            name: "Stored Objects",
+                            description: "Repeatedly attempting to place an Atomic Shop variant of an object the player had stored but does not own<br>no longer prevents them from placing other variants.",
+                        },
+                        {
+                            category: "Bugfix,C.A.M.P.",
+                            name: "Structures",
+                            description: "Fixed an issue that could prevent a C.A.M.P. or workshop structure from being edited when building levels had been merged or split several times.<br>This fix is not retroactive and will not apply to structures built prior to today’s patch.",
+                        },
+                        {
+                            category: "Bugfix,C.A.M.P.",
+                            name: "Terminals",
+                            description: "Powered terminals contained within a stored blueprint now work correctly when the blueprint is placed in a new location.",
+                        },
+                        {
+                            category: "Bugfix,Challenge",
+                            name: "Collect Holotape Games",
+                            description: "Nuka Tapper sub-challenge can now be completed by playing the Nuka-Tapper holotape game.",
+                        },
+                        {
+                            category: "Bugfix,Challenge",
+                            name: "Formal Wear Challenges",
+                            description: "Pantsuits and Shortsuits now correctly count as formal wear when completing challenges.",
+                        },
+                        {
+                            category: "Bugfix,Challenge",
+                            name: "Gather Building Supplies",
+                            description: "he “Scrap items to produce fertilizer” condition has been updated to \"Collect Fertilizer\" and can be completed<br>by salvaging or crafting it using spoiled fruits, vegetables, and meat.",
+                        },
+                        {
+                            category: "Bugfix,Challenge",
+                            name: "Learn Cooking Recipes",
+                            description: "This challenge will now recognize many additional cooking recipes when they are learned for the first time.<br>Retroactive credit will not be awarded for recipes learned prior to today’s patch, but that is planned for a future update.",
+                        },
+                        {
+                            category: "Bugfix",
+                            name: "A.I.",
+                            description: "Fixed an issue in which some enemies could chase the player farther than intended and become frozen in place.",
+                        },
+                        {
+                            category: "Bugfix,Exploit",
+                            name: "Exploit",
+                            description: "Addressed several XP exploits by adding a limit to the maximum amount of XP granted by a single kill.",
+                        },
+                        {
+                            category: "Bugfix",
+                            name: "Looting",
+                            description: "Fixed an issue that could prevent players from looting goo and ash piles after killing an enemy with a laser or plasma weapon.",
+                        },
+                        {
+                            category: "Bugfix",
+                            name: "Loading",
+                            description: "Fixed several issues that could cause characters’ body parts, equipped apparel, or armor to become temporarily invisible<br>to other nearby players or teammates after loading into a world.",
+                        },
+                        {
+                            category: "Bugfix,Locations",
+                            name: "Monorail Elevator",
+                            description: "Fixed an issue that prevented the Monorail Elevator near the edge of Cranberry Bog from taking players to the top floor.",
+                        },
+                        {
+                            category: "Bugfix,Performance",
+                            name: "Performance",
+                            description: "The Scorched Earth event has received optimization improvements.",
+                        },
+                        {
+                            category: "Bugfix,Performance",
+                            name: "Performance",
+                            description: "On laptops with more than one graphics card, Fallout 76 will now default to using the dedicated graphics card rather than an integrated card.",
+                        },
+                        {
+                            category: "Bugfix,Performance",
+                            name: "Performance",
+                            description: "Launching the Traditional or Simplified Chinese game clients on Xbox One no longer causes a 6 second hitch when the launch video begins to play.",
+                        },
+                        {
+                            category: "Bugfix,Items",
+                            name: "Bobbleheads",
+                            description: "Using multiple Explosive Bobbleheads no longer causes their effects to stack.",
+                        },
+                        {
+                            category: "Bugfix,Items,Exploit",
+                            name: "Exploit",
+                            description: "Addressed an exploit that could allow players to duplicate items using MODUS Vendors.",
+                        },
+                        {
+                            category: "Bugfix,Items,Exploit",
+                            name: "Exploit",
+                            description: "Addressed an exploit in which the Vampire legendary effect could restore health through unintended means.",
+                        },
+                        {
+                            category: "Bugfix,Items",
+                            name: "Magazines",
+                            description: "Removed magazines from several locations where they were unintentionally guaranteed to spawn.",
+                        },
+                        {
+                            category: "Bugfix,Items",
+                            name: "Tomahawks",
+                            description: "No longer become stuck in mid-air after striking a hostile creature or player.",
+                        },
+                        {
+                            category: "Bugfix,Items",
+                            name: "Magazines",
+                            description: "Guns and Bullets #5 now correctly provides bonus components when scrapping weapons, but no longer specifies a 50% increase.",
+                        },
+                        {
+                            category: "Bugfix,Items",
+                            name: "Magazines",
+                            description: "Tesla Science #6 now correctly grants bonus Rad Resistance.",
+                        },
+                        {
+                            category: "Bugfix,Items",
+                            name: "Rad-X",
+                            description: "Consuming multiple Rad-X or Diluted Rad-X no longer causes their effects to stack.",
+                        },
+                        {
+                            category: "Bugfix,Items",
+                            name: "Health Bonuses",
+                            description: "A player with very low health who unequips an item that provides bonus health will no longer be instantly killed<br>if removing that item that would cause their health to drop to or below 0.",
+                        },
+                        {
+                            category: "Bugfix,Items",
+                            name: "Paper Bags",
+                            description: "Fixed multiple issues in which transferring items into an empty paper bag as the bag was despawning caused those items to become lost.",
+                        },
+                        {
+                            category: "Bugfix,Items",
+                            name: "Pip-Boy",
+                            description: "Fixed a rare issue that could cause a character’s Pip-Boy to go missing.",
+                        },
+                        {
+                            category: "Bugfix,Items",
+                            name: "Power Armor",
+                            description: "Entering a suit of power armor no longer occasionally causes it to become invisible to nearby players.",
+                        },
+                        {
+                            category: "Bugfix,Perks",
+                            name: "Butcher’s Bounty",
+                            description: "Searching a dead Tick with the Butcher’s Bounty perk equipped can now correctly produce additional Tick Blood.",
+                        },
+                        {
+                            category: "Bugfix,Perks",
+                            name: "Cap Collector",
+                            description: "Now requires players to search caps stashes, much like other perks that grant a search option for containers.",
+                        },
+                        {
+                            category: "Bugfix,Perks,Exploit",
+                            name: "Exploit",
+                            description: "Addressed an exploit affecting the Curator perk.",
+                        },
+                        {
+                            category: "Bugfix,Perks",
+                            name: "Fireproof",
+                            description: "Flame attack damage reduction provided by the Fireproof perk now correctly applies to Molotov fire damage.",
+                        },
+                        {
+                            category: "Bugfix,Perks",
+                            name: "Serendipity",
+                            description: "A notification will now appear on-screen and sound effects will play whenever the Serendipity perk’s effects are triggered.",
+                        },
+                        {
+                            category: "Bugfix,Perks",
+                            name: "Super Duper",
+                            description: "Can no longer trigger when crafting quest items.",
+                        },
+                        {
+                            category: "Bugfix,Perks",
+                            name: "Traveling Pharmacy",
+                            description: "Now correctly applies its weight reduction effect to Radaway, Diluted Radaway, Stimpaks,<br>Diluted Stimpaks, Bloodpacks, Glowing Bloodpacks, Disease Cures, and Antibiotics.",
+                        },
+                        {
+                            category: "Bugfix,PvP",
+                            name: "Respawn",
+                            description: "Fixed an issue that could prevent a player who was killed in water from correctly ending PVP upon respawning.",
+                        },
+                        {
+                            category: "Bugfix,PvP",
+                            name: "Stealth",
+                            description: "Addressed an issue in which stealth damage bonuses could still be applied by a sneaking player’s attacks during PVP<br>even that player was within their target’s direct line of sight.",
+                        },
+                        {
+                            category: "Bugfix,PvP",
+                            name: "Wanted",
+                            description: "Fixed an issue that could cause the bounty amount for a Wanted player to appear halved on the map when approaching that player in the game world.",
+                        },
+                        {
+                            category: "Bugfix,Event",
+                            name: "Breach and Clear",
+                            description: "The Meteoric Sword now correctly has a slim chance to spawn in containers during the Breach and Clear event.",
+                        },
+                        {
+                            category: "Bugfix,Side Quest,Items",
+                            name: "Early Warnings",
+                            description: "Quest progress will no longer become stuck when crafting Upgraded Motors and logging out after crafting Upgraded Motors<br>will no longer reset the quest tracker to 0/5.",
+                        },
+                        {
+                            category: "Bugfix,Event",
+                            name: "Events",
+                            description: "Fixed an issue that could allow a player to simultaneously join two different events.",
+                        },
+                        {
+                            category: "Bugfix,Event",
+                            name: "Events",
+                            description: "Fast traveling after joining an event will now correctly remove the player from that event and will no longer prevent them<br>from joining proximity event at their fast travel destination.",
+                        },
+                        {
+                            category: "Bugfix,Main Quest",
+                            name: "Flavors of Mayhem",
+                            description: "Rose will no longer occasionally play unrelated voiceover lines when attempting to turn in Flavors of Mayhem,<br>and the player is no longer prevented from correctly completing the quest.",
+                        },
+                        {
+                            category: "Bugfix,Side Quest",
+                            name: "Signal Strength",
+                            description: "Fixed an issue that could prevent Rose’s introductory voiceover lines from playing when the player approaches Top of the World.",
+                        },
+                        {
+                            category: "Bugfix,Side Quest",
+                            name: "Second Helpings",
+                            description: "An area marker will now appear for the “Find Delbert Winters in Flatwoods\" objective to better inform players<br>about their options for proceeding through the quest.",
+                        },
+                        {
+                            category: "Bugfix,Survival",
+                            name: "Diseases",
+                            description: "The Rad Worms disease now correctly increases rad damage taken by 50%.",
+                        },
+                        {
+                            category: "Bugfix,Sound,Items",
+                            name: "Weapons",
+                            description: "Breath sound effects will now play correctly when activating the Hold Breath option while zoomed.",
+                        },
+                        {
+                            category: "Bugfix,UI,PC",
+                            name: "Display",
+                            description: "Fallout 76 will now better autodetect AMD 7900/8900 series and AMD Radeon R9 200 Series graphics cards.",
+                        },
+                        {
+                            category: "Bugfix,UI",
+                            name: "Field of View",
+                            description: "Addressed an issue causing camera clipping near walls when using a very high Field of View setting.",
+                        },
+                        {
+                            category: "Bugfix,UI,PC",
+                            name: "Hotkeys",
+                            description: "Fallout 76 now better supports French AZERTY keyboard layouts and the game’s controls will adjust accordingly.",
+                        },
+                        {
+                            category: "Bugfix,UI,PC",
+                            name: "Hotkeys",
+                            description: "While using a French AZERTY keyboard, the “/” key can now be properly rebound in the controls menu.",
+                        },
+                        {
+                            category: "Bugfix,UI",
+                            name: "Loading Screens",
+                            description: "Fixed an issue that could cause loading screens to appear cut off or black at different resolutions when entering a building’s interior.",
+                        },
+                        {
+                            category: "Bugfix,UI",
+                            name: "Map",
+                            description: "Character levels no longer appear truncated on the map for players over level 100.",
+                        },
+                        {
+                            category: "Bugfix,UI,Event",
+                            name: "Nameplates",
+                            description: "Fixed an issue that prevented player nameplates from appearing while inside the nuke zone during the Scorched Earth event.",
+                        },
+                        {
+                            category: "Bugfix,UI",
+                            name: "Nameplates",
+                            description: "Fixed an issue that prevented the crown icon from displaying next to legendary enemy nameplates.",
+                        },
+                        {
+                            category: "Bugfix,UI,XBox",
+                            name: "Social",
+                            description: "On Xbox, after sending a friend request to another player a notification will now display to confirm that a friend request has been sent.",
+                        },
+                        {
+                            category: "Bugfix,UI",
+                            name: "Social",
+                            description: "The “Invite to Team” option no longer appears for players who have already joined the team.",
+                        },
+                        {
+                            category: "Bugfix,UI",
+                            name: "Social",
+                            description: "If an attempt to fast travel to a friend or teammate using the Social Menu fails due to nearby enemies<br>the player will now be notified by an error message that states \"You cannot fast travel when enemies are nearby\".",
+                        },
+                        {
+                            category: "Bugfix,UI",
+                            name: "Trading",
+                            description: "Decreased the wait time required between trades when making multiple trades with another player. <br>If players attempt to make multiple trades too quickly,a new \"Trade failed due to frequency, wait a moment and try again.\"<br>error message will now display rather than the previous “Trade Failed on Server” message.",
+                        },
+                        {
+                            category: "Bugfix,UI,PC",
+                            name: "Trading",
+                            description: "Fixed an issue on PC that could cause the player’s cursor to appear on both sides of a trade menu at the same time.",
+                        },
+                        {
+                            category: "Bugfix,UI",
+                            name: "Tutorials",
+                            description: "New players will now receive a tutorial message informing them of the Change Appearance option in the Main Menu.",
+                        },
+                        {
+                            category: "Bugfix,UI",
+                            name: "VATS",
+                            description: "Now selects targets more consistently across different field of view (FOV) values.<br>For example, VATS will no longer target enemies that are visible in peripheral vision at high FOV values, but would be off-screen at default FOV values.<br>This fix will help prevent VATS from providing an advantage to players who use high FOV settings.",
+                        },
+                        {
+                            category: "Bugfix,UI",
+                            name: "VATS",
+                            description: "Fixed an issue that could cause the VATS interface to rapidly flicker on and off.",
+                        },
+                        {
+                            category: "Bugfix,UI",
+                            name: "VATS",
+                            description: "Fixed an issue that granted critical charge after firing a critical hit.",
+                        },
+                        {
+                            category: "Bugfix,UI",
+                            name: "VATS",
+                            description: "Addressed an issue that could cause VATS shots that were rolled as hits to become blocked by poles and other objects with collision.<br>As a result, VATS shots that should hit an enemy creature will now do so much more often.",
+                        },
+                        {
+                            category: "Bugfix,UI",
+                            name: "Voice Chat",
+                            description: "Fixed an issue preventing the speaker icon from appearing to others while a player is speaking over voice chat.",
+                        },
+                        {
+                            category: "Bugfix,UI",
+                            name: "Workshop Previews",
+                            description: "The player’s current Atom balance no longer appears truncated when viewing an Atomic Shop item in the workshop preview at 16:10 and 21:9 resolutions.",
+                        },
+                    ]
+                },
+                {
+                    id: "P4-A",
+                    patch: "4-A",
+                    descripton: "Console release of Patch 4",
+                    date: ofDate(2019, 0, 15),
+                    reddit: "https://www.reddit.com/r/fo76/comments/aejlcj/fallout_76_january_10_patch_notes/",
+                    bethesda: "https://fallout.bethesda.net/article/7hpeHkKxyM6aMWUCCIkeW6/fallout-76-patch-notes-january-10-2019",
+                    notes: [
+                        {
+                            category: "Other,XBox,Playstation",
+                            name: "Patch",
+                            description: "Console release of Patch 4",
+                        },
+                    ]
+                },
+                {
+                    id: "P4",
+                    patch: "4",
+                    descripton: "Balance and Bugfix Update",
+                    date: ofDate(2019, 0, 10),
+                    reddit: "https://www.reddit.com/r/fo76/comments/aejlcj/fallout_76_january_10_patch_notes/",
+                    bethesda: "https://fallout.bethesda.net/article/7hpeHkKxyM6aMWUCCIkeW6/fallout-76-patch-notes-january-10-2019",
+                    notes: [
+                        {
+                            category: "Visual",
+                            name: "Power Armor",
+                            description: "The Power Armor light has been made brighter.",
+                        },
+                        {
+                            category: "Bugfix,Performance",
+                            name: "Performance",
+                            description: "Several improvements have been made to in-game performance.",
+                        },
+                        {
+                            category: "Bugfix,Stability",
+                            name: "Stability",
+                            description: "The Fallout 76 game client and servers have received additional stability improvements.",
+                        },
+                        {
+                            category: "Balance,Items",
+                            name: "Charging Barrels mod",
+                            description: "Increased the Gatling Laser’s damage bonus from the Charging Barrels mod.",
+                        },
+                        {
+                            category: "Balance",
+                            name: "Glowing Ones",
+                            description: "Glowing Ones will no longer grant erroneous large amounts of XP.",
+                        },
+                        {
+                            category: "Balance,Items",
+                            name: "Crafting",
+                            description: " Lowered chance of Power Generators of spawning fusion cores.",
+                        },
+                        {
+                            category: "Balance,Items,C.A.M.P.",
+                            name: "Crafting",
+                            description: "Set minimum component cost of workshop buildings requiring steel, wood or plastic to 2.",
+                        },
+                        {
+                            category: "Balance,Items",
+                            name: "Bobby Pins",
+                            description: "Reduced the weight value of Bobby Pins from 0.1 to 0.001.",
+                        },
+                        {
+                            category: "UI",
+                            name: "Teams",
+                            description: "Players now receive a notification that “Players cannot form teams from within Vault 76” if an Invite is sent to a friend still in Vault 76.",
+                        },
+                        {
+                            category: "Bugfix,PvP",
+                            name: "PvP",
+                            description: "Opening Player-owned, locked containers will now be considered a PVP action as expected.",
+                        },
+                        {
+                            category: "Bugfix,Performance,XBox",
+                            name: "Performance",
+                            description: "Blowing up the mainframe core stations will no longer cause a performance drop.",
+                        },
+                        {
+                            category: "Bugfix,Stability,PC",
+                            name: "Infinite Load",
+                            description: "Fixed an infinite load screen that could occur when attempting to join a server on PC.",
+                        },
+                        {
+                            category: "Bugfix,Stability",
+                            name: "Crash",
+                            description: "Fixed a crash that can occur when opening the Pip-Boy.",
+                        },
+                        {
+                            category: "Bugfix,Performance",
+                            name: "Performance",
+                            description: "Improved client performance when viewing a nuke explode.",
+                        },
+                        {
+                            category: "Bugfix,Performance",
+                            name: "Performance",
+                            description: "Fixed an issue where reading a note would cause the background to freeze.",
+                        },
+                        {
+                            category: "Bugfix,Performance",
+                            name: "Performance",
+                            description: "Increased performance in areas with a lot of scorched statues.",
+                        },
+                        {
+                            category: "Bugfix,Items,Exploit",
+                            name: "Exploit",
+                            description: "Fixed an issue where items could be duplicated.",
+                        },
+                        {
+                            category: "Bugfix,UI,PC",
+                            name: "Controls",
+                            description: "Resetting controls to default no longer causes most Activate prompts to become unusable.",
+                        },
+                        {
+                            category: "Bugfix,UI,PC",
+                            name: "Controls",
+                            description: "Fixed an issue when controls in the Settings menu aren't updated when connecting/disconnecting a gamepad controller.",
+                        },
+                        {
+                            category: "Bugfix,Items",
+                            name: "Armor",
+                            description: "Fixed an issue that allowed armor mods to reduce carry weight past intended values.",
+                        },
+                        {
+                            category: "Bugfix",
+                            name: "Rads",
+                            description: "Rads will no longer completely be removed when by dying repeatedly.",
+                        },
+                        {
+                            category: "Bugfix,Locations",
+                            name: "Fast travel",
+                            description: "Address an issue where players could load into geometry after fast travel.",
+                        },
+                        {
+                            category: "Bugfix,Items",
+                            name: "Weapon bashing",
+                            description: "Fixed an issue where bashing an enemy with the Railway Rifle or Crossbow would add the projectile to the enemy's inventory.",
+                        },
+                        {
+                            category: "Bugfix,Items",
+                            name: "Animations",
+                            description: "Lever-Action rifle now only reloads the correct number of ammo.",
+                        },
+                        {
+                            category: "Bugfix,Visual",
+                            name: "Effects",
+                            description: "Consumed Berry Mentats now correctly show purple glowing auras around players and creatures.",
+                        },
+                        {
+                            category: "Balance,Items",
+                            name: "Crafting",
+                            description: "Level 25 armor and above now requires ballistic fiber to craft.",
+                        },
+                        {
+                            category: "Balance,Items",
+                            name: "Repairing",
+                            description: "Component quantities required to repair mid to high level armor and weapons have been reduced up to 20%.",
+                        },
+                        {
+                            category: "Balance,Items",
+                            name: "Crafting",
+                            description: "Ballistic Fiber becomes required for armor at level 25 instead of previously at level 20.",
+                        },
+                        {
+                            category: "Balance,Items",
+                            name: "Crafting",
+                            description: "Updated Bulk Acid crafting recipe to require 15 Acid.",
+                        },
+                        {
+                            category: "Bugfix,Items,Perks",
+                            name: "Crafting",
+                            description: "Fixed an issue that prevented players with the correctly equipped perk cards from being able to craft Antibiotics and Disease Cure (Savage Divide).",
+                        },
+                        {
+                            category: "Bugfix,Items",
+                            name: "Crafting",
+                            description: "“Hardened Mass” will no longer be scrapped when “Scrap All Junk” is selected.",
+                        },
+                        {
+                            category: "Balance,Items",
+                            name: "Repairing",
+                            description: "Overall repair costs have been lowered for both weapons and armor.",
+                        },
+                        {
+                            category: "Balance,Items",
+                            name: "Crafting",
+                            description: "allistic Fiber also is now required for repairing armor at level 25 and above instead of previously at level 20.",
+                        },
+                        {
+                            category: "Bugfix,C.A.M.P.,Locations",
+                            name: "Workshops",
+                            description: "Fixed issues where enemies at some Workshop locations would spawn underground, making the Workshops unclaimable.<br>Locations include: Charleston Landfill, Lakeside Cabins, and Sunshine Meadows.",
+                        },
+                        {
+                            category: "Bugfix,C.A.M.P.",
+                            name: "Workshops",
+                            description: "Fixed an issue where objects in Workshops would sometimes float in the air when the Workshop menu was closed.",
+                        },
+                        {
+                            category: "Bugfix,C.A.M.P.",
+                            name: "Workshops",
+                            description: "Destroying the hay feeder along with the fertilizer collector will no longer prevent them from being repaired.",
+                        },
+                        {
+                            category: "Bugfix,C.A.M.P.",
+                            name: "Workshops",
+                            description: "Fixed an issue that would cause a “not supported” error when attempting to place a tall or short post under a roof.",
+                        },
+                        {
+                            category: "Bugfix,C.A.M.P.",
+                            name: "Blueprints",
+                            description: "Fixed an issue with the cost of wires not being factored in when storing blueprints.",
+                        },
+                        {
+                            category: "Bugfix,C.A.M.P.,UI",
+                            name: "Crafting",
+                            description: "Fixed an issue where certain objects aren't able to be scrapped through the stored tab.",
+                        },
+                        {
+                            category: "Bugfix,C.A.M.P.",
+                            name: "Workshops",
+                            description: "Fixed an issue where certain stored items obtained from claiming a Public Workshop can't be placed again.",
+                        },
+                        {
+                            category: "Bugfix,C.A.M.P.,UI",
+                            name: "Crafting",
+                            description: "Fixed a visual issue with scrapping items in Crafting Menus.",
+                        },
+                        {
+                            category: "Bugfix,C.A.M.P.,UI",
+                            name: "Crafting",
+                            description: "Fixed an issue where mods cost less steel than what's displayed in Crafting Menus.",
+                        },
+                        {
+                            category: "Bugfix,C.A.M.P.,UI",
+                            name: "Crafting",
+                            description: "Fixed a display issue where incorrect number of Junk items can appear in Crafting Menus.",
+                        },
+                        {
+                            category: "Bugfix,Challenge",
+                            name: "Daily Challenges",
+                            description: "Fixed several daily challenges that were not being offered on some days.",
+                        },
+                        {
+                            category: "Bugfix,Challenge",
+                            name: "Daily Challenge",
+                            description: "Fixed an issue that prevented some wild flowers from incrementing in the “Pick Wild Flowers” Daily Challenge.",
+                        },
+                        {
+                            category: "Bugfix,Challenge",
+                            name: "Weekly Challenge",
+                            description: "Fixed an issue that caused the weekly challenge \"Complete Quests and Events in a Group while at Night\"<br>to work during the day and only recognize events. It will now look for quests and events that are completed at night.",
+                        },
+                        {
+                            category: "Bugfix,Challenge",
+                            name: "Weekly Challenge",
+                            description: "Edited the description of a Weekly Challenge to correctly reflect the direction.",
+                        },
+                        {
+                            category: "Bugfix,Challenge",
+                            name: "Sub-Challenge",
+                            description: "Fixed an issue that prevented certain photomode challenges from completing as expected.",
+                        },
+                        {
+                            category: "Bugfix,Challenge",
+                            name: "Sub-Challenge",
+                            description: "Fixed an issue that prevented certain Bobblehead challenges from completing as expected.",
+                        },
+                        {
+                            category: "Bugfix,Challenge",
+                            name: "Sub-Challenge",
+                            description: "Fixed an issue that caused a challenge to be marked as complete incorrectly.",
+                        },
+                        {
+                            category: "Bugfix,Challenge",
+                            name: "Lifetime Challenges",
+                            description: "Fixed an issue where some lifetime challenges would revert progress after logging out.",
+                        },
+                        {
+                            category: "Bugfix",
+                            name: "Robots",
+                            description: "Fixed an issue that would cause robots to respawn too frequently in Whitesprings.",
+                        },
+                        {
+                            category: "Bugfix",
+                            name: "Scorched",
+                            description: "Fixed an issue where Wasteland Whisperer could affect Scorched.",
+                        },
+                        {
+                            category: "Bugfix",
+                            name: "Scorched",
+                            description: "Shooting a Scorched in the leg will no longer break their weapon causing them to not attack the player.",
+                        },
+                        {
+                            category: "Bugfix",
+                            name: "Scorched",
+                            description: "Fixed an issue where Scorched may be using invisible weapons or not appearing to fire their weapon correctly.",
+                        },
+                        {
+                            category: "Bugfix",
+                            name: "Scorched",
+                            description: "Fixed an issue that caused floating debris and disassembled guns to appear in Scorched hands when killed.",
+                        },
+                        {
+                            category: "Bugfix,Items",
+                            name: "Weapons",
+                            description: "Fixed an issue that would sometimes cause plasma weapons, flamers and flamer mods,<br>and weapons with explosive bullet mods to not do damage to other players and creatures.",
+                        },
+                        {
+                            category: "Bugfix,Items",
+                            name: "Armor",
+                            description: "Fixed an issue that would cause players exiting power armor to sometimes appear stretched and unable to reenter power armor.",
+                        },
+                        {
+                            category: "Bugfix,Items",
+                            name: "Armor",
+                            description: "Addressed several issues that would prevent players from exiting power armor and at times cause the Pip-Boy to become unavailable.",
+                        },
+                        {
+                            category: "Bugfix,Items",
+                            name: "Weapons",
+                            description: "Fixed an issue that prevented the Gauss Rifle from being identified as a rifle. Now rifle-related perks can be applied to the Gauss Rifle.",
+                        },
+                        {
+                            category: "Bugfix,Items",
+                            name: "Ammo Vending Machines",
+                            description: "Fixed an issue where some Ammo Vending Machines were only selling repair components.",
+                        },
+                        {
+                            category: "Bugfix,Items",
+                            name: "Weapons",
+                            description: "Legendary Hunting Rifles will now drop as loot.",
+                        },
+                        {
+                            category: "Bugfix,Items",
+                            name: "Weapons",
+                            description: "Fixed an issue where the Walking Cane provided as many resources when scrapped as it costs to craft.",
+                        },
+                        {
+                            category: "Bugfix,Items",
+                            name: "Armor",
+                            description: "Fixed an issue where some Pocketed Chest Pieces were resetting players back to their base carry weight upon logging back into the game.",
+                        },
+                        {
+                            category: "Bugfix,Items",
+                            name: "Armor",
+                            description: "Fixed an issue where players can leave behind an unusable chassis after exiting Power Armor.",
+                        },
+                        {
+                            category: "Bugfix,Items",
+                            name: "Magazine",
+                            description: "Consuming Scouts’ Life 6 magazine now correctly depletes food and water stats at a slower rate.",
+                        },
+                        {
+                            category: "Bugfix,Items",
+                            name: "Weapons",
+                            description: "M79 Grenade Launcher is now considered an explosive weapon in perks instead of being incorrectly considered a shotgun.",
+                        },
+                        {
+                            category: "Bugfix,Items",
+                            name: "Fusion Cores",
+                            description: "Fixed an issue where Fusion Core generators were producing cores at a slower rate than intended. They are now back to 8 cores/hr.",
+                        },
+                        {
+                            category: "Bugfix,Items",
+                            name: "Magazine",
+                            description: "Fixed the Backwoodsman 2 magazine to appropriately boost Tomahawk damage.",
+                        },
+                        {
+                            category: "Bugfix,Items",
+                            name: "Mirelurk Eggs",
+                            description: "Harvesting Mirelurk Eggs will not result in two separate eggs.",
+                        },
+                        {
+                            category: "Bugfix,Items",
+                            name: "Weapons",
+                            description: "Fixed an issue where several combat rifle automatic receiver mods were prevented from receiving automatic rifle perk bonuses.",
+                        },
+                        {
+                            category: "Bugfix,Items",
+                            name: "Weapons",
+                            description: "Fixed an issue where multiple weapons were able to be equipped at the same time.",
+                        },
+                        {
+                            category: "Bugfix,Items",
+                            name: "Weapons",
+                            description: "The Vampire weapon mod effect now works only when hitting living targets as intended.",
+                        },
+                        {
+                            category: "Bugfix,Items",
+                            name: "Armor",
+                            description: "Fixed an issue where Power Armor parts would display on top of previously equipped parts.",
+                        },
+                        {
+                            category: "Bugfix,Items",
+                            name: "Weapons",
+                            description: "Fixed an issue where bashing an enemy with certain weapons would add the projectile to the enemy's inventory.",
+                        },
+                        {
+                            category: "Bugfix,Items",
+                            name: "Armor",
+                            description: "Fusion Cores will no longer replenish to full charge upon joining another world.",
+                        },
+                        {
+                            category: "Bugfix,Misc Quest",
+                            name: "Get the Supply Drop",
+                            description: "“Get the Supply Drop” Event now will remove holotape once used with supply crate belonging to the player that requested the Supply Drop.",
+                        },
+                        {
+                            category: "Bugfix,Side Quest",
+                            name: "Quest",
+                            description: "Daily Missile Silo quest rewards are now correctly obtainable only once per day.",
+                        },
+                        {
+                            category: "Bugfix,Event",
+                            name: "Line in the Sand",
+                            description: "Fixed an issue with the quest, Line in the Sand where the Sonic Generator already being repaired prevented the player from completing the quest.<br>The event will now progress to the next stage if the Sonic Generator is already repaired when the Event begins.",
+                        },
+                        {
+                            category: "Bugfix,Main Quest",
+                            name: "Recruitment Blues",
+                            description: "Fixed an issue with the objective, “find Junk Mail” that prevented players who switched worlds from completing the quest.",
+                        },
+                        {
+                            category: "Bugfix,Main Quest,Locations",
+                            name: "Second Helpings",
+                            description: "The following location map markers are now available after finishing “Second Helpings”:<br>Slocums Joe, Gauley Mine, Morgantown Trainyard, and Morgantown Airport.",
+                        },
+                        {
+                            category: "Bugfix,Perks",
+                            name: "All Night Long",
+                            description: "All Night Long now decreases hunger and thirst growth at night.",
+                        },
+                        {
+                            category: "Bugfix,Perks",
+                            name: "Overdrive",
+                            description: "Fixed an issue where Overdrive was not increasing critical chance % properly.",
+                        },
+                        {
+                            category: "Bugfix,Perks",
+                            name: "Quack Surgeon",
+                            description: "Quack Surgeon no longer allows for reviving hostile players.",
+                        },
+                        {
+                            category: "Bugfix,Perks",
+                            name: "Strange in Numbers",
+                            description: "Strange in Numbers effects now scale properly with multiple teammates (with and without mutations).",
+                        },
+                        {
+                            category: "Bugfix,Perks",
+                            name: "Refractor",
+                            description: "Fixed an error where each rank of Refactor is doubling energy resistance instead of adding +20 as indicated on the Perk card description.",
+                        },
+                        {
+                            category: "Bugfix,Perks",
+                            name: "Fireproof",
+                            description: "Fireproof now reduces explosion and flame attack damage by 15% per rank.",
+                        },
+                        {
+                            category: "Bugfix,Perks",
+                            name: "Happy Camper",
+                            description: "Happy Camper now functions correctly whether the player is inside or outside of their C.A.M.P. when the perk conditions are refreshed.",
+                        },
+                        {
+                            category: "Bugfix,Perks",
+                            name: "Butcher’s Bounty",
+                            description: "Fixed an issue that allowed for the Butcher’s Bounty perk to trigger again on an already-searched creature.",
+                        },
+                        {
+                            category: "Bugfix,Perks",
+                            name: "Homebody",
+                            description: "The Homebody perk now works as intended when at a claimed Public Workshop.",
+                        },
+                        {
+                            category: "Bugfix,Perks",
+                            name: "Party Boy/Girl",
+                            description: "Party Boy/Girl now effects active alcohol effects on the player.",
+                        },
+                        {
+                            category: "Bugfix,PvP",
+                            name: "Teams",
+                            description: "Teamed players can no longer unfairly block an attacking player when that player attempts to overtake a workshop.<br>Your teammate will enter PVP with the attacking player.",
+                        },
+                        {
+                            category: "Bugfix,PvP,C.A.M.P.",
+                            name: "Turrets",
+                            description: "Turrets at Workshops will now attack players the Workshop owner is engaged in PvP with.",
+                        },
+                        {
+                            category: "Bugfix,Sound",
+                            name: "Blocking",
+                            description: "Blocking a player now also mutes their proximity chat.",
+                        },
+                        {
+                            category: "Bugfix,UI",
+                            name: "Trade",
+                            description: "Fixed an issue where players could view another player’s inventory before they can respond to a trade invite.",
+                        },
+                        {
+                            category: "Bugfix,UI",
+                            name: "Trade",
+                            description: "We no longer let trades occur before the requested player has consented to trade.",
+                        },
+                        {
+                            category: "Bugfix,UI",
+                            name: "Trade",
+                            description: "Fixed an issue where the Stash transfer menu would appear empty after previously trading with another player.",
+                        },
+                        {
+                            category: "Bugfix,UI",
+                            name: "Trade",
+                            description: "Stimpaks with a price value set to zero will no longer prompt “use” in the Trade Menu instead of “accept”.",
+                        },
+                        {
+                            category: "Balance",
+                            name: "Trade",
+                            description: "Changed caps limit for player-to-player trades from 5000 to 25000.",
+                        },
+                        {
+                            category: "Bugfix,Sound",
+                            name: "Chat",
+                            description: "Fixed an issue where voice chat would not always function properly upon exiting the Atomic Shop.",
+                        },
+                        {
+                            category: "Bugfix,Sound,Atomic Shop",
+                            name: "Atomic Shop",
+                            description: "Fixed an issue where some Atomic Shop content was missing sound effects.",
+                        },
+                        {
+                            category: "Bugfix,Sound,Atomic Shop",
+                            name: "Atomic Shop",
+                            description: "“Waving Santa” sound effect will now only play when in “on” state.",
+                        },
+                        {
+                            category: "Bugfix,UI,Atomic Shop",
+                            name: "General",
+                            description: "Players no longer will receive a pop-up for the Atomic Shop when Respawning for the first time.",
+                        },
+                        {
+                            category: "Bugfix,UI,PC",
+                            name: "Resolution",
+                            description: "Perk Pack opening screen now extends to the edge on 21:9 monitors.",
+                        },
+                        {
+                            category: "Bugfix,UI,Atomic Shop",
+                            name: "Atomic Shop",
+                            description: "Players in the Atomic Shop when the Atomic Shop is taken offline will now be notified and taken back to the Main Menu.",
+                        },
+                        {
+                            category: "Bugfix,UI,PC",
+                            name: "FOV",
+                            description: "ixed an issue with scoped weapons zooming incorrectly when the default Field of View setting has been changed.",
+                        },
+                        {
+                            category: "Bugfix,UI,PvP",
+                            name: "PvP",
+                            description: "Fixed an issue where the PVP prompt would appear repeatedly while the same players engaged in combat with each other.",
+                        },
+                    ]
+                },
             ];
 
             var categoryToCount = {
@@ -11371,8 +12931,9 @@
                         items.push(element.id.substring(6));
                     }
                 }
-                if (get("sortDate").checked) {
-                    items.push("sortOldest");
+                var sortingIdx = get("sorting").selectedIndex
+                if (sortingIdx >= 0) {
+                    items.push(get("sorting").options[sortingIdx].value);
                 }
                 items.push("filter=" + encodeURIComponent(get("keywordFilter").value));
 
@@ -11504,16 +13065,31 @@
                 var categoryCounters = {};
                 var anchors = [];
 
-                var sortDir = get("sortDate").checked ? 1 : -1;
-                releaseNotes.sort((a, b) => {
-                    if (a.date < b.date) {
-                        return -sortDir;
-                    } else
-                    if (a.date > b.date) {
-                        return sortDir;
-                    }
-                    return 0;
-                });
+                var sortMode = get("sorting").options[get("sorting").selectedIndex];
+                if (sortMode.value === "SortByDateAsc") {
+                    releaseNotes.sort((a, b) => {
+                        if (a.date < b.date) {
+                            return -1;
+                        } else
+                        if (a.date > b.date) {
+                            return 1;
+                        }
+                        return 0;
+                    });
+                }
+                if (sortMode.value === "SortByDateDesc") {
+                    releaseNotes.sort((a, b) => {
+                        if (a.date < b.date) {
+                            return 1;
+                        } else
+                        if (a.date > b.date) {
+                            return -1;
+                        }
+                        return 0;
+                    });
+                }
+
+                var filteredReleaseNotes = [];
 
                 for (var releaseNote of releaseNotes) {
                     if (releaseNote.date >= minDate && releaseNote.date < maxDate) {
@@ -11541,89 +13117,119 @@
                                 filteredNotes.push(note);
                             }
                         }
+                        
+                        releaseNote.filteredNotes = filteredNotes;
+                        filteredReleaseNotes.push(releaseNote);
+                    }
+                }
 
-                        if (filteredNotes.length !== 0) {
-                            releaseNote.count = filteredNotes.length;
-                            notesInRange += filteredNotes.length;
-                            anchors.push(releaseNote);
-
-                            var rw = tbl.insertRow(tbl.rows.length);
-                            var cll = rw.insertCell(rw.cells.length);
-                            cll.style.height = 1;
-                            cll.innerHTML = "<a name='" + releaseNote.id + "'>";
-
-                            rw = tbl.insertRow(tbl.rows.length);
-                            rw.style.border = "1px solid black";
-                            rw.style.backgroundColor = "#F0F0F0";
-
-                            cll = rw.insertCell(rw.cells.length);
-                            cll.innerText = releaseNote.date.toLocaleDateString();
-                            cll.style.paddingRight = "20px";
-                            cll.noWrap = true;
-
-                            cll = rw.insertCell(rw.cells.length);
-                            cll.style.fontSize = "30px";
-                            cll.style.fontWeight = "bold";
-                            cll.innerHTML = "Patch " + releaseNote.patch;
-                            cll.colSpan = 2;
-                            if (releaseNote.descripton !== undefined) {
-                                cll.innerHTML += "<br><span style='font-size: 20; font-weight:bold;'><i>" + releaseNote.descripton + "</i>&nbsp;&nbsp;&nbsp;(" + releaseNote.count + ")</span>";
-                            }
-
-                            cll = rw.insertCell(rw.cells.length);
-                            cll.noWrap = true;
-                            var links = [];
-                            if (releaseNote.bethesda !== undefined) {
-                                links.push("<a href='" + releaseNote.bethesda + "' target='_blank'>&#x2197; Bethesda.net</a>");
-                            }
-                            if (releaseNote.reddit !== undefined) {
-                                links.push("<a href='" + releaseNote.reddit + "' target='_blank'>&#x2197; Reddit</a>");
-                            }
-                            cll.innerHTML = links.join("<br>");
-
-                            for (var note of filteredNotes) {
-                                rw = tbl.insertRow(tbl.rows.length);
-                                
-                                cll = rw.insertCell(rw.cells.length);
-                                cll.innerHTML = "&nbsp;&nbsp;&nbsp;";
-
-                                cll = rw.insertCell(rw.cells.length);
-                                cll.style.fontWeight = "bold";
-                                cll.style.paddingRight = "20px";
-                                cll.innerHTML = "" + note.category.replace(/,/g, ",<br>") + "";
-                                cll.style.verticalAlign = "top";
-                                cll.style.borderBottom = "1px dotted black";
-
-                                cll = rw.insertCell(rw.cells.length);
-                                cll.innerHTML = "<b style='font-size: 24;'>" + note.name + "</b>";
-                                cll.style.borderBottom = "1px dotted black";
-                                cll.vAlign = "top";
-                                
-                                if (note.description !== undefined) {
-                                    cll.innerHTML += "<br><div style='font-size: 20; padding-left: 20px;'>" + note.description + "</div>";
-                                }
-
-                                cll = rw.insertCell(rw.cells.length);
-                                cll.style.borderBottom = "1px dotted black";
-                                if (note.link !== undefined) {
-                                    cll.innerHTML = "<a href='" + note.link + "' target='_blank'>&#x2197; Wiki</a>";
-                                }
-
-                                for (var cat of note.category.split(",")) {
-                                    var counter = categoryToCount[cat];
-                                    if (counter !== undefined) {
-                                        if (categoryCounters[cat] === undefined) {
-                                            categoryCounters[cat] = 0;
-                                        }
-                                        categoryCounters[cat]++;
-                                    } else {
-                                        alert("Debug: missing counter for category " + cat);
-                                    }
-                                }
-                            }
-                        } else {
-                            notesFilteredOut = true;
+                if (sortMode.value === "SortByNotesAsc") {
+                    filteredReleaseNotes.sort((a, b) => {
+                        if (a.filteredNotes.length < b.filteredNotes.length) {
+                            return -1;
+                        } else
+                        if (a.filteredNotes.length > b.filteredNotes.length) {
+                            return 1;
                         }
+                        return 0;
+                    });
+                }
+                if (sortMode.value === "SortByNotesDesc") {
+                    filteredReleaseNotes.sort((a, b) => {
+                        if (a.filteredNotes.length < b.filteredNotes.length) {
+                            return 1;
+                        } else
+                        if (a.filteredNotes.length > b.filteredNotes.length) {
+                            return -1;
+                        }
+                        return 0;
+                    });
+                }
+
+                for (var releaseNote of filteredReleaseNotes) {
+                    var filteredNotes = releaseNote.filteredNotes;
+
+                    if (filteredNotes.length !== 0) {
+                        releaseNote.count = filteredNotes.length;
+                        notesInRange += filteredNotes.length;
+                        anchors.push(releaseNote);
+
+                        var rw = tbl.insertRow(tbl.rows.length);
+                        var cll = rw.insertCell(rw.cells.length);
+                        cll.style.height = 1;
+                        cll.innerHTML = "<a name='" + releaseNote.id + "'>";
+
+                        rw = tbl.insertRow(tbl.rows.length);
+                        rw.style.border = "1px solid black";
+                        rw.style.backgroundColor = "#F0F0F0";
+
+                        cll = rw.insertCell(rw.cells.length);
+                        cll.innerText = releaseNote.date.toLocaleDateString();
+                        cll.style.paddingRight = "20px";
+                        cll.noWrap = true;
+
+                        cll = rw.insertCell(rw.cells.length);
+                        cll.style.fontSize = "30px";
+                        cll.style.fontWeight = "bold";
+                        cll.innerHTML = "Patch " + releaseNote.patch;
+                        cll.colSpan = 2;
+                        if (releaseNote.descripton !== undefined) {
+                            cll.innerHTML += "<br><span style='font-size: 20; font-weight:bold;'><i>" + releaseNote.descripton + "</i>&nbsp;&nbsp;&nbsp;(" + releaseNote.count + ")</span>";
+                        }
+
+                        cll = rw.insertCell(rw.cells.length);
+                        cll.noWrap = true;
+                        var links = [];
+                        if (releaseNote.bethesda !== undefined) {
+                            links.push("<a href='" + releaseNote.bethesda + "' target='_blank'>&#x2197; Bethesda.net</a>");
+                        }
+                        if (releaseNote.reddit !== undefined) {
+                            links.push("<a href='" + releaseNote.reddit + "' target='_blank'>&#x2197; Reddit</a>");
+                        }
+                        cll.innerHTML = links.join("<br>");
+
+                        for (var note of filteredNotes) {
+                            rw = tbl.insertRow(tbl.rows.length);
+                            
+                            cll = rw.insertCell(rw.cells.length);
+                            cll.innerHTML = "&nbsp;&nbsp;&nbsp;";
+
+                            cll = rw.insertCell(rw.cells.length);
+                            cll.style.fontWeight = "bold";
+                            cll.style.paddingRight = "20px";
+                            cll.innerHTML = "" + note.category.replace(/,/g, ",<br>") + "";
+                            cll.style.verticalAlign = "top";
+                            cll.style.borderBottom = "1px dotted black";
+
+                            cll = rw.insertCell(rw.cells.length);
+                            cll.innerHTML = "<b style='font-size: 24;'>" + note.name + "</b>";
+                            cll.style.borderBottom = "1px dotted black";
+                            cll.vAlign = "top";
+                            
+                            if (note.description !== undefined) {
+                                cll.innerHTML += "<br><div style='font-size: 20; padding-left: 20px;'>" + note.description + "</div>";
+                            }
+
+                            cll = rw.insertCell(rw.cells.length);
+                            cll.style.borderBottom = "1px dotted black";
+                            if (note.link !== undefined) {
+                                cll.innerHTML = "<a href='" + note.link + "' target='_blank'>&#x2197; Wiki</a>";
+                            }
+
+                            for (var cat of note.category.split(",")) {
+                                var counter = categoryToCount[cat];
+                                if (counter !== undefined) {
+                                    if (categoryCounters[cat] === undefined) {
+                                        categoryCounters[cat] = 0;
+                                    }
+                                    categoryCounters[cat]++;
+                                } else {
+                                    alert("Debug: missing counter for category " + cat);
+                                }
+                            }
+                        }
+                    } else {
+                        notesFilteredOut = true;
                     }
                 }
                 if (tbl.rows.length === 0) {
@@ -11706,7 +13312,7 @@
             get("checkAll").onclick = evt => forAllFilters(true);
             get("checkNone").onclick = evt => forAllFilters(false);
             get("keywordFilter").oninput = updateTable;
-            get("sortDate").oninput = updateTable;
+            get("sorting").oninput = updateTable;
 
             var q = location.search;
 
@@ -11720,7 +13326,12 @@
                         element.checked = items.includes(element.id.substring(6));
                     }
                 }
-                get("sortDate").checked = items.includes("sortOldest");
+                
+                for (var sortBy of ["SortByDateAsc", "SortByDateDesc", "SortByNotesAsc", "SortByNotesDesc"]) {
+                    if (items.includes(sortBy)) {
+                        selectByValue(get("sorting"), sortBy);
+                    }
+                }
 
                 for (var item of items) {
                     if (item.startsWith("leave=")) {
@@ -11731,6 +13342,15 @@
                     }
                     if (item.startsWith("filter=")) {
                         get("keywordFilter").value = item.substring(7);
+                    }
+                }
+            }
+
+            function selectByValue(select, value) {
+                for (var o of select.options) {
+                    if (o.value === value) {
+                        o.selected = true;
+                        break;
                     }
                 }
             }
