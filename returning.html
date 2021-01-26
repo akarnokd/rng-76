@@ -70,7 +70,7 @@
                     <td class='bolded topped'>Include categories:</td>
                     <td>
                         <button id='checkAll'>All</button>&nbsp;<button id='checkNone'>None</button>&nbsp;&nbsp;&nbsp;
-                        <a href='#' id='includeCustom' onclick='showHideInclude(); return false;'>Customize...</a>
+                        <a href='#' id='includeCustom' onclick='showHideInclude(); return false;'>&#x25BE; Customize...</a>
                         <br>
                         <table id='includeFilterTable' style='display: none;'>
                             <tr>
@@ -180,7 +180,7 @@
                         <!--
                         <button id='checkAllExclude'>All</button>&nbsp;<button id='checkNoneExclude'>None</button><br>
                         -->
-                        <label><input type='checkbox' id='filterBugExclude'> Exclude Bugfixes</label>
+                        <label><input type='checkbox' id='filterBugExclude'> Bugfixes</label>
                     </td>
                 </tr>
                 <tr>
@@ -14594,8 +14594,10 @@
                 var tbl = get("includeFilterTable");
                 if (tbl.style.display == "none") {
                     tbl.style.display = "table";
+                    get("includeCustom").innerHTML = "&#x25B4; Customize...";
                 } else {
                     tbl.style.display = "none";
+                    get("includeCustom").innerHTML = "&#x25BE; Customize...";
                 }
             }
 
