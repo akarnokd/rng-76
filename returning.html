@@ -26,6 +26,16 @@
             .someindent {
                 padding-left: 20px;
             }
+            .footer {
+                position: fixed;
+                right: 0;
+                bottom: 0;
+                left: 0;
+                padding: 3px;
+                cursor: pointer;
+                background-color: #efefef;
+                text-align: center;
+            }
         </style>
         <meta name="keywords" content="Fallout,Fallout 76,Return,Returning,Player,Release,Release Notes,Search,Filter">
         <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -215,6 +225,7 @@
             <table id='releaseNotesTable' style="border-collapse: collapse;">
             </table>
         </center>
+        <div id='theFooter' class='footer' onclick='topFunction();' style='display: none;'>&#x25B4; Top &#x25B4;</div>
         <script>
             function ofDate(year, month, day) {
                 return new Date(Date.UTC(year, month, day, 0, 0, 0));
@@ -14658,10 +14669,25 @@
                 };
             }
 
+            function topFunction() {
+                document.body.scrollTop = 0; // For Safari
+                document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+            }
+
             get("layoutTabular").oninput = updateTable;
             get("layoutFlat").oninput = updateTable;
 
             preparePatchSelector();
+
+            document.onscroll = evt => {
+                var atop = get("releaseNotesTable").offsetTop;
+                var currY = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
+                if (currY >= atop) {
+                    get("theFooter").style.display = "block";
+                } else {
+                    get("theFooter").style.display = "none";
+                }
+            };
  
             var q = location.search;
 
