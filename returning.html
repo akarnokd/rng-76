@@ -217,13 +217,14 @@
                         <a id='theLink' href="#" target="_blank">&#x2197; Link to these settings</a><br><br>
                         <button id='search' onclick='updateTable();'>Search</button>
                         &nbsp;&nbsp;&nbsp;
-                        <button id='clear' onclick='location.search=""; location.hash=""; window.location.reload(); return false;'>Reset</button>
+                        <button id='clear' onclick='resetPage();'>Reset</button>
                     </td>
                 </tr>
             </table>
             <hr>
             <table id='releaseNotesTable' style="border-collapse: collapse;">
             </table>
+            <div style="padding-top: 40px;">&nbsp;</div>
         </center>
         <div id='theFooter' class='footer' onclick='topFunction();' style='display: none;'>&#x25B4; Top &#x25B4;</div>
         <script>
@@ -235,6 +236,591 @@
             }
 
             var releaseNotes = [
+                {
+                    id: "P25",
+                    patch: "25",
+                    descripton: "Quality of Life, Balance and Bugfixes",
+                    date: ofDate(2021, 0, 26),
+                    reddit: "https://www.reddit.com/r/fo76/comments/l5g0uo/fallout_76_inventory_update_notes_january_26_2021/",
+                    //bethesda: "",
+                    notes: [
+                        {
+                            category: "Balance",
+                            name: "Stash Increase",
+                            description: "Hold onto extra gear with a Stash increase! We've increased the amount of weight your Stash can hold by 50%, giving you 1,200 pounds to work with.",
+                        },
+                        {
+                            category: "UI",
+                            name: "New Inventory Tabs",
+                            description: "We’ve added a few new tabs to your inventory menus so that you can better organize your gear,<br>from your snacks and Stimpaks, to your outfits and armor.",
+                        },
+                        {
+                            category: "UI,Items",
+                            name: "New",
+                            description: "This tab will keep track of all the items you gather during a play session, sorted by newest to oldest.<br>If you already have a stackable item in your inventory, like Steel Scrap, then new Steel Scrap you pick up will not appear in the “New” tab.<br>Instead, it will be added to your existing stack. Additionally, the “New” tab will reset if you leave your current world.",
+                        },
+                        {
+                            category: "UI,Items",
+                            name: "Armor",
+                            description: "We’ve split Armor into its own menu tab so that you can keep your defensive gear separate from your other Apparel.",
+                        },
+                        {
+                            category: "UI,Items",
+                            name: "Food/Drinks",
+                            description: "Your food and drinks are now split out from “Aid” into their own “Food/Drinks” inventory tab.<br>Please note that your Chems and Serums will remain in “Aid.”",
+                        },
+                        {
+                            category: "UI,Items",
+                            name: "Stack Weight",
+                            description: "What’s weighing you down? From now on, when you select a stacked item in your inventory, the Pip-Boy will show you the individual weight and the stack weight.",
+                        },
+                        {
+                            category: "UI,Items",
+                            name: "Vending Machine Map Previews",
+                            description: "The tooltip that appears when you’re previewing another player’s Vending Machines on the Map will now show<br>the number of 1-, 2-, and 3-star legendary weapons and armor they’re selling. This way, you’ll have more information about the legendary goodies players<br>are selling before you choose to Fast Travel to their C.A.M.P.s.<br>Additionally, Vending Machine categories that are empty will no longer appear in the tooltip to help you more easily see what types of items players do have for sale.",
+                        },
+                        {
+                            category: "UI,Atomic Shop",
+                            name: "Atomic Shop",
+                            description: "We’ve added a button to each category page in the Atomic Shop that will let you show or hide the items you already own,<br>so that you can browse what’s still available with less clutter.",
+                        },
+                        {
+                            category: "UI,C.A.M.P.",
+                            name: "Build Mode Visual Improvement",
+                            description: "We’ve changed the color of the outline that appears when you build objects in your C.A.M.P. from green to light blue,<br>which should be more friendly for our builders who have colorblindness. This change is only visible when the object you're trying to place is in a valid location,<br>and invalid placement outlines are still red.",
+                        },
+                        {
+                            category: "Balance,Daily Ops",
+                            name: "Elder Tier Rewards",
+                            description: "In response to community feedback, we’ve adjusted Daily Ops rewards so that you will always receive an item from the rare rewards pool<br>whenever you complete an Op fast enough to reach Elder Tier.",
+                        },
+                        {
+                            category: "Atomic Shop,Items,Challenge",
+                            name: "Spread the Love: New Challenges and Rewards",
+                            description: "Starting today, and lasting until February 16, you can claim a free “Heart Wrencher” Skin for the Pipe Wrench in the Atomic Shop,<br>and then use it to complete Challenges that will unlock new cosmetic and consumable rewards!<br>Earn Lunchboxes, Perk Card Packs, and Repair Kits by defeating enemies with your Heart Wrencher every day during the Spread the Love event.<br>You can also claim outfits, and even a new variation of the Backwoods Bungalow, by completing Weekly Challenges with your Heart Wrencher equipped.",
+                        },
+                        {
+                            category: "Bugfix,NPC",
+                            name: "Settler Forager",
+                            description: "Corrected missing player dialog options for Settler Forager.",
+                        },
+                        {
+                            category: "Bugfix,Visual,Items",
+                            name: "Apparel",
+                            description: "Fixed texture issues with the Samurai Helmet.",
+                        },
+                        {
+                            category: "Bugfix,Visual,Items",
+                            name: "Apparel",
+                            description: "Reduced the gap between the Deep Cave Hunter Backpack and the player’s back.",
+                        },
+                        {
+                            category: "Bugfix,Visual,Items",
+                            name: "Apparel",
+                            description: "The Pip-Boy light no longer shines behind the player in the Brotherhood Recon Helmet.",
+                        },
+                        {
+                            category: "Bugfix,Visual,Items",
+                            name: "Apparel",
+                            description: "Fixed a texture issue with the Fasnacht Beret.",
+                        },
+                        {
+                            category: "Bugfix,Visual",
+                            name: "Décor",
+                            description: "Updated the explosion seen when destroying Wrapped Presents.",
+                        },
+                        {
+                            category: "Bugfix,Visual",
+                            name: "Décor",
+                            description: "The flame on Skull Candles no longer appears offset from the wick.",
+                        },
+                        {
+                            category: "Bugfix,Visual,Items",
+                            name: "Items",
+                            description: "Updated the explosion effects when destroying Mr. Handy Fuel and Portable Fuel Tanks.",
+                        },
+                        {
+                            category: "Bugfix,Visual",
+                            name: "Lights",
+                            description: "Yellow lighting effects no longer persist after the Color Wheel has been turned off.",
+                        },
+                        {
+                            category: "Bugfix,Visual",
+                            name: "Lights",
+                            description: "Adjusted the lighting on the “Kill, Laugh, Love” Sign so that the word “Laugh” is no longer too bright.",
+                        },
+                        {
+                            category: "Bugfix,Visual",
+                            name: "Power Armor",
+                            description: "Headlamps no longer shine in an incorrect direction when wearing a T-65 Power Armor Helmet that has a paint applied.",
+                        },
+                        {
+                            category: "Bugfix,Visual",
+                            name: "Power Armor",
+                            description: "Addressed missing textures and reduced clipping issues with the Captain Cosmos Power Armor.",
+                        },
+                        {
+                            category: "Bugfix,Visual",
+                            name: "Power Armor",
+                            description: "War Rider Power Armor now properly protects the player’s posterior.",
+                        },
+                        {
+                            category: "Bugfix,Visual",
+                            name: "Vending Machines",
+                            description: "Adjusted the explosion when destroying the Slocum’s Joe Vending Machine.",
+                        },
+                        {
+                            category: "Bugfix,Visual",
+                            name: "Weapons",
+                            description: "Mind over Matter’s visual effects no longer appear to come from the player’s shoulder in third-person view.",
+                        },
+                        {
+                            category: "Bugfix,C.A.M.P.,Exploit",
+                            name: "Exploit",
+                            description: "Addressed an exploit affecting item storage in the Stash box.",
+                        },
+                        {
+                            category: "Bugfix,C.A.M.P.",
+                            name: "Shelters",
+                            description: "It is now easier to place structures, like the Seedy Shed, Backwoods Bungalow, and others inside a Shelter, as long as there is enough space to do so.",
+                        },
+                        {
+                            category: "Bugfix,C.A.M.P.",
+                            name: "Stairs",
+                            description: "Stairs can now snap to the front of the Brotherhood of Steel Scout Tower.",
+                        },
+                        {
+                            category: "Bugfix,C.A.M.P.",
+                            name: "Super Mutant Tube",
+                            description: "Players can no longer get stuck inside the Super Mutant Tube while building it.",
+                        },
+                        {
+                            category: "Bugfix,Challenge,Locations",
+                            name: "World",
+                            description: "The “Discover Beckley” subchallenge for the “Discover Locales in the Ash Heap” Challenge can now be completed.",
+                        },
+                        {
+                            category: "Bugfix,Daily Ops,Items",
+                            name: "Rewards",
+                            description: "Fixed an issue that could result in no rare reward being granted if the item the player would have received was a non-tradeable item Plan<br>that they had already learned. Now, players will always receive a reward when this occurs.",
+                        },
+                        {
+                            category: "Bugfix,Daily Ops",
+                            name: "Operation Report",
+                            description: "Addressed a visual issue that could incorrectly mark reward tiers as already earned in the Daily Ops Operation Report.<br>Please Note: Daily Ops rewards reset at 12:00 p.m. ET each day.",
+                        },
+                        {
+                            category: "Balance",
+                            name: "Rad Worms",
+                            description: "Rad Worms now only increases Radiation damage taken from consuming food and drinks.",
+                        },
+                        {
+                            category: "Bugfix",
+                            name: "Spawning",
+                            description: "Fixed an issue causing enemies to sometimes spawn grouped together at an incorrect location.",
+                        },
+                        {
+                            category: "Bugfix",
+                            name: "Giant Hermit Crabs",
+                            description: "Players can no longer clip through Giant Hermit Crabs.",
+                        },
+                        {
+                            category: "Bugfix,Items",
+                            name: "Apparel",
+                            description: "The Feral Ghoul Mask and Cuddles the Clown Mask no longer obscure the Pip-Boy light.",
+                        },
+                        {
+                            category: "Bugfix,Items",
+                            name: "Apparel",
+                            description: "The Plague Doctor Mask now correctly states that it prevents air borne diseases.",
+                        },
+                        {
+                            category: "Bugfix,Items",
+                            name: "Apparel",
+                            description: "The Swamp Camo Hazmat Suit can now be repaired.",
+                        },
+                        {
+                            category: "Bugfix,Items",
+                            name: "Armor",
+                            description: "Raider Armor now correctly works with the Funky Duds and Sizzling Style Legendary Perks.",
+                        },
+                        {
+                            category: "Bugfix,Items",
+                            name: "Armor",
+                            description: "Recon Armor now correctly adjusts to the players body style.",
+                        },
+                        {
+                            category: "Bugfix,Items",
+                            name: "Flora",
+                            description: "Thistle now correctly turns into Irradiated Thistle when nuked. Irradiated Thistle can now be harvested for Raw Fluorescent Flux.",
+                        },
+                        {
+                            category: "Bugfix,Items",
+                            name: "Magazines",
+                            description: "Fixed an issue causing “Live & Love 8” to cancel out the Very Well Rested bonus from a fourth Lunchbox.",
+                        },
+                        {
+                            category: "Bugfix,Items",
+                            name: "Magazines",
+                            description: "The “Astonishingly Awesome Tales 3” bonus has been changed to allows the player to breathe underwater and regain health while swimming.",
+                        },
+                        {
+                            category: "Bugfix,Items,Perks",
+                            name: "Mods",
+                            description: "Weapons with mods that add fire damage, like the War Glaive with the Flaming Blade mod, now work with the Friendly Fire Perk.",
+                        },
+                        {
+                            category: "Bugfix,Items",
+                            name: "Mods",
+                            description: "The Heating Coil mod now correctly states that it deals fire damage.",
+                        },
+                        {
+                            category: "Bugfix,Items",
+                            name: "Mods",
+                            description: "Applying Brawler Armor mods to Brotherhood Recon Armor arm pieces now boosts unarmed damage by 7.5% each.",
+                        },
+                        {
+                            category: "Bugfix,Items",
+                            name: "Mods",
+                            description: "The Reduced Ammo Weight Legendary effect now correctly reduces explosive ammo weight.",
+                        },
+                        {
+                            category: "Bugfix,Items",
+                            name: "Mods",
+                            description: "Adding Pocketed mods to a Boiled Leather Chest Piece no longer incorrectly increases the item’s durability.",
+                        },
+                        {
+                            category: "Bugfix,Items",
+                            name: "Plans",
+                            description: "Fixed an issue that caused players to unlearn Plans for Lawn Flamingos and Wooden Desks.",
+                        },
+                        {
+                            category: "Bugfix,Items",
+                            name: "Power Armor",
+                            description: "The Targeting HUD mod now only highlights hostile targets.",
+                        },
+                        {
+                            category: "Balance,Items",
+                            name: "Power Armor",
+                            description: "The Explosive Vents mod has been renamed “Cooling Vents.” Cooling Vents slow Fusion Core drain by 5%.",
+                        },
+                        {
+                            category: "Bugfix,Items",
+                            name: "Weapons",
+                            description: "Fixed an issue where certain weapons that shoot multiple projectiles were taking too much condition damage.",
+                        },
+                        {
+                            category: "Bugfix,Items",
+                            name: "Weapons",
+                            description: "The Crusader Pistol Reflex sights no longer appear distorted when the Pyro receiver is equipped.",
+                        },
+                        {
+                            category: "Bugfix,Items",
+                            name: "Weapons",
+                            description: "The Stabilized Bull Barrel now correctly counts towards mods learned on the .44.",
+                        },
+                        {
+                            category: "Bugfix,Items",
+                            name: "Weapons",
+                            description: "Baton that have a paint or skin applied can now be changed back to their default appearance.",
+                        },
+                        {
+                            category: "Bugfix,Items",
+                            name: "Weapons",
+                            description: "Changed the Plasma Cutter’s speed description to Medium.",
+                        },
+                        {
+                            category: "Bugfix,Items",
+                            name: "Weapons",
+                            description: "Crossbows can now be changed back to their standard frame.",
+                        },
+                        {
+                            category: "Bugfix,Items",
+                            name: "Weapons",
+                            description: "Players can now correctly reapply the Wounding mod to a Bone Club after switching it to No Upgrade.",
+                        },
+                        {
+                            category: "Bugfix,Mutation",
+                            name: "Plague Walker",
+                            description: "The Plague Walker Mutation's description no longer incorrectly states that it removes Disease durations.<br>This was only a description change, the Mutation's functionality has not been adjusted.",
+                        },
+                        {
+                            category: "Bugfix,NPC",
+                            name: "Brotherhood",
+                            description: "Brotherhood of Steel Hopefuls and Initiates will no longer take damage when nuked.",
+                        },
+                        {
+                            category: "Bugfix,NPC",
+                            name: "Brotherhood",
+                            description: "NPCs will no longer say hello to the player while they are talking to Russell Dorsey.",
+                        },
+                        {
+                            category: "Bugfix,NPC",
+                            name: "Brotherhood",
+                            description: "Addressed dialogue issues with NPCs during “Property Rights.”",
+                        },
+                        {
+                            category: "Bugfix,NPC",
+                            name: "Putnam Brothers",
+                            description: "Now have appropriate dialog if neither were recruited to Fort Atlas when the player revisits them.",
+                        },
+                        {
+                            category: "Bugfix,NPC",
+                            name: "Settlers",
+                            description: "Fixed the collision on Settlers at East Mountain Lookout Tower.",
+                        },
+                        {
+                            category: "Bugfix,NPC",
+                            name: "Scribe Valdez",
+                            description: "No longer comments on documents players have already collected during Mother of Invention.",
+                        },
+                        {
+                            category: "Bugfix,NPC",
+                            name: "Scribe Valdez",
+                            description: "Fixed an issue that prevented Valdez from playing certain voice lines during “Mother of Invention.”",
+                        },
+                        {
+                            category: "Bugfix,NPC",
+                            name: "Scribe Valdez",
+                            description: "Valdez's clipboard will no longer clip through her while in a downed animation.",
+                        },
+                        {
+                            category: "Bugfix,NPC",
+                            name: "Vendors",
+                            description: "The Flatwoods Vendor will no longer sometimes appear invisible to players.",
+                        },
+                        {
+                            category: "Bugfix,Stability",
+                            name: "Client Stability",
+                            description: "Fixed multiple crashes that could occur during combat.",
+                        },
+                        {
+                            category: "Bugfix,Stability",
+                            name: "Client Stability",
+                            description: "Addressed a crash that could occur while scrolling the Notes tab in the Pip-Boy.",
+                        },
+                        {
+                            category: "Bugfix,Stability",
+                            name: "Connectivity",
+                            description: "Fixed an issue that could cause PC players to receive a “Disconnected due to modified game files” <br>error during normal gameplay and kick them from their current world.",
+                        },
+                        {
+                            category: "Bugfix,Stability",
+                            name: "Server Stability",
+                            description: "Addressed an issue that could cause a server crash.",
+                        },
+                        {
+                            category: "Bugfix,Performance",
+                            name: "Performance",
+                            description: "Addressed an issue that could cause the game client to hitch while viewing the Aid tab in the Pip-Boy.",
+                        },
+                        {
+                            category: "Bugfix,Performance",
+                            name: "Performance",
+                            description: "Addressed an issue that could cause the game client to hitch when sorting the Pip-Boy by spoil.",
+                        },
+                        {
+                            category: "Bugfix,Performance",
+                            name: "Performance",
+                            description: "Fixed an issue that could result in framerate drops inside Fort Atlas.",
+                        },
+                        {
+                            category: "Balance,Perks",
+                            name: "Dodgy",
+                            description: "Now has a 2 second cooldown on AP drain. The damage reduction is still active during the AP cooldown.<br>This prevents players’ AP from completely draining when hit by high rate of fire weapons.",
+                        },
+                        {
+                            category: "Bugfix,Perks",
+                            name: "Friendly Fire",
+                            description: "The health regeneration effects from Friendly Fire no longer stack, but heal faster. This makes it so all weapons heal at the same rate.",
+                        },
+                        {
+                            category: "Bugfix,Perks",
+                            name: "Stabilized",
+                            description: "Fixed an issue that prevented Stabilized from working correctly while wearing Power Armor.",
+                        },
+                        {
+                            category: "Bugfix,Perks,UI",
+                            name: "Super Duper",
+                            description: "Fanfare and sound effects no longer incorrectly play when crafting Legendary Items.",
+                        },
+                        {
+                            category: "Bugfix,Main Quest",
+                            name: "Disarming Discovery",
+                            description: "Dagger will no longer attempt to talk to the player if they are in the shed.",
+                        },
+                        {
+                            category: "Bugfix,Main Quest",
+                            name: "Disarming Discovery",
+                            description: "Dagger’s Key will now longer reappear on her corpse after logging out and back in if the player has already looted it.",
+                        },
+                        {
+                            category: "Bugfix,Event",
+                            name: "Dogwood Die Off",
+                            description: "Fixed an issue where the quest target does not appear correctly on the trunk.",
+                        },
+                        {
+                            category: "Bugfix,Event",
+                            name: "Fasnacht Day",
+                            description: "Players will now correctly earn a three-star legendary item upon event completion.",
+                        },
+                        {
+                            category: "Bugfix,Event",
+                            name: "Fasnacht Day",
+                            description: "Super Mutant Suiciders will no longer continue to spawn after Fasnacht ends.",
+                        },
+                        {
+                            category: "Bugfix,Event",
+                            name: "Fasnacht Day",
+                            description: "Addressed an issue that could cause the Master of Ceremonies to spawn outside of the event area.",
+                        },
+                        {
+                            category: "Bugfix,Event",
+                            name: "Fasnacht Day",
+                            description: "The Robotics Expert Perk can no longer be used to Hack the Parade Marcher bots.",
+                        },
+                        {
+                            category: "Bugfix,Event,Items",
+                            name: "Fasnacht Day",
+                            description: "Looting Porcelain Steins during the Fasnacht Day event no longer prevents players from picking up additional Porcelain Steins<br>during the next Fasnacht on that same world.",
+                        },
+                        {
+                            category: "Bugfix,Main Quest",
+                            name: "Field Testing",
+                            description: "The Putnam parents are now more visible during the intro scene.",
+                        },
+                        {
+                            category: "Bugfix,Main Quest",
+                            name: "Field Testing",
+                            description: "Fixed a rare issue that could cause the player to see a blank dialogue box when speaking with Paladin Rahmani.",
+                        },
+                        {
+                            category: "Bugfix,Misc Quest,Items",
+                            name: "Forbidden Knowledge",
+                            description: "Addressed several issues affecting Forbidden Knowledge and Technical Data, and this quest has been re-enabled.<br>Please Note: Technical Data can no longer be dropped, traded, or Sold.",
+                        },
+                        {
+                            category: "Bugfix,Main Quest",
+                            name: "Mother of Invention",
+                            description: "The Mysterious Component now remains a quest item after relogging.",
+                        },
+                        {
+                            category: "Bugfix,Main Quest",
+                            name: "Mother of Invention",
+                            description: "The bag of dirt in the Ultracite Battery housing will no longer disappear when the player returns to the instance.",
+                        },
+                        {
+                            category: "Bugfix,Main Quest",
+                            name: "Mother of Invention",
+                            description: "Addressed an issue that could cause Scribe Valdez to not fight back when attacked by enemies.",
+                        },
+                        {
+                            category: "Bugfix,Main Quest",
+                            name: "Mother of Invention",
+                            description: "The Mysterious Component in “Mother of Invention” will now display an inventory message when the player extracts it.",
+                        },
+                        {
+                            category: "Bugfix,Main Quest",
+                            name: "Mother of Invention",
+                            description: "Addressed a lore continuity issue in Rahmani and Shin’s dialogue regarding Paladin Taggerdy.",
+                        },
+                        {
+                            category: "Bugfix,Main Quest",
+                            name: "Over and Out",
+                            description: "The animation of the transmitter getting destroyed no longer plays prematurely.",
+                        },
+                        {
+                            category: "Bugfix,Main Quest",
+                            name: "Overseer, Overseen",
+                            description: "Dialogue and quest will now progress appropriately when returning the security footage to Head Engineer Brass.",
+                        },
+                        {
+                            category: "Bugfix,Main Quest",
+                            name: "The Best Defense",
+                            description: "A quest target now correctly points to Paladin Rahmani after being directed to speak with the Brotherhood upstairs.",
+                        },
+                        {
+                            category: "Bugfix,Main Quest",
+                            name: "The Best Defense",
+                            description: "Fixed an issue that could cause more enemy waves to spawn than intended during the quest’s final encounter.",
+                        },
+                        {
+                            category: "Bugfix,Main Quest",
+                            name: "Trade Secrets",
+                            description: "The quest marker to collect the Pip-Boy Construction kit now consistently points to Vault-Tec University.",
+                        },
+                        {
+                            category: "Bugfix,Sound",
+                            name: "Scoreboard",
+                            description: "Entering the Scoreboard quickly no longer causes the sound to disappear.",
+                        },
+                        {
+                            category: "Bugfix,UI,Atomic Shop",
+                            name: "Atomic Shop",
+                            description: "Once owned, the Brotherhood of Steel Icon now correctly appears in the Player Icons page in the Atomic Shop.",
+                        },
+                        {
+                            category: "Bugfix,UI",
+                            name: "Fast Travel",
+                            description: "Added an error message when trying to fast travel to a C.A.M.P. that the player is too close to.",
+                        },
+                        {
+                            category: "Bugfix,UI",
+                            name: "Map",
+                            description: "Fixed an issue where the map could be opened while viewing a terminal.",
+                        },
+                        {
+                            category: "Bugfix,UI",
+                            name: "Map",
+                            description: "Fixed a rare issue that could cause item counts in a player’s Vending Machine preview on the Map to mismatch the number of items in that Vending Machine.",
+                        },
+                        {
+                            category: "Bugfix,UI,Challenge",
+                            name: "Notifications",
+                            description: "Fixed an issue where fanfare would sometimes not play after completing a timed challenge.",
+                        },
+                        {
+                            category: "Bugfix,UI,Perks",
+                            name: "Perk Coins",
+                            description: "Fixed a visual issue that could cause the player’s Perk Coin total to display an incorrect number of Perk Coins after scrapping Perk Cards.",
+                        },
+                        {
+                            category: "Bugfix,UI,Items",
+                            name: "Pip-Boy",
+                            description: "Items with long names are no longer cut off in the Pip-Boy.",
+                        },
+                        {
+                            category: "Bugfix,UI,Main Quest",
+                            name: "Quests",
+                            description: "Fixed an issue causing the “Forging Trust” objective tracker to remain on the screen after the quest was completed.",
+                        },
+                        {
+                            category: "Bugfix,Fallout 1st",
+                            name: "Scoreboard",
+                            description: "Fallout 1st exclusive rewards are now claimed separately from standard rewards on the Scoreboard.",
+                        },
+                        {
+                            category: "Bugfix,UI",
+                            name: "Social Menu",
+                            description: "Improved mouse controls on pop-ups in the social menu.",
+                        },
+                        {
+                            category: "Bugfix,UI",
+                            name: "Teams",
+                            description: "The Team UI will no longer flash while repairing items at a workbench.",
+                        },
+                        {
+                            category: "Bugfix,Locations",
+                            name: "World",
+                            description: "Fixed several locations in the world where players could become stuck.",
+                        },
+                        {
+                            category: "Bugfix,Locations",
+                            name: "World",
+                            description: "Fixed several locations where players could view out of world.",
+                        },
+                    ]
+                },
                 {
                     id: "P24A",
                     patch: "24-A",
@@ -14311,7 +14897,7 @@
                 var filteredReleaseNotes = [];
 
                 for (var releaseNote of releaseNotes) {
-                    if (releaseNote.date >= minDate && releaseNote.date < maxDate) {
+                    if (releaseNote.date >= minDate && releaseNote.date <= maxDate) {
 
                         patchesInRange++;
 
@@ -14688,6 +15274,16 @@
                     get("theFooter").style.display = "none";
                 }
             };
+
+            function resetPage() {
+                /*
+                location.search = ""; 
+                location.hash = ""; 
+                window.location.reload();
+                */
+                var idx = window.location.href.indexOf("returning.html");
+                window.location.href = window.location.href.substring(0, idx) + "returning.html";
+            }
  
             var q = location.search;
 
