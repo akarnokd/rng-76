@@ -2235,6 +2235,29 @@
                 };
             }
 
+            function scoreSpreadLoveX(offset, count, what) {
+                return {
+                    name: times("&#x2764;&#xfe0f; Spread the Love: " + what + " with the Heart Wrencher", count),
+                    offset: offset,
+                    period: 100,
+                    subchallenges: [
+                        {
+                            name: "Claim the free and limited Heart Wrencher skin from the Atomic Shop"
+                        },
+                        {
+                            name: "Apply the Heart Wrencher skin to a Pipe Wrench"
+                        },
+                    ]
+                };
+            }
+
+            function scoreSpreadLoveKill(offset, count) {
+                return scoreSpreadLoveX(offset, count, "Kill Enemies");
+            }
+            function scoreSpreadLoveKillRobots(offset, count) {
+                return scoreSpreadLoveX(offset, count, "Destroy Robots");
+            }
+
             var challengesDailyEra4 = {
                 validStart: ofDate(2020, 8, 15, 16),
                 validEnd: plusDays(ofDate(2020, 8, 15, 16), 49),
@@ -3475,6 +3498,12 @@
                     scoreLevelUp(42, 1),
                     scoreCompleteDailyOps(42, 1),
                     scoreCompleteOneEvent(42, 1),
+                    scoreKillLegendary(42, 1),
+                    scoreRepairArmorWeaponPA(42, 5),
+                    scoreVisitAnotherShelter(42, 1),
+                    scoreSpreadLoveKill(42, 5),
+                    scoreNWUseStimpak(42, 3),
+
                 ]
             }
 
@@ -3520,7 +3549,7 @@
             addDailyOps(challengesDailyEra6.options, 39, "The Burning Mine", "Robots", [ dailyOpsPiercingGaze, dailyOpsFreezing ]);
             addDailyOps(challengesDailyEra6.options, 40, "The Burrows", "Super Mutants", [ dailyOpsPiercingGaze, dailyOpsCloaked ]);
             addDailyOps(challengesDailyEra6.options, 41, "The Burning Mine", "Super Mutants", [ dailyOpsPiercingGaze, dailyOpsFreezing ]);
-            addDailyOps(challengesDailyEra6.options, 42, "???", "???", [ dailyOpsPiercingGaze ]);
+            addDailyOps(challengesDailyEra6.options, 42, "The Burrows", "Super Mutants", [ dailyOpsPiercingGaze, dailyOpsFreezing ]);
 
             var challenges = [
                 challengesDailyEra1,
@@ -4936,6 +4965,16 @@
             addWeekly(challengesWeeklyEra6.options, 35, scoreKillLegendaries10);
             addWeekly(challengesWeeklyEra6.options, 35, scoreVisitAnotherShelter, 5);
 
+            addWeekly(challengesWeeklyEra6.options, 42, scoreLevelUp3);
+            addWeekly(challengesWeeklyEra6.options, 42, scoreBuildupCampAny3);
+            addWeekly(challengesWeeklyEra6.options, 42, scoreClaimWorkshop5);
+            addWeekly(challengesWeeklyEra6.options, 42, scoreCollectCaps, 1250);
+            addWeekly(challengesWeeklyEra6.options, 42, scoreCompleteDailyOps, 5);
+            addWeekly(challengesWeeklyEra6.options, 42, scoreCompleteGoldStar);
+            addWeekly(challengesWeeklyEra6.options, 42, scoreCompleteEvents10);
+            addWeekly(challengesWeeklyEra6.options, 42, scoreKillLegendaries10);
+            addWeekly(challengesWeeklyEra6.options, 42, scoreRepairArmorWeaponPA, 10);
+            addWeekly(challengesWeeklyEra6.options, 42, scoreSpreadLoveKillRobots, 30);
 
             addPlaceholders(challengesWeeklyEra6, scoreWeeklyplaceholder, 70);
 
