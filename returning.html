@@ -14407,11 +14407,15 @@
                         for (var note of filteredNotes) {
                             rw = tbl.insertRow(tbl.rows.length);
                             
-                            cll = rw.insertCell(rw.cells.length);
-                            cll.innerHTML = "&nbsp;&nbsp;&nbsp;";
+                            if (!isLayoutFlat) {
+                                cll = rw.insertCell(rw.cells.length);
+                                cll.innerHTML = "&nbsp;&nbsp;&nbsp;";
+                            }
 
                             cll = rw.insertCell(rw.cells.length);
                             if (isLayoutFlat) {
+                                cll.colSpan = "2";
+                                cll.style.paddingLeft = "20px";
                                 cll.innerHTML = "<b style='font-size: 24;'>" + highlight(note.name, keywords, 24) + "</b>";
                                 if (note.description !== undefined) {
                                     cll.innerHTML += "<br><div style='font-size: 20; padding-left: 20px;padding-bottom: 5px;'>" + highlight(note.description, keywords, 20) + "</div>";
