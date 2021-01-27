@@ -43,7 +43,7 @@
     <body>
         <center>
             <span style="font-size: 36px; font-weight: bold;">Fallout 76 Returning Player Here, What's Changed?</span><br/>
-            <span>(v0.9.5)</span>
+            <span>(v0.9.6)</span>
             <br/>
             <br/>
             <table>
@@ -51,7 +51,7 @@
                     <td class='bolded'>When did you leave?</td>
                     <td>
                         <input id='leaveDate' type='date' value="2018-11-14">
-                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>after </b>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>around </b>
                         <select id='leavePatch'>
                             <option value=''>Release Day</option>
                         </select>
@@ -61,7 +61,7 @@
                     <td class='bolded'>When did you come back?</td>
                     <td>
                         <input id='returnDate' type='date'>
-                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>before </b>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>around </b>
                         <select id='returnPatch'>
                             <option value=''>Today</option>
                         </select>
@@ -207,7 +207,7 @@
                 <tr>
                     <td class='bolded'>Layout:</td>
                     <td>
-                        <label><input type='radio' name='layoutMode' id='layoutTabular' checked> Tabular</label>
+                        <label><input type='radio' name='layoutMode' id='layoutTabular'> Tabular</label>
                         &nbsp;&nbsp;&nbsp;
                         <label><input type='radio' name='layoutMode' id='layoutFlat'> Flattened</label>
                     </td>
@@ -15258,6 +15258,12 @@
             function topFunction() {
                 document.body.scrollTop = 0; // For Safari
                 document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+            }
+
+            if (window.innerHeight > window.innerWidth) {
+                get("layoutFlat").checked = true;
+            } else {
+                get("layoutTabular").checked = true;
             }
 
             get("layoutTabular").oninput = updateTable;
