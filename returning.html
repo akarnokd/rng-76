@@ -14987,10 +14987,10 @@
 
                         var links = [];
                         if (releaseNote.bethesda !== undefined) {
-                            links.push("<a href='" + releaseNote.bethesda + "' target='_blank'>&#x2197; Bethesda.net</a>");
+                            links.push("<a href='" + releaseNote.bethesda + "' target='_blank'>&#x2197;&nbsp;Bethesda.net</a>");
                         }
                         if (releaseNote.reddit !== undefined) {
-                            links.push("<a href='" + releaseNote.reddit + "' target='_blank'>&#x2197; Reddit</a>");
+                            links.push("<a href='" + releaseNote.reddit + "' target='_blank'>&#x2197;&nbsp;Reddit</a>");
                         }
 
                         if (isLayoutFlat) {
@@ -15019,7 +15019,7 @@
                                 }
                                 cll.innerHTML += "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&#x1F4DD; <b>" + note.category.replace(/,/g, ", ") + "</b>";
                                 if (note.link !== undefined) {
-                                    cll.innerHTML += "&nbsp;&nbsp;&nbsp;<a href='" + note.link + "' target='_blank'>&#x2197; Wiki</a>";
+                                    cll.innerHTML += "&nbsp;&nbsp;&nbsp;<a href='" + note.link + "' target='_blank'>&#x2197;&nbsp;Wiki</a>";
                                 }
 
                                 cll.style.borderBottom = "1px dotted black";
@@ -15042,7 +15042,7 @@
                                 cll = rw.insertCell(rw.cells.length);
                                 cll.style.borderBottom = "1px dotted black";
                                 if (note.link !== undefined) {
-                                    cll.innerHTML = "<a href='" + note.link + "' target='_blank'>&#x2197; Wiki</a>";
+                                    cll.innerHTML = "<a href='" + note.link + "' target='_blank'>&#x2197;&nbsp;Wiki</a>";
                                 }
                             }
 
@@ -15093,7 +15093,7 @@
                         alinks.push("<span style='white-space: nowrap;'><a href='#" + a.id + "' title='" + a.descripton + "'>Patch " + a.patch + "</a>&nbsp;(" + a.count + ")</span>");
                     }
 
-                    var linksPerLine = window.innerHeight > window.innerWidth ? 3 : 8;
+                    var linksPerLine = window.innerHeight > window.innerWidth ? 2 : 8;
 
                     for (var i = 0; i < alinks.length; i++) {
                         str += alinks[i];
