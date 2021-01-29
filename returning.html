@@ -15090,7 +15090,7 @@
 
                     var alinks = [];
                     for (var a of anchors) {
-                        alinks.push("<a href='#" + a.id + "' title='" + a.descripton + "'>Patch " + a.patch + "<a> (" + a.count + ")");
+                        alinks.push("<span style='white-space: nowrap;'><a href='#" + a.id + "' title='" + a.descripton + "'>Patch " + a.patch + "</a>&nbsp;(" + a.count + ")</span>");
                     }
 
                     var linksPerLine = window.innerHeight > window.innerWidth ? 4 : 8;
@@ -15098,7 +15098,7 @@
                     for (var i = 0; i < alinks.length; i++) {
                         str += alinks[i];
                         if (i != alinks.length - 1) {
-                            str += ",&nbsp;"
+                            str += ", "
                             if ((i + 1) % linksPerLine == 0) {
                                 str += "<br>"
                             }
