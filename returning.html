@@ -43,7 +43,7 @@
     <body>
         <center>
             <span style="font-size: 36px; font-weight: bold;">Fallout 76 Returning Player Here, What's Changed?</span><br/>
-            <span>(v0.9.6)</span>
+            <span>(v0.9.7)</span>
             <br/>
             <br/>
             <table>
@@ -15093,11 +15093,13 @@
                         alinks.push("<a href='#" + a.id + "' title='" + a.descripton + "'>Patch " + a.patch + "<a> (" + a.count + ")");
                     }
 
+                    var linksPerLine = window.innerHeight > window.innerWidth ? 4 : 8;
+
                     for (var i = 0; i < alinks.length; i++) {
                         str += alinks[i];
                         if (i != alinks.length - 1) {
                             str += ",&nbsp;"
-                            if ((i + 1) % 8 == 0) {
+                            if ((i + 1) % linksPerLine == 0) {
                                 str += "<br>"
                             }
                         }
