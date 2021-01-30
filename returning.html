@@ -43,7 +43,7 @@
     <body>
         <center>
             <span style="font-size: 36px; font-weight: bold;">Fallout 76 Returning Player Here, What's Changed?</span><br/>
-            <span>(v0.9.7)</span>
+            <span>(v0.9.8)</span>
             <br/>
             <br/>
             <table>
@@ -15204,6 +15204,14 @@
                 }
             }
 
+            function createOpt(text, value, title) {
+                var opt = document.createElement("option");
+                opt.text = text;
+                opt.value = value;
+                opt.title = title;
+                return opt;
+            }
+
             function preparePatchSelector() {
                 // prepare patch pickers
                 var lp = get("leavePatch");
@@ -15223,18 +15231,26 @@
                     return 0;
                 });
 
-                for (var p of allNotes) {
-                    var opt = document.createElement("option");
-                    opt.text = "Patch " + p.patch;
-                    opt.value = p.date.getTime();
-                    opt.title = p.descripton + "\r\n" + p.date.toLocaleDateString();
-                    lp.add(opt);
+                for (var sel of [lp, rp]) {
+                    var separator = createOpt("---", "", "");
+                    separator.disabled = true;
+                    sel.add(separator)
 
-                    opt = document.createElement("option");
-                    opt.text = "Patch " + p.patch;
-                    opt.value = p.date.getTime();
-                    opt.title = p.descripton + "\r\n" + p.date.toLocaleDateString();
-                    rp.add(opt);
+                    sel.add(createOpt("Wild Appalachia", ofDate(2019, 2, 13).getTime(), "Patch 7 - " + ofDate(2019, 2, 13).toLocaleDateString()));
+                    sel.add(createOpt("Nuclear Winter", ofDate(2019, 5, 10).getTime(), "Patch 10 - " + ofDate(2019, 5, 10).toLocaleDateString()));
+                    sel.add(createOpt("Wastelanders", ofDate(2020, 3, 14).getTime(), "Patch 18 - " + ofDate(2020, 3, 14).toLocaleDateString()));
+                    sel.add(createOpt("Legendary Run", ofDate(2020, 5, 30).getTime(), "Patch 20 - " + ofDate(2020, 5, 30).toLocaleDateString()));
+                    sel.add(createOpt("One Wasteland", ofDate(2020, 8, 15).getTime(), "Patch 22 - " - ofDate(2020, 8, 15).toLocaleDateString()));
+                    sel.add(createOpt("Steel Dawn", ofDate(2020, 10, 24).getTime(), "Patch 24 - " + ofDate(2020, 10, 24).toLocaleDateString()));
+
+                    separator = createOpt("---", "", "");
+                    separator.disabled = true;
+                    sel.add(separator)
+
+                    for (var p of allNotes) {
+                        sel.add(createOpt("Patch " + p.patch, p.date.getTime(), 
+                                p.descripton + "\r\n" + p.date.toLocaleDateString()));
+                    }
                 }
 
                 lp.oninput = evt => {
