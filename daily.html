@@ -2257,6 +2257,9 @@
             function scoreSpreadLoveKillRobots(offset, count) {
                 return scoreSpreadLoveX(offset, count, "Destroy Robots");
             }
+            function scoreSpreadLoveKillSuperMutants(offset, count) {
+                return scoreSpreadLoveX(offset, count, "Kill Super Mutants");
+            }
 
             var challengesDailyEra4 = {
                 validStart: ofDate(2020, 8, 15, 16),
@@ -3563,6 +3566,16 @@
                     scoreVisitOwnShelter(48, 1),
                     scoreSpreadLoveKill(48, 5),
                     scoreNWDeployCamp(48, 2),
+
+                    scoreCompleteDailyChallenge(49, 5),
+                    scoreLevelUp(49, 1),
+                    scoreCompleteDailyOps(49, 1),
+                    scoreCompleteOneEvent(49, 1),
+                    scoreBuySellItem(49, 3),
+                    scoreBuildWallDecorShelter(49, 5),
+                    scoreCollectCaps(49, 250),
+                    scoreSpreadLoveKill(49, 5),
+                    scoreNWUseStimpak(49, 3),
                 ]
             }
 
@@ -3615,6 +3628,7 @@
             addDailyOps(challengesDailyEra6.options, 46, "Vault 94", "Blood Eagles", [ dailyOpsPiercingGaze, dailyOpsVolatile ]);
             addDailyOps(challengesDailyEra6.options, 47, "Valley Galleria", "Super Mutants", [ dailyOpsPiercingGaze, dailyOpsCloaked ]);
             addDailyOps(challengesDailyEra6.options, 48, "The Burning Mine", "Blood Eagles", [ dailyOpsPiercingGaze, dailyOpsVolatile ]);
+            addDailyOps(challengesDailyEra6.options, 49, "Valley Galleria", "Robots", [ dailyOpsPiercingGaze, dailyOpsFreezing ]);
 
             var challenges = [
                 challengesDailyEra1,
@@ -5040,6 +5054,17 @@
             addWeekly(challengesWeeklyEra6.options, 42, scoreKillLegendaries10);
             addWeekly(challengesWeeklyEra6.options, 42, scoreRepairArmorWeaponPA, 10);
             addWeekly(challengesWeeklyEra6.options, 42, scoreSpreadLoveKillRobots, 30);
+
+            addWeekly(challengesWeeklyEra6.options, 49, scoreLevelUp3);
+            addWeekly(challengesWeeklyEra6.options, 49, scoreBuySellItem, 25);
+            addWeekly(challengesWeeklyEra6.options, 49, scoreCompleteDailyOps, 5);
+            addWeekly(challengesWeeklyEra6.options, 49, scoreCompleteGoldStar);
+            addWeekly(challengesWeeklyEra6.options, 49, scoreCompleteEvents10);
+            addWeekly(challengesWeeklyEra6.options, 49, scoreCraftScrapItems25);
+            addWeekly(challengesWeeklyEra6.options, 49, scoreEatPrewarFood25);
+            addWeekly(challengesWeeklyEra6.options, 49, scorekillHugeCreatures);
+            addWeekly(challengesWeeklyEra6.options, 49, scoreKillLegendaries10);
+            addWeekly(challengesWeeklyEra6.options, 49, scoreSpreadLoveKillSuperMutants, 30);
 
             addPlaceholders(challengesWeeklyEra6, scoreWeeklyplaceholder, 70);
 
