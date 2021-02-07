@@ -45,7 +45,7 @@
     </head>
     <body>
         <center>
-            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Drop Chances (0.3.9)</span><br/>
+            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Drop Chances (0.3.10)</span><br/>
             <a href='leveledlist' target='_blank'>How does it work?</a>
             <br/>
             <br/>
@@ -786,6 +786,39 @@
                 return rec;
             }
 
+            var animSteps = 10;
+            var animTime = 250;
+            var currentAnim = undefined;
+            var currentObj = undefined;
+
+            function findTextBox(id) {
+                var o = document.getElementById(id);
+                o.scrollIntoView();
+                flash(o, 0);
+            }
+
+            function flash(obj, n) {
+                if (n == 0) {
+                    if (currentAnim) {
+                        clearTimeout(currentAnim);
+                        currentObj.style.backgroundColor = "";
+                    }
+                    currentObj = obj;
+                }
+                if (n < animSteps && currentObj == obj) {
+                    currentAnim = setTimeout(() => {
+                        if ((n % 2) == 0) {
+                            obj.style.backgroundColor = "#FFFF00"
+                        } else {
+                            obj.style.backgroundColor = "";
+                        }
+                        flash(obj, n + 1);
+                    }, animTime);
+                } else {
+                    obj.style.backgroundColor = "";
+                }
+            }
+
             var displayOneLinkFunc = function(fn, cond) {
                 return "(" + createNukaLink(cond.Param1Ref) + ")"
                 ;
@@ -813,6 +846,14 @@
                 return "&nbsp;<a href='#' onclick='javascript:toggleCheckBoxSettings(\"" + fn
                 + "\"); return false;' title='Toggle this condition' "
                 + "class='" + clazz + "'>&#x2190;</a>"
+                ;
+            };
+            var displayFindBox = function(fn, cond) {
+                var clazz = "picker";
+                var key = fn;
+                return "&nbsp;<a href='#' onclick='javascript:findTextBox(\"" + fn
+                + "\"); return false;' title='Find this texbox' "
+                + "class='" + clazz + "'>#</a>"
                 ;
             };
 
@@ -943,9 +984,9 @@
 
             // Direct numeric value on subject/target
             // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-            addFunction("GetStage", undefined, addTextBoxValueFunc, evalTextBoxValue);
-            addFunction("GetLockLevel", undefined, addTextBoxValueFunc, evalTextBoxValue);
-            addFunction("GetWorldType", undefined, addTextBoxValueFunc, evalTextBoxValue);
+            addFunction("GetStage", displayFindBox, addTextBoxValueFunc, evalTextBoxValue);
+            addFunction("GetLockLevel", displayFindBox, addTextBoxValueFunc, evalTextBoxValue);
+            addFunction("GetWorldType", displayFindBox, addTextBoxValueFunc, evalTextBoxValue);
 
             // Value on the subject/target keyed by the reference
             addFunction("GetActorValue", displayOneLinkFunc, addTextBoxParamFunc, evalTextBox);
@@ -1044,7 +1085,7 @@
                 }
             }
 
-            function buildValueEntry(parent, omiss, maxCols, title, formatter) {
+            function buildValueEntry(parent, omiss, maxCols, title, formatter, globalPrefix) {
                 n = parent.rows.length;
                 row = parent.insertRow(n);
                 cll = row.insertCell(row.cells.length);
@@ -1070,10 +1111,12 @@
                     if (omiss.error === undefined) {
                         cll.innerHTML = title + " (global): <b>" + formatter(omiss.value) + "</b>" + omissSpacer
                             + createNukaLink(omiss.id)
+                            + displayFindBox(globalPrefix + "_" + omiss.id)
                         ;
                     } else {
                         cll.innerHTML = title + " (global): <b style='color: red;'>" + omiss.error + "</b>" + omissSpacer
                             + createNukaLink(omiss.id)
+                            + displayFindBox(globalPrefix + "_" + omiss.id)
                         ;
                     }
                 }
@@ -1081,12 +1124,15 @@
                     if (omiss.error === undefined) {
                         cll.innerHTML = title + " (curve): <b>" + formatter(omiss.value) + "</b>" + omissSpacer
                             + "Table: " + createNukaLink(omiss.id) + omissSpacer
-                            + "Global: " + createNukaLink(omiss.g) + " = " + omiss.x
+                            + "Global: " + createNukaLink(omiss.g)
+                            + displayFindBox(globalPrefix + "_" + omiss.g)
+                            + " = " + omiss.x
                         ;
                     } else {
                         cll.innerHTML = title + " (curve): <b style='color: red;'>" + omiss.error + "</b>" + omissSpacer
                             + "Table: " + createNukaLink(omiss.id)
                             + "Global: " + createNukaLink(omiss.g)
+                            + displayFindBox(globalPrefix + "_" + omiss.g)
                         ;
                     }
                 }
@@ -1154,10 +1200,10 @@
                     cll.innerText = "Table " + formID + " not found.";
                 } else {
                     var omissChanceList = decodeValue(lvli, "LVCV", "LVLG", "LVCT");
-                    buildValueEntry(parent, omissChanceList, maxCols, "Omission chance", value => value.toFixed(3) + "%");
+                    buildValueEntry(parent, omissChanceList, maxCols, "Omission chance", value => value.toFixed(3) + "%", "LVLG");
 
                     var maxValueList = decodeValue(lvli, "LVMV", "LVMG", "LVMT");
-                    buildValueEntry(parent, maxValueList, maxCols, "Max value", value => value + "");
+                    buildValueEntry(parent, maxValueList, maxCols, "Max value", value => value + "", "LVMG");
                     var flagsList = lvli["LVLF"];
 
                     n = parent.rows.length;
@@ -1451,7 +1497,7 @@
                             }
 
                             var omissChanceEntry = decodeValue(entry, "LVOV", "LVOC", "LVOT");
-                            buildValueEntry(parent, omissChanceEntry, maxCols, "Omission chance", value => value.toFixed(3) + "%");
+                            buildValueEntry(parent, omissChanceEntry, maxCols, "Omission chance", value => value.toFixed(3) + "%", "LVOC");
                             var levelEntry = decodeValue(entry, "LVLV", "LVOG", "ZZZZ");
                             if (levelEntry.value > 1 || closestLevel) {
                                 buildValueEntry(parent, levelEntry, maxCols, "Minimum level", value => {
@@ -1465,12 +1511,12 @@
                                     }
                                     
                                     return value + " [ &#10060; FAIL ]";
-                                });
+                                }, "LVOG");
                             }
 
                             if (entry.LVIG !== undefined) {
                                 var qtyEntry = decodeValue(entry, "LVIV", "LVIG", "ZZZZ");
-                                buildValueEntry(parent, qtyEntry, maxCols, "Quantity", value => value);
+                                buildValueEntry(parent, qtyEntry, maxCols, "Quantity", value => value, "LVIG");
                             }
 
                             buildConditionEntry(parent, entry, maxCols);
@@ -1611,6 +1657,7 @@
 
                 var input = document.createElement("input");
                 span.appendChild(input);
+                input.id = id;
                 input.type = "text";
                 input.style.width = "70px";
                 input.value = 0;
