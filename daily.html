@@ -2260,6 +2260,9 @@
             function scoreSpreadLoveKillSuperMutants(offset, count) {
                 return scoreSpreadLoveX(offset, count, "Kill Super Mutants");
             }
+            function scoreSpreadLoveKillMirelurks(offset, count) {
+                return scoreSpreadLoveX(offset, count, "Kill Mirelurks");
+            }
 
             var challengesDailyEra4 = {
                 validStart: ofDate(2020, 8, 15, 16),
@@ -3640,6 +3643,16 @@
                     scoreNWUseStimpak(55, 4),
                     scoreSpreadLoveKill(55, 5),
                     scoreDoubleDailies(55),
+
+                    scoreCompleteDailyChallenge(56, 5),
+                    scoreLevelUp(56, 1),
+                    scoreCompleteDailyOps(56, 1),
+                    scoreCompleteOneEvent(56, 1),
+                    scoreHackTerminal(56),
+                    scoreJoinGroup(56),
+                    scoreKillCreatureInGroup(56, 25),
+                    scoreNWKillCreature(56, 2),
+                    scoreSpreadLoveKill(56, 5),
                 ]
             };
 
@@ -3699,6 +3712,7 @@
             addDailyOps(challengesDailyEra6.options, 53, "Vault 94", "Super Mutants", [ dailyOpsPiercingGaze, dailyOpsResilient ]);
             addDailyOps(challengesDailyEra6.options, 54, "The Burning Mine", "Robots", [ dailyOpsPiercingGaze, dailyOpsCloaked ]);
             addDailyOps(challengesDailyEra6.options, 55, "Vault 94", "Super Mutants", [ dailyOpsPiercingGaze, dailyOpsResilient ]);
+            addDailyOps(challengesDailyEra6.options, 56, "Valley Galleria", "Blood Eagles", [ dailyOpsPiercingGaze, dailyOpsFreezing ]);
 
             var challenges = [
                 challengesDailyEra1,
@@ -5135,6 +5149,17 @@
             addWeekly(challengesWeeklyEra6.options, 49, scorekillHugeCreatures);
             addWeekly(challengesWeeklyEra6.options, 49, scoreKillLegendaries10);
             addWeekly(challengesWeeklyEra6.options, 49, scoreSpreadLoveKillSuperMutants, 30);
+
+            addWeekly(challengesWeeklyEra6.options, 56, scoreLevelUp3);
+            addWeekly(challengesWeeklyEra6.options, 56, scoreCollectCaps, 1250);
+            addWeekly(challengesWeeklyEra6.options, 56, scoreCompleteDailyOps, 5);
+            addWeekly(challengesWeeklyEra6.options, 56, scoreCompleteGoldStar);
+            addWeekly(challengesWeeklyEra6.options, 56, scoreCompleteEvents10);
+            addWeekly(challengesWeeklyEra6.options, 56, scoreConsumeAlcohol25);
+            addWeekly(challengesWeeklyEra6.options, 56, scoreHarvestPlantFungi25);
+            addWeekly(challengesWeeklyEra6.options, 56, scorekillHugeCreatures);
+            addWeekly(challengesWeeklyEra6.options, 56, scoreKillLegendaries10);
+            addWeekly(challengesWeeklyEra6.options, 56, scoreSpreadLoveKillMirelurks, 30);
 
             addPlaceholders(challengesWeeklyEra6, scoreWeeklyplaceholder, 70);
 
