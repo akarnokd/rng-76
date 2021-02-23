@@ -3119,7 +3119,7 @@
  
             var challengesDailyEra6 = {
                 validStart: ofDate(2020, 11, 15, 17),
-                validEnd: plusDays(ofDate(2020, 11, 15, 17), 70),
+                validEnd: plusDays(ofDate(2020, 11, 15, 17), 91),
                 options: [
                     scoreCompleteDailyChallenge(0, 5),
                     scoreLevelUp(0, 1),
@@ -3776,6 +3776,15 @@
                     scoreUsePhotomode(69, 1),
                     scoreCollectPurifiedWater(69, 5),
                     scoreNWSurviveMinutes(69, 5),
+
+                    scoreCompleteDailyChallenge(70, 5),
+                    scoreLevelUp(70, 1),
+                    scoreCompleteDailyOps(70, 1),
+                    scoreCompleteOneEvent(70, 1),
+                    scoreBuildWallDecor(70, 5),
+                    scoreKillLegendary(70, 1),
+                    scoreModArmor(70, 5),
+                    scoreNWDeployCamp(70, 1)
                 ]
             };
 
@@ -3849,6 +3858,7 @@
             addDailyOps(challengesDailyEra6.options, 67, "Valley Galleria", "Super Mutants", [ dailyOpsPiercingGaze, dailyOpsCloaked ]);
             addDailyOps(challengesDailyEra6.options, 68, "The Burrows", "Robots", [ dailyOpsPiercingGaze, dailyOpsCloaked ]);
             addDailyOps(challengesDailyEra6.options, 69, "The Burning Mine", "Blood Eagles", [ dailyOpsPiercingGaze, dailyOpsResilient ]);
+            addDailyOps(challengesDailyEra6.options, 70, "Vault 94", "Super Mutant", [ dailyOpsPiercingGaze, dailyOpsCloaked ]);
 
             var challenges = [
                 challengesDailyEra1,
@@ -5198,7 +5208,7 @@
 
             var challengesWeeklyEra6 = {
                 validStart: ofDate(2020, 11, 15, 17),
-                validEnd: plusDays(ofDate(2020, 11, 15, 17), 70),
+                validEnd: plusDays(ofDate(2020, 11, 15, 17), 91),
                 options: [
                 ]
             };
@@ -5307,7 +5317,17 @@
             addWeekly(challengesWeeklyEra6.options, 63, scoreKillLegendaries10);
             addWeekly(challengesWeeklyEra6.options, 63, scoreRepairArmorWeaponPA, 10);
 
-            addPlaceholders(challengesWeeklyEra6, scoreWeeklyplaceholder, 70);
+            addWeekly(challengesWeeklyEra6.options, 70, scoreLevelUp3);
+            addWeekly(challengesWeeklyEra6.options, 70, scoreBuildupCampAny3);
+            addWeekly(challengesWeeklyEra6.options, 70, scoreBuySellItem, 25);
+            addWeekly(challengesWeeklyEra6.options, 70, scoreCollectCaps, 1250);
+            addWeekly(challengesWeeklyEra6.options, 70, scoreCompleteDailyOps, 5);
+            addWeekly(challengesWeeklyEra6.options, 70, scoreCompleteGoldStar);
+            addWeekly(challengesWeeklyEra6.options, 70, scoreCompleteEvents10);
+            addWeekly(challengesWeeklyEra6.options, 70, scoreEatCookedMeal25);
+            addWeekly(challengesWeeklyEra6.options, 70, scoreKillGlowing10);
+
+            addPlaceholders(challengesWeeklyEra6, scoreWeeklyplaceholder, 91);
 
             var challengesWeekly = [
                 challengesWeeklyEra1,
@@ -6060,7 +6080,7 @@
             };
             var season3 = {
                 validStart: ofDate(2020, 11, 15, 17),
-                validEnd: plusDays(ofDate(2020, 11, 15, 17), 70),
+                validEnd: plusDays(ofDate(2020, 11, 15, 17), 91),
                 title: "Season 3: The Scribe of Avalon",
                 options: [
                     
@@ -6077,7 +6097,7 @@
 
             fillInSeason(season1, 70, "LR1");
             fillInSeason(season2, 91, "LR2");
-            fillInSeason(season3, 70, "LR3");
+            fillInSeason(season3, 91, "LR3");
             fillInSeason(season4, 70, "LR4");
 
             for (var i = 56; i < 91; i++) {
@@ -6088,13 +6108,15 @@
                 });
             }
 
+            /*    
             for (var i = 0; i < 70; i++) {
                 season3.options.push({
                     name: "&#x1F6C8; Note that the length of Season 3 is not known for sure,<br>&nbsp;&nbsp;&nbsp; the countdown is currently a safe assumption.",
                     offset: i,
                     period: 100
                 });
-            }
+            }*/
+            
             for (var i = 0; i < 70; i++) {
                 season4.options.push({
                     name: "&#x1F6C8; Note that the start date, name and length<br>&nbsp;&nbsp;&nbsp;&nbsp;of Season 4 is not yet known.",
