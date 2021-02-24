@@ -58,7 +58,7 @@
                     <a id='linkboth' href="#" title='Link to both weapons' target='_blank'>&lt; Link &gt;</a>
                     <br/>
                     <br/>
-                    <button id="clear" title="Clear" onclick='document.location.search=""; return false;'>Clear</button>
+                    <button id="clear" title="Clear" onclick='clearData()'>Clear</button>
                 </td>
                 <td style='vertical-align: top;'>
                     <table id="table2" style="border: 1px solid black;">
@@ -6515,6 +6515,63 @@
 
             // ----------------------------------------------------------------------
 
+            var selectedValues;
+
+            try {
+                selectedValues = JSON.parse(window.localStorage.getItem("selectedValues"));
+
+                if (!selectedValues || !selectedValues[1] || !selectedValues[2]) {
+                    throw Error();
+                }
+            } catch {
+                selectedValues = {
+                    1: {},
+                    2: {}
+                };
+            }
+
+            function changeSelectedValue(id, key, value) {
+                selectedValues[id][key] = value;
+                
+                try {
+                    window.localStorage.setItem("selectedValues", JSON.stringify(selectedValues));
+                } catch (e) {
+                    console.error(e);
+                }
+            }
+
+            function getDefaultValue(id, key, defaultValue) {
+                return selectedValues[id][key] !== undefined ? selectedValues[id][key] : defaultValue;
+            }
+
+            function getDefaultValueIndex(id, key, values, defaultIndex, idKey) {
+                var storedValue = selectedValues[id][key];
+
+                if (storedValue !== undefined && values && values.length) {
+                    var mappedValues = idKey ? ["", ...values.map(function (value) { return value[idKey]; })] : values;
+                    var index = mappedValues.indexOf(storedValue);
+
+                    return index > -1 ? index : defaultIndex;
+                }
+
+                return defaultIndex;
+            }
+
+            function getDefaultRadioValue(id, key, defaultValue) {
+                return selectedValues[id][key] !== undefined ? selectedValues[id][key] : defaultValue;
+            }
+
+            // ----------------------------------------------------------------------
+
+            function clearData() {
+                document.location.search = "";
+
+                try {
+                    window.localStorage.clear();
+                } catch (e) {
+                    console.error(e);
+                }
+            }
             function clearTable(tbl) {
                 for (var i = tbl.rows.length - 1; i > 0; i--) {
                     tbl.deleteRow(i);
@@ -6773,43 +6830,54 @@
 
                 createYesNo(tbl, index, type, "Critical", "crit", "crit", "Crit");
 
+                var key = "playerhealth";
+                var defaultValue = getDefaultValue(index, key, 100);
                 row = tbl.insertRow(tbl.rows.length);
                 cell1 = row.insertCell(0);
-                cell1.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;Player health" + info("playerhealth");
+                cell1.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;Player health" + info(key);
                 cell2 = row.insertCell(1);
-                cell2.innerHTML = "<input type='number' id='playerhealth" + index + "' value='100' maxlength='6' style='width: 8em;' min='1' max='100'> %";
-                var playerhealthsel = document.getElementById("playerhealth" + index );
-                playerhealthsel.oninput = function() {
+                cell2.innerHTML = "<input type='number' id='" + key + index + "' value='" + defaultValue + "' maxlength='6' style='width: 8em;' min='1' max='100'> %";
+
+                var playerhealthsel = document.getElementById(key + index);
+                playerhealthsel.dataKey = key;
+                playerhealthsel.oninput = function(e) {
+                    changeSelectedValue(index, e.target.dataKey, e.target.value);
+                    console.log(selectedValues);
                     recalculate(tbl, index, type);
                 };
                 playerhealthsel.linkId = "PHP";
                 playerhealthsel.linkDefault = "100";
 
+                key = "enemyhealth";
+                defaultValue = getDefaultValue(index, key, 99);
                 row = tbl.insertRow(tbl.rows.length);
                 cell1 = row.insertCell(0);
-                cell1.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;Enemy health" + info("enemyhealth");
+                cell1.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;Enemy health" + info(key);
                 cell2 = row.insertCell(1);
-                cell2.innerHTML = "<input type='number' id='enemyhealth" + index + "' value='99' maxlength='6' style='width: 8em;' min='1' max='100'> %";
-                var enemyhealthsel = document.getElementById("enemyhealth" + index );
-                enemyhealthsel.oninput = function() {
+                cell2.innerHTML = "<input type='number' id='" + key + index + "' value='" + defaultValue + "' maxlength='6' style='width: 8em;' min='1' max='100'> %";
+
+                var enemyhealthsel = document.getElementById(key + index);
+                enemyhealthsel.dataKey = key;
+                enemyhealthsel.oninput = function(e) {
+                    changeSelectedValue(index, e.target.dataKey, e.target.value);
                     recalculate(tbl, index, type);
                 };
                 enemyhealthsel.linkId = "EHP";
                 enemyhealthsel.linkDefault = "99";
 
+                key = "enemytype";
                 row = tbl.insertRow(tbl.rows.length);
                 cell1 = row.insertCell(0);
-                cell1.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;Enemy type" + info("enemytype");
+                cell1.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;Enemy type" + info(key);
                 cell2 = row.insertCell(1);
-                cell2.innerHTML = "<select id='enemytype" + index + "'></select>"
+                cell2.innerHTML = "<select id='" + key + index + "'></select>"
 
-                var enemytypesel = document.getElementById("enemytype" + index);
+                var enemytypesel = document.getElementById(key + index);
                 enemytypesel.linkId = "Enemy";
                 var opt = document.createElement("option");
                 enemytypesel.add(opt);
                 opt.text = "Any";
                 opt.value = "";
-
                 enemyCategories.forEach(function(item, idx) {
                     opt = document.createElement("option");
                     enemytypesel.add(opt);
@@ -6819,60 +6887,85 @@
                     opt.linkId = linkIdFor(item, item.name);
                     opt.resistances = item.leveledResistances;
                 });
-
-                enemytypesel.onchange = function() {
+                enemytypesel.dataKey = key;
+                enemytypesel.selectedIndex = getDefaultValueIndex(index, key, enemyCategories, 0, "name");
+                enemytypesel.onchange = function(e) {
+                    changeSelectedValue(index, e.target.dataKey, e.target.selectedIndex);
                     recalculate(tbl, index, type);
                 };
+
+                key = "enemylevel";
+                defaultValue = getDefaultValue(index, key, 100);
                 row = tbl.insertRow(tbl.rows.length);
-                    cell1 = row.insertCell(0);
-                    cell1.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Enemy level" + info("enemylevel");
-                    cell2 = row.insertCell(1);
-                    cell2.innerHTML = "<input type='number' id='enemylevel" + index + "' value='100' maxlength='6' style='width: 5em;' min='1'>";
-                    var enemylevelsel = document.getElementById("enemylevel" + index );
-                    enemylevelsel.oninput = function() {
-                        recalculate(tbl, index, type);
-                    };
-                    enemylevelsel.linkId = "EnemyLvl";
-                    enemylevelsel.linkDefault = "100";
+                cell1 = row.insertCell(0);
+                cell1.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Enemy level" + info(key);
+                cell2 = row.insertCell(1);
+                cell2.innerHTML = "<input type='number' id='" + key + index + "' value='" + defaultValue + "' maxlength='6' style='width: 5em;' min='1'>";
+
+                var enemylevelsel = document.getElementById(key + index);
+                enemylevelsel.dataKey = key;
+                enemylevelsel.oninput = function(e) {
+                    changeSelectedValue(index, e.target.dataKey, e.target.value);
+                    recalculate(tbl, index, type);
+                };
+                enemylevelsel.linkId = "EnemyLvl";
+                enemylevelsel.linkDefault = "100";
 
                 if (type === "Melee") {
+                    key = "strength";
+                    defaultValue = getDefaultValue(index, key, 1);
                     row = tbl.insertRow(tbl.rows.length);
                     cell1 = row.insertCell(0);
-                    cell1.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;Strength" + info("strength");
+                    cell1.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;Strength" + info(key);
                     cell2 = row.insertCell(1);
-                    cell2.innerHTML = "<input type='number' id='strength" + index 
-                        + "' value='1' maxlength='6' style='width: 3em;' min='1' max='100'> (points)"
+                    cell2.innerHTML = "<input type='number' id='" + key + index 
+                        + "' value='" + defaultValue + "' maxlength='6' style='width: 3em;' min='1' max='100'> (points)"
                         + "&nbsp;<span id='strengthactual" + index + "'></span>"
                         ;
-                    document.getElementById("strength" + index ).oninput = function() {
+
+                    var strengthsel = document.getElementById(key + index);
+                    strengthsel.dataKey = key;
+                    strengthsel.oninput = function(e) {
+                        changeSelectedValue(index, e.target.dataKey, e.target.value);
                         recalculate(tbl, index, type);
                     };
-                    document.getElementById("strength" + index ).linkId = "Str";
+                    strengthsel.linkId = "Str";
+                    strengthsel.linkDefault = "1";
                 }
 
+                key = "furioushits";
+                defaultValue = getDefaultValue(index, key, 0);
                 row = tbl.insertRow(tbl.rows.length);
-                    cell1 = row.insertCell(0);
-                    cell1.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;Furious hit count" + info("furious");
-                    cell2 = row.insertCell(1);
-                    cell2.innerHTML = "<input type='number' id='furioushits" + index + "' value='0' maxlength='6' style='width: 3em;' min='0' max='30'>";
-                    var furioushitssel = document.getElementById("furioushits" + index );
-                    furioushitssel.oninput = function() {
-                        recalculate(tbl, index, type);
-                    };
-                    furioushitssel.linkId = "Hits";
-                    furioushitssel.linkDefault = "0";
+                cell1 = row.insertCell(0);
+                cell1.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;Furious hit count" + info("furious");
+                cell2 = row.insertCell(1);
+                cell2.innerHTML = "<input type='number' id='" + key + index + "' value='" + defaultValue + "' maxlength='6' style='width: 3em;' min='0' max='30'>";
 
+                var furioushitssel = document.getElementById(key + index);
+                furioushitssel.dataKey = key;
+                furioushitssel.oninput = function(e) {
+                    changeSelectedValue(index, e.target.dataKey, e.target.value);
+                    recalculate(tbl, index, type);
+                };
+                furioushitssel.linkId = "Hits";
+                furioushitssel.linkDefault = "0";
+
+                key = "junkiescount";
+                defaultValue = getDefaultValue(index, key, 0);
                 row = tbl.insertRow(tbl.rows.length);
-                    cell1 = row.insertCell(0);
-                    cell1.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;Addictions" + info("junkies");
-                    cell2 = row.insertCell(1);
-                    cell2.innerHTML = "<input type='number' id='junkiescount" + index + "' value='0' maxlength='6' style='width: 3em;' min='0' max='30'>";
-                    var junkiescountsel = document.getElementById("junkiescount" + index );
-                    junkiescountsel.oninput = function() {
-                        recalculate(tbl, index, type);
-                    };
-                    junkiescountsel.linkId = "Addicts";
-                    junkiescountsel.linkDefault = "0";
+                cell1 = row.insertCell(0);
+                cell1.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;Addictions" + info("junkies");
+                cell2 = row.insertCell(1);
+                cell2.innerHTML = "<input type='number' id='" + key + index + "' value='" + defaultValue + "' maxlength='6' style='width: 3em;' min='0' max='30'>";
+                
+                var junkiescountsel = document.getElementById(key + index);
+                junkiescountsel.dataKey = key;
+                junkiescountsel.oninput = function(e) {
+                    changeSelectedValue(index, e.target.dataKey, e.target.value);
+                    recalculate(tbl, index, type);
+                };
+                junkiescountsel.linkId = "Addicts";
+                junkiescountsel.linkDefault = "0";
 
                 var weapIdx = document.getElementById("weapon" + index).selectedIndex;
                 var weap = allWeapons.get(type)[weapIdx];
@@ -6891,589 +6984,238 @@
                 cell1.innerText = "Perks";
                 var cell2 = row.insertCell(1);
 
-                row = tbl.insertRow(tbl.rows.length);
-                cell1 = row.insertCell(0);
-                cell1.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;Bloody mess" + info("bloodymess");
-                cell2 = row.insertCell(1);
-                cell2.innerHTML = "<select id='bloodymess" + index + "'></select> (rank)"
+                createPerkRankSelect(tbl, index, type, {
+                    key: "bloodymess", 
+                    maxRank: 3, 
+                    formula: function(x) { return String(x * 5); }, 
+                    label: "Bloody mess", 
+                    linkId: "BloodyMess"
+                });
 
-                var bloodymesssel = document.getElementById("bloodymess" + index);
-                var opt = document.createElement("option");
-                bloodymesssel.add(opt);
-                opt.text = "None";
-                opt.value = "0";
-                bloodymesssel.linkId = "BloodyMess";
+                var key = "kills";
+                var defaultValue = getDefaultValue(index, key, 6);
+                createPerkRankSelect(tbl, index, type, {
+                    key: "adrenaline",
+                    maxRank: 5, 
+                    formula: function(x) { return x > 0 ? String(30 + (x * 6)) : "0"; }, 
+                    label: "Adrenaline", 
+                    linkId: "Adrenaline",
+                    elementPostfix: "&nbsp;&nbsp;&nbsp;Kills&nbsp;<input type='number' id='" + key + index + "' value='" + defaultValue + "' maxlength='6' style='width: 3em;' min='0' max='10'>"
+                });
 
-                for (var i = 1; i < 4; i++) {
-                    opt = document.createElement("option");
-                    bloodymesssel.add(opt);
-                    opt.text = "" + i;
-                    opt.value = "" + (i * 5);
-                    opt.linkId = opt.value;
-                }
-                bloodymesssel.selectedIndex = 0;
-                bloodymesssel.onchange = function() {
-                    recalculate(tbl, index, type);
-                };
-
-                row = tbl.insertRow(tbl.rows.length);
-                cell1 = row.insertCell(0);
-                cell1.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;Adrenaline" + info("adrenaline");
-                cell2 = row.insertCell(1);
-                cell2.innerHTML = "<select id='adrenaline" + index + "'></select> (rank)&nbsp;&nbsp;&nbsp;Kills&nbsp;"
-                    + "<input type='number' id='kills" + index + "' value='6' maxlength='6' style='width: 3em;' min='0' max='10'>";
-
-                var adrenalinesel = document.getElementById("adrenaline" + index);
-                opt = document.createElement("option");
-                adrenalinesel.add(opt);
-                opt.text = "None";
-                opt.value = "0";
-                adrenalinesel.linkId = "Adrenaline";
-
-                for (var i = 1; i < 6; i++) {
-                    opt = document.createElement("option");
-                    adrenalinesel.add(opt);
-                    opt.text = "" + i;
-                    opt.value = "" + (30 + (i * 6));
-                    opt.linkId = opt.value;
-                }
-                adrenalinesel.selectedIndex = 0;
-                adrenalinesel.onchange = function() {
-                    recalculate(tbl, index, type);
-                };
-
-                var killsel = document.getElementById("kills" + index );
-                killsel.oninput = function() {
+                var killsel = document.getElementById(key + index);
+                killsel.dataKey = key;
+                killsel.oninput = function(e) {
+                    changeSelectedValue(index, e.target.dataKey, e.target.value);
                     recalculate(tbl, index, type);
                 };
                 killsel.linkId = "Kills";
                 killsel.linkDefault = "6";
 
-                row = tbl.insertRow(tbl.rows.length);
-                cell1 = row.insertCell(0);
-                cell1.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;Weapon-specific boost" + info("weaponperk");
-                cell2 = row.insertCell(1);
-                cell2.innerHTML = "<select id='boost" + index + "'></select> %"
+                createPerkRankSelect(tbl, index, type, {
+                    key: "boost",
+                    infoKey: "weaponperk",
+                    maxRank: 11, 
+                    formula: function(x) { return x > 0 ? String(5 + x * 5) : "0"; },
+                    labelFormula: function(x) { return String(5 + x * 5); },
+                    label: "Weapon-specific boost", 
+                    linkId: "Boost",
 
-                var boost = document.getElementById("boost" + index);
-                opt = document.createElement("option");
-                boost.add(opt);
-                opt.text = "None";
-                opt.value = "0";
-                boost.linkId = "Boost";
-
-                for (var i = 10; i < 61; i += 5) {
-                    opt = document.createElement("option");
-                    boost.add(opt);
-                    opt.text = "" + i;
-                    opt.value = "" + i;
-                    opt.linkId = opt.value;
-                }
-                boost.selectedIndex = 0;
-                boost.onchange = function() {
-                    recalculate(tbl, index, type);
-                };
+                });
 
                 // ------------------------------------------------
 
                 if (type === "Melee") {
-                    row = tbl.insertRow(tbl.rows.length);
-                    cell1 = row.insertCell(0);
-                    cell1.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;Incisor" + info("incisor");
-                    cell2 = row.insertCell(1);
-                    cell2.innerHTML = "<select id='incisor" + index + "'></select> (rank)"
+                    createPerkRankSelect(tbl, index, type, {
+                        key: "incisor",
+                        maxRank: 3, 
+                        formula: function(x) { return String(x * 25) },
+                        label: "Incisor", 
+                        linkId: "Incisor",
 
-                    var incisor = document.getElementById("incisor" + index);
-                    opt = document.createElement("option");
-                    incisor.add(opt);
-                    opt.text = "None";
-                    opt.value = "0";
-                    incisor.linkId = "Incisor";
+                    });
 
-                    for (var i = 1; i < 4; i++) {
-                        opt = document.createElement("option");
-                        incisor.add(opt);
-                        opt.text = "" + i;
-                        opt.value = "" + (i * 25);
-                        opt.linkId = opt.value;
-                    }
-                    incisor.selectedIndex = 0;
-                    incisor.onchange = function() {
-                        recalculate(tbl, index, type);
-                    };
+                    createPerkRankSelect(tbl, index, type, {
+                        key: "martialartist",
+                        maxRank: 3, 
+                        formula: function(x) { return String(x * 10) },
+                        label: "Martial Artist", 
+                        linkId: "Martial",
+                    });
 
-                    row = tbl.insertRow(tbl.rows.length);
-                    cell1 = row.insertCell(0);
-                    cell1.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;Martial Artist" + info("martialartist");
-                    cell2 = row.insertCell(1);
-                    cell2.innerHTML = "<select id='martialartist" + index + "'></select> (rank)"
+                    createPerkRankSelect(tbl, index, type, {
+                        key: "ninja",
+                        maxRank: 3, 
+                        formula: function(x) { return x === 3 ? "100" : String(x * 30) },
+                        label: "Ninja", 
+                        linkId: "Ninja",
+                    });
+                } else if (type === "Ranged") {
+                    createPerkRankSelect(tbl, index, type, {
+                        key: "demolition",
+                        infoKey: "demolitionexpert",
+                        maxRank: 7, 
+                        formula: function(x) { 
+                            if (x === 0)  { 
+                                return "0";
+                            }
 
-                    var martialartist = document.getElementById("martialartist" + index);
-                    opt = document.createElement("option");
-                    martialartist.add(opt);
-                    opt.text = "None";
-                    opt.value = "0";
-                    martialartist.linkId = "Martial";
-
-                    for (var i = 1; i < 4; i++) {
-                        opt = document.createElement("option");
-                        martialartist.add(opt);
-                        opt.text = "" + i;
-                        opt.value = "" + (i * 10);
-                        opt.linkId = opt.value;
-                    }
-                    martialartist.selectedIndex = 0;
-                    martialartist.onchange = function() {
-                        recalculate(tbl, index, type);
-                    };
-
-                    row = tbl.insertRow(tbl.rows.length);
-                    cell1 = row.insertCell(0);
-                    cell1.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;Ninja" + info("ninja");
-                    cell2 = row.insertCell(1);
-                    cell2.innerHTML = "<select id='ninja" + index + "'></select> (rank)"
-
-                    var ninja = document.getElementById("ninja" + index);
-                    opt = document.createElement("option");
-                    ninja.add(opt);
-                    opt.text = "None";
-                    opt.value = "0";
-                    ninja.linkId = "Ninja";
-
-                    opt = document.createElement("option");
-                        ninja.add(opt);
-                        opt.text = "1";
-                        opt.value = "30";
-                        opt.linkId = opt.value;
-                    opt = document.createElement("option");
-                        ninja.add(opt);
-                        opt.text = "2";
-                        opt.value = "60";
-                        opt.linkId = opt.value;
-                    opt = document.createElement("option");
-                        ninja.add(opt);
-                        opt.text = "3";
-                        opt.value = "100";
-                        opt.linkId = opt.value;
-
-                    ninja.selectedIndex = 0;
-                    ninja.onchange = function() {
-                        recalculate(tbl, index, type);
-                    };
-                }
-
-                if (type === "Ranged") {
-
-                    row = tbl.insertRow(tbl.rows.length);
-                    cell1 = row.insertCell(0);
-                    cell1.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;Demolition Expert" + info("demolitionexpert");
-                    cell2 = row.insertCell(1);
-                    cell2.innerHTML = "<select id='demolition" + index + "'></select> (rank)"
-
-                    var demolition = document.getElementById("demolition" + index);
-                    opt = document.createElement("option");
-                    demolition.add(opt);
-                    opt.text = "None";
-                    opt.value = "0";
-                    demolition.linkId = "Demo";
-
-                    for (var i = 1; i < 6; i++) {
-                        opt = document.createElement("option");
-                        demolition.add(opt);
-                        opt.text = "" + i;
-                        opt.value = "" + (20 + (i - 1) * 10);
-                        opt.linkId = opt.value;
-                    }
-                    // pre nerf available options
-                    opt = document.createElement("option");
-                    demolition.add(opt);
-                    opt.text = "4 (pre nerf)";
-                    opt.value = "80";
-                    opt.linkId = opt.value + "N";
-                    opt = document.createElement("option");
-                    demolition.add(opt);
-                    opt.text = "5 (pre nerf)";
-                    opt.value = "100";
-                    opt.linkId = opt.value + "N";
-
-                    demolition.selectedIndex = 0;
-                    demolition.onchange = function() {
-                        recalculate(tbl, index, type);
-                    };
+                            return x > 5 ? String(x * 20 - 40) : String(20 + (x - 1) * 10);
+                        },
+                        labelFormula: function(x) { return x > 5 ? (x - 2) + " (pre nerf)" : String(x) },
+                        label: "Demolition Expert", 
+                        linkId: "Demo",
+                    });
 
                     if (weap.category === "Rifle" || weap.category === "Pistol") {
-                        row = tbl.insertRow(tbl.rows.length);
-                        cell1 = row.insertCell(0);
-                        cell1.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;Tank killer" + info("tankkiller");
-                        cell2 = row.insertCell(1);
-                        cell2.innerHTML = "<select id='tankkiller" + index + "'></select> (rank)"
-
-                        var tankkiller = document.getElementById("tankkiller" + index);
-                        opt = document.createElement("option");
-                        tankkiller.add(opt);
-                        opt.text = "None";
-                        opt.value = "0";
-                        tankkiller.linkId = "TankAP";
-
-                        for (var i = 1; i < 4; i++) {
-                            opt = document.createElement("option");
-                            tankkiller.add(opt);
-                            opt.text = "" + i;
-                            opt.value = "" + (i * 12);
-                            opt.linkId = opt.value;
-                        }
-                        tankkiller.selectedIndex = 0;
-                        tankkiller.onchange = function() {
-                            recalculate(tbl, index, type);
-                        };
-                    }
-                    if (weap.category === "Bow") {
-                        row = tbl.insertRow(tbl.rows.length);
-                        cell1 = row.insertCell(0);
-                        cell1.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;Bow before me" + info("bowbeforeme");
-                        cell2 = row.insertCell(1);
-                        cell2.innerHTML = "<select id='bowbeforeme" + index + "'></select> (rank)"
-
-                        var bowbeforeme = document.getElementById("bowbeforeme" + index);
-                        opt = document.createElement("option");
-                        bowbeforeme.add(opt);
-                        opt.text = "None";
-                        opt.value = "0";
-                        bowbeforeme.linkId = "BowAP";
-
-                        for (var i = 1; i < 4; i++) {
-                            opt = document.createElement("option");
-                            bowbeforeme.add(opt);
-                            opt.text = "" + i;
-                            opt.value = "" + (i * 12);
-                            opt.linkId = opt.value;
-                        }
-                        bowbeforeme.selectedIndex = 0;
-                        bowbeforeme.onchange = function() {
-                            recalculate(tbl, index, type);
-                        };
-                    }
-                    if (weap.category == "Heavy") {
-                        row = tbl.insertRow(tbl.rows.length);
-                        cell1 = row.insertCell(0);
-                        cell1.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;Stabilized" + info("stabilized");
-                        cell2 = row.insertCell(1);
-                        cell2.innerHTML = "<select id='stabilized" + index + "'></select> (rank)"
-
-                        var stabilized = document.getElementById("stabilized" + index);
-                        opt = document.createElement("option");
-                        stabilized.add(opt);
-                        opt.text = "None";
-                        opt.value = "0";
-                        stabilized.linkId = "HeavyAP";
-
-                        for (var i = 1; i < 4; i++) {
-                            opt = document.createElement("option");
-                            stabilized.add(opt);
-                            opt.text = "" + i;
-                            opt.value = "" + (i * 15);
-                            opt.linkId = opt.value;
-                        }
-                        stabilized.selectedIndex = 0;
-                        stabilized.onchange = function() {
-                            recalculate(tbl, index, type);
-                        };
+                        createPerkRankSelect(tbl, index, type, {
+                            key: "tankkiller",
+                            maxRank: 3, 
+                            formula: function(x) { 
+                                return String(x * 12);
+                            },
+                            label: "Tank killer", 
+                            linkId: "TankAP",
+                        });
+                    } else if (weap.category === "Bow") {
+                        createPerkRankSelect(tbl, index, type, {
+                            key: "bowbeforeme",
+                            maxRank: 3, 
+                            formula: function(x) { 
+                                return String(x * 12);
+                            },
+                            label: "Bow before me", 
+                            linkId: "BowAP",
+                        });
+                    } else if (weap.category == "Heavy") {
+                        createPerkRankSelect(tbl, index, type, {
+                            key: "stabilized",
+                            maxRank: 3, 
+                            formula: function(x) { 
+                                return String(x * 15);
+                            },
+                            label: "Stabilized", 
+                            linkId: "HeavyAP",
+                        });
                     }
 
-                    row = tbl.insertRow(tbl.rows.length);
-                    cell1 = row.insertCell(0);
-                    cell1.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;Covert operative" + info("covertoperative");
-                    cell2 = row.insertCell(1);
-                    cell2.innerHTML = "<select id='covertop" + index + "'></select> (rank)"
-
-                    var covertop = document.getElementById("covertop" + index);
-                    opt = document.createElement("option");
-                    covertop.add(opt);
-                    opt.text = "None";
-                    opt.value = "0";
-                    covertop.linkId = "Covert";
-
-                    opt = document.createElement("option");
-                    covertop.add(opt);
-                    opt.text = "1";
-                    opt.value = "" + 15;
-                    opt.linkId = opt.value;
-
-                    opt = document.createElement("option");
-                    covertop.add(opt);
-                    opt.text = "2";
-                    opt.value = "" + 30;
-                    opt.linkId = opt.value;
-                    
-                    opt = document.createElement("option");
-                    covertop.add(opt);
-                    opt.text = "3";
-                    opt.value = "" + 50;
-                    opt.linkId = opt.value;
-
-                    covertop.selectedIndex = 0;
-                    covertop.onchange = function() {
-                        recalculate(tbl, index, type);
-                    };
-                    
+                    createPerkRankSelect(tbl, index, type, {
+                        key: "covertop",
+                        infoKey: "covertoperative",
+                        maxRank: 3, 
+                        formula: function(x) { 
+                            return x === 3 ? "50" : String(x * 15);
+                        },
+                        label: "Covert operative", 
+                        linkId: "Covert",
+                    });
                 }
 
-                row = tbl.insertRow(tbl.rows.length);
-                    cell1 = row.insertCell(0);
-                    cell1.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;Exterminator" + info("exterminator");
-                    cell2 = row.insertCell(1);
-                    cell2.innerHTML = "<select id='exterminator" + index + "'></select> (rank)"
+                createPerkRankSelect(tbl, index, type, {
+                    key: "exterminator",
+                    maxRank: 3, 
+                    formula: function(x) { 
+                        return String(x * 25);
+                    },
+                    label: "Exterminator", 
+                    linkId: "Exterm",
+                });
 
-                    var exterminator = document.getElementById("exterminator" + index);
-                    opt = document.createElement("option");
-                    exterminator.add(opt);
-                    opt.text = "None";
-                    opt.value = "0";
-                    exterminator.linkId = "Exterm";
-
-                    for (var i = 1; i < 4; i++) {
-                        opt = document.createElement("option");
-                        exterminator.add(opt);
-                        opt.text = "" + i;
-                        opt.value = "" + (25 * i);
-                        opt.linkId = opt.value;
-                    }
-                    exterminator.selectedIndex = 0;
-                    exterminator.onchange = function() {
-                        recalculate(tbl, index, type);
-                    };
-
-                row = tbl.insertRow(tbl.rows.length);
-                    cell1 = row.insertCell(0);
-                    cell1.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;Glow sight" + info("glowsight");
-                    cell2 = row.insertCell(1);
-                    cell2.innerHTML = "<select id='glowsight" + index + "'></select> (rank)"
-
-                    var glowsight = document.getElementById("glowsight" + index);
-                    opt = document.createElement("option");
-                    glowsight.add(opt);
-                    opt.text = "None";
-                    opt.value = "0";
-                    glowsight.linkId = "Glow";
-
-                    for (var i = 1; i < 4; i++) {
-                        opt = document.createElement("option");
-                        glowsight.add(opt);
-                        opt.text = "" + i;
-                        opt.value = "" + (20 * i);
-                        opt.linkId = opt.value;
-                    }
-                    glowsight.selectedIndex = 0;
-                    glowsight.onchange = function() {
-                        recalculate(tbl, index, type);
-                    };
-
-                row = tbl.insertRow(tbl.rows.length);
-                cell1 = row.insertCell(0);
-                cell1.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;Nerd Rage" + info("nerdrage");
-                cell2 = row.insertCell(1);
-                cell2.innerHTML = "<select id='nerdrage" + index + "'></select> (rank)"
-
-                var nerdragesel = document.getElementById("nerdrage" + index);
-                opt = document.createElement("option");
-                nerdragesel.add(opt);
-                opt.text = "None";
-                opt.value = "0";
-                nerdragesel.linkId = "Nerd";
-
-                for (var i = 1; i < 4; i++) {
-                    opt = document.createElement("option");
-                    nerdragesel.add(opt);
-                    opt.text = "" + i;
-                    opt.value = "" + (5 + i * 5);
-                    opt.linkId = opt.value;
-                }
-                nerdragesel.selectedIndex = 0;
-                nerdragesel.onchange = function() {
-                    recalculate(tbl, index, type);
-                };
-
-                row = tbl.insertRow(tbl.rows.length);
-                cell1 = row.insertCell(0);
-                cell1.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;Revenant" + info("revenant");
-                cell2 = row.insertCell(1);
-                cell2.innerHTML = "<select id='revenant" + index + "'></select> (rank)"
+                createPerkRankSelect(tbl, index, type, {
+                    key: "glowsight",
+                    maxRank: 3, 
+                    formula: function(x) { 
+                        return String(x * 20);
+                    },
+                    label: "Glow sight", 
+                    linkId: "Glow",
+                });
                 
-                var revenantsel = document.getElementById("revenant" + index);
-                opt = document.createElement("option");
-                revenantsel.add(opt);
-                opt.text = "None";
-                opt.value = "0";
-                revenantsel.linkId = "Rev";
+                createPerkRankSelect(tbl, index, type, {
+                    key: "nerdrage",
+                    maxRank: 3, 
+                    formula: function(x) { 
+                        return x === 0 ? "0" : String(5 + x * 5);
+                    },
+                    label: "Nerd Rage", 
+                    linkId: "Nerd",
+                });
 
-                for (var i = 1; i < 3; i++) {
-                    opt = document.createElement("option");
-                    revenantsel.add(opt);
-                    opt.text = "" + i;
-                    opt.value = "" + (i * 25);
-                    opt.linkId = opt.value;
-                }
-                revenantsel.selectedIndex = 0;
-                revenantsel.onchange = function() {
-                    recalculate(tbl, index, type);
-                };
+                createPerkRankSelect(tbl, index, type, {
+                    key: "revenant",
+                    maxRank: 2, 
+                    formula: function(x) { 
+                        return String(x * 25);
+                    },
+                    label: "Revenant", 
+                    linkId: "Rev",
+                });
 
                 if (weap.silencer) {
-                    row = tbl.insertRow(tbl.rows.length);
-                    cell1 = row.insertCell(0);
-                    cell1.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;Mister Sandman" + info("sandman");
-                    cell2 = row.insertCell(1);
-                    cell2.innerHTML = "<select id='sandman" + index + "'></select> (rank)"
-                    var sandmansel = document.getElementById("sandman" + index);
-                    opt = document.createElement("option");
-                    sandmansel.add(opt);
-                    opt.text = "None";
-                    opt.value = "0";
-                    sandmansel.linkId = "Sandman";
-
-                    for (var i = 1; i < 3; i++) {
-                        opt = document.createElement("option");
-                        sandmansel.add(opt);
-                        opt.text = "" + i;
-                        opt.value = "" + (i * 25);
-                        opt.linkId = opt.value;
-                    }
-                    sandmansel.selectedIndex = 0;
-                    sandmansel.onchange = function() {
-                        recalculate(tbl, index, type);
-                    };
+                    createPerkRankSelect(tbl, index, type, {
+                        key: "sandman",
+                        maxRank: 2, 
+                        formula: function(x) { 
+                            return String(x * 25);
+                        },
+                        label: "Mister Sandman", 
+                        linkId: "Sandman",
+                    });
                 }
 
                 createYesNo(tbl, index, type, "Strange in numbers", "strangeinnumbers", "strangeinnumbers", "Strange");
 
-                row = tbl.insertRow(tbl.rows.length);
-                cell1 = row.insertCell(0);
-                cell1.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;Party boy/girl" + info("partyperson");
-                cell2 = row.insertCell(1);
-                cell2.innerHTML = "<select id='partyperson" + index + "'></select> (rank)"
-                
-                var partypersonsel = document.getElementById("partyperson" + index);
-                opt = document.createElement("option");
-                partypersonsel.add(opt);
-                opt.text = "None";
-                opt.value = "0";
-                partypersonsel.linkId = "Party";
-
-                for (var i = 1; i < 3; i++) {
-                    opt = document.createElement("option");
-                    partypersonsel.add(opt);
-                    opt.text = "" + i;
-                    opt.value = "" + i; // calculated with (1 + value)
-                    opt.linkId = opt.value;
-                }
-                partypersonsel.selectedIndex = 0;
-                partypersonsel.onchange = function() {
-                    recalculate(tbl, index, type);
-                };
+                createPerkRankSelect(tbl, index, type, {
+                    key: "partyperson",
+                    maxRank: 2, 
+                    formula: function(x) { 
+                        return String(x);
+                    },
+                    label: "Party boy/girl", 
+                    linkId: "Party",
+                });
 
                 if (type === "Melee") {
-                    row = tbl.insertRow(tbl.rows.length);
-                    cell1 = row.insertCell(0);
-                    cell1.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;Cola nut" + info("colanut");
-                    cell2 = row.insertCell(1);
-                    cell2.innerHTML = "<select id='colanut" + index + "'></select> (rank)"
-                    
-                    var colanutsel = document.getElementById("colanut" + index);
-                    opt = document.createElement("option");
-                    colanutsel.add(opt);
-                    opt.text = "None";
-                    opt.value = "0";
-                    colanutsel.linkId = "Cola";
-
-                    for (var i = 1; i < 3; i++) {
-                        opt = document.createElement("option");
-                        colanutsel.add(opt);
-                        opt.text = "" + i;
-                        opt.value = "" + i; // calculated with (1 + value)
-                        opt.linkId = opt.value;
-                    }
-                    colanutsel.selectedIndex = 0;
-                    colanutsel.onchange = function() {
-                        recalculate(tbl, index, type);
-                    };
+                    createPerkRankSelect(tbl, index, type, {
+                        key: "colanut",
+                        maxRank: 3, 
+                        formula: function(x) { 
+                            return String(x);
+                        },
+                        label: "Cola nut", 
+                        linkId: "Cola",
+                    });
                 }
 
-                row = tbl.insertRow(tbl.rows.length);
-                cell1 = row.insertCell(0);
-                cell1.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;Class freak" + info("classfreak");
-                cell2 = row.insertCell(1);
-                cell2.innerHTML = "<select id='classfreak" + index + "'></select> (rank)"
-                
-                var classfreaksel = document.getElementById("classfreak" + index);
-                opt = document.createElement("option");
-                classfreaksel.add(opt);
-                opt.text = "None";
-                opt.value = "0";
-                classfreaksel.linkId = "ClassFreak";
+                createPerkRankSelect(tbl, index, type, {
+                    key: "classfreak",
+                    maxRank: 3, 
+                    formula: function(x) { 
+                        return String(x);
+                    },
+                    label: "Class freak", 
+                    linkId: "ClassFreak",
+                });
 
-                for (var i = 1; i < 4; i++) {
-                    opt = document.createElement("option");
-                    classfreaksel.add(opt);
-                    opt.text = "" + i;
-                    opt.value = "" + i; // calculated with (1 + value)
-                    opt.linkId = opt.value;
-                }
-                classfreaksel.selectedIndex = 0;
-                classfreaksel.onchange = function() {
-                    recalculate(tbl, index, type);
-                };
+                createPerkRankSelect(tbl, index, type, {
+                    key: "tenderizer",
+                    maxRank: 3, 
+                    formula: function(x) { 
+                        return ["0", "5", "7", "10"][x];
+                    },
+                    label: "Tenderizer", 
+                    linkId: "Tenderizer",
+                });
 
-                row = tbl.insertRow(tbl.rows.length);
-                cell1 = row.insertCell(0);
-                cell1.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;Tenderizer" + info("tenderizer");
-                cell2 = row.insertCell(1);
-                cell2.innerHTML = "<select id='tenderizer" + index + "'></select> (rank)"
-                
-                var tenderizersel = document.getElementById("tenderizer" + index);
-                opt = document.createElement("option");
-                tenderizersel.add(opt);
-                opt.text = "None";
-                opt.value = "0";
-                tenderizersel.linkId = "Tenderizer";
-
-                var tenderizerValues = [ 5, 7, 10 ];
-                for (var i = 1; i < 4; i++) {
-                    opt = document.createElement("option");
-                    tenderizersel.add(opt);
-                    opt.text = "" + i;
-                    opt.value = "" + tenderizerValues[i - 1];
-                    opt.linkId = opt.value;
-                }
-                tenderizersel.selectedIndex = 0;
-                tenderizersel.onchange = function() {
-                    recalculate(tbl, index, type);
-                };
-
-                row = tbl.insertRow(tbl.rows.length);
-                cell1 = row.insertCell(0);
-                cell1.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;Better Criticals" + info("bettercrits");
-                cell2 = row.insertCell(1);
-                cell2.innerHTML = "<select id='bettercrits" + index + "'></select> (rank)"
-                
-                var bettercritssel = document.getElementById("bettercrits" + index);
-                opt = document.createElement("option");
-                bettercritssel.add(opt);
-                opt.text = "None";
-                opt.value = "0";
-                bettercritssel.linkId = "BetterCrits";
-
-                var tenderizerValues = [ 20, 30, 40 ];
-                for (var i = 1; i < 4; i++) {
-                    opt = document.createElement("option");
-                    bettercritssel.add(opt);
-                    opt.text = "" + i;
-                    opt.value = "" + tenderizerValues[i - 1];
-                    opt.linkId = opt.value;
-                }
-                bettercritssel.selectedIndex = 0;
-                bettercritssel.onchange = function() {
-                    recalculate(tbl, index, type);
-                };
+                createPerkRankSelect(tbl, index, type, {
+                    key: "bettercrits",
+                    maxRank: 3, 
+                    formula: function(x) { 
+                        return x === 0 ? "0" : String((x + 1) * 10);
+                    },
+                    label: "Better Criticals", 
+                    linkId: "BetterCrits",
+                });
             }
 
             function createYesNo(tbl, index, type, title, infoId, id, linkId) {
@@ -7484,20 +7226,92 @@
                 } else {
                     cell1.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;" + title;
                 }
+                var value = getDefaultRadioValue(index, id, 0);
+                var checkedStr = "checked='checked'";
                 cell2 = row.insertCell(1);
-                cell2.innerHTML = "<input type='radio' id='" + id + index + "_yes' name='" + id + index + "' value='1'><label for='" + id + index + "_yes'> Yes</label>&nbsp;&nbsp;&nbsp;"
-                    + "<input type='radio' id='" + id + index + "_no' name='" + id + index + "' value='0' checked='checked'><label for='" + id + index + "_no'> No</label>";
-
-                document.getElementById(id + index + "_yes").onchange = function() {
+                cell2.innerHTML = "<input type='radio' id='" + id + index + "_yes' name='" + id + index + "' value='1' " + (value ? checkedStr : "") + "><label for='" + id + index + "_yes'> Yes</label>&nbsp;&nbsp;&nbsp;"
+                    + "<input type='radio' id='" + id + index + "_no' name='" + id + index + "' value='0' " + (!value ? checkedStr : "") + "><label for='" + id + index + "_no'> No</label>";
+                
+                var yesRadio = document.getElementById(id + index + "_yes");
+                yesRadio.dataKey = id;
+                yesRadio.onchange = function() {
+                    changeSelectedValue(index, id, 1);
                     recalculate(tbl, index, type);
                 };
-                document.getElementById(id + index + "_yes").linkId = linkId;
+                yesRadio.linkId = linkId;
+
                 document.getElementById(id + index + "_no").onchange = function() {
+                    changeSelectedValue(index, id, 0);
                     recalculate(tbl, index, type);
                 };
-
             }
 
+            function createPerkRankSelect(tbl, index, type, params) {
+                var key = params.key;
+                var row = tbl.insertRow(tbl.rows.length);
+                var cell1 = row.insertCell(0);
+                cell1.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;" + params.label + info(params.infoKey || key);
+                var cell2 = row.insertCell(1);
+                cell2.innerHTML = "<select id='" + key + index + "'></select> (rank)" + (params.elementPostfix || "");
+
+                var sel = document.getElementById(key + index);
+                var values = [];
+
+                for (var i = 0; i <= params.maxRank; i++) {
+                    values.push(params.formula(i));
+                }
+
+                var opt = document.createElement("option");
+                sel.add(opt);
+                opt.text = "None";
+                opt.value = "0";
+                sel.linkId = params.linkId;
+
+                for (var i = 1; i < values.length; i++) {
+                    opt = document.createElement("option");
+                    sel.add(opt);
+                    opt.value = "" + values[i];
+                    opt.text = params.labelFormula ? params.labelFormula(i) : "" + i;
+                    opt.linkId =  params.linkIdFormula ? params.linkIdFormula(i) : opt.value;
+                }
+                sel.selectedIndex = getDefaultValueIndex(index, key, values, 0);
+                sel.dataKey = key;
+                sel.onchange = function(e) {
+                    changeSelectedValue(index, e.target.dataKey, e.target.value);
+                    recalculate(tbl, index, type);
+                };
+            }
+            
+            function createOtherSelect(tbl, index, type, params) {
+                var key = params.key;
+                var row = tbl.insertRow(tbl.rows.length);
+                var cell1 = row.insertCell(0);
+                cell1.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;" + params.label + info(params.infoKey || key);
+                cell2 = row.insertCell(1);
+                cell2.innerHTML = "<select id='" + key + index + "'></select>";
+
+                var sel = document.getElementById(key + index);
+                var opt = document.createElement("option");
+                sel.add(opt);
+                opt.text = "None";
+                opt.value = "";
+                sel.linkId = params.linkId;
+
+                for (var value of params.values) {
+                    opt = document.createElement("option");
+                    sel.add(opt);
+                    opt.text = value.desc;
+                    opt.value = value.id;
+                    opt.linkId = linkIdFor(value, value.id);
+                }
+                sel.selectedIndex = getDefaultValueIndex(index, key, params.values, 0, "id");
+                sel.dataKey = key;
+                sel.onchange = function(e) {
+                    changeSelectedValue(index, e.target.dataKey, e.target.value);
+                    recalculate(tbl, index, type);
+                };
+            }
+            
             function createMutations(tbl, index, type) {
                 var weapIdx = document.getElementById("weapon" + index).selectedIndex;
                 var weap = allWeapons.get(type)[weapIdx];
@@ -7550,167 +7364,50 @@
                 cell1.innerText = "Consumables";
                 var cell2 = row.insertCell(1);
 
-                // chems
-                row = tbl.insertRow(tbl.rows.length);
-                cell1 = row.insertCell(0);
-                cell1.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;Chem" + info("chems");
-                cell2 = row.insertCell(1);
-                cell2.innerHTML = "<select id='chem" + index + "'></select>"
-                var chemsel = document.getElementById("chem" + index);
-                opt = document.createElement("option");
-                chemsel.add(opt);
-                opt.text = "None";
-                opt.value = "";
-                chemsel.linkId = "Chem";
+                createOtherSelect(tbl, index, type, {
+                    key: "chem",
+                    infoKey: "chems",
+                    label: "Chem", 
+                    linkId: "Chem",
+                    values: chems.filter(function(value) { return value.mode.includes(type); })
+                });
 
-                for (var chm of chems) {
-                    if (chm.mode.includes(type)) {
-                        opt = document.createElement("option");
-                        chemsel.add(opt);
-                        opt.text = chm.desc;
-                        opt.value = chm.id;
-                        opt.linkId = linkIdFor(chm, chm.id);
-                    }
-                }
-                chemsel.selectedIndex = 0;
-                chemsel.onchange = function() {
-                    recalculate(tbl, index, type);
-                };
+                createOtherSelect(tbl, index, type, {
+                    key: "alcohol",
+                    infoKey: "alcohols",
+                    label: "Alcohol",
+                    linkId: "Alcohol",
+                    values: alcohols.filter(function(value) { return buffFilter(value, weap, type); })
+                });
 
-                // alcohol
-                row = tbl.insertRow(tbl.rows.length);
-                cell1 = row.insertCell(0);
-                cell1.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;Alcohol" + info("alcohols");
-                cell2 = row.insertCell(1);
-                cell2.innerHTML = "<select id='alcohol" + index + "'></select>"
-                var alcoholsel = document.getElementById("alcohol" + index);
-                opt = document.createElement("option");
-                alcoholsel.add(opt);
-                opt.text = "None";
-                opt.value = "";
-                alcoholsel.linkId = "Alcohol";
+                createOtherSelect(tbl, index, type, {
+                    key: "bobblehead",
+                    label: "Bobblehead",
+                    linkId: "Bobble",
+                    values: bobbleheads.filter(function(value) { return buffFilter(value, weap, type); })
+                });
 
-                for (var alc of alcohols) {
-                    if (buffFilter(alc, weap, type)) {
-                        opt = document.createElement("option");
-                        alcoholsel.add(opt);
-                        opt.text = alc.desc;
-                        opt.value = alc.id;
-                        opt.linkId = linkIdFor(alc, alc.id);
-                    }
-                }
-                alcoholsel.selectedIndex = 0;
-                alcoholsel.onchange = function() {
-                    recalculate(tbl, index, type);
-                };
+                createOtherSelect(tbl, index, type, {
+                    key: "magazine",
+                    label: "Magazine",
+                    linkId: "Magazine",
+                    values: magazines.filter(function(value) { return buffFilter(value, weap, type); })
+                });
 
-                // bobbleheads
-                row = tbl.insertRow(tbl.rows.length);
-                cell1 = row.insertCell(0);
-                cell1.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;Bobblehead" + info("bobblehead");
-                cell2 = row.insertCell(1);
-                cell2.innerHTML = "<select id='bobblehead" + index + "'></select>"
-                var bobbleheadsel = document.getElementById("bobblehead" + index);
-                opt = document.createElement("option");
-                bobbleheadsel.add(opt);
-                opt.text = "None";
-                opt.value = "";
-                bobbleheadsel.linkId = "Bobble";
+                createOtherSelect(tbl, index, type, {
+                    key: "queenhunt",
+                    label: "Queen of the hunt", 
+                    linkId: "Queenhunt",
+                    values: queenhunt.filter(function(value) { return value.mode.includes(type); })
+                });
 
-                for (var bh of bobbleheads) {
-                    if (buffFilter(bh, weap, type)) {
-                        opt = document.createElement("option");
-                        bobbleheadsel.add(opt);
-                        opt.text = bh.desc;
-                        opt.value = bh.id;
-                        opt.linkId = linkIdFor(bh, bh.id);
-                    }
-                }
-                bobbleheadsel.selectedIndex = 0;
-                bobbleheadsel.onchange = function() {
-                    recalculate(tbl, index, type);
-                };
+                createOtherSelect(tbl, index, type, {
+                    key: "biggamehunt",
+                    label: "Big game hunter", 
+                    linkId: "Biggamehunt",
+                    values: biggamehunter.filter(function(value) { return value.mode.includes(type); })
+                });
 
-                // magazines
-                row = tbl.insertRow(tbl.rows.length);
-                cell1 = row.insertCell(0);
-                cell1.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;Magazine" + info("magazine");
-                cell2 = row.insertCell(1);
-                cell2.innerHTML = "<select id='magazine" + index + "'></select>"
-                var magazinesel = document.getElementById("magazine" + index);
-                opt = document.createElement("option");
-                magazinesel.add(opt);
-                opt.text = "None";
-                opt.value = "";
-                magazinesel.linkId = "Magazine";
-
-                for (var mag of magazines) {
-                    if (buffFilter(mag, weap, type)) {
-                        opt = document.createElement("option");
-                        magazinesel.add(opt);
-                        opt.text = mag.desc;
-                        opt.value = mag.id;
-                        opt.linkId = linkIdFor(mag, mag.id);
-                    }
-                }
-                magazinesel.selectedIndex = 0;
-                magazinesel.onchange = function() {
-                    recalculate(tbl, index, type);
-                };
-
-                // queen of the hunt bonus
-                row = tbl.insertRow(tbl.rows.length);
-                cell1 = row.insertCell(0);
-                cell1.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;Queen of the hunt" + info("queenhunt");
-                cell2 = row.insertCell(1);
-                cell2.innerHTML = "<select id='queenhunt" + index + "'></select>"
-                var queenhuntsel = document.getElementById("queenhunt" + index);
-                opt = document.createElement("option");
-                queenhuntsel.add(opt);
-                opt.text = "None";
-                opt.value = "";
-                queenhuntsel.linkId = "Queenhunt";
-
-                for (var qh of queenhunt) {
-                    if (qh.mode.includes(type)) {
-                        opt = document.createElement("option");
-                        queenhuntsel.add(opt);
-                        opt.text = qh.desc;
-                        opt.value = qh.id;
-                        opt.linkId = linkIdFor(qh, qh.id);
-                    }
-                }
-                queenhuntsel.selectedIndex = 0;
-                queenhuntsel.onchange = function() {
-                    recalculate(tbl, index, type);
-                };
-
-                // big game hunter bonus
-                row = tbl.insertRow(tbl.rows.length);
-                cell1 = row.insertCell(0);
-                cell1.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;Big game hunter" + info("biggamehunt");
-                cell2 = row.insertCell(1);
-                cell2.innerHTML = "<select id='biggamehunt" + index + "'></select>"
-                var biggamehuntsel = document.getElementById("biggamehunt" + index);
-                opt = document.createElement("option");
-                biggamehuntsel.add(opt);
-                opt.text = "None";
-                opt.value = "";
-                biggamehuntsel.linkId = "Biggamehunt";
-
-                for (var qh of biggamehunter) {
-                    if (qh.mode.includes(type)) {
-                        opt = document.createElement("option");
-                        biggamehuntsel.add(opt);
-                        opt.text = qh.desc;
-                        opt.value = qh.id;
-                        opt.linkId = linkIdFor(qh, qh.id);
-                    }
-                }
-                biggamehuntsel.selectedIndex = 0;
-                biggamehuntsel.onchange = function() {
-                    recalculate(tbl, index, type);
-                };
 
                 var row = tbl.insertRow(tbl.rows.length);
                 var cell1 = row.insertCell(0);
@@ -7718,49 +7415,62 @@
                 var cell2 = row.insertCell(1);
 
                 // other damage boost
+                var key = "otherboost";
+                var defaultValue = getDefaultValue(index, key, 0);
                 row = tbl.insertRow(tbl.rows.length);
                 cell1 = row.insertCell(0);
                 cell1.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;Damage" + info("buff");
                 cell2 = row.insertCell(1);
-                cell2.innerHTML = "<input type='number' id='otherboost" + index + "' value='0' maxlength='6' style='width: 5em;' min='-1000' max='1000'> %";
-                var otherboostsel = document.getElementById("otherboost" + index );
-                otherboostsel.oninput = function() {
+                cell2.innerHTML = "<input type='number' id='" + key + index + "' value='" + defaultValue + "' maxlength='6' style='width: 5em;' min='-1000' max='1000'> %";
+                var otherboostsel = document.getElementById(key + index);
+                otherboostsel.dataKey = key;
+                otherboostsel.oninput = function(e) {
+                    changeSelectedValue(index, e.target.dataKey, e.target.value);
                     recalculate(tbl, index, type);
                 };
                 otherboostsel.linkId = "Other";
                 otherboostsel.linkDefault = "0";
 
+                key = "speedboost";
+                defaultValue = getDefaultValue(index, key, 0);
                 row = tbl.insertRow(tbl.rows.length);
                 cell1 = row.insertCell(0);
                 cell1.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;Hit speed" + info("hitspeed");
                 cell2 = row.insertCell(1);
-                cell2.innerHTML = "<input type='number' id='speedboost" + index + "' value='0' maxlength='6' style='width: 5em;' min='-1000' max='1000'> %";
-                var speedboostsel = document.getElementById("speedboost" + index );
-                speedboostsel.oninput = function() {
+                cell2.innerHTML = "<input type='number' id='" + key + index + "' value='" + defaultValue + "' maxlength='6' style='width: 5em;' min='-1000' max='1000'> %";
+                var speedboostsel = document.getElementById(key + index);
+                speedboostsel.dataKey = key;
+                speedboostsel.oninput = function(e) {
+                    changeSelectedValue(index, e.target.dataKey, e.target.value);
                     recalculate(tbl, index, type);
                 };
                 speedboostsel.linkId = "Speed";
                 speedboostsel.linkDefault = "0";
 
+                key = "critboost";
+                defaultValue = getDefaultValue(index, key, 0);
                 row = tbl.insertRow(tbl.rows.length);
                 cell1 = row.insertCell(0);
                 cell1.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;Criticals" + info("critboost");
                 cell2 = row.insertCell(1);
-                cell2.innerHTML = "<input type='number' id='critboost" + index + "' value='0' maxlength='6' style='width: 5em;' min='-1000' max='1000'> %";
-                var critboostsel = document.getElementById("critboost" + index );
-                critboostsel.oninput = function() {
+                cell2.innerHTML = "<input type='number' id='" + key + index + "' value='" + defaultValue +"' maxlength='6' style='width: 5em;' min='-1000' max='1000'> %";
+                var critboostsel = document.getElementById(key + index);
+                critboostsel.dataKey = key;
+                critboostsel.oninput = function(e) {
+                    changeSelectedValue(index, e.target.dataKey, e.target.value);
                     recalculate(tbl, index, type);
                 };
                 critboostsel.linkId = "CritBoost";
                 critboostsel.linkDefault = "0";
 
                 // calculation mode
+                key = "calcmode";
                 row = tbl.insertRow(tbl.rows.length);
                 cell1 = row.insertCell(0);
                 cell1.innerHTML = "Calculation mode" + info("buffcalcmode");
                 cell2 = row.insertCell(1);
-                cell2.innerHTML = "<select id='calcmode" + index + "'></select>"
-                var calcmodesel = document.getElementById("calcmode" + index);
+                cell2.innerHTML = "<select id='" + key + index + "'></select>"
+                var calcmodesel = document.getElementById(key + index);
                 calcmodesel.linkId = "CalcMode";
                 calcmodesel.linkDefault = "P22";
 
@@ -7773,7 +7483,6 @@
                 opt = document.createElement("option");
                 opt.text = "One Wasteland";
                 opt.value = "P22";
-                opt.selected = true;
                 opt.linkId = "P22";
                 calcmodesel.add(opt);
 
@@ -7783,7 +7492,10 @@
                 opt.linkId = "P23";
                 calcmodesel.add(opt);
 
-                calcmodesel.onchange = function() {
+                calcmodesel.dataKey = key;
+                calcmodesel.selectedIndex = getDefaultValueIndex(index, key, ["P21", "P22", "P23"], 1);
+                calcmodesel.onchange = function(e) {
+                    changeSelectedValue(index, e.target.dataKey, e.target.value);
                     recalculate(tbl, index, type);
                 };
             }
@@ -9289,6 +9001,8 @@
             };
 
             function copyPanels(fromIdx, toIdx) {
+                selectedValues[toIdx] = Object.assign({}, selectedValues[fromIdx]);
+
                 var wtype = "";
                 if (document.getElementById("wtMelee" + fromIdx).checked) {
                     document.getElementById("wtMelee" + toIdx).click();
@@ -9444,14 +9158,16 @@
 
                 list.forEach(function(node) {
                     if (node.linkId !== undefined) {
-
                         var paramVal = paramMap.get(node.linkId);
+                        var selectedVal = paramVal;
 
                         if (paramVal != null) {
                             if (node.type === "radio") {
                                 if (!node.id.startsWith("wt")) {
                                     node.checked = "true" === paramVal;
                                 }
+
+                                selectedVal = paramVal === "true" ? 1 : 0;
                             }
                             else if (node.options !== undefined) {
                                 for (var opt of node.options) {
@@ -9461,6 +9177,10 @@
                                 }
                             } else if (node.value !== undefined) {
                                 node.value = paramVal;
+                            }
+
+                            if (node.dataKey) {
+                                selectedValues[side][node.dataKey] = selectedVal;
                             }
                         }
                     }
