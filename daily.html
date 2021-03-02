@@ -3838,7 +3838,16 @@
                     scoreBuildFloorWallShelter(76, 1),
                     scoreKillGlowing(76, 1),
                     scoreRepairArmorWeaponPA(76, 3),
-                    scoreNWKillPlayer(76)
+                    scoreNWKillPlayer(76),
+
+                    scoreCompleteDailyChallenge(77, 5),
+                    scoreLevelUp(77, 1),
+                    scoreCompleteDailyOps(77, 1),
+                    scoreCompleteOneEvent(77, 1),
+                    scoreBuySellItem(77, 3),
+                    scoreClaimWorkshop(77, 1),
+                    scoreKillGhoul15(77),
+                    scoreNWSurviveMinutes(77, 5),
                 ]
             };
 
@@ -3919,6 +3928,7 @@
             addDailyOps(challengesDailyEra6.options, 74, "The Burning Mine", "Robots", [ dailyOpsPiercingGaze, dailyOpsVolatile ]);
             addDailyOps(challengesDailyEra6.options, 75, "The Burrows", "Super Mutants", [ dailyOpsPiercingGaze, dailyOpsCloaked ]);
             addDailyOps(challengesDailyEra6.options, 76, "Vault 94", "Blood Eagles", [ dailyOpsPiercingGaze, dailyOpsFreezing ]);
+            addDailyOps(challengesDailyEra6.options, 77, "The Burrows", "Super Mutants", [ dailyOpsPiercingGaze, dailyOpsCloaked ]);
 
             var challenges = [
                 challengesDailyEra1,
@@ -5386,6 +5396,16 @@
             addWeekly(challengesWeeklyEra6.options, 70, scoreCompleteEvents10);
             addWeekly(challengesWeeklyEra6.options, 70, scoreEatCookedMeal25);
             addWeekly(challengesWeeklyEra6.options, 70, scoreKillGlowing10);
+
+            addWeekly(challengesWeeklyEra6.options, 77, scoreLevelUp3);
+            addWeekly(challengesWeeklyEra6.options, 77, scoreCompleteDailyOps, 5);
+            addWeekly(challengesWeeklyEra6.options, 77, scoreClaimWorkshop5);
+            addWeekly(challengesWeeklyEra6.options, 77, scoreCompleteGoldStar);
+            addWeekly(challengesWeeklyEra6.options, 77, scoreCompleteEvents10);
+            addWeekly(challengesWeeklyEra6.options, 77, scoreHarvestPlantFungi50);
+            addWeekly(challengesWeeklyEra6.options, 77, scoreKillCreature50);
+            addWeekly(challengesWeeklyEra6.options, 77, scorekillHugeCreatures);
+            addWeekly(challengesWeeklyEra6.options, 77, scoreKillLegendaries10);
 
             addPlaceholders(challengesWeeklyEra6, scoreWeeklyplaceholder, 91);
 
