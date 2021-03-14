@@ -43,6 +43,7 @@
 
             var oneHourLaterSince = ofDate(2020, 5, 30, 15);
             var shiftDate2 = ofDate(2020, 10, 3, 16);
+            var shiftDate3 = ofDate(2021, 2, 14, 16);
 
             function normalizeDate(date) {
                 if (date < oneHourLaterSince) {
@@ -52,8 +53,11 @@
                 {
                     date.setUTCHours(16, 0, 0, 0);
                 }
-                else {
+                if (date < shiftDate3) {
                     date.setUTCHours(17, 0, 0, 0);
+                }
+                else {
+                    date.setUTCHours(16, 0, 0, 0);
                 }
             }
 
@@ -6228,9 +6232,9 @@
                         }
                     ]
                 },
-                createScripSurplus(ofDate(2021, 2, 11, 17), ofDate(2021, 2, 15, 17)),
-                createPurveyor(ofDate(2021, 2, 18, 17), ofDate(2021, 2, 22, 17), 25, true),
-                createTreasureHunt(ofDate(2021, 2, 25, 17), ofDate(2021, 2, 29, 17), false)
+                createScripSurplus(ofDate(2021, 2, 11, 17), ofDate(2021, 2, 15, 16)),
+                createPurveyor(ofDate(2021, 2, 18, 16), ofDate(2021, 2, 22, 16), 25, true),
+                createTreasureHunt(ofDate(2021, 2, 25, 16), ofDate(2021, 2, 29, 16), false)
             ];
 
             function ofDate(year, month, day, hour) {
