@@ -2146,7 +2146,7 @@
                 if (location === "???") {
                     loc.subchallenges = [
                         {
-                            name: "&#x1F6C8; Currently, Daily Ops refreshes one hour after the S.C.O.R.E. challenges."
+                            name: "&#x1F6C8; Currently, Daily Ops refreshes one hour after<br>&nbsp;&nbsp;&nbsp; the S.C.O.R.E. challenges."
                         }
                     ];
                 }
@@ -3968,6 +3968,15 @@
                     scoreKillLegendary(89, 1),
                     scoreCraftRanged5(89),
                     scoreConsumeAlcohol(89, 5),
+
+                    scoreCompleteDailyChallenge(90, 5),
+                    scoreLevelUp(90, 1),
+                    scoreCompleteOneEvent(90, 1),
+                    scoreCollectCaps(90, 250),
+                    scoreJoinGroup(90),
+                    scoreKillLegendary(90, 1),
+                    scoreEatPrewarFood(90, 5),
+                    scoreModWeapon(90, 5),
                 ]
             };
 
@@ -4061,6 +4070,7 @@
             addDailyOps(challengesDailyEra6.options, 87, dailyOpsBurning, dailyOpsRobots, [ dailyOpsPiercingGaze, dailyOpsFreezing ]);
             addDailyOps(challengesDailyEra6.options, 88, dailyOpsBurrows, dailyOpsMutants, [ dailyOpsPiercingGaze, dailyOpsResilient ]);
             addDailyOps(challengesDailyEra6.options, 89, dailyOpsValley, dailyOpsRobots, [ dailyOpsPiercingGaze, dailyOpsFreezing ]);
+            addDailyOps(challengesDailyEra6.options, 90, "???", "???", [ dailyOpsPiercingGaze ]);
 
             var challenges = [
                 challengesDailyEra1,
@@ -6607,6 +6617,8 @@
                 return result;
             }
 
+            
+
             function renderList(tbl, challenges, endDate, titleId) {
                 var found = false;
                 var titles = [];
@@ -6615,8 +6627,16 @@
                     if (challenge.validStart <= selectedDate
                         && (challenge.validEnd === undefined || challenge.validEnd >= endDate)) {
 
-                        var timeSince = selectedDate.getTime() - challenge.validStart.getTime();
-                        var dayDiff = Math.floor(timeSince / 24 / 60 / 60 / 1000);
+                        //var timeSince = selectedDate.getTime() - challenge.validStart.getTime();
+                        //var dayDiff = Math.floor(timeSince / 24 / 60 / 60 / 1000);
+
+                        var dayDiff = 0;
+                        var dateCounter = new Date(challenge.validStart);
+                        while (dateCounter < selectedDate) {
+                            dayDiff++;
+                            dateCounter.setDate(dateCounter.getDate() + 1);
+                            normalizeDate(dateCounter);
+                        }
 
                         if (titleId !== undefined) {
                             titles.push(challenge.title);
