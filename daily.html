@@ -4082,6 +4082,27 @@
             addDailyOps(challengesDailyEra6.options, 90, dailyOpsBurning, dailyOpsMutants, [ dailyOpsPiercingGaze, dailyOpsCloaked ]);
             addDailyOps(challengesDailyEra6.options, 91, dailyOpsBurrows, dailyOpsRobots, [ dailyOpsPiercingGaze, dailyOpsVolatile ]);
 
+            function addDaily(era, day, scores, dailyOps) {
+                for (var i = 0; i < scores.length; i += 2) {
+                    era.options.push(scores[i](day, scores[i + 1]));
+                }
+                addDailyOps(era.options, day, dailyOps[0], dailyOps[1], dailyOps[2]);
+            }
+
+            addDaily(challengesDailyEra6, 92,
+               [
+                    scoreCompleteDailyChallenge, 5,
+                    scoreLevelUp, 1,
+                    scoreCompleteOneEvent, 1,
+                    scoreCompleteDailyOps, 1,
+                    scoreBuySellItem, 3,
+                    scoreCompleteDaily, 1,
+                    scoreVisitAnotherShelter, 1,
+                    scoreNWSurviveMinutes, 5
+               ],
+               [ dailyOpsV94, dailyOpsEagles, [ dailyOpsPiercingGaze, dailyOpsResilient ]]
+            );
+
             var challenges = [
                 challengesDailyEra1,
                 challengesDailyEra1_2,
