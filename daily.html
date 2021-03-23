@@ -4159,6 +4159,16 @@
                     scoreVisitAnotherShelter, 1,
                     scoreNWKillPlayer, 1
                ], [ dailyOpsBurrows, dailyOpsEagles, [ dailyOpsPiercingGaze, dailyOpsVolatile ]]);
+            addDaily(challengesDailyEra6, 98, [
+                    scoreCompleteDailyChallenge, 5,
+                    scoreLevelUp, 1,
+                    scoreCompleteOneEvent, 1,
+                    scoreCompleteDailyOps, 1,
+                    scoreCollectCaps, 250,
+                    scoreKillMoleminer, 5,
+                    scoreVisitOwnShelter, 1,
+                    scoreNWTakePhoto, 1
+               ], [ dailyOpsValley, dailyOpsMutants, [ dailyOpsPiercingGaze, dailyOpsFreezing ]]);
 
             var challenges = [
                 challengesDailyEra1,
@@ -5159,16 +5169,15 @@
                         };
             }
             function scoreCompleteGoldStar(offset) {
-                return {
-                            name: "Complete a <i>Gold Star</i> daily challenge",
-                            offset: offset,
-                            period: 1400,
-                        };
+                return scoreCompleteGoldStarN(offset, 1);
             }
 
             function scoreCompleteGoldStar2(offset) {
+                return scoreCompleteGoldStarN(offset, 2);
+            }
+            function scoreCompleteGoldStarN(offset, count) {
                 return {
-                            name: times("Complete a <i>Gold Star</i> daily challenge", 2),
+                            name: times("Complete a <i>Gold Star</i> daily challenge", count),
                             offset: offset,
                             period: 1400,
                         };
@@ -5656,6 +5665,16 @@
             addWeekly(challengesWeeklyEra6.options, 91, scorekillHugeCreatures);
             addWeekly(challengesWeeklyEra6.options, 91, scoreKillLegendaries10);
             addWeekly(challengesWeeklyEra6.options, 91, scoreScrapMoney, 100);
+
+            addWeekly(challengesWeeklyEra6.options, 98, scoreLevelUp3);
+            addWeekly(challengesWeeklyEra6.options, 98, scoreClaimWorkshop5);
+            addWeekly(challengesWeeklyEra6.options, 98, scoreCollectCaps, 1250);
+            addWeekly(challengesWeeklyEra6.options, 98, scoreCompleteDailyOps, 3);
+            addWeekly(challengesWeeklyEra6.options, 98, scoreCompleteGoldStar, 3);
+            addWeekly(challengesWeeklyEra6.options, 98, scoreCompleteEvents10);
+            addWeekly(challengesWeeklyEra6.options, 98, scoreDestroyRobots5);
+            addWeekly(challengesWeeklyEra6.options, 98, scoreKillGlowing10);
+            addWeekly(challengesWeeklyEra6.options, 98, scoreRepairArmorWeaponPA, 15);
 
             addPlaceholders(challengesWeeklyEra6, scoreWeeklyplaceholder, 134);
 
