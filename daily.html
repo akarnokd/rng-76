@@ -6840,8 +6840,10 @@
                     while (startDate.getDay() != 2) {
                         startDate.setDate(startDate.getDate() - 1);
                     }
+                    normalizeDate(startDate);
                     var endDate = new Date(startDate);
                     endDate.setDate(endDate.getDate() + 7);
+                    normalizeDate(endDate);
 
                     if (startDate <= now && now < endDate) {
                         var diff = endDate - now;
