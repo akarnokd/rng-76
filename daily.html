@@ -2668,6 +2668,10 @@
                 tip: "Sometimes Bethesda rerolls some or all daily ops properties."
             }
 
+            var dailyOpsReset = {
+                name: "&#x1F6C8; ops will reset 1 hour later",
+            }
+
             var dailyOpsBurrows = "The Burrows";
             var dailyOpsV94 = "Vault 94";
             var dailyOpsValley = "Valley Galleria";
@@ -4209,6 +4213,16 @@
                     scoreVisitOwnShelter, 1,
                     scoreNWDeployCamp, 3
                ], [ dailyOpsBurning, dailyOpsMutants, [ dailyOpsPiercingGaze, dailyOpsResilient ]]);
+            addDaily(challengesDailyEra6, 103, [
+                    scoreCompleteDailyChallenge, 5,
+                    scoreLevelUp, 1,
+                    scoreCompleteOneEvent, 1,
+                    scoreCompleteDailyOps, 1,
+                    scoreCollectCaps, 250,
+                    scoreKillCryptid1, 1,
+                    scoreVisitOwnShelter, 1,
+                    scoreNWKillPlayer, 3
+               ], [ dailyOpsBurning, dailyOpsMutants, [ dailyOpsReset, dailyOpsPiercingGaze, dailyOpsResilient  ]]);
 
             var challenges = [
                 challengesDailyEra1,
