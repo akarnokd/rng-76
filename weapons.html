@@ -2858,6 +2858,46 @@
                     ]
                 },
                 {
+                    name: "Fancy Pump Action Shotgun",
+                    category: "Shotgun",
+                    kind: "ballistic",
+                    explosive: false,
+                    silencer: true,
+                    speed: 3.6,
+                    clipSize: 12,
+                    reloadTime: 0.25,
+                    reloadOneByOne: 0.3,
+                    special: true,
+                    info: "WeaponFancyShotgun",
+                    level: [5, 15, 25, 35, 45],
+                    damage: [55, 65, 75, 85, 95],
+                    mods: [
+                        {
+                            slot: "Receiver",
+                            options: [
+                                {
+                                    name: "Standard"
+                                },
+                                {
+                                    name: "Hardened",
+                                    damageMultPercent: 25
+                                },
+                                {
+                                    name: "Calibrated",
+                                    criticalDamageMultiply: 34
+                                },
+                                snappyMod,
+                                severeMod,
+                                viciousMod,
+                                scorchKillerMod,
+                                primeMod,
+                            ]
+                        },
+                        standardMuzzle
+                    ],
+                    legendaryPrefix: "Anti-armor"
+                },
+                {
                     name: "Double-barrel Shotgun",
                     category: "Shotgun",
                     kind: "ballistic",
@@ -6907,6 +6947,12 @@
                 "<b>Unique Missile Launcher</b>" 
                 + "<br>Legendary: <i>+20% damage</i>"
                 + "<br>Form ID: <a href='https://nukacrypt.com/database/json/00471880' target='_blank'>00471880</a>"
+                );
+            infoMap.set("WeaponFancyShotgun",
+                "<b>Unique Shotgun</b>" 
+                + "<br>Legendary: <i>Anti-armor, +50% limb damage, +50 DR while aiming</i>"
+                + "<br>Bonus properties: +4 clip size, 30% faster reload"
+                + "<br>Form ID: <a href='https://nukacrypt.com/database/json/005A38DA' target='_blank'>005A38DA</a>"
                 );
             infoMap.set("WeaponMindOverMatter",
                 "<b>Unique Plasma Pistol from Steel Dawn</b>" 
