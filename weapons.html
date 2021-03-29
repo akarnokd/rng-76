@@ -22,9 +22,9 @@
     </head>
     <body style="height: 90%">
         <center>
-            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Weapon Damage Calculator (v3.3.32)</span>
+            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Weapon Damage Calculator (v3.3.33)</span>
             <br/>
-            <i>(Update to <i>One Wasteland</i> is almost done; a few special cases to iron out but otherwise good to go.)</i>
+            <i>(Reload times for the <b>Damage per second with reload</b> are currenlty estimates; datamining in progress.)</i>
         <br/>
         <br/>
         <table id="parent">
@@ -79,8 +79,9 @@
                     <br/>
                     <h2>Comparison</h2>
                     <div>
-                        <input type='radio' name='comparemode' id='damagemode' checked='checked'/><span id='spdamagemode' style='cursor: pointer;'> Single hit damage</span>&nbsp;&nbsp;&nbsp;&nbsp;
-                        <input type='radio' name='comparemode' id='dpsmode'/><span id='spdpsmode' style='cursor: pointer;'> Damage per second</span>
+                        <label style='cursor: pointer;'><input type='radio' name='comparemode' id='damagemode' checked='checked'/> Single hit damage</label>&nbsp;&nbsp;&nbsp;&nbsp;
+                        <label style='cursor: pointer;'><input type='radio' name='comparemode' id='dpsmode'/> Damage per second</label>&nbsp;&nbsp;&nbsp;&nbsp;
+                        <label style='cursor: pointer;'><input type='radio' name='comparemode' id='dpsreloadmode'/> DPS with reload</label>
                         &nbsp;&nbsp;&nbsp;&nbsp;
                         <input type='checkbox' id='comparesortdesc' checked/><label for='comparesortdesc' style='cursor: pointer;'> Toughest enemies first</label>
                     </div>
@@ -151,6 +152,8 @@
             var baseDamagesFire = [0, 0, 0];
             var baseDamagesCold = [0, 0, 0];
             var baseDamagesPoison = [0, 0, 0];
+
+            var speedsWithReload = [0, 0, 0];
 
             // -------------------------------------------------------------------------------
             // Setup weapon data
@@ -1567,14 +1570,14 @@
                                 },
                                 {
                                     name: "Piercing",
-                                    ignoreDRPercent: 20
+                                    ignoreDRPercent: 20,
                                 },
                                 {
                                     name: "Perforating",
                                     ignoreDRPercent: 40
-                                }                            
+                                },
                             ]
-                        }
+                        };
             
             var standardMuzzle = {
                 slot: "Muzzle",
@@ -2145,6 +2148,49 @@
                 ]
             };
 
+            function createStandardMagazines(drumName, baseClip, drumReload) {
+                var result = {
+                    slot: "Magazine",
+                    options: [
+                        {
+                            name: "Standard"
+                        },
+                        {
+                            name: "Stinging",
+                            clipSizeAdd: Math.floor(baseClip / 4),
+                            ignoreDRPercent: 20,
+                        },
+                        {
+                            name: "Piercing",
+                            reloadTimeMult: -15,
+                            ignoreDRPercent: 20,
+                        },
+                        {
+                            name: "Perforating",
+                            ignoreDRPercent: 40,
+                        },
+                        {
+                            name: "Quick",
+                            reloadTimeMult: -30,
+                        },
+                        {
+                            name: "Swift",
+                            reloadTimeMult: -15,
+                            clipSizeAdd: Math.floor(baseClip / 4),
+                        },
+                    ]
+                };
+                if (drumName) {
+                    result.options.push(
+                        {
+                            name: "Large",
+                            clipSizeAdd: Math.floor(baseClip / 2),
+                            reloadTimeMult: drumReload
+                        });
+                }
+                return result;
+            }
+
             allWeapons.set("Ranged", [
                 {
                     name: "Handmade",
@@ -2153,6 +2199,8 @@
                     explosive: false,
                     silencer: true,
                     speed: 4,
+                    clipSize: 20,
+                    reloadTime: 2,
                     level: [15, 25, 35, 45],
                     damage: [30, 35, 40, 45],
                     mods: [
@@ -2222,7 +2270,42 @@
                                 },
                             ]
                         },
-                        standardAPMagazines,
+                        {
+                            slot: "Magazine",
+                            options: [
+                                {
+                                    name: "Standard"
+                                },
+                                {
+                                    name: "Stinging",
+                                    clipSizeAdd: 5,
+                                    ignoreDRPercent: 20,
+                                },
+                                {
+                                    name: "Piercing",
+                                    reloadTimeMult: -10,
+                                    clipSizeAdd: -10,
+                                    ignoreDRPercent: 20,
+                                },
+                                {
+                                    name: "Perforating",
+                                    ignoreDRPercent: 40,
+                                },
+                                {
+                                    name: "Quick",
+                                    reloadTimeMult: -30,
+                                },
+                                {
+                                    name: "Swift",
+                                    reloadTimeMult: -15,
+                                    clipSizeAdd: 5,
+                                },
+                                {
+                                    name: "Drum",
+                                    clipSizeAdd: 10
+                                },
+                            ]
+                        },
                         standardMuzzle,
                         createStandardSights("", true, false)
                     ]
@@ -2234,6 +2317,8 @@
                     explosive: false,
                     silencer: true,
                     speed: 0.3,
+                    clipSize: 5,
+                    reloadTime: 2.5,
                     level: [1, 5, 10, 20, 30, 40, 50],
                     damage: [40, 45, 50, 55, 60, 65, 70],
                     mods: [
@@ -2286,7 +2371,7 @@
                                 primeMod,
                             ]
                         },
-                        standardAPMagazines,
+                        createStandardMagazines("Large", 5),
                         standardMuzzle,
                         createStandardSights("", true, true)
                     ]
@@ -2298,6 +2383,9 @@
                     explosive: false,
                     silencer: true,
                     speed: 0.5,
+                    clipSize: 5,
+                    reloadTime: 0.4,
+                    reloadOneByOne: 0.5,
                     level: [25, 35, 45],
                     damage: [65, 70, 75],
                     mods: [
@@ -2335,6 +2423,8 @@
                     kind: "ballistic",
                     explosive: false,
                     speed: 0.1,
+                    clipSize: 1,
+                    reloadTime: 10,
                     level: [15, 25, 35, 45],
                     damage: [150, 160, 170, 180],
                     mods: [ ]
@@ -2345,6 +2435,8 @@
                     kind: "ballistic",
                     explosive: false,
                     speed: 0.1,
+                    clipSize: 1,
+                    reloadTime: 10,
                     level: [35, 45],
                     damage: [200, 225],
                     mods: [ ]
@@ -2356,11 +2448,13 @@
                     explosive: false,
                     silencer: true,
                     speed: 4,
+                    clipSize: 20,
+                    reloadTime: 1,
                     level: [30, 40, 50],
                     damage: [26, 29, 33],
                     mods: [
                         standardAssaultRifleReceivers,
-                        standardAPMagazines,
+                        createStandardMagazines("Large", 20),
                         standardMuzzle,
                         createStandardSights("", true, true)
                     ]
@@ -2374,11 +2468,13 @@
                     special: true,
                     info: "WhistleInTheDark",
                     speed: 4,
+                    clipSize: 20,
+                    reloadTime: 1,
                     level: [30, 40, 50],
                     damage: [26, 29, 33],
                     mods: [
                         standardAssaultRifleReceivers,
-                        standardAPMagazines,
+                        createStandardMagazines("Large", 20),
                         standardMuzzle,
                         createStandardSights("", true, true)
                     ],
@@ -2391,6 +2487,8 @@
                     kind: "ballistic",
                     explosive: false,
                     speed: 2,
+                    clipSize: 250,
+                    reloadTime: 1.5,
                     level: [20, 30, 40, 50],
                     damage: [43, 57, 72, 86],
                     mods: [
@@ -2406,6 +2504,18 @@
                                 },
                                 primeMod
                             ]
+                        },
+                        {
+                            slot: "Magazine",
+                            options: [
+                                {
+                                    name: "Standard"
+                                },
+                                {
+                                    name: "Large",
+                                    clipSizeAdd: 250
+                                }
+                            ]
                         }
                     ]
                 },
@@ -2415,6 +2525,8 @@
                     kind: "ballistic",
                     explosive: false,
                     speed: 1,
+                    clipSize: 10,
+                    reloadTime: 2.5,
                     level: [30, 40, 50],
                     damage: [75, 85, 95],
                     mods: [
@@ -2477,6 +2589,8 @@
                     special: true,
                     info: "WeaponFinalWord",
                     speed: 9.1,
+                    clipSize: 250,
+                    reloadTime: 2,
                     level: [25, 35, 45],
                     damage: [29, 36, 43],
                     mods: [
@@ -2513,6 +2627,8 @@
                     kind: "ballistic",
                     explosive: false,
                     speed: 15.9,
+                    clipSize: 75,
+                    reloadTime: 2.5,
                     level: [30, 40, 50],
                     damage: [29, 34, 42],
                     mods: [
@@ -2533,6 +2649,8 @@
                     kind: "ballistic",
                     explosive: false,
                     speed: 18.2,
+                    clipSize: 500,
+                    reloadTime: 2,
                     level: [35, 45],
                     damage: [20, 24],
                     mods: [
@@ -2564,11 +2682,13 @@
                     explosive: false,
                     silencer: true,
                     speed: 3.3,
+                    clipSize: 20,
+                    reloadTime: 2,
                     level: [20, 30, 40, 50],
                     damage: [28, 32, 36, 40],
                     mods: [
                         createCombatRifleReceivers(false),
-                        standardAPMagazines,
+                        createStandardMagazines("Large", 20),
                         standardMuzzle
                     ]
                 },
@@ -2579,6 +2699,8 @@
                     explosive: false,
                     silencer: true,
                     speed: 3.3,
+                    clipSize: 20,
+                    reloadTime: 2,
                     level: [20, 30, 40, 50],
                     damage: [33, 38, 43, 48],
                     mods: [
@@ -2587,24 +2709,38 @@
                             slot: "Magazine",
                             options: [
                                 {
-                                    name: "Standard",
-                                    ignoreDRPercent: 0
+                                    name: "Standard"
                                 },
                                 {
                                     name: "Stinging",
-                                    ignoreDRPercent: 20
+                                    clipSizeAdd: 5,
+                                    ignoreDRPercent: 20,
                                 },
                                 {
                                     name: "Piercing",
-                                    ignoreDRPercent: 20
+                                    reloadTimeMult: -15,
+                                    ignoreDRPercent: 20,
                                 },
                                 {
                                     name: "Perforating",
                                     ignoreDRPercent: 40,
-                                    preinstalled: true
-                                }                            
+                                },
+                                {
+                                    name: "Quick",
+                                    reloadTimeMult: -30,
+                                },
+                                {
+                                    name: "Swift",
+                                    reloadTimeMult: -15,
+                                    clipSizeAdd: 5,
+                                },
+                                {
+                                    name: "Large",
+                                    clipSizeAdd: 10
+                                },
                             ]
                         },
+                        createStandardMagazines("Large", 20),
                         {
                             slot: "Muzzle",
                             options: [
@@ -2627,6 +2763,8 @@
                     explosive: false,
                     silencer: true,
                     speed: 2,
+                    clipSize: 8,
+                    reloadTime: 2,
                     level: [20, 30, 40, 50],
                     damage: [60, 70, 80, 90],
                     mods: [
@@ -2678,7 +2816,7 @@
                                 }
                             ]
                         },
-                        standardAPMagazines,
+                        createStandardMagazines("Large", 8),
                         standardMuzzle
                     ]
                 },
@@ -2689,6 +2827,9 @@
                     explosive: false,
                     silencer: true,
                     speed: 3.6,
+                    clipSize: 8,
+                    reloadTime: 0.4,
+                    reloadOneByOne: 0.5,
                     level: [5, 15, 25, 35, 45],
                     damage: [55, 65, 75, 85, 95],
                     mods: [
@@ -2722,6 +2863,8 @@
                     kind: "ballistic",
                     explosive: false,
                     speed: 3.6,
+                    clipSize: 2,
+                    reloadTime: 1,
                     level: [15, 25, 35, 45],
                     damage: [80, 90, 100, 115],
                     mods: [
@@ -2755,6 +2898,8 @@
                     explosive: false,
                     silencer: true,
                     speed: 0.4,
+                    clipSize: 1,
+                    reloadTime: 2,
                     level: [15, 25, 35, 45],
                     damage: [55, 60, 65, 70],
                     mods: [
@@ -2796,6 +2941,8 @@
                     explosive: false,
                     silencer: true,
                     speed: 4.3,
+                    clipSize: 12,
+                    reloadTime: 2,
                     level: [5, 15, 25, 35, 45],
                     damage: [15, 18, 21, 24, 28],
                     mods: [
@@ -2842,7 +2989,7 @@
                                 }
                             ]
                         },
-                        standardAPMagazines,
+                        createStandardMagazines("Large", 12, 20),
                         standardMuzzle
                     ]
                 },
@@ -2852,6 +2999,8 @@
                     kind: "ballistic",
                     explosive: false,
                     speed: 0.6,
+                    clipSize: 6,
+                    reloadTime: 2,
                     level: [20, 30, 40, 50],
                     damage: [50, 55, 60, 65],
                     mods: [
@@ -2901,6 +3050,9 @@
                     explosive: false,
                     silencer: true,
                     speed: 7.5,
+                    clipSize: 50,
+                    reloadTime: 2,
+                    automatic: true,
                     level: [15, 25, 35, 45],
                     damage: [18, 22, 25, 29],
                     mods: [
@@ -2922,7 +3074,32 @@
                                 primeMod
                             ]
                         },
-                        standardMuzzle
+                        standardMuzzle,
+                        {
+                            slot: "Magazine",
+                            options: [
+                                {
+                                    name: "Standard",
+                                },
+                                {
+                                    name: "Large",
+                                    reloadTime: 20,
+                                    clipSizeAdd: 25,
+                                },
+                                {
+                                    name: "Large Quick Eject",
+                                    reloadTime: -15,
+                                    clipSizeAdd: 12,
+                                },
+                                {
+                                    name: "Medium",
+                                },
+                                {
+                                    name: "Medium Quick Eject",
+                                    reloadTime: -30,
+                                }
+                            ]
+                        }
                     ]
                 },
                 {
@@ -2932,6 +3109,8 @@
                     explosive: false,
                     silencer: true,
                     speed: 9.1,
+                    clipSize: 30,
+                    reloadTime: 2,
                     level: [10, 20, 30, 40, 50],
                     damage: [17, 19, 23, 28, 34],
                     mods: [
@@ -2950,6 +3129,15 @@
                                 {
                                     name: "Perforating",
                                     ignoreDRPercent: 40
+                                },
+                                {
+                                    name: "Quick",
+                                    reloadTime: -30,
+                                },
+                                {
+                                    name: "Drum",
+                                    reloadTime: 20,
+                                    clipSizeAdd: 15,
                                 }
                             ]
                         },
@@ -2978,12 +3166,20 @@
                                 },
                                 {
                                     name: "Piercing",
-                                    ignoreDRPercent: 20,
-                                    preinstalled: true
+                                    ignoreDRPercent: 20
                                 },
                                 {
                                     name: "Perforating",
                                     ignoreDRPercent: 40
+                                },
+                                {
+                                    name: "Quick",
+                                    reloadTime: -30,
+                                },
+                                {
+                                    name: "Drum",
+                                    reloadTime: 20,
+                                    clipSizeAdd: 15,
                                 }
                             ]
                         },
@@ -2997,6 +3193,8 @@
                     kind: "ballistic",
                     explosive: true,
                     speed: 0.3,
+                    clipSize: 4,
+                    reloadTime: 3,
                     level: [25, 35, 45],
                     damage: [95, 115, 135],
                     mods: [
@@ -3011,6 +3209,18 @@
                                     damageMultPercent: -15
                                 }
                             ]
+                        },
+                        {
+                            slot: "Canister",
+                            options: [
+                                {
+                                    name: "Standard",
+                                },
+                                {
+                                    name: "Multi-shot",
+                                    clipSizeAdd: 2,
+                                }
+                            ]
                         }
                     ]
                 },
@@ -3020,6 +3230,8 @@
                     kind: "ballistic",
                     explosive: false,
                     speed: 0.2,
+                    clipSize: 1,
+                    reloadTime: 5,
                     level: [30, 40, 50],
                     damage: [125, 150, 175],
                     mods: [
@@ -3044,6 +3256,8 @@
                     explosive: false,
                     info: "WeaponCursedHarpoonGun",
                     speed: 0.2 * 1.2,
+                    clipSize: 1,
+                    reloadTime: 4.5,
                     level: [30, 40, 50],
                     damage: [125 * 1.15, 150 * 1.15, 175 * 1.15],
                     mods: [
@@ -3070,6 +3284,8 @@
                     kind: "ballistic",
                     explosive: false,
                     speed: 0.6,
+                    clipSize: 6,
+                    reloadTime: 2,
                     level: [5, 15, 25, 35, 45],
                     damage: [40, 45, 50, 55, 60],
                     mods: [
@@ -3103,6 +3319,8 @@
                     special: true,
                     info: "WeaponTheFactFinder",
                     speed: 0.6,
+                    clipSize: 6,
+                    reloadTime: 2,
                     level: [5, 15, 25, 35, 45],
                     damage: [40, 45, 50, 55, 60],
                     mods: [
@@ -3140,6 +3358,8 @@
                     kind: "ballistic",
                     explosive: false,
                     speed: 0.2,
+                    clipSize: 1,
+                    reloadTime: 5,
                     level: [10, 20, 30, 40, 50],
                     damage: [115, 130, 145, 160, 175],
                     mods: []
@@ -3150,6 +3370,8 @@
                     kind: "ballistic",
                     explosive: false,
                     speed: 0.2,
+                    clipSize: 1,
+                    reloadTime: 5,
                     level: [10, 20, 30, 40, 50],
                     damage: [115, 130, 145, 160, 175],
                     mods: []
@@ -3160,6 +3382,8 @@
                     kind: "ballistic",
                     explosive: false,
                     speed: 0.3,
+                    clipSize: 6,
+                    reloadTime: 2,
                     level: [1, 5, 10, 20, 30, 40, 50],
                     damage: [40, 45, 50, 55, 60, 65, 70],
                     mods: [
@@ -3172,6 +3396,8 @@
                     kind: "ballistic",
                     explosive: false,
                     speed: 0.3,
+                    clipSize: 6,
+                    reloadTime: 2,
                     level: [1, 5, 10, 20, 30, 40, 50],
                     damage: [40, 45, 50, 55, 60, 65, 70],
                     mods: [
@@ -3184,10 +3410,24 @@
                     kind: "ballistic",
                     explosive: false,
                     speed: 0.5,
+                    clipSize: 6,
+                    reloadTime: 2,
                     level: [1, 5, 10, 20, 30, 40, 50],
                     damage: [27, 31, 36, 40, 45, 50, 55],
                     mods: [
-                        pipeRevolverReceivers
+                        pipeRevolverReceivers,
+                        {
+                            slot: "Muzzle",
+                            options: [
+                                {
+                                    name: "Standard"
+                                },
+                                {
+                                    name: "Suppressed",
+                                    silencer: true
+                                }
+                            ]
+                        }
                     ]
                 },
                 {
@@ -3196,10 +3436,24 @@
                     kind: "ballistic",
                     explosive: false,
                     speed: 0.6,
+                    clipSize: 6,
+                    reloadTime: 2,
                     level: [1, 5, 10, 20, 30, 40, 50],
                     damage: [27, 31, 36, 40, 45, 50, 55],
                     mods: [
-                        pipeRevolverReceivers
+                        pipeRevolverReceivers,
+                        {
+                            slot: "Muzzle",
+                            options: [
+                                {
+                                    name: "Standard"
+                                },
+                                {
+                                    name: "Suppressed",
+                                    silencer: true
+                                }
+                            ]
+                        }
                     ]
                 },
                 {
@@ -3208,11 +3462,13 @@
                     kind: "ballistic",
                     explosive: false,
                     speed: 6,
+                    clipSize: 12,
+                    reloadTime: 2,
                     level: [1, 5, 10, 20, 30, 40, 50],
                     damage: [12, 13, 15, 18, 21, 23, 26],
                     mods: [
                         pipeGunReceivers,
-                        standardAPMagazines
+                        createStandardMagazines("Drum", 12, 20),
                     ]
                 },
                 {
@@ -3221,11 +3477,13 @@
                     kind: "ballistic",
                     explosive: false,
                     speed: 6,
+                    clipSize: 12,
+                    reloadTime: 2,
                     level: [1, 5, 10, 20, 30, 40, 50],
                     damage: [12, 13, 15, 18, 21, 23, 26],
                     mods: [
                         pipeGunReceivers,
-                        standardAPMagazines
+                        createStandardMagazines("Drum", 12, 20),
                     ]
                 },
                 {
@@ -3237,6 +3495,8 @@
                     chargetime: 1,
                     speed: 6.7,
                     explosiveDamageMult: 15,
+                    clipSize: 5,
+                    reloadTime: 2,
                     level: [35, 45],
                     damage: [125, 140],
                     mods: [
@@ -3271,6 +3531,8 @@
                     explosive: false,
                     silencer: true,
                     speed: 4,
+                    clipSize: 20,
+                    reloadTime: 2,
                     level: [40, 50],
                     damage: [33, 37],
                     damageRadiation: [13, 15],
@@ -3300,7 +3562,7 @@
                                 primeMod
                             ]
                         },
-                        standardAPMagazines,
+                        createStandardMagazines("Large", 20, 20),
                         standardMuzzle
                     ]
                 },
@@ -3311,6 +3573,8 @@
                     explosive: false,
                     silencer: false,
                     speed: 4,
+                    clipSize: 30,
+                    reloadTime: 2,
                     level: [5, 15, 25, 35, 45],
                     damage: [0, 0, 0, 0, 0],
                     damageEnergy: [21, 26, 31, 36, 44],
@@ -3327,6 +3591,8 @@
                     explosive: false,
                     silencer: false,
                     speed: 5,
+                    clipSize: 30,
+                    reloadTime: 2,
                     level: [5, 15, 25, 35, 45],
                     damage: [0, 0, 0, 0, 0],
                     damageEnergy: [21, 26, 31, 36, 44],
@@ -3343,6 +3609,8 @@
                     explosive: false,
                     silencer: false,
                     speed: 4,
+                    clipSize: 30,
+                    reloadTime: 2,
                     level: [30, 40, 50],
                     damage: [0, 0, 0],
                     damageEnergy: [28, 31, 34],
@@ -3359,6 +3627,8 @@
                     explosive: false,
                     silencer: false,
                     speed: 5,
+                    clipSize: 30,
+                    reloadTime: 2,
                     level: [30, 40, 50],
                     damage: [0, 0, 0, 0, 0],
                     damageEnergy: [28, 31, 34],
@@ -3375,6 +3645,8 @@
                     explosive: false,
                     silencer: false,
                     speed: 18.2,
+                    clipSize: 500,
+                    reloadTime: 3,
                     level: [25, 35, 45],
                     damage: [0, 0, 0],
                     damageEnergy: [18, 21, 25],
@@ -3428,6 +3700,8 @@
                     explosive: false,
                     silencer: false,
                     speed: 18.2,
+                    clipSize: 500,
+                    reloadTime: 3,
                     level: [35, 45],
                     damage: [0, 0, 0],
                     damageEnergy: [25, 28],
@@ -3481,6 +3755,8 @@
                     explosive: false,
                     silencer: false,
                     speed: 3.3,
+                    clipSize: 30,
+                    reloadTime: 20,
                     level: [15, 25, 35, 45],
                     damage: [15, 21, 25, 29],
                     damageEnergy: [15, 21, 25, 29],
@@ -3499,6 +3775,8 @@
                     special: true,
                     info: "WeaponMindOverMatter",
                     speed: 3.3,
+                    clipSize: 30,
+                    reloadTime: 2,
                     level: [15, 25, 35, 45],
                     damage: [15, 21, 25, 29],
                     damageEnergy: [15, 21, 25, 29],
@@ -3517,6 +3795,8 @@
                     explosive: false,
                     silencer: false,
                     speed: 3.3,
+                    clipSize: 30,
+                    reloadTime: 2,
                     level: [15, 25, 35, 45],
                     damage: [15, 21, 25, 29],
                     damageEnergy: [15, 21, 25, 29],
@@ -3535,6 +3815,8 @@
                     explosive: false,
                     silencer: false,
                     speed: 3.3,
+                    clipSize: 30,
+                    reloadTime: 2,
                     level: [15, 25, 35, 45],
                     damage: [15, 21, 25, 29],
                     damageEnergy: [15, 21, 25, 29],
@@ -3554,6 +3836,8 @@
                     explosive: false,
                     silencer: false,
                     speed: 9.1,
+                    clipSize: 500,
+                    reloadTime: 3,
                     level: [30, 40, 50],
                     damage: [0, 0, 0],
                     damageEnergy: [43, 50, 58],
@@ -3577,6 +3861,8 @@
                     explosive: false,
                     silencer: false,
                     speed: 3.3,
+                    clipSize: 30,
+                    reloadTime: 2,
                     level: [25, 35, 45],
                     damage: [24, 28, 32],
                     damageEnergy: [24, 28, 32],
@@ -3593,6 +3879,8 @@
                     explosive: false,
                     silencer: false,
                     speed: 3.3,
+                    clipSize: 30,
+                    reloadTime: 2,
                     level: [25, 35, 45],
                     damage: [24, 28, 32],
                     damageEnergy: [24, 28, 32],
@@ -3609,6 +3897,8 @@
                     explosive: false,
                     silencer: false,
                     speed: 6.7,
+                    clipSize: 8,
+                    reloadTime: 2,
                     level: [15, 25, 35, 45],
                     damage: [38, 45, 52, 60],
                     damageRadiation: [50, 50, 50, 50],
@@ -3650,6 +3940,8 @@
                     explosive: false,
                     silencer: false,
                     speed: 2,
+                    clipSize: 15,
+                    reloadTime: 2,
                     level: [40, 50],
                     damage: [0, 0],
                     damageEnergy: [66, 78],
@@ -3680,6 +3972,8 @@
                     explosive: false,
                     silencer: false,
                     speed: 9.1,
+                    clipSize: 25,
+                    reloadTime: 2,
                     level: [25, 35, 45],
                     damage: [0, 0, 0],
                     damageCold: [24, 30, 36],
@@ -3705,6 +3999,8 @@
                     category: "Heavy",
                     explosive: true,
                     speed: 0.2,
+                    clipSize: 1,
+                    reloadTime: 5,
                     level: [25, 35, 45],
                     damage: [355, 405, 455],
                     mods: [
@@ -3727,15 +4023,58 @@
                     category: "Heavy",
                     explosive: true,
                     speed: 0.2,
+                    clipSize: 1,
+                    reloadTime: 2,
                     level: [20, 30, 40, 50],
                     damage: [105, 125, 145, 155],
-                    mods: []
+                    mods: [
+                        {
+                            slot: "Barrel",
+                            options: [
+                                {
+                                    name: "Standard"
+                                },
+                                {
+                                    name: "Quad",
+                                    clipSizeAdd: 3,
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    name: "Bunker Buster",
+                    category: "Heavy",
+                    explosive: true,
+                    speed: 0.2,
+                    clipSize: 1,
+                    reloadTime: 2,
+                    special: true,
+                    info: "WeaponBunkerBuster",
+                    level: [20, 30, 40, 50],
+                    damage: [105 * 1.2, 125 * 1.2, 145 * 1.2, 155 * 1.2],
+                    mods: [
+                        {
+                            slot: "Barrel",
+                            options: [
+                                {
+                                    name: "Standard"
+                                },
+                                {
+                                    name: "Quad",
+                                    clipSizeAdd: 3,
+                                }
+                            ]
+                        }
+                    ]
                 },
                 {
                     name: "Hellstorm Missile Launcher",
                     category: "Heavy",
                     explosive: true,
                     speed: 0.14,
+                    clipSize: 4,
+                    reloadTime: 2,
                     level: [50],
                     damage: [200],
                     mods: [
@@ -3753,7 +4092,8 @@
                                 {
                                     name: "Enhanced",
                                     speedMultPercent: 100.0 / 6.0,
-                                    damageMultPercent: -20
+                                    damageMultPercent: -20,
+                                    clipSizeAdd: 2,
                                 },
                                 {
                                     name: "Plasma",
@@ -3793,6 +4133,8 @@
                     category: "Heavy",
                     explosive: true,
                     speed: 0.2,
+                    clipSize: 1,
+                    reloadTime: 2,
                     level: [15, 25, 35, 45],
                     damage: [87, 97, 107, 117],
                     mods: [
@@ -3803,6 +4145,8 @@
                     category: "Heavy",
                     explosive: true,
                     speed: 1.6,
+                    clipSize: 12,
+                    reloadTime: 2,
                     level: [50],
                     damage: [75],
                     mods: [
@@ -3826,10 +4170,25 @@
                     kind: "energy",
                     explosive: true,
                     speed: 10,
+                    clipSize: 42,
+                    reloadTime: 2,
                     level: [20,30,40,50],
                     damage: [0, 0, 0, 0],
                     damageEnergy: [20,25,29,32],
-                    mods: []
+                    mods: [
+                        {
+                            slot: "Magazine",
+                            options: [
+                                {
+                                    name: "Standard",
+                                },
+                                {
+                                    name: "Fusion",
+                                    damageMultPercent: -20
+                                }
+                            ]
+                        }
+                    ]
                 },
                 {
                     name: "The V.A.T.S. Unknown",
@@ -3842,7 +4201,20 @@
                     level: [20,30,40,50],
                     damage: [0, 0, 0, 0],
                     damageEnergy: [20,25,29,32],
-                    mods: [],
+                    mods: [
+                        {
+                            slot: "Magazine",
+                            options: [
+                                {
+                                    name: "Standard",
+                                },
+                                {
+                                    name: "Fusion",
+                                    damageMultPercent: -20
+                                }
+                            ]
+                        }
+                    ],
                     legendaryMajor: "VATS Crits do +50% damage",
                 },
                 {
@@ -3850,6 +4222,8 @@
                     category: "Thrown",
                     kind: "ballistic",
                     speed: speedSlow,
+                    clipSize: 1,
+                    reloadTime: 1,
                     level: [1],
                     damage: [28],
                     mods: []
@@ -3859,6 +4233,8 @@
                     category: "Thrown",
                     kind: "ballistic",
                     speed: speedSlow,
+                    clipSize: 1,
+                    reloadTime: 1,
                     level: [1],
                     damage: [75],
                     mods: []
@@ -3868,6 +4244,8 @@
                     category: "Thrown",
                     kind: "ballistic",
                     speed: speedSlow,
+                    clipSize: 1,
+                    reloadTime: 1,
                     level: [1],
                     damage: [75],
                     mods: []
@@ -3877,6 +4255,8 @@
                     category: "Thrown",
                     kind: "ballistic",
                     speed: speedSlow,
+                    clipSize: 1,
+                    reloadTime: 1,
                     level: [1],
                     damage: [60],
                     mods: []
@@ -3889,6 +4269,8 @@
                     speed: 6.7,
                     chargetime: 1,
                     explosiveDamageMult: 15,
+                    clipSize: 8,
+                    reloadTime: 2,
                     level: [25,30,35,40,45,50],
                     damage: [80,85,90,95,100,105],
                     mods: [
@@ -3919,6 +4301,11 @@
                                 {
                                     name: "Perforating",
                                     ignoreDRPercent: 40
+                                },
+                                {
+                                    name: "Extended",
+                                    reloadTimeMult: 20,
+                                    clipSizeAdd: 4,
                                 }
 
                             ]
@@ -3931,6 +4318,8 @@
                     kind: "energy",
                     explosive: false,
                     speed: 9.1,
+                    clipSize: 500,
+                    reloadTime: 2,
                     level: [45,50],
                     damage: [48,50],
                     explosiveDamageMult: 15,
@@ -3979,10 +4368,12 @@
                     speed: 6.7,
                     chargetime: 1,
                     explosiveDamageMult: 15,
+                    clipSize: 18,
+                    reloadTime: 2,
                     level:  [15,20,25,30,35, 40, 45, 50],
                     damage: [62,70,76,85,92,100,108,115],
                     mods: [
-                    {
+                        {
                             slot: "Barrel",
                             options: [
                                 {
@@ -4011,6 +4402,19 @@
                                 viciousMod,
                                 primeMod
                             ]
+                        },
+                        {
+                            slot: "Magazine",
+                            options: [
+                                {
+                                    name: "Standard",
+                                },
+                                {
+                                    name: "Drum",
+                                    clipSizeAdd: 9,
+                                    reloadTimeMult: 20
+                                }
+                            ]
                         }
                     ]
                 },
@@ -4020,6 +4424,8 @@
                     kind: "plasma",
                     explosive: false,
                     speed: 2,
+                    clipSize: 20,
+                    reloadTime: 3,
                     level: [40,45,50],
                     damage: [60,68,76],
                     damageEnergy: [60,68,76],
@@ -4050,6 +4456,8 @@
                     explosive: false,
                     silencer: true,
                     speed: 0.5,
+                    clipSize: 1,
+                    reloadTime: 2,
                     level:  [ 1, 5,10,15,20,25,30,35,40,45,50],
                     damage: [50,55,60,65,70,75,80,85,90,95,100],
                     mods: [
@@ -4063,6 +4471,8 @@
                     explosive: false,
                     silencer: true,
                     speed: 0.5,
+                    clipSize: 1,
+                    reloadTime: 2,
                     level:  [ 1, 5,10,15,20,25,30,35,40,45,50],
                     damage: [40,45,50,55,60,65,70,75,80,85,90],
                     mods: [
@@ -4076,6 +4486,9 @@
                     explosive: false,
                     silencer: false,
                     speed: 0.6,
+                    clipSize: 6,
+                    reloadTime: 1,
+                    reloadOneByOne: 0.5,
                     level:  [10,20,30,40,50],
                     damage: [42,48,52,58,62],
                     mods: [
@@ -4099,6 +4512,8 @@
                     category: "Heavy",
                     kind: "energy",
                     speed: 9.1,
+                    clipSize: 100,
+                    reloadTime: 2,
                     level: [30, 40, 50],
                     damage: [0, 0, 0],
                     damageFire: [29, 32, 36],
@@ -4131,6 +4546,23 @@
                                     addDamageFireLeveled: [29 * 0.8, 32 * 0.8, 36 * 0.8]
                                 }
                             ]
+                        },
+                        {
+                            slot: "Propellant Tank",
+                            options: [
+                                {
+                                    name: "Standard",
+                                },
+                                {
+                                    name: "Large",
+                                    clipSizeAdd: 50,
+                                },
+                                {
+                                    name: "Huge",
+                                    clipSizeAdd: 100,
+                                    reloadTimeMult: 20,
+                                }
+                            ]
                         }
                     ]
                 },
@@ -4139,6 +4571,8 @@
                     category: "Pistol",
                     kind: "ballistic",
                     speed: 0.2,
+                    clipSize: 1,
+                    reloadTime: 2,
                     level: [1],
                     damage: [5]
                 },
@@ -4147,6 +4581,8 @@
                     category: "Rifle",
                     kind: "ballistic",
                     speed: 0.3,
+                    clipSize: 1,
+                    reloadTime: 2,
                     level: [1],
                     damage: [5]
                 },
@@ -4155,6 +4591,8 @@
                     category: "Pistol",
                     kind: "ballistic",
                     speed: 6.7,
+                    clipSize: 12,
+                    reloadTime: 2,
                     level: [30, 35, 40, 45, 50],
                     damage: [25, 28, 30, 33, 35],
                     mods: [
@@ -4180,6 +4618,19 @@
                                 {
                                     name: "Pyro",
                                     addDamageFireLeveled: [5, 5, 6, 6, 7]
+                                }
+                            ]
+                        },
+                        {
+                            slot: "Magazine",
+                            options: [
+                                {
+                                    name: "Standard"
+                                },
+                                {
+                                    name: "Large",
+                                    clipSizeAdd: 6,
+                                    reloadTimeMult: 20,
                                 }
                             ]
                         },
@@ -4555,7 +5006,7 @@
                     {
                         name: "15% faster reload",
                         linkId: "FRL",
-                        reloadSpeedMult: -15
+                        reloadTimeMult: -15
                     }
                 ]
             ]);
@@ -6107,21 +6558,9 @@
 
             // ......................................
 
-            document.getElementById("damagemode").onclick = function() {
-                recalculateDiff();
-            };
-            document.getElementById("spdamagemode").onclick = function() {
-                document.getElementById("damagemode").checked = true;
-                recalculateDiff();
-            };
-
-            document.getElementById("dpsmode").onclick = function() {
-                recalculateDiff();
-            };
-            document.getElementById("spdpsmode").onclick = function() {
-                document.getElementById("dpsmode").checked = true;
-                recalculateDiff();
-            };
+            document.getElementById("damagemode").oninput = recalculateDiff;
+            document.getElementById("dpsmode").oninput = recalculateDiff;
+            document.getElementById("dpsreloadmode").oninput = recalculateDiff;
 
             document.getElementById("comparesortdesc").oninput = function() {
                 recalculateDiff();
@@ -6187,6 +6626,10 @@
                 "+25% critical damage, -4 Strength (and +4 Perception)."
                 + "<br>The <b>Strange in Numbers</b> perk increases the bonus to 31.25%."
                 + "<br>The <b>Class Freak</b> perk ranks reduce the strength penalty to -3, -2 and -1 respectively."
+            );
+            infoMap.set("speeddemon", 
+                "+20% faster reload speed."
+                + "<br>The <b>Strange in Numbers</b> perk increases the bonus to 30%."
             );
             infoMap.set("strangeinnumbers", 
                 "Positive mutation effects are 25% stronger if teammates are mutated too."
@@ -6387,6 +6830,23 @@
                 "Gauss weapons only. Firing without charging the weapon is fast but 50% less damage."
                 + "<br>Charging does full listed damage at the cost of firerate."
             );
+            infoMap.set("quickhands", 
+                "Chance to reload an empty magazine instantly."
+                + "<table class='infoTable'>"
+                + "<tr><td>Level 1</td><td>+6% chance</td></tr>"
+                + "<tr><td>Level 2</td><td>+12% chance</td></tr>"
+                + "<tr><td>Level 3</td><td>+18% chance</td></tr>"
+                + "</table>"
+            );
+            infoMap.set("groundpounder", 
+                "Automatic rifles reload 10%, 20% or 30% faster based on rank."
+            );
+            infoMap.set("poweruser", 
+                "Fusion cores provide +30%, +60% or +100% more shots based on rank."
+            );
+            infoMap.set("lockandload", 
+                "Heavy weapons reload 10%, 20% or 30% faster based on rank."
+            );
 
             // Unique weapon information
             // ~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o
@@ -6442,6 +6902,11 @@
                 + "<br>Premodded: Refined receiver, Piercing Magazine"
                 + "<br>Hidden effect: better firerate than the default 10mm SMG"
                 + "<br>Form ID: <a href='https://nukacrypt.com/database/json/0059A82F' target='_blank'>0059A82F</a>"
+                );
+            infoMap.set("WeaponBunkerBuster",
+                "<b>Unique Missile Launcher</b>" 
+                + "<br>Legendary: <i>+20% damage</i>"
+                + "<br>Form ID: <a href='https://nukacrypt.com/database/json/00471880' target='_blank'>00471880</a>"
                 );
             infoMap.set("WeaponMindOverMatter",
                 "<b>Unique Plasma Pistol from Steel Dawn</b>" 
@@ -7437,55 +7902,47 @@
                     recalculate(tbl, index, type);
                 };
 
-                row = tbl.insertRow(tbl.rows.length);
-                cell1 = row.insertCell(0);
-                cell1.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;Tenderizer" + info("tenderizer");
-                cell2 = row.insertCell(1);
-                cell2.innerHTML = "<select id='tenderizer" + index + "'></select> (rank)"
-                
-                var tenderizersel = document.getElementById("tenderizer" + index);
+                createPerk(tbl, index, type, "Tenderizer", "tenderizer", "tenderizer", "Tenderizer", [5, 7, 10]);
+                createPerk(tbl, index, type, "Better Criticals", "bettercrits", "bettercrits", "QuickHands", [20, 30, 40]);
+
+                if (type === "Ranged") {
+                    createPerk(tbl, index, type, "Quick Hands", "quickhands", "quickhands", "QuickHands", [6, 12, 18]);
+                    if (weap.category === "Rifle") {
+                        createPerk(tbl, index, type, "Ground Pounder", "groundpounder", "groundpounder", "GroundPounder", [10, 20, 30]);
+                    }
+                    if (weap.category === "Heavy") {
+                        createPerk(tbl, index, type, "Lock and Load", "lockandload", "lockandload", "LockAndLoad", [ 10, 20, 30]);
+                        if (weap.kind === "laser") {
+                            createPerk(tbl, index, type, "Power User", "poweruser", "poweruser", "PowerUser", [ 30, 60, 100]);
+                        }
+                    }
+                }
+            }
+
+            function createPerk(tbl, index, type, title, infoId, id, linkId, values) {
+                var row = tbl.insertRow(tbl.rows.length);
+                var cell1 = row.insertCell(0);
+                cell1.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;" + title + info(infoId);
+                var cell2 = row.insertCell(1);
+
+                cell2.innerHTML = "<select id='" + id + index + "'></select> (rank)"
+
+                var sel = document.getElementById(id + index);
                 opt = document.createElement("option");
-                tenderizersel.add(opt);
+                sel.add(opt);
                 opt.text = "None";
                 opt.value = "0";
-                tenderizersel.linkId = "Tenderizer";
+                sel.linkId = linkId;
 
-                var tenderizerValues = [ 5, 7, 10 ];
                 for (var i = 1; i < 4; i++) {
                     opt = document.createElement("option");
-                    tenderizersel.add(opt);
+                    sel.add(opt);
                     opt.text = "" + i;
-                    opt.value = "" + tenderizerValues[i - 1];
+                    opt.value = "" + values[i - 1];
                     opt.linkId = opt.value;
                 }
-                tenderizersel.selectedIndex = 0;
-                tenderizersel.onchange = function() {
-                    recalculate(tbl, index, type);
-                };
-
-                row = tbl.insertRow(tbl.rows.length);
-                cell1 = row.insertCell(0);
-                cell1.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;Better Criticals" + info("bettercrits");
-                cell2 = row.insertCell(1);
-                cell2.innerHTML = "<select id='bettercrits" + index + "'></select> (rank)"
-                
-                var bettercritssel = document.getElementById("bettercrits" + index);
-                opt = document.createElement("option");
-                bettercritssel.add(opt);
-                opt.text = "None";
-                opt.value = "0";
-                bettercritssel.linkId = "BetterCrits";
-
-                var tenderizerValues = [ 20, 30, 40 ];
-                for (var i = 1; i < 4; i++) {
-                    opt = document.createElement("option");
-                    bettercritssel.add(opt);
-                    opt.text = "" + i;
-                    opt.value = "" + tenderizerValues[i - 1];
-                    opt.linkId = opt.value;
-                }
-                bettercritssel.selectedIndex = 0;
-                bettercritssel.onchange = function() {
+                sel.selectedIndex = 0;
+                sel.onchange = function() {
                     recalculate(tbl, index, type);
                 };
             }
@@ -7533,6 +7990,9 @@
 
                 createYesNo(tbl, index, type, "Grounded", "grounded", "grounded", "Grounded");
                 createYesNo(tbl, index, type, "Eagle Eyes", "eagleeyes", "eagleeyes", "EagleEyes");
+                if (type === "Ranged") {
+                    createYesNo(tbl, index, type, "Speed Demon", "speeddemon", "speeddemon", "SpeedDemon");
+                }
                 createYesNo(tbl, index, type, "Any other mutation", "mutation", "mutation", "Mutation");
             }
 
@@ -7818,6 +8278,12 @@
             }
 
             function recalculate(tbl, index, type) {
+                var weapIdx = document.getElementById("weapon" + index).selectedIndex;
+                if (weapIdx < 0) {
+                    return;
+                }
+                var weap = allWeapons.get(type)[weapIdx];
+
                 var cell2 = document.getElementById("totaldamage" + index);
                 var cell4 = document.getElementById("totalarmorignore" + index);
                 var cell6 = document.getElementById("totalspeed" + index);
@@ -7825,7 +8291,7 @@
                 var cell10 = document.getElementById("clipsizereloadtime" + index);
                 var cell12 = document.getElementById("reloaddps" + index);
 
-                var isRanged = type == "Ranged";
+                var isReload = type === "Ranged" && weap.clipSize && weap.reloadTime;
 
                 if (cell2 == null) {
                     var row = tbl.insertRow(tbl.rows.length);
@@ -7865,13 +8331,13 @@
                     cell8.id = "totaldps" + index;
                     cell8.style = "font-weight: bold; font-size: 26px;";
 
-                    if (isRanged) {
+                    if (isReload) {
                         row = tbl.insertRow(tbl.rows.length);
                         cell1 = row.insertCell(0);
                         cell1.innerText = "Clip Size & Reload Time";
 
                         cell10 = row.insertCell(1);
-                        cell10.id = "clipsizeandreloadtime" + index;
+                        cell10.id = "clipsizereloadtime" + index;
                         cell10.style = "font-weight: bold; font-size: 26px;";
 
                         row = tbl.insertRow(tbl.rows.length);
@@ -7888,21 +8354,15 @@
                 cell4.innerText = "";
                 cell6.innerText = "";
                 cell8.innerText = "";
-                if (isRanged) {
+                if (isReload) {
                     cell10.innerText = "";
                     cell12.innerText = "";
                 }
 
-                var weapIdx = document.getElementById("weapon" + index).selectedIndex;
-                if (weapIdx < 0) {
-                    return;
-                }
                 var levelIdx = document.getElementById("level" + index).selectedIndex;
                 if (levelIdx < 0) {
                     return;
                 }
-
-                var weap = allWeapons.get(type)[weapIdx];
 
                 var baseDamage = weap.damage[levelIdx];
                 var baseDamageEnergy = weap.damageEnergy !== undefined ? weap.damageEnergy[levelIdx] : 0;
@@ -7947,6 +8407,11 @@
                 if (weap.speed !== undefined) {
                     speed = weap.speed;
                 }
+
+                var clipSizeMult = 1;
+                var clipSizeAdd = 0;
+                var reloadTime = weap.reloadTime ? weap.reloadTime : 0;
+                var reloadTimeMult = [];
 
                 var meleeFactor = 0;
                 if (weap.category == "Unarmed") {
@@ -8258,6 +8723,7 @@
                 var isScoped = false;
 
                 var versusMultiplier = 0;
+                var isAutomatic = weap.automatic !== undefined && weap.automatic;
 
                 // apply mod effects
                 // ~~~~~~~~~~~~~~~~~
@@ -8333,6 +8799,15 @@
                         }
                         if (modInfo.criticalDamageMultiply !== undefined) {
                             critMultiplierMultiply.push(modInfo.criticalDamageMultiply);
+                        }
+                        if (modInfo.reloadTimeMult) {
+                            reloadTimeMult.push(modInfo.reloadTimeMult);
+                        }
+                        if (modInfo.clipSizeAdd) {
+                            clipSizeAdd += modInfo.clipSizeAdd;
+                        }
+                        if (modInfo.automatic || modInfo.name.toLowerCase().includes("automatic")) {
+                            isAutomatic = true;
                         }
                     }
                 });
@@ -8454,6 +8929,12 @@
                         if (effInfo.criticalDamage !== undefined) {
                             critMultiplier += effInfo.criticalDamage;
                         }                       
+                        if (effInfo.reloadTimeMult) {
+                            reloadTimeMult.push(effInfo.reloadTimeMult);
+                        }
+                        if (effInfo.clipSizeMult) {
+                            clipSizeMult = effInfo.clipSizeMult;
+                        }
                     }
                 });
 
@@ -8858,6 +9339,64 @@
                     + "&nbsp;&nbsp;&nbsp;&#x2744;&nbsp;" + (totalDamageCold * speed).toFixed(2)
                     + "&nbsp;&nbsp;&nbsp;&#x1F4A7;&nbsp;" + (totalDamagePoison * speed).toFixed(2)
                     ;
+                
+                if (isReload) {
+                    var clipSize;
+                    if (clipSizeAdd < 0 && clipSizeMult == 1) {
+                        clipSize = weap.clipSize + clipSizeAdd;
+                    } else {
+                        clipSize = clipSizeMult * weap.clipSize + Math.max(0, clipSizeAdd);
+                    }
+
+                    if (weap.category === "Heavy" && weap.kind === "laser") {
+                        var powerusersel = document.getElementById("poweruser" + index);
+                        if (powerusersel.selectedIndex > 0) {
+                            clipSize += weap.clipSize * powerusersel.options[powerusersel.selectedIndex].value / 100.0;
+                        }
+                    }
+
+                    if (document.getElementById("speeddemon" + index + "_yes").checked) {
+                        if (isStrangeInNumbers) {
+                            reloadTimeMult.push(-30);
+                        } else {
+                            reloadTimeMult.push(-20);
+                        }
+                    }
+
+                    var reloadTime = weap.reloadTime;
+                    for (var e of reloadTimeMult) {
+                        reloadTime *= (1 + e / 100.0);
+                    }
+                    if (weap.reloadOneByOne) {
+                        reloadTime = reloadTime * clipSize + weap.reloadOneByOne;
+                    }
+
+                    reloadTime = scaleWithSelect(reloadTime, "quickhands" + index, -0.01)
+
+                    if (isAutomatic && weap.category === "Rifle") {
+                        reloadTime = scaleWithSelect(reloadTime, "groundpounder" + index, -0.01)
+                    }
+                    if (weap.category === "Heavy") {
+                        reloadTime = scaleWithSelect(reloadTime, "lockandload" + index, -0.01)
+                    }
+
+                    cell10.innerHTML = "/&#8801;/&nbsp;" + (clipSize).toFixed(0)
+                    +  "&nbsp;&nbsp;&nbsp;&#x267B;&nbsp;" + reloadTime.toFixed(2) + " s"; 
+
+                    var speedRL = clipSize / (clipSize / speed + reloadTime);
+
+                    cell12.innerHTML = "\u2316&nbsp;" + (totalDamage * speedRL).toFixed(2) 
+                    + "&nbsp;&nbsp;&nbsp;\u21AF&nbsp;" + (totalDamageEnergy * speedRL).toFixed(2) 
+                    + "&nbsp;&nbsp;&nbsp;\u2622&nbsp;" + (totalDamageRadiation * speedRL).toFixed(2)
+                    + "<br>&#x1F525;&nbsp;" + (totalDamageFire * speedRL).toFixed(2)
+                    + "&nbsp;&nbsp;&nbsp;&#x2744;&nbsp;" + (totalDamageCold * speedRL).toFixed(2)
+                    + "&nbsp;&nbsp;&nbsp;&#x1F4A7;&nbsp;" + (totalDamagePoison * speedRL).toFixed(2)
+                    ;
+
+                    speedsWithReload[index] = speedRL;
+                } else {
+                    speedsWithReload[index] = speed;
+                }
 
                 damages[index] = totalDamage;
                 damagesEnergy[index] = totalDamageEnergy;
@@ -8881,6 +9420,14 @@
                 recalculateLinks();
             }
 
+            function scaleWithSelect(value, selectName, scale) {
+                var sel = document.getElementById(selectName);
+                if (sel != null && sel.selectedIndex > 0) {
+                    return value * (1 + scale * sel.options[sel.selectedIndex].value);
+                }
+                return value;
+            }
+
             function hasMutation(index) {
                 var adrenalreaction = document.getElementById("adrenalreaction" + index + "_yes").checked;
                 var anymutation = document.getElementById("mutation" + index + "_yes").checked;
@@ -8890,7 +9437,10 @@
                 var tal = document.getElementById("talons" + index + "_yes");
                 var talons = tal != null && tal.checked;
                 var eae = document.getElementById("eagleeyes" + index + "_yes").checked;
-                return adrenalreaction || anymutation || twistedmuscles || grounded || talons || eae;
+                
+                var spd = document.getElementById("speeddemon" + index + "_yes");
+                var sde = spd != null && spd.checked;
+                return adrenalreaction || anymutation || twistedmuscles || grounded || talons || eae || sde;
             }
 
             function resistanceKey(e) {
@@ -8978,6 +9528,10 @@
                 if (document.getElementById("dpsmode").checked) {
                     speedFactorLeft = speeds[1]; 
                     speedFactorRight = speeds[2]; 
+                }
+                if (document.getElementById("dpsreloadmode").checked) {
+                    speedFactorLeft = speedsWithReload[1]; 
+                    speedFactorRight = speedsWithReload[2]; 
                 }
 
                 var evenOdd = false;
