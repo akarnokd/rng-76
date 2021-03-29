@@ -22,7 +22,7 @@
     </head>
     <body style="height: 90%">
         <center>
-            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Weapon Damage Calculator (v3.3.31)</span>
+            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Weapon Damage Calculator (v3.3.32)</span>
             <br/>
             <i>(Update to <i>One Wasteland</i> is almost done; a few special cases to iron out but otherwise good to go.)</i>
         <br/>
@@ -2440,6 +2440,8 @@
                     kind: "ballistic",
                     explosive: false,
                     speed: 9.1,
+                    clipSize: 250,
+                    reloadTime: 2,
                     level: [25, 35, 45],
                     damage: [29, 36, 43],
                     mods: [
@@ -4504,6 +4506,14 @@
                     {
                         name: "Junkie's"
                     },
+                    {
+                        name: "Double",
+                        clipSizeMult: 2,
+                    },
+                    {
+                        name: "Quad",
+                        clipSizeMult: 4,
+                    }
                 ],
                 // 2: Major
                 [
@@ -4542,7 +4552,11 @@
                 ],
                 // 3: minor
                 [
-
+                    {
+                        name: "15% faster reload",
+                        linkId: "FRL",
+                        reloadSpeedMult: -15
+                    }
                 ]
             ]);
 
@@ -7808,6 +7822,10 @@
                 var cell4 = document.getElementById("totalarmorignore" + index);
                 var cell6 = document.getElementById("totalspeed" + index);
                 var cell8 = document.getElementById("totaldps" + index);
+                var cell10 = document.getElementById("clipsizereloadtime" + index);
+                var cell12 = document.getElementById("reloaddps" + index);
+
+                var isRanged = type == "Ranged";
 
                 if (cell2 == null) {
                     var row = tbl.insertRow(tbl.rows.length);
@@ -7846,12 +7864,34 @@
                     cell8 = row.insertCell(1);
                     cell8.id = "totaldps" + index;
                     cell8.style = "font-weight: bold; font-size: 26px;";
+
+                    if (isRanged) {
+                        row = tbl.insertRow(tbl.rows.length);
+                        cell1 = row.insertCell(0);
+                        cell1.innerText = "Clip Size & Reload Time";
+
+                        cell10 = row.insertCell(1);
+                        cell10.id = "clipsizeandreloadtime" + index;
+                        cell10.style = "font-weight: bold; font-size: 26px;";
+
+                        row = tbl.insertRow(tbl.rows.length);
+                        cell1 = row.insertCell(0);
+                        cell1.innerText = "DPS with reload";
+
+                        cell12 = row.insertCell(1);
+                        cell12.id = "reloaddps" + index;
+                        cell12.style = "font-weight: bold; font-size: 26px;";
+                    }
                 }
 
                 cell2.innerText = "";
                 cell4.innerText = "";
                 cell6.innerText = "";
                 cell8.innerText = "";
+                if (isRanged) {
+                    cell10.innerText = "";
+                    cell12.innerText = "";
+                }
 
                 var weapIdx = document.getElementById("weapon" + index).selectedIndex;
                 if (weapIdx < 0) {
