@@ -22,9 +22,9 @@
     </head>
     <body style="height: 90%">
         <center>
-            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Weapon Damage Calculator (v3.3.33)</span>
+            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Weapon Damage Calculator (v3.4.0)</span>
             <br/>
-            <i>(Reload times for the <b>Damage per second with reload</b> are currenlty estimates; datamining in progress.)</i>
+            <!-- <i>(Notification here)</i> -->
         <br/>
         <br/>
         <table id="parent">
@@ -1658,6 +1658,11 @@
                 criticalDamageMultiply: 17,
                 damageMultPercent: 12.5
             };
+            var hairTriggerReloadMod = {
+                name: "Hair trigger",
+                reloadTime: -35,
+                speedAddPercent: 55,
+            };
 
             function createCombatRifleReceivers(isFixer) {
                 return {
@@ -1818,11 +1823,11 @@
                 });
                 result.options.push({
                     name: "Medium Scope",
-                    scrope: true
+                    scope: true
                 });
                 result.options.push({
                     name: "Long Scope",
-                    scrope: true
+                    scope: true
                 });
 
                 result.options.push({
@@ -2196,11 +2201,12 @@
                     name: "Handmade",
                     category: "Rifle",
                     kind: "ballistic",
+                    formId: "00113854",
                     explosive: false,
                     silencer: true,
                     speed: 4,
                     clipSize: 20,
-                    reloadTime: 2,
+                    reloadTime: 3.033343,
                     level: [15, 25, 35, 45],
                     damage: [30, 35, 40, 45],
                     mods: [
@@ -2318,7 +2324,8 @@
                     silencer: true,
                     speed: 0.3,
                     clipSize: 5,
-                    reloadTime: 2.5,
+                    reloadTime: 4.000010,
+                    formId: "0004F46A",
                     level: [1, 5, 10, 20, 30, 40, 50],
                     damage: [40, 45, 50, 55, 60, 65, 70],
                     mods: [
@@ -2384,8 +2391,9 @@
                     silencer: true,
                     speed: 0.5,
                     clipSize: 5,
-                    reloadTime: 0.4,
+                    reloadTime: 1.766677 / 5,
                     reloadOneByOne: 0.5,
+                    formId: "00110E32",
                     level: [25, 35, 45],
                     damage: [65, 70, 75],
                     mods: [
@@ -2424,7 +2432,8 @@
                     explosive: false,
                     speed: 0.1,
                     clipSize: 1,
-                    reloadTime: 10,
+                    reloadTime: 8.000010,
+                    formId: "00091BB4",
                     level: [15, 25, 35, 45],
                     damage: [150, 160, 170, 180],
                     mods: [ ]
@@ -2436,7 +2445,8 @@
                     explosive: false,
                     speed: 0.1,
                     clipSize: 1,
-                    reloadTime: 10,
+                    reloadTime: 13.000010,
+                    formId: "00046946",
                     level: [35, 45],
                     damage: [200, 225],
                     mods: [ ]
@@ -2449,7 +2459,8 @@
                     silencer: true,
                     speed: 4,
                     clipSize: 20,
-                    reloadTime: 1,
+                    reloadTime: 1.933343,
+                    formId: "0000463F",
                     level: [30, 40, 50],
                     damage: [26, 29, 33],
                     mods: [
@@ -2469,7 +2480,8 @@
                     info: "WhistleInTheDark",
                     speed: 4,
                     clipSize: 20,
-                    reloadTime: 1,
+                    reloadTime: 1.933343,
+                    formId: "005E51E6",
                     level: [30, 40, 50],
                     damage: [26, 29, 33],
                     mods: [
@@ -2488,7 +2500,8 @@
                     explosive: false,
                     speed: 2,
                     clipSize: 250,
-                    reloadTime: 1.5,
+                    reloadTime: 3.166677,
+                    formId: "00011BF6",
                     level: [20, 30, 40, 50],
                     damage: [43, 57, 72, 86],
                     mods: [
@@ -2526,7 +2539,8 @@
                     explosive: false,
                     speed: 1,
                     clipSize: 10,
-                    reloadTime: 2.5,
+                    reloadTime: 3.366677,
+                    formId: "000FE268",
                     level: [30, 40, 50],
                     damage: [75, 85, 95],
                     mods: [
@@ -2553,7 +2567,8 @@
                     explosive: false,
                     speed: 9.1,
                     clipSize: 250,
-                    reloadTime: 2,
+                    reloadTime: 5.000010,
+                    formId: "0003A0D4",
                     level: [25, 35, 45],
                     damage: [29, 36, 43],
                     mods: [
@@ -2590,7 +2605,8 @@
                     info: "WeaponFinalWord",
                     speed: 9.1,
                     clipSize: 250,
-                    reloadTime: 2,
+                    reloadTime: 5.000010,
+                    formId: "005A21E4",
                     level: [25, 35, 45],
                     damage: [29, 36, 43],
                     mods: [
@@ -2622,13 +2638,56 @@
                     legendaryMajor: "25% increased fire rate"
                 },
                 {
+                    name: "The Action Hero",
+                    category: "Heavy",
+                    kind: "ballistic",
+                    explosive: false,
+                    special: true,
+                    info: "WeaponActionHero",
+                    speed: 9.1,
+                    clipSize: 250,
+                    reloadTime: 5.000010,
+                    formId: "00403025",
+                    level: [25, 35, 45],
+                    damage: [29, 36, 43],
+                    mods: [
+                        {
+                            slot: "Receiver",
+                            options: [
+                                {
+                                    name: "Standard"
+                                },
+                                primeMod
+                            ]
+                        },
+                        {
+                            slot: "Barrel",
+                            options: [
+                                {
+                                    name: "Standard",
+                                    ignoreDRPercent: 0
+                                },
+                                {
+                                    name: "Heavy",
+                                    damageMultPercent: 12.5,
+                                    preinstalled: true
+                                }                           
+                            ]
+                        }
+                    ],
+                    legendaryPrefix: "Two shot",
+                    legendaryMajor: "25% increased fire rate",
+                    legendaryMinor: "15% faster reload"
+                },
+                {
                     name: "Light Machine Gun",
                     category: "Heavy",
                     kind: "ballistic",
                     explosive: false,
                     speed: 15.9,
                     clipSize: 75,
-                    reloadTime: 2.5,
+                    reloadTime: 3.666677,
+                    formId: "0007CAB1",
                     level: [30, 40, 50],
                     damage: [29, 34, 42],
                     mods: [
@@ -2650,7 +2709,8 @@
                     explosive: false,
                     speed: 18.2,
                     clipSize: 500,
-                    reloadTime: 2,
+                    reloadTime: 2.200000,
+                    formId: "0001F669",
                     level: [35, 45],
                     damage: [20, 24],
                     mods: [
@@ -2683,7 +2743,8 @@
                     silencer: true,
                     speed: 3.3,
                     clipSize: 20,
-                    reloadTime: 2,
+                    reloadTime: 3.200010,
+                    formId: "000DF42E",
                     level: [20, 30, 40, 50],
                     damage: [28, 32, 36, 40],
                     mods: [
@@ -2700,7 +2761,8 @@
                     silencer: true,
                     speed: 3.3,
                     clipSize: 20,
-                    reloadTime: 2,
+                    reloadTime: 3.200010,
+                    formId: "0046D2A1",
                     level: [20, 30, 40, 50],
                     damage: [33, 38, 43, 48],
                     mods: [
@@ -2764,7 +2826,8 @@
                     silencer: true,
                     speed: 2,
                     clipSize: 8,
-                    reloadTime: 2,
+                    reloadTime: 3.200010,
+                    formId: "0014831C",
                     level: [20, 30, 40, 50],
                     damage: [60, 70, 80, 90],
                     mods: [
@@ -2828,8 +2891,9 @@
                     silencer: true,
                     speed: 3.6,
                     clipSize: 8,
-                    reloadTime: 0.4,
+                    reloadTime: 2.500010 / 8,
                     reloadOneByOne: 0.5,
+                    formId: "0012DBB3",
                     level: [5, 15, 25, 35, 45],
                     damage: [55, 65, 75, 85, 95],
                     mods: [
@@ -2865,8 +2929,9 @@
                     silencer: true,
                     speed: 3.6,
                     clipSize: 12,
-                    reloadTime: 0.25,
+                    reloadTime: 2.500010 / 8 * 0.7,
                     reloadOneByOne: 0.3,
+                    formId: "005A38DA",
                     special: true,
                     info: "WeaponFancyShotgun",
                     level: [5, 15, 25, 35, 45],
@@ -2904,7 +2969,8 @@
                     explosive: false,
                     speed: 3.6,
                     clipSize: 2,
-                    reloadTime: 1,
+                    reloadTime: 3.066677,
+                    formId: "00092217",
                     level: [15, 25, 35, 45],
                     damage: [80, 90, 100, 115],
                     mods: [
@@ -2932,6 +2998,46 @@
                     ]
                 },
                 {
+                    name: "Salt of the Earth",
+                    category: "Shotgun",
+                    kind: "ballistic",
+                    explosive: false,
+                    speed: 4.4,
+                    clipSize: 2,
+                    reloadTime: 3.066677,
+                    formId: "0042B0D3",
+                    special: true,
+                    info: "WeaponSaltEarth",
+                    level: [15, 25, 35, 45],
+                    damage: [80, 90, 100, 115],
+                    mods: [
+                        {
+                            slot: "Receiver",
+                            options: [
+                                {
+                                    name: "Standard"
+                                },
+                                {
+                                    name: "Powerful",
+                                    damageMultPercent: 15
+                                },
+                                {
+                                    name: "Calibrated",
+                                    criticalDamageMultiply: 34
+                                },
+                                fierceMod,
+                                severeMod,
+                                viciousMod,
+                                scorchKillerMod,
+                                primeMod
+                            ]
+                        }
+                    ],
+                    legendaryPrefix: "Two shot",
+                    legendaryMajor: "Aiming",
+                    legendaryMinor: "15% faster reload"
+                },
+                {
                     name: "Crossbow",
                     category: "Bow",
                     kind: "ballistic",
@@ -2939,7 +3045,8 @@
                     silencer: true,
                     speed: 0.4,
                     clipSize: 1,
-                    reloadTime: 2,
+                    reloadTime: 2.833344,
+                    formId: "00055463",
                     level: [15, 25, 35, 45],
                     damage: [55, 60, 65, 70],
                     mods: [
@@ -2982,7 +3089,8 @@
                     silencer: true,
                     speed: 4.3,
                     clipSize: 12,
-                    reloadTime: 2,
+                    reloadTime: 1.966677,
+                    formId: "00004822",
                     level: [5, 15, 25, 35, 45],
                     damage: [15, 18, 21, 24, 28],
                     mods: [
@@ -3040,7 +3148,8 @@
                     explosive: false,
                     speed: 0.6,
                     clipSize: 6,
-                    reloadTime: 2,
+                    reloadTime: 3.333344,
+                    formId: "00113D6A",
                     level: [20, 30, 40, 50],
                     damage: [50, 55, 60, 65],
                     mods: [
@@ -3078,6 +3187,7 @@
                                 },
                                 viciousMod,
                                 fierceMod,
+                                hairTriggerReloadMod,
                                 primeMod,
                             ]
                         }
@@ -3091,8 +3201,9 @@
                     silencer: true,
                     speed: 7.5,
                     clipSize: 50,
-                    reloadTime: 2,
+                    reloadTime: 3.233343,
                     automatic: true,
+                    formId: "0015B043",
                     level: [15, 25, 35, 45],
                     damage: [18, 22, 25, 29],
                     mods: [
@@ -3150,7 +3261,8 @@
                     silencer: true,
                     speed: 9.1,
                     clipSize: 30,
-                    reloadTime: 2,
+                    reloadTime: 3.000010,
+                    formId: "0010DB0F",
                     level: [10, 20, 30, 40, 50],
                     damage: [17, 19, 23, 28, 34],
                     mods: [
@@ -3193,6 +3305,9 @@
                     special: true,
                     info: "WeaponOldGuard",
                     speed: 10,
+                    clipSize: 30,
+                    reloadTime: 3.000010,
+                    formId: "0059A82F",
                     level: [10, 20, 30, 40, 50],
                     damage: [17, 19, 23, 28, 34],
                     mods: [
@@ -3234,7 +3349,8 @@
                     explosive: true,
                     speed: 0.3,
                     clipSize: 4,
-                    reloadTime: 3,
+                    reloadTime: 3.933343,
+                    formId: "000FD11B",
                     level: [25, 35, 45],
                     damage: [95, 115, 135],
                     mods: [
@@ -3271,11 +3387,12 @@
                     explosive: false,
                     speed: 0.2,
                     clipSize: 1,
-                    reloadTime: 5,
+                    reloadTime: 4.100010,
+                    formId: "001109CF",
                     level: [30, 40, 50],
                     damage: [125, 150, 175],
                     mods: [
-                    {
+                        {
                             slot: "Ammunition",
                             options: [
                                 {
@@ -3284,6 +3401,18 @@
                                 {
                                     name: "Flechette",
                                     damageMultPercent: 100
+                                }
+                            ]
+                        },
+                        {
+                            slot: "Scope",
+                            options: [
+                                {
+                                    name: "None"
+                                },
+                                {
+                                    name: "Short",
+                                    scope: true
                                 }
                             ]
                         }
@@ -3297,11 +3426,11 @@
                     info: "WeaponCursedHarpoonGun",
                     speed: 0.2 * 1.2,
                     clipSize: 1,
-                    reloadTime: 4.5,
+                    reloadTime: 4.100010,
                     level: [30, 40, 50],
                     damage: [125 * 1.15, 150 * 1.15, 175 * 1.15],
                     mods: [
-                    {
+                        {
                             slot: "Ammunition",
                             options: [
                                 {
@@ -3312,11 +3441,67 @@
                                     damageMultPercent: 100
                                 }
                             ]
+                        },
+                        {
+                            slot: "Scope",
+                            options: [
+                                {
+                                    name: "None"
+                                },
+                                {
+                                    name: "Short",
+                                    scope: true
+                                }
+                            ]
                         }
                     ],
                     legendaryPrefix: "Executioner's",
                     // legendaryMajor: "40% bashing damage",
                     // legendaryMinor: "90% reduced weight"
+                },
+                {
+                    name: "Kingfisher",
+                    category: "Heavy",
+                    kind: "ballistic",
+                    explosive: false,
+                    special: true,
+                    info: "WeaponKingFisher",
+                    speed: 0.2,
+                    clipSize: 1,
+                    reloadTime: 4.100010,
+                    formId: "0042B0D0",
+                    level: [30, 40, 50],
+                    damage: [125, 150, 175],
+                    mods: [
+                        {
+                            slot: "Ammunition",
+                            options: [
+                                {
+                                    name: "Standard"
+                                },
+                                {
+                                    name: "Flechette",
+                                    damageMultPercent: 100
+                                }
+                            ]
+                        },
+                        {
+                            slot: "Scope",
+                            options: [
+                                {
+                                    name: "None"
+                                },
+                                {
+                                    name: "Short",
+                                    scope: true,
+                                    preinstalled: true
+                                }
+                            ]
+                        }
+                    ],
+                    legendaryPrefix: "Exterminator's",
+                    legendaryMajor: "VATS Crits do +50% damage",
+                    // legendaryMinor: "15% faster critical fill"
                 },
                 {
                     name: ".44 Pistol",
@@ -3325,7 +3510,8 @@
                     explosive: false,
                     speed: 0.6,
                     clipSize: 6,
-                    reloadTime: 2,
+                    reloadTime: 3.333344,
+                    formId: "000CE97D",
                     level: [5, 15, 25, 35, 45],
                     damage: [40, 45, 50, 55, 60],
                     mods: [
@@ -3346,10 +3532,100 @@
                                 severeMod,
                                 fierceMod,
                                 viciousMod,
+                                hairTriggerReloadMod,
                                 primeMod
                             ]
                         }
                     ]
+                },
+                {
+                    name: "Voice of Set",
+                    category: "Pistol",
+                    kind: "ballistic",
+                    explosive: false,
+                    special: true,
+                    info: "WeaponVoiceOfSet",
+                    speed: 0.6,
+                    clipSize: 6,
+                    reloadTime: 3.333344,
+                    formId: "0039C6C9",
+                    level: [5, 15, 25, 35, 45],
+                    damage: [40, 45, 50, 55, 60],
+                    mods: [
+                        {
+                            slot: "Receiver",
+                            options: [
+                                {
+                                    name: "Standard"
+                                },
+                                {
+                                    name: "Hardened",
+                                    damageMultPercent: 25
+                                },
+                                {
+                                    name: "Calibrated",
+                                    criticalDamageMultiply: 34
+                                },
+                                severeMod,
+                                fierceMod,
+                                viciousMod,
+                                hairTriggerReloadMod,
+                                primeMod
+                            ]
+                        },
+                        {
+                            slot: "Set bonus",
+                            options: [
+                                {
+                                    name: "None",
+                                    versus: ["Robot"],
+                                    versusAddDamageEnergyLeveled: [35, 35, 35, 35, 35],
+                                },
+                                {
+                                    name: "Eye of Ra equipped",
+                                    versus: ["Robot"],
+                                    versusAddDamageEnergyLeveled: [70, 70, 70, 70, 70],
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    name: "Medical Malpractice",
+                    category: "Pistol",
+                    kind: "ballistic",
+                    explosive: false,
+                    special: true,
+                    info: "WeaponMedicalMalpractice",
+                    speed: 0.6,
+                    clipSize: 6,
+                    reloadTime: 3.333344,
+                    formId: "00403022",
+                    level: [5, 15, 25, 35, 45],
+                    damage: [40, 45, 50, 55, 60],
+                    mods: [
+                        {
+                            slot: "Receiver",
+                            options: [
+                                {
+                                    name: "Standard"
+                                },
+                                {
+                                    name: "Hardened",
+                                    damageMultPercent: 25
+                                },
+                                {
+                                    name: "Calibrated",
+                                    criticalDamageMultiply: 34
+                                },
+                                severeMod,
+                                fierceMod,
+                                viciousMod,
+                                hairTriggerReloadMod,
+                                primeMod
+                            ]
+                        }
+                    ],
                 },
                 {
                     name: "The Fact Finder",
@@ -3381,6 +3657,7 @@
                                 severeMod,
                                 fierceMod,
                                 viciousMod,
+                                hairTriggerReloadMod,
                                 primeMod,
                                 {
                                     name: "Stabilized Bull Barrel",
@@ -3399,7 +3676,8 @@
                     explosive: false,
                     speed: 0.2,
                     clipSize: 1,
-                    reloadTime: 5,
+                    reloadTime: 5.000010,
+                    formId: "00003AAC",
                     level: [10, 20, 30, 40, 50],
                     damage: [115, 130, 145, 160, 175],
                     mods: []
@@ -3411,7 +3689,8 @@
                     explosive: false,
                     speed: 0.2,
                     clipSize: 1,
-                    reloadTime: 5,
+                    reloadTime: 5.000010,
+                    formId: "00003AAD",
                     level: [10, 20, 30, 40, 50],
                     damage: [115, 130, 145, 160, 175],
                     mods: []
@@ -3423,7 +3702,8 @@
                     explosive: false,
                     speed: 0.3,
                     clipSize: 6,
-                    reloadTime: 2,
+                    reloadTime: 10.000000,
+                    formId: "0014831A",
                     level: [1, 5, 10, 20, 30, 40, 50],
                     damage: [40, 45, 50, 55, 60, 65, 70],
                     mods: [
@@ -3437,7 +3717,8 @@
                     explosive: false,
                     speed: 0.3,
                     clipSize: 6,
-                    reloadTime: 2,
+                    reloadTime: 10.000000,
+                    formId: "0014831A",
                     level: [1, 5, 10, 20, 30, 40, 50],
                     damage: [40, 45, 50, 55, 60, 65, 70],
                     mods: [
@@ -3451,7 +3732,8 @@
                     explosive: false,
                     speed: 0.5,
                     clipSize: 6,
-                    reloadTime: 2,
+                    reloadTime: 10.000000,
+                    formId: "0014831B",
                     level: [1, 5, 10, 20, 30, 40, 50],
                     damage: [27, 31, 36, 40, 45, 50, 55],
                     mods: [
@@ -3477,7 +3759,8 @@
                     explosive: false,
                     speed: 0.6,
                     clipSize: 6,
-                    reloadTime: 2,
+                    reloadTime: 10.000000,
+                    formId: "0014831B",
                     level: [1, 5, 10, 20, 30, 40, 50],
                     damage: [27, 31, 36, 40, 45, 50, 55],
                     mods: [
@@ -3503,7 +3786,8 @@
                     explosive: false,
                     speed: 6,
                     clipSize: 12,
-                    reloadTime: 2,
+                    reloadTime: 10.000000,
+                    formId: "00024F55",
                     level: [1, 5, 10, 20, 30, 40, 50],
                     damage: [12, 13, 15, 18, 21, 23, 26],
                     mods: [
@@ -3518,7 +3802,8 @@
                     explosive: false,
                     speed: 6,
                     clipSize: 12,
-                    reloadTime: 2,
+                    reloadTime: 10.000000,
+                    formId: "00024F55",
                     level: [1, 5, 10, 20, 30, 40, 50],
                     damage: [12, 13, 15, 18, 21, 23, 26],
                     mods: [
@@ -3536,7 +3821,8 @@
                     speed: 6.7,
                     explosiveDamageMult: 15,
                     clipSize: 5,
-                    reloadTime: 2,
+                    reloadTime: 4.200010,
+                    formId: "000D1EB0",
                     level: [35, 45],
                     damage: [125, 140],
                     mods: [
@@ -3572,7 +3858,8 @@
                     silencer: true,
                     speed: 4,
                     clipSize: 20,
-                    reloadTime: 2,
+                    reloadTime: 3.566677,
+                    formId: "00110D41",
                     level: [40, 50],
                     damage: [33, 37],
                     damageRadiation: [13, 15],
@@ -3614,7 +3901,8 @@
                     silencer: false,
                     speed: 4,
                     clipSize: 30,
-                    reloadTime: 2,
+                    reloadTime: 3,
+                    formId: "0009983B",
                     level: [5, 15, 25, 35, 45],
                     damage: [0, 0, 0, 0, 0],
                     damageEnergy: [21, 26, 31, 36, 44],
@@ -3632,7 +3920,8 @@
                     silencer: false,
                     speed: 5,
                     clipSize: 30,
-                    reloadTime: 2,
+                    reloadTime: 3,
+                    formId: "0009983B",
                     level: [5, 15, 25, 35, 45],
                     damage: [0, 0, 0, 0, 0],
                     damageEnergy: [21, 26, 31, 36, 44],
@@ -3650,7 +3939,8 @@
                     silencer: false,
                     speed: 4,
                     clipSize: 30,
-                    reloadTime: 2,
+                    reloadTime: 3,
+                    formId: "00186171",
                     level: [30, 40, 50],
                     damage: [0, 0, 0],
                     damageEnergy: [28, 31, 34],
@@ -3668,7 +3958,8 @@
                     silencer: false,
                     speed: 5,
                     clipSize: 30,
-                    reloadTime: 2,
+                    reloadTime: 3,
+                    formId: "00186171",
                     level: [30, 40, 50],
                     damage: [0, 0, 0, 0, 0],
                     damageEnergy: [28, 31, 34],
@@ -3686,7 +3977,8 @@
                     silencer: false,
                     speed: 18.2,
                     clipSize: 500,
-                    reloadTime: 3,
+                    reloadTime: 4.866677,
+                    formId: "00186171",
                     level: [25, 35, 45],
                     damage: [0, 0, 0],
                     damageEnergy: [18, 21, 25],
@@ -3741,7 +4033,7 @@
                     silencer: false,
                     speed: 18.2,
                     clipSize: 500,
-                    reloadTime: 3,
+                    reloadTime: 4.866677,
                     level: [35, 45],
                     damage: [0, 0, 0],
                     damageEnergy: [25, 28],
@@ -3796,7 +4088,8 @@
                     silencer: false,
                     speed: 3.3,
                     clipSize: 30,
-                    reloadTime: 20,
+                    reloadTime: 2.333300,
+                    formId: "00100AE9",
                     level: [15, 25, 35, 45],
                     damage: [15, 21, 25, 29],
                     damageEnergy: [15, 21, 25, 29],
@@ -3816,7 +4109,8 @@
                     info: "WeaponMindOverMatter",
                     speed: 3.3,
                     clipSize: 30,
-                    reloadTime: 2,
+                    reloadTime: 2.333300,
+                    formId: "005EA441",
                     level: [15, 25, 35, 45],
                     damage: [15, 21, 25, 29],
                     damageEnergy: [15, 21, 25, 29],
@@ -3836,7 +4130,8 @@
                     silencer: false,
                     speed: 3.3,
                     clipSize: 30,
-                    reloadTime: 2,
+                    reloadTime: 2.333300,
+                    formId: "00100AE9",
                     level: [15, 25, 35, 45],
                     damage: [15, 21, 25, 29],
                     damageEnergy: [15, 21, 25, 29],
@@ -3856,7 +4151,8 @@
                     silencer: false,
                     speed: 3.3,
                     clipSize: 30,
-                    reloadTime: 2,
+                    reloadTime: 2.333300,
+                    formId: "005A366E",
                     level: [15, 25, 35, 45],
                     damage: [15, 21, 25, 29],
                     damageEnergy: [15, 21, 25, 29],
@@ -3877,7 +4173,8 @@
                     silencer: false,
                     speed: 9.1,
                     clipSize: 500,
-                    reloadTime: 3,
+                    reloadTime: 6.833344,
+                    formId: "0001EC47",
                     level: [30, 40, 50],
                     damage: [0, 0, 0],
                     damageEnergy: [43, 50, 58],
@@ -3902,7 +4199,8 @@
                     silencer: false,
                     speed: 3.3,
                     clipSize: 30,
-                    reloadTime: 2,
+                    reloadTime: 2.333300,
+                    formId: "002FD97A",
                     level: [25, 35, 45],
                     damage: [24, 28, 32],
                     damageEnergy: [24, 28, 32],
@@ -3920,7 +4218,8 @@
                     silencer: false,
                     speed: 3.3,
                     clipSize: 30,
-                    reloadTime: 2,
+                    reloadTime: 2.333300,
+                    formId: "002FD97A",
                     level: [25, 35, 45],
                     damage: [24, 28, 32],
                     damageEnergy: [24, 28, 32],
@@ -3938,7 +4237,8 @@
                     silencer: false,
                     speed: 6.7,
                     clipSize: 8,
-                    reloadTime: 2,
+                    reloadTime: 4.333344,
+                    formId: "000DDB7C",
                     level: [15, 25, 35, 45],
                     damage: [38, 45, 52, 60],
                     damageRadiation: [50, 50, 50, 50],
@@ -3981,7 +4281,8 @@
                     silencer: false,
                     speed: 2,
                     clipSize: 15,
-                    reloadTime: 2,
+                    reloadTime: 4.200010,
+                    formId: "0010F0EC",
                     level: [40, 50],
                     damage: [0, 0],
                     damageEnergy: [66, 78],
@@ -4013,7 +4314,8 @@
                     silencer: false,
                     speed: 9.1,
                     clipSize: 25,
-                    reloadTime: 2,
+                    reloadTime: 2.500010,
+                    formId: "00171B2B",
                     level: [25, 35, 45],
                     damage: [0, 0, 0],
                     damageCold: [24, 30, 36],
@@ -4040,7 +4342,8 @@
                     explosive: true,
                     speed: 0.2,
                     clipSize: 1,
-                    reloadTime: 5,
+                    reloadTime: 5.633344,
+                    formId: "000BD56F",
                     level: [25, 35, 45],
                     damage: [355, 405, 455],
                     mods: [
@@ -4064,7 +4367,8 @@
                     explosive: true,
                     speed: 0.2,
                     clipSize: 1,
-                    reloadTime: 2,
+                    reloadTime: 4.266677,
+                    formId: "0003F6F8",
                     level: [20, 30, 40, 50],
                     damage: [105, 125, 145, 155],
                     mods: [
@@ -4088,8 +4392,9 @@
                     explosive: true,
                     speed: 0.2,
                     clipSize: 1,
-                    reloadTime: 2,
+                    reloadTime: 4.266677,
                     special: true,
+                    formId: "0003F6F8",
                     info: "WeaponBunkerBuster",
                     level: [20, 30, 40, 50],
                     damage: [105 * 1.2, 125 * 1.2, 145 * 1.2, 155 * 1.2],
@@ -4114,7 +4419,8 @@
                     explosive: true,
                     speed: 0.14,
                     clipSize: 4,
-                    reloadTime: 2,
+                    reloadTime: 3.333344,
+                    formId: "005E47EE",
                     level: [50],
                     damage: [200],
                     mods: [
@@ -4174,7 +4480,8 @@
                     explosive: true,
                     speed: 0.2,
                     clipSize: 1,
-                    reloadTime: 2,
+                    reloadTime: 3.000010,
+                    formId: "0008F0EF",
                     level: [15, 25, 35, 45],
                     damage: [87, 97, 107, 117],
                     mods: [
@@ -4186,7 +4493,8 @@
                     explosive: true,
                     speed: 1.6,
                     clipSize: 12,
-                    reloadTime: 2,
+                    reloadTime: 5.000010,
+                    formId: "00182634",
                     level: [50],
                     damage: [75],
                     mods: [
@@ -4211,7 +4519,8 @@
                     explosive: true,
                     speed: 10,
                     clipSize: 42,
-                    reloadTime: 2,
+                    reloadTime: 2.866677,
+                    formId: "000FF995",
                     level: [20,30,40,50],
                     damage: [0, 0, 0, 0],
                     damageEnergy: [20,25,29,32],
@@ -4238,6 +4547,9 @@
                     special: true,
                     info: "WeaponVATSUnknown",
                     speed: 10,
+                    clipSize: 42,
+                    reloadTime: 2.866677,
+                    formId: "005A21A2",
                     level: [20,30,40,50],
                     damage: [0, 0, 0, 0],
                     damageEnergy: [20,25,29,32],
@@ -4264,6 +4576,7 @@
                     speed: speedSlow,
                     clipSize: 1,
                     reloadTime: 1,
+                    formId: "000042F2",
                     level: [1],
                     damage: [28],
                     mods: []
@@ -4275,6 +4588,7 @@
                     speed: speedSlow,
                     clipSize: 1,
                     reloadTime: 1,
+                    formId: "003879A3",
                     level: [1],
                     damage: [75],
                     mods: []
@@ -4286,6 +4600,7 @@
                     speed: speedSlow,
                     clipSize: 1,
                     reloadTime: 1,
+                    formId: "0045FF61",
                     level: [1],
                     damage: [75],
                     mods: []
@@ -4297,6 +4612,7 @@
                     speed: speedSlow,
                     clipSize: 1,
                     reloadTime: 1,
+                    formId: "005532B4",
                     level: [1],
                     damage: [60],
                     mods: []
@@ -4310,7 +4626,8 @@
                     chargetime: 1,
                     explosiveDamageMult: 15,
                     clipSize: 8,
-                    reloadTime: 2,
+                    reloadTime: 2.666667,
+                    formId: "0055C150",
                     level: [25,30,35,40,45,50],
                     damage: [80,85,90,95,100,105],
                     mods: [
@@ -4359,7 +4676,8 @@
                     explosive: false,
                     speed: 9.1,
                     clipSize: 500,
-                    reloadTime: 2,
+                    reloadTime: 3.366677,
+                    formId: "0055C151",
                     level: [45,50],
                     damage: [48,50],
                     explosiveDamageMult: 15,
@@ -4409,7 +4727,8 @@
                     chargetime: 1,
                     explosiveDamageMult: 15,
                     clipSize: 18,
-                    reloadTime: 2,
+                    reloadTime: 4.100000,
+                    formId: "0054A165",
                     level:  [15,20,25,30,35, 40, 45, 50],
                     damage: [62,70,76,85,92,100,108,115],
                     mods: [
@@ -4465,7 +4784,8 @@
                     explosive: false,
                     speed: 2,
                     clipSize: 20,
-                    reloadTime: 3,
+                    reloadTime: 5.333333,
+                    formId: "0055C166",
                     level: [40,45,50],
                     damage: [60,68,76],
                     damageEnergy: [60,68,76],
@@ -4497,7 +4817,8 @@
                     silencer: true,
                     speed: 0.5,
                     clipSize: 1,
-                    reloadTime: 2,
+                    reloadTime: 2.666700,
+                    formId: "00013CE9",
                     level:  [ 1, 5,10,15,20,25,30,35,40,45,50],
                     damage: [50,55,60,65,70,75,80,85,90,95,100],
                     mods: [
@@ -4512,7 +4833,8 @@
                     silencer: true,
                     speed: 0.5,
                     clipSize: 1,
-                    reloadTime: 2,
+                    reloadTime: 0.100000,
+                    formId: "0055C152",
                     level:  [ 1, 5,10,15,20,25,30,35,40,45,50],
                     damage: [40,45,50,55,60,65,70,75,80,85,90],
                     mods: [
@@ -4527,8 +4849,9 @@
                     silencer: false,
                     speed: 0.6,
                     clipSize: 6,
-                    reloadTime: 1,
+                    reloadTime: 3.000010 / 6,
                     reloadOneByOne: 0.5,
+                    formId: "001C7A69",
                     level:  [10,20,30,40,50],
                     damage: [42,48,52,58,62],
                     mods: [
@@ -4548,12 +4871,45 @@
                     ]
                 },
                 {
+                    name: "Fancy Single Action Revolver",
+                    category: "Pistol",
+                    kind: "ballistic",
+                    explosive: false,
+                    silencer: false,
+                    special: true,
+                    info: "WeaponFancySingleAction",
+                    speed: 0.6,
+                    clipSize: 6,
+                    reloadTime: 3.000010 / 6,
+                    reloadOneByOne: 0.5,
+                    formId: "0034CBD8",
+                    level:  [10,20,30,40,50],
+                    damage: [42,48,52,58,62],
+                    mods: [
+                        {
+                            slot: "Receiver",
+                            options: [
+                                {
+                                    name: "Standard"
+                                },
+                                {
+                                    name: "Fancy",
+                                    speedAddPercent: 30,
+                                    preinstalled: true,
+                                },
+                                primeMod
+                            ]
+                        }
+                    ]
+                },
+                {
                     name: "Flamer",
                     category: "Heavy",
                     kind: "energy",
                     speed: 9.1,
                     clipSize: 100,
-                    reloadTime: 2,
+                    reloadTime: 3.833344,
+                    formId: "000E5881",
                     level: [30, 40, 50],
                     damage: [0, 0, 0],
                     damageFire: [29, 32, 36],
@@ -4612,7 +4968,8 @@
                     kind: "ballistic",
                     speed: 0.2,
                     clipSize: 1,
-                    reloadTime: 2,
+                    reloadTime: 4.533343,
+                    formId: "001025AC",
                     level: [1],
                     damage: [5]
                 },
@@ -4622,7 +4979,8 @@
                     kind: "ballistic",
                     speed: 0.3,
                     clipSize: 1,
-                    reloadTime: 2,
+                    reloadTime: 10.000000,
+                    formId: "0014D09E",
                     level: [1],
                     damage: [5]
                 },
@@ -4632,7 +4990,8 @@
                     kind: "ballistic",
                     speed: 6.7,
                     clipSize: 12,
-                    reloadTime: 2,
+                    reloadTime: 1.966677,
+                    formId: "005E6FC0",
                     level: [30, 35, 40, 45, 50],
                     damage: [25, 28, 30, 33, 35],
                     mods: [
@@ -6904,6 +7263,19 @@
                 + "<br>Premodded: Heavy Barrel"
                 + "<br>Form ID: <a href='https://nukacrypt.com/database/json/005A21E4' target='_blank'>005A21E4</a>"
             );
+            
+            infoMap.set("WeaponActionHero",
+                "<b>Unique 50 Cal awarded by a limited time Survival mode challenge</b>" 
+                + "<br>Legendary: <i>Two-shot, 25% faster firerate, 15% faster reload</i>"
+                + "<br>Premodded: Heavy Barrel"
+                + "<br>Form ID: <a href='https://nukacrypt.com/database/json/00403025' target='_blank'>00403025</a>"
+            );
+            infoMap.set("WeaponSaltEarth",
+                "<b>Unique Double-barrel Shotgun awarded by a limited time Survival mode challenge</b>" 
+                + "<br>Legendary: <i>Two-shot, +10% damage while aiming, 15% faster reload</i>"
+                + "<br>Premodded: Steadfast receiver"
+                + "<br>Form ID: <a href='https://nukacrypt.com/database/json/0042B0D3' target='_blank'>0042B0D3</a>"
+            );
             infoMap.set("WeaponCursedPickaxe",
                 "<b>Unique Pickaxe from the Colossal Problem event</b>" 
                 + "<br>Legendary: <i>Bloodied, 40% Power Attack, 90% reduced weight</i>"
@@ -6922,7 +7294,23 @@
                 + "<br>Special feature: 15% more damage, 20% faster fire rate, breaks much faster"
                 + "<br>Form ID: <a href='https://nukacrypt.com/database/json/001109CF' target='_blank'>001109CF</a>"
             );
-
+            infoMap.set("WeaponKingFisher",
+                "<b>Unique Harpoon Gun awarded by a limited time Survival mode challenge</b>" 
+                + "<br>Legendary: <i>Exterminator's, VATS Crits do +50% damage, VATS Crit meter fills 15% faster</i>"
+                + "<br>Premodded: Barbed harpoon, Short scope"
+                + "<br>Form ID: <a href='https://nukacrypt.com/database/json/0042B0D0' target='_blank'>0042B0D0</a>"
+            );
+            infoMap.set("WeaponVoiceOfSet",
+                "<b>Unique .44 pistol earned during the Mistress of Mystery sidequest</b>" 
+                + "<br>Unique mod: <i>Additional electric damage vs. Robots</i>"
+                + "<br>Form ID: <a href='https://nukacrypt.com/database/json/0039C6C9' target='_blank'>0039C6C9</a>"
+            );
+            infoMap.set("WeaponMedicalMalpractice",
+                "<b>Unique .44 pistol awarded by a limited time Survival mode challenge</b>" 
+                + "<br>Legendary: <i>Medic's, +33% VATS accuracy, 25% reduced AP cost</i>"
+                + "<br>Premodded: Hair Trigger, Stabilized Stub Barrel, True Grip"
+                + "<br>Form ID: <a href='https://nukacrypt.com/database/json/00403022' target='_blank'>00403022</a>"
+                );
             infoMap.set("WeaponVATSUnknown",
                 "<b>Unique Alien Blaster from Wastelanders</b>" 
                 + "<br>Legendary: <i>Medic's, VATS Crit +50% dmg, VATS Crit fills 15% faster</i>"
@@ -6949,10 +7337,16 @@
                 + "<br>Form ID: <a href='https://nukacrypt.com/database/json/00471880' target='_blank'>00471880</a>"
                 );
             infoMap.set("WeaponFancyShotgun",
-                "<b>Unique Shotgun</b>" 
+                "<b>Unique Shotgun with a 1.5% drop chance from Bellhop in exchange for claim tickets</b>" 
                 + "<br>Legendary: <i>Anti-armor, +50% limb damage, +50 DR while aiming</i>"
                 + "<br>Bonus properties: +4 clip size, 30% faster reload"
                 + "<br>Form ID: <a href='https://nukacrypt.com/database/json/005A38DA' target='_blank'>005A38DA</a>"
+                );
+            infoMap.set("WeaponFancySingleAction",
+                "<b>Unique Single Action Pistol with a 1.5% drop chance from Bellhop in exchange for claim tickets</b>" 
+                + "<br>Legendary: <i>random 1 star</i>"
+                + "<br>Bonus properties: 30% faster firerate"
+                + "<br>Form ID: <a href='https://nukacrypt.com/database/json/0034CBD8' target='_blank'>0034CBD8</a>"
                 );
             infoMap.set("WeaponMindOverMatter",
                 "<b>Unique Plasma Pistol from Steel Dawn</b>" 
@@ -7097,6 +7491,7 @@
                         }
                         opt.value = weap.name;
                         opt.info = weap.info;
+                        opt.formId = weap.formId;
                         opt.linkId = linkIdFor(weap, weap.name);
 
                         selector.add(opt);
@@ -7117,9 +7512,13 @@
                         var weapInfoSpan = document.getElementById("weaponinfo" + index);
                         weapInfoSpan.innerHTML = "";
                         if (selector.selectedIndex > 0) {
-                            var infoLink = selector.options[selector.selectedIndex].info;
+                            var opt = selector.options[selector.selectedIndex];
+                            var infoLink = opt.info;
                             if (infoLink !== undefined) {
                                 weapInfoSpan.innerHTML = info(infoLink);
+                            }
+                            if (opt.formId) {
+                                weapInfoSpan.innerHTML += "&nbsp;&nbsp;&nbsp;<a href='https://nukacrypt.com/database/json/" + opt.formId + "' target='_blank'>&#x2622;</a>"
                             }
                         }
                     };
@@ -8674,6 +9073,18 @@
                             baseDamagePoison += amount;
                             weaponBaseDamagePoison += amount;
                         }
+                        if (modInfo.versus) {
+                            for (var i = 0; i < enemytypes.length; i++) {
+                                if (modInfo.versus.indexOf(enemytypes[i]) >= 0) {
+                                    if (modInfo.versusAddDamageEnergyLeveled) {
+                                        var amount = modInfo.versusAddDamageEnergyLeveled[levelIdx];
+                                        baseDamageEnergy += amount;
+                                        weaponBaseDamageEnergy += amount;
+                                        break;
+                                    }
+                                }
+                            }
+                        }
                    }
                 });
 
@@ -8826,7 +9237,6 @@
                                         totalDamageEnergyMultiply.push(modInfo.versusMultPercent);
                                         break;
                                     }
-
                                 }
                             }
                         }
