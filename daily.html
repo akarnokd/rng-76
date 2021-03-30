@@ -4233,6 +4233,16 @@
                     scoreVisitOwnShelter, 1,
                     scoreNWSurviveMinutes, 10
                ], [ dailyOpsBurrows, dailyOpsMutants, [ dailyOpsPiercingGaze, dailyOpsResilient ]]);
+            addDaily(challengesDailyEra6, 105, [
+                    scoreCompleteDailyChallenge, 5,
+                    scoreLevelUp, 1,
+                    scoreCompleteOneEvent, 1,
+                    scoreCompleteDailyOps, 1,
+                    scoreBuildWallDecor, 5,
+                    scoreKillCreature25, 25,
+                    scoreVisitOwnShelter, 1,
+                    scoreNWSurviveMinutes, 5
+               ], [ dailyOpsBurrows, dailyOpsMutants, [ dailyOpsReset, dailyOpsPiercingGaze, dailyOpsResilient ]]);
 
             var challenges = [
                 challengesDailyEra1,
@@ -5739,6 +5749,16 @@
             addWeekly(challengesWeeklyEra6.options, 98, scoreDestroyRobots5);
             addWeekly(challengesWeeklyEra6.options, 98, scoreKillGlowing10);
             addWeekly(challengesWeeklyEra6.options, 98, scoreRepairArmorWeaponPA, 15);
+
+            addWeekly(challengesWeeklyEra6.options, 105, scoreLevelUp3);
+            addWeekly(challengesWeeklyEra6.options, 105, scoreBuildWallDecor, 25);
+            addWeekly(challengesWeeklyEra6.options, 105, scoreCollectCaps, 1500);
+            addWeekly(challengesWeeklyEra6.options, 105, scoreCompleteDailyOps, 5);
+            addWeekly(challengesWeeklyEra6.options, 105, scoreCompleteEvents10);
+            addWeekly(challengesWeeklyEra6.options, 105, scoreCompleteGoldStar);
+            addWeekly(challengesWeeklyEra6.options, 105, scoreKillCreatures, 100);
+            addWeekly(challengesWeeklyEra6.options, 105, scoreKillLegendaries10);
+            addWeekly(challengesWeeklyEra6.options, 105, scoreVisitAnotherShelter, 1);
 
             addPlaceholders(challengesWeeklyEra6, scoreWeeklyplaceholder, 134);
 
