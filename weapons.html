@@ -7036,6 +7036,9 @@
                 + "<ul>"
                     + "<li>Adrenal Reaction</li>"
                     + "<li>Eagle Eyes</li>"
+                    + "<li>Talons</li>"
+                    + "<li>Twisted Muscles</li>"
+                    + "<li>Ground Pounder</li>"
                 + "</ul>"
                 + "<br>Enable <b>Team</b> to enable this perk."
             );
@@ -9819,22 +9822,24 @@
                         }
                     }
 
-                    var reloadTime = weap.reloadTime;
-                    for (var e of reloadTimeMult) {
-                        reloadTime *= (1 + e / 100.0);
+                    pushSelectedValue("quickhands" + index, reloadTimeMult, -1.0);
+                    if (isAutomatic && weap.category === "Rifle") {
+                        pushSelectedValue("groundpounder" + index, reloadTimeMult, -1.0);
                     }
+                    if (weap.category === "Heavy") {
+                        pushSelectedValue("lockandload" + index, reloadTimeMult, -1.0);
+                    }
+
+                    var reloadSpeed = 1.0 / weap.reloadTime;
+                    for (var e of reloadTimeMult) {
+                        reloadSpeed *= (1 - e / 100.0);
+                    }
+                    var reloadTime = 1.0 / reloadSpeed;
+                    
                     if (weap.reloadOneByOne) {
                         reloadTime = reloadTime * clipSize + weap.reloadOneByOne;
                     }
 
-                    reloadTime = scaleWithSelect(reloadTime, "quickhands" + index, -0.01)
-
-                    if (isAutomatic && weap.category === "Rifle") {
-                        reloadTime = scaleWithSelect(reloadTime, "groundpounder" + index, -0.01)
-                    }
-                    if (weap.category === "Heavy") {
-                        reloadTime = scaleWithSelect(reloadTime, "lockandload" + index, -0.01)
-                    }
 
                     cell10.innerHTML = "/&#8801;/&nbsp;" + (clipSize).toFixed(0)
                     +  "&nbsp;&nbsp;&nbsp;&#x267B;&nbsp;" + reloadTime.toFixed(2) + " s"; 
@@ -9882,6 +9887,12 @@
                     return value * (1 + scale * sel.options[sel.selectedIndex].value);
                 }
                 return value;
+            }
+            function pushSelectedValue(selectName, out, scale) {
+                var sel = document.getElementById(selectName);
+                if (sel != null && sel.selectedIndex > 0) {
+                    out.push(sel.options[sel.selectedIndex].value * scale);
+                }
             }
 
             function hasMutation(index) {
