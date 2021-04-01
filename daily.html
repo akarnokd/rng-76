@@ -6460,12 +6460,94 @@
                                     name: "You may need to wait for the 20 hour reset to happen"
                                 }
                             ]
-                        }
+                        },
                     ]
                 },
                 createScripSurplus(ofDate(2021, 2, 11, 17), ofDate(2021, 2, 15, 16)),
                 createPurveyor(ofDate(2021, 2, 18, 16), ofDate(2021, 2, 22, 16), 0, true),
-                createTreasureHunt(ofDate(2021, 2, 25, 16), ofDate(2021, 2, 29, 16), false)
+                createTreasureHunt(ofDate(2021, 2, 25, 16), ofDate(2021, 2, 29, 16), false),
+                {
+                    validStart: ofDate(2021, 3, 1, 16),
+                    validEnd: ofDate(2021, 3, 5, 16),
+                    title: "April Fool's Weekend",
+                    options: [
+                        {
+                            name: "Vendors have double (2800) caps",
+                            offset: 0,
+                            period: 1,
+                            subchallenges: [
+                                {
+                                    name: "This is only for the duration of this event"
+                                },
+                                {
+                                    name: "All vendors have a shared pool of caps"
+                                },
+                                {
+                                    name: "You may need to wait for the 20 hour reset to happen"
+                                }
+                            ]
+                        },
+                        {
+                            name: "Scrip Machines have 300 scrip per day",
+                            offset: 0,
+                            period: 1,
+                            subchallenges: [
+                                {
+                                    name: "This is only for the duration of this event"
+                                },
+                                {
+                                    name: "You may need to wait for the 20 hour reset to happen"
+                                }
+                            ]
+                        },
+                        {
+                            name: "Double the daily Gold Bullion limit (400)",
+                            offset: 0,
+                            period: 1,
+                            subchallenges: [
+                                {
+                                    name: "You have to complete the Wastelanders questline to earn notes"
+                                },
+                                {
+                                    name: "Public Events reward Treasury Notes"
+                                },
+                                {
+                                    name: "Turn notes into Bullion at the faction HQs"
+                                },
+                                {
+                                    name: "You may have to wait 20 hours for the machines to reset"
+                                }
+                            ]
+                        },
+                        {
+                            name: "Holiday Scorched",
+                            offset: 0,
+                            period: 1,
+                            subchallenges: [
+                                {
+                                    name: "They wear distinctive clothing and make jingle sounds."
+                                },
+                                {
+                                    name: "40% chance for a &#x2605;&#x2605; enemy"
+                                },
+                                {
+                                    name: "5% chance for a &#x2605;&#x2605;&#x2605; enemy"
+                                },
+                                {
+                                    name: "10% chance for a Large Gift"
+                                },
+                                {
+                                    name: "30% chance for a Medium Gift"
+                                }
+                            ]
+                        },
+                        {
+                            name: "Rewards &amp; tips: <a href='https://docs.google.com/spreadsheets/d/1ugsPWW8jLU_QWJJXolwy0dnY8k0J5gpqXWv1G_G5qKE/edit#gid=0'>depend on make and type of gifts</a>",
+                            offset: 0,
+                            period: 1,
+                        }
+                    ]
+                },
             ];
 
             function ofDate(year, month, day, hour) {
