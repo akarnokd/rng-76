@@ -7032,8 +7032,8 @@
                 + "<br>The <b>Class Freak</b> perk ranks reduce the strength penalty to -3, -2 and -1 respectively."
             );
             infoMap.set("speeddemon", 
-                "+20% faster reload speed."
-                + "<br>The <b>Strange in Numbers</b> perk increases the bonus to 30%."
+                "+30% faster reload speed (and +20% movement speed)."
+                + "<br>The <b>Strange in Numbers</b> perk increases the bonus to 40%."
             );
             infoMap.set("strangeinnumbers", 
                 "Positive mutation effects are 25% stronger if teammates are mutated too."
@@ -7253,6 +7253,9 @@
             );
             infoMap.set("lockandload", 
                 "Heavy weapons reload 10%, 20% or 30% faster based on rank."
+            );
+            infoMap.set("scattershot", 
+                "Shotguns reload 10%, 20% or 30% faster based on rank."
             );
 
             // Unique weapon information
@@ -8369,6 +8372,9 @@
                             createPerk(tbl, index, type, "Power User", "poweruser", "poweruser", "PowerUser", [ 30, 60, 100]);
                         }
                     }
+                    if (weap.category === "Shotgun") {
+                        createPerk(tbl, index, type, "Scattershot", "scattershot", "scattershot", "ScatterShot", [ 10, 20, 30]);
+                    }
                 }
             }
 
@@ -8865,6 +8871,7 @@
                 var clipSizeAdd = 0;
                 var reloadTime = weap.reloadTime ? weap.reloadTime : 0;
                 var reloadTimeMult = [];
+                var reloadTimeAdd = [];
 
                 var meleeFactor = 0;
                 if (weap.category == "Unarmed") {
@@ -9821,19 +9828,27 @@
 
                     if (document.getElementById("speeddemon" + index + "_yes").checked) {
                         if (isStrangeInNumbers) {
-                            reloadTimeMult.push(-30);
+                            reloadTimeAdd.push(-40);
                         } else {
-                            reloadTimeMult.push(-20);
+                            reloadTimeAdd.push(-30);
                         }
                     }
 
                     pushSelectedValue("quickhands" + index, reloadTimeMult, -1.0);
                     if (isAutomatic && weap.category === "Rifle") {
-                        pushSelectedValue("groundpounder" + index, reloadTimeMult, -1.0);
+                        pushSelectedValue("groundpounder" + index, reloadTimeAdd, -1.0);
                     }
                     if (weap.category === "Heavy") {
-                        pushSelectedValue("lockandload" + index, reloadTimeMult, -1.0);
+                        pushSelectedValue("lockandload" + index, reloadTimeAdd, -1.0);
                     }
+                    if (weap.category === "Shotgun") {
+                        pushSelectedValue("scattershot" + index, reloadTimeAdd, -1.0);
+                    }
+                    var reloadAdd = 0;
+                    for (var e of reloadTimeAdd) {
+                        reloadAdd += e;
+                    }
+                    reloadTimeMult.push(reloadAdd);
 
                     var reloadSpeed = 1.0 / weap.reloadTime;
                     for (var e of reloadTimeMult) {
