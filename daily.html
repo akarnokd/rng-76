@@ -4304,6 +4304,17 @@
                     scoreNWSurviveMinutes, 5,
                ], [ dailyOpsValley, dailyOpsMutants, [ dailyOpsPiercingGaze, dailyOpsVolatile ]]);
 
+               addDaily(challengesDailyEra6, 112, [
+                    scoreCompleteDailyChallenge, 5,
+                    scoreLevelUp, 1,
+                    scoreCompleteDailyOps, 1, 
+                    scoreClaimWorkshop, 1,
+                    scoreKillCreature25, 25,
+                    scoreVisitAnotherShelter, 1,
+                    scoreKillLegendary, 1,
+                    scoreNWKillCreature, 2
+               ], [ dailyOpsValley, dailyOpsMutants, [ dailyOpsReset, dailyOpsPiercingGaze, dailyOpsVolatile ]]);
+
             var challenges = [
                 challengesDailyEra1,
                 challengesDailyEra1_2,
@@ -5206,10 +5217,13 @@
                             period: 1400,
                         };
             }
-
             function scorekillHugeCreatures(offset) {
+                return scorekillHugeCreaturesN(offset, 3);
+            }
+
+            function scorekillHugeCreaturesN(offset, count) {
                 return {
-                            name: "Kill huge creatures (any 3)",
+                            name: "Kill huge creatures (any " + count + ")",
                             offset: offset,
                             period: 1400,
                             subchallenges: [
@@ -5819,6 +5833,16 @@
             addWeekly(challengesWeeklyEra6.options, 105, scoreKillCreatures, 100);
             addWeekly(challengesWeeklyEra6.options, 105, scoreKillLegendaries10);
             addWeekly(challengesWeeklyEra6.options, 105, scoreVisitAnotherShelter, 1);
+
+            addWeekly(challengesWeeklyEra6.options, 112, scoreLevelUp3);
+            addWeekly(challengesWeeklyEra6.options, 112, scoreCompleteDailyOps, 5);
+            addWeekly(challengesWeeklyEra6.options, 112, scoreCompleteGoldStar);
+            addWeekly(challengesWeeklyEra6.options, 112, scoreBuildupCampAny3);
+            addWeekly(challengesWeeklyEra6.options, 112, scoreCraftScrapItems25);
+            addWeekly(challengesWeeklyEra6.options, 112, scoreKillLegendaries10);
+            addWeekly(challengesWeeklyEra6.options, 112, scorekillHugeCreaturesN, 5);
+            addWeekly(challengesWeeklyEra6.options, 112, scoreRepairArmorWeaponPA, 15);
+            addWeekly(challengesWeeklyEra6.options, 112, scoreVisitOwnShelter, 1);
 
             addPlaceholders(challengesWeeklyEra6, scoreWeeklyplaceholder, 134);
 
