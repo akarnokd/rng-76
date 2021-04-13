@@ -4373,6 +4373,16 @@
                     scoreVisitAnotherShelter, 1,
                     scoreNWKillCreature, 1
                ], [ dailyOpsV94, dailyOpsEagles, [ dailyOpsPiercingGaze, dailyOpsVolatile ]]);
+            addDaily(challengesDailyEra6, 119, [
+                    scoreCompleteDailyChallenge, 5,
+                    scoreLevelUp, 1,
+                    scoreJoinGroup, 1, 
+                    scoreBuildWallDecorShelter, 5,
+                    scoreCompleteOneEvent, 1,
+                    scoreKillSupermutant, 15,
+                    scoreModArmor, 5,
+                    scoreNWPickLock, 1
+               ], [ dailyOpsV94, dailyOpsEagles, [ dailyOpsReset, dailyOpsPiercingGaze, dailyOpsVolatile ]]);
 
             var challenges = [
                 challengesDailyEra1,
@@ -5903,6 +5913,16 @@
             addWeekly(challengesWeeklyEra6.options, 112, scoreRepairArmorWeaponPA, 15);
             addWeekly(challengesWeeklyEra6.options, 112, scoreVisitOwnShelter, 1);
 
+            addWeekly(challengesWeeklyEra6.options, 119, scoreLevelUp3);
+            addWeekly(challengesWeeklyEra6.options, 119, scoreCompleteGoldStar);
+            addWeekly(challengesWeeklyEra6.options, 119, scoreCompleteEvents10);
+            addWeekly(challengesWeeklyEra6.options, 119, scoreClaimWorkshop, 5);
+            addWeekly(challengesWeeklyEra6.options, 119, scoreDestroyRobots5);
+            addWeekly(challengesWeeklyEra6.options, 119, scoreEatPrewarFood25);
+            addWeekly(challengesWeeklyEra6.options, 119, scoreHarvestPlantFungi25);
+            addWeekly(challengesWeeklyEra6.options, 119, scoreScrapMoney, 100);
+            addWeekly(challengesWeeklyEra6.options, 119, scoreVisitAnotherShelter, 1);
+
             addPlaceholders(challengesWeeklyEra6, scoreWeeklyplaceholder, 134);
 
             var challengesWeekly = [
@@ -6672,6 +6692,18 @@
                     ]
                 },
                 createPurveyor(ofDate(2021, 3, 8, 16), ofDate(2021, 3, 12, 16), 25, false),
+                {
+                    validStart: ofDate(2021, 3, 15, 17),
+                    validEnd: ofDate(2021, 3, 19, 17),
+                    title: "Double S.C.O.R.E. Weekend",
+                    options: [
+                        {
+                            name: "Double for Daily Challanges",
+                            offset: 0,
+                            period: 1
+                        }
+                    ]
+                },
             ];
 
             function ofDate(year, month, day, hour) {
