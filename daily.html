@@ -3135,7 +3135,7 @@
  
             var challengesDailyEra6 = {
                 validStart: ofDate(2020, 11, 15, 17),
-                validEnd: plusDays(ofDate(2020, 11, 15, 17), 134),
+                validEnd: plusDays(ofDate(2020, 11, 15, 16), 134),
                 options: [
                     scoreCompleteDailyChallenge(0, 5),
                     scoreLevelUp(0, 1),
@@ -5754,7 +5754,7 @@
 
             var challengesWeeklyEra6 = {
                 validStart: ofDate(2020, 11, 15, 17),
-                validEnd: plusDays(ofDate(2020, 11, 15, 17), 134),
+                validEnd: plusDays(ofDate(2020, 11, 15, 17), 133),
                 options: [
                 ]
             };
@@ -5943,7 +5943,7 @@
             addWeekly(challengesWeeklyEra6.options, 119, scoreScrapMoney, 100);
             addWeekly(challengesWeeklyEra6.options, 119, scoreVisitAnotherShelter, 1);
 
-            addPlaceholders(challengesWeeklyEra6, scoreWeeklyplaceholder, 134);
+            addPlaceholders(challengesWeeklyEra6, scoreWeeklyplaceholder, 133);
 
             var challengesWeekly = [
                 challengesWeeklyEra1,
@@ -5953,6 +5953,29 @@
                 challengesWeeklyEra5,
                 challengesWeeklyEra6,
             ];
+
+            // ===============================================================================================================
+            // ERA 7
+            // ===============================================================================================================
+            var era7Length = 70;
+
+            var challengesDailyEra7 = {
+                validStart: ofDate(2021, 3, 27, 16),
+                validEnd: plusDays(ofDate(2021, 3, 27, 16), era7Length),
+                options: []
+            };
+            var challengesWeeklyEra7 = {
+                validStart: ofDate(2021, 3, 27, 16),
+                validEnd: plusDays(ofDate(2021, 3, 27, 16), era7Length),
+                options: []
+            };
+            challenges.push(challengesDailyEra7);
+            challengesWeekly.push(challengesWeeklyEra7);
+
+
+
+            addPlaceholders(challengesDailyEra7, scoreDailyplaceholder, era7Length);
+            addPlaceholders(challengesWeeklyEra7, scoreWeeklyplaceholder, era7Length);
 
             // --------------------------------------------------------------------------------------------------------------
             // Community events
@@ -6789,16 +6812,24 @@
             };
             var season3 = {
                 validStart: ofDate(2020, 11, 15, 17),
-                validEnd: plusDays(ofDate(2020, 11, 15, 17), 134),
+                validEnd: ofDate(2021, 3, 27, 16),
                 title: "Season 3: The Scribe of Avalon",
                 options: [
                     
                 ]
             };
             var season4 = {
-                validStart: ofDate(2021, 3, 27, 17),
-                validEnd: plusDays(ofDate(2021, 3, 27, 17), 70),
+                validStart: ofDate(2021, 3, 27, 16),
+                validEnd: plusDays(ofDate(2021, 3, 27, 16), 70),
                 title: "Season 4: Cold Steel",
+                options: [
+                    
+                ]
+            };
+            var season5 = {
+                validStart: ofDate(2021, 6, 6, 16),
+                validEnd: plusDays(ofDate(2021, 6, 6, 16), 70),
+                title: "Season 5: TBA",
                 options: [
                     
                 ]
@@ -6806,8 +6837,9 @@
 
             fillInSeason(season1, 70, "LR1");
             fillInSeason(season2, 91, "LR2");
-            fillInSeason(season3, 134, "LR3");
+            fillInSeason(season3, 133, "LR3");
             fillInSeason(season4, 70, "LR4");
+            fillInSeason(season5, 70, "LR5");
 
             for (var i = 56; i < 91; i++) {
                 season2.options.push({
@@ -6826,9 +6858,16 @@
                 });
             }*/
 
-            for (var i = 0; i < 70; i++) {
+            for (var i = 0; i < era7Length; i++) {
                 season4.options.push({
-                    name: "&#x1F6C8; Note that the start date, name and length<br>&nbsp;&nbsp;&nbsp;&nbsp;of Season 4 is not yet known.",
+                    name: "&#x1F6C8; Note that the length<br>&nbsp;&nbsp;&nbsp;&nbsp;of Season 4 is not yet known.",
+                    offset: i,
+                    period: 1400
+                });
+            }
+            for (var i = 0; i < 70; i++) {
+                season5.options.push({
+                    name: "&#x1F6C8; Note that the details <br>&nbsp;&nbsp;&nbsp;&nbsp;of Season 5 is not yet known.",
                     offset: i,
                     period: 1400
                 });
@@ -6838,7 +6877,8 @@
                 season1,
                 season2,
                 season3,
-                season4
+                season4,
+                season5
             ];
 
             // --------------------------------------------------------------------------------------------------------------
