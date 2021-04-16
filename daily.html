@@ -6292,6 +6292,62 @@
                     ]
                 };
             }
+            function createGoldRush(start, end) {
+                return {
+                    validStart: start,
+                    validEnd: end,
+                    title: "Gold Rush Weekend",
+                    options: [
+                        {
+                            name: "Double the daily Gold Bullion limit (400)",
+                            offset: 0,
+                            period: 1,
+                            subchallenges: [
+                                {
+                                    name: "You have to complete the Wastelanders questline to earn notes"
+                                },
+                                {
+                                    name: "Public Events reward Treasury Notes"
+                                },
+                                {
+                                    name: "Turn notes into Bullion at the faction HQs"
+                                },
+                                {
+                                    name: "You may have to wait 20 hours for the machines to reset"
+                                }
+                            ]
+                        }
+                    ]
+                };
+            }
+            function createDoubleScore(start, end) {
+                return {
+                    validStart: start,
+                    validEnd: end,
+                    title: "Double S.C.O.R.E. Weekend",
+                    options: [
+                        {
+                            name: "Double for Daily Challanges",
+                            offset: 0,
+                            period: 1
+                        }
+                    ]
+                }
+            }
+            function createDoubleXP(start, end) {
+                return {
+                    validStart: start,
+                    validEnd: end,
+                    title: "Double XP Weekend",
+                    options: [
+                        {
+                            name: "Double for all activities",
+                            offset: 0,
+                            period: 1
+                        }
+                    ]
+                }
+            }
 
             var communityEvents = [
                 createEra1Part1(ofDate(2020, 7, 4, 16), 0, 0, 4),
@@ -6600,32 +6656,7 @@
                         },
                     ]
                 },
-                {
-                    validStart: ofDate(2021, 1, 25, 17),
-                    validEnd: ofDate(2021, 2, 1, 17),
-                    title: "Gold Rush Weekend",
-                    options: [
-                        {
-                            name: "Double the daily Gold Bullion limit (400)",
-                            offset: 0,
-                            period: 1,
-                            subchallenges: [
-                                {
-                                    name: "You have to complete the Wastelanders questline to earn notes"
-                                },
-                                {
-                                    name: "Public Events reward Treasury Notes"
-                                },
-                                {
-                                    name: "Turn notes into Bullion at the faction HQs"
-                                },
-                                {
-                                    name: "You may have to wait 20 hours for the machines to reset"
-                                }
-                            ]
-                        },
-                    ]
-                },
+                createGoldRush(ofDate(2021, 1, 25, 17), ofDate(2021, 2, 1, 17)),
                 {
                     validStart: ofDate(2021, 2, 4, 17),
                     validEnd: ofDate(2021, 2, 8, 17),
@@ -6735,18 +6766,37 @@
                     ]
                 },
                 createPurveyor(ofDate(2021, 3, 8, 16), ofDate(2021, 3, 12, 16), 25, false),
+                createDoubleScore(ofDate(2021, 3, 15, 16), ofDate(2021, 3, 19, 16)),
+                createGoldRush(ofDate(2021, 3, 29, 16), ofDate(2021, 4, 3, 16)),
+                createTreasureHunt(ofDate(2021, 4, 6, 16), ofDate(2021, 4, 10, 16), false),
+                createDoubleScore(ofDate(2021, 4, 13, 16), ofDate(2021, 4, 17, 16)),
+                createDoubleXP(ofDate(2021, 4, 20, 16), ofDate(2021, 4, 24, 16)),
+                createGoldRush(ofDate(2021, 4, 27, 16), ofDate(2021, 4, 31, 16)),
+                createDoubleScore(ofDate(2021, 5, 3, 16), ofDate(2021, 5, 7, 16)),
+                createScripSurplus(ofDate(2021, 5, 10, 16), ofDate(2021, 5, 14, 16)),
+                createPurveyor(ofDate(2021, 5, 17, 16), ofDate(2021, 5, 21, 16), 25, false),
+                createDoubleScore(ofDate(2021, 5, 24, 16), ofDate(2021, 5, 28, 16)),
                 {
-                    validStart: ofDate(2021, 3, 15, 17),
-                    validEnd: ofDate(2021, 3, 19, 17),
-                    title: "Double S.C.O.R.E. Weekend",
+                    validStart: ofDate(2021, 5, 28, 16),
+                    validEnd: ofDate(2021, 6, 5, 16),
+                    title: "Bonus Challenges &amp; Double Dailies Week",
                     options: [
                         {
-                            name: "Double for Daily Challanges",
+                            name: "Earn more S.C.O.R.E. with bonus daily and weekly challenges.",
+                            offset: 0,
+                            period: 1
+                        },
+                        {
+                            name: "Double S.C.O.R.E. for Daily Challanges",
                             offset: 0,
                             period: 1
                         }
                     ]
                 },
+                createPurveyor(ofDate(2021, 6, 8, 16), ofDate(2021, 6, 12, 16), 0, true),
+                createTreasureHunt(ofDate(2021, 6, 15, 16), ofDate(2021, 6, 19, 16), false),
+                createDoubleScore(ofDate(2021, 6, 22, 16), ofDate(2021, 6, 26, 16)),
+                createGoldRush(ofDate(2021, 6, 29, 16), ofDate(2021, 7, 2, 16)),
             ];
 
             function ofDate(year, month, day, hour) {
