@@ -6400,6 +6400,31 @@
                     ]
                 };
             }
+            function createCapsOPlenty(start, end) {
+                return {
+                    validStart: start,
+                    validEnd: end,
+                    title: "Vendor Caps-a-Plenty Weekend",
+                    options: [
+                        {
+                            name: "Vendors have double (2800) caps",
+                            offset: 0,
+                            period: 1,
+                            subchallenges: [
+                                {
+                                    name: "This is only for the duration of this event"
+                                },
+                                {
+                                    name: "All vendors have a shared pool of caps"
+                                },
+                                {
+                                    name: "You may need to wait for the 20 hour reset to happen"
+                                }
+                            ]
+                        },
+                    ]
+                };
+            }
             function createDoubleScore(start, end) {
                 return {
                     validStart: start,
@@ -6737,29 +6762,7 @@
                     ]
                 },
                 createGoldRush(ofDate(2021, 1, 25, 17), ofDate(2021, 2, 1, 17)),
-                {
-                    validStart: ofDate(2021, 2, 4, 17),
-                    validEnd: ofDate(2021, 2, 8, 17),
-                    title: "Vendor Caps-a-Plenty Weekend",
-                    options: [
-                        {
-                            name: "Vendors have double (2800) caps",
-                            offset: 0,
-                            period: 1,
-                            subchallenges: [
-                                {
-                                    name: "This is only for the duration of this event"
-                                },
-                                {
-                                    name: "All vendors have a shared pool of caps"
-                                },
-                                {
-                                    name: "You may need to wait for the 20 hour reset to happen"
-                                }
-                            ]
-                        },
-                    ]
-                },
+                createCapsOPlenty(ofDate(2021, 2, 4, 17), ofDate(2021, 2, 8, 17)),
                 createScripSurplus(ofDate(2021, 2, 11, 17), ofDate(2021, 2, 15, 16)),
                 createPurveyor(ofDate(2021, 2, 18, 16), ofDate(2021, 2, 22, 16), 0, true),
                 createTreasureHunt(ofDate(2021, 2, 25, 16), ofDate(2021, 2, 29, 16), false),
@@ -6847,6 +6850,7 @@
                 },
                 createPurveyor(ofDate(2021, 3, 8, 16), ofDate(2021, 3, 12, 16), 25, false),
                 createDoubleScore(ofDate(2021, 3, 15, 16), ofDate(2021, 3, 19, 16)),
+                createCapsOPlenty(ofDate(2021, 3, 22, 16), ofDate(2021, 3, 26, 16)),
                 createGoldRush(ofDate(2021, 3, 29, 16), ofDate(2021, 4, 3, 16)),
                 createTreasureHunt(ofDate(2021, 4, 6, 16), ofDate(2021, 4, 10, 16), false),
                 createDoubleScore(ofDate(2021, 4, 13, 16), ofDate(2021, 4, 17, 16)),
