@@ -17,6 +17,10 @@
             table.infoTable td {
                border: 1px solid black;
             }
+            .dopsHeader {
+                width: 150px; 
+                display: inline-block;
+            }
         </style>
         <meta name="keywords" content="Fallout,Fallout 76,Daily,Challenge,Challenges,Atom,Weekly,Score,S.C.O.R.E.,Community,Seasons,Season,Legenary Run,ATLAS,Fortify,Fortifying">
     </head>
@@ -2126,8 +2130,12 @@
                 day.setDate(day.getDate() + count)
                 return day;
             }
+            var dopsModeInfo = {
+                "Uplink": "Locate and activate two signal repeaters then defeat a boss.",
+                "Decryption": "Locate radios, code carriers then defeat a boss."
+            }
 
-            function addDailyOps(options, day, location, enemies, mutations) {
+            function addDailyOps(options, day, location, enemies, mutations, mode) {
                 options.push({
                     name: "&nbsp;",
                     offset: day,
@@ -2138,8 +2146,20 @@
                     offset: day,
                     period: 1400
                 });
+                if (mode) {
+                    var dopsMode = {
+                        name: "<span class='dopsHeader'>Mode:</span> <i>" + mode + "</i>",
+                        offset: day,
+                        period: 1400,
+                    };
+                    if (dopsModeInfo[mode]) {
+                        dopsMode.tipId = mode;
+                        dopsMode.tip = dopsModeInfo[mode];
+                    }
+                    options.push(dopsMode);
+                }
                 var loc = {
-                    name: "Location: <i>" + location + "</i>",
+                    name: "<span class='dopsHeader'>Location:</span> <i>" + location + "</i>",
                     offset: day,
                     period: 1400
                 };
@@ -2152,7 +2172,7 @@
                 }
                 options.push(loc);
                 options.push({
-                    name: "Enemies: <i>" + enemies + "</i>",
+                    name: "<span class='dopsHeader'>Enemies:</span> <i>" + enemies + "</i>",
                     offset: day,
                     period: 1400
                 });
@@ -2637,9 +2657,15 @@
             };
 
             var dailyOpsPiercingGaze = {
-                name: "Piercing Gaze (always present)",
+                name: "Piercing Gaze",
                 tipId: "DailyOpsPiercing",
                 tip: "Sneaking, stealth and sneak attacks don't work."
+            };
+            var dailyOpsSavageStrike = {
+                name: "Savage Strike",
+                tipId: "DailyOpsSavageStrike",
+                tip: "Enemies ignore your resistances and deal more damage than their world-counterparts."
+                 + "<br>Recommend using stealth and armor/perks that reduce incoming damage by percentage."
             };
             var dailyOpsResilient = {
                 name: "Resilient",
@@ -2667,7 +2693,21 @@
                 tipId: "DailyOpsReroll",
                 tip: "Sometimes Bethesda rerolls some or all daily ops properties."
             }
-
+            var dailyOpsRegenerating = {
+                name: "Regenerating",
+                tipId: "DailyOpsRegenerating",
+                tip: "Enemies heal nearby enemies."
+            }
+            var dailyOpsToxic = {
+                name: "Toxic",
+                tipId: "DailyOpsToxic",
+                tip: "Enemies create toxic hazards upon death around them."
+            }
+            var dailyOpsSwift = {
+                name: "Swift",
+                tipId: "DailyOpsSwift",
+                tip: "Enemies move faster."
+            }
             var dailyOpsReset = {
                 name: "&#x1F6C8; ops will reset 1 hour later",
             }
@@ -2676,59 +2716,70 @@
             var dailyOpsV94 = "Vault 94";
             var dailyOpsValley = "Valley Galleria";
             var dailyOpsBurning = "The Burning Mine";
+            var dailyOpsV96 = "Vault 96";
+            var dailyOpsWatoga = "Watoga Civic Center";
+            var dailyOpsWestTec = "West Tec"
+
             var dailyOpsRobots = "Robots";
             var dailyOpsEagles = "Blood Eagles";
             var dailyOpsMutants = "Super Mutants";
+            var dailyOpsGhouls = "Ghouls";
+            var dailyOpsCultists = "Mothman Cultists";
+            var dailyOpsScorched = "Scorched";
+            var dailyOpsMoleminers = "Mole miners";
+            
+            var dailyOpsDecryption = "Decryption";
+            var dailyOpsUplink = "Uplink";
 
-            addDailyOps(challengesDailyEra4.options, 0, dailyOpsBurrows, dailyOpsRobots, [ dailyOpsPiercingGaze, dailyOpsResilient ]);
-            addDailyOps(challengesDailyEra4.options, 1, dailyOpsV94, dailyOpsEagles, [ dailyOpsPiercingGaze, dailyOpsVolatile ]);
-            addDailyOps(challengesDailyEra4.options, 2, dailyOpsValley, dailyOpsMutants, [ dailyOpsPiercingGaze, dailyOpsFreezing ]);
-            addDailyOps(challengesDailyEra4.options, 3, dailyOpsBurning, dailyOpsEagles, [ dailyOpsPiercingGaze, dailyOpsCloaked ]);
-            addDailyOps(challengesDailyEra4.options, 4, dailyOpsV94, dailyOpsRobots, [ dailyOpsPiercingGaze, dailyOpsFreezing ]);
-            addDailyOps(challengesDailyEra4.options, 5, dailyOpsBurrows, dailyOpsMutants, [ dailyOpsPiercingGaze, dailyOpsVolatile ]);
-            addDailyOps(challengesDailyEra4.options, 6, dailyOpsBurning, dailyOpsEagles, [ dailyOpsPiercingGaze, dailyOpsVolatile ]);
-            addDailyOps(challengesDailyEra4.options, 7, dailyOpsBurrows, dailyOpsMutants, [ dailyOpsPiercingGaze, dailyOpsFreezing ]);
-            addDailyOps(challengesDailyEra4.options, 8, dailyOpsBurning, dailyOpsMutants, [ dailyOpsPiercingGaze, dailyOpsCloaked ]);
-            addDailyOps(challengesDailyEra4.options, 9, dailyOpsValley, dailyOpsRobots, [ dailyOpsPiercingGaze, dailyOpsResilient ]);
-            addDailyOps(challengesDailyEra4.options, 10, dailyOpsV94, dailyOpsEagles, [ dailyOpsPiercingGaze, dailyOpsCloaked ]);
-            addDailyOps(challengesDailyEra4.options, 11, dailyOpsValley, dailyOpsRobots, [ dailyOpsPiercingGaze, dailyOpsVolatile ]);
-            addDailyOps(challengesDailyEra4.options, 12, dailyOpsBurrows, dailyOpsEagles, [ dailyOpsPiercingGaze, dailyOpsCloaked ]);
-            addDailyOps(challengesDailyEra4.options, 13, dailyOpsV94, dailyOpsRobots, [ dailyOpsPiercingGaze, dailyOpsVolatile ]);
-            addDailyOps(challengesDailyEra4.options, 14, dailyOpsValley, dailyOpsRobots, [ dailyOpsPiercingGaze, dailyOpsCloaked ]);
-            addDailyOps(challengesDailyEra4.options, 15, dailyOpsV94, dailyOpsMutants, [ dailyOpsPiercingGaze, dailyOpsResilient ]);
-            addDailyOps(challengesDailyEra4.options, 16, dailyOpsV94, dailyOpsMutants, [ dailyOpsPiercingGaze, dailyOpsFreezing ]);
-            addDailyOps(challengesDailyEra4.options, 17, dailyOpsBurning, dailyOpsRobots, [ dailyOpsPiercingGaze, dailyOpsResilient ]);
-            addDailyOps(challengesDailyEra4.options, 18, dailyOpsValley, dailyOpsEagles, [ dailyOpsPiercingGaze, dailyOpsResilient ]);
-            addDailyOps(challengesDailyEra4.options, 19, dailyOpsBurning, dailyOpsRobots, [ dailyOpsPiercingGaze, dailyOpsFreezing ]);
-            addDailyOps(challengesDailyEra4.options, 20, dailyOpsBurrows, dailyOpsMutants, [ dailyOpsPiercingGaze, dailyOpsResilient ]);
-            addDailyOps(challengesDailyEra4.options, 21, dailyOpsValley, dailyOpsRobots, [ dailyOpsPiercingGaze, dailyOpsResilient ]);
-            addDailyOps(challengesDailyEra4.options, 22, dailyOpsBurning, dailyOpsMutants, [ dailyOpsPiercingGaze, dailyOpsResilient ]);
-            addDailyOps(challengesDailyEra4.options, 23, dailyOpsValley, dailyOpsEagles, [ dailyOpsPiercingGaze, dailyOpsCloaked ]);
-            addDailyOps(challengesDailyEra4.options, 24, dailyOpsV94, dailyOpsMutants, [ dailyOpsPiercingGaze, dailyOpsFreezing ]);
-            addDailyOps(challengesDailyEra4.options, 25, dailyOpsV94, dailyOpsEagles, [ dailyOpsPiercingGaze, dailyOpsCloaked ]);
-            addDailyOps(challengesDailyEra4.options, 26, dailyOpsV94, dailyOpsRobots, [ dailyOpsPiercingGaze, dailyOpsVolatile ]);
-            addDailyOps(challengesDailyEra4.options, 27, dailyOpsBurning, dailyOpsEagles, [ dailyOpsPiercingGaze, dailyOpsFreezing ]);
-            addDailyOps(challengesDailyEra4.options, 28, dailyOpsValley, dailyOpsRobots, [ dailyOpsPiercingGaze, dailyOpsCloaked ]);
-            addDailyOps(challengesDailyEra4.options, 29, dailyOpsBurning, dailyOpsMutants, [ dailyOpsPiercingGaze, dailyOpsFreezing ]);
-            addDailyOps(challengesDailyEra4.options, 30, dailyOpsValley, dailyOpsMutants, [ dailyOpsPiercingGaze, dailyOpsResilient ]);
-            addDailyOps(challengesDailyEra4.options, 31, dailyOpsBurrows, dailyOpsEagles, [ dailyOpsPiercingGaze, dailyOpsResilient ]);
-            addDailyOps(challengesDailyEra4.options, 32, dailyOpsBurning, dailyOpsRobots, [ dailyOpsPiercingGaze, dailyOpsResilient, dailyOpsFreezing, dailyOpsReroll ]);
-            addDailyOps(challengesDailyEra4.options, 33, dailyOpsValley, dailyOpsRobots, [ dailyOpsPiercingGaze, dailyOpsCloaked ]);
-            addDailyOps(challengesDailyEra4.options, 34, dailyOpsBurrows, dailyOpsEagles, [ dailyOpsPiercingGaze, dailyOpsFreezing ]);
-            addDailyOps(challengesDailyEra4.options, 35, dailyOpsV94, dailyOpsEagles, [ dailyOpsPiercingGaze, dailyOpsCloaked ]);
-            addDailyOps(challengesDailyEra4.options, 36, dailyOpsValley, dailyOpsEagles, [ dailyOpsPiercingGaze, dailyOpsFreezing ]);
-            addDailyOps(challengesDailyEra4.options, 37, dailyOpsV94, dailyOpsMutants, [ dailyOpsPiercingGaze, dailyOpsVolatile ]);
-            addDailyOps(challengesDailyEra4.options, 38, dailyOpsV94, dailyOpsMutants, [ dailyOpsPiercingGaze, dailyOpsVolatile ]);
-            addDailyOps(challengesDailyEra4.options, 39, dailyOpsBurning, dailyOpsMutants, [ dailyOpsPiercingGaze, dailyOpsFreezing ]);
-            addDailyOps(challengesDailyEra4.options, 40, dailyOpsV94, dailyOpsEagles, [ dailyOpsPiercingGaze, dailyOpsVolatile ]);
-            addDailyOps(challengesDailyEra4.options, 41, dailyOpsValley, dailyOpsRobots, [ dailyOpsPiercingGaze, dailyOpsFreezing ]);
-            addDailyOps(challengesDailyEra4.options, 42, dailyOpsBurning, dailyOpsRobots, [ dailyOpsPiercingGaze, dailyOpsFreezing ]);
-            addDailyOps(challengesDailyEra4.options, 43, dailyOpsV94, dailyOpsRobots, [ dailyOpsPiercingGaze, dailyOpsFreezing ]);
-            addDailyOps(challengesDailyEra4.options, 44, dailyOpsBurning, dailyOpsRobots, [ dailyOpsPiercingGaze, dailyOpsFreezing ]);
-            addDailyOps(challengesDailyEra4.options, 45, dailyOpsValley, dailyOpsRobots, [ dailyOpsPiercingGaze, dailyOpsCloaked ]);
-            addDailyOps(challengesDailyEra4.options, 46, dailyOpsV94, dailyOpsMutants, [ dailyOpsPiercingGaze, dailyOpsCloaked ]);
-            addDailyOps(challengesDailyEra4.options, 47, dailyOpsValley, dailyOpsMutants, [ dailyOpsPiercingGaze, dailyOpsFreezing ]);
-            addDailyOps(challengesDailyEra4.options, 48, dailyOpsBurning, dailyOpsRobots, [ dailyOpsPiercingGaze, dailyOpsCloaked ]);
+            addDailyOps(challengesDailyEra4.options, 0, dailyOpsBurrows, dailyOpsRobots, [ dailyOpsPiercingGaze, dailyOpsResilient ], dailyOpsUplink);
+            addDailyOps(challengesDailyEra4.options, 1, dailyOpsV94, dailyOpsEagles, [ dailyOpsPiercingGaze, dailyOpsVolatile ], dailyOpsUplink);
+            addDailyOps(challengesDailyEra4.options, 2, dailyOpsValley, dailyOpsMutants, [ dailyOpsPiercingGaze, dailyOpsFreezing ], dailyOpsUplink);
+            addDailyOps(challengesDailyEra4.options, 3, dailyOpsBurning, dailyOpsEagles, [ dailyOpsPiercingGaze, dailyOpsCloaked ], dailyOpsUplink);
+            addDailyOps(challengesDailyEra4.options, 4, dailyOpsV94, dailyOpsRobots, [ dailyOpsPiercingGaze, dailyOpsFreezing ], dailyOpsUplink);
+            addDailyOps(challengesDailyEra4.options, 5, dailyOpsBurrows, dailyOpsMutants, [ dailyOpsPiercingGaze, dailyOpsVolatile ], dailyOpsUplink);
+            addDailyOps(challengesDailyEra4.options, 6, dailyOpsBurning, dailyOpsEagles, [ dailyOpsPiercingGaze, dailyOpsVolatile ], dailyOpsUplink);
+            addDailyOps(challengesDailyEra4.options, 7, dailyOpsBurrows, dailyOpsMutants, [ dailyOpsPiercingGaze, dailyOpsFreezing ], dailyOpsUplink);
+            addDailyOps(challengesDailyEra4.options, 8, dailyOpsBurning, dailyOpsMutants, [ dailyOpsPiercingGaze, dailyOpsCloaked ], dailyOpsUplink);
+            addDailyOps(challengesDailyEra4.options, 9, dailyOpsValley, dailyOpsRobots, [ dailyOpsPiercingGaze, dailyOpsResilient ], dailyOpsUplink);
+            addDailyOps(challengesDailyEra4.options, 10, dailyOpsV94, dailyOpsEagles, [ dailyOpsPiercingGaze, dailyOpsCloaked ], dailyOpsUplink);
+            addDailyOps(challengesDailyEra4.options, 11, dailyOpsValley, dailyOpsRobots, [ dailyOpsPiercingGaze, dailyOpsVolatile ], dailyOpsUplink);
+            addDailyOps(challengesDailyEra4.options, 12, dailyOpsBurrows, dailyOpsEagles, [ dailyOpsPiercingGaze, dailyOpsCloaked ], dailyOpsUplink);
+            addDailyOps(challengesDailyEra4.options, 13, dailyOpsV94, dailyOpsRobots, [ dailyOpsPiercingGaze, dailyOpsVolatile ], dailyOpsUplink);
+            addDailyOps(challengesDailyEra4.options, 14, dailyOpsValley, dailyOpsRobots, [ dailyOpsPiercingGaze, dailyOpsCloaked ], dailyOpsUplink);
+            addDailyOps(challengesDailyEra4.options, 15, dailyOpsV94, dailyOpsMutants, [ dailyOpsPiercingGaze, dailyOpsResilient ], dailyOpsUplink);
+            addDailyOps(challengesDailyEra4.options, 16, dailyOpsV94, dailyOpsMutants, [ dailyOpsPiercingGaze, dailyOpsFreezing ], dailyOpsUplink);
+            addDailyOps(challengesDailyEra4.options, 17, dailyOpsBurning, dailyOpsRobots, [ dailyOpsPiercingGaze, dailyOpsResilient ], dailyOpsUplink);
+            addDailyOps(challengesDailyEra4.options, 18, dailyOpsValley, dailyOpsEagles, [ dailyOpsPiercingGaze, dailyOpsResilient ], dailyOpsUplink);
+            addDailyOps(challengesDailyEra4.options, 19, dailyOpsBurning, dailyOpsRobots, [ dailyOpsPiercingGaze, dailyOpsFreezing ], dailyOpsUplink);
+            addDailyOps(challengesDailyEra4.options, 20, dailyOpsBurrows, dailyOpsMutants, [ dailyOpsPiercingGaze, dailyOpsResilient ], dailyOpsUplink);
+            addDailyOps(challengesDailyEra4.options, 21, dailyOpsValley, dailyOpsRobots, [ dailyOpsPiercingGaze, dailyOpsResilient ], dailyOpsUplink);
+            addDailyOps(challengesDailyEra4.options, 22, dailyOpsBurning, dailyOpsMutants, [ dailyOpsPiercingGaze, dailyOpsResilient ], dailyOpsUplink);
+            addDailyOps(challengesDailyEra4.options, 23, dailyOpsValley, dailyOpsEagles, [ dailyOpsPiercingGaze, dailyOpsCloaked ], dailyOpsUplink);
+            addDailyOps(challengesDailyEra4.options, 24, dailyOpsV94, dailyOpsMutants, [ dailyOpsPiercingGaze, dailyOpsFreezing ], dailyOpsUplink);
+            addDailyOps(challengesDailyEra4.options, 25, dailyOpsV94, dailyOpsEagles, [ dailyOpsPiercingGaze, dailyOpsCloaked ], dailyOpsUplink);
+            addDailyOps(challengesDailyEra4.options, 26, dailyOpsV94, dailyOpsRobots, [ dailyOpsPiercingGaze, dailyOpsVolatile ], dailyOpsUplink);
+            addDailyOps(challengesDailyEra4.options, 27, dailyOpsBurning, dailyOpsEagles, [ dailyOpsPiercingGaze, dailyOpsFreezing ], dailyOpsUplink);
+            addDailyOps(challengesDailyEra4.options, 28, dailyOpsValley, dailyOpsRobots, [ dailyOpsPiercingGaze, dailyOpsCloaked ], dailyOpsUplink);
+            addDailyOps(challengesDailyEra4.options, 29, dailyOpsBurning, dailyOpsMutants, [ dailyOpsPiercingGaze, dailyOpsFreezing ], dailyOpsUplink);
+            addDailyOps(challengesDailyEra4.options, 30, dailyOpsValley, dailyOpsMutants, [ dailyOpsPiercingGaze, dailyOpsResilient ], dailyOpsUplink);
+            addDailyOps(challengesDailyEra4.options, 31, dailyOpsBurrows, dailyOpsEagles, [ dailyOpsPiercingGaze, dailyOpsResilient ], dailyOpsUplink);
+            addDailyOps(challengesDailyEra4.options, 32, dailyOpsBurning, dailyOpsRobots, [ dailyOpsPiercingGaze, dailyOpsResilient, dailyOpsFreezing, dailyOpsReroll ], dailyOpsUplink);
+            addDailyOps(challengesDailyEra4.options, 33, dailyOpsValley, dailyOpsRobots, [ dailyOpsPiercingGaze, dailyOpsCloaked ], dailyOpsUplink);
+            addDailyOps(challengesDailyEra4.options, 34, dailyOpsBurrows, dailyOpsEagles, [ dailyOpsPiercingGaze, dailyOpsFreezing ], dailyOpsUplink);
+            addDailyOps(challengesDailyEra4.options, 35, dailyOpsV94, dailyOpsEagles, [ dailyOpsPiercingGaze, dailyOpsCloaked ], dailyOpsUplink);
+            addDailyOps(challengesDailyEra4.options, 36, dailyOpsValley, dailyOpsEagles, [ dailyOpsPiercingGaze, dailyOpsFreezing ], dailyOpsUplink);
+            addDailyOps(challengesDailyEra4.options, 37, dailyOpsV94, dailyOpsMutants, [ dailyOpsPiercingGaze, dailyOpsVolatile ], dailyOpsUplink);
+            addDailyOps(challengesDailyEra4.options, 38, dailyOpsV94, dailyOpsMutants, [ dailyOpsPiercingGaze, dailyOpsVolatile ], dailyOpsUplink);
+            addDailyOps(challengesDailyEra4.options, 39, dailyOpsBurning, dailyOpsMutants, [ dailyOpsPiercingGaze, dailyOpsFreezing ], dailyOpsUplink);
+            addDailyOps(challengesDailyEra4.options, 40, dailyOpsV94, dailyOpsEagles, [ dailyOpsPiercingGaze, dailyOpsVolatile ], dailyOpsUplink);
+            addDailyOps(challengesDailyEra4.options, 41, dailyOpsValley, dailyOpsRobots, [ dailyOpsPiercingGaze, dailyOpsFreezing ], dailyOpsUplink);
+            addDailyOps(challengesDailyEra4.options, 42, dailyOpsBurning, dailyOpsRobots, [ dailyOpsPiercingGaze, dailyOpsFreezing ], dailyOpsUplink);
+            addDailyOps(challengesDailyEra4.options, 43, dailyOpsV94, dailyOpsRobots, [ dailyOpsPiercingGaze, dailyOpsFreezing ], dailyOpsUplink);
+            addDailyOps(challengesDailyEra4.options, 44, dailyOpsBurning, dailyOpsRobots, [ dailyOpsPiercingGaze, dailyOpsFreezing ], dailyOpsUplink);
+            addDailyOps(challengesDailyEra4.options, 45, dailyOpsValley, dailyOpsRobots, [ dailyOpsPiercingGaze, dailyOpsCloaked ], dailyOpsUplink);
+            addDailyOps(challengesDailyEra4.options, 46, dailyOpsV94, dailyOpsMutants, [ dailyOpsPiercingGaze, dailyOpsCloaked ], dailyOpsUplink);
+            addDailyOps(challengesDailyEra4.options, 47, dailyOpsValley, dailyOpsMutants, [ dailyOpsPiercingGaze, dailyOpsFreezing ], dailyOpsUplink);
+            addDailyOps(challengesDailyEra4.options, 48, dailyOpsBurning, dailyOpsRobots, [ dailyOpsPiercingGaze, dailyOpsCloaked ], dailyOpsUplink);
 
             var challengesDailyEra5 = {
                 validStart: ofDate(2020, 10, 3, 17),
@@ -3090,48 +3141,48 @@
                 ]
             };
 
-            addDailyOps(challengesDailyEra5.options, 0, dailyOpsValley, dailyOpsRobots, [ dailyOpsPiercingGaze, dailyOpsFreezing ]);
-            addDailyOps(challengesDailyEra5.options, 1, dailyOpsV94, dailyOpsRobots, [ dailyOpsPiercingGaze, dailyOpsCloaked ]);
-            addDailyOps(challengesDailyEra5.options, 2, dailyOpsBurning, dailyOpsRobots, [ dailyOpsPiercingGaze, dailyOpsFreezing ]);
-            addDailyOps(challengesDailyEra5.options, 3, dailyOpsV94, dailyOpsEagles, [ dailyOpsPiercingGaze, dailyOpsFreezing ]);
-            addDailyOps(challengesDailyEra5.options, 4, dailyOpsBurning, dailyOpsRobots, [ dailyOpsPiercingGaze, dailyOpsFreezing ]);
-            addDailyOps(challengesDailyEra5.options, 5, dailyOpsValley, dailyOpsRobots, [ dailyOpsPiercingGaze, dailyOpsCloaked ]);
-            addDailyOps(challengesDailyEra5.options, 6, dailyOpsV94, dailyOpsEagles, [ dailyOpsPiercingGaze, dailyOpsFreezing ]);
-            addDailyOps(challengesDailyEra5.options, 7, dailyOpsBurrows, dailyOpsRobots, [ dailyOpsPiercingGaze, dailyOpsFreezing ]);
-            addDailyOps(challengesDailyEra5.options, 8, dailyOpsBurning, dailyOpsEagles, [ dailyOpsPiercingGaze, dailyOpsCloaked ]);
-            addDailyOps(challengesDailyEra5.options, 9, dailyOpsValley, dailyOpsRobots, [ dailyOpsPiercingGaze, dailyOpsFreezing ]);
-            addDailyOps(challengesDailyEra5.options, 10, dailyOpsBurrows, dailyOpsMutants, [ dailyOpsPiercingGaze, dailyOpsCloaked ]);
-            addDailyOps(challengesDailyEra5.options, 11, dailyOpsV94, dailyOpsRobots, [ dailyOpsPiercingGaze, dailyOpsResilient ]);
-            addDailyOps(challengesDailyEra5.options, 12, dailyOpsBurning, dailyOpsRobots, [ dailyOpsPiercingGaze, dailyOpsResilient ]);
-            addDailyOps(challengesDailyEra5.options, 13, dailyOpsValley, dailyOpsRobots, [ dailyOpsPiercingGaze, dailyOpsVolatile ]);
-            addDailyOps(challengesDailyEra5.options, 14, dailyOpsV94, dailyOpsMutants, [ dailyOpsPiercingGaze, dailyOpsVolatile ]);
-            addDailyOps(challengesDailyEra5.options, 15, dailyOpsBurning, dailyOpsRobots, [ dailyOpsPiercingGaze, dailyOpsResilient ]);
-            addDailyOps(challengesDailyEra5.options, 16, dailyOpsBurrows, dailyOpsMutants, [ dailyOpsPiercingGaze, dailyOpsVolatile ]);
-            addDailyOps(challengesDailyEra5.options, 17, dailyOpsBurning, dailyOpsRobots, [ dailyOpsPiercingGaze, dailyOpsFreezing ]);
-            addDailyOps(challengesDailyEra5.options, 18, dailyOpsBurrows, dailyOpsEagles, [ dailyOpsPiercingGaze, dailyOpsCloaked ]);
-            addDailyOps(challengesDailyEra5.options, 19, dailyOpsBurning, dailyOpsRobots, [ dailyOpsPiercingGaze, dailyOpsResilient ]);
-            addDailyOps(challengesDailyEra5.options, 20, dailyOpsV94, dailyOpsRobots, [ dailyOpsPiercingGaze, dailyOpsResilient ]);
-            addDailyOps(challengesDailyEra5.options, 21, dailyOpsBurning, dailyOpsRobots, [ dailyOpsPiercingGaze, dailyOpsCloaked ]);
-            addDailyOps(challengesDailyEra5.options, 22, dailyOpsV94, dailyOpsMutants, [ dailyOpsPiercingGaze, dailyOpsVolatile ]);
-            addDailyOps(challengesDailyEra5.options, 23, dailyOpsBurning, dailyOpsEagles, [ dailyOpsPiercingGaze, dailyOpsCloaked ]);
-            addDailyOps(challengesDailyEra5.options, 24, dailyOpsBurrows, dailyOpsMutants, [ dailyOpsPiercingGaze, dailyOpsVolatile ]);
-            addDailyOps(challengesDailyEra5.options, 25, dailyOpsValley, dailyOpsEagles, [ dailyOpsPiercingGaze, dailyOpsCloaked ]);
-            addDailyOps(challengesDailyEra5.options, 26, dailyOpsBurrows, dailyOpsRobots, [ dailyOpsPiercingGaze, dailyOpsFreezing ]);
-            addDailyOps(challengesDailyEra5.options, 27, dailyOpsBurning, dailyOpsEagles, [ dailyOpsPiercingGaze, dailyOpsCloaked ]);
-            addDailyOps(challengesDailyEra5.options, 28, dailyOpsValley, dailyOpsMutants, [ dailyOpsPiercingGaze, dailyOpsFreezing ]);
-            addDailyOps(challengesDailyEra5.options, 29, dailyOpsBurning, dailyOpsEagles, [ dailyOpsPiercingGaze, dailyOpsCloaked ]);
-            addDailyOps(challengesDailyEra5.options, 30, dailyOpsV94, dailyOpsMutants, [ dailyOpsPiercingGaze, dailyOpsVolatile ]);
-            addDailyOps(challengesDailyEra5.options, 31, dailyOpsBurrows, dailyOpsEagles, [ dailyOpsPiercingGaze, dailyOpsResilient ]);
-            addDailyOps(challengesDailyEra5.options, 32, dailyOpsV94, dailyOpsRobots, [ dailyOpsPiercingGaze, dailyOpsVolatile ]);
-            addDailyOps(challengesDailyEra5.options, 33, dailyOpsBurrows, dailyOpsMutants, [ dailyOpsPiercingGaze, dailyOpsCloaked ]);
-            addDailyOps(challengesDailyEra5.options, 34, dailyOpsV94, dailyOpsMutants, [ dailyOpsPiercingGaze, dailyOpsResilient ]);
-            addDailyOps(challengesDailyEra5.options, 35, dailyOpsBurning, dailyOpsMutants, [ dailyOpsPiercingGaze, dailyOpsCloaked ]);
-            addDailyOps(challengesDailyEra5.options, 36, dailyOpsBurrows, dailyOpsEagles, [ dailyOpsPiercingGaze, dailyOpsFreezing ]);
-            addDailyOps(challengesDailyEra5.options, 37, dailyOpsBurning, dailyOpsRobots, [ dailyOpsPiercingGaze, dailyOpsVolatile ]);
-            addDailyOps(challengesDailyEra5.options, 38, dailyOpsV94, dailyOpsEagles, [ dailyOpsPiercingGaze, dailyOpsFreezing ]);
-            addDailyOps(challengesDailyEra5.options, 39, dailyOpsValley, dailyOpsMutants, [ dailyOpsPiercingGaze, dailyOpsVolatile ]);
-            addDailyOps(challengesDailyEra5.options, 40, dailyOpsBurrows, dailyOpsEagles, [ dailyOpsPiercingGaze, dailyOpsFreezing ]);
-            addDailyOps(challengesDailyEra5.options, 41, dailyOpsBurning, dailyOpsMutants, [ dailyOpsPiercingGaze, dailyOpsCloaked ]);
+            addDailyOps(challengesDailyEra5.options, 0, dailyOpsValley, dailyOpsRobots, [ dailyOpsPiercingGaze, dailyOpsFreezing ], dailyOpsUplink);
+            addDailyOps(challengesDailyEra5.options, 1, dailyOpsV94, dailyOpsRobots, [ dailyOpsPiercingGaze, dailyOpsCloaked ], dailyOpsUplink);
+            addDailyOps(challengesDailyEra5.options, 2, dailyOpsBurning, dailyOpsRobots, [ dailyOpsPiercingGaze, dailyOpsFreezing ], dailyOpsUplink);
+            addDailyOps(challengesDailyEra5.options, 3, dailyOpsV94, dailyOpsEagles, [ dailyOpsPiercingGaze, dailyOpsFreezing ], dailyOpsUplink);
+            addDailyOps(challengesDailyEra5.options, 4, dailyOpsBurning, dailyOpsRobots, [ dailyOpsPiercingGaze, dailyOpsFreezing ], dailyOpsUplink);
+            addDailyOps(challengesDailyEra5.options, 5, dailyOpsValley, dailyOpsRobots, [ dailyOpsPiercingGaze, dailyOpsCloaked ], dailyOpsUplink);
+            addDailyOps(challengesDailyEra5.options, 6, dailyOpsV94, dailyOpsEagles, [ dailyOpsPiercingGaze, dailyOpsFreezing ], dailyOpsUplink);
+            addDailyOps(challengesDailyEra5.options, 7, dailyOpsBurrows, dailyOpsRobots, [ dailyOpsPiercingGaze, dailyOpsFreezing ], dailyOpsUplink);
+            addDailyOps(challengesDailyEra5.options, 8, dailyOpsBurning, dailyOpsEagles, [ dailyOpsPiercingGaze, dailyOpsCloaked ], dailyOpsUplink);
+            addDailyOps(challengesDailyEra5.options, 9, dailyOpsValley, dailyOpsRobots, [ dailyOpsPiercingGaze, dailyOpsFreezing ], dailyOpsUplink);
+            addDailyOps(challengesDailyEra5.options, 10, dailyOpsBurrows, dailyOpsMutants, [ dailyOpsPiercingGaze, dailyOpsCloaked ], dailyOpsUplink);
+            addDailyOps(challengesDailyEra5.options, 11, dailyOpsV94, dailyOpsRobots, [ dailyOpsPiercingGaze, dailyOpsResilient ], dailyOpsUplink);
+            addDailyOps(challengesDailyEra5.options, 12, dailyOpsBurning, dailyOpsRobots, [ dailyOpsPiercingGaze, dailyOpsResilient ], dailyOpsUplink);
+            addDailyOps(challengesDailyEra5.options, 13, dailyOpsValley, dailyOpsRobots, [ dailyOpsPiercingGaze, dailyOpsVolatile ], dailyOpsUplink);
+            addDailyOps(challengesDailyEra5.options, 14, dailyOpsV94, dailyOpsMutants, [ dailyOpsPiercingGaze, dailyOpsVolatile ], dailyOpsUplink);
+            addDailyOps(challengesDailyEra5.options, 15, dailyOpsBurning, dailyOpsRobots, [ dailyOpsPiercingGaze, dailyOpsResilient ], dailyOpsUplink);
+            addDailyOps(challengesDailyEra5.options, 16, dailyOpsBurrows, dailyOpsMutants, [ dailyOpsPiercingGaze, dailyOpsVolatile ], dailyOpsUplink);
+            addDailyOps(challengesDailyEra5.options, 17, dailyOpsBurning, dailyOpsRobots, [ dailyOpsPiercingGaze, dailyOpsFreezing ], dailyOpsUplink);
+            addDailyOps(challengesDailyEra5.options, 18, dailyOpsBurrows, dailyOpsEagles, [ dailyOpsPiercingGaze, dailyOpsCloaked ], dailyOpsUplink);
+            addDailyOps(challengesDailyEra5.options, 19, dailyOpsBurning, dailyOpsRobots, [ dailyOpsPiercingGaze, dailyOpsResilient ], dailyOpsUplink);
+            addDailyOps(challengesDailyEra5.options, 20, dailyOpsV94, dailyOpsRobots, [ dailyOpsPiercingGaze, dailyOpsResilient ], dailyOpsUplink);
+            addDailyOps(challengesDailyEra5.options, 21, dailyOpsBurning, dailyOpsRobots, [ dailyOpsPiercingGaze, dailyOpsCloaked ], dailyOpsUplink);
+            addDailyOps(challengesDailyEra5.options, 22, dailyOpsV94, dailyOpsMutants, [ dailyOpsPiercingGaze, dailyOpsVolatile ], dailyOpsUplink);
+            addDailyOps(challengesDailyEra5.options, 23, dailyOpsBurning, dailyOpsEagles, [ dailyOpsPiercingGaze, dailyOpsCloaked ], dailyOpsUplink);
+            addDailyOps(challengesDailyEra5.options, 24, dailyOpsBurrows, dailyOpsMutants, [ dailyOpsPiercingGaze, dailyOpsVolatile ], dailyOpsUplink);
+            addDailyOps(challengesDailyEra5.options, 25, dailyOpsValley, dailyOpsEagles, [ dailyOpsPiercingGaze, dailyOpsCloaked ], dailyOpsUplink);
+            addDailyOps(challengesDailyEra5.options, 26, dailyOpsBurrows, dailyOpsRobots, [ dailyOpsPiercingGaze, dailyOpsFreezing ], dailyOpsUplink);
+            addDailyOps(challengesDailyEra5.options, 27, dailyOpsBurning, dailyOpsEagles, [ dailyOpsPiercingGaze, dailyOpsCloaked ], dailyOpsUplink);
+            addDailyOps(challengesDailyEra5.options, 28, dailyOpsValley, dailyOpsMutants, [ dailyOpsPiercingGaze, dailyOpsFreezing ], dailyOpsUplink);
+            addDailyOps(challengesDailyEra5.options, 29, dailyOpsBurning, dailyOpsEagles, [ dailyOpsPiercingGaze, dailyOpsCloaked ], dailyOpsUplink);
+            addDailyOps(challengesDailyEra5.options, 30, dailyOpsV94, dailyOpsMutants, [ dailyOpsPiercingGaze, dailyOpsVolatile ], dailyOpsUplink);
+            addDailyOps(challengesDailyEra5.options, 31, dailyOpsBurrows, dailyOpsEagles, [ dailyOpsPiercingGaze, dailyOpsResilient ], dailyOpsUplink);
+            addDailyOps(challengesDailyEra5.options, 32, dailyOpsV94, dailyOpsRobots, [ dailyOpsPiercingGaze, dailyOpsVolatile ], dailyOpsUplink);
+            addDailyOps(challengesDailyEra5.options, 33, dailyOpsBurrows, dailyOpsMutants, [ dailyOpsPiercingGaze, dailyOpsCloaked ], dailyOpsUplink);
+            addDailyOps(challengesDailyEra5.options, 34, dailyOpsV94, dailyOpsMutants, [ dailyOpsPiercingGaze, dailyOpsResilient ], dailyOpsUplink);
+            addDailyOps(challengesDailyEra5.options, 35, dailyOpsBurning, dailyOpsMutants, [ dailyOpsPiercingGaze, dailyOpsCloaked ], dailyOpsUplink);
+            addDailyOps(challengesDailyEra5.options, 36, dailyOpsBurrows, dailyOpsEagles, [ dailyOpsPiercingGaze, dailyOpsFreezing ], dailyOpsUplink);
+            addDailyOps(challengesDailyEra5.options, 37, dailyOpsBurning, dailyOpsRobots, [ dailyOpsPiercingGaze, dailyOpsVolatile ], dailyOpsUplink);
+            addDailyOps(challengesDailyEra5.options, 38, dailyOpsV94, dailyOpsEagles, [ dailyOpsPiercingGaze, dailyOpsFreezing ], dailyOpsUplink);
+            addDailyOps(challengesDailyEra5.options, 39, dailyOpsValley, dailyOpsMutants, [ dailyOpsPiercingGaze, dailyOpsVolatile ], dailyOpsUplink);
+            addDailyOps(challengesDailyEra5.options, 40, dailyOpsBurrows, dailyOpsEagles, [ dailyOpsPiercingGaze, dailyOpsFreezing ], dailyOpsUplink);
+            addDailyOps(challengesDailyEra5.options, 41, dailyOpsBurning, dailyOpsMutants, [ dailyOpsPiercingGaze, dailyOpsCloaked ], dailyOpsUplink);
  
             var challengesDailyEra6 = {
                 validStart: ofDate(2020, 11, 15, 17),
@@ -3993,104 +4044,104 @@
                 ]
             };
 
-            addDailyOps(challengesDailyEra6.options, 0, dailyOpsV94, dailyOpsRobots, [ dailyOpsPiercingGaze, dailyOpsVolatile ]);
-            addDailyOps(challengesDailyEra6.options, 1, dailyOpsValley, dailyOpsMutants, [ dailyOpsPiercingGaze, dailyOpsCloaked ]);
-            addDailyOps(challengesDailyEra6.options, 2, dailyOpsV94, dailyOpsEagles, [ dailyOpsPiercingGaze, dailyOpsFreezing ]);
-            addDailyOps(challengesDailyEra6.options, 3, dailyOpsValley, dailyOpsMutants, [ dailyOpsPiercingGaze, dailyOpsResilient ]);
-            addDailyOps(challengesDailyEra6.options, 4, dailyOpsV94, dailyOpsRobots, [ dailyOpsPiercingGaze, dailyOpsVolatile ]);
-            addDailyOps(challengesDailyEra6.options, 5, dailyOpsBurrows, dailyOpsMutants, [ dailyOpsPiercingGaze, dailyOpsCloaked ]);
-            addDailyOps(challengesDailyEra6.options, 6, dailyOpsValley, dailyOpsRobots, [ dailyOpsPiercingGaze, dailyOpsFreezing ]);
-            addDailyOps(challengesDailyEra6.options, 7, dailyOpsBurrows, dailyOpsMutants, [ dailyOpsPiercingGaze, dailyOpsResilient ]);
-            addDailyOps(challengesDailyEra6.options, 8, dailyOpsValley, dailyOpsEagles, [ dailyOpsPiercingGaze, dailyOpsFreezing ]);
-            addDailyOps(challengesDailyEra6.options, 9, dailyOpsV94, dailyOpsRobots, [ dailyOpsPiercingGaze, dailyOpsResilient ]);
-            addDailyOps(challengesDailyEra6.options, 10, dailyOpsBurning, dailyOpsMutants, [ dailyOpsPiercingGaze, dailyOpsFreezing ]);
-            addDailyOps(challengesDailyEra6.options, 11, dailyOpsV94, dailyOpsEagles, [ dailyOpsPiercingGaze, dailyOpsVolatile ]);
-            addDailyOps(challengesDailyEra6.options, 12, dailyOpsBurning, dailyOpsEagles, [ dailyOpsPiercingGaze, dailyOpsResilient ]);
-            addDailyOps(challengesDailyEra6.options, 13, dailyOpsV94, dailyOpsEagles, [ dailyOpsPiercingGaze, dailyOpsVolatile ]);
-            addDailyOps(challengesDailyEra6.options, 14, dailyOpsValley, dailyOpsRobots, [ dailyOpsPiercingGaze, dailyOpsResilient ]);
-            addDailyOps(challengesDailyEra6.options, 15, dailyOpsV94, dailyOpsEagles, [ dailyOpsPiercingGaze, dailyOpsFreezing ]);
-            addDailyOps(challengesDailyEra6.options, 16, dailyOpsBurning, dailyOpsRobots, [ dailyOpsPiercingGaze, dailyOpsCloaked ]);
-            addDailyOps(challengesDailyEra6.options, 17, dailyOpsValley, dailyOpsMutants, [ dailyOpsPiercingGaze, dailyOpsFreezing ]);
-            addDailyOps(challengesDailyEra6.options, 18, dailyOpsValley, dailyOpsRobots, [ dailyOpsPiercingGaze, dailyOpsCloaked ]);
-            addDailyOps(challengesDailyEra6.options, 19, dailyOpsValley, dailyOpsEagles, [ dailyOpsPiercingGaze, dailyOpsFreezing ]);
-            addDailyOps(challengesDailyEra6.options, 20, dailyOpsV94, dailyOpsRobots, [ dailyOpsPiercingGaze, dailyOpsResilient ]);
-            addDailyOps(challengesDailyEra6.options, 21, dailyOpsBurning, dailyOpsEagles, [ dailyOpsPiercingGaze, dailyOpsFreezing ]);
-            addDailyOps(challengesDailyEra6.options, 22, dailyOpsBurrows, dailyOpsMutants, [ dailyOpsPiercingGaze, dailyOpsCloaked ]);
-            addDailyOps(challengesDailyEra6.options, 23, dailyOpsV94, dailyOpsRobots, [ dailyOpsPiercingGaze, dailyOpsResilient ]);
-            addDailyOps(challengesDailyEra6.options, 24, dailyOpsBurrows, dailyOpsEagles, [ dailyOpsPiercingGaze, dailyOpsResilient ]);
-            addDailyOps(challengesDailyEra6.options, 25, dailyOpsValley, dailyOpsRobots, [ dailyOpsPiercingGaze, dailyOpsResilient ]);
-            addDailyOps(challengesDailyEra6.options, 26, dailyOpsBurrows, dailyOpsMutants, [ dailyOpsPiercingGaze, dailyOpsFreezing ]);
-            addDailyOps(challengesDailyEra6.options, 27, dailyOpsValley, dailyOpsRobots, [ dailyOpsPiercingGaze, dailyOpsCloaked ]);
-            addDailyOps(challengesDailyEra6.options, 28, dailyOpsBurrows, dailyOpsEagles, [ dailyOpsPiercingGaze, dailyOpsVolatile ]);
-            addDailyOps(challengesDailyEra6.options, 29, dailyOpsV94, dailyOpsMutants, [ dailyOpsPiercingGaze, dailyOpsFreezing ]);
-            addDailyOps(challengesDailyEra6.options, 30, dailyOpsValley, dailyOpsRobots, [ dailyOpsPiercingGaze, dailyOpsVolatile ]);
-            addDailyOps(challengesDailyEra6.options, 31, dailyOpsBurrows, dailyOpsEagles, [ dailyOpsPiercingGaze, dailyOpsResilient ]);
-            addDailyOps(challengesDailyEra6.options, 32, dailyOpsBurning, dailyOpsRobots, [ dailyOpsPiercingGaze, dailyOpsVolatile ]);
-            addDailyOps(challengesDailyEra6.options, 33, dailyOpsV94, dailyOpsMutants, [ dailyOpsPiercingGaze, dailyOpsResilient ]);
-            addDailyOps(challengesDailyEra6.options, 34, dailyOpsBurning, dailyOpsRobots, [ dailyOpsPiercingGaze, dailyOpsVolatile ]);
-            addDailyOps(challengesDailyEra6.options, 35, dailyOpsV94, dailyOpsMutants, [ dailyOpsPiercingGaze, dailyOpsFreezing ]);
-            addDailyOps(challengesDailyEra6.options, 36, dailyOpsBurning, dailyOpsEagles, [ dailyOpsPiercingGaze, dailyOpsResilient ]);
-            addDailyOps(challengesDailyEra6.options, 37, dailyOpsBurrows, dailyOpsMutants, [ dailyOpsPiercingGaze, dailyOpsVolatile ]);
-            addDailyOps(challengesDailyEra6.options, 38, dailyOpsV94, dailyOpsEagles, [ dailyOpsPiercingGaze, dailyOpsCloaked ]);
-            addDailyOps(challengesDailyEra6.options, 39, dailyOpsBurning, dailyOpsRobots, [ dailyOpsPiercingGaze, dailyOpsFreezing ]);
-            addDailyOps(challengesDailyEra6.options, 40, dailyOpsBurrows, dailyOpsMutants, [ dailyOpsPiercingGaze, dailyOpsCloaked ]);
-            addDailyOps(challengesDailyEra6.options, 41, dailyOpsBurning, dailyOpsMutants, [ dailyOpsPiercingGaze, dailyOpsFreezing ]);
-            addDailyOps(challengesDailyEra6.options, 42, dailyOpsBurrows, dailyOpsMutants, [ dailyOpsPiercingGaze, dailyOpsFreezing ]);
-            addDailyOps(challengesDailyEra6.options, 43, dailyOpsV94, dailyOpsEagles, [ dailyOpsPiercingGaze, dailyOpsVolatile ]);
-            addDailyOps(challengesDailyEra6.options, 44, dailyOpsValley, dailyOpsMutants, [ dailyOpsPiercingGaze, dailyOpsFreezing ]);
-            addDailyOps(challengesDailyEra6.options, 45, dailyOpsBurrows, dailyOpsRobots, [ dailyOpsPiercingGaze, dailyOpsCloaked ]);
-            addDailyOps(challengesDailyEra6.options, 46, dailyOpsV94, dailyOpsEagles, [ dailyOpsPiercingGaze, dailyOpsVolatile ]);
-            addDailyOps(challengesDailyEra6.options, 47, dailyOpsValley, dailyOpsMutants, [ dailyOpsPiercingGaze, dailyOpsCloaked ]);
-            addDailyOps(challengesDailyEra6.options, 48, dailyOpsBurning, dailyOpsEagles, [ dailyOpsPiercingGaze, dailyOpsVolatile ]);
-            addDailyOps(challengesDailyEra6.options, 49, dailyOpsValley, dailyOpsRobots, [ dailyOpsPiercingGaze, dailyOpsFreezing ]);
-            addDailyOps(challengesDailyEra6.options, 50, dailyOpsV94, dailyOpsRobots, [ dailyOpsPiercingGaze, dailyOpsResilient ]);
-            addDailyOps(challengesDailyEra6.options, 51, dailyOpsValley, dailyOpsMutants, [ dailyOpsPiercingGaze, dailyOpsVolatile ]);
-            addDailyOps(challengesDailyEra6.options, 52, dailyOpsV94, dailyOpsEagles, [ dailyOpsPiercingGaze, dailyOpsFreezing ]);
-            addDailyOps(challengesDailyEra6.options, 53, dailyOpsV94, dailyOpsMutants, [ dailyOpsPiercingGaze, dailyOpsResilient ]);
-            addDailyOps(challengesDailyEra6.options, 54, dailyOpsBurning, dailyOpsRobots, [ dailyOpsPiercingGaze, dailyOpsCloaked ]);
-            addDailyOps(challengesDailyEra6.options, 55, dailyOpsV94, dailyOpsMutants, [ dailyOpsPiercingGaze, dailyOpsResilient ]);
-            addDailyOps(challengesDailyEra6.options, 56, dailyOpsValley, dailyOpsEagles, [ dailyOpsPiercingGaze, dailyOpsFreezing ]);
-            addDailyOps(challengesDailyEra6.options, 57, dailyOpsV94, dailyOpsRobots, [ dailyOpsPiercingGaze, dailyOpsResilient ]);
-            addDailyOps(challengesDailyEra6.options, 58, dailyOpsBurrows, dailyOpsMutants, [ dailyOpsPiercingGaze, dailyOpsFreezing ]);
-            addDailyOps(challengesDailyEra6.options, 59, dailyOpsBurning, dailyOpsEagles, [ dailyOpsPiercingGaze, dailyOpsFreezing ]);
-            addDailyOps(challengesDailyEra6.options, 60, dailyOpsBurrows, dailyOpsRobots, [ dailyOpsPiercingGaze, dailyOpsCloaked ]);
-            addDailyOps(challengesDailyEra6.options, 61, dailyOpsBurning, dailyOpsEagles, [ dailyOpsPiercingGaze, dailyOpsFreezing ]);
-            addDailyOps(challengesDailyEra6.options, 62, dailyOpsBurning, dailyOpsMutants, [ dailyOpsPiercingGaze, dailyOpsResilient ]);
-            addDailyOps(challengesDailyEra6.options, 63, dailyOpsValley, dailyOpsRobots, [ dailyOpsPiercingGaze, dailyOpsFreezing ]);
-            addDailyOps(challengesDailyEra6.options, 64, dailyOpsBurning, dailyOpsEagles, [ dailyOpsPiercingGaze, dailyOpsVolatile ]);
-            addDailyOps(challengesDailyEra6.options, 65, dailyOpsValley, dailyOpsMutants, [ dailyOpsPiercingGaze, dailyOpsCloaked ]);
-            addDailyOps(challengesDailyEra6.options, 66, dailyOpsBurrows, dailyOpsEagles, [ dailyOpsPiercingGaze, dailyOpsVolatile ]);
-            addDailyOps(challengesDailyEra6.options, 67, dailyOpsValley, dailyOpsMutants, [ dailyOpsPiercingGaze, dailyOpsCloaked ]);
-            addDailyOps(challengesDailyEra6.options, 68, dailyOpsBurrows, dailyOpsRobots, [ dailyOpsPiercingGaze, dailyOpsCloaked ]);
-            addDailyOps(challengesDailyEra6.options, 69, dailyOpsBurning, dailyOpsEagles, [ dailyOpsPiercingGaze, dailyOpsResilient ]);
-            addDailyOps(challengesDailyEra6.options, 70, dailyOpsV94, dailyOpsMutants, [ dailyOpsPiercingGaze, dailyOpsCloaked ]);
-            addDailyOps(challengesDailyEra6.options, 71, dailyOpsBurning, dailyOpsRobots, [ dailyOpsPiercingGaze, dailyOpsResilient ]);
-            addDailyOps(challengesDailyEra6.options, 72, dailyOpsBurrows, dailyOpsEagles, [ dailyOpsPiercingGaze, dailyOpsVolatile ]);
-            addDailyOps(challengesDailyEra6.options, 73, dailyOpsV94, dailyOpsRobots, [ dailyOpsPiercingGaze, dailyOpsResilient ]);
-            addDailyOps(challengesDailyEra6.options, 74, dailyOpsBurning, dailyOpsRobots, [ dailyOpsPiercingGaze, dailyOpsVolatile ]);
-            addDailyOps(challengesDailyEra6.options, 75, dailyOpsBurrows, dailyOpsMutants, [ dailyOpsPiercingGaze, dailyOpsCloaked ]);
-            addDailyOps(challengesDailyEra6.options, 76, dailyOpsV94, dailyOpsEagles, [ dailyOpsPiercingGaze, dailyOpsFreezing ]);
-            addDailyOps(challengesDailyEra6.options, 77, dailyOpsBurrows, dailyOpsMutants, [ dailyOpsPiercingGaze, dailyOpsCloaked ]);
-            addDailyOps(challengesDailyEra6.options, 78, dailyOpsValley, dailyOpsEagles, [ dailyOpsPiercingGaze, dailyOpsVolatile ]);
-            addDailyOps(challengesDailyEra6.options, 79, dailyOpsBurrows, dailyOpsMutants, [ dailyOpsPiercingGaze, dailyOpsFreezing ]);
-            addDailyOps(challengesDailyEra6.options, 80, dailyOpsBurning, dailyOpsRobots, [ dailyOpsPiercingGaze, dailyOpsCloaked ]);
-            addDailyOps(challengesDailyEra6.options, 81, dailyOpsV94, dailyOpsEagles, [ dailyOpsPiercingGaze, dailyOpsVolatile ]);
-            addDailyOps(challengesDailyEra6.options, 82, dailyOpsValley, dailyOpsMutants, [ dailyOpsPiercingGaze, dailyOpsFreezing ]);
-            addDailyOps(challengesDailyEra6.options, 83, dailyOpsV94, dailyOpsEagles, [ dailyOpsPiercingGaze, dailyOpsVolatile ]);
-            addDailyOps(challengesDailyEra6.options, 84, dailyOpsBurning, dailyOpsRobots, [ dailyOpsPiercingGaze, dailyOpsResilient ]);
-            addDailyOps(challengesDailyEra6.options, 85, dailyOpsBurrows, dailyOpsMutants, [ dailyOpsPiercingGaze, dailyOpsVolatile ]);
-            addDailyOps(challengesDailyEra6.options, 86, dailyOpsValley, dailyOpsEagles, [ dailyOpsPiercingGaze, dailyOpsCloaked ]);
-            addDailyOps(challengesDailyEra6.options, 87, dailyOpsBurning, dailyOpsRobots, [ dailyOpsPiercingGaze, dailyOpsFreezing ]);
-            addDailyOps(challengesDailyEra6.options, 88, dailyOpsBurrows, dailyOpsMutants, [ dailyOpsPiercingGaze, dailyOpsResilient ]);
-            addDailyOps(challengesDailyEra6.options, 89, dailyOpsValley, dailyOpsRobots, [ dailyOpsPiercingGaze, dailyOpsFreezing ]);
-            addDailyOps(challengesDailyEra6.options, 90, dailyOpsBurning, dailyOpsMutants, [ dailyOpsPiercingGaze, dailyOpsCloaked ]);
-            addDailyOps(challengesDailyEra6.options, 91, dailyOpsBurrows, dailyOpsRobots, [ dailyOpsPiercingGaze, dailyOpsVolatile ]);
+            addDailyOps(challengesDailyEra6.options, 0, dailyOpsV94, dailyOpsRobots, [ dailyOpsPiercingGaze, dailyOpsVolatile ], dailyOpsUplink);
+            addDailyOps(challengesDailyEra6.options, 1, dailyOpsValley, dailyOpsMutants, [ dailyOpsPiercingGaze, dailyOpsCloaked ], dailyOpsUplink);
+            addDailyOps(challengesDailyEra6.options, 2, dailyOpsV94, dailyOpsEagles, [ dailyOpsPiercingGaze, dailyOpsFreezing ], dailyOpsUplink);
+            addDailyOps(challengesDailyEra6.options, 3, dailyOpsValley, dailyOpsMutants, [ dailyOpsPiercingGaze, dailyOpsResilient ], dailyOpsUplink);
+            addDailyOps(challengesDailyEra6.options, 4, dailyOpsV94, dailyOpsRobots, [ dailyOpsPiercingGaze, dailyOpsVolatile ], dailyOpsUplink);
+            addDailyOps(challengesDailyEra6.options, 5, dailyOpsBurrows, dailyOpsMutants, [ dailyOpsPiercingGaze, dailyOpsCloaked ], dailyOpsUplink);
+            addDailyOps(challengesDailyEra6.options, 6, dailyOpsValley, dailyOpsRobots, [ dailyOpsPiercingGaze, dailyOpsFreezing ], dailyOpsUplink);
+            addDailyOps(challengesDailyEra6.options, 7, dailyOpsBurrows, dailyOpsMutants, [ dailyOpsPiercingGaze, dailyOpsResilient ], dailyOpsUplink);
+            addDailyOps(challengesDailyEra6.options, 8, dailyOpsValley, dailyOpsEagles, [ dailyOpsPiercingGaze, dailyOpsFreezing ], dailyOpsUplink);
+            addDailyOps(challengesDailyEra6.options, 9, dailyOpsV94, dailyOpsRobots, [ dailyOpsPiercingGaze, dailyOpsResilient ], dailyOpsUplink);
+            addDailyOps(challengesDailyEra6.options, 10, dailyOpsBurning, dailyOpsMutants, [ dailyOpsPiercingGaze, dailyOpsFreezing ], dailyOpsUplink);
+            addDailyOps(challengesDailyEra6.options, 11, dailyOpsV94, dailyOpsEagles, [ dailyOpsPiercingGaze, dailyOpsVolatile ], dailyOpsUplink);
+            addDailyOps(challengesDailyEra6.options, 12, dailyOpsBurning, dailyOpsEagles, [ dailyOpsPiercingGaze, dailyOpsResilient ], dailyOpsUplink);
+            addDailyOps(challengesDailyEra6.options, 13, dailyOpsV94, dailyOpsEagles, [ dailyOpsPiercingGaze, dailyOpsVolatile ], dailyOpsUplink);
+            addDailyOps(challengesDailyEra6.options, 14, dailyOpsValley, dailyOpsRobots, [ dailyOpsPiercingGaze, dailyOpsResilient ], dailyOpsUplink);
+            addDailyOps(challengesDailyEra6.options, 15, dailyOpsV94, dailyOpsEagles, [ dailyOpsPiercingGaze, dailyOpsFreezing ], dailyOpsUplink);
+            addDailyOps(challengesDailyEra6.options, 16, dailyOpsBurning, dailyOpsRobots, [ dailyOpsPiercingGaze, dailyOpsCloaked ], dailyOpsUplink);
+            addDailyOps(challengesDailyEra6.options, 17, dailyOpsValley, dailyOpsMutants, [ dailyOpsPiercingGaze, dailyOpsFreezing ], dailyOpsUplink);
+            addDailyOps(challengesDailyEra6.options, 18, dailyOpsValley, dailyOpsRobots, [ dailyOpsPiercingGaze, dailyOpsCloaked ], dailyOpsUplink);
+            addDailyOps(challengesDailyEra6.options, 19, dailyOpsValley, dailyOpsEagles, [ dailyOpsPiercingGaze, dailyOpsFreezing ], dailyOpsUplink);
+            addDailyOps(challengesDailyEra6.options, 20, dailyOpsV94, dailyOpsRobots, [ dailyOpsPiercingGaze, dailyOpsResilient ], dailyOpsUplink);
+            addDailyOps(challengesDailyEra6.options, 21, dailyOpsBurning, dailyOpsEagles, [ dailyOpsPiercingGaze, dailyOpsFreezing ], dailyOpsUplink);
+            addDailyOps(challengesDailyEra6.options, 22, dailyOpsBurrows, dailyOpsMutants, [ dailyOpsPiercingGaze, dailyOpsCloaked ], dailyOpsUplink);
+            addDailyOps(challengesDailyEra6.options, 23, dailyOpsV94, dailyOpsRobots, [ dailyOpsPiercingGaze, dailyOpsResilient ], dailyOpsUplink);
+            addDailyOps(challengesDailyEra6.options, 24, dailyOpsBurrows, dailyOpsEagles, [ dailyOpsPiercingGaze, dailyOpsResilient ], dailyOpsUplink);
+            addDailyOps(challengesDailyEra6.options, 25, dailyOpsValley, dailyOpsRobots, [ dailyOpsPiercingGaze, dailyOpsResilient ], dailyOpsUplink);
+            addDailyOps(challengesDailyEra6.options, 26, dailyOpsBurrows, dailyOpsMutants, [ dailyOpsPiercingGaze, dailyOpsFreezing ], dailyOpsUplink);
+            addDailyOps(challengesDailyEra6.options, 27, dailyOpsValley, dailyOpsRobots, [ dailyOpsPiercingGaze, dailyOpsCloaked ], dailyOpsUplink);
+            addDailyOps(challengesDailyEra6.options, 28, dailyOpsBurrows, dailyOpsEagles, [ dailyOpsPiercingGaze, dailyOpsVolatile ], dailyOpsUplink);
+            addDailyOps(challengesDailyEra6.options, 29, dailyOpsV94, dailyOpsMutants, [ dailyOpsPiercingGaze, dailyOpsFreezing ], dailyOpsUplink);
+            addDailyOps(challengesDailyEra6.options, 30, dailyOpsValley, dailyOpsRobots, [ dailyOpsPiercingGaze, dailyOpsVolatile ], dailyOpsUplink);
+            addDailyOps(challengesDailyEra6.options, 31, dailyOpsBurrows, dailyOpsEagles, [ dailyOpsPiercingGaze, dailyOpsResilient ], dailyOpsUplink);
+            addDailyOps(challengesDailyEra6.options, 32, dailyOpsBurning, dailyOpsRobots, [ dailyOpsPiercingGaze, dailyOpsVolatile ], dailyOpsUplink);
+            addDailyOps(challengesDailyEra6.options, 33, dailyOpsV94, dailyOpsMutants, [ dailyOpsPiercingGaze, dailyOpsResilient ], dailyOpsUplink);
+            addDailyOps(challengesDailyEra6.options, 34, dailyOpsBurning, dailyOpsRobots, [ dailyOpsPiercingGaze, dailyOpsVolatile ], dailyOpsUplink);
+            addDailyOps(challengesDailyEra6.options, 35, dailyOpsV94, dailyOpsMutants, [ dailyOpsPiercingGaze, dailyOpsFreezing ], dailyOpsUplink);
+            addDailyOps(challengesDailyEra6.options, 36, dailyOpsBurning, dailyOpsEagles, [ dailyOpsPiercingGaze, dailyOpsResilient ], dailyOpsUplink);
+            addDailyOps(challengesDailyEra6.options, 37, dailyOpsBurrows, dailyOpsMutants, [ dailyOpsPiercingGaze, dailyOpsVolatile ], dailyOpsUplink);
+            addDailyOps(challengesDailyEra6.options, 38, dailyOpsV94, dailyOpsEagles, [ dailyOpsPiercingGaze, dailyOpsCloaked ], dailyOpsUplink);
+            addDailyOps(challengesDailyEra6.options, 39, dailyOpsBurning, dailyOpsRobots, [ dailyOpsPiercingGaze, dailyOpsFreezing ], dailyOpsUplink);
+            addDailyOps(challengesDailyEra6.options, 40, dailyOpsBurrows, dailyOpsMutants, [ dailyOpsPiercingGaze, dailyOpsCloaked ], dailyOpsUplink);
+            addDailyOps(challengesDailyEra6.options, 41, dailyOpsBurning, dailyOpsMutants, [ dailyOpsPiercingGaze, dailyOpsFreezing ], dailyOpsUplink);
+            addDailyOps(challengesDailyEra6.options, 42, dailyOpsBurrows, dailyOpsMutants, [ dailyOpsPiercingGaze, dailyOpsFreezing ], dailyOpsUplink);
+            addDailyOps(challengesDailyEra6.options, 43, dailyOpsV94, dailyOpsEagles, [ dailyOpsPiercingGaze, dailyOpsVolatile ], dailyOpsUplink);
+            addDailyOps(challengesDailyEra6.options, 44, dailyOpsValley, dailyOpsMutants, [ dailyOpsPiercingGaze, dailyOpsFreezing ], dailyOpsUplink);
+            addDailyOps(challengesDailyEra6.options, 45, dailyOpsBurrows, dailyOpsRobots, [ dailyOpsPiercingGaze, dailyOpsCloaked ], dailyOpsUplink);
+            addDailyOps(challengesDailyEra6.options, 46, dailyOpsV94, dailyOpsEagles, [ dailyOpsPiercingGaze, dailyOpsVolatile ], dailyOpsUplink);
+            addDailyOps(challengesDailyEra6.options, 47, dailyOpsValley, dailyOpsMutants, [ dailyOpsPiercingGaze, dailyOpsCloaked ], dailyOpsUplink);
+            addDailyOps(challengesDailyEra6.options, 48, dailyOpsBurning, dailyOpsEagles, [ dailyOpsPiercingGaze, dailyOpsVolatile ], dailyOpsUplink);
+            addDailyOps(challengesDailyEra6.options, 49, dailyOpsValley, dailyOpsRobots, [ dailyOpsPiercingGaze, dailyOpsFreezing ], dailyOpsUplink);
+            addDailyOps(challengesDailyEra6.options, 50, dailyOpsV94, dailyOpsRobots, [ dailyOpsPiercingGaze, dailyOpsResilient ], dailyOpsUplink);
+            addDailyOps(challengesDailyEra6.options, 51, dailyOpsValley, dailyOpsMutants, [ dailyOpsPiercingGaze, dailyOpsVolatile ], dailyOpsUplink);
+            addDailyOps(challengesDailyEra6.options, 52, dailyOpsV94, dailyOpsEagles, [ dailyOpsPiercingGaze, dailyOpsFreezing ], dailyOpsUplink);
+            addDailyOps(challengesDailyEra6.options, 53, dailyOpsV94, dailyOpsMutants, [ dailyOpsPiercingGaze, dailyOpsResilient ], dailyOpsUplink);
+            addDailyOps(challengesDailyEra6.options, 54, dailyOpsBurning, dailyOpsRobots, [ dailyOpsPiercingGaze, dailyOpsCloaked ], dailyOpsUplink);
+            addDailyOps(challengesDailyEra6.options, 55, dailyOpsV94, dailyOpsMutants, [ dailyOpsPiercingGaze, dailyOpsResilient ], dailyOpsUplink);
+            addDailyOps(challengesDailyEra6.options, 56, dailyOpsValley, dailyOpsEagles, [ dailyOpsPiercingGaze, dailyOpsFreezing ], dailyOpsUplink);
+            addDailyOps(challengesDailyEra6.options, 57, dailyOpsV94, dailyOpsRobots, [ dailyOpsPiercingGaze, dailyOpsResilient ], dailyOpsUplink);
+            addDailyOps(challengesDailyEra6.options, 58, dailyOpsBurrows, dailyOpsMutants, [ dailyOpsPiercingGaze, dailyOpsFreezing ], dailyOpsUplink);
+            addDailyOps(challengesDailyEra6.options, 59, dailyOpsBurning, dailyOpsEagles, [ dailyOpsPiercingGaze, dailyOpsFreezing ], dailyOpsUplink);
+            addDailyOps(challengesDailyEra6.options, 60, dailyOpsBurrows, dailyOpsRobots, [ dailyOpsPiercingGaze, dailyOpsCloaked ], dailyOpsUplink);
+            addDailyOps(challengesDailyEra6.options, 61, dailyOpsBurning, dailyOpsEagles, [ dailyOpsPiercingGaze, dailyOpsFreezing ], dailyOpsUplink);
+            addDailyOps(challengesDailyEra6.options, 62, dailyOpsBurning, dailyOpsMutants, [ dailyOpsPiercingGaze, dailyOpsResilient ], dailyOpsUplink);
+            addDailyOps(challengesDailyEra6.options, 63, dailyOpsValley, dailyOpsRobots, [ dailyOpsPiercingGaze, dailyOpsFreezing ], dailyOpsUplink);
+            addDailyOps(challengesDailyEra6.options, 64, dailyOpsBurning, dailyOpsEagles, [ dailyOpsPiercingGaze, dailyOpsVolatile ], dailyOpsUplink);
+            addDailyOps(challengesDailyEra6.options, 65, dailyOpsValley, dailyOpsMutants, [ dailyOpsPiercingGaze, dailyOpsCloaked ], dailyOpsUplink);
+            addDailyOps(challengesDailyEra6.options, 66, dailyOpsBurrows, dailyOpsEagles, [ dailyOpsPiercingGaze, dailyOpsVolatile ], dailyOpsUplink);
+            addDailyOps(challengesDailyEra6.options, 67, dailyOpsValley, dailyOpsMutants, [ dailyOpsPiercingGaze, dailyOpsCloaked ], dailyOpsUplink);
+            addDailyOps(challengesDailyEra6.options, 68, dailyOpsBurrows, dailyOpsRobots, [ dailyOpsPiercingGaze, dailyOpsCloaked ], dailyOpsUplink);
+            addDailyOps(challengesDailyEra6.options, 69, dailyOpsBurning, dailyOpsEagles, [ dailyOpsPiercingGaze, dailyOpsResilient ], dailyOpsUplink);
+            addDailyOps(challengesDailyEra6.options, 70, dailyOpsV94, dailyOpsMutants, [ dailyOpsPiercingGaze, dailyOpsCloaked ], dailyOpsUplink);
+            addDailyOps(challengesDailyEra6.options, 71, dailyOpsBurning, dailyOpsRobots, [ dailyOpsPiercingGaze, dailyOpsResilient ], dailyOpsUplink);
+            addDailyOps(challengesDailyEra6.options, 72, dailyOpsBurrows, dailyOpsEagles, [ dailyOpsPiercingGaze, dailyOpsVolatile ], dailyOpsUplink);
+            addDailyOps(challengesDailyEra6.options, 73, dailyOpsV94, dailyOpsRobots, [ dailyOpsPiercingGaze, dailyOpsResilient ], dailyOpsUplink);
+            addDailyOps(challengesDailyEra6.options, 74, dailyOpsBurning, dailyOpsRobots, [ dailyOpsPiercingGaze, dailyOpsVolatile ], dailyOpsUplink);
+            addDailyOps(challengesDailyEra6.options, 75, dailyOpsBurrows, dailyOpsMutants, [ dailyOpsPiercingGaze, dailyOpsCloaked ], dailyOpsUplink);
+            addDailyOps(challengesDailyEra6.options, 76, dailyOpsV94, dailyOpsEagles, [ dailyOpsPiercingGaze, dailyOpsFreezing ], dailyOpsUplink);
+            addDailyOps(challengesDailyEra6.options, 77, dailyOpsBurrows, dailyOpsMutants, [ dailyOpsPiercingGaze, dailyOpsCloaked ], dailyOpsUplink);
+            addDailyOps(challengesDailyEra6.options, 78, dailyOpsValley, dailyOpsEagles, [ dailyOpsPiercingGaze, dailyOpsVolatile ], dailyOpsUplink);
+            addDailyOps(challengesDailyEra6.options, 79, dailyOpsBurrows, dailyOpsMutants, [ dailyOpsPiercingGaze, dailyOpsFreezing ], dailyOpsUplink);
+            addDailyOps(challengesDailyEra6.options, 80, dailyOpsBurning, dailyOpsRobots, [ dailyOpsPiercingGaze, dailyOpsCloaked ], dailyOpsUplink);
+            addDailyOps(challengesDailyEra6.options, 81, dailyOpsV94, dailyOpsEagles, [ dailyOpsPiercingGaze, dailyOpsVolatile ], dailyOpsUplink);
+            addDailyOps(challengesDailyEra6.options, 82, dailyOpsValley, dailyOpsMutants, [ dailyOpsPiercingGaze, dailyOpsFreezing ], dailyOpsUplink);
+            addDailyOps(challengesDailyEra6.options, 83, dailyOpsV94, dailyOpsEagles, [ dailyOpsPiercingGaze, dailyOpsVolatile ], dailyOpsUplink);
+            addDailyOps(challengesDailyEra6.options, 84, dailyOpsBurning, dailyOpsRobots, [ dailyOpsPiercingGaze, dailyOpsResilient ], dailyOpsUplink);
+            addDailyOps(challengesDailyEra6.options, 85, dailyOpsBurrows, dailyOpsMutants, [ dailyOpsPiercingGaze, dailyOpsVolatile ], dailyOpsUplink);
+            addDailyOps(challengesDailyEra6.options, 86, dailyOpsValley, dailyOpsEagles, [ dailyOpsPiercingGaze, dailyOpsCloaked ], dailyOpsUplink);
+            addDailyOps(challengesDailyEra6.options, 87, dailyOpsBurning, dailyOpsRobots, [ dailyOpsPiercingGaze, dailyOpsFreezing ], dailyOpsUplink);
+            addDailyOps(challengesDailyEra6.options, 88, dailyOpsBurrows, dailyOpsMutants, [ dailyOpsPiercingGaze, dailyOpsResilient ], dailyOpsUplink);
+            addDailyOps(challengesDailyEra6.options, 89, dailyOpsValley, dailyOpsRobots, [ dailyOpsPiercingGaze, dailyOpsFreezing ], dailyOpsUplink);
+            addDailyOps(challengesDailyEra6.options, 90, dailyOpsBurning, dailyOpsMutants, [ dailyOpsPiercingGaze, dailyOpsCloaked ], dailyOpsUplink);
+            addDailyOps(challengesDailyEra6.options, 91, dailyOpsBurrows, dailyOpsRobots, [ dailyOpsPiercingGaze, dailyOpsVolatile ], dailyOpsUplink);
 
             function addDaily(era, day, scores, dailyOps) {
                 for (var i = 0; i < scores.length; i += 2) {
                     era.options.push(scores[i](day, scores[i + 1]));
                 }
-                addDailyOps(era.options, day, dailyOps[0], dailyOps[1], dailyOps[2]);
+                addDailyOps(era.options, day, dailyOps[0], dailyOps[1], dailyOps[2], dailyOps[3]);
             }
 
             addDaily(challengesDailyEra6, 92,
@@ -4104,7 +4155,7 @@
                     scoreVisitAnotherShelter, 1,
                     scoreNWSurviveMinutes, 5
                ],
-               [ dailyOpsV94, dailyOpsEagles, [ dailyOpsPiercingGaze, dailyOpsResilient ]]
+               [ dailyOpsV94, dailyOpsEagles, [ dailyOpsPiercingGaze, dailyOpsResilient ], dailyOpsUplink]
             );
 
             addDaily(challengesDailyEra6, 93,
@@ -4118,7 +4169,7 @@
                     scoreVisitAnotherShelter, 1,
                     scoreNWKillPlayer, 1
                ],
-               [ dailyOpsBurrows, dailyOpsMutants, [ dailyOpsPiercingGaze, dailyOpsCloaked ]]
+               [ dailyOpsBurrows, dailyOpsMutants, [ dailyOpsPiercingGaze, dailyOpsCloaked ], dailyOpsUplink]
             );
             addDaily(challengesDailyEra6, 94,
                [
@@ -4131,7 +4182,7 @@
                     scoreVisitAnotherShelter, 1,
                     scoreNWUseStimpak, 3
                ],
-               [ dailyOpsV94, dailyOpsEagles, [ dailyOpsPiercingGaze, dailyOpsVolatile ]]
+               [ dailyOpsV94, dailyOpsEagles, [ dailyOpsPiercingGaze, dailyOpsVolatile ], dailyOpsUplink]
             );
             addDaily(challengesDailyEra6, 95, [
                     scoreCompleteDailyChallenge, 5,
@@ -4142,7 +4193,7 @@
                     scoreRepairArmorWeaponPA, 3,
                     scoreVisitAnotherShelter, 1,
                     scoreNWKillPlayer, 1
-               ], [ dailyOpsBurning, dailyOpsRobots, [ dailyOpsPiercingGaze, dailyOpsResilient ]]);
+               ], [ dailyOpsBurning, dailyOpsRobots, [ dailyOpsPiercingGaze, dailyOpsResilient ], dailyOpsUplink]);
             addDaily(challengesDailyEra6, 96, [
                     scoreCompleteDailyChallenge, 5,
                     scoreLevelUp, 1,
@@ -4152,7 +4203,7 @@
                     scoreBuySellItem, 3,
                     scoreVisitAnotherShelter, 1,
                     scoreNWPickLock, 1
-               ], [ dailyOpsValley, dailyOpsRobots, [ dailyOpsPiercingGaze, dailyOpsCloaked ]]);
+               ], [ dailyOpsValley, dailyOpsRobots, [ dailyOpsPiercingGaze, dailyOpsCloaked ], dailyOpsUplink]);
             addDaily(challengesDailyEra6, 97, [
                     scoreCompleteDailyChallenge, 5,
                     scoreLevelUp, 1,
@@ -4162,7 +4213,7 @@
                     scoreRepairArmorWeaponPA, 3,
                     scoreVisitAnotherShelter, 1,
                     scoreNWKillPlayer, 1
-               ], [ dailyOpsBurrows, dailyOpsEagles, [ dailyOpsPiercingGaze, dailyOpsVolatile ]]);
+               ], [ dailyOpsBurrows, dailyOpsEagles, [ dailyOpsPiercingGaze, dailyOpsVolatile ], dailyOpsUplink]);
             addDaily(challengesDailyEra6, 98, [
                     scoreCompleteDailyChallenge, 5,
                     scoreLevelUp, 1,
@@ -4172,7 +4223,7 @@
                     scoreKillMoleminer, 5,
                     scoreVisitOwnShelter, 1,
                     scoreNWTakePhoto, 1
-               ], [ dailyOpsValley, dailyOpsMutants, [ dailyOpsPiercingGaze, dailyOpsFreezing ]]);
+               ], [ dailyOpsValley, dailyOpsMutants, [ dailyOpsPiercingGaze, dailyOpsFreezing ], dailyOpsUplink]);
             addDaily(challengesDailyEra6, 99, [
                     scoreCompleteDailyChallenge, 5,
                     scoreLevelUp, 1,
@@ -4182,7 +4233,7 @@
                     scoreDestroyRobot, 5,
                     scoreVisitOwnShelter, 1,
                     scoreNWKillPlayer, 1
-               ], [ dailyOpsV94, dailyOpsRobots, [ dailyOpsPiercingGaze, dailyOpsVolatile ]]);
+               ], [ dailyOpsV94, dailyOpsRobots, [ dailyOpsPiercingGaze, dailyOpsVolatile ], dailyOpsUplink]);
             addDaily(challengesDailyEra6, 100, [
                     scoreCompleteDailyChallenge, 5,
                     scoreLevelUp, 1,
@@ -4192,7 +4243,7 @@
                     scoreKillDeathclaw, 1,
                     scoreVisitOwnShelter, 1,
                     scoreNWUseStimpak, 1
-               ], [ dailyOpsBurning, dailyOpsMutants, [ dailyOpsPiercingGaze, dailyOpsFreezing ]]);
+               ], [ dailyOpsBurning, dailyOpsMutants, [ dailyOpsPiercingGaze, dailyOpsFreezing ], dailyOpsUplink]);
             addDaily(challengesDailyEra6, 101, [
                     scoreCompleteDailyChallenge, 5,
                     scoreLevelUp, 1,
@@ -4202,7 +4253,7 @@
                     scoreKillScorched, 5,
                     scoreVisitOwnShelter, 1,
                     scoreNWKillPlayer, 1
-               ], [ dailyOpsBurrows, dailyOpsMutants, [ dailyOpsPiercingGaze, dailyOpsCloaked ]]);
+               ], [ dailyOpsBurrows, dailyOpsMutants, [ dailyOpsPiercingGaze, dailyOpsCloaked ], dailyOpsUplink]);
             addDaily(challengesDailyEra6, 102, [
                     scoreCompleteDailyChallenge, 5,
                     scoreLevelUp, 1,
@@ -4212,7 +4263,7 @@
                     scoreKillSupermutant, 5,
                     scoreVisitOwnShelter, 1,
                     scoreNWDeployCamp, 3
-               ], [ dailyOpsBurning, dailyOpsMutants, [ dailyOpsPiercingGaze, dailyOpsResilient ]]);
+               ], [ dailyOpsBurning, dailyOpsMutants, [ dailyOpsPiercingGaze, dailyOpsResilient ], dailyOpsUplink]);
             addDaily(challengesDailyEra6, 103, [
                     scoreCompleteDailyChallenge, 5,
                     scoreLevelUp, 1,
@@ -4222,7 +4273,7 @@
                     scoreKillCryptid1, 1,
                     scoreVisitOwnShelter, 1,
                     scoreNWKillPlayer, 3
-               ], [ dailyOpsV94, dailyOpsEagles, [ dailyOpsPiercingGaze, dailyOpsVolatile ]]);
+               ], [ dailyOpsV94, dailyOpsEagles, [ dailyOpsPiercingGaze, dailyOpsVolatile ], dailyOpsUplink]);
             addDaily(challengesDailyEra6, 104, [
                     scoreCompleteDailyChallenge, 5,
                     scoreLevelUp, 1,
@@ -4232,7 +4283,7 @@
                     scoreKillGlowing, 1,
                     scoreVisitOwnShelter, 1,
                     scoreNWSurviveMinutes, 10
-               ], [ dailyOpsBurrows, dailyOpsMutants, [ dailyOpsPiercingGaze, dailyOpsResilient ]]);
+               ], [ dailyOpsBurrows, dailyOpsMutants, [ dailyOpsPiercingGaze, dailyOpsResilient ], dailyOpsUplink]);
             addDaily(challengesDailyEra6, 105, [
                     scoreCompleteDailyChallenge, 5,
                     scoreLevelUp, 1,
@@ -4242,7 +4293,7 @@
                     scoreKillCreature25, 25,
                     scoreVisitOwnShelter, 1,
                     scoreNWSurviveMinutes, 5
-               ], [ dailyOpsBurrows, dailyOpsRobots, [ dailyOpsPiercingGaze, dailyOpsFreezing ]]);
+               ], [ dailyOpsBurrows, dailyOpsRobots, [ dailyOpsPiercingGaze, dailyOpsFreezing ], dailyOpsUplink]);
             addDaily(challengesDailyEra6, 106, [
                     scoreCompleteDailyChallenge, 5,
                     scoreLevelUp, 1,
@@ -4252,7 +4303,7 @@
                     scoreKillCreature25, 25,
                     scoreVisitAnotherShelter, 1,
                     scoreNWSurviveMinutes, 5
-               ], [ dailyOpsBurning, dailyOpsMutants, [ dailyOpsPiercingGaze, dailyOpsCloaked ]]);
+               ], [ dailyOpsBurning, dailyOpsMutants, [ dailyOpsPiercingGaze, dailyOpsCloaked ], dailyOpsUplink]);
             addDaily(challengesDailyEra6, 107, [
                     scoreCompleteDailyChallenge, 5,
                     scoreChewBubblegum, 1,
@@ -4262,7 +4313,7 @@
                     scoreEatPrewarFood, 5,
                     scoreKillScorched, 15,
                     scoreUsePhotomode, 1
-               ], [ dailyOpsV94, dailyOpsEagles, [ dailyOpsPiercingGaze, dailyOpsVolatile ]]);
+               ], [ dailyOpsV94, dailyOpsEagles, [ dailyOpsPiercingGaze, dailyOpsVolatile ], dailyOpsUplink]);
             addDaily(challengesDailyEra6, 108, [
                     scoreCompleteDailyChallenge, 5,
                     scoreChewBubblegum, 1,
@@ -4272,7 +4323,7 @@
                     scoreEatPrewarFood, 5,
                     scoreKillScorched, 15,
                     scoreUsePhotomodeGroup, 1
-               ], [ dailyOpsValley, dailyOpsMutants, [ dailyOpsPiercingGaze, dailyOpsCloaked ]]);
+               ], [ dailyOpsValley, dailyOpsMutants, [ dailyOpsPiercingGaze, dailyOpsCloaked ], dailyOpsUplink]);
             addDaily(challengesDailyEra6, 109, [
                     scoreCompleteDailyChallenge, 5,
                     scoreChewBubblegum, 1,
@@ -4282,7 +4333,7 @@
                     scoreEatPrewarFood, 5,
                     scoreKillScorched, 25,
                     scoreUsePhotomodeTeammate, 1
-               ], [ dailyOpsBurning, dailyOpsRobots, [ dailyOpsPiercingGaze, dailyOpsFreezing ]]);
+               ], [ dailyOpsBurning, dailyOpsRobots, [ dailyOpsPiercingGaze, dailyOpsFreezing ], dailyOpsUplink]);
             addDaily(challengesDailyEra6, 110, [
                     scoreCompleteDailyChallenge, 5,
                     scoreChewBubblegum, 1,
@@ -4292,7 +4343,7 @@
                     scoreEatPrewarFood, 5,
                     scoreKillScorched, 25,
                     scoreUsePhotomode, 1
-               ], [ dailyOpsValley, dailyOpsEagles, [ dailyOpsPiercingGaze, dailyOpsVolatile ]]);
+               ], [ dailyOpsValley, dailyOpsEagles, [ dailyOpsPiercingGaze, dailyOpsVolatile ], dailyOpsUplink]);
             addDaily(challengesDailyEra6, 111, [
                     scoreCompleteDailyChallenge, 5,
                     scoreLevelUp, 1,
@@ -4302,7 +4353,7 @@
                     scoreCompleteOneEvent, 1,
                     scoreKillCreature25, 25,
                     scoreNWSurviveMinutes, 5,
-               ], [ dailyOpsValley, dailyOpsMutants, [ dailyOpsPiercingGaze, dailyOpsVolatile ]]);
+               ], [ dailyOpsValley, dailyOpsMutants, [ dailyOpsPiercingGaze, dailyOpsVolatile ], dailyOpsUplink]);
             addDaily(challengesDailyEra6, 112, [
                     scoreCompleteDailyChallenge, 5,
                     scoreLevelUp, 1,
@@ -4312,7 +4363,7 @@
                     scoreVisitAnotherShelter, 1,
                     scoreKillLegendary, 1,
                     scoreNWKillCreature, 2
-               ], [ dailyOpsBurrows, dailyOpsRobots, [ dailyOpsPiercingGaze, dailyOpsCloaked ]]);
+               ], [ dailyOpsBurrows, dailyOpsRobots, [ dailyOpsPiercingGaze, dailyOpsCloaked ], dailyOpsUplink]);
             addDaily(challengesDailyEra6, 113, [
                     scoreCompleteDailyChallenge, 5,
                     scoreLevelUp, 1,
@@ -4322,7 +4373,7 @@
                     scoreKillGhoul15, 15,
                     scoreKillLegendary, 1,
                     scoreNWDeployCamp, 3
-               ], [ dailyOpsValley, dailyOpsEagles, [ dailyOpsPiercingGaze, dailyOpsFreezing ]]);
+               ], [ dailyOpsValley, dailyOpsEagles, [ dailyOpsPiercingGaze, dailyOpsFreezing ], dailyOpsUplink]);
             addDaily(challengesDailyEra6, 114, [
                     scoreCompleteDailyChallenge, 5,
                     scoreLevelUp, 1,
@@ -4332,7 +4383,7 @@
                     scoreKillLegendary, 1,
                     scoreVisitAnotherShelter, 1,
                     scoreNWTakePhoto, 1
-               ], [ dailyOpsBurning, dailyOpsMutants, [ dailyOpsPiercingGaze, dailyOpsResilient ]]);
+               ], [ dailyOpsBurning, dailyOpsMutants, [ dailyOpsPiercingGaze, dailyOpsResilient ], dailyOpsUplink]);
             addDaily(challengesDailyEra6, 115, [
                     scoreCompleteDailyChallenge, 5,
                     scoreLevelUp, 1,
@@ -4342,7 +4393,7 @@
                     scoreKillLegendary, 1,
                     scoreKillSupermutant, 15,
                     scoreNWUseStimpak, 3
-               ], [ dailyOpsValley, dailyOpsRobots, [ dailyOpsPiercingGaze, dailyOpsCloaked ]]);
+               ], [ dailyOpsValley, dailyOpsRobots, [ dailyOpsPiercingGaze, dailyOpsCloaked ], dailyOpsUplink]);
             addDaily(challengesDailyEra6, 116, [
                     scoreCompleteDailyChallenge, 5,
                     scoreLevelUp, 1,
@@ -4352,7 +4403,7 @@
                     scoreKillMoleminer, 15,
                     scoreVisitAnotherShelter, 1,
                     scoreNWSurviveMinutes, 5
-               ], [ dailyOpsV94, dailyOpsMutants, [ dailyOpsPiercingGaze, dailyOpsResilient ]]);
+               ], [ dailyOpsV94, dailyOpsMutants, [ dailyOpsPiercingGaze, dailyOpsResilient ], dailyOpsUplink]);
             addDaily(challengesDailyEra6, 117, [
                     scoreCompleteDailyChallenge, 5,
                     scoreLevelUp, 1,
@@ -4362,7 +4413,7 @@
                     scoreKillScorched, 15,
                     scoreVisitOwnShelter, 1,
                     scoreNWKillPlayer, 1
-               ], [ dailyOpsValley, dailyOpsMutants, [ dailyOpsPiercingGaze, dailyOpsResilient ]]);
+               ], [ dailyOpsValley, dailyOpsMutants, [ dailyOpsPiercingGaze, dailyOpsResilient ], dailyOpsUplink]);
             addDaily(challengesDailyEra6, 118, [
                     scoreCompleteDailyChallenge, 5,
                     scoreLevelUp, 1,
@@ -4372,7 +4423,7 @@
                     scoreKillCryptid3, 3,
                     scoreVisitAnotherShelter, 1,
                     scoreNWKillCreature, 1
-               ], [ dailyOpsV94, dailyOpsEagles, [ dailyOpsPiercingGaze, dailyOpsVolatile ]]);
+               ], [ dailyOpsV94, dailyOpsEagles, [ dailyOpsPiercingGaze, dailyOpsVolatile ], dailyOpsUplink]);
             addDaily(challengesDailyEra6, 119, [
                     scoreCompleteDailyChallenge, 5,
                     scoreLevelUp, 1,
@@ -4382,7 +4433,7 @@
                     scoreKillSupermutant, 15,
                     scoreModArmor, 5,
                     scoreNWPickLock, 1
-               ], [ dailyOpsBurning, dailyOpsRobots, [ dailyOpsPiercingGaze, dailyOpsResilient ]]);
+               ], [ dailyOpsBurning, dailyOpsRobots, [ dailyOpsPiercingGaze, dailyOpsResilient ], dailyOpsUplink]);
             addDaily(challengesDailyEra6, 120, [
                     scoreCompleteDailyChallenge, 5,
                     scoreLevelUp, 1,
@@ -4392,7 +4443,7 @@
                     scoreUsePhotomodeGroup, 1,
                     scoreVisitAnotherShelter, 1,
                     scoreNWUseStimpak, 2
-               ], [ dailyOpsBurning, dailyOpsMutants, [ dailyOpsPiercingGaze, dailyOpsCloaked ]]);
+               ], [ dailyOpsBurning, dailyOpsMutants, [ dailyOpsPiercingGaze, dailyOpsCloaked ], dailyOpsUplink]);
             addDaily(challengesDailyEra6, 121, [
                     scoreCompleteDailyChallenge, 5,
                     scoreLevelUp, 1,
@@ -4402,7 +4453,7 @@
                     scoreKillCreatureInGroup, 25,
                     scoreModArmor, 5,
                     scoreNWDeployCamp, 3
-               ], [ dailyOpsValley, dailyOpsEagles, [ dailyOpsPiercingGaze, dailyOpsResilient ]]);
+               ], [ dailyOpsValley, dailyOpsEagles, [ dailyOpsPiercingGaze, dailyOpsResilient ], dailyOpsUplink]);
             addDaily(challengesDailyEra6, 122, [
                     scoreCompleteDailyChallenge, 5,
                     scoreLevelUp, 1,
@@ -4412,7 +4463,7 @@
                     scoreModWeapon, 5,
                     scoreVisitAnotherShelter, 1,
                     scoreNWSurviveMinutes, 5
-               ], [ dailyOpsV94, dailyOpsRobots, [ dailyOpsPiercingGaze, dailyOpsFreezing ]]);
+               ], [ dailyOpsV94, dailyOpsRobots, [ dailyOpsPiercingGaze, dailyOpsFreezing ], dailyOpsUplink]);
             addDaily(challengesDailyEra6, 123, [
                     scoreCompleteDailyChallenge, 5,
                     scoreLevelUp, 1,
@@ -4422,7 +4473,7 @@
                     scoreModArmor, 3,
                     scoreVisitOwnShelter, 1,
                     scoreNWUseStimpak, 2
-               ], [ dailyOpsV94, dailyOpsEagles, [ dailyOpsPiercingGaze, dailyOpsResilient ]]);
+               ], [ dailyOpsV94, dailyOpsEagles, [ dailyOpsPiercingGaze, dailyOpsResilient ], dailyOpsUplink]);
             addDaily(challengesDailyEra6, 124, [
                     scoreCompleteDailyChallenge, 5,
                     scoreLevelUp, 1,
@@ -4432,7 +4483,7 @@
                     scoreModWeapon, 5,
                     scoreVisitAnotherShelter, 1,
                     scoreNWKillCreature, 1
-               ], [ dailyOpsBurning, dailyOpsRobots, [ dailyOpsPiercingGaze, dailyOpsFreezing ]]);
+               ], [ dailyOpsBurning, dailyOpsRobots, [ dailyOpsPiercingGaze, dailyOpsFreezing ], dailyOpsUplink]);
             addDaily(challengesDailyEra6, 125, [
                     scoreCompleteDailyChallenge, 5,
                     scoreLevelUp, 1,
@@ -4442,7 +4493,7 @@
                     scoreKillDeathclaw, 1,
                     scoreModArmor, 3,
                     scoreNWKillPlayer, 1
-               ], [ dailyOpsBurrows, dailyOpsMutants, [ dailyOpsPiercingGaze, dailyOpsVolatile ]]);
+               ], [ dailyOpsBurrows, dailyOpsMutants, [ dailyOpsPiercingGaze, dailyOpsVolatile ], dailyOpsUplink]);
             addDaily(challengesDailyEra6, 126, [
                     scoreCompleteDailyChallenge, 5,
                     scoreLevelUp, 1,
@@ -4452,7 +4503,7 @@
                     scoreCollectCaps, 250,
                     scoreVisitAnotherShelter, 1,
                     scoreNWPickLock, 1
-               ], [ dailyOpsV94, dailyOpsEagles, [ dailyOpsPiercingGaze, dailyOpsCloaked ]]);
+               ], [ dailyOpsV94, dailyOpsEagles, [ dailyOpsPiercingGaze, dailyOpsCloaked ], dailyOpsUplink]);
             addDaily(challengesDailyEra6, 127, [
                     scoreCompleteDailyChallenge, 5,
                     scoreLevelUp, 1,
@@ -4462,7 +4513,7 @@
                     scoreCollectCaps, 250,
                     scoreVisitAnotherShelter, 1,
                     scoreNWUseStimpak, 2
-               ], [ dailyOpsBurrows, dailyOpsMutants, [ dailyOpsPiercingGaze, dailyOpsResilient ]]);
+               ], [ dailyOpsBurrows, dailyOpsMutants, [ dailyOpsPiercingGaze, dailyOpsResilient ], dailyOpsUplink]);
             addDaily(challengesDailyEra6, 128, [
                     scoreCompleteDailyChallenge, 5,
                     scoreLevelUp, 1,
@@ -4472,7 +4523,7 @@
                     scoreCollectCaps, 250,
                     scoreVisitAnotherShelter, 1,
                     scoreNWTakePhoto, 1
-               ], [ dailyOpsValley, dailyOpsEagles, [ dailyOpsPiercingGaze, dailyOpsFreezing ]]);
+               ], [ dailyOpsValley, dailyOpsEagles, [ dailyOpsPiercingGaze, dailyOpsFreezing ], dailyOpsUplink]);
             addDaily(challengesDailyEra6, 129, [
                     scoreCompleteDailyChallenge, 5,
                     scoreLevelUp, 1,
@@ -4482,7 +4533,7 @@
                     scoreCollectCaps, 250,
                     scoreVisitAnotherShelter, 1,
                     scoreNWSurviveMinutes, 5
-               ], [ dailyOpsV94, dailyOpsMutants, [ dailyOpsPiercingGaze, dailyOpsFreezing ]]);
+               ], [ dailyOpsV94, dailyOpsMutants, [ dailyOpsPiercingGaze, dailyOpsFreezing ], dailyOpsUplink]);
             addDaily(challengesDailyEra6, 130, [
                     scoreCompleteDailyChallenge, 5,
                     scoreLevelUp, 1,
@@ -4492,7 +4543,7 @@
                     scoreCollectCaps, 250,
                     scoreVisitAnotherShelter, 1,
                     scoreNWDeployCamp, 2
-               ], [ dailyOpsV94, dailyOpsEagles, [ dailyOpsPiercingGaze, dailyOpsCloaked ]]);
+               ], [ dailyOpsV94, dailyOpsEagles, [ dailyOpsPiercingGaze, dailyOpsCloaked ], dailyOpsUplink]);
             addDaily(challengesDailyEra6, 131, [
                     scoreCompleteDailyChallenge, 5,
                     scoreLevelUp, 1,
@@ -4502,7 +4553,7 @@
                     scoreCollectCaps, 250,
                     scoreVisitAnotherShelter, 1,
                     scoreNWSurviveMinutes, 5
-               ], [ dailyOpsBurning, dailyOpsEagles, [ dailyOpsPiercingGaze, dailyOpsVolatile ]]);
+               ], [ dailyOpsBurning, dailyOpsEagles, [ dailyOpsPiercingGaze, dailyOpsVolatile ], dailyOpsUplink]);
             addDaily(challengesDailyEra6, 132, [
                     scoreCompleteDailyChallenge, 5,
                     scoreLevelUp, 1,
@@ -4512,7 +4563,7 @@
                     scoreCollectCaps, 250,
                     scoreVisitAnotherShelter, 1,
                     scoreNWKillPlayer, 1
-               ], [ dailyOpsValley, dailyOpsRobots, [ dailyOpsPiercingGaze, dailyOpsFreezing ]]);
+               ], [ dailyOpsValley, dailyOpsRobots, [ dailyOpsPiercingGaze, dailyOpsFreezing ], dailyOpsUplink]);
 
             var challenges = [
                 challengesDailyEra1,
