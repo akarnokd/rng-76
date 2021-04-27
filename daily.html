@@ -2718,7 +2718,7 @@
             var dailyOpsBurning = "The Burning Mine";
             var dailyOpsV96 = "Vault 96";
             var dailyOpsWatoga = "Watoga Civic Center";
-            var dailyOpsWestTec = "West Tec Research Center"
+            var dailyOpsWestTec = "West Tek Research Center"
 
             var dailyOpsRobots = "Robots";
             var dailyOpsEagles = "Blood Eagles";
@@ -6143,7 +6143,32 @@
             challenges.push(challengesDailyEra7);
             challengesWeekly.push(challengesWeeklyEra7);
 
+            // ~~~~~~
+            addWeekly(challengesWeeklyEra7.options, 0, scoreFixedGainXP10000);
 
+            addWeekly(challengesWeeklyEra7.options, 0, scoreLevelUp3);
+            addWeekly(challengesWeeklyEra7.options, 0, scoreBuildupCampAny3);
+            addWeekly(challengesWeeklyEra7.options, 0, scoreBuySellItem, 25);
+            addWeekly(challengesWeeklyEra7.options, 0, scoreCompleteDailyOps, 5);
+            addWeekly(challengesWeeklyEra7.options, 0, scoreCompleteGoldStar);
+            addWeekly(challengesWeeklyEra7.options, 0, scoreCompleteEvents10);
+            addWeekly(challengesWeeklyEra7.options, 0, scorekillHugeCreaturesN, 15);
+            addWeekly(challengesWeeklyEra7.options, 0, scoreKillLegendaries10);
+            addWeekly(challengesWeeklyEra7.options, 0, scoreVisitOwnShelter, 1);
+
+            addDaily(challengesDailyEra7, 0, [
+                    scoreCompleteDailyChallenge, 5,
+                    scoreLevelUp, 1,
+                    scoreCompleteOneEvent, 1,
+                    scoreCompleteDailyOps, 1, 
+                    scoreBuildFloorWallCamp, 5,
+                    scoreKillCryptid1, 1,
+                    scoreVisitAnotherShelter, 1,
+                    scoreNWSurviveMinutes, 10
+               ], [ dailyOpsWestTec, dailyOpsEagles, [ dailyOpsPiercingGaze, dailyOpsVolatile ], dailyOpsUplink]);
+
+
+            // ~~~~~~
 
             addPlaceholders(challengesDailyEra7, scoreDailyplaceholder, era7Length);
             addPlaceholders(challengesWeeklyEra7, scoreWeeklyplaceholder, era7Length);
