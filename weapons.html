@@ -17,12 +17,17 @@
             table.infoTable td {
                border: 1px solid black;
             }
+            .halfopaque {
+                opacity: 0.3;
+                font-weight: bold; 
+                font-size: 26px;
+            }
         </style>
         <meta name="keywords" content="Fallout,Fallout 76,Weapons,Damage,Calculation,Comparison,Comparator">
     </head>
     <body style="height: 90%">
         <center>
-            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Weapon Damage Calculator (v3.4.3)</span>
+            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Weapon Damage Calculator (v3.4.4)</span>
             <br/>
             <!-- <i>(Notification here)</i> -->
         <br/>
@@ -9794,22 +9799,13 @@
                     totalArmorIgnore = Math.min(95, 100 * (1 - totalArmorIgnore));
                 }
 
-                cell2.innerHTML = "\u2316&nbsp;" + totalDamage.toFixed(2) 
-                    + "&nbsp;&nbsp;&nbsp;\u21AF&nbsp;" + totalDamageEnergy.toFixed(2) 
-                    + "&nbsp;&nbsp;&nbsp;\u2622&nbsp;" + totalDamageRadiation.toFixed(2)
-                    + "<br>&#x1F525;&nbsp;" + totalDamageFire.toFixed(2)
-                    + "&nbsp;&nbsp;&nbsp;&#x2744;&nbsp;" + totalDamageCold.toFixed(2)
-                    + "&nbsp;&nbsp;&nbsp;&#x1F4A7;&nbsp;" + totalDamagePoison.toFixed(2)
-                    ;
+                cell2.innerHTML = createDamageDisplayHTML(totalDamage, totalDamageEnergy, totalDamageRadiation,
+                        totalDamageFire, totalDamageCold, totalDamagePoison);
+
                 cell4.innerText = totalArmorIgnore.toFixed(2) + " %";
                 cell6.innerText = speed.toFixed(2);
-                cell8.innerHTML = "\u2316&nbsp;" + (totalDamage * speed).toFixed(2) 
-                    + "&nbsp;&nbsp;&nbsp;\u21AF&nbsp;" + (totalDamageEnergy * speed).toFixed(2) 
-                    + "&nbsp;&nbsp;&nbsp;\u2622&nbsp;" + (totalDamageRadiation * speed).toFixed(2)
-                    + "<br>&#x1F525;&nbsp;" + (totalDamageFire * speed).toFixed(2)
-                    + "&nbsp;&nbsp;&nbsp;&#x2744;&nbsp;" + (totalDamageCold * speed).toFixed(2)
-                    + "&nbsp;&nbsp;&nbsp;&#x1F4A7;&nbsp;" + (totalDamagePoison * speed).toFixed(2)
-                    ;
+                cell8.innerHTML = createDamageDisplayHTML(totalDamage * speed, totalDamageEnergy * speed, totalDamageRadiation * speed,
+                        totalDamageFire * speed, totalDamageCold * speed, totalDamagePoison * speed);
                 
                 if (isReload) {
                     var clipSize;
@@ -9866,13 +9862,8 @@
 
                     var speedRL = clipSize / (clipSize / speed + reloadTime);
 
-                    cell12.innerHTML = "\u2316&nbsp;" + (totalDamage * speedRL).toFixed(2) 
-                    + "&nbsp;&nbsp;&nbsp;\u21AF&nbsp;" + (totalDamageEnergy * speedRL).toFixed(2) 
-                    + "&nbsp;&nbsp;&nbsp;\u2622&nbsp;" + (totalDamageRadiation * speedRL).toFixed(2)
-                    + "<br>&#x1F525;&nbsp;" + (totalDamageFire * speedRL).toFixed(2)
-                    + "&nbsp;&nbsp;&nbsp;&#x2744;&nbsp;" + (totalDamageCold * speedRL).toFixed(2)
-                    + "&nbsp;&nbsp;&nbsp;&#x1F4A7;&nbsp;" + (totalDamagePoison * speedRL).toFixed(2)
-                    ;
+                    cell12.innerHTML = createDamageDisplayHTML(totalDamage * speedRL, totalDamageEnergy * speedRL, totalDamageRadiation * speedRL,
+                        totalDamageFire * speedRL, totalDamageCold * speedRL, totalDamagePoison * speedRL);
 
                     speedsWithReload[index] = speedRL;
                 } else {
@@ -9899,6 +9890,42 @@
                 recalculateDiff();
 
                 recalculateLinks();
+            }
+
+            function createDamageDisplayHTML(ballistic, energy, radiation, fire, cold, poison) {
+                var result = "";
+                if (ballistic < 0.01) {
+                    result += "<span class='halfopaque'>\u2316&nbsp;" + ballistic.toFixed(2) + "</span>";
+                } else {
+                    result += "\u2316&nbsp;" + ballistic.toFixed(2);
+                }
+                if (energy < 0.01) {
+                    result += "<span class='halfopaque'>&nbsp;&nbsp;&nbsp;\u21AF&nbsp;" + energy.toFixed(2) + "</span>";
+                } else {
+                    result += "&nbsp;&nbsp;&nbsp;\u21AF&nbsp;" + energy.toFixed(2);
+                }
+                if (radiation < 0.01) {
+                    result += "<span class='halfopaque'>&nbsp;&nbsp;&nbsp;\u2622&nbsp;" + radiation.toFixed(2) + "</span>";
+                } else {
+                    result += "&nbsp;&nbsp;&nbsp;\u2622&nbsp;" + radiation.toFixed(2);
+                }
+
+                if (fire < 0.01) {
+                    result += "<br><span class='halfopaque'>&#x1F525;&nbsp;" + fire.toFixed(2) + "</span>";
+                } else {
+                    result += "<br>&#x1F525;&nbsp;" + fire.toFixed(2);
+                }
+                if (cold < 0.01) {
+                    result += "<span class='halfopaque'>&nbsp;&nbsp;&nbsp;&#x2744;&nbsp;" + cold.toFixed(2) + "</span>";
+                } else {
+                    result += "&nbsp;&nbsp;&nbsp;&#x2744;&nbsp;" + cold.toFixed(2);
+                }
+                if (poison < 0.01) {
+                    result += "<span class='halfopaque'>&nbsp;&nbsp;&nbsp;&#x1F4A7;&nbsp;" + poison.toFixed(2) + "</span>";
+                } else {
+                    result += "&nbsp;&nbsp;&nbsp;&#x1F4A7;&nbsp;" + poison.toFixed(2);
+                }
+                return result;
             }
 
             function scaleWithSelect(value, selectName, scale) {
