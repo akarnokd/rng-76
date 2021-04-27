@@ -43,7 +43,7 @@
     <body>
         <center>
             <span style="font-size: 36px; font-weight: bold;">Fallout 76 Returning Player Here, What's Changed?</span><br/>
-            <span>(v0.9.8)</span>
+            <span>(v0.9.9)</span>
             <br/>
             <br/>
             <table>
@@ -198,7 +198,7 @@
                     <td>
                         <select id='sorting'>
                             <option value='SortByDateAsc'>Oldest First</option>
-                            <option value='SortByDateDesc'>Newest First</option>
+                            <option value='SortByDateDesc' selected>Newest First</option>
                             <option value='SortByNotesAsc'>Smaller notes first</option>
                             <option value='SortByNotesDesc'>Larger notes first</option>
                             </select>
@@ -236,6 +236,566 @@
             }
 
             var releaseNotes = [
+                {
+                    id: "P26",
+                    patch: "26",
+                    descripton: "Season 4, New Features, Balance and Bugfixes",
+                    date: ofDate(2021, 3, 27),
+                    reddit: "https://www.reddit.com/r/fo76/comments/mzmd9u/fallout_76_locked_loaded_update_notes_april_27/",
+                    bethesda: "https://fallout.bethesda.net/en/article/4nMJ3QEIKoK16nZ0A8P7Ec/fallout-76-inventory-update-notes-january-26-2021",
+                    notes: [
+                        {
+                            category: "Season",
+                            name: "Season 4: Armor Ace in Cold Steel",
+                            description: "The new Scoreboard features 100 ranks to achieve as you rank up and the Power Patrol squares off against the Yukon Five, one-by-one.",
+                        },
+                        {
+                            category: "Season,Items",
+                            name: "New Rewards",
+                            description: "As always, we’ve added a host of new rewards that you will unlock as you rank up, including Power Armor paints, Weapon Skins, Outfits,<br>themed cosmetics, C.A.M.P. items, in-game currencies, consumables, Perk Card Packs, and more.",
+                        },
+                        {
+                            category: "Season,Items",
+                            name: "Previous Season's Rewards",
+                            description: "We’ve also added prior Season rewards, the Antique Speed Bag and Perfect Bubblegum, to Mortimer in The Crater and Samuel in Foundation,<br>and you can now purchase them with Gold Bullion.",
+                        },
+                        {
+                            category: "Season,Items,Fallout 1st",
+                            name: "Fallout 1st member rewards",
+                            description: "Additionally, we’ve once again added several bonus rewards that Fallout 1st members can claim at certain rank milestones in addition to the normal rewards those ranks offer.",
+                        },
+                        {
+                            category: "Season,Items,Other",
+                            name: "Mannequins",
+                            description: "his Season introduces Mannequins, which are Display Cases you can use to show off some of your favorite outfits, headwear, underarmor, and backpacks that you’ve collected.<br>You can claim a set of Male and Female Mannequins for your C.A.M.P. by reaching Rank 25 on the Season 4 Scoreboard.<br>Up to 5 Mannequins can be built in each of your C.A.M.P.s and Shelters at once.",
+                        },
+                        {
+                            category: "UI,Balance,Other",
+                            name: "S.P.E.C.I.A.L. Loadouts",
+                            description: "S.P.E.C.I.A.L. Loadouts offer even more adaptability to your characters in the face of the Wasteland’s ever-growing threats<br>by allowing you to modify or completely reboot your S.P.E.C.I.A.L. attributes for free.<br>Your characters will gain access to S.P.E.C.I.A.L. Loadouts starting at level 25.",
+                        },
+                        {
+                            category: "Balance,Items",
+                            name: "Punch Card Machine",
+                            description: "Visit a “Punch Card Machine” at any time to adjust your S.P.E.C.I.A.L. to your heart’s content, change your Perk Card selections, and save your new custom setup into a slot.",
+                        },
+                        {
+                            category: "Balance,Locations",
+                            name: "Punch Card Machine",
+                            description: "We’ve also placed Punch Card Machines at Train Stations throughout Appalachia, in The Crater, and at Foundation.<br>You can use any Punch Card Machines you find in other players’ C.A.M.P.s, as well.",
+                        },
+                        {
+                            category: "C.A.M.P.,UI",
+                            name: "C.A.M.P. Slots",
+                            description: "Allow you to build and maintain two C.A.M.P.s at once!<br>Each C.A.M.P. you construct is now saved as a C.A.M.P. Slot, which you can access and manage through the new “C.A.M.P. Slots” menu<br>in the upper-left corner of the Map.<br>You can have one active C.A.M.P. at a time, and all others will be considered “stored.”",
+                        },
+                        {
+                            category: "C.A.M.P.,UI",
+                            name: "C.A.M.P. Slots &amp; Vending",
+                            description: "powering a Vending Machine no longer automatically adds a Vendor icon to your C.A.M.P.’s location on the Map.<br>Instead, you must set this yourself from using the C.A.M.P. Slots menu.",
+                        },
+                        {
+                            category: "C.A.M.P.,UI",
+                            name: "C.A.M.P. Slots &amp; Vending",
+                            description: "Your Vending Machines will have the same shared inventory across all your C.A.M.P.s,<br>so that you will not need to reassign the items you would like to sell every time you build a new C.A.M.P.<br>We have also merged all Vending Machine item slots into a single pool, which means you will now be able to sell the maximum number of items with just one Vending Machine.",
+                        },
+                        {
+                            category: "C.A.M.P.,UI",
+                            name: "C.A.M.P. Slots &amp; C.A.M.P. Items with storage",
+                            description: "Other types of CAMP items, like Refrigerators and Fermenters, now also share their inventories across your different C.A.M.P.s.",
+                        },
+                        {
+                            category: "C.A.M.P.,UI",
+                            name: "C.A.M.P. Slots &amp; Display Cases",
+                            description: "Your Display Cases, however, are not shared across C.A.M.P.s, which will give you the ability to show off different items at each of your homes.",
+                        },
+                        {
+                            category: "C.A.M.P.,Shelter",
+                            name: "Display Cases &amp; Vending Machines",
+                            description: "While we were working to implement C.A.M.P. Slots, we also added the ability to build and use Display Cases and Vending Machines inside of your Shelters.<br>Vending Machines in Shelters will share the same slots and item assignments as those you have built in your C.A.M.P.s.",
+                        },
+                        {
+                            category: "C.A.M.P.,Balance,Items",
+                            name: "Budget",
+                            description: "Finally, we’ve made an adjustment so that items you place into your Display Cases will no longer consume any of your C.A.M.P. build budget.",
+                        },
+                        {
+                            category: "Daily Ops",
+                            name: "New Mode: Decryption",
+                            description: "In Decryption Mode, you’re on a mission to disable three Radio Interceptors for Vernon Dodge.<br>To do this, you’ll need to hunt for three enemy “Code Carriers,” and then take them down to get a special code you can use to disable a Radio Interceptor.<br>Enemy waves you face will become more difficult after each Interceptor you disable, until you’ve killed the Daily Op boss and pulled the plug on the final Interceptor.",
+                        },
+                        {
+                            category: "Daily Ops",
+                            name: "New Default Mutation",
+                            description: "Enemies in Decryption have a new default Mutation, called Savage Strike, which makes their attacks more deadly and causes them to ignore your armor resistances.",
+                        },
+                        {
+                            category: "Daily Ops",
+                            name: "New additional Mutations",
+                            description: "- Group Regeneration: Enemies heal when grouped together.<br>- Swift-Footed: Enemies have extra fast movement and melee attacks speeds.<br>- Toxic Blood: On death, enemies leave behind poisonous hazard pool.",
+                        },
+                        {
+                            category: "Daily Ops",
+                            name: "New Enemy Types",
+                            description: "We’ve added Scorched, Mothman Cultists, and Mole Miners to the pool of randomized enemy types you may encounter in any Daily Ops mode.",
+                        },
+                        {
+                            category: "Daily Ops,Locations",
+                            name: "New Locations",
+                            description: "Fight your way through Vault 96, Watoga Raider Arena, and West Tek Research Center, all of which have been added to the randomized pool of locations for Daily Ops.",
+                        },
+                        {
+                            category: "Daily Ops,Items",
+                            name: "Rewards Updates",
+                            description: "In this update for Daily Ops, we’re adding a host of new rewards, including new Covert Scout Armor, which has some built-in stealthy utility.<br>We’re also adding plans for the “Unstoppable Monster” and “Medical Malpractice” legendary weapons, and a variety of new plans for objects you can build in your C.A.M.P.",
+                        },
+                        {
+                            category: "Daily Ops,Balance",
+                            name: "Reward list rebalance",
+                            description: "Following community feedback, we’ve also rebalanced Daily Ops rewards lists to give players a better chance at getting rare rewards.",
+                        },
+                        {
+                            category: "Bugfix",
+                            name: "Melee Attack Updates",
+                            description: "We’ve implemented a number of fixes, tweaks, and improvements to player melee attacks so that your strikes more consistently meet their targets.",
+                        },
+                        {
+                            category: "Event,Items",
+                            name: "Hunt for the Treasure Hunter",
+                            description: "Keep an eye on our Community Calendar for upcoming Hunt for the Treasure Hunter Weekends, because Treasure Hunter Mole Miners have found some new loot<br>that you can claim for yourself.",
+                        },
+                        {
+                            category: "UI,Balance",
+                            name: "Aim Assist",
+                            description: "We’ve added a new game setting for players who use controllers that will help them more easily snap their crosshairs<br>to enemies and stay on target when aiming down the sights with ranged weapons.",
+                        },
+                        {
+                            category: "UI",
+                            name: "Batch Crafting",
+                            description: "You can now assemble, forge, cook, or manufacture an entire stack of an item all at once using a new slider that we’ve added when you’re crafting at a Workbench.",
+                        },
+                        {
+                            category: "UI",
+                            name: "World Activity Updates",
+                            description: "The World Activity Menu now includes more than Daily Ops! It will now help you stay up-to-date with many more activities in the world,<br>including active Nuke Zones, Events, and nearby player Vending Machines, giving you an easy way to find and Fast Travel to them.",
+                        },
+                        {
+                            category: "Bugfix,Visual",
+                            name: "Game Camera",
+                            description: "Taking lethal damage from PvP combat while exiting Power Armor no longer causes issues with the game camera.",
+                        },
+                        {
+                            category: "Bugfix,Visual,C.A.M.P.",
+                            name: "Lighting",
+                            description: "The word “Laugh” in the “Kill, Laugh, Love” Neon Sign no longer appears much brighter than the rest of the sign.",
+                        },
+                        {
+                            category: "Bugfix,Visual",
+                            name: "Modular Sofa",
+                            description: "Stand-up animations now play correctly when players get up after using the Modular Sofa.",
+                        },
+                        {
+                            category: "Bugfix,UI",
+                            name: "Power Armor",
+                            description: "Portions of Raider Scabber, Raider Waster, and Armor Ace Power Armor sets no longer block part of the screen when using heavy weapons in first-person view.",
+                        },
+                        {
+                            category: "Bugfix,Visual",
+                            name: "Power Armor",
+                            description: "Propellers on the Vertiguard Power Armor Jetpack now animate correctly after leaving an interior.",
+                        },
+                        {
+                            category: "Bugfix,Visual",
+                            name: "Power Armor",
+                            description: "Fixed an issue that could occasionally cause Power Armor pieces to appear separate from the player’s character model when loading into a world.",
+                        },
+                        {
+                            category: "Bugfix,NW",
+                            name: "Power Armor",
+                            description: "Fixed an issue that could cause placed Power Armor to be invisible to some players during a Nuclear Winter match.",
+                        },
+                        {
+                            category: "Bugfix,Visual",
+                            name: "Power Armor",
+                            description: "When placing a set of Power Armor, the placement preview now displays any attached Power Armor pieces instead of an empty chassis.",
+                        },
+                        {
+                            category: "Bugfix,Visual",
+                            name: "Power Armor",
+                            description: "The H.A.R.E. Power Armor Jetpack now correctly displays flame visual effects while it is in use.",
+                        },
+                        {
+                            category: "Bugfix,Items",
+                            name: "Power Armor",
+                            description: "Applying the Camo Secret Service Jetpack mod to T-65 Power Armor no longer automatically applies the Camo Secret Service paint to the Power Armor Torso.",
+                        },
+                        {
+                            category: "Bugfix,Visual",
+                            name: "Vertibots",
+                            description: "No longer appear to stutter while flying through the air.",
+                        },
+                        {
+                            category: "Bugfix,C.A.M.P.,UI",
+                            name: "Build",
+                            description: "Players can no longer open the build menu while simultaneously interacting with furniture.",
+                        },
+                        {
+                            category: "Bugfix,C.A.M.P.,UI",
+                            name: "Build",
+                            description: "Build categories no longer disappear from the build menu if a player lacks resources to craft in those categories and then toggles Buildable Objects on and off.",
+                        },
+                        {
+                            category: "Bugfix,C.A.M.P.,Exploit",
+                            name: "Budget",
+                            description: "Fixed a rare issue that could cause a player’s Stored budget to exceed 100% despite having no items in storage.",
+                        },
+                        {
+                            category: "Bugfix,C.A.M.P.,UI",
+                            name: "Budget",
+                            description: "The counter for objects that have a build limit, like Turrets and Lights, now visually updates correctly as the player builds those objects.",
+                        },
+                        {
+                            category: "Bugfix,C.A.M.P.,Balance",
+                            name: "Collectron Stations",
+                            description: "Adjusted the budget cost to build a Gold Collectron Station so that it matches all other Collectron Stations.",
+                        },
+                        {
+                            category: "Bugfix,C.A.M.P.",
+                            name: "Defenses",
+                            description: "Perimeter Wall Railings can once again be built on upper floors.",
+                        },
+                        {
+                            category: "Bugfix,C.A.M.P.,Exploit",
+                            name: "Exploit",
+                            description: "Addressed an exploit that enabled players to stack the bonuses from furniture buffs.",
+                        },
+                        {
+                            category: "Bugfix,C.A.M.P.",
+                            name: "Furniture",
+                            description: "Players now leave any furniture they are currently using if they interact with another piece of furniture.",
+                        },
+                        {
+                            category: "Bugfix,C.A.M.P.",
+                            name: "Stairs",
+                            description: "Stairs with Posts can now be stacked on top of themselves. This will allow players to construct multi-level 2x1 staircases without needing to use standalone Posts.",
+                        },
+                        {
+                            category: "Bugfix,C.A.M.P.",
+                            name: "Stairs",
+                            description: "Fixed an issue preventing some objects from being placed on the floor beneath stairs with posts.",
+                        },
+                        {
+                            category: "Bugfix,C.A.M.P.,UI",
+                            name: "Workshops",
+                            description: "The outline that appears for valid Resource Extractor placement is now blue instead of green.",
+                        },
+                        {
+                            category: "Bugfix,C.A.M.P.,UI",
+                            name: "Wall Décor",
+                            description: "Free States Wall Signs now correctly appear under the Wall Décor tab in the build menu.",
+                        },
+                        {
+                            category: "Bugfix,Challenge,Daily Ops",
+                            name: "Daily",
+                            description: "Daily Ops enemies, like Cultists, Blood Eagles, Robots, and etc., now correctly progress Daily Challenges that require the player to kill specific types of enemies.",
+                        },
+                        {
+                            category: "Bugfix,Daily Ops",
+                            name: "General",
+                            description: "When leaving a Daily Ops, players are now correctly returned to the location where they joined the Op, rather than their last Fast Travel location.",
+                        },
+                        {
+                            category: "Bugfix,Daily Ops",
+                            name: "Enemies",
+                            description: "Fixed an issue causing certain Daily Ops enemies to have lower defenses than intended.",
+                        },
+                        {
+                            category: "Bugfix,Daily Ops",
+                            name: "Enemies",
+                            description: "Upon completing a Daily Op, enemies will now stop spawning, and any that still remain will be automatically killed/destroyed.",
+                        },
+                        {
+                            category: "Daily Ops,Sound",
+                            name: "Enemies",
+                            description: "Added new sound effects to Eye Bombs in the Robot faction to help warn players.",
+                        },
+                        {
+                            category: "Balance,Daily Ops,Locations",
+                            name: "Locations",
+                            description: "Made layout improvements to The Burning Mine and The Burrows to aid player movement and reduce disorientation.",
+                        },
+                        {
+                            category: "Bugfix,Daily Ops,UI",
+                            name: "Operation Report",
+                            description: " Fixed an issue that could cause the Rare Rewards section of the Operation Report to appear blank after completing a Daily Ops quickly enough to reach an upper reward tier.",
+                        },
+                        {
+                            category: "Bugfix,Daily Ops",
+                            name: "Resilient",
+                            description: "Fixed an issue in which Resilient enemies sometimes did not die after players hit them with valid melee attacks.",
+                        },
+                        {
+                            category: "Bugfix,Daily Ops",
+                            name: "Teams",
+                            description: "Team Leaders are no longer kicked from Daily Ops instances if the team disbands.",
+                        },
+                        {
+                            category: "Balance,Daily Ops",
+                            name: "Uplink Mode",
+                            description: "Increased the interaction speed of the Uplink object.",
+                        },
+                        {
+                            category: "Bugfix,Daily Ops",
+                            name: "Uplink Mode",
+                            description: "Fixed an issue in the Burning Mine that could cause not enough enemies to spawn during Uplink Mode.",
+                        },
+                        {
+                            category: "Bugfix,Items",
+                            name: "Apparel",
+                            description: "The Camo Ops, Tactical Ops, and Vintage Football outfits now correctly display on top of the player’s armor.",
+                        },
+                        {
+                            category: "Bugfix,Items",
+                            name: "Armor",
+                            description: "Repairing a piece of broken armor while it is still equipped no longer prevents that armor from applying its defensive bonuses.",
+                        },
+                        {
+                            category: "Bugfix,Items,C.A.M.P.",
+                            name: "Headwear",
+                            description: " The Moonshine Mama and Old Man Summer Fasnacht Masks can now be assigned to Display Cases.",
+                        },
+                        {
+                            category: "Bugfix,Items",
+                            name: "Headwear",
+                            description: "The Fasnacht Brahmin Mask is now scrappable.",
+                        },
+                        {
+                            category: "Bugfix,Items",
+                            name: "Power Armor",
+                            description: "An empty Power Armor Chassis no longer occasionally appears when another player enters a set of Power Armor.",
+                        },
+                        {
+                            category: "Bugfix,Items",
+                            name: "Power Armor",
+                            description: "The H.A.R.E. and Park Ranger Power Armors now have appropriate damage and radiation resistances.",
+                        },
+                        {
+                            category: "Bugfix,Items",
+                            name: "Power Armor",
+                            description: "A “You can’t store that here” error message no longer appears when attempting to transfer T-65 or Strangler Heart Power Armor pieces from one Power Armor Chassis to another.",
+                        },
+                        {
+                            category: "Bugfix,Items",
+                            name: "Power Armor",
+                            description: "Fixed a rare issue in which players could not exit their Power Armor or access the Pip-Boy.",
+                        },
+                        {
+                            category: "Bugfix,Items",
+                            name: "Weapons",
+                            description: ".44 Pistol paints can now be correctly applied to the Medical Malpractice weapon.",
+                        },
+                        {
+                            category: "Bugfix,Items,UI",
+                            name: "Weapons",
+                            description: "Damage numbers displayed when attacking with a Salvaged Assaultron Head now match the damage dealt.",
+                        },
+                        {
+                            category: "Bugfix,Items",
+                            name: "Weapons",
+                            description: "Melee weapons now properly take Condition damage when attacking.",
+                        },
+                        {
+                            category: "Bugfix,Stability,XBox",
+                            name: "Client Stability",
+                            description: "Fixed an Xbox One client crash related to viewing the friends list.",
+                        },
+                        {
+                            category: "Bugfix,Stability,Playstation",
+                            name: "Client Stability",
+                            description: "Fixed a PlayStation 4 client crash that could occur during the Fertile Soil event.",
+                        },
+                        {
+                            category: "Bugfix,Stability,NW",
+                            name: "Client Stability",
+                            description: "The client no longer crashes during a Nuclear Winter match after hacking a Terminal and choosing the Reveal Enemies option.",
+                        },
+                        {
+                            category: "Bugfix,Stability,NW",
+                            name: "Client Stability",
+                            description: " Fixed an issue that could cause a client crash when connecting to a Nuclear Winter match.",
+                        },
+                        {
+                            category: "Bugfix,Stability",
+                            name: "Loading",
+                            description: "Fast traveling after using a Shelter Entrance that was placed inside of a Shelter no longer results in an infinite loading screen.",
+                        },
+                        {
+                            category: "Bugfix,Performance",
+                            name: "Performance",
+                            description: "Improved performance when opening the Map screen.",
+                        },
+                        {
+                            category: "Bugfix,Perks",
+                            name: "Electric Absorption",
+                            description: "Now works against enemy laser attacks in addition to energy attacks.",
+                        },
+                        {
+                            category: "Bugfix,Main Quest",
+                            name: "Early Warnings",
+                            description: "The quest objective “Find Heating Coils at Abbie's Bunker” now displays how many Coils the player needs to collect.",
+                        },
+                        {
+                            category: "Bugfix,Event",
+                            name: "Seasonal Events",
+                            description: "Fasnacht Day and Grahm’s Meat-Cook will now display as completed in the Pip-Boy following the player’s next successful completion of these events.",
+                        },
+                        {
+                            category: "Bugfix,Main Quest",
+                            name: "Secrets Revealed",
+                            description: "Fixed several issues with Digger and other Secret Service members that could prevent the quest from progressing.",
+                        },
+                        {
+                            category: "Bugfix,Sound,Items",
+                            name: "Bobbleheads",
+                            description: "The Charisma Bobblehead now plays appropriate sound effects when players consume it.",
+                        },
+                        {
+                            category: "Bugfix,Sound,Items",
+                            name: "Compound Bow",
+                            description: "Now plays appropriate sound effects if the player has no ammo when they attempt to fire.",
+                        },
+                        {
+                            category: "Bugfix,Sound",
+                            name: "Curtain Door",
+                            description: "Now plays appropriate sound effects when opened or closed.",
+                        },
+                        {
+                            category: "Bugfix,Sound",
+                            name: "Emotes",
+                            description: "The Laughing Emote’s sound effects now stop playing if the emote is interrupted before completion.",
+                        },
+                        {
+                            category: "Bugfix,Sound",
+                            name: "Eyebots",
+                            description: "No longer baa like the Imposter Sheepsquatch when they explode.",
+                        },
+                        {
+                            category: "Bugfix,Sound,C.A.M.P.",
+                            name: "Rustic Watermill",
+                            description: "Now plays appropriate sound effects when destroyed.",
+                        },
+                        {
+                            category: "Bugfix,UI",
+                            name: "Controls",
+                            description: "Fixed an issue that could occasionally cause the game controls to lock up when exiting a Workbench.",
+                        },
+                        {
+                            category: "Bugfix,UI",
+                            name: "Controls",
+                            description: "The game controls no longer lock up for players who are using a Power Armor Station in someone else’s C.A.M.P. when the owner logs out.",
+                        },
+                        {
+                            category: "Bugfix,UI",
+                            name: "Controls",
+                            description: "Rapidly pressing the Use button while entering Power Armor no longer causes the game controls to lock up.",
+                        },
+                        {
+                            category: "Bugfix,UI,XBox",
+                            name: "Controls",
+                            description: "On Xbox, entering a set of Power Armor immediately after modifying it at the Power Armor Station near Grafton Dam no longer causes the controls to lock up.",
+                        },
+                        {
+                            category: "Bugfix,UI",
+                            name: "Custom Item Names",
+                            description: "After selling an item that had a custom name, that custom name slot will now be correctly returned to the player so that they can rename another item.",
+                        },
+                        {
+                            category: "Bugfix,UI,Perks,Exploit",
+                            name: "Exploit",
+                            description: "Fixed an exploit that could allow players to equip more Perk Cards than intended.",
+                        },
+                        {
+                            category: "Bugfix,UI",
+                            name: "Localization",
+                            description: "In the German client, player names are no longer cut off at the top of the screen when capturing a Workshop.",
+                        },
+                        {
+                            category: "Bugfix,UI,Locations",
+                            name: "Map",
+                            description: "Bloody Frank’s is now labelled correctly on the Map.",
+                        },
+                        {
+                            category: "Bugfix,UI,Season",
+                            name: "Notifications",
+                            description: "Fixed an issue on login that caused the player’s Season rank to visually reset to 1 in the menus, and fanfares for all of their previously earned ranks to play in sequence.",
+                        },
+                        {
+                            category: "Bugfix,UI,Locations",
+                            name: "Notifications",
+                            description: "The fanfare that appears after discovering a new location now scales down for long location names so that the text does not get cut off.",
+                        },
+                        {
+                            category: "Bugfix,UI,Items",
+                            name: "Pip-Boy",
+                            description: "Items received through player-to-player trades or from Player Vending Machines now correctly appear in the Pip-Boy’s “NEW” tab.",
+                        },
+                        {
+                            category: "Bugfix,UI,Items",
+                            name: "Pip-Boy",
+                            description: "When viewing a weapon’s stats in the Pip-Boy, the damage numbers displayed in the item card and in the lower-right corner of the “WEAPON” tab are now consistent.",
+                        },
+                        {
+                            category: "Bugfix,UI,Items",
+                            name: "Pip-Boy",
+                            description: "Stats for items in the Pip-Boy’s “NEW” tab no longer persist if the player consumes or drops that item.",
+                        },
+                        {
+                            category: "Bugfix,UI",
+                            name: "Pip-Boy",
+                            description: " Items from the Pip-Boy’s “ITEM” tab no longer sometimes appear when viewing the “EFFECTS” tab.",
+                        },
+                        {
+                            category: "Bugfix,UI",
+                            name: "Social",
+                            description: "Player Icons no longer disappear from the Recent Players menu when players exit the game.",
+                        },
+                        {
+                            category: "Bugfix,UI",
+                            name: "Social",
+                            description: "Opening the context menu on a player’s name in the friends list and then switching tabs no longer prevents the player from scrolling through social menu options.",
+                        },
+                        {
+                            category: "Bugfix,UI,Shelter",
+                            name: "Tutorials",
+                            description: "The tutorial pop-up for building inside of Shelters will now only appear once.",
+                        },
+                        {
+                            category: "Bugfix,Locations",
+                            name: "General",
+                            description: "Fixed several locations throughout Appalachia where players could see out of world.",
+                        },
+                        {
+                            category: "Bugfix,Locations",
+                            name: "Pathing",
+                            description: "Fixed a number of objects in the world that players could path through or clip into.",
+                        },
+                        {
+                            category: "Bugfix,Locations",
+                            name: "Pathing",
+                            description: "Corrected several locations throughout the world where players could become stuck.",
+                        },
+                        {
+                            category: "Bugfix,Locations",
+                            name: "The Ash Heap",
+                            description: "Added missing radiation hazards to fires inside of Abandoned Mine Shafts in the Ash Heap.",
+                        },
+                        {
+                            category: "Bugfix,Locations",
+                            name: "Vault-Tec University",
+                            description: "Players can now enter the Vault-Tec University instance while on a team.",
+                        },
+                    ]
+                },
                 {
                     id: "P25",
                     patch: "25",
