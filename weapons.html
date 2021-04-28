@@ -27,7 +27,7 @@
     </head>
     <body style="height: 90%">
         <center>
-            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Weapon Damage Calculator (v3.4.4)</span>
+            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Weapon Damage Calculator (v3.5.0)</span>
             <br/>
             <!-- <i>(Notification here)</i> -->
         <br/>
@@ -222,6 +222,34 @@
                             ]
                         }
                     ]
+                },
+                {
+                    name: "Unstoppable Monster",
+                    category: "Unarmed",
+                    kind: "unarmed",
+                    speed: speedMedium,
+                    special: true,
+                    info: "WeaponUnstoppableMonster",
+                    level: [30, 40, 50],
+                    damage: [45, 50, 55],
+                    mods: [
+                        {
+                            slot: "Main",
+                            options: [
+                                {
+                                    name: "Standard"
+                                },
+                                {
+                                    name: "Extra claw",
+                                    damageMultPercent: 20,
+                                    preinstalled: true
+                                }
+                            ]
+                        }
+                    ],
+                    legendaryPrefix: "Bloodied",
+                    legendaryMajor: "40% power attack damage",
+                    // legendaryMinor: "40% less damage while power attacking"
                 },
                 {
                     name: "Super Sledge",
@@ -520,7 +548,7 @@
                         }
                     ],
                     legendaryPrefix: "Bloodied",
-                    // legendaryMajor: "40% power attack",
+                    legendaryMajor: "40% power attack damage",
                     // legendaryMinor: "90% reduced weight"
                 },
                 {
@@ -1300,21 +1328,25 @@
                                 {
                                     name: "Cryo Blade",
                                     damageBallisticMultPercent: -50,
+                                    debuffViaMultiply: true,
                                     addDamageColdLeveled: [62, 72, 82]
                                 },
                                 {
                                     name: "Flaming Blade",
                                     damageBallisticMultPercent: -50,
+                                    debuffViaMultiply: true,
                                     addDamageFireLeveled: [62, 72, 82]
                                 },
                                 {
                                     name: "Plasma Blade",
                                     damageBallisticMultPercent: -50,
+                                    debuffViaMultiply: true,
                                     addDamageEnergyLeveled: [62, 72, 82]
                                 },
                                 {
                                     name: "Shocking Blade",
                                     damageBallisticMultPercent: -50,
+                                    debuffViaMultiply: true,
                                     addDamageEnergyLeveled: [62, 72, 82]
                                 },
                             ]
@@ -1339,27 +1371,32 @@
                                 {
                                     name: "Cryo Blade",
                                     damageBallisticMultPercent: -50,
+                                    debuffViaMultiply: true,
                                     addDamageColdLeveled: [62, 72, 82]
                                 },
                                 {
                                     name: "Flaming Blade",
                                     damageBallisticMultPercent: -50,
+                                    debuffViaMultiply: true,
                                     addDamageFireLeveled: [62, 72, 82]
                                 },
                                 {
                                     name: "Plasma Blade",
                                     damageBallisticMultPercent: -50,
+                                    debuffViaMultiply: true,
                                     addDamageEnergyLeveled: [62, 72, 82],
                                     preinstalled: true
                                 },
                                 {
                                     name: "Shocking Blade",
                                     damageBallisticMultPercent: -50,
+                                    debuffViaMultiply: true,
                                     addDamageEnergyLeveled: [62, 72, 82]
                                 },
                             ]
                         }
-                    ]
+                    ],
+                    legendaryMajor: "40% power attack damage"
                 },
                 {
                     name: "Chainsaw",
@@ -5277,6 +5314,11 @@
                         name: "40% increased swing speed",
                         linkId: "SS",
                         speedMultPercent: 40
+                    },
+                    {
+                        name: "40% power attack damage",
+                        linkId: "40PA",
+                        damageMultPercentPowerAttack: 40
                     }
                 ],
                 // 3: minor
@@ -7079,6 +7121,12 @@
                     + "<li>Live and Love #2</li>"
                 + "</ul>"
             );
+            infoMap.set("powerattack", 
+                "Enables the following effects:"
+                + "<ul>"
+                    + "<li>40% power attack damage</li>"
+                + "</ul>"
+            );
             infoMap.set("crit", 
                 "Perform a critical hit that adds bonus damage."
                 + "<br>Weapon mods, perks, magazines, chems and food items can increase the bonus."
@@ -7375,11 +7423,17 @@
                 + "<br>Premodded: Stabilized Bull Barrel, Reflex Sight, True Grip"
                 + "<br>Form ID: <a href='https://nukacrypt.com/database/json/005D038D' target='_blank'>005D038D</a>"
                 );
-                infoMap.set("WeaponOathbreaker",
+            infoMap.set("WeaponOathbreaker",
                 "<b>Unique War Glaive from Steel Dawn</b>" 
                 + "<br>Legendary: <i>Suppressor's, 40% more power attack damage, 40% less damage while power attacking</i>"
                 + "<br>Premodded: Plasma Blade"
                 + "<br>Form ID: <a href='https://nukacrypt.com/database/json/005E897C' target='_blank'>005E897C</a>"
+                );
+            infoMap.set("WeaponUnstoppableMonster",
+                "<b>Unique Deathclaw Gauntlet from Survival mode or as a reward plan from Daily Ops since Patch 26</b>" 
+                + "<br>Legendary: <i>Bloodied, 40% more power attack damage, 40% less damage while power attacking</i>"
+                + "<br>Premodded: Extra claw"
+                + "<br>Form ID: <a href='https://nukacrypt.com/database/json/005FCE8C' target='_blank'>005FCE8C</a>"
                 );
 
             infoMap.set("ResistanceSBQ", "Scorchbeast Queen<br>32000 health, 300 DR, 300 ER, 300 RR, 300 FR, 300 CR, 300 PR<br>ignores 70% of all kinds of incoming damage.");
@@ -7713,6 +7767,10 @@
 
                 createYesNo(tbl, index, type, "Critical", "crit", "crit", "Crit");
 
+                if (type === "Melee") {
+                    createYesNo(tbl, index, type, "Power Attacking", "powerattack", "powerattack", "PowerAttack");
+                }
+
                 row = tbl.insertRow(tbl.rows.length);
                 cell1 = row.insertCell(0);
                 cell1.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;Player health" + info("playerhealth");
@@ -7788,7 +7846,7 @@
                         recalculate(tbl, index, type);
                     };
                     document.getElementById("strength" + index ).linkId = "Str";
-                }
+               }
 
                 row = tbl.insertRow(tbl.rows.length);
                     cell1 = row.insertCell(0);
@@ -9291,6 +9349,12 @@
                 var legendaryTwoShot = false;
                 var legendaryExplosive = 0;
                 var legacyExplosive = false;
+                var powerAttackBonus = 0;
+                var pa = document.getElementById("powerattack" + index + "_yes");
+                var isPowerAttack = pa && pa.checked;
+                if (isPowerAttack) {
+                    powerAttackBonus = 100;
+                }
 
                 // Apply unconditional effects
                 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -9410,6 +9474,11 @@
                         }
                         if (effInfo.clipSizeMult) {
                             clipSizeMult = effInfo.clipSizeMult;
+                        }
+                        if (effInfo.damageMultPercentPowerAttack) {
+                            if (isPowerAttack) {
+                                powerAttackBonus += effInfo.damageMultPercentPowerAttack;
+                            }
                         }
                     }
                 });
@@ -9643,6 +9712,12 @@
                 var bettercritssel = document.getElementById("bettercrits" + index);
                 if (bettercritssel.selectedIndex > 0) {
                     critMultiplier += parseFloat(valueOf(bettercritssel));
+                }
+
+                if (powerAttackBonus > 0) {
+                    totalDamageMultiply.push(powerAttackBonus);
+                    totalDamageEnergyMultiply.push(powerAttackBonus);
+                    totalDamageRadiationMultiply.push(powerAttackBonus);
                 }
 
                 var totalDamage = baseDamage;
