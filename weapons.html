@@ -5945,6 +5945,11 @@
                     { level: 90, dr: 100, er: 100, rr: 150, fr: 100, cr: 100, pr: 100 }, 
                     { level: 100, dr: 100, er: 100, rr: 150, fr: 100, cr: 100, pr: 100 }, 
                 ],
+                "scorchedexterminator": [
+                    { level: 20, dr: 1, er: 1, rr: 1, fr: 1, cr: 1, pr: 1 }, 
+                    { level: 40, dr: 100, er: 100, rr: 100, fr: 100, cr: 100, pr: 100 }, 
+                    { level: 100, dr: 250, er: 250, rr: 250, fr: 250, cr: 250, pr: 250 }, 
+                ],
                 "sentrybot": [
                     { level: 16, dr: 50, er: 25, rr: 50, fr: 50, cr: 50, pr: 1000 }, 
                     { level: 23, dr: 50, er: 25, rr: 50, fr: 50, cr: 50, pr: 1000 }, 
@@ -6093,6 +6098,8 @@
             };
 
             addEnemy("Scorched", ["Scorched", "NPC"], enemyResistancesMap["scorched"]);
+
+            addEnemy("Scorched Exterminator", ["Scorched", "NPC"], enemyResistancesMap["scorchedexterminator"]);
 
             addEnemy("Feral Ghoul", ["Ghoul"], enemyResistancesMap["feralghoul"]);
 
@@ -6431,6 +6438,15 @@
                     id: "Nukashine",
                     type: "alcohol",
                     desc: "Nukashine (+100% unarmed DMG)",
+                    mode: "Melee",
+                    unarmedDamage: 100,
+                    cola: true,
+                    only: "Unarmed"
+                },
+                {
+                    id: "NukashineZero",
+                    type: "alcohol",
+                    desc: "Sugar-Free Nukashine (+100% unarmed DMG)",
                     mode: "Melee",
                     unarmedDamage: 100,
                     cola: true,
