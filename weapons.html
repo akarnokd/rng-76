@@ -27,7 +27,7 @@
     </head>
     <body style="height: 90%">
         <center>
-            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Weapon Damage Calculator (v3.5.0)</span>
+            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Weapon Damage Calculator (v3.5.1)</span>
             <br/>
             <!-- <i>(Notification here)</i> -->
         <br/>
@@ -9370,6 +9370,7 @@
                 var isPowerAttack = pa && pa.checked;
                 if (isPowerAttack) {
                     powerAttackBonus = 100;
+                    totalSpeedMultiply.push(-50);
                 }
 
                 // Apply unconditional effects
