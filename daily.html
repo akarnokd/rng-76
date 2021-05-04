@@ -1507,6 +1507,13 @@
                     period: 1400,
                 };
             }
+            function scoreCompleteDailyOpsFullTeam(offset, count) {
+                return {
+                    name: times("Complete a Daily Operation with a Full Team", count),
+                    offset: offset,
+                    period: 1400,
+                };
+            }
             function scoreBonusScoreFortifyDays2(offset) {
                 return {
                     name: "&#x1F6C8; Fortifying Atlas Reward day: Bonus Challenges Week",
@@ -6226,6 +6233,27 @@
                     scoreKillMoleminer, 15,
                     scoreNWSurviveMinutes, 10
                ], [ dailyOpsWestTec, dailyOpsEagles, [ dailyOpsSavageStrike, dailyOpsVolatile ], dailyOpsDecryption]);
+
+            addWeekly(challengesWeeklyEra7.options, 7, scoreLevelUp3);
+            addWeekly(challengesWeeklyEra7.options, 7, scoreBuildFloorWallCamp, 25);
+            addWeekly(challengesWeeklyEra7.options, 7, scoreCompleteEvents10);
+            addWeekly(challengesWeeklyEra7.options, 7, scoreCompleteDailyOps, 5);
+            addWeekly(challengesWeeklyEra7.options, 7, scoreCompleteGoldStar);
+            addWeekly(challengesWeeklyEra7.options, 7, scoreDestroyRobots5);
+            addWeekly(challengesWeeklyEra7.options, 7, scoreKillCreature50);
+            addWeekly(challengesWeeklyEra7.options, 7, scoreKillGlowing10);
+            addWeekly(challengesWeeklyEra7.options, 7, scoreRepairArmorWeaponPA, 15);
+
+            addDaily(challengesDailyEra7, 7, [
+                    scoreCompleteDailyChallenge, 5,
+                    scoreLevelUp, 1,
+                    scoreCompleteOneEvent, 1,
+                    scoreCompleteDailyOps, 1, 
+                    scoreCompleteDailyOpsFullTeam, 1,
+                    scoreConsumeAlcohol, 5,
+                    scoreKillLegendary, 1,
+                    scoreNWDeployCamp, 2
+               ], [ dailyOpsV96, dailyOpsCultists, [ dailyOpsPiercingGaze, dailyOpsRegenerating ], dailyOpsUplink]);
 
 
             // ~~~~~~
