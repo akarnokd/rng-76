@@ -1514,6 +1514,13 @@
                     period: 1400,
                 };
             }
+            function scoreCompleteDailyOpsPublicTeam(offset, count) {
+                return {
+                    name: times("Complete a Daily Operation in a Public Team", count),
+                    offset: offset,
+                    period: 1400,
+                };
+            }
             function scoreBonusScoreFortifyDays2(offset) {
                 return {
                     name: "&#x1F6C8; Fortifying Atlas Reward day: Bonus Challenges Week",
@@ -6254,6 +6261,16 @@
                     scoreKillLegendary, 1,
                     scoreNWDeployCamp, 2
                ], [ dailyOpsV96, dailyOpsCultists, [ dailyOpsPiercingGaze, dailyOpsRegenerating ], dailyOpsUplink]);
+            addDaily(challengesDailyEra7, 8, [
+                    scoreCompleteDailyChallenge, 5,
+                    scoreLevelUp, 1,
+                    scoreCompleteOneEvent, 1,
+                    scoreCompleteDailyOps, 1, 
+                    scoreCompleteDailyOpsPublicTeam, 1,
+                    scoreChewBubblegum, 1,
+                    scoreKillLegendary, 1,
+                    scoreNWUseStimpak, 4
+               ], [ dailyOpsV96, dailyOpsCultists, [ dailyOpsReset, dailyOpsPiercingGaze, dailyOpsRegenerating ], dailyOpsUplink]);
 
 
             // ~~~~~~
