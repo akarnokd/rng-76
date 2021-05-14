@@ -27,7 +27,7 @@
     </head>
     <body style="height: 90%">
         <center>
-            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Weapon Damage Calculator (v3.5.1)</span>
+            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Weapon Damage Calculator (v3.6.0)</span>
             <br/>
             <!-- <i>(Notification here)</i> -->
         <br/>
@@ -5245,7 +5245,12 @@
                     {
                         name: "Assassin's",
                         versus: ["Player", "NPC"],
-                        versusAddPercent: 10
+                        versusAddPercent: 10,
+                        patchOverride: {
+                            "P27": {
+                                versusAddPercent: 50
+                            }
+                        }
                     },
                     {
                         name: "Executioner's",
@@ -5254,39 +5259,73 @@
                     {
                         name: "Exterminator's",
                         versus: ["Bug", "Mirelurk"],
-                        versusAddPercent: 30
-                    },
+                        versusAddPercent: 30,
+                        patchOverride: {
+                            "P27": {
+                                versusAddPercent: 50
+                            }
+                        }                    },
                     {
                         name: "Anti-armor",
                         ignoreDRPercent: 50
                     },
                     {
                         name: "Nocturnal",
-                        damageMultPercent: 30
+                        damageMultPercent: 30,
+                        patchOverride: {
+                            "P27": {
+                                damageMultPercent: 40
+                            }
+                        }                    
                     },
                     {
                         name: "Zealot's",
                         versus: ["Scorched"],
-                        versusAddPercent: 30
+                        versusAddPercent: 30,
+                        patchOverride: {
+                            "P27": {
+                                versusAddPercent: 50
+                            }
+                        }
                     },
                     {
                         name: "Hunter's",
                         versus: ["Animal"],
-                        damageMultPercent: 30
+                        damageMultPercent: 30,
+                        patchOverride: {
+                            "P27": {
+                                versusAddPercent: 50
+                            }
+                        }
                     },
                     {
                         name: "Mutant slayer's",
                         versus: ["Mutant"],
-                        versusAddPercent: 30
+                        versusAddPercent: 30,
+                        patchOverride: {
+                            "P27": {
+                                versusAddPercent: 50
+                            }
+                        }
                     },
                     {
                         name: "Mutant's",
-                        damageMultPercent: 10
+                        damageMultPercent: 10,
+                        patchOverride: {
+                            "P27": {
+                                damageMultPercent: 5
+                            }
+                        }
                     },
                     {
                         name: "Ghoul slayer's",
                         versus: ["Ghoul"],
-                        versusAddPercent: 30
+                        versusAddPercent: 30,
+                        patchOverride: {
+                            "P27": {
+                                versusAddPercent: 50
+                            }
+                        }
                     },
                     {
                         name: "Bloodied",
@@ -5295,7 +5334,12 @@
                     {
                         name: "Troubleshooter's",
                         versus: ["Robot"],
-                        versusAddPercent: 30
+                        versusAddPercent: 30,
+                        patchOverride: {
+                            "P27": {
+                                versusAddPercent: 50
+                            }
+                        }
                     },
                     {
                         name: "Instigating",
@@ -5307,6 +5351,26 @@
                     {
                         name: "Junkie's"
                     },
+                    {
+                        name: "Aristocrats",
+                        text: "Aristocrat's (PTS)",
+                        capsDamageMultPercent: 50,
+                    },
+                    {
+                        name: "Juggernauts",
+                        text: "Juggernaut's (PTS)",
+                        healthDamageMultPercent: 25,
+                    },
+                    {
+                        name: "Heavyweight",
+                        text: "Heavyweight (PTS)",
+                        carryDamageMultPercent: 25,
+                    },
+                    {
+                        name: "Gourmands",
+                        text: "Gourmand's (PTS)",
+                        feedDamageMultPercent: 24,
+                    }
                 ],
                 // 2: Major
                 [
@@ -5319,6 +5383,11 @@
                         name: "40% power attack damage",
                         linkId: "40PA",
                         damageMultPercentPowerAttack: 40
+                    },
+                    {
+                        name: "Steady",
+                        text: "Steady (PTS)",
+                        steadyDamageMultPercent: 25,
                     }
                 ],
                 // 3: minor
@@ -5337,7 +5406,12 @@
                     {
                         name: "Assassin's",
                         versus: ["Player", "NPC"],
-                        versusAddPercent: 10
+                        versusAddPercent: 10,
+                        patchOverride: {
+                            "P27": {
+                                versusAddPercent: 50
+                            }
+                        }
                     },
                     {
                         name: "Executioner's",
@@ -5349,7 +5423,12 @@
                     {
                         name: "Exterminator's",
                         versus: ["Bug", "Mirelurk"],
-                        versusAddPercent: 50
+                        versusAddPercent: 50,
+                        patchOverride: {
+                            "P27": {
+                                versusAddPercent: 50
+                            }
+                        }
                     },
                     {
                         name: "Two shot",
@@ -5366,31 +5445,63 @@
                     },
                     {
                         name: "Nocturnal",
-                        damageMultPercent: 30
+                        damageMultPercent: 30,
+                        patchOverride: {
+                            "P27": {
+                                damageMultPercent: 40
+                            }
+                        }
                     },
                     {
                         name: "Zealot's",
                         versus: ["Scorched", "Scorchbeast", "Scorchbeast Queen"],
-                        versusAddPercent: 30
+                        versusAddPercent: 30,
+                        patchOverride: {
+                            "P27": {
+                                versusAddPercent: 50
+                            }
+                        }
                     },
                     {
                         name: "Hunter's",
                         versus: ["Animal"],
-                        versusAddPercent: 30
+                        versusAddPercent: 30,
+                        patchOverride: {
+                            "P27": {
+                                versusAddPercent: 50
+                            }
+                        }
                     },
                     {
                         name: "Mutant slayer's",
                         versus: ["Mutant"],
-                        versusAddPercent: 30
+                        versusAddPercent: 30,
+                        patchOverride: {
+                            "P27": {
+                                versusAddPercent: 50
+                            }
+                        }
                     },
                     {
                         name: "Mutant's",
-                        damageMultPercent: 10
+                        damageMultPercent: 10,
+                        maxMutations: 1,
+                        patchOverride: {
+                            "P27": {
+                                damageMultPercent: 5,
+                                maxMutations: 5,
+                            }
+                        }
                     },
                     {
                         name: "Ghoul slayer's",
                         versus: ["Ghoul"],
-                        versusAddPercent: 30
+                        versusAddPercent: 30,
+                        patchOverride: {
+                            "P27": {
+                                versusAddPercent: 50
+                            }
+                        }
                     },
                     {
                         name: "Bloodied",
@@ -5403,7 +5514,12 @@
                     {
                         name: "Troubleshooter's",
                         versus: ["Robot"],
-                        versusAddPercent: 30
+                        versusAddPercent: 30,
+                        patchOverride: {
+                            "P27": {
+                                versusAddPercent: 50
+                            }
+                        }
                     },
                     {
                         name: "Junkie's"
@@ -5415,6 +5531,26 @@
                     {
                         name: "Quad",
                         clipSizeMult: 4,
+                    },
+                    {
+                        name: "Aristocrats",
+                        text: "Aristocrat's (PTS)",
+                        capsDamageMultPercent: 50,
+                    },
+                    {
+                        name: "Juggernauts",
+                        text: "Juggernaut's (PTS)",
+                        healthDamageMultPercent: 25,
+                    },
+                    {
+                        name: "Heavyweight",
+                        text: "Heavyweight (PTS)",
+                        carryDamageMultPercent: 25,
+                    },
+                    {
+                        name: "Gourmands",
+                        text: "Gourmand's (PTS)",
+                        feedDamageMultPercent: 24,
                     }
                 ],
                 // 2: Major
@@ -5436,8 +5572,13 @@
                     {
                         name: "Aiming",
                         linkId: "ADS",
-                        text: "+10% damage while aiming",
-                        damageMultPercent: 10
+                        text: "+% damage while aiming",
+                        damageMultPercent: 10,
+                        patchOverride: {
+                            "P27": {
+                                damageMultPercent: 25,
+                            }
+                        }
                     },
                     {
                         name: "VATS Crits do +50% damage",
@@ -5450,6 +5591,17 @@
                         linkId: "FFR",
                         //speedMultPercent: 25
                         speedAddPercent: 25
+                    },
+                    {
+                        name: "Lastshot",
+                        text: "Last Shot (PTS)",
+                        lastDamageMultPercent: 100,
+                        lastChance: 25,
+                    },
+                    {
+                        name: "Steady",
+                        text: "Steady (PTS)",
+                        steadyDamageMultPercent: 25,
                     }
                 ],
                 // 3: minor
@@ -7469,6 +7621,7 @@
                 + "<br><br>Patch 22 (One Wasteland) changed damage buffs to be mostly additive."
                 + "<br><br>Patch 23 changed a few remaining buffs to be additive."
                 + "<br>Stealth and crit bonuses still appear to be multiplicative."
+                + "<br><br>Patch 27 added more legendary effects and adjusted existing ones."
                 + "<br><br>Future patches appear to change the impact of resistances so that"
                 + "<br>there won't be such a sharp drop in damage output for the same level of resistance,"
                 + "<br>resulting in tougher enemies to receive more damage."
@@ -7476,6 +7629,39 @@
             );
 
             // ~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o
+
+            infoMap.set("aristocrats", 
+                "Enables the following legendary effects on the PTS:"
+                + "<ul>"
+                    + "<li><b>Aristocrat's</b>: up to 25% more damage when having 29000+ caps</li>"
+                + "</ul>"
+            );
+            infoMap.set("gourmands", 
+                "Enables the following legendary effects on the PTS:"
+                + "<ul>"
+                    + "<li><b>Gourmand's</b>: up to 24% more damage when having 100% food and thirst meter</li>"
+                + "</ul>"
+            );
+            infoMap.set("steady", 
+                "Enables the following legendary effects on the PTS:"
+                + "<ul>"
+                    + "<li><b>Steady</b>: +25% damage while standing still</li>"
+                + "</ul>"
+            );
+            infoMap.set("juggernauts", 
+                "Enables the following legendary effects on the PTS:"
+                + "<ul>"
+                    + "<li><b>Juggernaut's</b>: up to 25% more damage carrying 350+ lb of items</li>"
+                + "</ul>"
+            );
+            infoMap.set("mutationcount", 
+                "Indicate how many other mutations you have for the following legendary effects:"
+                + "<ul>"
+                    + "<li><b>Live</b>: 10% more damage if mutated</li>"
+                    + "<li><b>PTS</b>: each mutation gives +5% damage up to 25%</li>"
+                + "</ul>"
+            );
+
 
             // add HTML explanation marker
             function info(name) {
@@ -7787,6 +7973,8 @@
                     createYesNo(tbl, index, type, "Power Attacking", "powerattack", "powerattack", "PowerAttack");
                 }
 
+                createYesNo(tbl, index, type, "Standing still", "steady", "steady", "Steady");
+
                 row = tbl.insertRow(tbl.rows.length);
                 cell1 = row.insertCell(0);
                 cell1.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;Player health" + info("playerhealth");
@@ -7887,6 +8075,42 @@
                     };
                     junkiescountsel.linkId = "Addicts";
                     junkiescountsel.linkDefault = "0";
+
+                row = tbl.insertRow(tbl.rows.length);
+                    cell1 = row.insertCell(0);
+                    cell1.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;Caps" + info("aristocrats");
+                    cell2 = row.insertCell(1);
+                    cell2.innerHTML = "<input type='number' id='caps" + index + "' value='0' maxlength='6' style='width: 4em;' min='0' max='30000'>";
+                    var aristocratsel = document.getElementById("caps" + index );
+                    aristocratsel.oninput = function() {
+                        recalculate(tbl, index, type);
+                    };
+                    aristocratsel.linkId = "Caps";
+                    aristocratsel.linkDefault = "0";
+
+                row = tbl.insertRow(tbl.rows.length);
+                    cell1 = row.insertCell(0);
+                    cell1.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;Hunger &amp; Thirst" + info("gourmands");
+                    cell2 = row.insertCell(1);
+                    cell2.innerHTML = "<input type='number' id='feed" + index + "' value='0' maxlength='6' style='width: 3em;' min='0' max='100'> %";
+                    var gourmandsel = document.getElementById("feed" + index );
+                    gourmandsel.oninput = function() {
+                        recalculate(tbl, index, type);
+                    };
+                    gourmandsel.linkId = "Food";
+                    gourmandsel.linkDefault = "0";
+
+                row = tbl.insertRow(tbl.rows.length);
+                    cell1 = row.insertCell(0);
+                    cell1.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;Inventory weight" + info("juggernauts");
+                    cell2 = row.insertCell(1);
+                    cell2.innerHTML = "<input type='number' id='carryweight" + index + "' value='0' maxlength='6' style='width: 4em;' min='0' max='30000'> lb";
+                    var juggernautsel = document.getElementById("carryweight" + index );
+                    juggernautsel.oninput = function() {
+                        recalculate(tbl, index, type);
+                    };
+                    juggernautsel.linkId = "Carryweight";
+                    juggernautsel.linkDefault = "0";
 
                 var weapIdx = document.getElementById("weapon" + index).selectedIndex;
                 var weap = allWeapons.get(type)[weapIdx];
@@ -8532,6 +8756,17 @@
                     createYesNo(tbl, index, type, "Speed Demon", "speeddemon", "speeddemon", "SpeedDemon");
                 }
                 createYesNo(tbl, index, type, "Any other mutation", "mutation", "mutation", "Mutation");
+                row = tbl.insertRow(tbl.rows.length);
+                    cell1 = row.insertCell(0);
+                    cell1.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Mutation count" + info("mutationcount");
+                    cell2 = row.insertCell(1);
+                    cell2.innerHTML = "<input type='number' id='mutationcount" + index + "' value='0' maxlength='3' style='width: 3em;' min='0' max='22'>";
+                    var mutationcountsel = document.getElementById("mutationcount" + index );
+                    mutationcountsel.oninput = function() {
+                        recalculate(tbl, index, type);
+                    };
+                    mutationcountsel.linkId = "Mutationcount";
+                    mutationcountsel.linkDefault = "0";
             }
 
             function buffFilter(buff, weap, type) {
@@ -8795,6 +9030,12 @@
                 opt.linkId = "P23";
                 calcmodesel.add(opt);
 
+                opt = document.createElement("option");
+                opt.text = "PTS";
+                opt.value = "P27";
+                opt.linkId = "P27";
+                calcmodesel.add(opt);
+
                 calcmodesel.onchange = function() {
                     recalculate(tbl, index, type);
                 };
@@ -8813,6 +9054,18 @@
                     }
                 }
                 return 1;
+            }
+
+            function withOverride(entry, patch) {
+                if (entry.patchOverride && entry.patchOverride[patch]) {
+                    var newEntry = JSON.parse(JSON.stringify(entry));
+                    var po = entry.patchOverride[patch];
+                    for (var i in po) {
+                        newEntry[i] = po[i];
+                    }
+                    return newEntry;
+                }
+                return entry;
             }
 
             function recalculate(tbl, index, type) {
@@ -8966,7 +9219,7 @@
 
                 var calcMode = valueOf(document.getElementById("calcmode" + index));
                 calcModes[index] = calcMode;
-                var isCalcAdd = calcMode === "P22" || calcMode === "P23";
+                var isCalcAdd = calcMode !== "P21";
 
                 // prepare selectable buffs
                 var buffOpts = [];
@@ -9373,12 +9626,14 @@
                     totalSpeedMultiply.push(-50);
                 }
 
+                var lastShot = 0;
+
                 // Apply unconditional effects
                 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~
                 effects.forEach(function(effect, idx) {
                     var effectSel = document.getElementById("effs_" + index + "_" + idx);
                     if (effectSel != null && effectSel.selectedIndex > 0) {
-                        var effInfo = effects[idx][effectSel.selectedIndex - 1];
+                        var effInfo = withOverride(effects[idx][effectSel.selectedIndex - 1], calcMode);
                         
                         if (effInfo.damageMultPercent !== undefined) {
                             var perc = effInfo.damageMultPercent;
@@ -9432,8 +9687,11 @@
                                 perc = Math.min(95, Math.floor((100 - health) / 5) * 5);
                             }
                             if (effInfo.name === "Mutant's") {
-                                if (!hasMutation(index)) {
+                                var muts = hasMutation(index);
+                                if (muts == 0) {
                                     perc = 0;
+                                } else {
+                                    perc = Math.min(muts, effInfo.maxMutations) * effInfo.damageMultPercent;
                                 }
                             }
                             // totalDamageAdditive.push(baseDamage * (perc / 100.0))
@@ -9496,6 +9754,40 @@
                             if (isPowerAttack) {
                                 powerAttackBonus += effInfo.damageMultPercentPowerAttack;
                             }
+                        }
+                        if (effInfo.capsDamageMultPercent) {
+                            var caps = parseInt(document.getElementById("caps" + index).value);
+                            perc = Math.min(29000, caps) * effInfo.capsDamageMultPercent / 29000;
+                            totalDamageMultiply.push(perc);
+                            totalDamageEnergyMultiply.push(perc);
+                        }
+                        if (effInfo.feedDamageMultPercent) {
+                            var feed = parseInt(document.getElementById("feed" + index).value);
+                            perc = effInfo.feedDamageMultPercent * feed / 100;
+                            totalDamageMultiply.push(perc);
+                            totalDamageEnergyMultiply.push(perc);
+                        }
+                        if (effInfo.healthDamageMultPercent) {
+                            var hp = parseInt(document.getElementById("playerhealth" + index).value);
+                            perc = effInfo.healthDamageMultPercent * Math.min(hp, 95) / 95;
+                            totalDamageMultiply.push(perc);
+                            totalDamageEnergyMultiply.push(perc);
+                        }
+                        if (effInfo.carryDamageMultPercent) {
+                            var hp = parseInt(document.getElementById("carryweight" + index).value);
+                            perc = effInfo.carryDamageMultPercent * Math.min(hp, 350) / 350;
+                            totalDamageMultiply.push(perc);
+                            totalDamageEnergyMultiply.push(perc);
+                        }
+                        if (effInfo.steadyDamageMultPercent) {
+                            if (document.getElementById("steady" + index + "_yes").checked) {
+                                perc = effInfo.steadyDamageMultPercent;
+                                totalDamageMultiply.push(perc);
+                                totalDamageEnergyMultiply.push(perc);
+                            }
+                        }
+                        if (effInfo.lastDamageMultPercent) {
+                            lastShot = effInfo.lastDamageMultPercent * effInfo.lastChance / 100;
                         }
                     }
                 });
@@ -9737,6 +10029,27 @@
                     totalDamageRadiationMultiply.push(powerAttackBonus);
                 }
 
+                var clipSize = 0;
+                if (isReload) {
+                    if (clipSizeAdd < 0 && clipSizeMult == 1) {
+                        clipSize = weap.clipSize + clipSizeAdd;
+                    } else {
+                        clipSize = clipSizeMult * weap.clipSize + Math.max(0, clipSizeAdd);
+                    }
+
+                    if (weap.category === "Heavy" && weap.kind === "laser") {
+                        var powerusersel = document.getElementById("poweruser" + index);
+                        if (powerusersel.selectedIndex > 0) {
+                            clipSize += weap.clipSize * powerusersel.options[powerusersel.selectedIndex].value / 100.0;
+                        }
+                    }
+                }
+
+                if (clipSize > 1 && lastShot > 0) {
+                    totalDamageMultiply.push(lastShot / clipSize);
+                    totalDamageEnergyMultiply.push(lastShot / clipSize);
+                }
+
                 var totalDamage = baseDamage;
                 var totalDamageEnergy = baseDamageEnergy;
                 var totalDamageRadiation = baseDamageRadiation;
@@ -9898,22 +10211,8 @@
                 cell6.innerText = speed.toFixed(2);
                 cell8.innerHTML = createDamageDisplayHTML(totalDamage * speed, totalDamageEnergy * speed, totalDamageRadiation * speed,
                         totalDamageFire * speed, totalDamageCold * speed, totalDamagePoison * speed);
-                
+
                 if (isReload) {
-                    var clipSize;
-                    if (clipSizeAdd < 0 && clipSizeMult == 1) {
-                        clipSize = weap.clipSize + clipSizeAdd;
-                    } else {
-                        clipSize = clipSizeMult * weap.clipSize + Math.max(0, clipSizeAdd);
-                    }
-
-                    if (weap.category === "Heavy" && weap.kind === "laser") {
-                        var powerusersel = document.getElementById("poweruser" + index);
-                        if (powerusersel.selectedIndex > 0) {
-                            clipSize += weap.clipSize * powerusersel.options[powerusersel.selectedIndex].value / 100.0;
-                        }
-                    }
-
                     if (document.getElementById("speeddemon" + index + "_yes").checked) {
                         if (isStrangeInNumbers) {
                             reloadTimeAdd.push(-40);
@@ -10037,6 +10336,7 @@
             function hasMutation(index) {
                 var adrenalreaction = document.getElementById("adrenalreaction" + index + "_yes").checked;
                 var anymutation = document.getElementById("mutation" + index + "_yes").checked;
+                var anymutationCount = parseInt(document.getElementById("mutationcount" + index).value);
                 var grounded = document.getElementById("grounded" + index + "_yes").checked;
                 var tw = document.getElementById("twistedmuscles" + index + "_yes");
                 var twistedmuscles = tw != null && tw.checked;
@@ -10046,7 +10346,16 @@
                 
                 var spd = document.getElementById("speeddemon" + index + "_yes");
                 var sde = spd != null && spd.checked;
-                return adrenalreaction || anymutation || twistedmuscles || grounded || talons || eae || sde;
+
+                var mutationCount = 
+                    (adrenalreaction ? 1 : 0)
+                    + (anymutation ? anymutationCount : 0)
+                    + (twistedmuscles ? 1 : 0)
+                    + (grounded ? 1 : 0)
+                    + (talons ? 1 : 0)
+                    + (eae ? 1 : 0)
+                    + (sde ? 1 : 0);
+                return mutationCount;
             }
 
             function resistanceKey(e) {
@@ -10224,7 +10533,8 @@
                     }
 
                     var index = 1;
-                    var leftIsP23 = calcModes[index] === "P23";
+                    var calcMode = calcModes[index];
+                    var leftIsP23 = calcMode === "P23";
 
                     var leftDr = actualResist(res.dr, ignores[index]);
                     var leftEr = aaEnergy ? actualResist(res.er, ignores[index]) : res.er;
