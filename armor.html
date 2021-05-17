@@ -1,0 +1,430 @@
+<html>
+    <head>
+        <title>Fallout 76 Armor Defense Calculator</title>
+        <style>
+            * {
+                font-family: sans-serif;
+                font-size: 20px;
+            }
+            td {
+                padding: 1px;
+            }
+            
+            table.infoTable {
+               border: 1px solid black;
+               border-collapse: collapse;
+            }
+            table.infoTable td {
+               border: 1px solid black;
+            }
+            .halfopaque {
+                opacity: 0.3;
+                font-weight: bold; 
+                font-size: 26px;
+            }
+            .ptr {
+                cursor: pointer;
+            }
+            .num6 {
+                width: 90px;
+            }
+        </style>
+        <meta name="keywords" content="Fallout,Fallout 76,Armor,Damage,Resistance,DR,ER,Reduction,Calculation,Comparison,Comparator">
+    </head>
+    <body style="height: 90%">
+        <center>
+            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Armor Defense Calculator (0.1.0)</span>
+            <br/>
+            <!-- <i>(Notification here)</i> -->
+        <br/>
+        <br/>
+        <table id="parent">
+            <tr>
+                <td style='vertical-align: top;'>
+                    <table id="table1" style="border: 1px solid black;">
+                        <tr>
+                            <td>Armor kind</td>
+                            <td>
+                                <label class='ptr'><input type="radio" id="nonPA1" name="PA1" value="0"/> Non Power Armor</label>
+                                &nbsp;&nbsp;&nbsp;&nbsp;
+                                <label class='ptr'><input type="radio" id="PA1" name="PA1" value="1"/> Power Armor</label>
+                            </td>
+                        </tr>
+        
+                    </table>            
+                </td>
+                <td style="padding-left: 20px; padding-right:20px; text-align: center; vertical-align: top; width: 100px;">
+                    <button id="copyright" title="Copy Right">&gt;&gt;</button>
+                    <br/>
+                    <button id="copyleft" title="Copy left">&lt;&lt;</button>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <a id='linkleftleft' href="#" title='Link to the left weapon' target='_blank'>&lt; Link</a>
+                    <br/>
+                    <br/>
+                    <a id='linkrightright' href="#" title='Link to the right weapon' target='_blank'>Link &gt;</a>
+                    <br/>
+                    <br/>
+                    <a id='linkboth' href="#" title='Link to both weapons' target='_blank'>&lt; Link &gt;</a>
+                    <br/>
+                    <br/>
+                    <button id="clear" title="Clear" onclick='document.location.search=""; return false;'>Clear</button>
+                </td>
+                <td style='vertical-align: top;'>
+                    <table id="table2" style="border: 1px solid black;">
+                        <tr>
+                            <td>Armor kind</td>
+                            <td>
+                                <label class='ptr'><input type="radio" id="nonPA2" name="PA2" value="0"/> Non Power Armor</label>
+                                &nbsp;&nbsp;&nbsp;&nbsp;
+                                <label class='ptr'><input type="radio" id="PA2" name="PA2" value="1"/> Power Armor</label>
+                            </td>
+                        </tr>
+        
+                    </table>            
+                </td>
+            </tr>
+            <tr>
+                <td colspan="3" align='center'>
+                    <br/>
+                    <h2>Enemy</h2>
+                    <br/>
+                    <table style='border-collapse: collapse; border: 1px solid black;'>
+                        <tr>
+                            <td>Kind</td>
+                            <td><select id='enemykind'>
+                                <option value="">Any</option>
+                                <option value="Player">Player</option>
+                                <option value="Human">Human</option>
+                                <option value="SuperMutant">Super Mutant</option>
+                                <option value="Animal">Animal</option>
+                                <option value="Ghoul">Ghoul</option>
+                                <option value="Robot">Robot</option>
+                                <option value="Bug">Bug or Mirelurk</option>
+                                <option value="Scorched">Scorched</option>
+                            </select></td>
+                        </tr>
+                        <tr>
+                            <td>Damage amount</td>
+                            <td>
+                                <table style='padding-left: 20px;'>
+                                    <tr>
+                                        <td>Ballistic</td>
+                                        <td><input type="number" class='num6' min='0' maxlength='6' value='100' id='dmgBallistic'></td>
+                                        <td>Energy</td>
+                                        <td><input type="number" class='num6' min='0' maxlength='6' value='0' id='dmgEnergy'></td>
+                                        <td>Radiation</td>
+                                        <td><input type="number" class='num6' min='0' maxlength='6' value='0' id='dmgRadiation'></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Fire</td>
+                                        <td><input type="number" class='num6' min='0' maxlength='6' value='0' id='dmgFire'></td>
+                                        <td>Cryo</td>
+                                        <td><input type="number" class='num6' min='0' maxlength='6' value='0' id='dmgCryo'></td>
+                                        <td>Poison</td>
+                                        <td><input type="number" class='num6' min='0' maxlength='6' value='0' id='dmgPoison'></td>
+                                        </tr>
+                                    </table>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Hit rate</td>
+                            <td>
+                                <input type="number" class='num6' min='0' maxlength='6' value='1' id='hitsPerSecond'> per second
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Armor ignore</td>
+                            <td>
+                                <input type="number" class='num6' min='0' maxlength='6' value='0' id='armorIgnore'> %
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Damage mode</td>
+                            <td>
+                                <label class='ptr'><input type='radio' name='dmgType' value='melee' id='dmgTypeMelee'> Melee</label>
+                                &nbsp;&nbsp;&nbsp;
+                                <label class='ptr'><input type='radio' name='dmgType' value='ranged' id='dmgTypeRanged'> Ranged</label>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="3" align='center'>
+                    <br/>
+                    <h2>Comparison</h2>
+                    <br/>
+                </td>
+            </tr>
+    </table>
+    </center>
+    <script>
+            var infoMap = new Map();
+
+            // add HTML explanation marker
+            function info(name) {
+                return "&nbsp;<sup><a href='#' style='font-size: 14; font-weight: bold;' onclick='showinfo(this, \"" + name + "\"); return false;'>?</a></sup>";
+            }
+
+            // popup for explanation
+            function showinfo(target, name) {
+                var div = document.getElementById("InfoDiv" + name);
+                if (div == null) {
+                    var div = document.createElement("div");
+                    div.style.border = "1px solid black";
+                    div.style.padding = "3px";
+                    div.style.position = "absolute";
+                    div.style.backgroundColor = "#FFFFD0";
+                    div.style.zIndex = 99;
+                    div.id = "InfoDiv" + name;
+                    var txt = infoMap.get(name);
+
+                    if (txt == null) {
+                        txt = "??? " + name + " ???";
+                    }
+                    txt += "<hr><font style='font-size: 14px'>Click to close.</font>";
+                    div.innerHTML = txt;
+
+                    target.parentElement.appendChild(div);
+                    div.onclick = function() {
+                        target.parentElement.removeChild(div);
+                    }
+                } else {
+                    target.parentElement.removeChild(div);
+                }
+            }
+
+            // datasheet
+            var armor = {
+                "NonPA": {
+
+                },
+                "PA": {
+                    "Excavator": {
+                        levels: [25, 35, 45],
+                        "Helmet": {
+                            name: "Helmet",
+                            dr: [24, 30, 36],
+                            er: [24, 30, 36],
+                            rr: [35, 45, 55],
+                            ballisticReductionPercent: 7,
+                            energyReductionPercent: 7,
+                            radiationReductionPercent: 7
+                        },
+                        "Torso": {
+                            name: "Torso",
+                            dr: [42, 51, 60],
+                            er: [42, 51, 60],
+                            rr: [59, 75, 91],
+                            ballisticReductionPercent: 7,
+                            energyReductionPercent: 7,
+                            radiationReductionPercent: 7
+                        },
+                        "LA": {
+                            name: "Left Arm",
+                            dr: [24, 30, 36],
+                            er: [24, 30, 36],
+                            rr: [35, 45, 55],
+                            ballisticReductionPercent: 7,
+                            energyReductionPercent: 7,
+                            radiationReductionPercent: 7
+                        },
+                        "RA": {
+                            name: "Right Arm",
+                            dr: [24, 30, 36],
+                            er: [24, 30, 36],
+                            rr: [35, 45, 55],
+                            ballisticReductionPercent: 7,
+                            energyReductionPercent: 7,
+                            radiationReductionPercent: 7
+                        },
+                        "LL": {
+                            name: "Left Leg",
+                            dr: [24, 30, 36],
+                            er: [24, 30, 36],
+                            rr: [35, 45, 55],
+                            ballisticReductionPercent: 7,
+                            energyReductionPercent: 7,
+                            radiationReductionPercent: 7
+                        },
+                        "RL": {
+                            name: "Right Leg",
+                            dr: [24, 30, 36],
+                            er: [24, 30, 36],
+                            rr: [35, 45, 55],
+                            ballisticReductionPercent: 7,
+                            energyReductionPercent: 7,
+                            radiationReductionPercent: 7
+                        }
+                    }
+                }
+            };
+
+            var legendaryEffects = {
+                "Prefix": {
+                    "Aristocrats": {
+                        name: "Aristocrat's (PTS)",
+                        maxCaps: 29000,
+                        dr: { NonPA: 20, PA: 35 },
+                        er: { NonPA: 20, PA: 35 },
+                        rr: { NonPA: 20, PA: 35 },
+                        fr: { NonPA: 20, PA: 35 },
+                        cr: { NonPA: 20, PA: 35 },
+                        pr: { NonPA: 20, PA: 35 },
+                    },
+                    "Bolstering": {
+                        name: "Bolstering",
+                        dr: 35,
+                        er: 35,
+                    },
+                    "Overeaters": {
+                        name: "Overeater's (PTS)",
+                        ballisticReductionPercent: 6,
+                        energyReductionPercent: 6,
+                    },
+                    "Vanguard": {
+                        name: "Vanguard's",
+                        dr: 35,
+                        er: 35,
+                    },
+                    "Mutants": {
+                        name: "Mutant's",
+                        dr: 10,
+                        er: 10,
+                    },
+                    "Nocturnal": {
+                        name: "Nocturnal",
+                        drPercent: 10,
+                        erPercent: 10,
+                    },
+                    "Heavyweight": {
+                        name: "Heavyweight",
+                        maxWeight: 350,
+                        dr: 35,
+                        er: 35,
+                        rr: 35,
+                        fr: 35,
+                        cr: 35,
+                        pr: 35
+                    },
+                    "Assassins": {
+                        name: "Assassin's",
+                        versus: {
+                            "Human": {
+                                ballisticReductionPercent: 15,
+                                energyReductionPercent: 15,
+                                chance: 75
+                            },
+                            "Player": {
+                                ballisticReductionPercent: 10,
+                                energyReductionPercent: 10,
+                                chance: 75
+                            }
+                        }
+                    },
+                    "Ghoulslayers": {
+                        name: "Ghoul Slayer's",
+                        versus: {
+                            "Ghoul": {
+                                ballisticReductionPercent: 15,
+                                energyReductionPercent: 15,
+                            }
+                        }
+                    },
+                    "Mutantslayers": {
+                        name: "Mutant Slayer's",
+                        versus: {
+                            "SuperMutant": {
+                                ballisticReductionPercent: 15,
+                                energyReductionPercent: 15,
+                            }
+                        }
+                    },
+                    "Hunters": {
+                        name: "Hunter's",
+                        versus: {
+                            "Animal": {
+                                ballisticReductionPercent: 15,
+                                energyReductionPercent: 15,
+                            }
+                        }
+                    },
+                    "Exterminators": {
+                        name: "Exterminator's",
+                        versus: {
+                            "Bug": {
+                                ballisticReductionPercent: 15,
+                                energyReductionPercent: 15,
+                            }
+                        }
+                    },
+                    "Troubleshooters": {
+                        name: "Troubleshooter's",
+                        versus: {
+                            "Robot": {
+                                ballisticReductionPercent: 15,
+                                energyReductionPercent: 15,
+                            }
+                        }
+                    },
+                    "Zealots": {
+                        name: "Zealot's",
+                        versus: {
+                            "Scorched": {
+                                ballisticReductionPercent: 15,
+                                energyReductionPercent: 15,
+                            }
+                        }
+                    },
+                },
+                "Major": {
+                    "Radresist": {
+                        name: "+25 rad resistance",
+                        rr: 25
+                    },
+                    "Poisonresist": {
+                        name: "+25 poison resistance",
+                        rr: 25
+                    },
+                    "Fireresist": {
+                        name: "+25 fire resistance",
+                        fr: 25
+                    },
+                    "Cryoresist": {
+                        name: "+25 cryo resistance",
+                        cr: 25
+                    },
+                    "Hardy": {
+                        name: "10% explosive damage reduction",
+                        explosiveReductionPercent: 10,
+                    }
+                },
+                "Minor": {
+                    "Blocker": {
+                        name: "15% less damage when blocking",
+                        ballisticReductionPercent: 15,
+                    },
+                    "Cavailier": {
+                        name: "15% less damage while sprinting",
+                        ballisticReductionPercent: 15,
+                        chance: 75
+                    },
+                    "Limbdamage": {
+                        name: "15% less limb damage",
+                        ballisticReductionPercent: 15,
+                        energyReductionPercent: 15,
+                        chance: 15
+                    },
+                    "Sentinel": {
+                        name: "15% less damage while standing still",
+                        ballisticReductionPercent: 15,
+                        energyReductionPercent: 15,
+                        chance: 75
+                    }
+                }
+            };
+    </script>
+</body>
+</html>
