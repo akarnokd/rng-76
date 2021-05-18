@@ -1273,13 +1273,13 @@
                 if (mode === "NonPA") {
                     createNumber(tbl, "Strength", index + "_Strength", 1, 100, 1);
                     createNumber(tbl, "Agility", index + "_Agility", 1, 100, 1);
-                    createNumber(tbl, "Junk Amount", index + "_Junkamout", 0, 46, 0);
+                    createNumber(tbl, "Junk Amount", index + "_Junkamount", 0, 46, 0);
                 }
 
                 createYesNo(tbl, index, "Night", "&nbsp;&nbsp;&nbsp;Night time");
                 createYesNo(tbl, index, "Block", "&nbsp;&nbsp;&nbsp;Blocking");
                 createYesNo(tbl, index, "Fireheavy", "&nbsp;&nbsp;&nbsp;Firing a heavy gun");
-                createYesNo(tbl, index, "Sneaking", "&nbsp;&nbsp;&nbsp;Sneaking");
+                createYesNo(tbl, index, "Sneak", "&nbsp;&nbsp;&nbsp;Sneaking");
 
                 rw = tbl.insertRow(tbl.rows.length);
                 cll = rw.insertCell(rw.cells.length);
@@ -1579,7 +1579,6 @@
 
             function createRadio(key, id, name) {
                 var lblYes = document.createElement("label");
-                cll.appendChild(lblYes);
                 lblYes.className = "ptr";
 
                 var yes = document.createElement("input");
@@ -1639,6 +1638,36 @@
                 createConsumables(tbl, index, mode);
 
                 createResults(tbl, index, mode);
+
+                recalculate(index);
+            }
+
+            function recalculate(index) {
+                let state = {
+                    player: {},
+                    enemy: {}
+                };
+
+                state.player.hp = parseInt(getValue(index + "_HP"));
+                state.player.caps = parseInt(getValue(index + "_Caps"));
+                state.player.carrying = parseInt(getValue(index + "_Carry"));
+                state.player.teammates = parseInt(getValue(index + "_Teammates"));
+                state.player.teamdeath = parseInt(getValue(index + "_Teamdeaths"));
+                state.player.night = getBool(index + "_Night_yes");
+                state.player.blocking = getBool(index + "_Block_yes");
+                state.player.sneaking = getBool(index + "_Sneak_yes");
+                state.player.fireheavy = getBool(index + "_Fireheavy_yes");
+                state.player.stance = getValue(index + "_Stance");
+                state.player.mode = getBool("NonPA" + index) ? "NonPA" : "PA";
+
+                if (state.player.mode === "NonPA") {
+                    state.player.strength = getValue(index + "_Strength");
+                    state.player.agility = getValue(index + "_Agility");
+                    state.player.junkamount = getValue(index + "_Junkamount");
+                }
+
+                state.enemy.kind = getOpt("enemykind").value;
+                state.enemy.ballisticDamage = getValue("dmgBallistic");
             }
 
             get("NonPA1").oninput = evt => createSide(1, "NonPA");
