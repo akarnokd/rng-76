@@ -28,6 +28,15 @@
             .num6 {
                 width: 90px;
             }
+            .bold {
+                font-weight: bold;
+            }
+            .center {
+                text-align: center;
+            }
+            .topline {
+                border-top: 1px solid black;
+            }
         </style>
         <meta name="keywords" content="Fallout,Fallout 76,Armor,Damage,Resistance,DR,ER,Reduction,Calculation,Comparison,Comparator">
     </head>
@@ -45,7 +54,7 @@
                         <tr>
                             <td>Armor kind</td>
                             <td>
-                                <label class='ptr'><input type="radio" id="nonPA1" name="PA1" value="0"/> Non Power Armor</label>
+                                <label class='ptr'><input type="radio" id="NonPA1" name="PA1" value="0"/> Non Power Armor</label>
                                 &nbsp;&nbsp;&nbsp;&nbsp;
                                 <label class='ptr'><input type="radio" id="PA1" name="PA1" value="1"/> Power Armor</label>
                             </td>
@@ -76,7 +85,7 @@
                         <tr>
                             <td>Armor kind</td>
                             <td>
-                                <label class='ptr'><input type="radio" id="nonPA2" name="PA2" value="0"/> Non Power Armor</label>
+                                <label class='ptr'><input type="radio" id="NonPA2" name="PA2" value="0"/> Non Power Armor</label>
                                 &nbsp;&nbsp;&nbsp;&nbsp;
                                 <label class='ptr'><input type="radio" id="PA2" name="PA2" value="1"/> Power Armor</label>
                             </td>
@@ -101,7 +110,8 @@
                                 <option value="Animal">Animal</option>
                                 <option value="Ghoul">Ghoul</option>
                                 <option value="Robot">Robot</option>
-                                <option value="Bug">Bug or Mirelurk</option>
+                                <option value="Insect">Insect</option>
+                                <option value="Mirelurk">Mirelurk</option>
                                 <option value="Scorched">Scorched</option>
                             </select></td>
                         </tr>
@@ -128,12 +138,14 @@
                                     </table>
                             </td>
                         </tr>
+                        <!--
                         <tr>
                             <td>Hit rate</td>
                             <td>
                                 <input type="number" class='num6' min='0' maxlength='6' value='1' id='hitsPerSecond'> per second
                             </td>
                         </tr>
+                        -->
                         <tr>
                             <td>Armor ignore</td>
                             <td>
@@ -146,6 +158,14 @@
                                 <label class='ptr'><input type='radio' name='dmgType' value='melee' id='dmgTypeMelee'> Melee</label>
                                 &nbsp;&nbsp;&nbsp;
                                 <label class='ptr'><input type='radio' name='dmgType' value='ranged' id='dmgTypeRanged'> Ranged</label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Energy damage type</td>
+                            <td>
+                                <label class='ptr'><input type='radio' name='energyType' value='laser' id='energyTypeLaser'> Laser</label>
+                                &nbsp;&nbsp;&nbsp;
+                                <label class='ptr'><input type='radio' name='energyType' value='plasma' id='energyTypePlasma'> Plasma</label>
                             </td>
                         </tr>
                     </table>
@@ -203,6 +223,7 @@
                 },
                 "PA": {
                     "Excavator": {
+                        name: "Excavator",
                         levels: [25, 35, 45],
                         "Helmet": {
                             name: "Helmet",
@@ -211,7 +232,7 @@
                             rr: [35, 45, 55],
                             ballisticReductionPercent: 7,
                             energyReductionPercent: 7,
-                            radiationReductionPercent: 7
+                            radiationReductionPercent: 7,
                         },
                         "Torso": {
                             name: "Torso",
@@ -220,7 +241,17 @@
                             rr: [59, 75, 91],
                             ballisticReductionPercent: 7,
                             energyReductionPercent: 7,
-                            radiationReductionPercent: 7
+                            radiationReductionPercent: 7,
+                            mods: {
+                                "Main": {
+                                    "Emergency": {
+                                        name: "Emergency protocols",
+                                        ballisticReductionPercent: 50,
+                                        energyReductionPercent: 50,
+                                        hitpoints: 20
+                                    }
+                                }
+                            }
                         },
                         "LA": {
                             name: "Left Arm",
@@ -229,7 +260,7 @@
                             rr: [35, 45, 55],
                             ballisticReductionPercent: 7,
                             energyReductionPercent: 7,
-                            radiationReductionPercent: 7
+                            radiationReductionPercent: 7,
                         },
                         "RA": {
                             name: "Right Arm",
@@ -238,7 +269,7 @@
                             rr: [35, 45, 55],
                             ballisticReductionPercent: 7,
                             energyReductionPercent: 7,
-                            radiationReductionPercent: 7
+                            radiationReductionPercent: 7,
                         },
                         "LL": {
                             name: "Left Leg",
@@ -247,7 +278,7 @@
                             rr: [35, 45, 55],
                             ballisticReductionPercent: 7,
                             energyReductionPercent: 7,
-                            radiationReductionPercent: 7
+                            radiationReductionPercent: 7,
                         },
                         "RL": {
                             name: "Right Leg",
@@ -256,103 +287,540 @@
                             rr: [35, 45, 55],
                             ballisticReductionPercent: 7,
                             energyReductionPercent: 7,
-                            radiationReductionPercent: 7
+                            radiationReductionPercent: 7,
                         }
                     }
                 }
             };
 
             var legendaryEffects = {
-                "Prefix": {
-                    "Aristocrats": {
-                        name: "Aristocrat's (PTS)",
-                        maxCaps: 29000,
-                        dr: { NonPA: 20, PA: 35 },
-                        er: { NonPA: 20, PA: 35 },
-                        rr: { NonPA: 20, PA: 35 },
-                        fr: { NonPA: 20, PA: 35 },
-                        cr: { NonPA: 20, PA: 35 },
-                        pr: { NonPA: 20, PA: 35 },
+                "NonPA": {
+                    "Prefix": {
+                        "Aristocrats": {
+                            name: "Aristocrat's (PTS)",
+                            maxCaps: 29000,
+                            dr: 20,
+                            er: 20,
+                            rr: 20,
+                            fr: 20,
+                            cr: 20,
+                            pr: 20,
+                        },
+                        "Bolstering": {
+                            name: "Bolstering",
+                            dr: 35,
+                            er: 35,
+                        },
+                        "Overeaters": {
+                            name: "Overeater's (PTS)",
+                            ballisticReductionPercent: 6,
+                            energyReductionPercent: 6,
+                        },
+                        "Vanguard": {
+                            name: "Vanguard's",
+                            dr: 35,
+                            er: 35,
+                        },
+                        "Mutants": {
+                            name: "Mutant's",
+                            dr: 10,
+                            er: 10,
+                        },
+                        "Nocturnal": {
+                            name: "Nocturnal",
+                            drPercent: 10,
+                            erPercent: 10,
+                        },
+                        "Heavyweight": {
+                            name: "Heavyweight",
+                            maxWeight: 350,
+                            dr: 20,
+                            er: 20,
+                            rr: 20,
+                            fr: 20,
+                            cr: 20,
+                            pr: 20
+                        },
+                        "Assassins": {
+                            name: "Assassin's",
+                            versus: {
+                                "Human": {
+                                    ballisticReductionPercent: 15,
+                                    energyReductionPercent: 15,
+                                    chance: 75
+                                },
+                                "Player": {
+                                    ballisticReductionPercent: 10,
+                                    energyReductionPercent: 10,
+                                    chance: 75
+                                }
+                            }
+                        },
+                        "Ghoulslayers": {
+                            name: "Ghoul Slayer's",
+                            versus: {
+                                "Ghoul": {
+                                    ballisticReductionPercent: 15,
+                                    energyReductionPercent: 15,
+                                }
+                            }
+                        },
+                        "Mutantslayers": {
+                            name: "Mutant Slayer's",
+                            versus: {
+                                "SuperMutant": {
+                                    ballisticReductionPercent: 15,
+                                    energyReductionPercent: 15,
+                                }
+                            }
+                        },
+                        "Hunters": {
+                            name: "Hunter's",
+                            versus: {
+                                "Animal": {
+                                    ballisticReductionPercent: 15,
+                                    energyReductionPercent: 15,
+                                }
+                            }
+                        },
+                        "Exterminators": {
+                            name: "Exterminator's",
+                            versus: {
+                                "Insect": {
+                                    ballisticReductionPercent: 15,
+                                    energyReductionPercent: 15,
+                                },
+                                "Mirelurk": {
+                                    ballisticReductionPercent: 15,
+                                    energyReductionPercent: 15,
+                                },
+                            }
+                        },
+                        "Troubleshooters": {
+                            name: "Troubleshooter's",
+                            versus: {
+                                "Robot": {
+                                    ballisticReductionPercent: 15,
+                                    energyReductionPercent: 15,
+                                }
+                            }
+                        },
+                        "Zealots": {
+                            name: "Zealot's",
+                            versus: {
+                                "Scorched": {
+                                    ballisticReductionPercent: 15,
+                                    energyReductionPercent: 15,
+                                }
+                            }
+                        },
                     },
-                    "Bolstering": {
-                        name: "Bolstering",
-                        dr: 35,
-                        er: 35,
+                    "Major": {
+                        "Radresist": {
+                            name: "+25 rad resistance",
+                            rr: 25
+                        },
+                        "Poisonresist": {
+                            name: "+25 poison resistance",
+                            rr: 25
+                        },
+                        "Fireresist": {
+                            name: "+25 fire resistance",
+                            fr: 25
+                        },
+                        "Cryoresist": {
+                            name: "+25 cryo resistance",
+                            cr: 25
+                        },
+                        "Hardy": {
+                            name: "10% explosive damage reduction",
+                            explosiveReductionPercent: 10,
+                        }
                     },
-                    "Overeaters": {
-                        name: "Overeater's (PTS)",
-                        ballisticReductionPercent: 6,
-                        energyReductionPercent: 6,
+                    "Minor": {
+                        "Blocker": {
+                            name: "15% less damage when blocking",
+                            ballisticReductionPercent: 15,
+                        },
+                        "Cavailier": {
+                            name: "15% less damage while sprinting",
+                            ballisticReductionPercent: 15,
+                            chance: 75
+                        },
+                        /*
+                        "Limbdamage": {
+                            name: "15% less limb damage",
+                            ballisticReductionPercent: 15,
+                            energyReductionPercent: 15,
+                            chance: 15
+                        },
+                        */
+                        "Sentinel": {
+                            name: "15% less damage while standing still",
+                            ballisticReductionPercent: 15,
+                            energyReductionPercent: 15,
+                            chance: 75
+                        }
+                    }
+                },
+                "PA": {
+                    "Prefix": {
+                        "Aristocrats": {
+                            name: "Aristocrat's (PTS)",
+                            maxCaps: 29000,
+                            dr: 35,
+                            er: 35,
+                            rr: 35,
+                            fr: 35,
+                            cr: 35,
+                            pr: 35,
+                        },
+                        "Bolstering": {
+                            name: "Bolstering",
+                            dr: 35,
+                            er: 35,
+                        },
+                        "Overeaters": {
+                            name: "Overeater's (PTS)",
+                            ballisticReductionPercent: 6,
+                            energyReductionPercent: 6,
+                        },
+                        "Vanguard": {
+                            name: "Vanguard's",
+                            dr: 35,
+                            er: 35,
+                        },
+                        "Mutants": {
+                            name: "Mutant's",
+                            dr: 10,
+                            er: 10,
+                        },
+                        "Nocturnal": {
+                            name: "Nocturnal",
+                            drPercent: 10,
+                            erPercent: 10,
+                        },
+                        "Heavyweight": {
+                            name: "Heavyweight",
+                            maxWeight: 350,
+                            dr: 35,
+                            er: 35,
+                            rr: 35,
+                            fr: 35,
+                            cr: 35,
+                            pr: 35
+                        },
+                        "Assassins": {
+                            name: "Assassin's",
+                            versus: {
+                                "Human": {
+                                    ballisticReductionPercent: 15,
+                                    energyReductionPercent: 15,
+                                    chance: 75
+                                },
+                                "Player": {
+                                    ballisticReductionPercent: 10,
+                                    energyReductionPercent: 10,
+                                    chance: 75
+                                }
+                            }
+                        },
+                        "Ghoulslayers": {
+                            name: "Ghoul Slayer's",
+                            versus: {
+                                "Ghoul": {
+                                    ballisticReductionPercent: 15,
+                                    energyReductionPercent: 15,
+                                }
+                            }
+                        },
+                        "Mutantslayers": {
+                            name: "Mutant Slayer's",
+                            versus: {
+                                "SuperMutant": {
+                                    ballisticReductionPercent: 15,
+                                    energyReductionPercent: 15,
+                                }
+                            }
+                        },
+                        "Hunters": {
+                            name: "Hunter's",
+                            versus: {
+                                "Animal": {
+                                    ballisticReductionPercent: 15,
+                                    energyReductionPercent: 15,
+                                }
+                            }
+                        },
+                        "Exterminators": {
+                            name: "Exterminator's",
+                            versus: {
+                                "Insect": {
+                                    ballisticReductionPercent: 15,
+                                    energyReductionPercent: 15,
+                                },
+                                "Mirelurk": {
+                                    ballisticReductionPercent: 15,
+                                    energyReductionPercent: 15,
+                                },
+                            }
+                        },
+                        "Troubleshooters": {
+                            name: "Troubleshooter's",
+                            versus: {
+                                "Robot": {
+                                    ballisticReductionPercent: 15,
+                                    energyReductionPercent: 15,
+                                }
+                            }
+                        },
+                        "Zealots": {
+                            name: "Zealot's",
+                            versus: {
+                                "Scorched": {
+                                    ballisticReductionPercent: 15,
+                                    energyReductionPercent: 15,
+                                }
+                            }
+                        },
                     },
-                    "Vanguard": {
-                        name: "Vanguard's",
-                        dr: 35,
-                        er: 35,
+                    "Major": {
+                        "Radresist": {
+                            name: "+25 rad resistance",
+                            rr: 25
+                        },
+                        "Poisonresist": {
+                            name: "+25 poison resistance",
+                            rr: 25
+                        },
+                        "Fireresist": {
+                            name: "+25 fire resistance",
+                            fr: 25
+                        },
+                        "Cryoresist": {
+                            name: "+25 cryo resistance",
+                            cr: 25
+                        },
+                        "Hardy": {
+                            name: "10% explosive damage reduction",
+                            explosiveReductionPercent: 10,
+                        }
                     },
-                    "Mutants": {
-                        name: "Mutant's",
-                        dr: 10,
-                        er: 10,
+                    "Minor": {
+                        "Blocker": {
+                            name: "15% less damage when blocking",
+                            ballisticReductionPercent: 15,
+                        },
+                        "Cavailier": {
+                            name: "15% less damage while sprinting",
+                            ballisticReductionPercent: 15,
+                            chance: 75
+                        },
+                        /*
+                        "Limbdamage": {
+                            name: "15% less limb damage",
+                            ballisticReductionPercent: 15,
+                            energyReductionPercent: 15,
+                            chance: 15
+                        },
+                        */
+                        "Sentinel": {
+                            name: "15% less damage while standing still",
+                            ballisticReductionPercent: 15,
+                            energyReductionPercent: 15,
+                            chance: 75
+                        }
+                    }
+                }
+            };
+
+            var consumables = {
+                "Food": {
+                    "Bakedbloatlfy": {
+                        name: "Baked Bloatfly (+10 RR)",
+                        meat: true,
+                        rr: 10
                     },
-                    "Nocturnal": {
-                        name: "Nocturnal",
-                        drPercent: 10,
-                        erPercent: 10,
+                    "Bloatflyloaf": {
+                        name: "Bloatfly Loaf (+30 RR)",
+                        meat: true,
+                        rr: 30
                     },
-                    "Heavyweight": {
-                        name: "Heavyweight",
-                        maxWeight: 350,
-                        dr: 35,
-                        er: 35,
-                        rr: 35,
-                        fr: 35,
-                        cr: 35,
-                        pr: 35
+                    "Cranberryjam": {
+                        name: "Cranberry Jam (+10 DR)",
+                        meat: false,
+                        dr: 10
                     },
-                    "Assassins": {
-                        name: "Assassin's",
+                    "Crispycavecricket": {
+                        name: "Crispy Cave Cricket (+10 ER)",
+                        meat: true,
+                        er: 10
+                    },
+                    "Firecaptastysouffle": {
+                        name: "Firecap Tasty Souffle (+35 ER)",
+                        meat: false,
+                        er: 35
+                    },
+                    "Friedfogcrawler": {
+                        name: "Fried Fog Crawler (+20 DR)",
+                        meat: true,
+                        dr: 20
+                    },
+                    "Headhuntercheese": {
+                        name: "Headhunter's Headcheese (+10 DR)",
+                        meat: true, 
+                        dr: 10
+                    },
+                    "Megaslothtenderloin": {
+                        name: "Megasloth Tenderloin (+35 ER)",
+                        meat: true,
+                        er: 35
+                    },
+                    "Mirelurkcakealoi": {
+                        name: "Mirelurk Cake with Bloodleaf Aloi (+30 ER)",
+                        meat: true,
+                        er: 30
+                    },
+                    "Mirelurkjerky": {
+                        name: "Mirelurk Jerky (+15 ER)",
+                        meat: true,
+                        er: 15
+                    },
+                    "Potholepotpie": {
+                        name: "Pothole Potpie (+10 DR)",
+                        meat: false, 
+                        dr: 10
+                    },
+                    "Radscorpionfilet": {
+                        name: "Radscorpion Filet (+35 ER)",
+                        meat: true,
+                        er: 35
+                    },
+                    "Radscorpionsteak": {
+                        name: "Radscorpion Steak (+25 ER)",
+                        meat: true,
+                        er: 25
+                    },
+                    "Roastmegasloth": {
+                        name: "Roast Megaslot (+25 ER)",
+                        meat: true,
+                        er: 25
+                    },
+                    "Scorchbeast Steak": {
+                        name: "Scorchbeast Steak (+15 DR)",
+                        meat: true,
+                        dr: 15
+                    },
+                    "Strawberryperkgum": {
+                        name: "Strawberry Perk Bubblegum (+1 DR)",
+                        meat: false,
+                        dr: 1
+                    },
+                    "Cavefungussoup": {
+                        name: "Cave Fungus Soup (+10 PR)",
+                        meat: false,
+                        pr: 10
+                    },
+                    "Firecapsoup": {
+                        name: "Firecap Soup (+25 ER)",
+                        meat: false,
+                        er: 25
+                    },
+                    "Glowingfungussoup": {
+                        name: "Glowing Fungus Soup (+20 RR)",
+                        meat: false,
+                        rr: 20
+                    },
+                    "Glowingfunguspuree": {
+                        name: "Glowing Fungus Puree (+35 ER)",
+                        meat: false,
+                        er: 35
+                    },
+                    "Radstagstew": {
+                        name: "Radstag Stew (+35 ER)",
+                        meat: true,
+                        er: 35
+                    },
+                    "Siltbeanpuree": {
+                        name: "Silt Bean Puree (+15 DR)",
+                        meat: false,
+                        dr: 15
+                    },
+                    "Tatosoup": {
+                        name: "Tato Soup (+10 PR)",
+                        meat: false,
+                        pr: 10
+                    },
+                },
+                "Drink": {
+                    "Leadchampagne": {
+                        name: "Lead Champagne (+15 DR, +100 RR)",
+                        dr: 15,
+                        rr: 100
+                    },
+                    "Leadchampagnebellini": {
+                        name: "Lead Champagne Bellini (+15 DR)",
+                        dr: 15,
+                    },
+                    "Leadchampagnemimosa": {
+                        name: "Lead Champagne Mimosa (+100 RR)",
+                        dr: 15,
+                    },
+                    "Nukacolablood": {
+                        name: "Nuka Cola My Blood (-15% DMG from Scorched)",
                         versus: {
-                            "Human": {
+                            "Scorched": {
                                 ballisticReductionPercent: 15,
-                                energyReductionPercent: 15,
-                                chance: 75
-                            },
-                            "Player": {
-                                ballisticReductionPercent: 10,
-                                energyReductionPercent: 10,
-                                chance: 75
+                                energyReductionPercent: 15
                             }
                         }
                     },
-                    "Ghoulslayers": {
-                        name: "Ghoul Slayer's",
+                    "Nukacolascorched": {
+                        name: "Nuka Cola Scorched (-15% DMG from Scorched)",
                         versus: {
-                            "Ghoul": {
+                            "Scorched": {
                                 ballisticReductionPercent: 15,
-                                energyReductionPercent: 15,
+                                energyReductionPercent: 15
                             }
                         }
                     },
-                    "Mutantslayers": {
-                        name: "Mutant Slayer's",
+                    "Nukacolavaccinated": {
+                        name: "Nuka Cola Vaccinated (-15% DMG from Scorched)",
                         versus: {
-                            "SuperMutant": {
+                            "Scorched": {
                                 ballisticReductionPercent: 15,
-                                energyReductionPercent: 15,
+                                energyReductionPercent: 15
                             }
                         }
                     },
-                    "Hunters": {
-                        name: "Hunter's",
-                        versus: {
-                            "Animal": {
-                                ballisticReductionPercent: 15,
-                                energyReductionPercent: 15,
-                            }
-                        }
+                    "Nukacolaorange": {
+                        name: "Nuka Cola Orange (+25 RR)",
+                        rr: 25
                     },
-                    "Exterminators": {
-                        name: "Exterminator's",
+                    "Steepedstranglerbloomtea": {
+                        name: "Steeped Strangler Bloom Tea (+20 RR)",
+                        rr: 20
+                    },
+                    /*
+                    "Whiterussian": {
+                        name: "White Russian (-20% limb DMG)",
+                        ballisticReductionPercent: 20,
+                        energyReductionPercent: 20,
+                        chance: 15
+                    },
+                    */
+                },
+                "Chems": {
+                    "Fury": {
+                        name: "Fury (+25 DR)",
+                        dr: 25
+                    },
+                    "Glowingbloodpack": {
+                        name: "Glowing Blood Pack (+75 RR)",
+                        rr: 75
+                    },
+                    "Insectrepellent": {
+                        name: "Insectrepellent (-15% DMG from Insects)",
                         versus: {
                             "Bug": {
                                 ballisticReductionPercent: 15,
@@ -360,71 +828,823 @@
                             }
                         }
                     },
-                    "Troubleshooters": {
-                        name: "Troubleshooter's",
+                    "Irradiatedbloodpack": {
+                        name: "Irradiated Blood Pack (+75 RR)",
+                        rr: 75
+                    },
+                    "Medx": {
+                        name: "Med-X (+25 DR)",
+                        dr: 25
+                    },
+                    "Psycho": {
+                        name: "Psycho (+25 DR)",
+                        dr: 25
+                    },
+                    "Psychotats": {
+                        name: "Psychotats (+15 DR)",
+                        dr: 15
+                    },
+                    "Radx": {
+                        name: "Rad-X (+100 RR)",
+                        rr: 100
+                    },
+                    "Radxdiluted": {
+                        name: "Rad-X Diluted (+50 RR)",
+                        rr: 50
+                    },
+                    "Radshield": {
+                        name: "Radshield (+300 RR)",
+                        rr: 300
+                    },
+                    "Superchem1": {
+                        name: "Super Chem Mk1 (+25 DR)",
+                        dr: 25
+                    },
+                },
+                "Magazine": {
+                    "Astoundingly8": {
+                        name: "Astoundingly... #8 (-20% DMG from Robots)",
                         versus: {
                             "Robot": {
-                                ballisticReductionPercent: 15,
-                                energyReductionPercent: 15,
+                                ballisticReductionPercent: 20,
+                                energyReductionPercent: 20,
                             }
                         }
                     },
-                    "Zealots": {
-                        name: "Zealot's",
+                    "Astoundingly9": {
+                        name: "Astoundingly... #9 (+15 PR)",
+                        pr: 15
+                    },
+                    "Grognak3": {
+                        name: "Grognak... #3 (+15 PR)",
+                        pr: 15
+                    },
+                    "Grognak8": {
+                        name: "Grognak... #8 (+2 DR)",
+                        dr: 2
+                    },
+                    "Grognak10": {
+                        name: "Grognak... #10 (+15 ER)",
+                        er: 15
+                    },
+                    "Guns6": {
+                        name: "Guns... #6 (+10 DR at night)",
+                        dr: 10,
+                        nighttime: true,
+                    },
+                    "Live6": {
+                        name: "Live... #6 (+10 DR in team)",
+                        dr: 10,
+                        team: true,
+                    },
+                    "Live9": {
+                        name: "Live... #9 (-25% DMG from Robots)",
+                        versus: {
+                            "Robot": {
+                                ballisticReductionPercent: 25,
+                                energyReductionPercent: 25,
+                            }
+                        }
+                    },
+                    "Scouts2": {
+                        name: "Scout's... #2 (-25% DMG from Insects)",
+                        versus: {
+                            "Insect": {
+                                ballisticReductionPercent: 25,
+                                energyReductionPercent: 25,
+                            }
+                        }
+                    },
+                    "Scouts7": {
+                        name: "Scout's... #7 (-25% DMG from Animals)",
+                        versus: {
+                            "Animal": {
+                                ballisticReductionPercent: 25,
+                                energyReductionPercent: 25,
+                            }
+                        }
+                    },
+                    "Tesla1": {
+                        name: "Tesla... #1 (-25% DMG from Robots)",
+                        versus: {
+                            "Robot": {
+                                ballisticReductionPercent: 25,
+                                energyReductionPercent: 25
+                            }
+                        }
+                    },
+                    "Tesla2": {
+                        name: "Tesla... #2 (-20% DMG from plasma)",
+                        ballisticReductionPercent: 20,
+                        energyReductionPercent: 20,
+                        plasma: true
+                    },
+                    "Tesla6": {
+                        name: "Tesla... #6 (+15 RR)",
+                        rr: 15
+                    },
+                    "US1": {
+                        name: "U.S... #1 (+10 DR while sneaking)",
+                        dr: 10,
+                        sneaking: true
+                    },
+                    "US3": {
+                        name: "U.S... #3 (-10% DMG from Players)",
+                        versus: {
+                            "Player": {
+                                ballisticReductionPercent: 10,
+                                energyReductionPercent: 10
+                            }
+                        }
+                    },
+                    "Unstoppables1": {
+                        name: "Unstop... #1 (5% chance for 0 DMG)",
+                        ballisticReductionPercent: 100,
+                        energyReductionPercent: 100,
+                        chance: 5
+                    },
+                    "Unstoppables2": {
+                        name: "Unstop... #2 (20% chance for 0 DMG from Scorched)",
                         versus: {
                             "Scorched": {
-                                ballisticReductionPercent: 15,
-                                energyReductionPercent: 15,
+                                ballisticReductionPercent: 100,
+                                energyReductionPercent: 100,
+                                chance: 20
                             }
                         }
                     },
+                    "Unstoppables3": {
+                        name: "Unstop... #3 (30% chance for 0 DMG from explosions)",
+                        explosiveReductionPercent: 100,
+                        chance: 30
+                    },
+                    "Unstoppables4": {
+                        name: "Unstop... #4 (30% chance for 0 melee DMG)",
+                        explosiveReductionPercent: 100,
+                        chance: 30,
+                        melee: true
+                    },
+                    "Unstoppables5": {
+                        name: "Unstop... #5 (30% chance for 0 energy DMG)",
+                        energyReductionPercent: 100,
+                        chance: 30,
+                        energy: true
+                    },
                 },
-                "Major": {
-                    "Radresist": {
-                        name: "+25 rad resistance",
-                        rr: 25
-                    },
-                    "Poisonresist": {
-                        name: "+25 poison resistance",
-                        rr: 25
-                    },
-                    "Fireresist": {
-                        name: "+25 fire resistance",
-                        fr: 25
-                    },
-                    "Cryoresist": {
-                        name: "+25 cryo resistance",
-                        cr: 25
-                    },
-                    "Hardy": {
-                        name: "10% explosive damage reduction",
-                        explosiveReductionPercent: 10,
-                    }
+            };
+
+            var backpackLevels = [1, 10, 20, 30, 40, 50];
+            var backpackMods = {
+                "Armorplated": {
+                    name: "Armor Plated",
+                    dr: [15, 30, 45, 60, 75, 90]
                 },
-                "Minor": {
-                    "Blocker": {
-                        name: "15% less damage when blocking",
-                        ballisticReductionPercent: 15,
-                    },
-                    "Cavailier": {
-                        name: "15% less damage while sprinting",
-                        ballisticReductionPercent: 15,
-                        chance: 75
-                    },
-                    "Limbdamage": {
-                        name: "15% less limb damage",
-                        ballisticReductionPercent: 15,
-                        energyReductionPercent: 15,
-                        chance: 15
-                    },
-                    "Sentinel": {
-                        name: "15% less damage while standing still",
-                        ballisticReductionPercent: 15,
-                        energyReductionPercent: 15,
-                        chance: 75
+                "Highcapacity": {
+                    name: "High capacity",
+                    er: [-10, -20, -30, -40, -50, -60],
+                    rr: [-10, -20, -30, -40, -50, -60],
+                },
+                "Insulated": {
+                    name: "Insulated",
+                    er: [15, 30, 45, 60, 75, 90]
+                },
+                "Leadlined": {
+                    name: "Lead Lined",
+                    er: [15, 30, 45, 60, 75, 90]
+                },
+            };
+
+            function get(id) {
+                return document.getElementById(id);
+            }
+            function getValue(id) {
+                return get(id).value;
+            }
+            function getBool(id) {
+                return get(id).checked;
+            }
+
+            function getOpt(id) {
+                var sel = get(id);
+                return sel.options[sel.selectedIndex];
+            }
+
+
+            function createBodyPart(tbl, index, mode, part) {
+
+                var rw = tbl.insertRow(tbl.rows.length);
+                var cll = rw.insertCell(rw.cells.length);
+                cll.className = "bold topline";
+                var titleCll = cll;
+
+                cll = rw.insertCell(rw.cells.length);
+                cll.className = "topline";
+
+                let makeSel = document.createElement("select");
+                cll.appendChild(makeSel);
+                makeSel.id = index + "_Make_" + part;
+
+                var opt = document.createElement("option");
+                opt.text = "None";
+                makeSel.options.add(opt);
+
+                var span = document.createElement("span");
+                span.innerHTML = "&nbsp;&nbsp;&nbsp;";
+                cll.appendChild(span);
+                var fullSet = document.createElement("a");
+                fullSet.innerText = "<set all>";
+                fullSet.href = "#";
+                fullSet.onclick = evt => makeFullSet(part, index);
+                cll.appendChild(fullSet);
+
+                var armors = armor[mode];
+
+                for (var a in armors) {
+                    var am = armors[a];
+                    var p = am[part];
+                    titleCll.innerText = p.name;
+                    for (var lvl in am.levels) {
+                        opt = document.createElement("option");
+                        opt.value = a + "-" + am.levels[lvl];
+                        opt.text = armors[a].name + " - " + am.levels[lvl];
+                        opt.data = p;
+                        opt.level = lvl;
+                        makeSel.appendChild(opt);
                     }
                 }
-            };
+
+                rw = tbl.insertRow(tbl.rows.length);
+                rw.id = index + "_Part_" + part + "_ModStart";
+
+                rw = tbl.insertRow(tbl.rows.length);
+                cll = rw.insertCell(rw.cells.length);
+                cll.innerText = "Mods";
+                cll = rw.insertCell(rw.cells.length);
+                cll.innerText = "<select armor make above>";
+
+                rw = tbl.insertRow(tbl.rows.length);
+                cll = rw.insertCell(rw.cells.length);
+                cll.innerText = "Legendary";
+                cll = rw.insertCell(rw.cells.length);
+                cll.innerText = "<select armor make above>";
+
+                rw = tbl.insertRow(tbl.rows.length);
+                rw.id = index + "_Part_" + part + "_ModEnd";
+
+                makeSel.oninput = evt => createMods(tbl, index, mode, part, makeSel);
+            }
+
+            function makeFullSet(part, index) {
+                var sel = getOpt(index + "_Make_" + part);
+
+                for (var p of ["Helmet", "Torso", "LA", "RA", "LL", "RL"]) {
+                    if (p != part) {
+                        var s2 = get(index + "_Make_" + p);
+                            if (s2 != null) {
+
+                            for (var i = 0; i < s2.options.length; i++) {
+                                var o = s2.options[i];
+                                if (o.value === sel.value && o.level == sel.level) {
+                                    s2.selectedIndex = i;
+                                    s2.dispatchEvent(new Event("input"));
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                }
+                return false;
+            }
+
+            function createMods(tbl, index, mode, part, sel) {
+                var sidx = findRow(tbl, index + "_Part_" + part + "_ModStart") + 1;
+                var eidx = findRow(tbl, index + "_Part_" + part + "_ModEnd");
+                removeRows(tbl, sidx, eidx);
+
+                var p = sel.options[sel.selectedIndex].data;
+
+                if (p !== undefined) {
+                    rw = tbl.insertRow(sidx++);
+                    cll = rw.insertCell(rw.cells.length);
+
+                    cll.innerText = "Mods";
+
+                    if (p.mods === undefined) {
+                        cll = rw.insertCell(rw.cells.length);
+                        cll.innerText = "No relevant mod";
+                    } else {
+                        for (var slot in p.mods) {
+                            rw = tbl.insertRow(sidx++);
+                            cll = rw.insertCell(rw.cells.length);
+
+                            cll.innerHTML = "&nbsp;&nbsp;&nbsp;" + slot;
+    
+                            cll = rw.insertCell(rw.cells.length);
+                            let modSel = document.createElement("select");
+                            cll.appendChild(modSel);
+                            modSel.id = index + "_Part_" + part + "_Mod_" + slot;
+
+                            opt = document.createElement("option");
+                            opt.text = "None";
+                            modSel.options.add(opt);
+
+                            var modList = [];
+
+                            for (var m in p.mods[slot]) {
+                                var mod = p.mods[slot][m];
+                                modList.push({ key:m, value: mod});
+                            }
+
+                            modList.sort((a, b) => a.value.name.localeCompare(b.value.name));
+
+                            for (var mod of modList) {
+                                opt = document.createElement("option");
+                                opt.value = mod.key;
+                                opt.text = mod.value.name;
+                                opt.data = mod.value;
+                                modSel.options.add(opt);
+                            }
+                        }
+                    }
+
+                    rw = tbl.insertRow(sidx++);
+                    cll = rw.insertCell(rw.cells.length);
+
+                    cll.innerText = "Legendary";
+
+                    for (var le in legendaryEffects[mode]) {
+                        var eff = legendaryEffects[mode][le];
+                        rw = tbl.insertRow(sidx++);
+                        cll = rw.insertCell(rw.cells.length);
+
+                        cll.innerHTML = "&nbsp;&nbsp;&nbsp;" + le;
+
+                        let legSel = document.createElement("select");
+                        cll = rw.insertCell(rw.cells.length);
+                        cll.appendChild(legSel);
+                        
+                        legSel.id = index + "_Legendary_" + part + "_" + le;
+                        opt = document.createElement("option");
+                        legSel.options.add(opt);
+
+                        var effList = [];
+                        for (var e in eff) {
+                            effList.push({ key: e, value: eff[e] })
+                        }
+                        effList.sort((a, b) => a.value.name.localeCompare(b.value.name));
+
+                        for (var e of effList) {
+                            opt = document.createElement("option");
+                            opt.value = e.key;
+                            opt.text = e.value.name;
+                            opt.data = e.value;
+                            legSel.options.add(opt);
+                        }
+                    }
+                } else {
+                    rw = tbl.insertRow(sidx++);
+                    cll = rw.insertCell(rw.cells.length);
+                    cll.innerText = "Mods";
+                    cll = rw.insertCell(rw.cells.length);
+                    cll.innerText = "<select armor make above>";
+
+                    rw = tbl.insertRow(sidx++);
+                    cll = rw.insertCell(rw.cells.length);
+                    cll.innerText = "Legendary";
+                    cll = rw.insertCell(rw.cells.length);
+                    cll.innerText = "<select armor make above>";
+                }
+            }
+
+            function findRow(tbl, id) {
+                for (var i = 0; i < tbl.rows.length; i++) {
+                    if (tbl.rows[i].id == id) {
+                        return i;
+                    }
+                }
+                return -1;
+            }
+
+            function removeRows(tbl, start, end) {
+                if (end === undefined) {
+                    end = tbl.rows.length;
+                }
+                for (var i = end - 1; i >= start; i--) {
+                    tbl.deleteRow(i);
+                }
+            }
+
+            function createNumber(tbl, name, key, min, max, value, unit) {
+                var rw = tbl.insertRow(tbl.rows.length);
+                var cll = rw.insertCell(rw.cells.length);
+                cll.innerHTML = "&nbsp;&nbsp;&nbsp;" + name;
+
+                cll = rw.insertCell(rw.cells.length);
+
+                var input = document.createElement("input");
+                cll.appendChild(input);
+                input.type = "number";
+                input.min = min;
+                input.max = max;
+                input.value = value;
+                input.className = "num6";
+                input.id = key;
+
+                if (unit) {
+                    cll.appendChild(document.createTextNode(unit));
+                }
+                return input;
+            }
+
+            function createParams(tbl, index, mode) {
+                var rw = tbl.insertRow(tbl.rows.length);
+                var cll = rw.insertCell(rw.cells.length);
+                cll.innerHTML = "Player";
+                cll.className = "topline";
+                cll = rw.insertCell(rw.cells.length);
+                cll.className = "topline";
+
+                createNumber(tbl, "Health", index + "_HP", 0, 100, 100, " %");
+                createNumber(tbl, "Caps", index + "_Caps", 0, 30000, 0);
+                createNumber(tbl, "Carrying", index + "_Carry", 0, 30000, 0, " lb");
+                createNumber(tbl, "Teammates", index + "_Teammates", 0, 4, 0);
+                createNumber(tbl, "&nbsp;&nbsp;&nbsp;Deaths", index + "_Teamdeaths", 0, 3, 0);
+
+                if (mode === "NonPA") {
+                    createNumber(tbl, "Strength", index + "_Strength", 1, 100, 1);
+                    createNumber(tbl, "Agility", index + "_Agility", 1, 100, 1);
+                    createNumber(tbl, "Junk Amount", index + "_Junkamout", 0, 46, 0);
+                }
+
+                createYesNo(tbl, index, "Night", "&nbsp;&nbsp;&nbsp;Night time");
+                createYesNo(tbl, index, "Block", "&nbsp;&nbsp;&nbsp;Blocking");
+                createYesNo(tbl, index, "Fireheavy", "&nbsp;&nbsp;&nbsp;Firing a heavy gun");
+                createYesNo(tbl, index, "Sneaking", "&nbsp;&nbsp;&nbsp;Sneaking");
+
+                rw = tbl.insertRow(tbl.rows.length);
+                cll = rw.insertCell(rw.cells.length);
+                cll.innerHTML = "&nbsp;&nbsp;&nbsp;Stance";
+
+                cll = rw.insertCell(rw.cells.length);
+
+                var stanceSel = document.createElement("select");
+                cll.appendChild(stanceSel);
+                stanceSel.id = index + "_Stance";
+
+                var opt = document.createElement("option");
+                opt.value = "Run";
+                opt.text = "Running";
+                stanceSel.options.add(opt);
+
+                opt = document.createElement("option");
+                opt.value = "Sprint";
+                opt.text = "Sprinting";
+                stanceSel.options.add(opt);
+
+                opt = document.createElement("option");
+                opt.value = "Still";
+                opt.text = "Standing Still";
+                stanceSel.options.add(opt);
+            }
+
+            function createPerks(tbl, index, mode) {
+                rw = tbl.insertRow(tbl.rows.length);
+                cll = rw.insertCell(rw.cells.length);
+                cll.innerHTML = "Perks";
+
+                rw = tbl.insertRow(tbl.rows.length);
+                cll = rw.insertCell(rw.cells.length);
+                cll.innerHTML = "&nbsp;&nbsp;&nbsp;Blocker";
+
+                cll = rw.insertCell(rw.cells.length);
+                var blockerSel = document.createElement("select");
+                blockerSel.id = index + "_Blocker";
+                cll.appendChild(blockerSel);
+                cll.appendChild(document.createTextNode(" rank"));
+
+                createOptions(blockerSel, ["None", "1", "2", "3"], ["", "15", "30", "45"]);
+
+
+                if (mode == "NonPA") {
+                    createPerkWithParam(tbl, "Junk Shield", index + "_Junkshield", ["None", "1", "2", "3"], ["", "10", "20", "30"]);
+                    createPerkWithParam(tbl, "Barbarian", index + "_Barbarian", ["None", "1", "2", "3"], ["", "2", "3", "4"]);
+                    createPerkWithParam(tbl, "Evasive", index + "_Evasive", ["None", "1", "2", "3"], ["", "1", "2", "3"]);
+                    createPerkWithParam(tbl, "Ironclad", index + "_Ironclad", ["None", "1", "2", "3", "4", "5"], ["", "10", "20", "30", "40", "50"]);
+                    createPerkWithParam(tbl, "Moving Target", index + "_Movingtarget", ["None", "1", "2", "3"], ["", "15", "30", "45"]);
+                    createPerkWithParam(tbl, "Serendipity", index + "_Serendipity", ["None", "1", "2", "3"], ["", "15", "30", "45"]);
+                    createPerkWithParam(tbl, "Adamantium Skeleton", index + "_Adamantium", ["None", "1", "2", "3"], ["", "30", "60", "100"]);
+                }
+                createPerkWithParam(tbl, "Bodyguards", index + "_Bodyguards", ["None", "1", "2", "3", "4"], ["", "6", "8", "10", "12"]);
+                createPerkWithParam(tbl, "Bullet Shield", index + "_Bulletshield", ["None", "1", "2", "3"], ["", "20", "40", "60"]);
+                createPerkWithParam(tbl, "Refractor", index + "_Refractor", ["None", "1", "2", "3", "4"], ["", "10", "20", "30", "40"]);
+                createPerkWithParam(tbl, "Dodgy", index + "_Dodgy", ["None", "1", "2", "3"], ["", "10", "20", "30"]);
+                createPerkWithParam(tbl, "Nerd Rage", index + "_Nerdrage", ["None", "1", "2", "3"], ["", "20", "30", "40"]);
+                createPerkWithParam(tbl, "Suppressor", index + "_Suppressor", ["None", "1", "2", "3"], ["", "10", "20", "30"]);
+                createPerkWithParam(tbl, "Lone Wanderer", index + "_Lonewanderer", ["None", "1", "2", "3"], ["", "10", "15", "20"]);
+                createPerkWithParam(tbl, "Rad Resistant", index + "_Radresistant", ["None", "1", "2", "3", "4"], ["", "10", "20", "30", "40"]);
+                createPerkWithParam(tbl, "Fireproof", index + "_Fireproof", ["None", "1", "2", "3"], ["", "15", "30", "45"]);
+                createPerkWithParam(tbl, "Cola Nut", index + "_Colanut", ["None", "1", "2"], ["", "2", "3"]);
+                createPerkWithParam(tbl, "Party Person", index + "_Partyperson", ["None", "1", "2"], ["", "2", "3"]);
+                createYesNo(tbl, index, "Strangeinnumbers", "&nbsp;&nbsp;&nbsp;Strange In Numbers");
+                createPerkWithParam(tbl, "Class Freak", index + "_Classfreak", ["None", "1", "2", "3"], ["", "25", "50", "75"]);
+
+                rw = tbl.insertRow(tbl.rows.length);
+                cll = rw.insertCell(rw.cells.length);
+                cll.innerHTML = "Legendary Perks";
+
+                createPerkWithParam(tbl, "Funky Duds", index + "_Funkyduds", ["None", "1", "2", "3", "4"], ["", "50", "100", "150", "200"]);
+                createPerkWithParam(tbl, "Sizzling Style", index + "_Sizzlingstyle", ["None", "1", "2", "3", "4"], ["", "50", "100", "150", "200"]);
+                createPerkWithParam(tbl, "Blood Sacrifice", index + "_Bloodsacrifice", ["None", "1", "2", "3", "4"], ["", "25", "30", "35", "40"]);
+                createPerkWithParam(tbl, "What Rads", index + "_Whatrads", ["None", "1", "2", "3", "4"], ["", "50", "75", "100", "300"]);
+
+            }
+
+            function createPerkWithParam(tbl, name, key, texts, values, paramName, paramKey, paramMin, paramValue) {
+                var rw = tbl.insertRow(tbl.rows.length);
+                var cll = rw.insertCell(rw.cells.length);
+                cll.innerHTML = "&nbsp;&nbsp;&nbsp;" + name;
+
+                cll = rw.insertCell(rw.cells.length);
+                var sel = document.createElement("select");
+                sel.id = key;
+                cll.appendChild(sel);
+
+                createOptions(sel, texts, values);
+
+                if (paramName !== undefined) {
+                    var sep = document.createElement("span");
+                    sep.innerHTML = " rank&nbsp;&nbsp;&nbsp;" + paramName + ":&nbsp;";
+                    cll.appendChild(sep);
+
+                    var input = document.createElement("input");
+                    input.id = paramKey;
+                    input.type = "number";
+                    input.min = paramMin;
+                    input.value = paramValue;
+                    input.className = "num6";
+                    cll.appendChild(input);
+                } else {
+                    cll.appendChild(document.createTextNode(" rank"));
+                }
+            }
+
+            function createOptions(sel, texts, values, data) {
+                for (var i = 0; i < texts.length; i++) {
+                    var opt = document.createElement("option");
+                    opt.text = texts[i];
+                    opt.value = values[i];
+                    if (data) {
+                        opt.data = data[i];
+                    }
+                    sel.options.add(opt);
+                }
+            }
+
+            function createSelectWithData(tbl, name, key, texts, values, data, fullLine) {
+                var rw = tbl.insertRow(tbl.rows.length);
+                var cll = rw.insertCell(rw.cells.length);
+                cll.innerHTML = name;
+
+                if (fullLine) {
+                    rw = tbl.insertRow(tbl.rows.length);
+                }
+                cll = rw.insertCell(rw.cells.length);
+                if (fullLine) {
+                    cll.colSpan = 2;
+                    var span = document.createElement("span");
+                    span.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
+                    cll.appendChild(span);
+                }
+                var sel = document.createElement("select");
+                sel.id = key;
+                cll.appendChild(sel);
+
+                createOptions(sel, texts, values, data);
+            }
+
+            function createMutations(tbl, index, mode) {
+                var rw = tbl.insertRow(tbl.rows.length);
+                var cll = rw.insertCell(rw.cells.length);
+                cll.innerHTML = "Mutations";
+
+                createSelectWithData(tbl, "&nbsp;&nbsp;&nbsp;Food-related", index + "_Foodbuff", ["None", "Carnivore", "Herbivore"], ["", "Carnivore", "Herbivore"])
+                createYesNo(tbl, index, "Empath", "&nbsp;&nbsp;&nbsp;Empath");
+                createYesNo(tbl, index, "Grounded", "&nbsp;&nbsp;&nbsp;Grounded");
+                createYesNo(tbl, index, "Scalyskin", "&nbsp;&nbsp;&nbsp;Scaly Skin");
+            }
+
+            function createConsumables(tbl, index, mode) {
+                var rw = tbl.insertRow(tbl.rows.length);
+                var cll = rw.insertCell(rw.cells.length);
+                cll.innerHTML = "Consumables";
+
+                rw = tbl.insertRow(tbl.rows.length);                
+                cll = rw.insertCell(rw.cells.length);
+
+                cll.innerHTML = "&nbsp;&nbsp;&nbsp;Food";
+                rw = tbl.insertRow(tbl.rows.length);                
+                cll = rw.insertCell(rw.cells.length);
+                cll.colSpan = 2;
+
+                var foodDiv = document.createElement("div");
+                foodDiv.style.height = 120;
+                foodDiv.style.paddingLeft = 40;
+                foodDiv.style.overflowY = "scroll";
+                cll.appendChild(foodDiv);
+                var foodList = [];
+                for (var food in consumables["Food"]) {
+                    var f = consumables["Food"][food];
+
+                    foodList.push({key: food, value: f });
+                }
+                foodList.sort((a, b) => a.value.name.localeCompare(b.value.name));
+                var fcnt = 0;
+                for (var f of foodList) {
+                    if (fcnt++ > 0) {
+                        foodDiv.appendChild(document.createElement("br"));
+                    }
+                    var lbl = document.createElement("label");
+                    foodDiv.appendChild(lbl);
+
+                    var cb = document.createElement("input");
+                    cb.type = "checkbox";
+                    cb.id = index + "_Food_" + f.key;
+                    cb.value = "Food_" + f.key;
+                    cb.data = f.value;
+                    lbl.appendChild(cb);
+
+                    lbl.appendChild(document.createTextNode(" " + f.value.name));
+                }
+
+                rw = tbl.insertRow(tbl.rows.length);                
+                cll = rw.insertCell(rw.cells.length);
+                cll.innerHTML = "&nbsp;&nbsp;&nbsp;Drink";
+
+                rw = tbl.insertRow(tbl.rows.length);                
+                cll = rw.insertCell(rw.cells.length);
+                cll.colSpan = 2;
+
+                foodDiv = document.createElement("div");
+                foodDiv.style.height = 120;
+                foodDiv.style.paddingLeft = 40;
+                foodDiv.style.overflowY = "scroll";
+                cll.appendChild(foodDiv);
+                foodList = [];
+                for (var food in consumables["Drink"]) {
+                    var f = consumables["Drink"][food];
+
+                    foodList.push({key: food, value: f });
+                }
+                foodList.sort((a, b) => a.value.name.localeCompare(b.value.name));
+                var fcnt = 0;
+                for (var f of foodList) {
+                    if (fcnt++ > 0) {
+                        foodDiv.appendChild(document.createElement("br"));
+                    }
+                    var lbl = document.createElement("label");
+                    foodDiv.appendChild(lbl);
+
+                    var cb = document.createElement("input");
+                    cb.type = "checkbox";
+                    cb.id = index + "_Drink_" + f.key;
+                    cb.value = "Drink_" + f.key;
+                    cb.data = f.value;
+                    lbl.appendChild(cb);
+
+                    lbl.appendChild(document.createTextNode(" " + f.value.name));
+                }
+
+                var texts = ["None"];
+                var values = [""];
+                var data = [null];
+                var magList = [];
+                for (var mag in consumables["Magazine"]) {
+                    var m = consumables["Magazine"][mag];
+                    magList.push({ key: mag, value: m })
+                }
+                magList.sort((a, b) => a.value.name.localeCompare(b.value.name));
+
+                for (var kv of magList) {
+                    texts.push(kv.value.name);
+                    values.push(kv.key);
+                    data.push(kv.value);
+
+                }
+                createSelectWithData(tbl, "&nbsp;&nbsp;&nbsp;Magazine", index + "_Magazine", texts, values, data, true);
+            }
+
+            function createResults(tbl, index, mode) {
+                var rw = tbl.insertRow(tbl.rows.length);
+                var cll = rw.insertCell(rw.cells.length);
+
+                cll.className = "topline bold";
+                cll.innerText = "Resistances";
+
+                cll = rw.insertCell(rw.cells.length);
+                cll.className = "topline bold";
+                cll.id = "Resistances" + index;
+
+                rw = tbl.insertRow(tbl.rows.length);
+                cll = rw.insertCell(rw.cells.length);
+
+                cll.className = "bold";
+                cll.innerText = "Reductions";
+
+                cll = rw.insertCell(rw.cells.length);
+                cll.className = "bold";
+                cll.id = "Reductions" + index;
+            }
+
+            function createYesNo(tbl, index, key, name, tip) {
+                var rw = tbl.insertRow(tbl.rows.length);
+                var cll = rw.insertCell(rw.cells.length);
+                cll.innerHTML = name;
+                if (tip !== undefined) {
+                    cll.innerHTML += info(key);
+                }
+
+                cll = rw.insertCell(rw.cells.length);
+                
+                var yes = createRadio(index + "_" + key, index + "_" + key + "_yes", "Yes");
+                cll.appendChild(yes.label);
+
+                var sep = document.createElement("span");
+                cll.appendChild(sep);
+                sep.innerHTML = "&nbsp;&nbsp;&nbsp;";
+
+                var no = createRadio(index + "_" + key, index + "_" + key + "_no", "No");
+                no.radio.checked = "checked";
+                cll.appendChild(no.label);
+            }
+
+            function createRadio(key, id, name) {
+                var lblYes = document.createElement("label");
+                cll.appendChild(lblYes);
+                lblYes.className = "ptr";
+
+                var yes = document.createElement("input");
+                lblYes.appendChild(yes);
+                yes.id = id;
+                yes.type = "radio";
+                yes.name = key;
+
+                lblYes.appendChild(document.createTextNode(name));
+
+                return { label: lblYes, radio : yes };
+            }
+
+            function createBackpack(tbl, index, mode) {
+                var rw = tbl.insertRow(tbl.rows.length);
+                var cll = rw.insertCell(rw.cells.length);
+                cll.className = "topline bold";
+                cll.innerText = "Other";
+                cll = rw.insertCell(rw.cells.length);
+                cll.className = "topline";
+
+                var modList = [];
+                for (var bm in backpackMods) {
+                    modList.push({key: bm, value: backpackMods[bm] })
+                }
+                modList.sort((a, b) => a.value.name.localeCompare(b.value.name));
+                var texts = [];
+                var values = [];
+                var data = [];
+                for (var bm of modList) {
+                    for (var bl of backpackLevels) {
+                        texts.push(bm.value.name + " - " + bl);
+                        values.push(bm.key + "_" + bl);
+                        data.push({ value: bm.value, level: bl });
+                    }
+                }
+                createSelectWithData(tbl, "&nbsp;&nbsp;&nbsp;Backpack", index + "_Backpack", texts, values, data);
+            }
+
+            function createSide(index, mode) {                
+                var tbl = get("table" + index);
+                removeRows(tbl, 1);
+                if (mode === "PA") {
+                    createBodyPart(tbl, index, mode, "Helmet");
+                }
+                createBodyPart(tbl, index, mode, "Torso");
+                createBodyPart(tbl, index, mode, "LA");
+                createBodyPart(tbl, index, mode, "RA");
+                createBodyPart(tbl, index, mode, "LL");
+                createBodyPart(tbl, index, mode, "RL");
+                if (mode === "NonPA") {
+                    createBackpack(tbl, index, mode);
+                }
+                createParams(tbl, index, mode);
+                createPerks(tbl, index, mode);
+                createMutations(tbl, index, mode);
+                createConsumables(tbl, index, mode);
+
+                createResults(tbl, index, mode);
+            }
+
+            get("NonPA1").oninput = evt => createSide(1, "NonPA");
+            get("PA1").oninput = evt => createSide(1, "PA");
+            get("NonPA2").oninput = evt => createSide(2, "NonPA");
+            get("PA2").oninput = evt => createSide(2, "PA");
     </script>
 </body>
 </html>
