@@ -788,51 +788,76 @@
                 "Drink": {
                     "Leadchampagne": {
                         name: "Lead Champagne (+15 DR, +100 RR)",
-                        dr: 15,
-                        rr: 100
+                        debuff: ["dr", "rr"],
+                        order: 2,
+                        func: (state) => {
+                            var party = 1
+                            if (state.player.partyPerson) {
+                                party *= state.player.partyPerson;
+                            }
+                            state.dr += 15 * party;
+                            state.rr += 100 * party;
+                        }
                     },
                     "Leadchampagnebellini": {
                         name: "Lead Champagne Bellini (+15 DR)",
-                        dr: 15,
+                        debuff: ["dr"],
+                        order: 2,
+                        func: (state) => {
+                            var party = 1
+                            if (state.player.partyPerson) {
+                                party *= state.player.partyPerson;
+                            }
+                            state.dr += 15 * party;
+                        }
                     },
                     "Leadchampagnemimosa": {
                         name: "Lead Champagne Mimosa (+100 RR)",
-                        dr: 15,
+                        debuff: ["rr"],
+                        order: 2,
+                        func: (state) => {
+                            var party = 1
+                            if (state.player.partyPerson) {
+                                party *= state.player.partyPerson;
+                            }
+                            state.rr += 100 * party;
+                        }
                     },
                     "Nukacolablood": {
                         name: "Nuka Cola My Blood (-15% DMG from Scorched)",
-                        versus: {
-                            "Scorched": {
-                                ballisticReductionPercent: 15,
-                                energyReductionPercent: 15
-                            }
-                        }
+                        debuff: ["nukascorched"],
+                        order: 2,
+                        func: createNukaScorched()
                     },
                     "Nukacolascorched": {
                         name: "Nuka Cola Scorched (-15% DMG from Scorched)",
-                        versus: {
-                            "Scorched": {
-                                ballisticReductionPercent: 15,
-                                energyReductionPercent: 15
-                            }
-                        }
+                        debuff: ["nukascorched"],
+                        order: 2,
+                        func: createNukaScorched()
                     },
                     "Nukacolavaccinated": {
                         name: "Nuka Cola Vaccinated (-15% DMG from Scorched)",
-                        versus: {
-                            "Scorched": {
-                                ballisticReductionPercent: 15,
-                                energyReductionPercent: 15
-                            }
-                        }
+                        debuff: ["nukascorched"],
+                        order: 2,
+                        func: createNukaScorched()
                     },
                     "Nukacolaorange": {
                         name: "Nuka Cola Orange (+25 RR)",
-                        rr: 25
+                        debuff: ["rr"],
+                        order: 2,
+                        func: (state) => {
+                            var nuka = 1;
+                            if (state.player.colanut) {
+                                nuka *= state.player.colanut;
+                            }
+                            state.rr += 25 * nuka;
+                        }
                     },
                     "Steepedstranglerbloomtea": {
                         name: "Steeped Strangler Bloom Tea (+20 RR)",
-                        rr: 20
+                        debuff: ["rr"],
+                        order: 2,
+                        func: (state) => state.rr += 20,
                     },
                     /*
                     "Whiterussian": {
@@ -843,188 +868,248 @@
                     },
                     */
                 },
-                "Chems": {
+                "Chem": {
                     "Fury": {
                         name: "Fury (+25 DR)",
-                        dr: 25
+                        debuff: ["dr"],
+                        order: 2,
+                        func: (state) => state.dr += 25,
                     },
                     "Glowingbloodpack": {
                         name: "Glowing Blood Pack (+75 RR)",
-                        rr: 75
+                        debuff: ["rr"],
+                        order: 2,
+                        func: (state) => state.rr += 75,
                     },
                     "Insectrepellent": {
-                        name: "Insectrepellent (-15% DMG from Insects)",
-                        versus: {
-                            "Bug": {
-                                ballisticReductionPercent: 15,
-                                energyReductionPercent: 15,
+                        name: "Insectre Rellent (-15% DMG from Insects)",
+                        debuff: ["insectrepellent"],
+                        order: 2,
+                        func: (state) => {
+                            if (state.enemy.kind === "Insect") {
+                                var rs = getOrCreateReductionSlot(state, "Insect");
+                                rs.ballisticReduction += 15;
+                                rs.energyReduction += 15;
                             }
-                        }
+                        },
                     },
                     "Irradiatedbloodpack": {
                         name: "Irradiated Blood Pack (+75 RR)",
-                        rr: 75
+                        debuff: ["rr"],
+                        order: 2,
+                        func: (state) => state.rr += 75,
                     },
                     "Medx": {
                         name: "Med-X (+25 DR)",
-                        dr: 25
+                        debuff: ["dr"],
+                        order: 2,
+                        func: (state) => state.dr += 25,
                     },
                     "Psycho": {
                         name: "Psycho (+25 DR)",
-                        dr: 25
+                        debuff: ["dr"],
+                        order: 2,
+                        func: (state) => state.dr += 25,
                     },
                     "Psychotats": {
                         name: "Psychotats (+15 DR)",
-                        dr: 15
+                        debuff: ["dr"],
+                        order: 2,
+                        func: (state) => state.dr += 15,
                     },
                     "Radx": {
                         name: "Rad-X (+100 RR)",
-                        rr: 100
+                        debuff: ["rr"],
+                        order: 2,
+                        func: (state) => state.rr += 100,
                     },
                     "Radxdiluted": {
                         name: "Rad-X Diluted (+50 RR)",
-                        rr: 50
+                        debuff: ["rr"],
+                        order: 2,
+                        func: (state) => state.rr += 50,
                     },
                     "Radshield": {
                         name: "Radshield (+300 RR)",
-                        rr: 300
+                        debuff: ["rr"],
+                        order: 2,
+                        func: (state) => state.rr += 300,
                     },
                     "Superchem1": {
                         name: "Super Chem Mk1 (+25 DR)",
-                        dr: 25
+                        debuff: ["dr"],
+                        order: 2,
+                        func: (state) => state.dr += 25,
                     },
                 },
                 "Magazine": {
                     "Astoundingly8": {
                         name: "Astoundingly... #8 (-20% DMG from Robots)",
-                        versus: {
-                            "Robot": {
-                                ballisticReductionPercent: 20,
-                                energyReductionPercent: 20,
-                            }
-                        }
+                        order: 2,
+                        func: createVersusFunc(["Robot"], ["ballisticReduction", "energyReduction"], [20, 20])
                     },
                     "Astoundingly9": {
                         name: "Astoundingly... #9 (+15 PR)",
-                        pr: 15
+                        order: 2,
+                        func: state => state.pr += 15,
                     },
                     "Grognak3": {
                         name: "Grognak... #3 (+15 PR)",
-                        pr: 15
+                        order: 2,
+                        func: state => state.pr += 15,
                     },
                     "Grognak8": {
                         name: "Grognak... #8 (+2 DR)",
-                        dr: 2
+                        order: 2,
+                        func: state => state.dr += 2,
                     },
                     "Grognak10": {
                         name: "Grognak... #10 (+15 ER)",
-                        er: 15
+                        order: 2,
+                        func: state => state.er += 15,
                     },
                     "Guns6": {
                         name: "Guns... #6 (+10 DR at night)",
-                        dr: 10,
-                        nighttime: true,
+                        order: 2,
+                        func: state => {
+                            if (state.player.night) {
+                                state.dr += 10;
+                            }
+                        }
                     },
                     "Live6": {
                         name: "Live... #6 (+10 DR in team)",
-                        dr: 10,
-                        team: true,
+                        order: 2,
+                        func: state => {
+                            if (state.player.teammates > 0) {
+                                state.dr += 10;
+                            }
+                        }
                     },
                     "Live9": {
                         name: "Live... #9 (-25% DMG from Robots)",
-                        versus: {
-                            "Robot": {
-                                ballisticReductionPercent: 25,
-                                energyReductionPercent: 25,
-                            }
-                        }
+                        order: 2,
+                        func: createVersusFunc(["Robot"], ["ballisticReduction", "energyReduction"], [25, 25])
                     },
                     "Scouts2": {
                         name: "Scout's... #2 (-25% DMG from Insects)",
-                        versus: {
-                            "Insect": {
-                                ballisticReductionPercent: 25,
-                                energyReductionPercent: 25,
-                            }
-                        }
+                        order: 2,
+                        func: createVersusFunc(["Insect"], ["ballisticReduction", "energyReduction"], [25, 25])
                     },
                     "Scouts7": {
                         name: "Scout's... #7 (-25% DMG from Animals)",
-                        versus: {
-                            "Animal": {
-                                ballisticReductionPercent: 25,
-                                energyReductionPercent: 25,
-                            }
-                        }
+                        order: 2,
+                        func: createVersusFunc(["Animal"], ["ballisticReduction", "energyReduction"], [25, 25])
                     },
                     "Tesla1": {
                         name: "Tesla... #1 (-25% DMG from Robots)",
-                        versus: {
-                            "Robot": {
-                                ballisticReductionPercent: 25,
-                                energyReductionPercent: 25
-                            }
-                        }
+                        order: 2,
+                        func: createVersusFunc(["Robot"], ["ballisticReduction", "energyReduction"], [25, 25])
                     },
                     "Tesla2": {
                         name: "Tesla... #2 (-20% DMG from plasma)",
-                        ballisticReductionPercent: 20,
-                        energyReductionPercent: 20,
-                        plasma: true
+                        order: 2,
+                        func: (state) => {
+                            if (state.enemy.energyType === "plasma") {
+                                var rs = getOrCreateReductionSlot(state, "Plasma");
+                                rs.ballisticReduction += 20;
+                                rs.energyReduction += 20;
+                            }
+                        },
                     },
                     "Tesla6": {
                         name: "Tesla... #6 (+15 RR)",
-                        rr: 15
+                        order: 2,
+                        func: (state) => state.rr += 15
                     },
                     "US1": {
                         name: "U.S... #1 (+10 DR while sneaking)",
-                        dr: 10,
-                        sneaking: true
-                    },
-                    "US3": {
-                        name: "U.S... #3 (-10% DMG from Players)",
-                        versus: {
-                            "Player": {
-                                ballisticReductionPercent: 10,
-                                energyReductionPercent: 10
+                        order: 2,
+                        func: (state) => {
+                            if (state.player.sneaking) {
+                                state.dr += 10;
                             }
                         }
                     },
+                    "US3": {
+                        name: "U.S... #3 (-10% DMG from Players)",
+                        order: 2,
+                        func: createVersusFunc(["Player"], ["ballisticReduction", "energyReduction"], [10, 10])
+                    },
                     "Unstoppables1": {
                         name: "Unstop... #1 (5% chance for 0 DMG)",
-                        ballisticReductionPercent: 100,
-                        energyReductionPercent: 100,
-                        chance: 5
+                        order: 2,
+                        func: (state) => {
+                            var rs = getOrCreateReductionSlot(state, "unstoppables");
+                            rs.ballisticReduction += 5;
+                            rs.energyReduction += 5;
+                        }
                     },
                     "Unstoppables2": {
                         name: "Unstop... #2 (20% chance for 0 DMG from Scorched)",
-                        versus: {
-                            "Scorched": {
-                                ballisticReductionPercent: 100,
-                                energyReductionPercent: 100,
-                                chance: 20
+                        order: 2,
+                        func: (state) => {
+                            if (state.enemy.kind === "Scorched") {
+                                var rs = getOrCreateReductionSlot(state, "unstoppables");
+                                rs.ballisticReduction += 20;
+                                rs.energyReduction += 20;
                             }
                         }
                     },
                     "Unstoppables3": {
                         name: "Unstop... #3 (30% chance for 0 DMG from explosions)",
-                        explosiveReductionPercent: 100,
-                        chance: 30
+                        order: 2,
+                        func: (state) => {
+                            var rs = getOrCreateReductionSlot(state, "unstoppables");
+                            rs.explosiveReduction += 30
+                        }
                     },
                     "Unstoppables4": {
                         name: "Unstop... #4 (30% chance for 0 melee DMG)",
-                        explosiveReductionPercent: 100,
-                        chance: 30,
-                        melee: true
+                        order: 2,
+                        func: (state) => {
+                            if (state.enemy.damageType === "melee") {
+                                var rs = getOrCreateReductionSlot(state, "unstoppables");
+                                rs.ballisticReduction += 30;
+                                rs.energyReduction += 30;
+                            }
+                        }
                     },
                     "Unstoppables5": {
                         name: "Unstop... #5 (30% chance for 0 energy DMG)",
-                        energyReductionPercent: 100,
-                        chance: 30,
-                        energy: true
+                        order: 2,
+                        func: (state) => {
+                            var rs = getOrCreateReductionSlot(state, "unstoppables");
+                            rs.energyReduction += 30
+                        }
                     },
                 },
             };
+
+            function createNukaScorched() {
+                return (state) => {
+                            if (state.enemy.kind === "Scorched") {
+                                var nuka = 1;
+                                if (state.player.colanut) {
+                                    nuka *= state.player.colanut;
+                                }
+                                var rs = getOrCreateReductionSlot(state, "scorched");
+                                rs.ballisticReduction += 15 * nuka;
+                                rs.energyReduction += 15 * nuka;
+                            }
+                        };
+            }
+
+            function createVersusFunc(versusList, reductionKeyList, valueList) {
+                return state => {
+                    if (versusList.includes(state.enemy.kind)) {
+                        var rs = getOrCreateReductionSlot(state, state.enemy.kind);
+                        for (var i = 0; i < reductionKeyList.length; i++) {
+                            rs[reductionKeyList[i]] += valueList[i];
+                        }
+                    }
+                }
+            }
 
             var backpackLevels = [1, 10, 20, 30, 40, 50];
             var backpackMods = {
@@ -1316,7 +1401,7 @@
                 createNumber(tbl, "Health", index + "_HP", 0, 100, 100, " %").oninput = evt => recalculate(index);
                 createNumber(tbl, "Caps", index + "_Caps", 0, 30000, 0).oninput = evt => recalculate(index);
                 createNumber(tbl, "Carrying", index + "_Carry", 0, 30000, 0, " lb").oninput = evt => recalculate(index);
-                createNumber(tbl, "Teammates", index + "_Teammates", 0, 4, 0).oninput = evt => recalculate(index);
+                createNumber(tbl, "Teammates", index + "_Teammates", 0, 3, 0).oninput = evt => recalculate(index);
                 createNumber(tbl, "&nbsp;&nbsp;&nbsp;Deaths", index + "_Teamdeaths", 0, 3, 0).oninput = evt => recalculate(index);
 
                 if (mode === "NonPA") {
@@ -1358,87 +1443,108 @@
                 stanceSel.oninput = evt => recalculate(index);
             }
 
+            function createBlockerFunc(amount) {
+                return orderFunc(2, (state) => {
+                    if (state.enemy.damageType === "melee") {
+                        var rs = getOrCreateReductionSlot(state, "Blocker");
+                        rs.ballisticReduction += amount;
+                        rs.energyReduction += amount;
+                    }
+                });
+            }
+
+            function clamp(v, min, max) {
+                if (v < min) {
+                    return min;
+                }
+                if (v > max) {
+                    return max;
+                }
+                return v;
+            }
+
+            function createJunkShieldFunc(amount) {
+                return orderFunc(2, state => {
+                    var ja = clamp(state.player.junkamount, 0, 46);
+                    var res = Math.floor((ja + 4) / 5);
+                    state.dr += res * amount;
+                    state.er += res * amount;
+                });
+            }
+
+            function createBodyGuardFunc(amount) {
+                return orderFunc(2, state => {
+                    var res = amount * clamp(state.player.teammates, 0, 3);
+                    state.dr += res;
+                    state.er += res;
+                });
+            }
+
             function createPerks(tbl, index, mode) {
                 rw = tbl.insertRow(tbl.rows.length);
                 cll = rw.insertCell(rw.cells.length);
                 cll.innerHTML = "Perks";
 
-                rw = tbl.insertRow(tbl.rows.length);
-                cll = rw.insertCell(rw.cells.length);
-                cll.innerHTML = "&nbsp;&nbsp;&nbsp;Blocker";
-
-                cll = rw.insertCell(rw.cells.length);
-                var blockerSel = document.createElement("select");
-                blockerSel.id = index + "_Blocker";
-                cll.appendChild(blockerSel);
-                cll.appendChild(document.createTextNode(" rank"));
-
-                createOptions(blockerSel, ["None", "1", "2", "3"], ["", "15", "30", "45"]);
-
+                createSelectWithData(tbl, "&nbsp;&nbsp;&nbsp;Blocker", index + "_Blocker", ["None", "1", "2", "3"], ["", "15", "30", "45"], [
+                    null,
+                    createBlockerFunc(15),
+                    createBlockerFunc(30),
+                    createBlockerFunc(45)
+                ], false, " (rank)").oninput = evt => recalculate(index);
 
                 if (mode == "NonPA") {
-                    createPerkWithParam(tbl, "Junk Shield", index + "_Junkshield", ["None", "1", "2", "3"], ["", "10", "20", "30"]);
-                    createPerkWithParam(tbl, "Barbarian", index + "_Barbarian", ["None", "1", "2", "3"], ["", "2", "3", "4"]);
-                    createPerkWithParam(tbl, "Evasive", index + "_Evasive", ["None", "1", "2", "3"], ["", "1", "2", "3"]);
-                    createPerkWithParam(tbl, "Ironclad", index + "_Ironclad", ["None", "1", "2", "3", "4", "5"], ["", "10", "20", "30", "40", "50"]);
-                    createPerkWithParam(tbl, "Moving Target", index + "_Movingtarget", ["None", "1", "2", "3"], ["", "15", "30", "45"]);
-                    createPerkWithParam(tbl, "Serendipity", index + "_Serendipity", ["None", "1", "2", "3"], ["", "15", "30", "45"]);
-                    createPerkWithParam(tbl, "Adamantium Skeleton", index + "_Adamantium", ["None", "1", "2", "3"], ["", "30", "60", "100"]);
+                    createSelectWithData(tbl, "&nbsp;&nbsp;&nbsp;Junk Shield", index + "_Junkshield", ["None", "1", "2", "3"], ["", "10", "20", "30"], [
+                        null,
+                        createJunkShieldFunc(1),
+                        createJunkShieldFunc(2),
+                        createJunkShieldFunc(3),
+                    ], false, " (rank)").oninput = evt => recalculate(index);
+                    createSelectWithData(tbl, "&nbsp;&nbsp;&nbsp;Barbarian", index + "_Barbarian", ["None", "1", "2", "3"], ["", "2", "3", "4"]).oninput = evt => recalculate(index);
+                    createSelectWithData(tbl, "&nbsp;&nbsp;&nbsp;Evasive", index + "_Evasive", ["None", "1", "2", "3"], ["", "1", "2", "3"]).oninput = evt => recalculate(index);
+                    createSelectWithData(tbl, "&nbsp;&nbsp;&nbsp;Ironclad", index + "_Ironclad", ["None", "1", "2", "3", "4", "5"], ["", "10", "20", "30", "40", "50"]).oninput = evt => recalculate(index);
+                    createSelectWithData(tbl, "&nbsp;&nbsp;&nbsp;Moving Target", index + "_Movingtarget", ["None", "1", "2", "3"], ["", "15", "30", "45"]).oninput = evt => recalculate(index);
+                    createSelectWithData(tbl, "&nbsp;&nbsp;&nbsp;Serendipity", index + "_Serendipity", ["None", "1", "2", "3"], ["", "15", "30", "45"]).oninput = evt => recalculate(index);
+                    //createSelectWithData(tbl, "&nbsp;&nbsp;&nbsp;Adamantium Skeleton", index + "_Adamantium", ["None", "1", "2", "3"], ["", "30", "60", "100"]).oninput = evt => recalculate(index);
                 }
-                createPerkWithParam(tbl, "Bodyguards", index + "_Bodyguards", ["None", "1", "2", "3", "4"], ["", "6", "8", "10", "12"]);
-                createPerkWithParam(tbl, "Bullet Shield", index + "_Bulletshield", ["None", "1", "2", "3"], ["", "20", "40", "60"]);
-                createPerkWithParam(tbl, "Refractor", index + "_Refractor", ["None", "1", "2", "3", "4"], ["", "10", "20", "30", "40"]);
-                createPerkWithParam(tbl, "Dodgy", index + "_Dodgy", ["None", "1", "2", "3"], ["", "10", "20", "30"]);
-                createPerkWithParam(tbl, "Nerd Rage", index + "_Nerdrage", ["None", "1", "2", "3"], ["", "20", "30", "40"]);
-                createPerkWithParam(tbl, "Suppressor", index + "_Suppressor", ["None", "1", "2", "3"], ["", "10", "20", "30"]);
-                createPerkWithParam(tbl, "Lone Wanderer", index + "_Lonewanderer", ["None", "1", "2", "3"], ["", "10", "15", "20"]);
-                createPerkWithParam(tbl, "Rad Resistant", index + "_Radresistant", ["None", "1", "2", "3", "4"], ["", "10", "20", "30", "40"]);
-                createPerkWithParam(tbl, "Fireproof", index + "_Fireproof", ["None", "1", "2", "3"], ["", "15", "30", "45"]);
-                createPerkWithParam(tbl, "Cola Nut", index + "_Colanut", ["None", "1", "2"], ["", "2", "3"]);
-                createPerkWithParam(tbl, "Party Person", index + "_Partyperson", ["None", "1", "2"], ["", "2", "3"]);
-                createYesNo(tbl, index, "Strangeinnumbers", "&nbsp;&nbsp;&nbsp;Strange In Numbers", undefined, 
+                createSelectWithData(tbl, "&nbsp;&nbsp;&nbsp;Bodyguards", index + "_Bodyguards", ["None", "1", "2", "3", "4"], ["", "6", "8", "10", "12"], [
+                    null,
+                    createBodyGuardFunc(6),
+                    createBodyGuardFunc(8),
+                    createBodyGuardFunc(10),
+                    createBodyGuardFunc(12),
+                ], false, " (rank)").oninput = evt => recalculate(index);
+                createSelectWithData(tbl, "&nbsp;&nbsp;&nbsp;Bullet Shield", index + "_Bulletshield", ["None", "1", "2", "3"], ["", "20", "40", "60"]).oninput = evt => recalculate(index);
+                createSelectWithData(tbl, "&nbsp;&nbsp;&nbsp;Refractor", index + "_Refractor", ["None", "1", "2", "3", "4"], ["", "10", "20", "30", "40"]).oninput = evt => recalculate(index);
+                createSelectWithData(tbl, "&nbsp;&nbsp;&nbsp;Dodgy", index + "_Dodgy", ["None", "1", "2", "3"], ["", "10", "20", "30"]).oninput = evt => recalculate(index);
+                createSelectWithData(tbl, "&nbsp;&nbsp;&nbsp;Nerd Rage", index + "_Nerdrage", ["None", "1", "2", "3"], ["", "20", "30", "40"]).oninput = evt => recalculate(index);
+                createSelectWithData(tbl, "&nbsp;&nbsp;&nbsp;Suppressor", index + "_Suppressor", ["None", "1", "2", "3"], ["", "10", "20", "30"]).oninput = evt => recalculate(index);
+                createSelectWithData(tbl, "&nbsp;&nbsp;&nbsp;Lone Wanderer", index + "_Lonewanderer", ["None", "1", "2", "3"], ["", "10", "15", "20"]).oninput = evt => recalculate(index);
+                createSelectWithData(tbl, "&nbsp;&nbsp;&nbsp;Rad Resistant", index + "_Radresistant", ["None", "1", "2", "3", "4"], ["", "10", "20", "30", "40"]).oninput = evt => recalculate(index);
+                createSelectWithData(tbl, "&nbsp;&nbsp;&nbsp;Fireproof", index + "_Fireproof", ["None", "1", "2", "3"], ["", "15", "30", "45"]).oninput = evt => recalculate(index);
+                createSelectWithData(tbl, "&nbsp;&nbsp;&nbsp;Cola Nut", index + "_Colanut", ["None", "1", "2"], ["", "2", "3"], [
+                    null,
+                    orderFunc(0, state => state.player.colanut = 2),
+                    orderFunc(0, state => state.player.colanut = 3),
+                ]).oninput = evt => recalculate(index);
+                createSelectWithData(tbl, "&nbsp;&nbsp;&nbsp;Party Person", index + "_Partyperson", ["None", "1", "2"], ["", "2", "3"], [
+                    null,
+                    orderFunc(0, state => state.player.partyPerson = 2),
+                    orderFunc(0, state => state.player.partyPerson = 3),
+                ]).oninput = evt => recalculate(index);
+                createYesNo(tbl, index, "&nbsp;&nbsp;&nbsp;Strangeinnumbers", "&nbsp;&nbsp;&nbsp;Strange In Numbers", undefined, 
                     orderFunc(0, state => state.player.strangeInNumbers = true)
                 );
-                //createPerkWithParam(tbl, "Class Freak", index + "_Classfreak", ["None", "1", "2", "3"], ["", "25", "50", "75"]);
+                //createSelectWithData(tbl, "Class Freak", index + "_Classfreak", ["None", "1", "2", "3"], ["", "25", "50", "75"]).oninput = evt => recalculate(index);
 
                 rw = tbl.insertRow(tbl.rows.length);
                 cll = rw.insertCell(rw.cells.length);
                 cll.innerHTML = "Legendary Perks";
 
-                createPerkWithParam(tbl, "Funky Duds", index + "_Funkyduds", ["None", "1", "2", "3", "4"], ["", "50", "100", "150", "200"]);
-                createPerkWithParam(tbl, "Sizzling Style", index + "_Sizzlingstyle", ["None", "1", "2", "3", "4"], ["", "50", "100", "150", "200"]);
-                createPerkWithParam(tbl, "Blood Sacrifice", index + "_Bloodsacrifice", ["None", "1", "2", "3", "4"], ["", "25", "30", "35", "40"]);
-                createPerkWithParam(tbl, "What Rads", index + "_Whatrads", ["None", "1", "2", "3", "4"], ["", "50", "75", "100", "300"]);
+                createSelectWithData(tbl, "&nbsp;&nbsp;&nbsp;Funky Duds", index + "_Funkyduds", ["None", "1", "2", "3", "4"], ["", "50", "100", "150", "200"]).oninput = evt => recalculate(index);
+                createSelectWithData(tbl, "&nbsp;&nbsp;&nbsp;Sizzling Style", index + "_Sizzlingstyle", ["None", "1", "2", "3", "4"], ["", "50", "100", "150", "200"]).oninput = evt => recalculate(index);
+                createSelectWithData(tbl, "&nbsp;&nbsp;&nbsp;Blood Sacrifice", index + "_Bloodsacrifice", ["None", "1", "2", "3", "4"], ["", "25", "30", "35", "40"]).oninput = evt => recalculate(index);
+                createSelectWithData(tbl, "&nbsp;&nbsp;&nbsp;What Rads", index + "_Whatrads", ["None", "1", "2", "3", "4"], ["", "50", "75", "100", "300"]).oninput = evt => recalculate(index);
 
-            }
-
-            function createPerkWithParam(tbl, name, key, texts, values, paramName, paramKey, paramMin, paramValue) {
-                var rw = tbl.insertRow(tbl.rows.length);
-                var cll = rw.insertCell(rw.cells.length);
-                cll.innerHTML = "&nbsp;&nbsp;&nbsp;" + name;
-
-                cll = rw.insertCell(rw.cells.length);
-                var sel = document.createElement("select");
-                sel.id = key;
-                cll.appendChild(sel);
-
-                createOptions(sel, texts, values);
-
-                if (paramName !== undefined) {
-                    var sep = document.createElement("span");
-                    sep.innerHTML = " rank&nbsp;&nbsp;&nbsp;" + paramName + ":&nbsp;";
-                    cll.appendChild(sep);
-
-                    var input = document.createElement("input");
-                    input.id = paramKey;
-                    input.type = "number";
-                    input.min = paramMin;
-                    input.value = paramValue;
-                    input.className = "num6";
-                    cll.appendChild(input);
-                } else {
-                    cll.appendChild(document.createTextNode(" rank"));
-                }
             }
 
             function createOptions(sel, texts, values, data) {
@@ -1453,7 +1559,7 @@
                 }
             }
 
-            function createSelectWithData(tbl, name, key, texts, values, data, fullLine) {
+            function createSelectWithData(tbl, name, key, texts, values, data, fullLine, unit) {
                 var rw = tbl.insertRow(tbl.rows.length);
                 var cll = rw.insertCell(rw.cells.length);
                 cll.innerHTML = name;
@@ -1473,6 +1579,10 @@
                 cll.appendChild(sel);
 
                 createOptions(sel, texts, values, data);
+
+                if (unit) {
+                    cll.appendChild(document.createTextNode(unit));
+                }
 
                 return sel;
             }
@@ -1496,6 +1606,61 @@
                 createYesNo(tbl, index, "Scalyskin", "&nbsp;&nbsp;&nbsp;Scaly Skin");
             }
 
+            function createConsumableList(cll, index, mode, consumableName) {
+                var foodDiv = document.createElement("div");
+                foodDiv.style.height = 120;
+                foodDiv.style.paddingLeft = 40;
+                foodDiv.style.overflowY = "scroll";
+                cll.appendChild(foodDiv);
+                let foodList = [];
+                for (var food in consumables[consumableName]) {
+                    var f = consumables[consumableName][food];
+
+                    foodList.push({key: food, value: f });
+                }
+                foodList.sort((a, b) => a.value.name.localeCompare(b.value.name));
+                var fcnt = 0;
+                for (let f of foodList) {
+                    if (fcnt++ > 0) {
+                        foodDiv.appendChild(document.createElement("br"));
+                    }
+                    var lbl = document.createElement("label");
+                    foodDiv.appendChild(lbl);
+
+                    var cb = document.createElement("input");
+                    cb.type = "checkbox";
+                    cb.id = index + "_" + consumableName + "_" + f.key;
+                    cb.value = "Food_" + f.key;
+                    cb.data = {
+                        order: f.value.order,
+                        func: f.value.func,
+                    };
+                    f.cb = cb;
+                    f.debuff = f.value.debuff;
+                    cb.oninput = evt => {
+                        debuff(foodList, f);
+                        recalculate(index);
+                    };
+                    lbl.appendChild(cb);
+
+                    lbl.appendChild(document.createTextNode(" " + f.value.name));
+                }
+            }
+
+            function debuff(list, current) {
+                if (current.value.debuff) {
+                    for (var key of current.value.debuff) {
+                        for (var f of list) {
+                            if (f != current) {
+                                if (f.debuff && f.debuff.includes(key)) {
+                                    f.cb.checked = false;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
             function createConsumables(tbl, index, mode) {
                 var rw = tbl.insertRow(tbl.rows.length);
                 var cll = rw.insertCell(rw.cells.length);
@@ -1509,39 +1674,8 @@
                 cll = rw.insertCell(rw.cells.length);
                 cll.colSpan = 2;
 
-                var foodDiv = document.createElement("div");
-                foodDiv.style.height = 120;
-                foodDiv.style.paddingLeft = 40;
-                foodDiv.style.overflowY = "scroll";
-                cll.appendChild(foodDiv);
-                var foodList = [];
-                for (var food in consumables["Food"]) {
-                    var f = consumables["Food"][food];
+                createConsumableList(cll, index, mode, "Food");
 
-                    foodList.push({key: food, value: f });
-                }
-                foodList.sort((a, b) => a.value.name.localeCompare(b.value.name));
-                var fcnt = 0;
-                for (var f of foodList) {
-                    if (fcnt++ > 0) {
-                        foodDiv.appendChild(document.createElement("br"));
-                    }
-                    var lbl = document.createElement("label");
-                    foodDiv.appendChild(lbl);
-
-                    var cb = document.createElement("input");
-                    cb.type = "checkbox";
-                    cb.id = index + "_Food_" + f.key;
-                    cb.value = "Food_" + f.key;
-                    cb.data = {
-                        order: f.value.order,
-                        func: f.value.func,
-                    };
-                    cb.oninput = evt => recalculate(index);
-                    lbl.appendChild(cb);
-
-                    lbl.appendChild(document.createTextNode(" " + f.value.name));
-                }
 
                 rw = tbl.insertRow(tbl.rows.length);                
                 cll = rw.insertCell(rw.cells.length);
@@ -1551,35 +1685,17 @@
                 cll = rw.insertCell(rw.cells.length);
                 cll.colSpan = 2;
 
-                foodDiv = document.createElement("div");
-                foodDiv.style.height = 120;
-                foodDiv.style.paddingLeft = 40;
-                foodDiv.style.overflowY = "scroll";
-                cll.appendChild(foodDiv);
-                foodList = [];
-                for (var food in consumables["Drink"]) {
-                    var f = consumables["Drink"][food];
+                createConsumableList(cll, index, mode, "Drink");
 
-                    foodList.push({key: food, value: f });
-                }
-                foodList.sort((a, b) => a.value.name.localeCompare(b.value.name));
-                var fcnt = 0;
-                for (var f of foodList) {
-                    if (fcnt++ > 0) {
-                        foodDiv.appendChild(document.createElement("br"));
-                    }
-                    var lbl = document.createElement("label");
-                    foodDiv.appendChild(lbl);
+                rw = tbl.insertRow(tbl.rows.length);                
+                cll = rw.insertCell(rw.cells.length);
+                cll.innerHTML = "&nbsp;&nbsp;&nbsp;Chem";
 
-                    var cb = document.createElement("input");
-                    cb.type = "checkbox";
-                    cb.id = index + "_Drink_" + f.key;
-                    cb.value = "Drink_" + f.key;
-                    cb.data = f.value;
-                    lbl.appendChild(cb);
+                rw = tbl.insertRow(tbl.rows.length);                
+                cll = rw.insertCell(rw.cells.length);
+                cll.colSpan = 2;
 
-                    lbl.appendChild(document.createTextNode(" " + f.value.name));
-                }
+                createConsumableList(cll, index, mode, "Chem");
 
                 var texts = ["None"];
                 var values = [""];
@@ -1594,7 +1710,7 @@
                 for (var kv of magList) {
                     texts.push(kv.value.name);
                     values.push(kv.key);
-                    data.push(kv.value);
+                    data.push({ order: kv.value.order, func: kv.value.func });
 
                 }
                 createSelectWithData(tbl, "&nbsp;&nbsp;&nbsp;Magazine", index + "_Magazine", texts, values, data, true).oninput = evt => recalculate(index);
@@ -1743,6 +1859,11 @@
             }
 
             function recalculate(index) {
+
+                if (get(index + "_HP") == null) {
+                    return;
+                }
+
                 let state = {
                     player: {},
                     enemy: {}
@@ -1795,7 +1916,7 @@
                         if (elem.id.startsWith(index + "_")) {
                             if (elem.selectedIndex && elem.selectedIndex > 0) {
                                 var opt = elem.options[elem.selectedIndex];
-                                if (!opt.data.order) {
+                                if (opt.data.order === undefined) {
                                     //alert(elem.id + " no order specified in its data attribute")
                                     continue;
                                 }
