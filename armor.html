@@ -22,11 +22,16 @@
                 font-weight: bold; 
                 font-size: 26px;
             }
+            .results {
+                font-weight: bold; 
+                font-size: 26px;
+            }
             .ptr {
                 cursor: pointer;
             }
             .num6 {
                 width: 90px;
+                text-align: right;
             }
             .bold {
                 font-weight: bold;
@@ -157,13 +162,13 @@
                             <td>
                                 <label class='ptr'><input type='radio' name='dmgType' value='melee' id='dmgTypeMelee'> Melee</label>
                                 &nbsp;&nbsp;&nbsp;
-                                <label class='ptr'><input type='radio' name='dmgType' value='ranged' id='dmgTypeRanged'> Ranged</label>
+                                <label class='ptr'><input type='radio' name='dmgType' value='ranged' id='dmgTypeRanged' checked> Ranged</label>
                             </td>
                         </tr>
                         <tr>
                             <td>Energy damage type</td>
                             <td>
-                                <label class='ptr'><input type='radio' name='energyType' value='laser' id='energyTypeLaser'> Laser</label>
+                                <label class='ptr'><input type='radio' name='energyType' value='laser' id='energyTypeLaser' checked> Laser</label>
                                 &nbsp;&nbsp;&nbsp;
                                 <label class='ptr'><input type='radio' name='energyType' value='plasma' id='energyTypePlasma'> Plasma</label>
                             </td>
@@ -634,122 +639,150 @@
                 }
             };
 
+            function createSimpleFoodFunc(meat, resistName, resistAmount) {
+                return (state) => {
+                    if (meat) {
+                        if (state.player.carnivore) {
+                            if (state.player.teammates > 0 && state.player.strangeInNumbers) {
+                                state[resistName] += 5 * resistAmount / 2;
+                            } else {
+                                state[resistName] += 2 * resistAmount;
+                            }
+                        }
+                        else if (!state.player.herbivore) {
+                            state[resistName] += resistAmount;
+                        }
+                    } else {
+                        if (state.player.herbivore) {
+                            if (state.player.teammates > 0 && state.player.strangeInNumbers) {
+                                state[resistName] += 5 * resistAmount / 2;
+                            } else {
+                                state[resistName] += 2 * resistAmount;
+                            }
+                        }
+                        else if (!state.player.carnivore) {
+                            state[resistName] += resistAmount;
+                        }
+                    }
+                };
+            }
+
             var consumables = {
                 "Food": {
                     "Bakedbloatlfy": {
                         name: "Baked Bloatfly (+10 RR)",
-                        meat: true,
-                        rr: 10
+                        order: 2,
+                        func: createSimpleFoodFunc(true, "rr", 10)
                     },
                     "Bloatflyloaf": {
                         name: "Bloatfly Loaf (+30 RR)",
-                        meat: true,
-                        rr: 30
+                        order: 2,
+                        func: createSimpleFoodFunc(true, "rr", 30)
                     },
                     "Cranberryjam": {
                         name: "Cranberry Jam (+10 DR)",
-                        meat: false,
-                        dr: 10
+                        order: 2,
+                        func: createSimpleFoodFunc(false, "dr", 10)
                     },
                     "Crispycavecricket": {
                         name: "Crispy Cave Cricket (+10 ER)",
-                        meat: true,
-                        er: 10
+                        order: 2,
+                        func: createSimpleFoodFunc(true, "er", 10)
                     },
                     "Firecaptastysouffle": {
                         name: "Firecap Tasty Souffle (+35 ER)",
-                        meat: false,
-                        er: 35
+                        order: 2,
+                        func: createSimpleFoodFunc(false, "er", 35)
                     },
                     "Friedfogcrawler": {
                         name: "Fried Fog Crawler (+20 DR)",
-                        meat: true,
-                        dr: 20
+                        order: 2,
+                        func: createSimpleFoodFunc(true, "dr", 20)
                     },
                     "Headhuntercheese": {
                         name: "Headhunter's Headcheese (+10 DR)",
-                        meat: true, 
-                        dr: 10
+                        order: 2,
+                        func: createSimpleFoodFunc(true, "dr", 10)
                     },
                     "Megaslothtenderloin": {
                         name: "Megasloth Tenderloin (+35 ER)",
-                        meat: true,
-                        er: 35
+                        order: 2,
+                        func: createSimpleFoodFunc(true, "er", 35)
                     },
                     "Mirelurkcakealoi": {
                         name: "Mirelurk Cake with Bloodleaf Aloi (+30 ER)",
-                        meat: true,
-                        er: 30
+                        order: 2,
+                        func: createSimpleFoodFunc(true, "er", 30)
                     },
                     "Mirelurkjerky": {
                         name: "Mirelurk Jerky (+15 ER)",
-                        meat: true,
-                        er: 15
+                        order: 2,
+                        func: createSimpleFoodFunc(true, "er", 15)
                     },
                     "Potholepotpie": {
                         name: "Pothole Potpie (+10 DR)",
-                        meat: false, 
-                        dr: 10
+                        order: 2,
+                        func: createSimpleFoodFunc(false, "dr", 10)
                     },
                     "Radscorpionfilet": {
                         name: "Radscorpion Filet (+35 ER)",
-                        meat: true,
-                        er: 35
+                        order: 2,
+                        func: createSimpleFoodFunc(true, "er", 35)
                     },
                     "Radscorpionsteak": {
                         name: "Radscorpion Steak (+25 ER)",
-                        meat: true,
-                        er: 25
+                        order: 2,
+                        func: createSimpleFoodFunc(true, "er", 25)
                     },
                     "Roastmegasloth": {
                         name: "Roast Megaslot (+25 ER)",
-                        meat: true,
-                        er: 25
+                        order: 2,
+                        func: createSimpleFoodFunc(true, "er", 25)
                     },
                     "Scorchbeast Steak": {
                         name: "Scorchbeast Steak (+15 DR)",
-                        meat: true,
-                        dr: 15
+                        order: 2,
+                        func: createSimpleFoodFunc(true, "dr", 15)
                     },
                     "Strawberryperkgum": {
                         name: "Strawberry Perk Bubblegum (+1 DR)",
-                        meat: false,
-                        dr: 1
+                        order: 2,
+                        func: (state) => state.dr =+ 1,
                     },
                     "Cavefungussoup": {
                         name: "Cave Fungus Soup (+10 PR)",
-                        meat: false,
-                        pr: 10
+                        order: 2,
+                        func: createSimpleFoodFunc(false, "pr", 10)
                     },
                     "Firecapsoup": {
                         name: "Firecap Soup (+25 ER)",
-                        meat: false,
-                        er: 25
+                        order: 2,
+                        func: createSimpleFoodFunc(false, "er", 25)
                     },
                     "Glowingfungussoup": {
                         name: "Glowing Fungus Soup (+20 RR)",
-                        meat: false,
-                        rr: 20
+                        order: 2,
+                        func: createSimpleFoodFunc(false, "rr", 20)
                     },
                     "Glowingfunguspuree": {
                         name: "Glowing Fungus Puree (+35 ER)",
-                        meat: false,
-                        er: 35
+                        order: 2,
+                        func: createSimpleFoodFunc(false, "er", 35)
                     },
                     "Radstagstew": {
                         name: "Radstag Stew (+35 ER)",
-                        meat: true,
-                        er: 35
+                        order: 2,
+                        func: createSimpleFoodFunc(true, "er", 35)
                     },
                     "Siltbeanpuree": {
                         name: "Silt Bean Puree (+15 DR)",
-                        meat: false,
-                        dr: 15
+                        order: 2,
+                        func: createSimpleFoodFunc(false, "dr", 15)
                     },
                     "Tatosoup": {
                         name: "Tato Soup (+10 PR)",
-                        meat: false,
-                        pr: 10
+                        order: 2,
+                        func: createSimpleFoodFunc(false, "pr", 10)
                     },
                 },
                 "Drink": {
@@ -997,20 +1030,36 @@
             var backpackMods = {
                 "Armorplated": {
                     name: "Armor Plated",
-                    dr: [15, 30, 45, 60, 75, 90]
+                    order: 2,
+                    func: (state, level) => {
+                        var arg = [15, 30, 45, 60, 75, 90];
+                        state.dr += arg[level];
+                    }
                 },
                 "Highcapacity": {
                     name: "High capacity",
-                    er: [-10, -20, -30, -40, -50, -60],
-                    rr: [-10, -20, -30, -40, -50, -60],
+                    order: 2,
+                    func: (state, level) => {
+                        var arg = [-10, -20, -30, -40, -50, -60];
+                        state.er += arg[level];
+                        state.rr += arg[level];
+                    }
                 },
                 "Insulated": {
                     name: "Insulated",
-                    er: [15, 30, 45, 60, 75, 90]
+                    order: 2,
+                    func: (state, level) => {
+                        var arg = [15, 30, 45, 60, 75, 90];
+                        state.er += arg[level];
+                    }
                 },
                 "Leadlined": {
                     name: "Lead Lined",
-                    er: [15, 30, 45, 60, 75, 90]
+                    order: 2,
+                    func: (state, level) => {
+                        var arg = [15, 30, 45, 60, 75, 90];
+                        state.rr += arg[level];
+                    }
                 },
             };
 
@@ -1264,16 +1313,16 @@
                 cll = rw.insertCell(rw.cells.length);
                 cll.className = "topline";
 
-                createNumber(tbl, "Health", index + "_HP", 0, 100, 100, " %");
-                createNumber(tbl, "Caps", index + "_Caps", 0, 30000, 0);
-                createNumber(tbl, "Carrying", index + "_Carry", 0, 30000, 0, " lb");
-                createNumber(tbl, "Teammates", index + "_Teammates", 0, 4, 0);
-                createNumber(tbl, "&nbsp;&nbsp;&nbsp;Deaths", index + "_Teamdeaths", 0, 3, 0);
+                createNumber(tbl, "Health", index + "_HP", 0, 100, 100, " %").oninput = evt => recalculate(index);
+                createNumber(tbl, "Caps", index + "_Caps", 0, 30000, 0).oninput = evt => recalculate(index);
+                createNumber(tbl, "Carrying", index + "_Carry", 0, 30000, 0, " lb").oninput = evt => recalculate(index);
+                createNumber(tbl, "Teammates", index + "_Teammates", 0, 4, 0).oninput = evt => recalculate(index);
+                createNumber(tbl, "&nbsp;&nbsp;&nbsp;Deaths", index + "_Teamdeaths", 0, 3, 0).oninput = evt => recalculate(index);
 
                 if (mode === "NonPA") {
-                    createNumber(tbl, "Strength", index + "_Strength", 1, 100, 1);
-                    createNumber(tbl, "Agility", index + "_Agility", 1, 100, 1);
-                    createNumber(tbl, "Junk Amount", index + "_Junkamount", 0, 46, 0);
+                    createNumber(tbl, "Strength", index + "_Strength", 1, 100, 1).oninput = evt => recalculate(index);
+                    createNumber(tbl, "Agility", index + "_Agility", 1, 100, 1).oninput = evt => recalculate(index);
+                    createNumber(tbl, "Junk Amount", index + "_Junkamount", 0, 46, 0).oninput = evt => recalculate(index);
                 }
 
                 createYesNo(tbl, index, "Night", "&nbsp;&nbsp;&nbsp;Night time");
@@ -1305,6 +1354,8 @@
                 opt.value = "Still";
                 opt.text = "Standing Still";
                 stanceSel.options.add(opt);
+
+                stanceSel.oninput = evt => recalculate(index);
             }
 
             function createPerks(tbl, index, mode) {
@@ -1345,8 +1396,10 @@
                 createPerkWithParam(tbl, "Fireproof", index + "_Fireproof", ["None", "1", "2", "3"], ["", "15", "30", "45"]);
                 createPerkWithParam(tbl, "Cola Nut", index + "_Colanut", ["None", "1", "2"], ["", "2", "3"]);
                 createPerkWithParam(tbl, "Party Person", index + "_Partyperson", ["None", "1", "2"], ["", "2", "3"]);
-                createYesNo(tbl, index, "Strangeinnumbers", "&nbsp;&nbsp;&nbsp;Strange In Numbers");
-                createPerkWithParam(tbl, "Class Freak", index + "_Classfreak", ["None", "1", "2", "3"], ["", "25", "50", "75"]);
+                createYesNo(tbl, index, "Strangeinnumbers", "&nbsp;&nbsp;&nbsp;Strange In Numbers", undefined, 
+                    orderFunc(0, state => state.player.strangeInNumbers = true)
+                );
+                //createPerkWithParam(tbl, "Class Freak", index + "_Classfreak", ["None", "1", "2", "3"], ["", "25", "50", "75"]);
 
                 rw = tbl.insertRow(tbl.rows.length);
                 cll = rw.insertCell(rw.cells.length);
@@ -1420,6 +1473,8 @@
                 cll.appendChild(sel);
 
                 createOptions(sel, texts, values, data);
+
+                return sel;
             }
 
             function createMutations(tbl, index, mode) {
@@ -1427,7 +1482,15 @@
                 var cll = rw.insertCell(rw.cells.length);
                 cll.innerHTML = "Mutations";
 
-                createSelectWithData(tbl, "&nbsp;&nbsp;&nbsp;Food-related", index + "_Foodbuff", ["None", "Carnivore", "Herbivore"], ["", "Carnivore", "Herbivore"])
+                createSelectWithData(tbl, "&nbsp;&nbsp;&nbsp;Food-related", index + "_Foodbuff", 
+                    ["None", "Carnivore", "Herbivore"], 
+                    ["", "Carnivore", "Herbivore"],
+                    [
+                        null,
+                        orderFunc(1, state => state.player.carnivore = true),
+                        orderFunc(1, state => state.player.herbivore = true),
+                    ]
+                ).oninput = evt => recalculate(index);
                 createYesNo(tbl, index, "Empath", "&nbsp;&nbsp;&nbsp;Empath");
                 createYesNo(tbl, index, "Grounded", "&nbsp;&nbsp;&nbsp;Grounded");
                 createYesNo(tbl, index, "Scalyskin", "&nbsp;&nbsp;&nbsp;Scaly Skin");
@@ -1470,7 +1533,11 @@
                     cb.type = "checkbox";
                     cb.id = index + "_Food_" + f.key;
                     cb.value = "Food_" + f.key;
-                    cb.data = f.value;
+                    cb.data = {
+                        order: f.value.order,
+                        func: f.value.func,
+                    };
+                    cb.oninput = evt => recalculate(index);
                     lbl.appendChild(cb);
 
                     lbl.appendChild(document.createTextNode(" " + f.value.name));
@@ -1530,32 +1597,32 @@
                     data.push(kv.value);
 
                 }
-                createSelectWithData(tbl, "&nbsp;&nbsp;&nbsp;Magazine", index + "_Magazine", texts, values, data, true);
+                createSelectWithData(tbl, "&nbsp;&nbsp;&nbsp;Magazine", index + "_Magazine", texts, values, data, true).oninput = evt => recalculate(index);
             }
 
             function createResults(tbl, index, mode) {
                 var rw = tbl.insertRow(tbl.rows.length);
                 var cll = rw.insertCell(rw.cells.length);
 
-                cll.className = "topline bold";
+                cll.className = "topline results";
                 cll.innerText = "Resistances";
 
                 cll = rw.insertCell(rw.cells.length);
-                cll.className = "topline bold";
+                cll.className = "topline results";
                 cll.id = "Resistances" + index;
 
                 rw = tbl.insertRow(tbl.rows.length);
                 cll = rw.insertCell(rw.cells.length);
 
-                cll.className = "bold";
+                cll.className = "results";
                 cll.innerText = "Reductions";
 
                 cll = rw.insertCell(rw.cells.length);
-                cll.className = "bold";
+                cll.className = "results";
                 cll.id = "Reductions" + index;
             }
 
-            function createYesNo(tbl, index, key, name, tip) {
+            function createYesNo(tbl, index, key, name, tip, data) {
                 var rw = tbl.insertRow(tbl.rows.length);
                 var cll = rw.insertCell(rw.cells.length);
                 cll.innerHTML = name;
@@ -1566,6 +1633,8 @@
                 cll = rw.insertCell(rw.cells.length);
                 
                 var yes = createRadio(index + "_" + key, index + "_" + key + "_yes", "Yes");
+                yes.radio.data = data;
+                yes.radio.oninput = evt => recalculate(index);
                 cll.appendChild(yes.label);
 
                 var sep = document.createElement("span");
@@ -1573,6 +1642,7 @@
                 sep.innerHTML = "&nbsp;&nbsp;&nbsp;";
 
                 var no = createRadio(index + "_" + key, index + "_" + key + "_no", "No");
+                no.radio.oninput = evt => recalculate(index);
                 no.radio.checked = "checked";
                 cll.appendChild(no.label);
             }
@@ -1609,13 +1679,18 @@
                 var values = [];
                 var data = [];
                 for (var bm of modList) {
-                    for (var bl of backpackLevels) {
+                    for (let blIdx in backpackLevels) {
+                        let bl = backpackLevels[blIdx];
                         texts.push(bm.value.name + " - " + bl);
                         values.push(bm.key + "_" + bl);
-                        data.push({ value: bm.value, level: bl });
+                        data.push(
+                        { 
+                            order: bm.value.order, 
+                            func: (state) => bm.value.func(state, blIdx)
+                        });
                     }
                 }
-                createSelectWithData(tbl, "&nbsp;&nbsp;&nbsp;Backpack", index + "_Backpack", texts, values, data);
+                createSelectWithData(tbl, "&nbsp;&nbsp;&nbsp;Backpack", index + "_Backpack", texts, values, data).oninput = evt => recalculate(index);
             }
 
             function createSide(index, mode) {                
@@ -1642,6 +1717,31 @@
                 recalculate(index);
             }
 
+            function orderFunc(order, func) {
+                return {
+                    order: order,
+                    func: func
+                };
+            }
+
+            function getOrCreateReductionSlot(state, name) {
+                var rs = state.reductionSlots[name];
+                if (!rs) {
+                }
+                rs = {
+                    ballisticReduction: 0,
+                    energyReduction: 0,
+                    radiationReduction: 0,
+                    fireReduction: 0,
+                    cryoReduction: 0,
+                    poisonReduction: 0,
+                    explosiveReduction: 0,
+                }
+                state.reductionSlots[name] = rs;
+
+                return rs;
+            }
+
             function recalculate(index) {
                 let state = {
                     player: {},
@@ -1652,13 +1752,23 @@
                 state.player.caps = parseInt(getValue(index + "_Caps"));
                 state.player.carrying = parseInt(getValue(index + "_Carry"));
                 state.player.teammates = parseInt(getValue(index + "_Teammates"));
-                state.player.teamdeath = parseInt(getValue(index + "_Teamdeaths"));
+                state.player.teamdeaths = parseInt(getValue(index + "_Teamdeaths"));
                 state.player.night = getBool(index + "_Night_yes");
                 state.player.blocking = getBool(index + "_Block_yes");
                 state.player.sneaking = getBool(index + "_Sneak_yes");
                 state.player.fireheavy = getBool(index + "_Fireheavy_yes");
                 state.player.stance = getValue(index + "_Stance");
                 state.player.mode = getBool("NonPA" + index) ? "NonPA" : "PA";
+
+                state.dr = 0;
+                state.er = 0;
+                state.rr = 0;
+                state.fr = 0;
+                state.cr = 0;
+                state.pr = 0;
+                state.xr = 0;
+
+                state.reductionSlots = {};
 
                 if (state.player.mode === "NonPA") {
                     state.player.strength = getValue(index + "_Strength");
@@ -1668,12 +1778,171 @@
 
                 state.enemy.kind = getOpt("enemykind").value;
                 state.enemy.ballisticDamage = getValue("dmgBallistic");
+                state.enemy.energyDamage = getValue("dmgEnergy");
+                state.enemy.radiationDamage = getValue("dmgRadiation");
+                state.enemy.fireDamage = getValue("dmgFire");
+                state.enemy.cryoDamage = getValue("dmgCryo");
+                state.enemy.poisonDamage = getValue("dmgPoison");
+                state.enemy.armorIgnore = getValue("armorIgnore");
+                state.enemy.damageType = getBool("dmgTypeMelee") ? "melee" : "ranged";
+                state.enemy.energyType = getBool("energyTypePlasma") ? "plasma" : "laser";
+
+                var modifiers = [];
+
+                outer:
+                for (var tagName of ["input", "select"]) {
+                    for (var elem of document.getElementsByTagName(tagName)) {
+                        if (elem.id.startsWith(index + "_")) {
+                            if (elem.selectedIndex && elem.selectedIndex > 0) {
+                                var opt = elem.options[elem.selectedIndex];
+                                if (!opt.data.order) {
+                                    //alert(elem.id + " no order specified in its data attribute")
+                                    continue;
+                                }
+                                if (!opt.data.func) {
+                                    //alert(elem.id + " no function specified in its data attribute")
+                                    continue;
+                                }
+                                modifiers.push(opt.data);
+                            } else {
+                                if (!elem.data) {
+                                    continue;
+                                }
+                                if (elem.data.order === undefined) {
+                                    //alert(elem.id + " no order specified in its data attribute")
+                                    continue;
+                                }
+                                if (!elem.data.func) {
+                                    //alert(elem.id + " no function specified in its data attribute")
+                                    continue;
+                                }
+                                if (elem.type === "radio" && elem.id.endsWith("_yes") && elem.checked) {
+                                    modifiers.push(elem.data);
+                                }
+                                else if (elem.type === "checkbox" && elem.checked) {
+                                    modifiers.push(elem.data);
+                                }
+                            }
+                        }
+                    }
+                }
+
+                modifiers.sort((a, b) => a.order < b.order ? -1 : (a.order > b.order ? 1 : 0));
+
+                for (var mod of modifiers) {
+                    mod.func(state, mod.params);
+                }
+
+                state.ballisticReduction = 1;
+                state.energyReduction = 1;
+                state.radiationReduction = 1;
+                state.fireReduction = 1;
+                state.cryoReduction = 1;
+                state.poisonReduction = 1;
+                state.explosiveReduction = 1;
+
+                for (var rsKey in state.reductionSlots) {
+                    var rs = state.reductionSlots[rsKey];
+                    state.ballisticReduction *= (1 - rs.ballisticReduction);
+                    state.energyReduction *= (1 - rs.energyReduction);
+                    state.radiationReduction *= (1 - rs.radiationReduction);
+                    state.fireReduction *= (1 - rs.fireReduction);
+                    state.cryoReduction *= (1 - rs.cryoReduction);
+                    state.poisonReduction *= (1 - rs.poisonReduction);
+                    state.explosiveReduction *= (1 - rs.explosiveReduction);
+                }
+
+                state.ballisticReduction = 1 - state.ballisticReduction;
+                state.energyReduction = 1 - state.energyReduction;
+                state.radiationReduction = 1 - state.radiationReduction;
+                state.fireReduction = 1 - state.fireReduction;
+                state.cryoReduction = 1 - state.cryoReduction;
+                state.poisonReduction = 1 - state.poisonReduction;
+                state.explosiveReduction = 1 - state.explosiveReduction;
+
+                // results
+
+                var resiliences = get("Resistances" + index);
+
+                resiliences.innerHTML = createDamageDisplayHTML(
+                    state.dr, state.er, 
+                    state.rr, state.fr, 
+                    state.cr, state.pr, 
+                    state.xr, "", 0);
+
+                var reductions = get("Reductions" + index);
+
+                reductions.innerHTML = createDamageDisplayHTML(
+                    state.ballisticReduction, state.energyReduction, 
+                    state.radiationReduction, state.fireReduction,
+                    state.cryoReduction, state.poisonReduction, 
+                    state.explosiveReduction, " %", 2);
+            }
+
+            function createDamageDisplayHTML(ballistic, energy, radiation, fire, cold, poison, explosive, unit, decimals) {
+                var result = "";
+                if (ballistic < 0.01) {
+                    result += "<span class='halfopaque'>&nbsp;&nbsp;&nbsp;\u2316&nbsp;" + ballistic.toFixed(decimals) + unit + "</span>";
+                } else {
+                    result += "&nbsp;&nbsp;&nbsp;\u2316&nbsp;" + ballistic.toFixed(decimals) + unit;
+                }
+                if (energy < 0.01) {
+                    result += "<span class='halfopaque'>&nbsp;&nbsp;&nbsp;\u21AF&nbsp;" + energy.toFixed(decimals) + unit + "</span>";
+                } else {
+                    result += "&nbsp;&nbsp;&nbsp;\u21AF&nbsp;" + energy.toFixed(decimals) + unit;
+                }
+                if (radiation < 0.01) {
+                    result += "<br><span class='halfopaque'>&nbsp;&nbsp;&nbsp;\u2622&nbsp;" + radiation.toFixed(decimals) + unit + "</span>";
+                } else {
+                    result += "<br>&nbsp;&nbsp;&nbsp;\u2622&nbsp;" + radiation.toFixed(decimals) + unit;
+                }
+
+                if (fire < 0.01) {
+                    result += "<span class='halfopaque'>&nbsp;&nbsp;&nbsp;&#x1F525;&nbsp;" + fire.toFixed(decimals) + unit + "</span>";
+                } else {
+                    result += "&nbsp;&nbsp;&nbsp;&#x1F525;&nbsp;" + fire.toFixed(decimals);
+                }
+                if (cold < 0.01) {
+                    result += "<br><span class='halfopaque'>&nbsp;&nbsp;&nbsp;&#x2744;&nbsp;" + cold.toFixed(decimals) + unit + "</span>";
+                } else {
+                    result += "<br>&nbsp;&nbsp;&nbsp;&#x2744;&nbsp;" + cold.toFixed(decimals);
+                }
+                if (poison < 0.01) {
+                    result += "<span class='halfopaque'>&nbsp;&nbsp;&nbsp;&#x1F4A7;&nbsp;" + poison.toFixed(decimals) + unit + "</span>";
+                } else {
+                    result += "&nbsp;&nbsp;&nbsp;&#x1F4A7;&nbsp;" + poison.toFixed(decimals);
+                }
+                if (explosive < 0.01) {
+                    result += "<br><span class='halfopaque'>&nbsp;&nbsp;&nbsp;&#x1F4A5;&nbsp;" + explosive.toFixed(decimals) + unit + "</span>";
+                } else {
+                    result += "<br>&nbsp;&nbsp;&nbsp;&#x1F4A5;&nbsp;" + explosive.toFixed(decimals) + unit;
+                }
+                return result;
+            }
+
+            function recalculateBoth() {
+                recalculate(1);
+                recalculate(2);
             }
 
             get("NonPA1").oninput = evt => createSide(1, "NonPA");
             get("PA1").oninput = evt => createSide(1, "PA");
             get("NonPA2").oninput = evt => createSide(2, "NonPA");
             get("PA2").oninput = evt => createSide(2, "PA");
+
+            get("enemykind").oninput = evt => recalculateBoth();
+            get("dmgBallistic").oninput = evt => recalculateBoth();
+            get("dmgEnergy").oninput = evt => recalculateBoth();
+            get("dmgRadiation").oninput = evt => recalculateBoth();
+            get("dmgFire").oninput = evt => recalculateBoth();
+            get("dmgCryo").oninput = evt => recalculateBoth();
+            get("dmgPoison").oninput = evt => recalculateBoth();
+            get("armorIgnore").oninput = evt => recalculateBoth();
+            get("dmgTypeMelee").oninput = evt => recalculateBoth();
+            get("dmgTypeRanged").oninput = evt => recalculateBoth();
+            get("energyTypePlasma").oninput = evt => recalculateBoth();
+            get("energyTypeLaser").oninput = evt => recalculateBoth();
+
     </script>
 </body>
 </html>
