@@ -9,6 +9,14 @@
             td {
                 padding: 1px;
             }
+
+            #table1 td:nth-child(2) {
+                padding-left: 15px;
+            }
+
+            #table2 td:nth-child(2) {
+                padding-left: 15px;
+            }
             
             table.infoTable {
                border: 1px solid black;
@@ -108,7 +116,7 @@
                         <tr>
                             <td>Kind</td>
                             <td><select id='enemykind'>
-                                <option value="">Any</option>
+                                <option value="Any">Any</option>
                                 <option value="Player">Player</option>
                                 <option value="Human">Human</option>
                                 <option value="SuperMutant">Super Mutant</option>
@@ -187,6 +195,13 @@
     </center>
     <script>
             var infoMap = new Map();
+
+            infoMap.set("suppressorweapon", 
+                "Reduce the enemy damage output by 25% for 3 seconds after you attack."
+                + "<br>Enable this if the enemy was hit by a weapon having the legendary Suppressor's prefix.");
+            infoMap.set("suppressor", 
+                "Reduce the enemy damage output by 10%, 20% or 30% for 2 seconds after you attack."
+            );
 
             // add HTML explanation marker
             function info(name) {
@@ -428,7 +443,7 @@
                             func: (state) => state.cr += 25
                         },
                         "Hardy": {
-                            name: "10% explosive damage reduction",
+                            name: "-10% explosive DMG",
                             order: 2,
                             func: (state) => {
                                 var rs = getOrCreateReductionSlot(state, "base");
@@ -438,7 +453,7 @@
                     },
                     "Minor": {
                         "Blocker": {
-                            name: "15% less damage when blocking",
+                            name: "-15% DMG when blocking",
                             order: 2,
                             func: (state) => {
                                 if (state.player.blocking) {
@@ -449,7 +464,7 @@
                             }
                         },
                         "Cavailier": {
-                            name: "15% less damage while sprinting",
+                            name: "-15% DMG while sprinting",
                             order: 2,
                             func: (state) => {
                                 if (state.player.stance === "Sprint") {
@@ -468,7 +483,7 @@
                         },
                         */
                         "Sentinel": {
-                            name: "15% less damage while standing still",
+                            name: "-15% DMG while standing still",
                             order: 2,
                             func: (state) => {
                                 if (state.player.stance === "Still") {
@@ -614,7 +629,7 @@
                             func: (state) => state.cr += 25
                         },
                         "Hardy": {
-                            name: "10% explosive damage reduction",
+                            name: "-10% explosive DMG",
                             order: 2,
                             func: (state) => {
                                 var rs = getOrCreateReductionSlot(state, "base");
@@ -624,7 +639,7 @@
                     },
                     "Minor": {
                         "Blocker": {
-                            name: "15% less damage when blocking",
+                            name: "-15% DMG when blocking",
                             order: 2,
                             func: (state) => {
                                 if (state.player.blocking) {
@@ -635,7 +650,7 @@
                             }
                         },
                         "Cavailier": {
-                            name: "15% less damage while sprinting",
+                            name: "-15% DMG while sprinting",
                             order: 2,
                             func: (state) => {
                                 if (state.player.stance === "Sprint") {
@@ -654,7 +669,7 @@
                         },
                         */
                         "Sentinel": {
-                            name: "15% less damage while standing still",
+                            name: "-15% DMG while standing still",
                             order: 2,
                             func: (state) => {
                                 if (state.player.stance === "Still") {
@@ -1206,7 +1221,7 @@
                 let makeSel = document.createElement("select");
                 cll.appendChild(makeSel);
                 makeSel.id = index + "_Part_" + part;
-                makeSel.oninput = evt => recalculate(index);
+                makeSel.oninput = evt => recalculateBoth();
 
                 var opt = document.createElement("option");
                 opt.text = "None";
@@ -1264,7 +1279,7 @@
 
                 makeSel.oninput = evt => {
                     createMods(tbl, index, mode, part, makeSel);
-                    recalculate(index);
+                    recalculateBoth();
                 };
             }
 
@@ -1319,7 +1334,7 @@
                             let modSel = document.createElement("select");
                             cll.appendChild(modSel);
                             modSel.id = index + "_Part_" + part + "_Mod_" + slot;
-                            modSel.oninput = evt => recalculate(index);
+                            modSel.oninput = evt => recalculateBoth();
 
                             opt = document.createElement("option");
                             opt.text = "None";
@@ -1361,7 +1376,7 @@
                         let legSel = document.createElement("select");
                         cll = rw.insertCell(rw.cells.length);
                         cll.appendChild(legSel);
-                        legSel.oninput = evt => recalculate(index);
+                        legSel.oninput = evt => recalculateBoth();
                         
                         legSel.id = index + "_Part_" + part + "_Legendary_" + le;
                         opt = document.createElement("option");
@@ -1444,23 +1459,28 @@
                 cll = rw.insertCell(rw.cells.length);
                 cll.className = "topline";
 
-                createNumber(tbl, "Health", index + "_HP", 0, 100, 100, " %").oninput = evt => recalculate(index);
-                createNumber(tbl, "Caps", index + "_Caps", 0, 30000, 0).oninput = evt => recalculate(index);
-                createNumber(tbl, "Food &amp; Drink", index + "_Fooddrink", 0, 100, 100, " %").oninput = evt => recalculate(index);
-                createNumber(tbl, "Carrying", index + "_Carry", 0, 30000, 0, " lb").oninput = evt => recalculate(index);
-                createNumber(tbl, "Teammates", index + "_Teammates", 0, 3, 0).oninput = evt => recalculate(index);
-                createNumber(tbl, "&nbsp;&nbsp;&nbsp;Deaths", index + "_Teamdeaths", 0, 3, 0).oninput = evt => recalculate(index);
+                createNumber(tbl, "Health", index + "_HP", 0, 100, 100, " %").oninput = evt => recalculateBoth();
+                createNumber(tbl, "Caps", index + "_Caps", 0, 30000, 0).oninput = evt => recalculateBoth();
+                createNumber(tbl, "Food &amp; Drink", index + "_Fooddrink", 0, 100, 100, " %").oninput = evt => recalculateBoth();
+                createNumber(tbl, "Carrying", index + "_Carry", 0, 30000, 0, " lb").oninput = evt => recalculateBoth();
+                createNumber(tbl, "Teammates", index + "_Teammates", 0, 3, 0).oninput = evt => recalculateBoth();
+                createNumber(tbl, "&nbsp;&nbsp;&nbsp;Deaths", index + "_Teamdeaths", 0, 3, 0).oninput = evt => recalculateBoth();
 
                 if (mode === "NonPA") {
-                    createNumber(tbl, "Strength", index + "_Strength", 1, 100, 1).oninput = evt => recalculate(index);
-                    createNumber(tbl, "Agility", index + "_Agility", 1, 100, 1).oninput = evt => recalculate(index);
-                    createNumber(tbl, "Junk Amount", index + "_Junkamount", 0, 46, 0).oninput = evt => recalculate(index);
+                    createNumber(tbl, "Strength", index + "_Strength", 1, 100, 1).oninput = evt => recalculateBoth();
+                    createNumber(tbl, "Agility", index + "_Agility", 1, 100, 1).oninput = evt => recalculateBoth();
+                    createNumber(tbl, "Junk Amount", index + "_Junkamount", 0, 46, 0).oninput = evt => recalculateBoth();
                 }
 
                 createYesNo(tbl, index, "Night", "&nbsp;&nbsp;&nbsp;Night time");
                 createYesNo(tbl, index, "Block", "&nbsp;&nbsp;&nbsp;Blocking");
                 createYesNo(tbl, index, "Fireheavy", "&nbsp;&nbsp;&nbsp;Firing a heavy gun");
                 createYesNo(tbl, index, "Sneak", "&nbsp;&nbsp;&nbsp;Sneaking");
+                createYesNo(tbl, index, "Suppressorweapon", "&nbsp;&nbsp;&nbsp;Suppressor's weapon", "suppressorweapon", orderFunc(2, (state) => {
+                    var rs = getOrCreateReductionSlot(state, "Suppressor");
+                    rs.ballisticReduction += 25;
+                    rs.energyReduction += 25;
+                }));
 
                 rw = tbl.insertRow(tbl.rows.length);
                 cll = rw.insertCell(rw.cells.length);
@@ -1487,7 +1507,7 @@
                 opt.text = "Standing Still";
                 stanceSel.options.add(opt);
 
-                stanceSel.oninput = evt => recalculate(index);
+                stanceSel.oninput = evt => recalculateBoth();
             }
 
             function createBlockerFunc(amount) {
@@ -1532,66 +1552,159 @@
                 cll = rw.insertCell(rw.cells.length);
                 cll.innerHTML = "Perks";
 
-                createSelectWithData(tbl, "&nbsp;&nbsp;&nbsp;Blocker", index + "_Blocker", ["None", "1", "2", "3"], ["", "15", "30", "45"], [
-                    null,
-                    createBlockerFunc(15),
-                    createBlockerFunc(30),
-                    createBlockerFunc(45)
-                ], false, " (rank)").oninput = evt => recalculate(index);
-
                 if (mode == "NonPA") {
                     createSelectWithData(tbl, "&nbsp;&nbsp;&nbsp;Junk Shield", index + "_Junkshield", ["None", "1", "2", "3"], ["", "10", "20", "30"], [
                         null,
                         createJunkShieldFunc(1),
                         createJunkShieldFunc(2),
                         createJunkShieldFunc(3),
-                    ], false, " (rank)").oninput = evt => recalculate(index);
-                    createSelectWithData(tbl, "&nbsp;&nbsp;&nbsp;Barbarian", index + "_Barbarian", ["None", "1", "2", "3"], ["", "2", "3", "4"]).oninput = evt => recalculate(index);
-                    createSelectWithData(tbl, "&nbsp;&nbsp;&nbsp;Evasive", index + "_Evasive", ["None", "1", "2", "3"], ["", "1", "2", "3"]).oninput = evt => recalculate(index);
-                    createSelectWithData(tbl, "&nbsp;&nbsp;&nbsp;Ironclad", index + "_Ironclad", ["None", "1", "2", "3", "4", "5"], ["", "10", "20", "30", "40", "50"]).oninput = evt => recalculate(index);
-                    createSelectWithData(tbl, "&nbsp;&nbsp;&nbsp;Moving Target", index + "_Movingtarget", ["None", "1", "2", "3"], ["", "15", "30", "45"]).oninput = evt => recalculate(index);
-                    createSelectWithData(tbl, "&nbsp;&nbsp;&nbsp;Serendipity", index + "_Serendipity", ["None", "1", "2", "3"], ["", "15", "30", "45"]).oninput = evt => recalculate(index);
-                    //createSelectWithData(tbl, "&nbsp;&nbsp;&nbsp;Adamantium Skeleton", index + "_Adamantium", ["None", "1", "2", "3"], ["", "30", "60", "100"]).oninput = evt => recalculate(index);
+                    ], false, " (rank)").oninput = evt => recalculateBoth();
+                    createSelectWithFunc(tbl, "&nbsp;&nbsp;&nbsp;Barbarian", index + "_Barbarian", ["None", "1", "2", "3"], ["", "2", "3", "4"],
+                    " (rank)", 2, (state, val) => {
+                        state.dr += parseInt(val) * clamp(state.player.strength, 1, 20);
+                    }).oninput = evt => recalculateBoth();
+                    createSelectWithFunc(tbl, "&nbsp;&nbsp;&nbsp;Evasive", index + "_Evasive", ["None", "1", "2", "3"], ["", "1", "2", "3"],
+                    " (rank)", 2, (state, val) => {
+                        var c = parseInt(val) * clamp(state.player.agility, 1, 15);
+                        state.dr += c;
+                        state.er += c;
+                    }).oninput = evt => recalculateBoth();
+                    createSelectWithFunc(tbl, "&nbsp;&nbsp;&nbsp;Ironclad", index + "_Ironclad", ["None", "1", "2", "3", "4", "5"], ["", "10", "20", "30", "40", "50"],
+                    " (rank)", 2, (state, val) => {
+                        var c = parseInt(val);
+                        state.dr += c;
+                        state.er += c;
+                    }).oninput = evt => recalculateBoth();
+                    createSelectWithFunc(tbl, "&nbsp;&nbsp;&nbsp;Moving Target", index + "_Movingtarget", ["None", "1", "2", "3"], ["", "15", "30", "45"],
+                    " (rank)", 2, (state, val) => {
+                        if (state.player.stance === "Sprint") {
+                            var c = parseInt(val);
+                            state.dr += c;
+                            state.er += c;
+                        }
+                    }).oninput = evt => recalculateBoth();
+                    createSelectWithFunc(tbl, "&nbsp;&nbsp;&nbsp;Serendipity", index + "_Serendipity", ["None", "1", "2", "3"], ["", "15", "30", "45"],
+                    " (rank)", 2, (state, val) => {
+                        if (state.player.hp <= 30) {
+                            var rs = getOrCreateReductionSlot(state, "Serendipity");
+                            var c = parseInt(val);
+                            rs.ballisticReduction += c;
+                            rs.energyReduction += c;
+                        }
+                    }).oninput = evt => recalculateBoth();
+                    //createSelectWithData(tbl, "&nbsp;&nbsp;&nbsp;Adamantium Skeleton", index + "_Adamantium", ["None", "1", "2", "3"], ["", "30", "60", "100"]).oninput = evt => recalculateBoth();
                 }
+                createSelectWithData(tbl, "&nbsp;&nbsp;&nbsp;Blocker", index + "_Blocker", ["None", "1", "2", "3"], ["", "15", "30", "45"], [
+                    null,
+                    createBlockerFunc(15),
+                    createBlockerFunc(30),
+                    createBlockerFunc(45)
+                ], false, " (rank)").oninput = evt => recalculateBoth();
                 createSelectWithData(tbl, "&nbsp;&nbsp;&nbsp;Bodyguards", index + "_Bodyguards", ["None", "1", "2", "3", "4"], ["", "6", "8", "10", "12"], [
                     null,
                     createBodyGuardFunc(6),
                     createBodyGuardFunc(8),
                     createBodyGuardFunc(10),
                     createBodyGuardFunc(12),
-                ], false, " (rank)").oninput = evt => recalculate(index);
-                createSelectWithData(tbl, "&nbsp;&nbsp;&nbsp;Bullet Shield", index + "_Bulletshield", ["None", "1", "2", "3"], ["", "20", "40", "60"]).oninput = evt => recalculate(index);
-                createSelectWithData(tbl, "&nbsp;&nbsp;&nbsp;Refractor", index + "_Refractor", ["None", "1", "2", "3", "4"], ["", "10", "20", "30", "40"]).oninput = evt => recalculate(index);
-                createSelectWithData(tbl, "&nbsp;&nbsp;&nbsp;Dodgy", index + "_Dodgy", ["None", "1", "2", "3"], ["", "10", "20", "30"]).oninput = evt => recalculate(index);
-                createSelectWithData(tbl, "&nbsp;&nbsp;&nbsp;Nerd Rage", index + "_Nerdrage", ["None", "1", "2", "3"], ["", "20", "30", "40"]).oninput = evt => recalculate(index);
-                createSelectWithData(tbl, "&nbsp;&nbsp;&nbsp;Suppressor", index + "_Suppressor", ["None", "1", "2", "3"], ["", "10", "20", "30"]).oninput = evt => recalculate(index);
-                createSelectWithData(tbl, "&nbsp;&nbsp;&nbsp;Lone Wanderer", index + "_Lonewanderer", ["None", "1", "2", "3"], ["", "10", "15", "20"]).oninput = evt => recalculate(index);
-                createSelectWithData(tbl, "&nbsp;&nbsp;&nbsp;Rad Resistant", index + "_Radresistant", ["None", "1", "2", "3", "4"], ["", "10", "20", "30", "40"]).oninput = evt => recalculate(index);
-                createSelectWithData(tbl, "&nbsp;&nbsp;&nbsp;Fireproof", index + "_Fireproof", ["None", "1", "2", "3"], ["", "15", "30", "45"]).oninput = evt => recalculate(index);
+                ], false, " (rank)").oninput = evt => recalculateBoth();
+                createSelectWithFunc(tbl, "&nbsp;&nbsp;&nbsp;Bullet Shield", index + "_Bulletshield", ["None", "1", "2", "3"], ["", "20", "40", "60"],
+                " (rank)", 2, (state, val) => {
+                    if (state.player.fireheavy) {
+                        state.dr += parseInt(val);
+                    }
+                }).oninput = evt => recalculateBoth();
+                createSelectWithFunc(tbl, "&nbsp;&nbsp;&nbsp;Refractor", index + "_Refractor", ["None", "1", "2", "3", "4"], ["", "10", "20", "30", "40"],
+                " (rank)", 2, (state, val) => {
+                    state.er += parseInt(val);
+                }).oninput = evt => recalculateBoth();
+                createSelectWithFunc(tbl, "&nbsp;&nbsp;&nbsp;Dodgy", index + "_Dodgy", ["None", "1", "2", "3"], ["", "10", "20", "30"],
+                " (rank)", 2, (state, val) => {
+                    var rs = getOrCreateReductionSlot(state, "Dodgy");
+                    rs.ballisticReduction += parseInt(val);
+                    rs.energyReduction += parseInt(val);
+                }).oninput = evt => recalculateBoth();
+                createSelectWithFunc(tbl, "&nbsp;&nbsp;&nbsp;Nerd Rage", index + "_Nerdrage", ["None", "1", "2", "3"], ["", "20", "30", "40"],
+                " (rank)", 2, (state, val) => {
+                    if (state.player.hp <= 20) {
+                        state.dr += parseInt(val);
+                    }
+                }).oninput = evt => recalculateBoth();
+                createSelectWithFunc(tbl, "&nbsp;&nbsp;&nbsp;Suppressor", index + "_Suppressor", ["None", "1", "2", "3"], ["", "10", "20", "30"],
+                " (rank)", 2, (state, val) => {
+                    var rs = getOrCreateReductionSlot(state, "Suppressor");
+                    rs.ballisticReduction += parseInt(val);
+                    rs.energyReduction += parseInt(val);
+                }, "suppressor").oninput = evt => recalculateBoth();
+                createSelectWithFunc(tbl, "&nbsp;&nbsp;&nbsp;Lone Wanderer", index + "_Lonewanderer", ["None", "1", "2", "3"], ["", "10", "15", "20"],
+                " (rank)", 2, (state, val) => {
+                    var rs = getOrCreateReductionSlot(state, "Lonewanderer");
+                    rs.ballisticReduction += parseInt(val);
+                    rs.energyReduction += parseInt(val);
+                }).oninput = evt => recalculateBoth();
+                createSelectWithFunc(tbl, "&nbsp;&nbsp;&nbsp;Rad Resistant", index + "_Radresistant", ["None", "1", "2", "3", "4"], ["", "10", "20", "30", "40"],                
+                " (rank)", 2, (state, val) => {
+                    state.rr += parseInt(val);
+                }).oninput = evt => recalculateBoth();
+                createSelectWithFunc(tbl, "&nbsp;&nbsp;&nbsp;Fireproof", index + "_Fireproof", ["None", "1", "2", "3"], ["", "15", "30", "45"],
+                " (rank)", 2, (state, val) => {
+                    var rs = getOrCreateReductionSlot(state, "Fireproof");
+                    rs.fireReduction += parseInt(val);
+                    rs.explosiveReduction += parseInt(val);
+                }).oninput = evt => recalculateBoth();
                 createSelectWithData(tbl, "&nbsp;&nbsp;&nbsp;Cola Nut", index + "_Colanut", ["None", "1", "2"], ["", "2", "3"], [
                     null,
                     orderFunc(0, state => state.player.colanut = 2),
                     orderFunc(0, state => state.player.colanut = 3),
-                ]).oninput = evt => recalculate(index);
+                ], false, " (rank)").oninput = evt => recalculateBoth();
                 createSelectWithData(tbl, "&nbsp;&nbsp;&nbsp;Party Person", index + "_Partyperson", ["None", "1", "2"], ["", "2", "3"], [
                     null,
                     orderFunc(0, state => state.player.partyPerson = 2),
                     orderFunc(0, state => state.player.partyPerson = 3),
-                ]).oninput = evt => recalculate(index);
+                ], false, " (rank)").oninput = evt => recalculateBoth();
                 createYesNo(tbl, index, "&nbsp;&nbsp;&nbsp;Strangeinnumbers", "&nbsp;&nbsp;&nbsp;Strange In Numbers", undefined, 
                     orderFunc(0, state => state.player.strangeInNumbers = true)
                 );
-                //createSelectWithData(tbl, "Class Freak", index + "_Classfreak", ["None", "1", "2", "3"], ["", "25", "50", "75"]).oninput = evt => recalculate(index);
+                createSelectWithFunc(tbl, "&nbsp;&nbsp;&nbsp;Class Freak", index + "_Classfreak", ["None", "1", "2", "3"], ["", "25", "50", "75"], " (rank)", 1,
+                    (state, val) => state.player.classFreak = parseInt(val)).oninput = evt => recalculateBoth();
 
                 rw = tbl.insertRow(tbl.rows.length);
                 cll = rw.insertCell(rw.cells.length);
                 cll.innerHTML = "Legendary Perks";
 
-                createSelectWithData(tbl, "&nbsp;&nbsp;&nbsp;Funky Duds", index + "_Funkyduds", ["None", "1", "2", "3", "4"], ["", "50", "100", "150", "200"]).oninput = evt => recalculate(index);
-                createSelectWithData(tbl, "&nbsp;&nbsp;&nbsp;Sizzling Style", index + "_Sizzlingstyle", ["None", "1", "2", "3", "4"], ["", "50", "100", "150", "200"]).oninput = evt => recalculate(index);
-                createSelectWithData(tbl, "&nbsp;&nbsp;&nbsp;Blood Sacrifice", index + "_Bloodsacrifice", ["None", "1", "2", "3", "4"], ["", "25", "30", "35", "40"]).oninput = evt => recalculate(index);
-                createSelectWithData(tbl, "&nbsp;&nbsp;&nbsp;What Rads", index + "_Whatrads", ["None", "1", "2", "3", "4"], ["", "50", "75", "100", "300"]).oninput = evt => recalculate(index);
+                createSelectWithFunc(tbl, "&nbsp;&nbsp;&nbsp;Blood Sacrifice", index + "_Bloodsacrifice", ["None", "1", "2", "3", "4"], ["", "25", "30", "35", "40"],
+                " (rank)", 2, (state, val) => {
+                    if (state.player.teamdeaths > 0) {
+                        state.dr += parseInt(val);
+                    }
+                }).oninput = evt => recalculateBoth();
+                createSelectWithFunc(tbl, "&nbsp;&nbsp;&nbsp;Funky Duds", index + "_Funkyduds", ["None", "1", "2", "3", "4"], ["", "50", "100", "150", "200"],
+                " (rank)", 2, (state, val) => {
+                    if (state.player.fullSet) {
+                        state.pr += parseInt(val);
+                    }
+                }).oninput = evt => recalculateBoth();
+                createSelectWithFunc(tbl, "&nbsp;&nbsp;&nbsp;Sizzling Style", index + "_Sizzlingstyle", ["None", "1", "2", "3", "4"], ["", "50", "100", "150", "200"],
+                " (rank)", 2, (state, val) => {
+                    if (state.player.fullSet) {
+                        state.fr += parseInt(val);
+                    }
+                }).oninput = evt => recalculateBoth();
+                createSelectWithFunc(tbl, "&nbsp;&nbsp;&nbsp;What Rads", index + "_Whatrads", ["None", "1", "2", "3", "4"], ["", "50", "75", "100", "300"],
+                " (rank)", 2, (state, val) => {
+                    if (state.player.fullSet) {
+                        state.rr += parseInt(val);
+                    }
+                }).oninput = evt => recalculateBoth();
 
+            }
+
+            function createSelectWithFunc(tbl, name, key, texts, values, unit, order, func, tip) {
+                var data = [ null ];
+                for (var i  = 1; i < values.length; i++) {
+                    let val = values[i];
+                    data.push(orderFunc(order, state => func(state, val)));
+                }
+                return createSelectWithData(tbl, name, key, texts, values, data, false, unit, tip);
             }
 
             function createOptions(sel, texts, values, data) {
@@ -1606,10 +1719,13 @@
                 }
             }
 
-            function createSelectWithData(tbl, name, key, texts, values, data, fullLine, unit) {
+            function createSelectWithData(tbl, name, key, texts, values, data, fullLine, unit, tip) {
                 var rw = tbl.insertRow(tbl.rows.length);
                 var cll = rw.insertCell(rw.cells.length);
                 cll.innerHTML = name;
+                if (tip) {
+                    cll.innerHTML += info(tip);
+                }
 
                 if (fullLine) {
                     rw = tbl.insertRow(tbl.rows.length);
@@ -1639,6 +1755,26 @@
                 var cll = rw.insertCell(rw.cells.length);
                 cll.innerHTML = "Mutations";
 
+                createSelectWithFunc(tbl, "&nbsp;&nbsp;&nbsp;Empath", index + "_Empath",
+                        ["None", "Self", "Teammate", "Both"],
+                        ["", "Self", "Teammate", "Both"],
+                        "", 2, (state, val) => {
+                            var rs = getOrCreateReductionSlot(state, "Empath");
+                            if (val === "Self" || val === "Both") {
+                                var cf = 0;
+                                if (state.player.classFreak) {
+                                    cf = state.player.classFreak;
+                                }
+                                rs.ballisticReduction += -33 * (1 - cf / 100);
+                                rs.energyReduction += -33 * (1 - cf / 100);
+                            }
+                            if (val === "Teammate" || val === "Both") {
+                                rs.ballisticReduction += 25;
+                                rs.energyReduction += 25;
+                            }
+                        }
+                ).oninput = evt => recalculateBoth();
+
                 createSelectWithData(tbl, "&nbsp;&nbsp;&nbsp;Food-related", index + "_Foodbuff", 
                     ["None", "Carnivore", "Herbivore"], 
                     ["", "Carnivore", "Herbivore"],
@@ -1653,32 +1789,27 @@
                             state.player.mutations++;
                         }),
                     ]
-                ).oninput = evt => recalculate(index);
-
-                createSelectWithData(tbl, "&nbsp;&nbsp;&nbsp;Empath", index + "_Empath",
-                        ["None", "Self", "Teammate", "Both"],
-                        ["", "Self", "Teammate", "Both"],
-                        [
-                            null,
-                            orderFunc(1, state => {
-                                state.player.mutations++;
-                            }),
-                            orderFunc(1, state => {
-                                state.player.mutations++;
-                            }),
-                            orderFunc(1, state => {
-                                state.player.mutations++;
-                            }),
-                        ]
-                ).oninput = evt => recalculate(index);
+                ).oninput = evt => recalculateBoth();
 
                 createYesNo(tbl, index, "Grounded", "&nbsp;&nbsp;&nbsp;Grounded", undefined, 
                     orderFunc(1, state => {
+                        if (state.player.strangeInNumbers && state.player.teammates > 0) {
+                            state.er += 150;
+                        } else {
+                            state.er += 100;
+                        }
                         state.player.mutations++;
                     })
                 );
                 createYesNo(tbl, index, "Scalyskin", "&nbsp;&nbsp;&nbsp;Scaly Skin", undefined, 
                     orderFunc(1, state => {
+                        if (state.player.strangeInNumbers && state.player.teammates > 0) {
+                            state.dr += 75;
+                            state.er += 75;
+                        } else {
+                            state.dr += 50;
+                            state.er += 50;
+                        }
                         state.player.mutations++;
                     })
                 );
@@ -1717,7 +1848,7 @@
                     f.debuff = f.value.debuff;
                     cb.oninput = evt => {
                         debuff(foodList, f);
-                        recalculate(index);
+                        recalculateBoth();
                     };
                     lbl.appendChild(cb);
 
@@ -1791,7 +1922,7 @@
                     data.push({ order: kv.value.order, func: kv.value.func });
 
                 }
-                createSelectWithData(tbl, "&nbsp;&nbsp;&nbsp;Magazine", index + "_Magazine", texts, values, data, true).oninput = evt => recalculate(index);
+                createSelectWithData(tbl, "&nbsp;&nbsp;&nbsp;Magazine", index + "_Magazine", texts, values, data, true).oninput = evt => recalculateBoth();
             }
 
             function createResults(tbl, index, mode) {
@@ -1821,14 +1952,14 @@
                 var cll = rw.insertCell(rw.cells.length);
                 cll.innerHTML = name;
                 if (tip !== undefined) {
-                    cll.innerHTML += info(key);
+                    cll.innerHTML += info(tip);
                 }
 
                 cll = rw.insertCell(rw.cells.length);
                 
                 var yes = createRadio(index + "_" + key, index + "_" + key + "_yes", "Yes");
                 yes.radio.data = data;
-                yes.radio.oninput = evt => recalculate(index);
+                yes.radio.oninput = evt => recalculateBoth();
                 cll.appendChild(yes.label);
 
                 var sep = document.createElement("span");
@@ -1836,7 +1967,7 @@
                 sep.innerHTML = "&nbsp;&nbsp;&nbsp;";
 
                 var no = createRadio(index + "_" + key, index + "_" + key + "_no", "No");
-                no.radio.oninput = evt => recalculate(index);
+                no.radio.oninput = evt => recalculateBoth();
                 no.radio.checked = "checked";
                 cll.appendChild(no.label);
             }
@@ -1876,7 +2007,7 @@
                     for (let blIdx = 0; blIdx < backpackLevels.length; blIdx++) {
                         let bl = backpackLevels[blIdx];
                         texts.push(bm.value.name + " - " + bl);
-                        values.push(bm.key + "_" + bl);
+                        values.push(bm.key + "-" + bl);
                         data.push(
                         { 
                             order: bm.value.order, 
@@ -1884,7 +2015,7 @@
                         });
                     }
                 }
-                createSelectWithData(tbl, "&nbsp;&nbsp;&nbsp;Backpack", index + "_Backpack", texts, values, data).oninput = evt => recalculate(index);
+                createSelectWithData(tbl, "&nbsp;&nbsp;&nbsp;Backpack", index + "_Backpack", texts, values, data).oninput = evt => recalculateBoth();
             }
 
             function createSide(index, mode) {                
@@ -1908,7 +2039,7 @@
 
                 createResults(tbl, index, mode);
 
-                recalculate(index);
+                recalculateBoth();
             }
 
             function orderFunc(order, func) {
@@ -1999,14 +2130,17 @@
                     for (var elem of document.getElementsByTagName(tagName)) {
                         if (elem.id.startsWith(index + "_")) {
                             if (elem.id.startsWith(index + "_Part_")) {
-                                if (elem.selectedIndex && elem.selectedIndex > 0 && elem.make && elem.category) {
-                                    if (!armorMakes.includes(elem.make)) {
-                                        armorMakes.push(elem.make);
+                                if (elem.selectedIndex && elem.selectedIndex > 0) {
+                                    var opt = elem.options[elem.selectedIndex];
+                                    if (opt.make && opt.category) {
+                                        if (!armorMakes.includes(opt.make)) {
+                                            armorMakes.push(opt.make);
+                                        }
+                                        if (!armorCategories.includes(opt.category)) {
+                                            armorCategories.push(opt.category);
+                                        }
+                                        armorPieces++;
                                     }
-                                    if (!armorCategories.includes(elem.category)) {
-                                        armorCategories.push(elem.category);
-                                    }
-                                    armorPieces++;
                                 }
                             }
                             if (elem.selectedIndex && elem.selectedIndex > 0) {
@@ -2150,6 +2284,57 @@
             function recalculateBoth() {
                 recalculate(1);
                 recalculate(2);
+
+                var ll = createLink(1);
+                var rr = createLink(2);
+                var ee = createEnemyLink();
+                get("linkleftleft").href="?left=" + ll + "&enemy=" + ee;
+                get("linkrightright").href="?right=" + rr + "&enemy=" + ee;
+                get("linkboth").href="?left=" + ll + "&right=" + rr + "&enemy=" + ee;
+            }
+
+            function createLink(index) {
+                var components = [];
+                for (var elem of document.getElementsByTagName("select")) {
+                    if (elem.id.startsWith(index + "_") && elem.selectedIndex > 0) {
+                        var key = elem.id.substring(2);
+                        var value = elem.options[elem.selectedIndex].value;
+                        components.push(key + "-" + value);
+                    }
+                }
+                for (var elem of document.getElementsByTagName("input")) {
+                    if (elem.id.startsWith(index + "_")) {
+                        if (elem.checked && (elem.id.endsWith("_yes") || elem.type === "checkbox")) {
+                            var key = elem.id.substring(2);
+                            components.push(key);
+                        }
+                        if (elem.type === "number" && elem.value > 0) {
+                            var key = elem.id.substring(2);
+                            var value = elem.value;
+                            components.push(key + "-" + value);
+                        }
+                    }
+                }
+                return components.join("_");
+            }
+
+            function createEnemyLink() {
+                var components = [];
+
+                components.push("Kind-" + getOpt("enemykind").value);
+                var k = ["BD", "ED", "RD", "CD", "PD", "AA"];
+                var j = 0;
+                for (var p of ["dmgBallistic", "dmgEnergy", "dmgRadiation", "dmgFire", "dmgCryo", "dmgPoison", "armorIgnore"]) {
+                    var v = getValue(p);
+                    if (v != 0) {
+                        components.push(k[j] + "-" + v);
+                    }
+                    j++;
+                }
+                components.push(getBool("dmgTypeMelee") ? "Melee" : "Ranged");
+                components.push(getBool("energyTypePlasma") ? "Plasma" : "Laser")
+
+                return components.join("_");
             }
 
             get("NonPA1").oninput = evt => createSide(1, "NonPA");
