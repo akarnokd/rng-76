@@ -61,7 +61,7 @@
     </head>
     <body style="height: 90%">
         <center>
-            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Armor Defense Calculator (0.1.2)</span>
+            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Armor Defense Calculator (0.1.3)</span>
             <br/>
             <!-- <i>(Notification here)</i> -->
         <br/>
@@ -458,13 +458,85 @@
                 }
             };
 
+            var leatherLevels = [1, 5, 10, 20, 30, 40, 50];
+            function curveLinear(xstart, ystart, xend, yend, xs) {
+                var result = [];
+                for (var x of xs) {
+                    if (x <= xstart) {
+                        result.push(ystart);
+                    }
+                    else if (x >= xend) {
+                        result.push(yend);
+                    } else {
+                        var dx = xend - xstart;
+                        var dy = yend - ystart;
+                        var y = ystart + dy * (x - xstart) / dx;
+                        result.push(y);
+                    }
+                }
+                return result;
+            }
+
+            var leatherTorsoBoiled = {
+                name: "Boiled",
+                order: 1,
+                func: createBaseNonPA(curveLinear(1, 1, 50, 5, leatherLevels), curveLinear(1, 1, 50, 15, leatherLevels), [0,0,0,0,0,0,0])
+            };
+            var leatherTorsoGirded = {
+                name: "Girded",
+                order: 1,
+                func: createBaseNonPA(curveLinear(1, 1, 50, 10, leatherLevels), curveLinear(1, 2, 50, 20, leatherLevels), [0,0,0,0,0,0,0])
+            };
+            var leatherTorsoTreated = {
+                name: "Treated",
+                order: 1,
+                func: createBaseNonPA(curveLinear(1, 1, 50, 15, leatherLevels), curveLinear(1, 3, 50, 21, leatherLevels), [0,0,0,0,0,0,0])
+            };
+            var leatherTorsoStudded = {
+                name: "Studded",
+                order: 1,
+                func: createBaseNonPA(curveLinear(1, 1, 50, 20, leatherLevels), curveLinear(1, 4, 50, 30, leatherLevels), [0,0,0,0,0,0,0])
+            };
+            var leatherTorsoShadowed = {
+                name: "Shadowed",
+                order: 1,
+                func: createBaseNonPA(curveLinear(1, 1, 50, 5, leatherLevels), curveLinear(1, 1, 50, 15, leatherLevels), [0,0,0,0,0,0,0])
+            };
+
+            var leatherLimbBoiled = {
+                name: "Boiled",
+                order: 1,
+                func: createBaseNonPA([1,1,1,1,1,1,1], curveLinear(1, 1, 50, 10, leatherLevels), [0,0,0,0,0,0,0])
+            };
+            var leatherLimbGirded = {
+                name: "Girded",
+                order: 1,
+                func: createBaseNonPA(curveLinear(1, 1, 50, 5, leatherLevels), curveLinear(1, 2, 50, 13, leatherLevels), [0,0,0,0,0,0,0])
+            };
+            var leatherLimbTreated = {
+                name: "Treated",
+                order: 1,
+                func: createBaseNonPA(curveLinear(1, 1, 50, 8, leatherLevels), curveLinear(1, 3, 50, 16, leatherLevels), [0,0,0,0,0,0,0])
+            };
+            var leatherLimbStudded = {
+                name: "Studded",
+                order: 1,
+                func: createBaseNonPA(curveLinear(1, 1, 50, 10, leatherLevels), curveLinear(1, 4, 50, 30, leatherLevels), [0,0,0,0,0,0,0])
+            };
+            var leatherLimbShadowed = {
+                name: "Shadowed",
+                order: 1,
+                func: createBaseNonPA([1,1,1,1,1,1,1], curveLinear(1, 1, 50, 10, leatherLevels), [0,0,0,0,0,0,0])
+            };
+
+
 
             // datasheet
             var armor = {
                 "NonPA": {
                     "LeatherLight": {
                         name: "Leather - Light",
-                        levels: [1, 5, 10, 20, 30, 40, 50],
+                        levels: leatherLevels,
                         category: "Light",
                         "Torso": {
                             name: "Chest Piece",
@@ -475,7 +547,12 @@
                                     "Standard": {
                                         name: "Standard",
                                         default: true,
-                                    }
+                                    },
+                                    "Boiled": leatherTorsoBoiled,
+                                    "Girded": leatherTorsoGirded,
+                                    "Treated": leatherTorsoTreated,
+                                    "Studded": leatherTorsoStudded,
+                                    "Shadowed": leatherTorsoShadowed,
                                 },
                                 "Misc": {
                                     "None": {
@@ -498,7 +575,12 @@
                                     "Standard": {
                                         name: "Standard",
                                         default: true,
-                                    }
+                                    },
+                                    "Boiled": leatherLimbBoiled,
+                                    "Girded": leatherLimbGirded,
+                                    "Treated": leatherLimbTreated,
+                                    "Studded": leatherLimbStudded,
+                                    "Shadowed": leatherLimbShadowed,
                                 },
                                 "Misc": {
                                     "None": {
@@ -523,7 +605,12 @@
                                     "Standard": {
                                         name: "Standard",
                                         default: true,
-                                    }
+                                    },
+                                    "Boiled": leatherLimbBoiled,
+                                    "Girded": leatherLimbGirded,
+                                    "Treated": leatherLimbTreated,
+                                    "Studded": leatherLimbStudded,
+                                    "Shadowed": leatherLimbShadowed,
                                 },
                                 "Misc": {
                                     "None": {
@@ -541,7 +628,7 @@
                     },
                     "LeatherSturdy": {
                         name: "Leather - Sturdy",
-                        levels: [1, 5, 10, 20, 30, 40, 50],
+                        levels: leatherLevels,
                         category: "Sturdy",
                         "Torso": {
                             name: "Chest Piece",
@@ -552,7 +639,12 @@
                                     "Standard": {
                                         name: "Standard",
                                         default: true,
-                                    }
+                                    },
+                                    "Boiled": leatherTorsoBoiled,
+                                    "Girded": leatherTorsoGirded,
+                                    "Treated": leatherTorsoTreated,
+                                    "Studded": leatherTorsoStudded,
+                                    "Shadowed": leatherTorsoShadowed,
                                 },
                                 "Misc": {
                                     "None": {
@@ -575,7 +667,12 @@
                                     "Standard": {
                                         name: "Standard",
                                         default: true,
-                                    }
+                                    },
+                                    "Boiled": leatherLimbBoiled,
+                                    "Girded": leatherLimbGirded,
+                                    "Treated": leatherLimbTreated,
+                                    "Studded": leatherLimbStudded,
+                                    "Shadowed": leatherLimbShadowed,
                                 },
                                 "Misc": {
                                     "None": {
@@ -600,7 +697,12 @@
                                     "Standard": {
                                         name: "Standard",
                                         default: true,
-                                    }
+                                    },
+                                    "Boiled": leatherLimbBoiled,
+                                    "Girded": leatherLimbGirded,
+                                    "Treated": leatherLimbTreated,
+                                    "Studded": leatherLimbStudded,
+                                    "Shadowed": leatherLimbShadowed,
                                 },
                                 "Misc": {
                                     "None": {
@@ -618,7 +720,7 @@
                     },
                     "LeatherHeavy": {
                         name: "Leather - Heavy",
-                        levels: [1, 5, 10, 20, 30, 40, 50],
+                        levels: leatherLevels,
                         category: "Heavy",
                         "Torso": {
                             name: "Chest Piece",
@@ -629,7 +731,12 @@
                                     "Standard": {
                                         name: "Standard",
                                         default: true,
-                                    }
+                                    },
+                                    "Boiled": leatherTorsoBoiled,
+                                    "Girded": leatherTorsoGirded,
+                                    "Treated": leatherTorsoTreated,
+                                    "Studded": leatherTorsoStudded,
+                                    "Shadowed": leatherTorsoShadowed,
                                 },
                                 "Misc": {
                                     "None": {
@@ -652,7 +759,12 @@
                                     "Standard": {
                                         name: "Standard",
                                         default: true,
-                                    }
+                                    },
+                                    "Boiled": leatherLimbBoiled,
+                                    "Girded": leatherLimbGirded,
+                                    "Treated": leatherLimbTreated,
+                                    "Studded": leatherLimbStudded,
+                                    "Shadowed": leatherLimbShadowed,
                                 },
                                 "Misc": {
                                     "None": {
@@ -677,7 +789,12 @@
                                     "Standard": {
                                         name: "Standard",
                                         default: true,
-                                    }
+                                    },
+                                    "Boiled": leatherLimbBoiled,
+                                    "Girded": leatherLimbGirded,
+                                    "Treated": leatherLimbTreated,
+                                    "Studded": leatherLimbStudded,
+                                    "Shadowed": leatherLimbShadowed,
                                 },
                                 "Misc": {
                                     "None": {
