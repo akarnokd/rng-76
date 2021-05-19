@@ -498,42 +498,119 @@
                     },
                     "SecretService": {
                         name: "Secret Service",
-                        levels: [1, 5, 10, 20, 30, 40, 50],
+                        levels: [40, 50],
                         category: "Heavy",
                         "Torso": {
                             name: "Chest Piece",
                             order: 1,
-                            func: createBaseNonPA([7,11,15,17,21,24,28], [17,26,41,50,58,67,76], [0, 0, 0, 0, 0, 0, 0]),
+                            func: createBaseNonPA([75,90], [50,60], [50,60]),
                             mods: {
                                 "Main": {
                                     "Standard": {
                                         name: "Standard",
                                         default: true,
+                                    },
+                                    "Welded": {
+                                        name: "Welded",
+                                        order: 1,
+                                        func: createBaseNonPA([9, 10], [9, 10], [9, 10])
+                                    },
+                                    "Tempered": {
+                                        name: "Tempered",
+                                        order: 1,
+                                        func: createBaseNonPA([13,15], [13, 15], [13, 15])
+                                    },
+                                    "Hardened": {
+                                        name: "Hardened",
+                                        order: 1,
+                                        func: createBaseNonPA([12, 15], [17, 20], [17, 20])
+                                    },
+                                    "Buttressed": {
+                                        name: "Buttressed",
+                                        order: 1,
+                                        func: createBaseNonPA([22, 25], [22, 25], [22, 25])
                                     }
                                 },
                                 "Misc": {
                                     "None": {
                                         name: "None",
                                         default: true
-                                    }
+                                    },
+                                    "Asbestos": {
+                                        name: "Asbestos Lining",
+                                        order: 1,
+                                        func: (state) => state.er += 15
+                                    },
+                                    "Dense": {
+                                        name: "Dense",
+                                        order: 1,
+                                        func: (state) => {
+                                            var rs = getOrCreateReductionSlot(state, "Dense");
+                                            rs.explosiveReduction += 50;
+                                        }
+                                    },
+                                    "Leaded": {
+                                        name: "Lead Lined",
+                                        order: 1,
+                                        func: (state) => state.rr += 10
+                                    },
+                                    "Padded": {
+                                        name: "Padded",
+                                        order: 1,
+                                        func: (state) => {
+                                            var rs = getOrCreateReductionSlot(state, "Padded");
+                                            rs.explosiveReduction += 25;
+                                        }
+                                    },
                                 }
                             }
                         },
                         "LA": {
                             name: "Left Arm",
                             order: 1,
-                            func: createBaseNonPA([3,4,7,11,15,19,22], [6,9,14,22,31,39,47], [0, 0, 0, 0, 0, 0, 0]),
+                            func: createBaseNonPA([30,40], [30,40], [30,40]),
                             mods: {
                                 "Main": {
                                     "Standard": {
                                         name: "Standard",
                                         default: true,
+                                    },
+                                    "Welded": {
+                                        name: "Welded",
+                                        order: 1,
+                                        func: createBaseNonPA([5, 6], [5, 6], [5, 6])
+                                    },
+                                    "Tempered": {
+                                        name: "Tempered",
+                                        order: 1,
+                                        func: createBaseNonPA([7, 8], [7, 8], [7, 8])
+                                    },
+                                    "Hardened": {
+                                        name: "Hardened",
+                                        order: 1,
+                                        func: createBaseNonPA([9, 10], [9, 10], [9, 10])
+                                    },
+                                    "Buttressed": {
+                                        name: "Buttressed",
+                                        order: 1,
+                                        func: createBaseNonPA([11, 13], [11, 13], [11, 13])
                                     }
                                 },
                                 "Misc": {
                                     "None": {
                                         name: "None",
                                         default: true
+                                    },
+                                    "Braced": {
+                                        name: "Braced",
+                                        order: 2,
+                                        func: (state) => {
+                                            if (state.player.blocking && state.enemy.damageType === "melee") {
+                                                var rs = getOrCreateReductionSlot(state, "Braced");
+                                                rs.ballisticReduction += 15;
+                                                rs.energyReduction += 15;
+                                            }
+                                        }
                                     }
                                 }
                             }
@@ -545,20 +622,34 @@
                         "LL": {
                             name: "Left Leg",
                             order: 1,
-                            func: createBaseNonPA([3,4,7,11,15,19,22], [6,9,14,22,31,39,47], [0, 0, 0, 0, 0, 0, 0]),
+                            func: createBaseNonPA([30,40], [30,40], [30,40]),
                             mods: {
                                 "Main": {
                                     "Standard": {
                                         name: "Standard",
                                         default: true,
+                                    },
+                                    "Welded": {
+                                        name: "Welded",
+                                        order: 1,
+                                        func: createBaseNonPA([5, 6], [5, 6], [5, 6])
+                                    },
+                                    "Tempered": {
+                                        name: "Tempered",
+                                        order: 1,
+                                        func: createBaseNonPA([7, 8], [7, 8], [7, 8])
+                                    },
+                                    "Hardened": {
+                                        name: "Hardened",
+                                        order: 1,
+                                        func: createBaseNonPA([9, 10], [9, 10], [9, 10])
+                                    },
+                                    "Buttressed": {
+                                        name: "Buttressed",
+                                        order: 1,
+                                        func: createBaseNonPA([11, 13], [11, 13], [11, 13])
                                     }
                                 },
-                                "Misc": {
-                                    "None": {
-                                        name: "None",
-                                        default: true
-                                    }
-                                }
                             }
                         },
                         "RL": {
@@ -2393,14 +2484,41 @@
 
             function recalculate(index) {
 
-                if (get(index + "_HP") == null) {
-                    return;
-                }
-
                 let state = {
                     player: {},
                     enemy: {}
                 };
+
+                state.dr = 0;
+                state.er = 0;
+                state.rr = 0;
+                state.fr = 0;
+                state.cr = 0;
+                state.pr = 0;
+                state.xr = 0;
+
+                state.enemy.kind = getOpt("enemykind").value;
+                state.enemy.ballisticDamage = parseInt(getValue("dmgBallistic"));
+                state.enemy.energyDamage = parseInt(getValue("dmgEnergy"));
+                state.enemy.radiationDamage = parseInt(getValue("dmgRadiation"));
+                state.enemy.fireDamage = parseInt(getValue("dmgFire"));
+                state.enemy.cryoDamage = parseInt(getValue("dmgCryo"));
+                state.enemy.poisonDamage = parseInt(getValue("dmgPoison"));
+                state.enemy.armorIgnore = parseInt(getValue("armorIgnore"));
+                state.enemy.damageType = getBool("dmgTypeMelee") ? "melee" : "ranged";
+                state.enemy.energyType = getBool("energyTypePlasma") ? "plasma" : "laser";
+
+                state.ballisticReduction = 0;
+                state.energyReduction = 0;
+                state.radiationReduction = 0;
+                state.fireReduction = 0;
+                state.cryoReduction = 0;
+                state.poisonReduction = 0;
+                state.explosiveReduction = 0;
+
+                if (get(index + "_HP") == null) {
+                    return state;
+                }
 
                 state.player.hp = parseInt(getValue(index + "_HP"));
                 state.player.caps = parseInt(getValue(index + "_Caps"));
@@ -2416,13 +2534,6 @@
                 state.player.mode = getBool("NonPA" + index) ? "NonPA" : "PA";
                 state.player.mutations = 0;
 
-                state.dr = 0;
-                state.er = 0;
-                state.rr = 0;
-                state.fr = 0;
-                state.cr = 0;
-                state.pr = 0;
-                state.xr = 0;
 
                 state.reductionSlots = {};
 
@@ -2431,17 +2542,6 @@
                     state.player.agility = parseInt(getValue(index + "_Agility"));
                     state.player.junkamount = parseInt(getValue(index + "_Junkamount"));
                 }
-
-                state.enemy.kind = getOpt("enemykind").value;
-                state.enemy.ballisticDamage = parseInt(getValue("dmgBallistic"));
-                state.enemy.energyDamage = parseInt(getValue("dmgEnergy"));
-                state.enemy.radiationDamage = parseInt(getValue("dmgRadiation"));
-                state.enemy.fireDamage = parseInt(getValue("dmgFire"));
-                state.enemy.cryoDamage = parseInt(getValue("dmgCryo"));
-                state.enemy.poisonDamage = parseInt(getValue("dmgPoison"));
-                state.enemy.armorIgnore = parseInt(getValue("armorIgnore"));
-                state.enemy.damageType = getBool("dmgTypeMelee") ? "melee" : "ranged";
-                state.enemy.energyType = getBool("energyTypePlasma") ? "plasma" : "laser";
 
                 var modifiers = [];
 
