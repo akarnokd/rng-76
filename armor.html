@@ -295,6 +295,170 @@
                 }
             };
 
+            var standardMiscAsbestos = {
+                name: "Asbestos Lining",
+                order: 1,
+                func: (state) => state.er += 15
+            };
+            var standardMiscDense = {
+                name: "Dense",
+                order: 1,
+                func: (state) => {
+                    var rs = getOrCreateReductionSlot(state, "Dense");
+                    rs.explosiveReduction += 50;
+                }
+            };
+            var standardMiscLeaded = {
+                name: "Lead Lined",
+                order: 1,
+                func: (state) => state.rr += 10
+            };
+            var standardMiscPadded = {
+                name: "Padded",
+                order: 1,
+                func: (state) => {
+                    var rs = getOrCreateReductionSlot(state, "Padded");
+                    rs.explosiveReduction += 25;
+                }
+            };
+            var standardMiscBraced = {
+                name: "Braced",
+                order: 2,
+                func: (state) => {
+                    if (state.player.blocking && state.enemy.damageType === "melee") {
+                        var rs = getOrCreateReductionSlot(state, "Braced");
+                        rs.ballisticReduction += 15;
+                        rs.energyReduction += 15;
+                    }
+                }
+            };
+
+            var standardEnclaveTorso = {
+                name: "Chest Piece",
+                order: 1,
+                func: createBaseNonPA([50,60], [33,40], [0,0]),
+                mods: {
+                    "Main": {
+                        "Standard": {
+                            name: "Standard",
+                            default: true,
+                        },
+                        "Reinforced": {
+                            name: "Reinforced",
+                            order: 1,
+                            func: createBaseNonPA([15, 12], [7, 5], [0, 0])
+                        },
+                        "Shadowed": {
+                            name: "Shadowed",
+                            order: 1,
+                            func: createBaseNonPA([15, 13], [7, 5], [0, 0])
+                        },
+                        "Fiberglass": {
+                            name: "Fiberglass",
+                            order: 1,
+                            func: createBaseNonPA([20, 17], [10, 8], [0, 0])
+                        },
+                        "Polymer": {
+                            name: "Polymer",
+                            order: 1,
+                            func: createBaseNonPA([25, 21], [15, 12], [0, 0])
+                        },
+                    },
+                    "Misc": {
+                        "None": {
+                            name: "None",
+                            default: true
+                        },
+                        "Asbestos": standardMiscAsbestos,
+                        "Dense": standardMiscDense,
+                        "Leaded": standardMiscLeaded,
+                        "Padded": standardMiscPadded,
+                    }
+                }
+            };
+            standardEnclaveArm = {
+                name: "Left Arm",
+                order: 1,
+                func: createBaseNonPA([21,25], [17,20], [0,0]),
+                mods: {
+                    "Main": {
+                        "Standard": {
+                            name: "Standard",
+                            default: true,
+                        },
+                        "Reinforced": {
+                            name: "Reinforced",
+                            order: 1,
+                            func: createBaseNonPA([12, 10], [5, 4], [0, 0])
+                        },
+                        "Shadowed": {
+                            name: "Shadowed",
+                            order: 1,
+                            func: createBaseNonPA([12, 10], [5, 4], [0, 0])
+                        },
+                        "Fiberglass": {
+                            name: "Fiberglass",
+                            order: 1,
+                            func: createBaseNonPA([16, 13], [8, 6], [0, 0])
+                        },
+                        "Polymer": {
+                            name: "Polymer",
+                            order: 1,
+                            func: createBaseNonPA([20, 16], [10, 8], [0, 0])
+                        },
+                    },
+                    "Misc": {
+                        "None": {
+                            name: "None",
+                            default: true
+                        },
+                        "Braced": standardMiscBraced,
+                        "Leaded": standardMiscLeaded,
+                    }
+                }
+            };
+            var standardEnclaveLeg = {
+                name: "Left Leg",
+                order: 1,
+                func: createBaseNonPA([21,25], [17,20]),
+                mods: {
+                    "Main": {
+                        "Standard": {
+                            name: "Standard",
+                            default: true,
+                        },
+                        "Reinforced": {
+                            name: "Reinforced",
+                            order: 1,
+                            func: createBaseNonPA([12, 10], [5, 4], [0, 0])
+                        },
+                        "Shadowed": {
+                            name: "Shadowed",
+                            order: 1,
+                            func: createBaseNonPA([12, 10], [5, 4], [0, 0])
+                        },
+                        "Fiberglass": {
+                            name: "Fiberglass",
+                            order: 1,
+                            func: createBaseNonPA([16, 13], [8, 6], [0, 0])
+                        },
+                        "Polymer": {
+                            name: "Polymer",
+                            order: 1,
+                            func: createBaseNonPA([20, 16], [10, 8], [0, 0])
+                        },
+                    },
+                    "Misc": {
+                        "None": {
+                            name: "None",
+                            default: true
+                        },
+                        "Leaded": standardMiscLeaded,
+                    }
+                }
+            };
+
+
             // datasheet
             var armor = {
                 "NonPA": {
@@ -317,7 +481,11 @@
                                     "None": {
                                         name: "None",
                                         default: true
-                                    }
+                                    },
+                                    "Asbestos": standardMiscAsbestos,
+                                    "Leaded": standardMiscLeaded,
+                                    "Dense": standardMiscDense,
+                                    "Padded": standardMiscPadded
                                 }
                             }
                         },
@@ -336,7 +504,9 @@
                                     "None": {
                                         name: "None",
                                         default: true
-                                    }
+                                    },
+                                    "Braced": standardMiscBraced,
+                                    "Leaded": standardMiscLeaded
                                 }
                             }
                         },
@@ -359,7 +529,8 @@
                                     "None": {
                                         name: "None",
                                         default: true
-                                    }
+                                    },
+                                    "Leaded": standardMiscLeaded
                                 }
                             }
                         },
@@ -387,7 +558,11 @@
                                     "None": {
                                         name: "None",
                                         default: true
-                                    }
+                                    },
+                                    "Asbestos": standardMiscAsbestos,
+                                    "Leaded": standardMiscLeaded,
+                                    "Dense": standardMiscDense,
+                                    "Padded": standardMiscPadded
                                 }
                             }
                         },
@@ -406,7 +581,9 @@
                                     "None": {
                                         name: "None",
                                         default: true
-                                    }
+                                    },
+                                    "Braced": standardMiscBraced,
+                                    "Leaded": standardMiscLeaded
                                 }
                             }
                         },
@@ -429,7 +606,8 @@
                                     "None": {
                                         name: "None",
                                         default: true
-                                    }
+                                    },
+                                    "Leaded": standardMiscLeaded
                                 }
                             }
                         },
@@ -457,7 +635,11 @@
                                     "None": {
                                         name: "None",
                                         default: true
-                                    }
+                                    },
+                                    "Asbestos": standardMiscAsbestos,
+                                    "Leaded": standardMiscLeaded,
+                                    "Dense": standardMiscDense,
+                                    "Padded": standardMiscPadded
                                 }
                             }
                         },
@@ -476,7 +658,9 @@
                                     "None": {
                                         name: "None",
                                         default: true
-                                    }
+                                    },
+                                    "Braced": standardMiscBraced,
+                                    "Leaded": standardMiscLeaded
                                 }
                             }
                         },
@@ -499,7 +683,8 @@
                                     "None": {
                                         name: "None",
                                         default: true
-                                    }
+                                    },
+                                    "Leaded": standardMiscLeaded
                                 }
                             }
                         },
@@ -548,32 +733,10 @@
                                         name: "None",
                                         default: true
                                     },
-                                    "Asbestos": {
-                                        name: "Asbestos Lining",
-                                        order: 1,
-                                        func: (state) => state.er += 15
-                                    },
-                                    "Dense": {
-                                        name: "Dense",
-                                        order: 1,
-                                        func: (state) => {
-                                            var rs = getOrCreateReductionSlot(state, "Dense");
-                                            rs.explosiveReduction += 50;
-                                        }
-                                    },
-                                    "Leaded": {
-                                        name: "Lead Lined",
-                                        order: 1,
-                                        func: (state) => state.rr += 10
-                                    },
-                                    "Padded": {
-                                        name: "Padded",
-                                        order: 1,
-                                        func: (state) => {
-                                            var rs = getOrCreateReductionSlot(state, "Padded");
-                                            rs.explosiveReduction += 25;
-                                        }
-                                    },
+                                    "Asbestos": standardMiscAsbestos,
+                                    "Dense": standardMiscDense,
+                                    "Leaded": standardMiscLeaded,
+                                    "Padded": standardMiscPadded,
                                 }
                             }
                         },
@@ -613,17 +776,7 @@
                                         name: "None",
                                         default: true
                                     },
-                                    "Braced": {
-                                        name: "Braced",
-                                        order: 2,
-                                        func: (state) => {
-                                            if (state.player.blocking && state.enemy.damageType === "melee") {
-                                                var rs = getOrCreateReductionSlot(state, "Braced");
-                                                rs.ballisticReduction += 15;
-                                                rs.energyReduction += 15;
-                                            }
-                                        }
-                                    }
+                                    "Braced": standardMiscBraced
                                 }
                             }
                         },
@@ -1446,7 +1599,7 @@
                         "Torso": {
                             name: "Chest Piece",
                             order: 1,
-                            func: createBaseNonPA([0,0,0,0,0], [0,0,0,0,0], [0,0,0,0,0]),
+                            func: createBaseNonPA([20,24,33,42,51], [3,5,7,9,11], [0,0,0,0,0]),
                             mods: {
                                 "Main": {
                                     "Standard": {
@@ -1465,7 +1618,7 @@
                         "LA": {
                             name: "Left Arm",
                             order: 1,
-                            func: createBaseNonPA([0,0,0,0,0], [0,0,0,0,0], [0,0,0,0,0]),
+                            func: createBaseNonPA([8,12,16,18,20], [1,2,3,4,5], [0,0,0,0,0]),
                             mods: {
                                 "Main": {
                                     "Standard": {
@@ -1488,7 +1641,7 @@
                         "LL": {
                             name: "Left Leg",
                             order: 1,
-                            func: createBaseNonPA([0,0,0,0,0], [0,0,0,0,0], [0,0,0,0,0]),
+                            func: createBaseNonPA([8,12,16,18,20], [1,2,3,4,5], [0,0,0,0,0]),
                             mods: {
                                 "Main": {
                                     "Standard": {
@@ -1516,7 +1669,7 @@
                         "Torso": {
                             name: "Chest Piece",
                             order: 1,
-                            func: createBaseNonPA([0,0,0,0,0], [0,0,0,0,0], [0,0,0,0,0]),
+                            func: createBaseNonPA([26,32,43,55,67], [4,7,9,11,13], [0,0,0,0,0]),
                             mods: {
                                 "Main": {
                                     "Standard": {
@@ -1535,7 +1688,7 @@
                         "LA": {
                             name: "Left Arm",
                             order: 1,
-                            func: createBaseNonPA([0,0,0,0,0], [0,0,0,0,0], [0,0,0,0,0]),
+                            func: createBaseNonPA([11,16,21,24,26], [2,3,4,5,6], [0,0,0,0,0]),
                             mods: {
                                 "Main": {
                                     "Standard": {
@@ -1558,7 +1711,7 @@
                         "LL": {
                             name: "Left Leg",
                             order: 1,
-                            func: createBaseNonPA([0,0,0,0,0], [0,0,0,0,0], [0,0,0,0,0]),
+                            func: createBaseNonPA([11,16,21,24,26], [2,3,4,5,6], [0,0,0,0,0]),
                             mods: {
                                 "Main": {
                                     "Standard": {
@@ -1586,7 +1739,7 @@
                         "Torso": {
                             name: "Chest Piece",
                             order: 1,
-                            func: createBaseNonPA([0,0,0,0,0], [0,0,0,0,0], [0,0,0,0,0]),
+                            func: createBaseNonPA([34,42,56,72,87], [4,7,10,12,14], [0,0,0,0,0]),
                             mods: {
                                 "Main": {
                                     "Standard": {
@@ -1605,7 +1758,7 @@
                         "LA": {
                             name: "Left Arm",
                             order: 1,
-                            func: createBaseNonPA([0,0,0,0,0], [0,0,0,0,0], [0,0,0,0,0]),
+                            func: createBaseNonPA([14,20,27,32,34], [3,4,6,7,8], [0,0,0,0,0]),
                             mods: {
                                 "Main": {
                                     "Standard": {
@@ -1628,7 +1781,7 @@
                         "LL": {
                             name: "Left Leg",
                             order: 1,
-                            func: createBaseNonPA([0,0,0,0,0], [0,0,0,0,0], [0,0,0,0,0]),
+                            func: createBaseNonPA([14,20,27,32,34], [3,4,6,7,8], [0,0,0,0,0]),
                             mods: {
                                 "Main": {
                                     "Standard": {
@@ -1641,6 +1794,293 @@
                                         name: "None",
                                         default: true
                                     }
+                                }
+                            }
+                        },
+                        "RL": {
+                            name: "Right Leg",
+                            use: "LL"
+                        },
+                    },
+                    "Wood": {
+                        name: "Wood",
+                        levels: [1,5,15,25,35,45],
+                        category: "Light",
+                        "Torso": {
+                            name: "Chest Piece",
+                            order: 1,
+                            func: createBaseNonPA([7,12,19,28,37,45], [3,4,6,7,8,9], [0,0,0,0,0,0]),
+                            mods: {
+                                "Main": {
+                                    "Standard": {
+                                        name: "Standard",
+                                        default: true,
+                                    }
+                                },
+                                "Misc": {
+                                    "None": {
+                                        name: "None",
+                                        default: true
+                                    }
+                                }
+                            }
+                        },
+                        "LA": {
+                            name: "Left Arm",
+                            order: 1,
+                            func: createBaseNonPA([2,4,9,14,18,22], [1,2,3,4,5,6], [0,0,0,0,0,0]),
+                            mods: {
+                                "Main": {
+                                    "Standard": {
+                                        name: "Standard",
+                                        default: true,
+                                    }
+                                },
+                                "Misc": {
+                                    "None": {
+                                        name: "None",
+                                        default: true
+                                    }
+                                }
+                            }
+                        },
+                        "RA": {
+                            name: "Right Arm",
+                            use: "LA"
+                        },
+                        "LL": {
+                            name: "Left Leg",
+                            order: 1,
+                            func: createBaseNonPA([2,4,9,14,18,22], [1,2,3,4,5,6], [0,0,0,0,0,0]),
+                            mods: {
+                                "Main": {
+                                    "Standard": {
+                                        name: "Standard",
+                                        default: true,
+                                    }
+                                },
+                                "Misc": {
+                                    "None": {
+                                        name: "None",
+                                        default: true
+                                    }
+                                }
+                            }
+                        },
+                        "RL": {
+                            name: "Right Leg",
+                            use: "LL"
+                        },
+                    },
+                    "Forest": {
+                        name: "Forest Scout",
+                        levels: [40,50],
+                        category: "Sturdy",
+                        "Torso": standardEnclaveTorso,
+                        "LA": standardEnclaveArm,
+                        "RA": {
+                            name: "Right Arm",
+                            use: "LA"
+                        },
+                        "LL": standardEnclaveLeg,
+                        "RL": {
+                            name: "Right Leg",
+                            use: "LL"
+                        },
+                    },
+                    "Urban": {
+                        name: "Urban Scout",
+                        levels: [40,50],
+                        category: "Sturdy",
+                        "Torso": standardEnclaveTorso,
+                        "LA": standardEnclaveArm,
+                        "RA": {
+                            name: "Right Arm",
+                            use: "LA"
+                        },
+                        "LL": standardEnclaveLeg,
+                        "RL": {
+                            name: "Right Leg",
+                            use: "LL"
+                        },
+                    },
+                    "Solar": {
+                        name: "Solar",
+                        levels: [40,50],
+                        category: "Sturdy",
+                        "Torso": standardEnclaveTorso,
+                        "LA": standardEnclaveArm,
+                        "RA": {
+                            name: "Right Arm",
+                            use: "LA"
+                        },
+                        "LL": standardEnclaveLeg,
+                        "RL": {
+                            name: "Right Leg",
+                            use: "LL"
+                        },
+                    },
+                    "Thorn": {
+                        name: "Thorn Scout",
+                        levels: [40,50],
+                        category: "Sturdy",
+                        "Torso": standardEnclaveTorso,
+                        "LA": standardEnclaveArm,
+                        "RA": {
+                            name: "Right Arm",
+                            use: "LA"
+                        },
+                        "LL": standardEnclaveLeg,
+                        "RL": {
+                            name: "Right Leg",
+                            use: "LL"
+                        },
+                    },
+                    "Covert": {
+                        name: "Covert Scout",
+                        levels: [40,50],
+                        category: "Sturdy",
+                        "Torso": standardEnclaveTorso,
+                        "LA": standardEnclaveArm,
+                        "RA": {
+                            name: "Right Arm",
+                            use: "LA"
+                        },
+                        "LL": standardEnclaveLeg,
+                        "RL": {
+                            name: "Right Leg",
+                            use: "LL"
+                        },
+                    },
+                    "Broderhood": {
+                        name: "Brotherhood Recon",
+                        levels: [40,50],
+                        category: "Heavy",
+                        "Torso": {
+                            name: "Chest Piece",
+                            order: 1,
+                            func: createBaseNonPA([85,100], [30,40], [30,40]),
+                            mods: {
+                                "Main": {
+                                    "Standard": {
+                                        name: "Standard",
+                                        default: true,
+                                    },
+                                    "Welded": {
+                                        name: "Welded",
+                                        order: 1,
+                                        func: createBaseNonPA([9,10], [9,10], [9,10])
+                                    },
+                                    "Tempered": {
+                                        name: "Tempered",
+                                        order: 1,
+                                        func: createBaseNonPA([13,15], [13,15], [13,15])
+                                    },
+                                    "Hardened": {
+                                        name: "Hardened",
+                                        order: 1,
+                                        func: createBaseNonPA([13,15], [17,20], [17,20])
+                                    },
+                                    "Buttressed": {
+                                        name: "Buttressed",
+                                        order: 1,
+                                        func: createBaseNonPA([21,25], [21,25], [21,25])
+                                    },
+                                },
+                                "Misc": {
+                                    "None": {
+                                        name: "None",
+                                        default: true
+                                    },
+                                    "Asbestos": standardMiscAsbestos,
+                                    "Leaded": standardMiscLeaded,
+                                    "Dense": standardMiscDense,
+                                    "Padded": standardMiscPadded
+                                }
+                            }
+                        },
+                        "LA": {
+                            name: "Left Arm",
+                            order: 1,
+                            func: createBaseNonPA([40,50], [20,30], [20,30]),
+                            mods: {
+                                "Main": {
+                                    "Standard": {
+                                        name: "Standard",
+                                        default: true,
+                                    },
+                                    "Welded": {
+                                        name: "Welded",
+                                        order: 1,
+                                        func: createBaseNonPA([5,6], [5,6], [5,6])
+                                    },
+                                    "Tempered": {
+                                        name: "Tempered",
+                                        order: 1,
+                                        func: createBaseNonPA([7,8], [7,8], [7,8])
+                                    },
+                                    "Hardened": {
+                                        name: "Hardened",
+                                        order: 1,
+                                        func: createBaseNonPA([9,10], [9,10], [9,10])
+                                    },
+                                    "Buttressed": {
+                                        name: "Buttressed",
+                                        order: 1,
+                                        func: createBaseNonPA([11,13], [11,13], [11,13])
+                                    },
+                                },
+                                "Misc": {
+                                    "None": {
+                                        name: "None",
+                                        default: true
+                                    },
+                                    "Braced": standardMiscBraced,
+                                    "Leaded": standardMiscLeaded
+                                }
+                            }
+                        },
+                        "RA": {
+                            name: "Right Arm",
+                            use: "LA"
+                        },
+                        "LL": {
+                            name: "Left Leg",
+                            order: 1,
+                            func: createBaseNonPA([40,50], [20,30], [20,30]),
+                            mods: {
+                                "Main": {
+                                    "Standard": {
+                                        name: "Standard",
+                                        default: true,
+                                    },
+                                    "Welded": {
+                                        name: "Welded",
+                                        order: 1,
+                                        func: createBaseNonPA([5,6], [5,6], [5,6])
+                                    },
+                                    "Tempered": {
+                                        name: "Tempered",
+                                        order: 1,
+                                        func: createBaseNonPA([7,8], [7,8], [7,8])
+                                    },
+                                    "Hardened": {
+                                        name: "Hardened",
+                                        order: 1,
+                                        func: createBaseNonPA([9,10], [9,10], [9,10])
+                                    },
+                                    "Buttressed": {
+                                        name: "Buttressed",
+                                        order: 1,
+                                        func: createBaseNonPA([11,13], [11,13], [11,13])
+                                    },
+                                },
+                                "Misc": {
+                                    "None": {
+                                        name: "None",
+                                        default: true
+                                    },
+                                    "Leaded": standardMiscLeaded
                                 }
                             }
                         },
@@ -2936,7 +3376,14 @@
 
                 var armors = armor[mode];
 
+                var armorList = [];
                 for (let a in armors) {
+                    armorList.push({key: a, value: armors[a] });
+                }
+                armorList.sort((a, b) => a.value.name.localeCompare(b.value.name));
+
+                for (let akv of armorList) {
+                    let a = akv.key;
                     opt = document.createElement("option");
                     opt.text = "---";
                     opt.disabled = true;
@@ -4022,7 +4469,7 @@
                 if (resistance <= 0) {
                     return damage;
                 }
-                return 0.5 * Math.pow(damage, 1.365) * Math.pow(resistance, -0.365);
+                return damage * Math.min(0.99, 0.5 * Math.pow(damage / resistance, 0.365))
             }
 
             function compareResults(s1, s2) {
