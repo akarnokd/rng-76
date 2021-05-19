@@ -221,6 +221,19 @@
                 }
             }
 
+            function createBasePA(drs, ers, rrs, ballRed, enerRed, radRed) {
+                return (state, idx) => {
+                    state.dr += drs[idx];
+                    state.er += ers[idx];
+                    state.rr += rrs[idx];
+                    
+                    var rs = getOrCreateReductionSlot(state, "base");
+                    rs.ballisticReduction += ballRed;
+                    rs.energyReduction += enerRed;
+                    rs.radiationReduction += radRed;
+                };
+            }
+
             // datasheet
             var armor = {
                 "NonPA": {
@@ -230,69 +243,51 @@
                     "Excavator": {
                         name: "Excavator",
                         levels: [25, 35, 45],
+                        category: "PA",
                         "Helmet": {
                             name: "Helmet",
-                            dr: [24, 30, 36],
-                            er: [24, 30, 36],
-                            rr: [35, 45, 55],
-                            ballisticReductionPercent: 7,
-                            energyReductionPercent: 7,
-                            radiationReductionPercent: 7,
+                            order: 1,
+                            func: createBasePA([24, 30, 36], [24, 30, 36], [35, 45, 55], 7, 7, 15)
                         },
                         "Torso": {
                             name: "Torso",
-                            dr: [42, 51, 60],
-                            er: [42, 51, 60],
-                            rr: [59, 75, 91],
-                            ballisticReductionPercent: 7,
-                            energyReductionPercent: 7,
-                            radiationReductionPercent: 7,
+                            order: 1,
+                            func: createBasePA([42, 51, 60], [42, 51, 60], [59, 75, 91], 7, 7, 15),
                             mods: {
                                 "Main": {
                                     "Emergency": {
                                         name: "Emergency protocols",
-                                        ballisticReductionPercent: 50,
-                                        energyReductionPercent: 50,
-                                        hitpoints: 20
+                                        order: 2,
+                                        func: (state, index) => {
+                                            if (state.player.hp <= 20) {
+                                                var rs = getOrCreateReductionSlot(state, "emergency");
+                                                rs.ballisticReduction += 50;
+                                                rs.energyReduction += 50;
+                                            }
+                                        }
                                     }
                                 }
                             }
                         },
                         "LA": {
                             name: "Left Arm",
-                            dr: [24, 30, 36],
-                            er: [24, 30, 36],
-                            rr: [35, 45, 55],
-                            ballisticReductionPercent: 7,
-                            energyReductionPercent: 7,
-                            radiationReductionPercent: 7,
+                            order: 1,
+                            func: createBasePA([24, 30, 36], [24, 30, 36], [35, 45, 55], 7, 7, 15),
                         },
                         "RA": {
                             name: "Right Arm",
-                            dr: [24, 30, 36],
-                            er: [24, 30, 36],
-                            rr: [35, 45, 55],
-                            ballisticReductionPercent: 7,
-                            energyReductionPercent: 7,
-                            radiationReductionPercent: 7,
+                            order: 1,
+                            func: createBasePA([24, 30, 36], [24, 30, 36], [35, 45, 55], 7, 7, 15),
                         },
                         "LL": {
                             name: "Left Leg",
-                            dr: [24, 30, 36],
-                            er: [24, 30, 36],
-                            rr: [35, 45, 55],
-                            ballisticReductionPercent: 7,
-                            energyReductionPercent: 7,
-                            radiationReductionPercent: 7,
+                            order: 1,
+                            func: createBasePA([24, 30, 36], [24, 30, 36], [35, 45, 55], 7, 7, 15),
                         },
                         "RL": {
                             name: "Right Leg",
-                            dr: [24, 30, 36],
-                            er: [24, 30, 36],
-                            rr: [35, 45, 55],
-                            ballisticReductionPercent: 7,
-                            energyReductionPercent: 7,
-                            radiationReductionPercent: 7,
+                            order: 1,
+                            func: createBasePA([24, 30, 36], [24, 30, 36], [35, 45, 55], 7, 7, 15),
                         }
                     }
                 }
@@ -303,154 +298,166 @@
                     "Prefix": {
                         "Aristocrats": {
                             name: "Aristocrat's (PTS)",
-                            maxCaps: 29000,
-                            dr: 20,
-                            er: 20,
-                            rr: 20,
-                            fr: 20,
-                            cr: 20,
-                            pr: 20,
+                            order: 2,
+                            func: (state) => {
+                                var c = 20 * clamp(state.player.caps, 0, 29000) / 29000.0;
+                                state.dr += c;
+                                state.er += c;
+                                state.rr += c;
+                                state.fr += c;
+                                state.cr += c;
+                                state.pr += c;
+                            }
                         },
                         "Bolstering": {
                             name: "Bolstering",
-                            dr: 35,
-                            er: 35,
+                            order: 2,
+                            func: (state) => {
+                                var c = Math.round(35 * (100 - clamp(state.player.hp, 0, 100)) / 100.0);
+                                state.dr += c;
+                                state.er += c;
+                            }
                         },
                         "Overeaters": {
                             name: "Overeater's (PTS)",
-                            ballisticReductionPercent: 6,
-                            energyReductionPercent: 6,
+                            order: 2,
+                            func: (state) => {
+                                var c = Math.round(6 * clamp(state.player.fooddrink, 0, 100) / 100.0);
+                                var rs = getOrCreateReductionSlot(state, "overeaters");
+                                rs.ballisticReduction += c;
+                                rs.energyReduction += c;
+                            }
                         },
                         "Vanguard": {
                             name: "Vanguard's",
-                            dr: 35,
-                            er: 35,
+                            order: 2,
+                            func: (state) => {
+                                var c = Math.round(35 * clamp(state.player.hp, 0, 100) / 100.0);
+                                state.dr += c;
+                                state.er += c;
+                            }
                         },
                         "Mutants": {
                             name: "Mutant's",
-                            dr: 10,
-                            er: 10,
+                            order: 2,
+                            func: (state) => {
+                                if (state.player.mutations > 0) {
+                                    state.dr += 10;
+                                    state.er += 10;
+                                }
+                            }
                         },
                         "Nocturnal": {
                             name: "Nocturnal",
-                            drPercent: 10,
-                            erPercent: 10,
+                            order: 10,
+                            func: (state) => {
+                                if (state.player.night) {
+                                    state.dr *= 1.10;
+                                    state.er *= 1.10;
+                                }
+                            }
                         },
                         "Heavyweight": {
                             name: "Heavyweight",
-                            maxWeight: 350,
-                            dr: 20,
-                            er: 20,
-                            rr: 20,
-                            fr: 20,
-                            cr: 20,
-                            pr: 20
+                            order: 2,
+                            func: (state) => {
+                                var c = Math.round(20 * clamp(state.player.carrying, 0, 350) / 350.0);
+                                state.dr += c;
+                                state.er += c;
+                                state.rr += c;
+                                state.fr += c;
+                                state.cr += c;
+                                state.pr += c;
+                            }
                         },
                         "Assassins": {
                             name: "Assassin's",
-                            versus: {
-                                "Human": {
-                                    ballisticReductionPercent: 15,
-                                    energyReductionPercent: 15,
-                                    chance: 75
-                                },
-                                "Player": {
-                                    ballisticReductionPercent: 10,
-                                    energyReductionPercent: 10,
-                                    chance: 75
-                                }
-                            }
+                            order: 2,
+                            func: createVersusFunc(["Human", "Player"], ["ballisticReduction", "energyReduction"], [15, 15])
                         },
                         "Ghoulslayers": {
                             name: "Ghoul Slayer's",
-                            versus: {
-                                "Ghoul": {
-                                    ballisticReductionPercent: 15,
-                                    energyReductionPercent: 15,
-                                }
-                            }
+                            order: 2,
+                            func: createVersusFunc(["Ghoul"], ["ballisticReduction", "energyReduction"], [15, 15])
                         },
                         "Mutantslayers": {
                             name: "Mutant Slayer's",
-                            versus: {
-                                "SuperMutant": {
-                                    ballisticReductionPercent: 15,
-                                    energyReductionPercent: 15,
-                                }
-                            }
+                            order: 2,
+                            func: createVersusFunc(["SuperMutant"], ["ballisticReduction", "energyReduction"], [15, 15])
                         },
                         "Hunters": {
                             name: "Hunter's",
-                            versus: {
-                                "Animal": {
-                                    ballisticReductionPercent: 15,
-                                    energyReductionPercent: 15,
-                                }
-                            }
+                            order: 2,
+                            func: createVersusFunc(["Animal"], ["ballisticReduction", "energyReduction"], [15, 15])
                         },
                         "Exterminators": {
                             name: "Exterminator's",
-                            versus: {
-                                "Insect": {
-                                    ballisticReductionPercent: 15,
-                                    energyReductionPercent: 15,
-                                },
-                                "Mirelurk": {
-                                    ballisticReductionPercent: 15,
-                                    energyReductionPercent: 15,
-                                },
-                            }
+                            order: 2,
+                            func: createVersusFunc(["Insect", "Mirelurk"], ["ballisticReduction", "energyReduction"], [15, 15])
                         },
                         "Troubleshooters": {
                             name: "Troubleshooter's",
-                            versus: {
-                                "Robot": {
-                                    ballisticReductionPercent: 15,
-                                    energyReductionPercent: 15,
-                                }
-                            }
+                            order: 2,
+                            func: createVersusFunc(["Robot"], ["ballisticReduction", "energyReduction"], [15, 15])
                         },
                         "Zealots": {
                             name: "Zealot's",
-                            versus: {
-                                "Scorched": {
-                                    ballisticReductionPercent: 15,
-                                    energyReductionPercent: 15,
-                                }
-                            }
+                            order: 2,
+                            func: createVersusFunc(["Scorched"], ["ballisticReduction", "energyReduction"], [15, 15])
                         },
                     },
                     "Major": {
                         "Radresist": {
                             name: "+25 rad resistance",
-                            rr: 25
+                            order: 2,
+                            func: (state) => state.rr += 25
                         },
                         "Poisonresist": {
                             name: "+25 poison resistance",
-                            rr: 25
+                            order: 2,
+                            func: (state) => state.pr += 25
                         },
                         "Fireresist": {
                             name: "+25 fire resistance",
-                            fr: 25
+                            order: 2,
+                            func: (state) => state.fr += 25
                         },
                         "Cryoresist": {
                             name: "+25 cryo resistance",
-                            cr: 25
+                            order: 2,
+                            func: (state) => state.cr += 25
                         },
                         "Hardy": {
                             name: "10% explosive damage reduction",
-                            explosiveReductionPercent: 10,
+                            order: 2,
+                            func: (state) => {
+                                var rs = getOrCreateReductionSlot(state, "base");
+                                rs.explosiveReduction += 10;
+                            }
                         }
                     },
                     "Minor": {
                         "Blocker": {
                             name: "15% less damage when blocking",
-                            ballisticReductionPercent: 15,
+                            order: 2,
+                            func: (state) => {
+                                if (state.player.blocking) {
+                                    var rs = getOrCreateReductionSlot(state, "LegendaryBlocker");
+                                    rs.ballisticReduction += 15;
+                                    rs.energyReduction += 15;
+                                }
+                            }
                         },
                         "Cavailier": {
                             name: "15% less damage while sprinting",
-                            ballisticReductionPercent: 15,
-                            chance: 75
+                            order: 2,
+                            func: (state) => {
+                                if (state.player.stance === "Sprint") {
+                                    var rs = getOrCreateReductionSlot(state, "Sprint");
+                                    rs.ballisticReduction += 15 * 3 / 4;
+                                    rs.energyReduction += 15 * 3 / 4;
+                                }
+                            }
                         },
                         /*
                         "Limbdamage": {
@@ -462,9 +469,14 @@
                         */
                         "Sentinel": {
                             name: "15% less damage while standing still",
-                            ballisticReductionPercent: 15,
-                            energyReductionPercent: 15,
-                            chance: 75
+                            order: 2,
+                            func: (state) => {
+                                if (state.player.stance === "Still") {
+                                    var rs = getOrCreateReductionSlot(state, "Still");
+                                    rs.ballisticReduction += 15 * 3 / 4;
+                                    rs.energyReduction += 15 * 3 / 4;
+                                }
+                            }
                         }
                     }
                 },
@@ -472,154 +484,166 @@
                     "Prefix": {
                         "Aristocrats": {
                             name: "Aristocrat's (PTS)",
-                            maxCaps: 29000,
-                            dr: 35,
-                            er: 35,
-                            rr: 35,
-                            fr: 35,
-                            cr: 35,
-                            pr: 35,
+                            order: 2,
+                            func: (state) => {
+                                var c = Math.round(35 * clamp(state.player.caps, 0, 29000) / 29000.0);
+                                state.dr += c;
+                                state.er += c;
+                                state.rr += c;
+                                state.fr += c;
+                                state.cr += c;
+                                state.pr += c;
+                            }
                         },
                         "Bolstering": {
                             name: "Bolstering",
-                            dr: 35,
-                            er: 35,
+                            order: 2,
+                            func: (state) => {
+                                var c = Math.round(35 * (100 - clamp(state.player.hp, 0, 100)) / 100.0);
+                                state.dr += c;
+                                state.er += c;
+                            }
                         },
                         "Overeaters": {
                             name: "Overeater's (PTS)",
-                            ballisticReductionPercent: 6,
-                            energyReductionPercent: 6,
+                            order: 2,
+                            func: (state) => {
+                                var c = Math.round(6 * clamp(state.player.fooddrink, 0, 100) / 100.0);
+                                var rs = getOrCreateReductionSlot(state, "overeaters");
+                                rs.ballisticReduction += c;
+                                rs.energyReduction += c;
+                            }
                         },
                         "Vanguard": {
                             name: "Vanguard's",
-                            dr: 35,
-                            er: 35,
+                            order: 2,
+                            func: (state) => {
+                                var c = Math.round(35 * clamp(state.player.hp, 0, 100) / 100.0);
+                                state.dr += c;
+                                state.er += c;
+                            }
                         },
                         "Mutants": {
                             name: "Mutant's",
-                            dr: 10,
-                            er: 10,
+                            order: 2,
+                            func: (state) => {
+                                if (state.player.mutations > 0) {
+                                    state.dr += 10;
+                                    state.er += 10;
+                                }
+                            }
                         },
                         "Nocturnal": {
                             name: "Nocturnal",
-                            drPercent: 10,
-                            erPercent: 10,
+                            order: 10,
+                            func: (state) => {
+                                if (state.player.night) {
+                                    state.dr *= 1.10;
+                                    state.er *= 1.10;
+                                }
+                            }
                         },
                         "Heavyweight": {
                             name: "Heavyweight",
-                            maxWeight: 350,
-                            dr: 35,
-                            er: 35,
-                            rr: 35,
-                            fr: 35,
-                            cr: 35,
-                            pr: 35
+                            order: 2,
+                            func: (state) => {
+                                var c = Math.round(35 * clamp(state.player.carrying, 0, 350) / 350.0);
+                                state.dr += c;
+                                state.er += c;
+                                state.rr += c;
+                                state.fr += c;
+                                state.cr += c;
+                                state.pr += c;
+                            }
                         },
                         "Assassins": {
                             name: "Assassin's",
-                            versus: {
-                                "Human": {
-                                    ballisticReductionPercent: 15,
-                                    energyReductionPercent: 15,
-                                    chance: 75
-                                },
-                                "Player": {
-                                    ballisticReductionPercent: 10,
-                                    energyReductionPercent: 10,
-                                    chance: 75
-                                }
-                            }
+                            order: 2,
+                            func: createVersusFunc(["Human", "Player"], ["ballisticReduction", "energyReduction"], [15, 15])
                         },
                         "Ghoulslayers": {
                             name: "Ghoul Slayer's",
-                            versus: {
-                                "Ghoul": {
-                                    ballisticReductionPercent: 15,
-                                    energyReductionPercent: 15,
-                                }
-                            }
+                            order: 2,
+                            func: createVersusFunc(["Ghoul"], ["ballisticReduction", "energyReduction"], [15, 15])
                         },
                         "Mutantslayers": {
                             name: "Mutant Slayer's",
-                            versus: {
-                                "SuperMutant": {
-                                    ballisticReductionPercent: 15,
-                                    energyReductionPercent: 15,
-                                }
-                            }
+                            order: 2,
+                            func: createVersusFunc(["SuperMutant"], ["ballisticReduction", "energyReduction"], [15, 15])
                         },
                         "Hunters": {
                             name: "Hunter's",
-                            versus: {
-                                "Animal": {
-                                    ballisticReductionPercent: 15,
-                                    energyReductionPercent: 15,
-                                }
-                            }
+                            order: 2,
+                            func: createVersusFunc(["Animal"], ["ballisticReduction", "energyReduction"], [15, 15])
                         },
                         "Exterminators": {
                             name: "Exterminator's",
-                            versus: {
-                                "Insect": {
-                                    ballisticReductionPercent: 15,
-                                    energyReductionPercent: 15,
-                                },
-                                "Mirelurk": {
-                                    ballisticReductionPercent: 15,
-                                    energyReductionPercent: 15,
-                                },
-                            }
+                            order: 2,
+                            func: createVersusFunc(["Insect", "Mirelurk"], ["ballisticReduction", "energyReduction"], [15, 15])
                         },
                         "Troubleshooters": {
                             name: "Troubleshooter's",
-                            versus: {
-                                "Robot": {
-                                    ballisticReductionPercent: 15,
-                                    energyReductionPercent: 15,
-                                }
-                            }
+                            order: 2,
+                            func: createVersusFunc(["Robot"], ["ballisticReduction", "energyReduction"], [15, 15])
                         },
                         "Zealots": {
                             name: "Zealot's",
-                            versus: {
-                                "Scorched": {
-                                    ballisticReductionPercent: 15,
-                                    energyReductionPercent: 15,
-                                }
-                            }
+                            order: 2,
+                            func: createVersusFunc(["Scorched"], ["ballisticReduction", "energyReduction"], [15, 15])
                         },
                     },
                     "Major": {
                         "Radresist": {
                             name: "+25 rad resistance",
-                            rr: 25
+                            order: 2,
+                            func: (state) => state.rr += 25
                         },
                         "Poisonresist": {
                             name: "+25 poison resistance",
-                            rr: 25
+                            order: 2,
+                            func: (state) => state.pr += 25
                         },
                         "Fireresist": {
                             name: "+25 fire resistance",
-                            fr: 25
+                            order: 2,
+                            func: (state) => state.fr += 25
                         },
                         "Cryoresist": {
                             name: "+25 cryo resistance",
-                            cr: 25
+                            order: 2,
+                            func: (state) => state.cr += 25
                         },
                         "Hardy": {
                             name: "10% explosive damage reduction",
-                            explosiveReductionPercent: 10,
+                            order: 2,
+                            func: (state) => {
+                                var rs = getOrCreateReductionSlot(state, "base");
+                                rs.explosiveReduction += 10;
+                            }
                         }
                     },
                     "Minor": {
                         "Blocker": {
                             name: "15% less damage when blocking",
-                            ballisticReductionPercent: 15,
+                            order: 2,
+                            func: (state) => {
+                                if (state.player.blocking) {
+                                    var rs = getOrCreateReductionSlot(state, "LegendaryBlocker");
+                                    rs.ballisticReduction += 15;
+                                    rs.energyReduction += 15;
+                                }
+                            }
                         },
                         "Cavailier": {
                             name: "15% less damage while sprinting",
-                            ballisticReductionPercent: 15,
-                            chance: 75
+                            order: 2,
+                            func: (state) => {
+                                if (state.player.stance === "Sprint") {
+                                    var rs = getOrCreateReductionSlot(state, "Sprint");
+                                    rs.ballisticReduction += 15 * 3 / 4;
+                                    rs.energyReduction += 15 * 3 / 4;
+                                }
+                            }
                         },
                         /*
                         "Limbdamage": {
@@ -631,9 +655,14 @@
                         */
                         "Sentinel": {
                             name: "15% less damage while standing still",
-                            ballisticReductionPercent: 15,
-                            energyReductionPercent: 15,
-                            chance: 75
+                            order: 2,
+                            func: (state) => {
+                                if (state.player.stance === "Still") {
+                                    var rs = getOrCreateReductionSlot(state, "Still");
+                                    rs.ballisticReduction += 15 * 3 / 4;
+                                    rs.energyReduction += 15 * 3 / 4;
+                                }
+                            }
                         }
                     }
                 }
@@ -1176,7 +1205,8 @@
 
                 let makeSel = document.createElement("select");
                 cll.appendChild(makeSel);
-                makeSel.id = index + "_Make_" + part;
+                makeSel.id = index + "_Part_" + part;
+                makeSel.oninput = evt => recalculate(index);
 
                 var opt = document.createElement("option");
                 opt.text = "None";
@@ -1193,17 +1223,24 @@
 
                 var armors = armor[mode];
 
-                for (var a in armors) {
-                    var am = armors[a];
-                    var p = am[part];
+                for (let a in armors) {
+                    let am = armors[a];
+                    let p = am[part];
+                    let pfunc = p.func;
                     titleCll.innerText = p.name;
-                    for (var lvl in am.levels) {
+                    for (let lvl in am.levels) {
                         opt = document.createElement("option");
                         opt.value = a + "-" + am.levels[lvl];
                         opt.text = armors[a].name + " - " + am.levels[lvl];
-                        opt.data = p;
                         opt.level = lvl;
-                        makeSel.appendChild(opt);
+                        opt.data = {
+                            order: p.order,
+                            func: (state) => pfunc(state, lvl) 
+                        }
+                        opt.mods = p.mods;
+                        opt.make = a;
+                        opt.category = am.category;
+                        makeSel.options.add(opt);
                     }
                 }
 
@@ -1225,15 +1262,18 @@
                 rw = tbl.insertRow(tbl.rows.length);
                 rw.id = index + "_Part_" + part + "_ModEnd";
 
-                makeSel.oninput = evt => createMods(tbl, index, mode, part, makeSel);
+                makeSel.oninput = evt => {
+                    createMods(tbl, index, mode, part, makeSel);
+                    recalculate(index);
+                };
             }
 
             function makeFullSet(part, index) {
-                var sel = getOpt(index + "_Make_" + part);
+                var sel = getOpt(index + "_Part_" + part);
 
                 for (var p of ["Helmet", "Torso", "LA", "RA", "LL", "RL"]) {
                     if (p != part) {
-                        var s2 = get(index + "_Make_" + p);
+                        var s2 = get(index + "_Part_" + p);
                             if (s2 != null) {
 
                             for (var i = 0; i < s2.options.length; i++) {
@@ -1255,19 +1295,21 @@
                 var eidx = findRow(tbl, index + "_Part_" + part + "_ModEnd");
                 removeRows(tbl, sidx, eidx);
 
-                var p = sel.options[sel.selectedIndex].data;
+                let opt = sel.options[sel.selectedIndex];
+                let mods = opt.mods;
+                let lvl = opt.level;
 
-                if (p !== undefined) {
+                if (sel.selectedIndex > 0) {                    
                     rw = tbl.insertRow(sidx++);
                     cll = rw.insertCell(rw.cells.length);
 
                     cll.innerText = "Mods";
 
-                    if (p.mods === undefined) {
+                    if (mods === undefined) {
                         cll = rw.insertCell(rw.cells.length);
                         cll.innerText = "No relevant mod";
                     } else {
-                        for (var slot in p.mods) {
+                        for (var slot in mods) {
                             rw = tbl.insertRow(sidx++);
                             cll = rw.insertCell(rw.cells.length);
 
@@ -1277,6 +1319,7 @@
                             let modSel = document.createElement("select");
                             cll.appendChild(modSel);
                             modSel.id = index + "_Part_" + part + "_Mod_" + slot;
+                            modSel.oninput = evt => recalculate(index);
 
                             opt = document.createElement("option");
                             opt.text = "None";
@@ -1284,18 +1327,20 @@
 
                             var modList = [];
 
-                            for (var m in p.mods[slot]) {
-                                var mod = p.mods[slot][m];
+                            for (var m in mods[slot]) {
+                                var mod = mods[slot][m];
                                 modList.push({ key:m, value: mod});
                             }
 
                             modList.sort((a, b) => a.value.name.localeCompare(b.value.name));
 
-                            for (var mod of modList) {
+                            for (let mod of modList) {
                                 opt = document.createElement("option");
                                 opt.value = mod.key;
                                 opt.text = mod.value.name;
-                                opt.data = mod.value;
+                                opt.data = { 
+                                    order: mod.value.order, 
+                                    func: (state) => mod.value.func(state, lvl) };
                                 modSel.options.add(opt);
                             }
                         }
@@ -1316,8 +1361,9 @@
                         let legSel = document.createElement("select");
                         cll = rw.insertCell(rw.cells.length);
                         cll.appendChild(legSel);
+                        legSel.oninput = evt => recalculate(index);
                         
-                        legSel.id = index + "_Legendary_" + part + "_" + le;
+                        legSel.id = index + "_Part_" + part + "_Legendary_" + le;
                         opt = document.createElement("option");
                         legSel.options.add(opt);
 
@@ -1331,7 +1377,7 @@
                             opt = document.createElement("option");
                             opt.value = e.key;
                             opt.text = e.value.name;
-                            opt.data = e.value;
+                            opt.data = { order: e.value.order, func: e.value.func };
                             legSel.options.add(opt);
                         }
                     }
@@ -1400,6 +1446,7 @@
 
                 createNumber(tbl, "Health", index + "_HP", 0, 100, 100, " %").oninput = evt => recalculate(index);
                 createNumber(tbl, "Caps", index + "_Caps", 0, 30000, 0).oninput = evt => recalculate(index);
+                createNumber(tbl, "Food &amp; Drink", index + "_Fooddrink", 0, 100, 100, " %").oninput = evt => recalculate(index);
                 createNumber(tbl, "Carrying", index + "_Carry", 0, 30000, 0, " lb").oninput = evt => recalculate(index);
                 createNumber(tbl, "Teammates", index + "_Teammates", 0, 3, 0).oninput = evt => recalculate(index);
                 createNumber(tbl, "&nbsp;&nbsp;&nbsp;Deaths", index + "_Teamdeaths", 0, 3, 0).oninput = evt => recalculate(index);
@@ -1597,13 +1644,44 @@
                     ["", "Carnivore", "Herbivore"],
                     [
                         null,
-                        orderFunc(1, state => state.player.carnivore = true),
-                        orderFunc(1, state => state.player.herbivore = true),
+                        orderFunc(1, state => {
+                            state.player.carnivore = true;
+                            state.player.mutations++;
+                        }),
+                        orderFunc(1, state => { 
+                            state.player.herbivore = true; 
+                            state.player.mutations++;
+                        }),
                     ]
                 ).oninput = evt => recalculate(index);
-                createYesNo(tbl, index, "Empath", "&nbsp;&nbsp;&nbsp;Empath");
-                createYesNo(tbl, index, "Grounded", "&nbsp;&nbsp;&nbsp;Grounded");
-                createYesNo(tbl, index, "Scalyskin", "&nbsp;&nbsp;&nbsp;Scaly Skin");
+
+                createSelectWithData(tbl, "&nbsp;&nbsp;&nbsp;Empath", index + "_Empath",
+                        ["None", "Self", "Teammate", "Both"],
+                        ["", "Self", "Teammate", "Both"],
+                        [
+                            null,
+                            orderFunc(1, state => {
+                                state.player.mutations++;
+                            }),
+                            orderFunc(1, state => {
+                                state.player.mutations++;
+                            }),
+                            orderFunc(1, state => {
+                                state.player.mutations++;
+                            }),
+                        ]
+                ).oninput = evt => recalculate(index);
+
+                createYesNo(tbl, index, "Grounded", "&nbsp;&nbsp;&nbsp;Grounded", undefined, 
+                    orderFunc(1, state => {
+                        state.player.mutations++;
+                    })
+                );
+                createYesNo(tbl, index, "Scalyskin", "&nbsp;&nbsp;&nbsp;Scaly Skin", undefined, 
+                    orderFunc(1, state => {
+                        state.player.mutations++;
+                    })
+                );
             }
 
             function createConsumableList(cll, index, mode, consumableName) {
@@ -1791,11 +1869,11 @@
                     modList.push({key: bm, value: backpackMods[bm] })
                 }
                 modList.sort((a, b) => a.value.name.localeCompare(b.value.name));
-                var texts = [];
-                var values = [];
-                var data = [];
-                for (var bm of modList) {
-                    for (let blIdx in backpackLevels) {
+                var texts = [ "None" ];
+                var values = [ "" ];
+                var data = [ null ];
+                for (let bm of modList) {
+                    for (let blIdx = 0; blIdx < backpackLevels.length; blIdx++) {
                         let bl = backpackLevels[blIdx];
                         texts.push(bm.value.name + " - " + bl);
                         values.push(bm.key + "_" + bl);
@@ -1843,17 +1921,17 @@
             function getOrCreateReductionSlot(state, name) {
                 var rs = state.reductionSlots[name];
                 if (!rs) {
+                    rs = {
+                        ballisticReduction: 0,
+                        energyReduction: 0,
+                        radiationReduction: 0,
+                        fireReduction: 0,
+                        cryoReduction: 0,
+                        poisonReduction: 0,
+                        explosiveReduction: 0,
+                    }
+                    state.reductionSlots[name] = rs;
                 }
-                rs = {
-                    ballisticReduction: 0,
-                    energyReduction: 0,
-                    radiationReduction: 0,
-                    fireReduction: 0,
-                    cryoReduction: 0,
-                    poisonReduction: 0,
-                    explosiveReduction: 0,
-                }
-                state.reductionSlots[name] = rs;
 
                 return rs;
             }
@@ -1872,6 +1950,7 @@
                 state.player.hp = parseInt(getValue(index + "_HP"));
                 state.player.caps = parseInt(getValue(index + "_Caps"));
                 state.player.carrying = parseInt(getValue(index + "_Carry"));
+                state.player.fooddrink = parseInt(getValue(index + "_Fooddrink"));
                 state.player.teammates = parseInt(getValue(index + "_Teammates"));
                 state.player.teamdeaths = parseInt(getValue(index + "_Teamdeaths"));
                 state.player.night = getBool(index + "_Night_yes");
@@ -1880,6 +1959,7 @@
                 state.player.fireheavy = getBool(index + "_Fireheavy_yes");
                 state.player.stance = getValue(index + "_Stance");
                 state.player.mode = getBool("NonPA" + index) ? "NonPA" : "PA";
+                state.player.mutations = 0;
 
                 state.dr = 0;
                 state.er = 0;
@@ -1910,10 +1990,25 @@
 
                 var modifiers = [];
 
+                var armorMakes = [];
+                var armorPieces = 0;
+                var armorCategories = [];
+
                 outer:
                 for (var tagName of ["input", "select"]) {
                     for (var elem of document.getElementsByTagName(tagName)) {
                         if (elem.id.startsWith(index + "_")) {
+                            if (elem.id.startsWith(index + "_Part_")) {
+                                if (elem.selectedIndex && elem.selectedIndex > 0 && elem.make && elem.category) {
+                                    if (!armorMakes.includes(elem.make)) {
+                                        armorMakes.push(elem.make);
+                                    }
+                                    if (!armorCategories.includes(elem.category)) {
+                                        armorCategories.push(elem.category);
+                                    }
+                                    armorPieces++;
+                                }
+                            }
                             if (elem.selectedIndex && elem.selectedIndex > 0) {
                                 var opt = elem.options[elem.selectedIndex];
                                 if (opt.data.order === undefined) {
@@ -1948,10 +2043,21 @@
                     }
                 }
 
+                state.player.fullSet = false;
+                state.player.fullSetCategory = false;
+
+                if (state.player.mode === "PA") {
+                    state.player.fullSet = armorPieces === 6 && armorMakes.length === 1;
+                    state.player.fullSetCategory = true;
+                } else {
+                    state.player.fullSet = armorPieces === 5 && armorMakes.length === 1;
+                    state.player.fullSetCategory = armorPieces === 5 && armorMakes.length === 1 && armorCategories.length === 1;
+                }
+
                 modifiers.sort((a, b) => a.order < b.order ? -1 : (a.order > b.order ? 1 : 0));
 
                 for (var mod of modifiers) {
-                    mod.func(state, mod.params);
+                    mod.func(state);
                 }
 
                 state.ballisticReduction = 1;
@@ -1964,13 +2070,13 @@
 
                 for (var rsKey in state.reductionSlots) {
                     var rs = state.reductionSlots[rsKey];
-                    state.ballisticReduction *= (1 - rs.ballisticReduction);
-                    state.energyReduction *= (1 - rs.energyReduction);
-                    state.radiationReduction *= (1 - rs.radiationReduction);
-                    state.fireReduction *= (1 - rs.fireReduction);
-                    state.cryoReduction *= (1 - rs.cryoReduction);
-                    state.poisonReduction *= (1 - rs.poisonReduction);
-                    state.explosiveReduction *= (1 - rs.explosiveReduction);
+                    state.ballisticReduction *= (1 - rs.ballisticReduction / 100.0);
+                    state.energyReduction *= (1 - rs.energyReduction / 100.0);
+                    state.radiationReduction *= (1 - rs.radiationReduction / 100.0);
+                    state.fireReduction *= (1 - rs.fireReduction / 100.0);
+                    state.cryoReduction *= (1 - rs.cryoReduction / 100.0);
+                    state.poisonReduction *= (1 - rs.poisonReduction / 100.0);
+                    state.explosiveReduction *= (1 - rs.explosiveReduction / 100.0);
                 }
 
                 state.ballisticReduction = 1 - state.ballisticReduction;
@@ -1994,10 +2100,10 @@
                 var reductions = get("Reductions" + index);
 
                 reductions.innerHTML = createDamageDisplayHTML(
-                    state.ballisticReduction, state.energyReduction, 
-                    state.radiationReduction, state.fireReduction,
-                    state.cryoReduction, state.poisonReduction, 
-                    state.explosiveReduction, " %", 2);
+                    state.ballisticReduction * 100.0, state.energyReduction * 100.0, 
+                    state.radiationReduction * 100.0, state.fireReduction * 100.0,
+                    state.cryoReduction * 100.0, state.poisonReduction * 100.0, 
+                    state.explosiveReduction * 100.0, " %", 2);
             }
 
             function createDamageDisplayHTML(ballistic, energy, radiation, fire, cold, poison, explosive, unit, decimals) {
