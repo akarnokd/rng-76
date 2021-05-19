@@ -61,7 +61,7 @@
     </head>
     <body style="height: 90%">
         <center>
-            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Armor Defense Calculator (0.1.0)</span>
+            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Armor Defense Calculator (0.1.1)</span>
             <br/>
             <!-- <i>(Notification here)</i> -->
         <br/>
@@ -282,6 +282,18 @@
                     state.rr += rrs[idx];
                 };
             }
+
+            var paTorsoEmergencyProtocol = {
+                name: "Emergency protocols",
+                order: 2,
+                func: (state, index) => {
+                    if (state.player.hp <= 20) {
+                        var rs = getOrCreateReductionSlot(state, "emergency");
+                        rs.ballisticReduction += 50;
+                        rs.energyReduction += 50;
+                    }
+                }
+            };
 
             // datasheet
             var armor = {
@@ -674,17 +686,7 @@
                             func: createBasePA([42, 51, 60], [42, 51, 60], [59, 75, 91], 7, 7, 15),
                             mods: {
                                 "Main": {
-                                    "Emergency": {
-                                        name: "Emergency protocols",
-                                        order: 2,
-                                        func: (state, index) => {
-                                            if (state.player.hp <= 20) {
-                                                var rs = getOrCreateReductionSlot(state, "emergency");
-                                                rs.ballisticReduction += 50;
-                                                rs.energyReduction += 50;
-                                            }
-                                        }
-                                    }
+                                    "Emergency": paTorsoEmergencyProtocol
                                 }
                             }
                         },
@@ -701,6 +703,310 @@
                             name: "Left Leg",
                             order: 1,
                             func: createBasePA([24, 30, 36], [24, 30, 36], [35, 45, 55], 7, 7, 15),
+                        },
+                        "RL": {
+                            name: "Right Leg",
+                            use: "LL"
+                        }
+                    },
+                    "Raider": {
+                        name: "Raider",
+                        levels: [15, 25, 35, 45],
+                        category: "PA",
+                        "Helmet": {
+                            name: "Helmet",
+                            order: 1,
+                            func: createBasePA([24, 33, 42, 51], [24, 33, 42, 51], [24, 33, 42, 51], 7, 7, 15)
+                        },
+                        "Torso": {
+                            name: "Torso",
+                            order: 1,
+                            func: createBasePA([40, 55, 71, 86], [40, 55, 71, 86], [40, 55, 71, 86], 7, 7, 15),
+                            mods: {
+                                "Main": {
+                                    "Emergency": paTorsoEmergencyProtocol
+                                }
+                            }
+                        },
+                        "LA": {
+                            name: "Left Arm",
+                            order: 1,
+                            func: createBasePA([24, 33, 42, 51], [24, 33, 42, 51], [24, 33, 42, 51], 7, 7, 15),
+                        },
+                        "RA": {
+                            name: "Right Arm",
+                            use: "LA"
+                        },
+                        "LL": {
+                            name: "Left Leg",
+                            order: 1,
+                            func: createBasePA([24, 33, 42, 51], [24, 33, 42, 51], [24, 33, 42, 51], 7, 7, 15),
+                        },
+                        "RL": {
+                            name: "Right Leg",
+                            use: "LL"
+                        }
+                    },
+                    "T45": {
+                        name: "T-45",
+                        levels: [25, 35, 45],
+                        category: "PA",
+                        "Helmet": {
+                            name: "Helmet",
+                            order: 1,
+                            func: createBasePA([34,44,54], [34,44,54], [34,44,54], 7, 7, 15)
+                        },
+                        "Torso": {
+                            name: "Torso",
+                            order: 1,
+                            func: createBasePA([58,74,90], [58,74,90], [58,74,90], 7, 7, 15),
+                            mods: {
+                                "Main": {
+                                    "Emergency": paTorsoEmergencyProtocol
+                                }
+                            }
+                        },
+                        "LA": {
+                            name: "Left Arm",
+                            order: 1,
+                            func: createBasePA([34,44,54], [34,44,54], [34,44,54], 7, 7, 15),
+                        },
+                        "RA": {
+                            name: "Right Arm",
+                            use: "LA"
+                        },
+                        "LL": {
+                            name: "Left Leg",
+                            order: 1,
+                            func: createBasePA([34,44,54], [34,44,54], [34,44,54], 7, 7, 15),
+                        },
+                        "RL": {
+                            name: "Right Leg",
+                            use: "LL"
+                        }
+                    },
+                    "T51": {
+                        name: "T-51",
+                        levels: [30, 40, 50],
+                        category: "PA",
+                        "Helmet": {
+                            name: "Helmet",
+                            order: 1,
+                            func: createBasePA([45,56,68], [45,56,68], [27,33,49], 7, 7, 15)
+                        },
+                        "Torso": {
+                            name: "Torso",
+                            order: 1,
+                            func: createBasePA([75,94,114], [75,94,114], [46,55,65], 7, 7, 15),
+                            mods: {
+                                "Main": {
+                                    "Emergency": paTorsoEmergencyProtocol
+                                }
+                            }
+                        },
+                        "LA": {
+                            name: "Left Arm",
+                            order: 1,
+                            func: createBasePA([45,56,68], [45,56,68], [27,33,49], 7, 7, 15),
+                        },
+                        "RA": {
+                            name: "Right Arm",
+                            use: "LA"
+                        },
+                        "LL": {
+                            name: "Left Leg",
+                            order: 1,
+                            func: createBasePA([45,56,68], [45,56,68], [27,33,49], 7, 7, 15),
+                        },
+                        "RL": {
+                            name: "Right Leg",
+                            use: "LL"
+                        }
+                    },
+                    "T60": {
+                        name: "T-60",
+                        levels: [40, 50],
+                        category: "PA",
+                        "Helmet": {
+                            name: "Helmet",
+                            order: 1,
+                            func: createBasePA([50, 60], [45,55], [50,60], 7, 7, 15)
+                        },
+                        "Torso": {
+                            name: "Torso",
+                            order: 1,
+                            func: createBasePA([84,100], [79,95], [100,115], 7, 7, 15),
+                            mods: {
+                                "Main": {
+                                    "Emergency": paTorsoEmergencyProtocol
+                                }
+                            }
+                        },
+                        "LA": {
+                            name: "Left Arm",
+                            order: 1,
+                            func: createBasePA([50,60], [45,55], [50,60], 7, 7, 15),
+                        },
+                        "RA": {
+                            name: "Right Arm",
+                            use: "LA"
+                        },
+                        "LL": {
+                            name: "Left Leg",
+                            order: 1,
+                            func: createBasePA([50,60], [45,55], [50,60], 7, 7, 15),
+                        },
+                        "RL": {
+                            name: "Right Leg",
+                            use: "LL"
+                        }
+                    },
+                    "X01": {
+                        name: "X-01",
+                        levels: [40, 50],
+                        category: "PA",
+                        "Helmet": {
+                            name: "Helmet",
+                            order: 1,
+                            func: createBasePA([50, 60], [56,68], [56,68], 7, 7, 15)
+                        },
+                        "Torso": {
+                            name: "Torso",
+                            order: 1,
+                            func: createBasePA([82,98], [94,113], [94,113], 7, 7, 15),
+                            mods: {
+                                "Main": {
+                                    "Emergency": paTorsoEmergencyProtocol
+                                }
+                            }
+                        },
+                        "LA": {
+                            name: "Left Arm",
+                            order: 1,
+                            func: createBasePA([50, 60], [56,68], [56,68], 7, 7, 15),
+                        },
+                        "RA": {
+                            name: "Right Arm",
+                            use: "LA"
+                        },
+                        "LL": {
+                            name: "Left Leg",
+                            order: 1,
+                            func: createBasePA([50, 60], [56,68], [56,68], 7, 7, 15),
+                        },
+                        "RL": {
+                            name: "Right Leg",
+                            use: "LL"
+                        }
+                    },
+                    "Ultracite": {
+                        name: "Ultracite",
+                        levels: [50],
+                        category: "PA",
+                        "Helmet": {
+                            name: "Helmet",
+                            order: 1,
+                            func: createBasePA([68], [59], [59], 7, 7, 15)
+                        },
+                        "Torso": {
+                            name: "Torso",
+                            order: 1,
+                            func: createBasePA([113], [98], [98], 7, 7, 15),
+                            mods: {
+                                "Main": {
+                                    "Emergency": paTorsoEmergencyProtocol
+                                }
+                            }
+                        },
+                        "LA": {
+                            name: "Left Arm",
+                            order: 1,
+                            func: createBasePA([68], [59], [59], 7, 7, 15),
+                        },
+                        "RA": {
+                            name: "Right Arm",
+                            use: "LA"
+                        },
+                        "LL": {
+                            name: "Left Leg",
+                            order: 1,
+                            func: createBasePA([68], [59], [59], 7, 7, 15),
+                        },
+                        "RL": {
+                            name: "Right Leg",
+                            use: "LL"
+                        }
+                    },
+                    "Strangler": {
+                        name: "Strangler Heart",
+                        levels: [50],
+                        category: "PA",
+                        "Helmet": {
+                            name: "Helmet",
+                            order: 1,
+                            func: createBasePA([68], [59], [75], 7, 7, 15)
+                        },
+                        "Torso": {
+                            name: "Torso",
+                            order: 1,
+                            func: createBasePA([113], [98], [125], 7, 7, 15),
+                            mods: {
+                                "Main": {
+                                    "Emergency": paTorsoEmergencyProtocol
+                                }
+                            }
+                        },
+                        "LA": {
+                            name: "Left Arm",
+                            order: 1,
+                            func: createBasePA([68], [59], [75], 7, 7, 15),
+                        },
+                        "RA": {
+                            name: "Right Arm",
+                            use: "LA"
+                        },
+                        "LL": {
+                            name: "Left Leg",
+                            order: 1,
+                            func: createBasePA([68], [59], [75], 7, 7, 15),
+                        },
+                        "RL": {
+                            name: "Right Leg",
+                            use: "LL"
+                        }
+                    },
+                    "T65": {
+                        name: "T-65",
+                        levels: [50],
+                        category: "PA",
+                        "Helmet": {
+                            name: "Helmet",
+                            order: 1,
+                            func: createBasePA([85], [70], [70], 7, 7, 15)
+                        },
+                        "Torso": {
+                            name: "Torso",
+                            order: 1,
+                            func: createBasePA([140], [120], [120], 7, 7, 15),
+                            mods: {
+                                "Main": {
+                                    "Emergency": paTorsoEmergencyProtocol
+                                }
+                            }
+                        },
+                        "LA": {
+                            name: "Left Arm",
+                            order: 1,
+                            func: createBasePA([85], [70], [70], 7, 7, 15),
+                        },
+                        "RA": {
+                            name: "Right Arm",
+                            use: "LA"
+                        },
+                        "LL": {
+                            name: "Left Leg",
+                            order: 1,
+                            func: createBasePA([85], [70], [70], 7, 7, 15),
                         },
                         "RL": {
                             name: "Right Leg",
@@ -1609,6 +1915,16 @@
                 return sel.options[sel.selectedIndex];
             }
 
+            function createSetFullLink(cll, part, index, slot) {
+                var span = document.createElement("span");
+                span.innerHTML = "&nbsp;&nbsp;&nbsp;";
+                cll.appendChild(span);
+                var fullSet = document.createElement("a");
+                fullSet.innerText = "<*all>";
+                fullSet.href = "#";
+                fullSet.onclick = evt => makeFullSetSlot(part, index, slot);
+                cll.appendChild(fullSet);
+            }
 
             function createBodyPart(tbl, index, mode, part) {
 
@@ -1635,12 +1951,16 @@
                 var fullSet = document.createElement("a");
                 fullSet.innerText = "<set all>";
                 fullSet.href = "#";
-                fullSet.onclick = evt => makeFullSet(part, index);
+                fullSet.onclick = evt => makeFullSetSlot(part, index, "");
                 cll.appendChild(fullSet);
 
                 var armors = armor[mode];
 
                 for (let a in armors) {
+                    opt = document.createElement("option");
+                    opt.text = "---";
+                    opt.disabled = true;
+                    makeSel.options.add(opt);
                     let am = armors[a];
                     let p = am[part];
                     if (p.use) {
@@ -1651,7 +1971,7 @@
                     for (let lvl in am.levels) {
                         opt = document.createElement("option");
                         opt.value = a + "-" + am.levels[lvl];
-                        opt.text = armors[a].name + " - " + am.levels[lvl];
+                        opt.text = armors[a].name + " - Level " + am.levels[lvl];
                         opt.level = lvl;
                         opt.data = {
                             order: p.order,
@@ -1688,12 +2008,12 @@
                 };
             }
 
-            function makeFullSet(part, index) {
-                var sel = getOpt(index + "_Part_" + part);
+            function makeFullSetSlot(part, index, slot) {
+                var sel = getOpt(index + "_Part_" + part + slot);
 
                 for (var p of ["Helmet", "Torso", "LA", "RA", "LL", "RL"]) {
                     if (p != part) {
-                        var s2 = get(index + "_Part_" + p);
+                        var s2 = get(index + "_Part_" + p + slot);
                             if (s2 != null) {
 
                             for (var i = 0; i < s2.options.length; i++) {
@@ -1738,6 +2058,7 @@
                             cll = rw.insertCell(rw.cells.length);
                             let modSel = document.createElement("select");
                             cll.appendChild(modSel);
+                            createSetFullLink(cll, part, index, "_Mod_" + slot);
                             modSel.id = index + "_Part_" + part + "_Mod_" + slot;
                             modSel.oninput = evt => recalculateBoth();
 
@@ -1791,6 +2112,7 @@
                         let legSel = document.createElement("select");
                         cll = rw.insertCell(rw.cells.length);
                         cll.appendChild(legSel);
+                        createSetFullLink(cll, part, index, "_Legendary_" + le);
                         legSel.oninput = evt => recalculateBoth();
                         
                         legSel.id = index + "_Part_" + part + "_Legendary_" + le;
