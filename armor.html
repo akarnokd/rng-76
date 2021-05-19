@@ -61,7 +61,7 @@
     </head>
     <body style="height: 90%">
         <center>
-            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Armor Defense Calculator (0.1.1)</span>
+            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Armor Defense Calculator (0.1.2)</span>
             <br/>
             <!-- <i>(Notification here)</i> -->
         <br/>
@@ -662,6 +662,986 @@
                                         func: createBaseNonPA([11, 13], [11, 13], [11, 13])
                                     }
                                 },
+                            }
+                        },
+                        "RL": {
+                            name: "Right Leg",
+                            use: "LL"
+                        },
+                    },
+                    "RaiderLight": {
+                        name: "Raider - Light",
+                        levels: [5,15,25,35,45],
+                        category: "Light",
+                        "Torso": {
+                            name: "Chest Piece",
+                            order: 1,
+                            func: createBaseNonPA([10, 18, 26, 34, 42], [4, 6, 9, 12, 15], [0, 0, 0, 0, 0]),
+                            mods: {
+                                "Main": {
+                                    "Standard": {
+                                        name: "Standard",
+                                        default: true,
+                                    }
+                                },
+                                "Misc": {
+                                    "None": {
+                                        name: "None",
+                                        default: true
+                                    }
+                                }
+                            }
+                        },
+                        "LA": {
+                            name: "Left Arm",
+                            order: 1,
+                            func: createBaseNonPA([5, 8, 11, 14, 17], [2, 3, 4, 7, 8], [0, 0, 0, 0, 0]),
+                            mods: {
+                                "Main": {
+                                    "Standard": {
+                                        name: "Standard",
+                                        default: true,
+                                    }
+                                },
+                                "Misc": {
+                                    "None": {
+                                        name: "None",
+                                        default: true
+                                    }
+                                }
+                            }
+                        },
+                        "RA": {
+                            name: "Right Arm",
+                            use: "LA"
+                        },
+                        "LL": {
+                            name: "Left Leg",
+                            order: 1,
+                            func: createBaseNonPA([5, 8, 11, 14, 17], [2, 3, 4, 7, 8], [0, 0, 0, 0, 0]),
+                            mods: {
+                                "Main": {
+                                    "Standard": {
+                                        name: "Standard",
+                                        default: true,
+                                    }
+                                },
+                                "Misc": {
+                                    "None": {
+                                        name: "None",
+                                        default: true
+                                    }
+                                }
+                            }
+                        },
+                        "RL": {
+                            name: "Right Leg",
+                            use: "LL"
+                        },
+                    },
+                    "RaiderSturdy": {
+                        name: "Raider - Sturdy",
+                        levels: [5,15,25,35,45],
+                        category: "Sturdy",
+                        "Torso": {
+                            name: "Chest Piece",
+                            order: 1,
+                            func: createBaseNonPA([13, 24, 34, 44, 54], [6, 8, 11, 15, 19], [0, 0, 0, 0, 0]),
+                            mods: {
+                                "Main": {
+                                    "Standard": {
+                                        name: "Standard",
+                                        default: true,
+                                    }
+                                },
+                                "Misc": {
+                                    "None": {
+                                        name: "None",
+                                        default: true
+                                    }
+                                }
+                            }
+                        },
+                        "LA": {
+                            name: "Left Arm",
+                            order: 1,
+                            func: createBaseNonPA([7, 10, 14, 18, 22], [3, 5, 6, 9, 10], [0, 0, 0, 0, 0]),
+                            mods: {
+                                "Main": {
+                                    "Standard": {
+                                        name: "Standard",
+                                        default: true,
+                                    }
+                                },
+                                "Misc": {
+                                    "None": {
+                                        name: "None",
+                                        default: true
+                                    }
+                                }
+                            }
+                        },
+                        "RA": {
+                            name: "Right Arm",
+                            use: "LA"
+                        },
+                        "LL": {
+                            name: "Left Leg",
+                            order: 1,
+                            func: createBaseNonPA([7, 10, 14, 18, 22], [3, 5, 6, 9, 10], [0, 0, 0, 0, 0]),
+                            mods: {
+                                "Main": {
+                                    "Standard": {
+                                        name: "Standard",
+                                        default: true,
+                                    }
+                                },
+                                "Misc": {
+                                    "None": {
+                                        name: "None",
+                                        default: true
+                                    }
+                                }
+                            }
+                        },
+                        "RL": {
+                            name: "Right Leg",
+                            use: "LL"
+                        },
+                    },
+                    "RaiderHeavy": {
+                        name: "Raider - Heavy",
+                        levels: [5,15,25,35,45],
+                        category: "Heavy",
+                        "Torso": {
+                            name: "Chest Piece",
+                            order: 1,
+                            func: createBaseNonPA([17, 32, 44, 57, 70], [8, 11, 14, 19, 24], [0, 0, 0, 0, 0]),
+                            mods: {
+                                "Main": {
+                                    "Standard": {
+                                        name: "Standard",
+                                        default: true,
+                                    }
+                                },
+                                "Misc": {
+                                    "None": {
+                                        name: "None",
+                                        default: true
+                                    }
+                                }
+                            }
+                        },
+                        "LA": {
+                            name: "Left Arm",
+                            order: 1,
+                            func: createBaseNonPA([9, 13, 18, 23, 28], [4, 6, 8, 11, 13], [0, 0, 0, 0, 0]),
+                            mods: {
+                                "Main": {
+                                    "Standard": {
+                                        name: "Standard",
+                                        default: true,
+                                    }
+                                },
+                                "Misc": {
+                                    "None": {
+                                        name: "None",
+                                        default: true
+                                    }
+                                }
+                            }
+                        },
+                        "RA": {
+                            name: "Right Arm",
+                            use: "LA"
+                        },
+                        "LL": {
+                            name: "Left Leg",
+                            order: 1,
+                            func: createBaseNonPA([9, 13, 18, 23, 28], [4, 6, 8, 11, 13], [0, 0, 0, 0, 0]),
+                            mods: {
+                                "Main": {
+                                    "Standard": {
+                                        name: "Standard",
+                                        default: true,
+                                    }
+                                },
+                                "Misc": {
+                                    "None": {
+                                        name: "None",
+                                        default: true
+                                    }
+                                }
+                            }
+                        },
+                        "RL": {
+                            name: "Right Leg",
+                            use: "LL"
+                        },
+                    },
+                    "RobotLight": {
+                        name: "Robot - Light",
+                        levels: [10,20,30,40,50],
+                        category: "Light",
+                        "Torso": {
+                            name: "Chest Piece",
+                            order: 1,
+                            func: createBaseNonPA([8, 12, 16, 20, 24], [8, 12, 16, 20, 24], [5, 7, 9, 11, 13]),
+                            mods: {
+                                "Main": {
+                                    "Standard": {
+                                        name: "Standard",
+                                        default: true,
+                                    }
+                                },
+                                "Misc": {
+                                    "None": {
+                                        name: "None",
+                                        default: true
+                                    }
+                                }
+                            }
+                        },
+                        "LA": {
+                            name: "Left Arm",
+                            order: 1,
+                            func: createBaseNonPA([3, 5, 7, 9, 10], [3, 5, 7, 9, 10], [3, 5, 7, 9, 10]),
+                            mods: {
+                                "Main": {
+                                    "Standard": {
+                                        name: "Standard",
+                                        default: true,
+                                    }
+                                },
+                                "Misc": {
+                                    "None": {
+                                        name: "None",
+                                        default: true
+                                    }
+                                }
+                            }
+                        },
+                        "RA": {
+                            name: "Right Arm",
+                            use: "LA"
+                        },
+                        "LL": {
+                            name: "Left Leg",
+                            order: 1,
+                            func: createBaseNonPA([3, 5, 7, 9, 10], [3, 5, 7, 9, 10], [3, 5, 7, 9, 10]),
+                            mods: {
+                                "Main": {
+                                    "Standard": {
+                                        name: "Standard",
+                                        default: true,
+                                    }
+                                },
+                                "Misc": {
+                                    "None": {
+                                        name: "None",
+                                        default: true
+                                    }
+                                }
+                            }
+                        },
+                        "RL": {
+                            name: "Right Leg",
+                            use: "LL"
+                        },
+                    },
+                    "RobotSturdy": {
+                        name: "Robot - Sturdy",
+                        levels: [10,20,30,40,50],
+                        category: "Sturdy",
+                        "Torso": {
+                            name: "Chest Piece",
+                            order: 1,
+                            func: createBaseNonPA([11, 16, 21, 26, 32], [11, 16, 21, 26, 32], [7, 9, 11, 13, 15]),
+                            mods: {
+                                "Main": {
+                                    "Standard": {
+                                        name: "Standard",
+                                        default: true,
+                                    }
+                                },
+                                "Misc": {
+                                    "None": {
+                                        name: "None",
+                                        default: true
+                                    }
+                                }
+                            }
+                        },
+                        "LA": {
+                            name: "Left Arm",
+                            order: 1,
+                            func: createBaseNonPA([5, 7, 9, 12, 13], [3, 5, 6, 9, 10], [5, 7, 9, 12, 13]),
+                            mods: {
+                                "Main": {
+                                    "Standard": {
+                                        name: "Standard",
+                                        default: true,
+                                    }
+                                },
+                                "Misc": {
+                                    "None": {
+                                        name: "None",
+                                        default: true
+                                    }
+                                }
+                            }
+                        },
+                        "RA": {
+                            name: "Right Arm",
+                            use: "LA"
+                        },
+                        "LL": {
+                            name: "Left Leg",
+                            order: 1,
+                            func: createBaseNonPA([5, 7, 9, 12, 13], [3, 5, 6, 9, 10], [5, 7, 9, 12, 13]),
+                            mods: {
+                                "Main": {
+                                    "Standard": {
+                                        name: "Standard",
+                                        default: true,
+                                    }
+                                },
+                                "Misc": {
+                                    "None": {
+                                        name: "None",
+                                        default: true
+                                    }
+                                }
+                            }
+                        },
+                        "RL": {
+                            name: "Right Leg",
+                            use: "LL"
+                        },
+                    },
+                    "RobotHeavy": {
+                        name: "Robot - Heavy",
+                        levels: [10,20,30,40,50],
+                        category: "Heavy",
+                        "Torso": {
+                            name: "Chest Piece",
+                            order: 1,
+                            func: createBaseNonPA([14, 16, 27, 34, 42], [14, 16, 27, 34, 42], [7, 9, 11, 13, 15]),
+                            mods: {
+                                "Main": {
+                                    "Standard": {
+                                        name: "Standard",
+                                        default: true,
+                                    }
+                                },
+                                "Misc": {
+                                    "None": {
+                                        name: "None",
+                                        default: true
+                                    }
+                                }
+                            }
+                        },
+                        "LA": {
+                            name: "Left Arm",
+                            order: 1,
+                            func: createBaseNonPA([7, 9, 12, 15, 17], [7, 9, 12, 15, 17], [7, 9, 11, 13, 15]),
+                            mods: {
+                                "Main": {
+                                    "Standard": {
+                                        name: "Standard",
+                                        default: true,
+                                    }
+                                },
+                                "Misc": {
+                                    "None": {
+                                        name: "None",
+                                        default: true
+                                    }
+                                }
+                            }
+                        },
+                        "RA": {
+                            name: "Right Arm",
+                            use: "LA"
+                        },
+                        "LL": {
+                            name: "Left Leg",
+                            order: 1,
+                            func: createBaseNonPA([7, 9, 12, 15, 17], [7, 9, 12, 15, 17], [7, 9, 11, 13, 15]),
+                            mods: {
+                                "Main": {
+                                    "Standard": {
+                                        name: "Standard",
+                                        default: true,
+                                    }
+                                },
+                                "Misc": {
+                                    "None": {
+                                        name: "None",
+                                        default: true
+                                    }
+                                }
+                            }
+                        },
+                        "RL": {
+                            name: "Right Leg",
+                            use: "LL"
+                        },
+                    },
+                    "Trapper": {
+                        name: "Trapper",
+                        levels: [15,25,35,45],
+                        category: "Light",
+                        "Torso": {
+                            name: "Chest Piece",
+                            order: 1,
+                            func: createBaseNonPA([14, 20, 26, 32], [7, 9, 12, 14], [14, 20, 26, 32]),
+                            mods: {
+                                "Main": {
+                                    "Standard": {
+                                        name: "Standard",
+                                        default: true,
+                                    }
+                                },
+                                "Misc": {
+                                    "None": {
+                                        name: "None",
+                                        default: true
+                                    }
+                                }
+                            }
+                        },
+                        "LA": {
+                            name: "Left Arm",
+                            order: 1,
+                            func: createBaseNonPA([6, 9, 12, 14], [4, 6, 8, 10], [6, 9, 12, 14]),
+                            mods: {
+                                "Main": {
+                                    "Standard": {
+                                        name: "Standard",
+                                        default: true,
+                                    }
+                                },
+                                "Misc": {
+                                    "None": {
+                                        name: "None",
+                                        default: true
+                                    }
+                                }
+                            }
+                        },
+                        "RA": {
+                            name: "Right Arm",
+                            use: "LA"
+                        },
+                        "LL": {
+                            name: "Left Leg",
+                            order: 1,
+                            func: createBaseNonPA([6, 9, 12, 14], [4, 6, 8, 10], [6, 9, 12, 14]),
+                            mods: {
+                                "Main": {
+                                    "Standard": {
+                                        name: "Standard",
+                                        default: true,
+                                    }
+                                },
+                                "Misc": {
+                                    "None": {
+                                        name: "None",
+                                        default: true
+                                    }
+                                }
+                            }
+                        },
+                        "RL": {
+                            name: "Right Leg",
+                            use: "LL"
+                        },
+                    },
+                    "CombatLight": {
+                        name: "Combat - Light",
+                        levels: [20,30,40,50],
+                        category: "Light",
+                        "Torso": {
+                            name: "Chest Piece",
+                            order: 1,
+                            func: createBaseNonPA([16,25,30,36], [16,25,30,36], [0,0,0,0]),
+                            mods: {
+                                "Main": {
+                                    "Standard": {
+                                        name: "Standard",
+                                        default: true,
+                                    }
+                                },
+                                "Misc": {
+                                    "None": {
+                                        name: "None",
+                                        default: true
+                                    }
+                                }
+                            }
+                        },
+                        "LA": {
+                            name: "Left Arm",
+                            order: 1,
+                            func: createBaseNonPA([6,8,10,12], [6,8,10,12], [0,0,0,0]),
+                            mods: {
+                                "Main": {
+                                    "Standard": {
+                                        name: "Standard",
+                                        default: true,
+                                    }
+                                },
+                                "Misc": {
+                                    "None": {
+                                        name: "None",
+                                        default: true
+                                    }
+                                }
+                            }
+                        },
+                        "RA": {
+                            name: "Right Arm",
+                            use: "LA"
+                        },
+                        "LL": {
+                            name: "Left Leg",
+                            order: 1,
+                            func: createBaseNonPA([6,8,10,12], [6,8,10,12], [0,0,0,0]),
+                            mods: {
+                                "Main": {
+                                    "Standard": {
+                                        name: "Standard",
+                                        default: true,
+                                    }
+                                },
+                                "Misc": {
+                                    "None": {
+                                        name: "None",
+                                        default: true
+                                    }
+                                }
+                            }
+                        },
+                        "RL": {
+                            name: "Right Leg",
+                            use: "LL"
+                        },
+                    },
+                    "CombatSturdy": {
+                        name: "Combat - Sturdy",
+                        levels: [20,30,40,50],
+                        category: "Sturdy",
+                        "Torso": {
+                            name: "Chest Piece",
+                            order: 1,
+                            func: createBaseNonPA([21,33,40,47], [21,33,40,47], [0,0,0,0]),
+                            mods: {
+                                "Main": {
+                                    "Standard": {
+                                        name: "Standard",
+                                        default: true,
+                                    }
+                                },
+                                "Misc": {
+                                    "None": {
+                                        name: "None",
+                                        default: true
+                                    }
+                                }
+                            }
+                        },
+                        "LA": {
+                            name: "Left Arm",
+                            order: 1,
+                            func: createBaseNonPA([8,11,13,15], [8,11,13,15], [0,0,0,0]),
+                            mods: {
+                                "Main": {
+                                    "Standard": {
+                                        name: "Standard",
+                                        default: true,
+                                    }
+                                },
+                                "Misc": {
+                                    "None": {
+                                        name: "None",
+                                        default: true
+                                    }
+                                }
+                            }
+                        },
+                        "RA": {
+                            name: "Right Arm",
+                            use: "LA"
+                        },
+                        "LL": {
+                            name: "Left Leg",
+                            order: 1,
+                            func: createBaseNonPA([8,11,13,15], [8,11,13,15], [0,0,0,0]),
+                            mods: {
+                                "Main": {
+                                    "Standard": {
+                                        name: "Standard",
+                                        default: true,
+                                    }
+                                },
+                                "Misc": {
+                                    "None": {
+                                        name: "None",
+                                        default: true
+                                    }
+                                }
+                            }
+                        },
+                        "RL": {
+                            name: "Right Leg",
+                            use: "LL"
+                        },
+                    },
+                    "CombatHeavy": {
+                        name: "Combat - Heavy",
+                        levels: [20,30,40,50],
+                        category: "Heavy",
+                        "Torso": {
+                            name: "Chest Piece",
+                            order: 1,
+                            func: createBaseNonPA([27,43,52,61], [27,43,52,61], [0,0,0,0]),
+                            mods: {
+                                "Main": {
+                                    "Standard": {
+                                        name: "Standard",
+                                        default: true,
+                                    }
+                                },
+                                "Misc": {
+                                    "None": {
+                                        name: "None",
+                                        default: true
+                                    }
+                                }
+                            }
+                        },
+                        "LA": {
+                            name: "Left Arm",
+                            order: 1,
+                            func: createBaseNonPA([11,14,17,20], [11,14,17,20], [0,0,0,0]),
+                            mods: {
+                                "Main": {
+                                    "Standard": {
+                                        name: "Standard",
+                                        default: true,
+                                    }
+                                },
+                                "Misc": {
+                                    "None": {
+                                        name: "None",
+                                        default: true
+                                    }
+                                }
+                            }
+                        },
+                        "RA": {
+                            name: "Right Arm",
+                            use: "LA"
+                        },
+                        "LL": {
+                            name: "Left Leg",
+                            order: 1,
+                            func: createBaseNonPA([11,14,17,20], [11,14,17,20], [0,0,0,0]),
+                            mods: {
+                                "Main": {
+                                    "Standard": {
+                                        name: "Standard",
+                                        default: true,
+                                    }
+                                },
+                                "Misc": {
+                                    "None": {
+                                        name: "None",
+                                        default: true
+                                    }
+                                }
+                            }
+                        },
+                        "RL": {
+                            name: "Right Leg",
+                            use: "LL"
+                        },
+                    },
+                    "Marine": {
+                        name: "Marine",
+                        levels: [35,45],
+                        category: "Sturdy",
+                        "Torso": {
+                            name: "Chest Piece",
+                            order: 1,
+                            func: createBaseNonPA([37,46], [16,19], [16,19]),
+                            mods: {
+                                "Main": {
+                                    "Standard": {
+                                        name: "Standard",
+                                        default: true,
+                                    }
+                                },
+                                "Misc": {
+                                    "None": {
+                                        name: "None",
+                                        default: true
+                                    }
+                                }
+                            }
+                        },
+                        "LA": {
+                            name: "Left Arm",
+                            order: 1,
+                            func: createBaseNonPA([16,19], [11,14], [0,0]),
+                            mods: {
+                                "Main": {
+                                    "Standard": {
+                                        name: "Standard",
+                                        default: true,
+                                    }
+                                },
+                                "Misc": {
+                                    "None": {
+                                        name: "None",
+                                        default: true
+                                    }
+                                }
+                            }
+                        },
+                        "RA": {
+                            name: "Right Arm",
+                            use: "LA"
+                        },
+                        "LL": {
+                            name: "Left Leg",
+                            order: 1,
+                            func: createBaseNonPA([16,19], [11,14], [0,0]),
+                            mods: {
+                                "Main": {
+                                    "Standard": {
+                                        name: "Standard",
+                                        default: true,
+                                    }
+                                },
+                                "Misc": {
+                                    "None": {
+                                        name: "None",
+                                        default: true
+                                    }
+                                }
+                            }
+                        },
+                        "RL": {
+                            name: "Right Leg",
+                            use: "LL"
+                        },
+                    },
+                    "MetalLight": {
+                        name: "Metal - Light",
+                        levels: [10,20,30,40,50],
+                        category: "Light",
+                        "Torso": {
+                            name: "Chest Piece",
+                            order: 1,
+                            func: createBaseNonPA([0,0,0,0,0], [0,0,0,0,0], [0,0,0,0,0]),
+                            mods: {
+                                "Main": {
+                                    "Standard": {
+                                        name: "Standard",
+                                        default: true,
+                                    }
+                                },
+                                "Misc": {
+                                    "None": {
+                                        name: "None",
+                                        default: true
+                                    }
+                                }
+                            }
+                        },
+                        "LA": {
+                            name: "Left Arm",
+                            order: 1,
+                            func: createBaseNonPA([0,0,0,0,0], [0,0,0,0,0], [0,0,0,0,0]),
+                            mods: {
+                                "Main": {
+                                    "Standard": {
+                                        name: "Standard",
+                                        default: true,
+                                    }
+                                },
+                                "Misc": {
+                                    "None": {
+                                        name: "None",
+                                        default: true
+                                    }
+                                }
+                            }
+                        },
+                        "RA": {
+                            name: "Right Arm",
+                            use: "LA"
+                        },
+                        "LL": {
+                            name: "Left Leg",
+                            order: 1,
+                            func: createBaseNonPA([0,0,0,0,0], [0,0,0,0,0], [0,0,0,0,0]),
+                            mods: {
+                                "Main": {
+                                    "Standard": {
+                                        name: "Standard",
+                                        default: true,
+                                    }
+                                },
+                                "Misc": {
+                                    "None": {
+                                        name: "None",
+                                        default: true
+                                    }
+                                }
+                            }
+                        },
+                        "RL": {
+                            name: "Right Leg",
+                            use: "LL"
+                        },
+                    },
+                    "MetalSturdy": {
+                        name: "Metal - Sturdy",
+                        levels: [10,20,30,40,50],
+                        category: "Sturdy",
+                        "Torso": {
+                            name: "Chest Piece",
+                            order: 1,
+                            func: createBaseNonPA([0,0,0,0,0], [0,0,0,0,0], [0,0,0,0,0]),
+                            mods: {
+                                "Main": {
+                                    "Standard": {
+                                        name: "Standard",
+                                        default: true,
+                                    }
+                                },
+                                "Misc": {
+                                    "None": {
+                                        name: "None",
+                                        default: true
+                                    }
+                                }
+                            }
+                        },
+                        "LA": {
+                            name: "Left Arm",
+                            order: 1,
+                            func: createBaseNonPA([0,0,0,0,0], [0,0,0,0,0], [0,0,0,0,0]),
+                            mods: {
+                                "Main": {
+                                    "Standard": {
+                                        name: "Standard",
+                                        default: true,
+                                    }
+                                },
+                                "Misc": {
+                                    "None": {
+                                        name: "None",
+                                        default: true
+                                    }
+                                }
+                            }
+                        },
+                        "RA": {
+                            name: "Right Arm",
+                            use: "LA"
+                        },
+                        "LL": {
+                            name: "Left Leg",
+                            order: 1,
+                            func: createBaseNonPA([0,0,0,0,0], [0,0,0,0,0], [0,0,0,0,0]),
+                            mods: {
+                                "Main": {
+                                    "Standard": {
+                                        name: "Standard",
+                                        default: true,
+                                    }
+                                },
+                                "Misc": {
+                                    "None": {
+                                        name: "None",
+                                        default: true
+                                    }
+                                }
+                            }
+                        },
+                        "RL": {
+                            name: "Right Leg",
+                            use: "LL"
+                        },
+                    },
+                    "MetalHeavy": {
+                        name: "Metal - Heavy",
+                        levels: [10,20,30,40,50],
+                        category: "Heavy",
+                        "Torso": {
+                            name: "Chest Piece",
+                            order: 1,
+                            func: createBaseNonPA([0,0,0,0,0], [0,0,0,0,0], [0,0,0,0,0]),
+                            mods: {
+                                "Main": {
+                                    "Standard": {
+                                        name: "Standard",
+                                        default: true,
+                                    }
+                                },
+                                "Misc": {
+                                    "None": {
+                                        name: "None",
+                                        default: true
+                                    }
+                                }
+                            }
+                        },
+                        "LA": {
+                            name: "Left Arm",
+                            order: 1,
+                            func: createBaseNonPA([0,0,0,0,0], [0,0,0,0,0], [0,0,0,0,0]),
+                            mods: {
+                                "Main": {
+                                    "Standard": {
+                                        name: "Standard",
+                                        default: true,
+                                    }
+                                },
+                                "Misc": {
+                                    "None": {
+                                        name: "None",
+                                        default: true
+                                    }
+                                }
+                            }
+                        },
+                        "RA": {
+                            name: "Right Arm",
+                            use: "LA"
+                        },
+                        "LL": {
+                            name: "Left Leg",
+                            order: 1,
+                            func: createBaseNonPA([0,0,0,0,0], [0,0,0,0,0], [0,0,0,0,0]),
+                            mods: {
+                                "Main": {
+                                    "Standard": {
+                                        name: "Standard",
+                                        default: true,
+                                    }
+                                },
+                                "Misc": {
+                                    "None": {
+                                        name: "None",
+                                        default: true
+                                    }
+                                }
                             }
                         },
                         "RL": {
