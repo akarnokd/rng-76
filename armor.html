@@ -64,7 +64,7 @@
     </head>
     <body style="height: 90%">
         <center>
-            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Armor Defense Calculator (0.1.7)</span>
+            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Armor Defense Calculator (0.1.8)</span>
             <br/>
             <!-- <i>(Notification here)</i> -->
         <br/>
@@ -4459,19 +4459,23 @@
 
             function createCategoryLevel(group, makeSel, partTypeSel, partCategorySel, partLevelSel) {
                 if (!selectTypeCatLevelReverseMode) {
-                    makeSel.selectedIndex = 0;
-                    makeSel.dispatchEvent(new Event("input"));
+                    selectTypeCatLevelForwardMode = true;
+                    try {
+                        makeSel.selectedIndex = 0;
+                        makeSel.dispatchEvent(new Event("input"));
+                    } finally {
+                        selectTypeCatLevelForwardMode = false;
+                    }
+                    get(group + "SetAll").style.display = "none";
                 }
-
-
-                let opt = partTypeSel.options[partTypeSel.selectedIndex];
                 partCategorySel.innerHTML = "";
                 partLevelSel.innerHTML = "";
-                
-                let categoryAndLevelSelected = {};
-                categoryAndLevelSelected.key = opt.value;
 
-                if (opt.value !== "") {
+                if (partTypeSel.selectedIndex > 0) {
+                    let opt = partTypeSel.options[partTypeSel.selectedIndex];
+                    
+                    let categoryAndLevelSelected = {};
+                    categoryAndLevelSelected.key = opt.value;
                     var d = opt.data;
                     if (d.categories.length > 0) {
                         for (let cat of d.categories) {
@@ -4504,6 +4508,8 @@
                     }
 
                     onCategoryLevelSelection(makeSel, categoryAndLevelSelected);
+                } else {
+                    get(group + "SetAll").style.display = "inline";
                 }
             }
 
@@ -4536,9 +4542,12 @@
                 makeSel.style.display = "none";
 
                 var span = document.createElement("span");
+                span.id = part + index + "SetAll";
+                //span.style.display = "none";
                 span.innerHTML = "&nbsp;&nbsp;&nbsp;";
                 var fullSet = document.createElement("a");
                 fullSet.innerText = "<set all>";
+                fullSet.id = part + index + "SetAll";
                 fullSet.href = "#";
                 fullSet.onclick = evt => makeFullSetSlot(part, index, "");
                 span.appendChild(fullSet);
@@ -4678,6 +4687,15 @@
             var selectTypeCatLevelForwardMode = false;
 
             function selectTypeCatLevelReverse(armorId, part, index) {
+                if (armorId === "" || armorId === "None") {
+                    selectTypeCatLevelReverseMode = true;
+                    try {
+                        selectValue(get(part + index), "None");
+                    } finally {
+                        selectTypeCatLevelReverseMode = false;
+                    }
+                    return;
+                }
                 var armorIdSplit = armorId.split("-");
                 var cat = "";
                 var type = "";
@@ -4713,6 +4731,8 @@
                 if (selectTypeCatLevelReverseMode) {
                     return;
                 }
+                get(part + index + "SetAll").style.display = "inline";
+
                 var sidx = findRow(tbl, index + "_Part_" + part + "_ModStart") + 1;
                 var eidx = findRow(tbl, index + "_Part_" + part + "_ModEnd");
                 removeRows(tbl, sidx, eidx);
@@ -4721,10 +4741,11 @@
                 let mods = opt.mods;
                 let lvl = opt.level;
 
+                if (!selectTypeCatLevelForwardMode) {
+                    selectTypeCatLevelReverse(opt.value, part, index);
+                }
+
                 if (sel.selectedIndex > 0) {                    
-                    if (!selectTypeCatLevelForwardMode) {
-                        selectTypeCatLevelReverse(opt.value, part, index);
-                    }
 
                     rw = tbl.insertRow(sidx++);
                     cll = rw.insertCell(rw.cells.length);
