@@ -64,7 +64,7 @@
     </head>
     <body style="height: 90%">
         <center>
-            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Armor Defense Calculator (0.1.6)</span>
+            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Armor Defense Calculator (0.1.7)</span>
             <br/>
             <!-- <i>(Notification here)</i> -->
         <br/>
@@ -3487,6 +3487,44 @@
                 }
             };
 
+            var armorHierarchy = {
+                "NonPA": {
+                },
+                "PA": {
+                },
+                "Suit": {
+                }
+            }
+
+            for (var armorKind in armor) {
+                for (var armorId in armor[armorKind]) {
+                    var armorEntry = armor[armorKind][armorId];
+
+                    if (armorId.endsWith("Light")) {
+                        var newArmorEntry = {};
+                        var idx = armorEntry.name.indexOf(" - ");
+                        if (idx > 0) {
+                            newArmorEntry.name = armorEntry.name.substring(0, idx);
+                        } else {
+                            newArmorEntry.name = armorEntry.name;
+                        }
+                        newArmorEntry.levels = armorEntry.levels;
+                        newArmorEntry.categories = ["Light", "Sturdy", "Heavy"];
+
+                        idx = armorId.indexOf("Light");
+                        var newArmor = armorId.substring(0, idx);
+                        armorHierarchy[armorKind][newArmor] = newArmorEntry;
+                    } else
+                    if (!armorId.endsWith("Sturdy") && !armorId.endsWith("Heavy")) {
+                        var newArmorEntry = {};
+                        newArmorEntry.name = armorEntry.name;
+                        newArmorEntry.levels = armorEntry.levels;
+                        newArmorEntry.categories = [];
+                        armorHierarchy[armorKind][armorId] = newArmorEntry;
+                    }
+                }
+            }
+
             var legendaryEffects = {
                 "NonPA": {
                     "Prefix": {
@@ -4397,6 +4435,93 @@
                 cll.appendChild(fullSet);
             }
 
+            function createCatLevelRadio(group, name, title) {
+                var lbl = document.createElement("label");
+                lbl.className = "ptr";
+
+                var radio = document.createElement("input");
+                radio.name = group;
+                radio.id = group + name;
+                radio.type = "radio";
+                radio.value = name;
+
+                lbl.appendChild(radio);
+                lbl.appendChild(document.createTextNode(title));
+
+                return { lbl: lbl, radio: radio };
+            }
+
+            function create3Spaces() {
+                var span = document.createElement("span");
+                span.innerHTML = "&nbsp;";
+                return span;
+            }
+
+            function createCategoryLevel(group, makeSel, partTypeSel, partCategorySel, partLevelSel) {
+                if (!selectTypeCatLevelReverseMode) {
+                    makeSel.selectedIndex = 0;
+                    makeSel.dispatchEvent(new Event("input"));
+                }
+
+
+                let opt = partTypeSel.options[partTypeSel.selectedIndex];
+                partCategorySel.innerHTML = "";
+                partLevelSel.innerHTML = "";
+                
+                let categoryAndLevelSelected = {};
+                categoryAndLevelSelected.key = opt.value;
+
+                if (opt.value !== "") {
+                    var d = opt.data;
+                    if (d.categories.length > 0) {
+                        for (let cat of d.categories) {
+                            var lblAndRadio = createCatLevelRadio(group + "Cat", cat, " " + cat);
+                            partCategorySel.appendChild(lblAndRadio.lbl);
+                            partCategorySel.appendChild(create3Spaces());
+
+                            lblAndRadio.radio.oninput = evt => {
+                                categoryAndLevelSelected.category = cat;
+                                onCategoryLevelSelection(makeSel, categoryAndLevelSelected);
+                            };
+                        }
+                    } else {
+                        categoryAndLevelSelected.category = "";
+                    }
+                    if (d.levels.length == 1) {
+                        partLevelSel.innerHTML = "Level - " + d.levels[0];
+                        categoryAndLevelSelected.level = d.levels[0];
+                    } else {
+                        for (let lvl of d.levels) {
+                            var lblAndRadio = createCatLevelRadio(group + "Lvl", lvl, " " + lvl);
+                            partLevelSel.appendChild(lblAndRadio.lbl);
+                            partLevelSel.appendChild(create3Spaces());
+
+                            lblAndRadio.radio.oninput = evt => {
+                                categoryAndLevelSelected.level = lvl;
+                                onCategoryLevelSelection(makeSel, categoryAndLevelSelected);
+                            };
+                        }
+                    }
+
+                    onCategoryLevelSelection(makeSel, categoryAndLevelSelected);
+                }
+            }
+
+            function onCategoryLevelSelection(makeSel, categoryAndLevelSelected) {
+                if (categoryAndLevelSelected.category !== undefined && categoryAndLevelSelected.level !== undefined) {
+                        selectTypeCatLevelForwardMode = true;
+                        try {
+                            var valueToSelect = categoryAndLevelSelected.key
+                            + categoryAndLevelSelected.category
+                            + "-" + categoryAndLevelSelected.level;
+                            selectValue(makeSel, valueToSelect);
+                        } finally {
+                            selectTypeCatLevelForwardMode = false;
+                        }
+                    }
+
+            }
+
             function createBodyPart(tbl, index, mode, part) {
 
                 var rw = tbl.insertRow(tbl.rows.length);
@@ -4408,22 +4533,58 @@
                 cll.className = "topline";
 
                 let makeSel = document.createElement("select");
-                cll.appendChild(makeSel);
-                makeSel.id = index + "_Part_" + part;
-                makeSel.oninput = evt => recalculateBoth();
-
-                var opt = document.createElement("option");
-                opt.text = "None";
-                makeSel.options.add(opt);
+                makeSel.style.display = "none";
 
                 var span = document.createElement("span");
                 span.innerHTML = "&nbsp;&nbsp;&nbsp;";
-                cll.appendChild(span);
                 var fullSet = document.createElement("a");
                 fullSet.innerText = "<set all>";
                 fullSet.href = "#";
                 fullSet.onclick = evt => makeFullSetSlot(part, index, "");
-                cll.appendChild(fullSet);
+                span.appendChild(fullSet);
+
+                // -------------------------------------------------
+
+                var hierarchySorted = [];
+                for (var e in armorHierarchy[mode]) {
+                    hierarchySorted.push({key: e, value: armorHierarchy[mode][e] });
+                }
+                hierarchySorted.sort((a, b) => a.value.name.localeCompare(b.value.name));
+
+                let partTypeSel = document.createElement("select");
+                partTypeSel.id = part + index;
+                cll.appendChild(partTypeSel);
+
+                cll.appendChild(span);
+
+                var opt = document.createElement("option");
+                opt.text = "None";
+                partTypeSel.options.add(opt);
+
+                for (var h of hierarchySorted) {
+                    opt = document.createElement("option");
+                    opt.text = h.value.name;
+                    opt.value = h.key;
+                    opt.data = h.value;
+                    partTypeSel.options.add(opt);
+                }
+
+                let partCategorySel = document.createElement("div");
+                cll.appendChild(partCategorySel);
+                let partLevelSel = document.createElement("div");
+                cll.appendChild(partLevelSel);
+
+                partTypeSel.oninput = (evt) => createCategoryLevel(part + index, makeSel, partTypeSel, partCategorySel, partLevelSel);
+
+                // -------------------------------------------------
+
+                cll.appendChild(makeSel);
+                makeSel.id = index + "_Part_" + part;
+                makeSel.oninput = evt => recalculateBoth();
+
+                opt = document.createElement("option");
+                opt.text = "None";
+                makeSel.options.add(opt);
 
                 var armors = armor[mode];
 
@@ -4513,7 +4674,45 @@
                 return false;
             }
 
+            var selectTypeCatLevelReverseMode = false;
+            var selectTypeCatLevelForwardMode = false;
+
+            function selectTypeCatLevelReverse(armorId, part, index) {
+                var armorIdSplit = armorId.split("-");
+                var cat = "";
+                var type = "";
+                for (var acat of ["Light", "Sturdy", "Heavy"]) {
+                    var idx = armorIdSplit[0].indexOf(acat);
+                    if (idx > 0) {
+                        type = armorIdSplit[0].substring(0, idx);
+                        cat = acat;
+                        break;
+                    }
+                }
+                if (type === "") {
+                    type = armorIdSplit[0];
+                }
+
+                selectTypeCatLevelReverseMode = true;
+                try {
+                    selectValue(get(part + index), type);
+                    if (cat !== "") {
+                        var rb = get(part + index + "Cat" + cat);
+                        rb.checked = true;
+                        rb.dispatchEvent(new Event("input"));
+                    }
+                    var rb = get(part + index + "Lvl" + armorIdSplit[1]);
+                    rb.checked = true;
+                    rb.dispatchEvent(new Event("input"));
+                } finally {
+                    selectTypeCatLevelReverseMode = false;
+                }
+            }
+
             function createMods(tbl, index, mode, part, sel) {
+                if (selectTypeCatLevelReverseMode) {
+                    return;
+                }
                 var sidx = findRow(tbl, index + "_Part_" + part + "_ModStart") + 1;
                 var eidx = findRow(tbl, index + "_Part_" + part + "_ModEnd");
                 removeRows(tbl, sidx, eidx);
@@ -4523,6 +4722,10 @@
                 let lvl = opt.level;
 
                 if (sel.selectedIndex > 0) {                    
+                    if (!selectTypeCatLevelForwardMode) {
+                        selectTypeCatLevelReverse(opt.value, part, index);
+                    }
+
                     rw = tbl.insertRow(sidx++);
                     cll = rw.insertCell(rw.cells.length);
 
@@ -5824,6 +6027,15 @@
                     if (opt.value == value) {
                         opt.selected = true;
                         sel.dispatchEvent(new Event("input"));
+                        break;
+                    }
+                }
+            }
+            function selectValueNoEvent(sel, value) {
+                for (var i = 0; i < sel.options.length; i++) {
+                    var opt = sel.options[i];
+                    if (opt.value == value) {
+                        opt.selected = true;
                         break;
                     }
                 }
