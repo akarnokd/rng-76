@@ -64,7 +64,7 @@
     </head>
     <body style="height: 90%">
         <center>
-            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Armor Defense Calculator (0.1.5)</span>
+            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Armor Defense Calculator (0.1.6)</span>
             <br/>
             <!-- <i>(Notification here)</i> -->
         <br/>
@@ -627,7 +627,7 @@
                     }
                 }
             };
-            standardEnclaveArm = {
+            var standardEnclaveArm = {
                 name: "Left Arm",
                 order: 1,
                 func: createBaseNonPA([21,25], [17,20], [0,0]),
@@ -671,7 +671,7 @@
             var standardEnclaveLeg = {
                 name: "Left Leg",
                 order: 1,
-                func: createBaseNonPA([21,25], [17,20]),
+                func: createBaseNonPA([21,25], [17,20], [0, 0]),
                 mods: {
                     "Main": {
                         "Standard": {
@@ -2920,7 +2920,7 @@
                         },
                     },
                     "Thorn": {
-                        name: "Thorn Scout",
+                        name: "Thorn",
                         levels: [40,50],
                         category: "Sturdy",
                         "Torso": standardEnclaveTorso,
