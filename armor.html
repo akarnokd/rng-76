@@ -17,6 +17,9 @@
             #table2 td:nth-child(2) {
                 padding-left: 15px;
             }
+            #enemytable td:nth-child(2) {
+                padding-left: 15px;
+            }
             
             table.infoTable {
                border: 1px solid black;
@@ -61,7 +64,7 @@
     </head>
     <body style="height: 90%">
         <center>
-            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Armor Defense Calculator (0.1.4)</span>
+            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Armor Defense Calculator (0.1.5)</span>
             <br/>
             <!-- <i>(Notification here)</i> -->
         <br/>
@@ -126,9 +129,9 @@
                     <a name="enemy"></a>
                     <h2>Enemy <sup>(<a href="#top">Top</a>)</sup></h2>
                     <br/>
-                    <table style='border-collapse: collapse; border: 1px solid black;'>
+                    <table id='enemytable' style='border-collapse: collapse; border: 1px solid black;'>
                         <tr>
-                            <td>Kind</td>
+                            <td id='enemykindselect'>Kind</td>
                             <td><select id='enemykind'>
                                 <option value="Any">Any</option>
                                 <option value="Player">Player</option>
@@ -180,7 +183,7 @@
                             </td>
                         </tr>
                         <tr>
-                            <td>Damage mode</td>
+                            <td id='damagetypemelee'>Damage mode</td>
                             <td>
                                 <label class='ptr'><input type='radio' name='dmgType' value='melee' id='dmgTypeMelee'> Melee</label>
                                 &nbsp;&nbsp;&nbsp;
@@ -188,7 +191,7 @@
                             </td>
                         </tr>
                         <tr>
-                            <td>Energy damage type</td>
+                            <td id="energytypeplasma">Energy damage type</td>
                             <td>
                                 <label class='ptr'><input type='radio' name='energyType' value='laser' id='energyTypeLaser' checked> Laser</label>
                                 &nbsp;&nbsp;&nbsp;
@@ -232,6 +235,250 @@
                 + "<br>Enable this if the enemy was hit by a weapon having the legendary Suppressor's prefix.");
             infoMap.set("suppressor", 
                 "Reduce the enemy damage output by 10%, 20% or 30% for 2 seconds after you attack."
+            );
+            infoMap.set("health", 
+                "Affects the following:"
+                + "<ul>"
+                + "<li>Bolstering (Legendary mod): more resistances the lower</li>"
+                + "<li>Vanguard (Legendary mod): more resistances the higher</li>"
+                + "<li>Serendipity (Perk): chance to avoid damage below 30% (Non PA)</li>"
+                + "<li>Nerd Rage (Perk): more ballistic resistance below 20%</li>"
+                + "</ul>"
+            );
+            infoMap.set("caps", 
+                "Affects the following:"
+                + "<ul>"
+                + "<li>Aristocrats's (Legendary mod): more resistances the higher</li>"
+                + "</ul>"
+            );
+            infoMap.set("food", 
+                "Affects the following:"
+                + "<ul>"
+                + "<li>Overeater's (Legendary mod): more damage reduction the higher</li>"
+                + "</ul>"
+            );
+            infoMap.set("carry", 
+                "Affects the following:"
+                + "<ul>"
+                + "<li>Heavyweight (Legendary mod): more resistances the higher</li>"
+                + "</ul>"
+            );
+            infoMap.set("teammates", 
+                "Affects the following:"
+                + "<ul>"
+                + "<li>Strange In Numbers (Perk): mutations are 50% stronger if any teammate is also has the same mutation</li>"
+                + "<li>Bodyguards (Perk): more resistances the more teammates there are</li>"
+                + "<li>Lone Wanderer (Perk): more damage reduction without teammates</li>"
+                + "<li>Blood Sacrifice (Perk): more resistances if a teammate has it and dies</li>"
+                + "<li>Empath (Mutation): received damage buff or reduction depending on who is mutated in a team</li>"
+                + "<li>Live &amp; Love #6 (Magazine): bonus ballistic resistance in team</li>"
+                + "</ul>"
+            );
+            infoMap.set("teamdeaths", 
+            "Affects the following:"
+                + "<ul>"
+                + "<li>Blood Sacrifice (Perk): more resistances if a teammate has it and dies</li>"
+                + "</ul>"
+            );
+            infoMap.set("strength", 
+                "Non Power Armor only. Affects the following:"
+                + "<ul>"
+                + "<li>Barbarian (Perk): more resistances the more strength</li>"
+                + "</ul>"
+            );
+            infoMap.set("agility", 
+            "Non Power Armor only. Affects the following:"
+                + "<ul>"
+                + "<li>Evasive (Perk): more resistances the more agility</li>"
+                + "</ul>"
+            );
+            infoMap.set("junkamount", 
+            "Non Power Armor only. Affects the following:"
+                + "<ul>"
+                + "<li>Junk Shield (Perk): more resistances the more pieces of junk</li>"
+                + "</ul>"
+            );
+            infoMap.set("night", 
+                "Affects the following:"
+                + "<ul>"
+                + "<li>Nocturnal (Legendary mod): more resistances at night</li>"
+                + "<li>Guns and Bullets #6 (Magazine): more ballistic resistsance at night"
+                + "</ul>"
+            );
+            infoMap.set("blocking", 
+                "Affects the following:"
+                + "<ul>"
+                + "<li>Braced (Misc Mod): more damage reduction when blocking</li>"
+                + "<li>-15% DMG while blocking (Legendary Mod)</li>"
+                + "</ul>"
+            );
+            infoMap.set("fireheavy", 
+                "Affects the following:"
+                + "<ul>"
+                + "<li>Bullet Shield (Perk): more damage resistance when firing a heavy gun</li>"
+                + "</ul>"
+            );
+            infoMap.set("sneak", 
+                "Affects the following:"
+                + "<ul>"
+                + "<li>U.S. Covert Ops #1 (Magazine): more ballistic resistance when sneaking</li>"
+                + "</ul>"
+            );
+            infoMap.set("stance", 
+                "Affects the following:"
+                + "<ul>"
+                + "<li>-15% DMG while sprinting (Legendary Mod); 75% chance</li>"
+                + "<li>-15% DMG while standing still (Legendary Mod); 75% chance</li>"
+                + "<li>Moving Target (Perk): more resistances when sprinting"
+                + "</ul>"
+            );
+            infoMap.set("junkshield", 
+
+                "Non Power Armor only. More resistances the more pieces of junk is carried and the higher the rank:"
+                + "<ul>"
+                + "<li>1..5 pieces: +1/+2/+3 DR and ER</li>"
+                + "<li>6..10 pieces: +2/+4/+6 DR and ER</li>"
+                + "<li>11..15 pieces: +3/+6/+9 DR and ER</li>"
+                + "<li>16..20 pieces: +4/+8/+12 DR and ER</li>"
+                + "<li>21..15 pieces: +5/+10/+15 DR and ER</li>"
+                + "<li>26..30 pieces: +6/+12/+18 DR and ER</li>"
+                + "<li>31..35 pieces: +7/+14/+21 DR and ER</li>"
+                + "<li>36..40 pieces: +8/+16/+24 DR and ER</li>"
+                + "<li>41..45 pieces: +9/+18/+27 DR and ER</li>"
+                + "<li>46 or more pieces: +10/+20/+30 DR and ER</li>"
+                + "</ul>"
+            );
+            infoMap.set("barbarian", 
+                "Non Power Armor only. Each point in strength gives +2/+3/+4 DR up to a maximum of +40/+60/+80 (based on rank)"
+            );
+            infoMap.set("evasive", 
+                "Non Power Armor only. Each point in agility gives +1/+2/+3 DR and ER up to a maximum of +15/+30/+45 (based on rank)"
+            );
+            infoMap.set("ironclad", 
+                "Non Power Armor only. Adds +10/+20/+30/+40/+50 DR (based on rank)"
+            );
+            infoMap.set("movingtarget", 
+                "Non Power Armor only. Adds +15/+30/+45 DR and ER while sprinting (based on rank)"
+            );
+            infoMap.set("serendipity", 
+                "Non Power Armor only. Below 30% health, 15%/30%/45% chance to avoid damage (based on rank)"
+            );
+            infoMap.set("blocker", 
+                "Take 15%/30%/45% less damage from melee attacks (based on rank)."
+            );
+            infoMap.set("bodyguards", 
+                "The more teammates (not counting you) the more resistances:"
+                + "<ul>"
+                + "<li>0 teammates: no bonus</li>"
+                + "<li>1 teammate: +6/+8/+10/+12 DR and ER (based on rank)</li>"
+                + "<li>2 teammates: +12/+16/+20/+24 DR and ER (based on rank)</li>"
+                + "<li>3 teammates: +18/+24/+30/+36 DR and ER (based on rank)</li>"
+                + "</ul>"
+            );
+            infoMap.set("bulletshield", 
+                "Gain +20/+40/+60 ballistic resistance while firing a heavy gun (based on rank)"
+            );
+            infoMap.set("refractor", 
+                "Gain +10/+20/+30/+40 energy resistance (based on rank)"
+            );
+            infoMap.set("dodgy", 
+                "Avoid 10%/20%/30% of damage at the cost of 30 Action Points (based on rank)."
+            );
+            infoMap.set("nerdrage", 
+                "Below 20% health, gain +20/+30/+40 ballistic resistance (based on rank)"
+            );
+            infoMap.set("suppressor", 
+                "Reduce the damage output of the enemy you attacked by 10%/20%/30% for some amount of time (based on rank)."
+            );
+            infoMap.set("lonewanderer", 
+                "Gain 10%/15%/20% damage reduction when not in a team (based on rank)"
+            );
+            infoMap.set("radresistant", 
+                "Gain +10/+20/+30/+40 radiation resistance (based on rank)"
+            );
+            infoMap.set("fireproof", 
+                "Reduce fire and explosion damage by 15%/30%/45% (based on rank)"
+            );
+            infoMap.set("colanut", 
+                "Consuming Nuka products are twice or three times as beneficial (based on rank)"
+            );
+            infoMap.set("partyperson", 
+                "Aka Party Boy/Girl. Consuming Alcohol is twice or three times as beneficial (based on rank)"
+            );
+            infoMap.set("strangeinnumbers", 
+                "Positive effects of mutations are 50% stronger if any teammate also has the same mutation:"
+                + "<ul>"
+                + "<li>Empath: more or less damage reduction depending on who is mutated in a team</li>"
+                + "<li>Carnivore (i.e., Food-related): meat-based foods are 2.5 times more beneficial</li>"
+                + "<li>Herbivore (i.e., Food-related): plant-based foods are 2.5 times more beneficial</li>"
+                + "<li>Scaly skin: +75 DR and ER</li>"
+                + "</ul>"
+            );
+            infoMap.set("classfreak", 
+                "Negative effects of mutations are reduced by 25%/50%/75% percent (based on rank). Affects the following mutation:"
+                + "<ul>"
+                + "<li>Empath: receive about 25%/16%/8% more damage in exchange for teammates to receive less damage</li>"
+                + "</ul>"
+            );
+            infoMap.set("empath", 
+                "Receive more or less damage depending on who has the mutation in a team:"
+                + "<ul>"
+                + "<li>Only you: receive 33% more damage (25%/16%/%8 with Class Freak)</li>"
+                + "<li>A teammate: receive 25% less damage.</li>"
+                + "<li>Both you and a teammate: receive 8% more damage (receive 0%/9%/17% less damage with Class Freak)"
+                + "</ul>"
+            );
+            infoMap.set("bloodsacrifice", 
+                "Gain +25/+30/+35/+40 ballistic resistance when a teammate dies (based on rank)"
+            );
+            infoMap.set("funkyduds", 
+                "Gain +50/+100/+150/+200 poison resistance when wearing a matching set of 5 Armor or 6 Power Armor Pieces (based on rank). Does not work for Suits. A matching set only considers the base make of the armor but not if it's light or heavy. <br>Some headpieces count as full set by themselves, which is most likely a bug and ignored here."
+            );
+            infoMap.set("sizzlingstyle", 
+                "Gain +50/+100/+150/+200 fire resistance when wearing a matching set of 5 Armor or 6 Power Armor Pieces (based on rank). Does not work for Suits. A matching set only considers the base make of the armor but not if it's light or heavy. <br>Some headpieces count as full set by themselves, which is most likely a bug and ignored here."
+            );
+            infoMap.set("whatrads", 
+                "Gain +50/+75/+100/+300 fire resistance when wearing a matching set of 5 Armor or 6 Power Armor Pieces (based on rank). Does not work for Suits. A matching set only considers the base make of the armor but not if it's light or heavy. <br>Some headpieces count as full set by themselves, which is most likely a bug and ignored here."            );
+            infoMap.set("foodrelated", 
+                "Select one of the mutually exlcusive mutations:"
+                + "<ul>"
+                + "<li>Carnivore: meat-based foods are 2 times as beneficial (2.5 times with Strange In Numbers perk)</li>"
+                + "<li>Herbivore: plant-based foods are 2 times as beneficial (2.5 times with Strange In Numbers perk)</li>"
+                + "</ul>"
+            );
+            infoMap.set("grounded", 
+                "Gain 100 energy resistance (150 with Strange In Numbers perk)."
+            );
+            infoMap.set("scalyskin", 
+                "Gain 50 DR and ER (75 with Strange In Numbers perk)"
+            );
+            infoMap.set("enemykind", 
+                "Certain armor mods and consumables grant benefits based on the kind enemy:"
+                + "<ul>"
+                + "<li>Player: Assassin's (Legendary mod), certain Magazines</li>"
+                + "<li>Human: Assassin's (Legendary mod)</li>"
+                + "<li>Super Mutant: Mutant Slayer's (Legendary mod)</li>"
+                + "<li>Animal: Hunter's (Legendary mod), certain Magazines</li>"
+                + "<li>Ghoul: Ghoul Slayer's (Legendary mod)</li>"
+                + "<li>Robot: Troubleshooter's (Legendary mod), certain Magazines</li>"
+                + "<li>Insect: Exterminator's (Legendary mod), Insect Repellent chem, Scout's Life #6 Magazine</li>"
+                + "<li>Mirelurk: Exterminator's (Legendary mod)</li>"
+                + "<li>Scorched: Zealot's (Legendary mod), certain Drinks, certain Magazines</li>"
+                + "</ul>"                
+            );
+            infoMap.set("damagetypemelee", 
+                "Affects the following:"
+                + "<ul>"
+                + "<li>Braced (Misc mod): +15% damage reduction from melee attacks</li>"
+                + "<li>Blocker (Perk): +15%/+30%/+45% damage reduction from melee attacks</li>"
+                + "<li>Unstoppables #4 (Magazine): 30% chance to avoid melee damage</li>"
+                + "</ul>"
+            );
+            infoMap.set("energytypeplasma", 
+                "Affects the following:"
+                + "<ul>"
+                + "<li>Tesla Science #2 (Magazine): 20% less damage from plasma attacks</li>"
+                + "</ul>"
             );
 
             // add HTML explanation marker
@@ -3491,7 +3738,7 @@
                             }
                         },
                         "Heavyweight": {
-                            name: "Heavyweight",
+                            name: "Heavyweight (PTS)",
                             order: 2,
                             func: (state) => {
                                 var c = Math.round(35 * clamp(state.player.carrying, 0, 350) / 350.0);
@@ -3858,7 +4105,7 @@
                         func: (state) => state.rr += 75,
                     },
                     "Insectrepellent": {
-                        name: "Insectre Rellent (-15% DMG from Insects)",
+                        name: "Insect Rellent (-15% DMG from Insects)",
                         debuff: ["insectrepellent"],
                         order: 2,
                         func: (state) => {
@@ -4406,10 +4653,13 @@
                 }
             }
 
-            function createNumber(tbl, name, key, min, max, value, unit) {
+            function createNumber(tbl, name, key, min, max, value, unit, tip) {
                 var rw = tbl.insertRow(tbl.rows.length);
                 var cll = rw.insertCell(rw.cells.length);
                 cll.innerHTML = "&nbsp;&nbsp;&nbsp;" + name;
+                if (tip) {
+                    cll.innerHTML += info(tip);
+                }
 
                 cll = rw.insertCell(rw.cells.length);
 
@@ -4436,23 +4686,23 @@
                 cll = rw.insertCell(rw.cells.length);
                 cll.className = "topline";
 
-                createNumber(tbl, "Health", index + "_HP", 0, 100, 100, " %").oninput = evt => recalculateBoth();
-                createNumber(tbl, "Caps", index + "_Caps", 0, 30000, 0).oninput = evt => recalculateBoth();
-                createNumber(tbl, "Food &amp; Drink", index + "_Fooddrink", 0, 100, 100, " %").oninput = evt => recalculateBoth();
-                createNumber(tbl, "Carrying", index + "_Carry", 0, 30000, 0, " lb").oninput = evt => recalculateBoth();
-                createNumber(tbl, "Teammates", index + "_Teammates", 0, 3, 0).oninput = evt => recalculateBoth();
-                createNumber(tbl, "&nbsp;&nbsp;&nbsp;Deaths", index + "_Teamdeaths", 0, 3, 0).oninput = evt => recalculateBoth();
+                createNumber(tbl, "Health", index + "_HP", 0, 100, 100, " %", "health").oninput = evt => recalculateBoth();
+                createNumber(tbl, "Caps", index + "_Caps", 0, 30000, 0, "", "caps").oninput = evt => recalculateBoth();
+                createNumber(tbl, "Food &amp; Drink", index + "_Fooddrink", 0, 100, 100, " %", "food").oninput = evt => recalculateBoth();
+                createNumber(tbl, "Carrying", index + "_Carry", 0, 30000, 0, " lb", "carry").oninput = evt => recalculateBoth();
+                createNumber(tbl, "Teammates", index + "_Teammates", 0, 3, 0, "", "teammates").oninput = evt => recalculateBoth();
+                createNumber(tbl, "&nbsp;&nbsp;&nbsp;Deaths", index + "_Teamdeaths", 0, 3, 0, "", "teamdeaths").oninput = evt => recalculateBoth();
 
                 if (mode !== "PA") {
-                    createNumber(tbl, "Strength", index + "_Strength", 1, 100, 1).oninput = evt => recalculateBoth();
-                    createNumber(tbl, "Agility", index + "_Agility", 1, 100, 1).oninput = evt => recalculateBoth();
-                    createNumber(tbl, "Junk Amount", index + "_Junkamount", 0, 46, 0).oninput = evt => recalculateBoth();
+                    createNumber(tbl, "Strength", index + "_Strength", 1, 100, 1, " points", "strength").oninput = evt => recalculateBoth();
+                    createNumber(tbl, "Agility", index + "_Agility", 1, 100, 1, " points", "agility").oninput = evt => recalculateBoth();
+                    createNumber(tbl, "Junk Amount", index + "_Junkamount", 0, 46, 0, "", "junkamount").oninput = evt => recalculateBoth();
                 }
 
-                createYesNo(tbl, index, "Night", "&nbsp;&nbsp;&nbsp;Night time");
-                createYesNo(tbl, index, "Block", "&nbsp;&nbsp;&nbsp;Blocking");
-                createYesNo(tbl, index, "Fireheavy", "&nbsp;&nbsp;&nbsp;Firing a heavy gun");
-                createYesNo(tbl, index, "Sneak", "&nbsp;&nbsp;&nbsp;Sneaking");
+                createYesNo(tbl, index, "Night", "&nbsp;&nbsp;&nbsp;Night time", "night");
+                createYesNo(tbl, index, "Block", "&nbsp;&nbsp;&nbsp;Blocking", "blocking");
+                createYesNo(tbl, index, "Fireheavy", "&nbsp;&nbsp;&nbsp;Firing a heavy gun", "fireheavy");
+                createYesNo(tbl, index, "Sneak", "&nbsp;&nbsp;&nbsp;Sneaking", "sneak");
                 createYesNo(tbl, index, "Suppressorweapon", "&nbsp;&nbsp;&nbsp;Suppressor's weapon", "suppressorweapon", orderFunc(2, (state) => {
                     var rs = getOrCreateReductionSlot(state, "Suppressor");
                     rs.ballisticReduction += 25;
@@ -4461,7 +4711,7 @@
 
                 rw = tbl.insertRow(tbl.rows.length);
                 cll = rw.insertCell(rw.cells.length);
-                cll.innerHTML = "&nbsp;&nbsp;&nbsp;Stance";
+                cll.innerHTML = "&nbsp;&nbsp;&nbsp;Stance" + info("stance");
 
                 cll = rw.insertCell(rw.cells.length);
 
@@ -4536,23 +4786,23 @@
                         createJunkShieldFunc(1),
                         createJunkShieldFunc(2),
                         createJunkShieldFunc(3),
-                    ], false, " (rank)").oninput = evt => recalculateBoth();
+                    ], false, " (rank)", "junkshield").oninput = evt => recalculateBoth();
                     createSelectWithFunc(tbl, "&nbsp;&nbsp;&nbsp;Barbarian", index + "_Barbarian", ["None", "1", "2", "3"], ["", "2", "3", "4"],
                     " (rank)", 2, (state, val) => {
                         state.dr += parseInt(val) * clamp(state.player.strength, 1, 20);
-                    }).oninput = evt => recalculateBoth();
+                    }, "barbarian").oninput = evt => recalculateBoth();
                     createSelectWithFunc(tbl, "&nbsp;&nbsp;&nbsp;Evasive", index + "_Evasive", ["None", "1", "2", "3"], ["", "1", "2", "3"],
                     " (rank)", 2, (state, val) => {
                         var c = parseInt(val) * clamp(state.player.agility, 1, 15);
                         state.dr += c;
                         state.er += c;
-                    }).oninput = evt => recalculateBoth();
+                    }, "evasive").oninput = evt => recalculateBoth();
                     createSelectWithFunc(tbl, "&nbsp;&nbsp;&nbsp;Ironclad", index + "_Ironclad", ["None", "1", "2", "3", "4", "5"], ["", "10", "20", "30", "40", "50"],
                     " (rank)", 2, (state, val) => {
                         var c = parseInt(val);
                         state.dr += c;
                         state.er += c;
-                    }).oninput = evt => recalculateBoth();
+                    }, "ironclad").oninput = evt => recalculateBoth();
                     createSelectWithFunc(tbl, "&nbsp;&nbsp;&nbsp;Moving Target", index + "_Movingtarget", ["None", "1", "2", "3"], ["", "15", "30", "45"],
                     " (rank)", 2, (state, val) => {
                         if (state.player.stance === "Sprint") {
@@ -4560,7 +4810,7 @@
                             state.dr += c;
                             state.er += c;
                         }
-                    }).oninput = evt => recalculateBoth();
+                    }, "movingtarget").oninput = evt => recalculateBoth();
                     createSelectWithFunc(tbl, "&nbsp;&nbsp;&nbsp;Serendipity", index + "_Serendipity", ["None", "1", "2", "3"], ["", "15", "30", "45"],
                     " (rank)", 2, (state, val) => {
                         if (state.player.hp <= 30) {
@@ -4569,7 +4819,7 @@
                             rs.ballisticReduction += c;
                             rs.energyReduction += c;
                         }
-                    }).oninput = evt => recalculateBoth();
+                    }, "serendipity").oninput = evt => recalculateBoth();
                     //createSelectWithData(tbl, "&nbsp;&nbsp;&nbsp;Adamantium Skeleton", index + "_Adamantium", ["None", "1", "2", "3"], ["", "30", "60", "100"]).oninput = evt => recalculateBoth();
                 }
                 createSelectWithData(tbl, "&nbsp;&nbsp;&nbsp;Blocker", index + "_Blocker", ["None", "1", "2", "3"], ["", "15", "30", "45"], [
@@ -4577,36 +4827,36 @@
                     createBlockerFunc(15),
                     createBlockerFunc(30),
                     createBlockerFunc(45)
-                ], false, " (rank)").oninput = evt => recalculateBoth();
+                ], false, " (rank)", "blocker").oninput = evt => recalculateBoth();
                 createSelectWithData(tbl, "&nbsp;&nbsp;&nbsp;Bodyguards", index + "_Bodyguards", ["None", "1", "2", "3", "4"], ["", "6", "8", "10", "12"], [
                     null,
                     createBodyGuardFunc(6),
                     createBodyGuardFunc(8),
                     createBodyGuardFunc(10),
                     createBodyGuardFunc(12),
-                ], false, " (rank)").oninput = evt => recalculateBoth();
+                ], false, " (rank)", "bodyguards").oninput = evt => recalculateBoth();
                 createSelectWithFunc(tbl, "&nbsp;&nbsp;&nbsp;Bullet Shield", index + "_Bulletshield", ["None", "1", "2", "3"], ["", "20", "40", "60"],
                 " (rank)", 2, (state, val) => {
                     if (state.player.fireheavy) {
                         state.dr += parseInt(val);
                     }
-                }).oninput = evt => recalculateBoth();
+                }, "bulletshield").oninput = evt => recalculateBoth();
                 createSelectWithFunc(tbl, "&nbsp;&nbsp;&nbsp;Refractor", index + "_Refractor", ["None", "1", "2", "3", "4"], ["", "10", "20", "30", "40"],
                 " (rank)", 2, (state, val) => {
                     state.er += parseInt(val);
-                }).oninput = evt => recalculateBoth();
+                }, "refractor").oninput = evt => recalculateBoth();
                 createSelectWithFunc(tbl, "&nbsp;&nbsp;&nbsp;Dodgy", index + "_Dodgy", ["None", "1", "2", "3"], ["", "10", "20", "30"],
                 " (rank)", 2, (state, val) => {
                     var rs = getOrCreateReductionSlot(state, "Dodgy");
                     rs.ballisticReduction += parseInt(val);
                     rs.energyReduction += parseInt(val);
-                }).oninput = evt => recalculateBoth();
+                }, "dodgy").oninput = evt => recalculateBoth();
                 createSelectWithFunc(tbl, "&nbsp;&nbsp;&nbsp;Nerd Rage", index + "_Nerdrage", ["None", "1", "2", "3"], ["", "20", "30", "40"],
                 " (rank)", 2, (state, val) => {
                     if (state.player.hp <= 20) {
                         state.dr += parseInt(val);
                     }
-                }).oninput = evt => recalculateBoth();
+                }, "nerdrage").oninput = evt => recalculateBoth();
                 createSelectWithFunc(tbl, "&nbsp;&nbsp;&nbsp;Suppressor", index + "_Suppressor", ["None", "1", "2", "3"], ["", "10", "20", "30"],
                 " (rank)", 2, (state, val) => {
                     var rs = getOrCreateReductionSlot(state, "Suppressor");
@@ -4618,32 +4868,33 @@
                     var rs = getOrCreateReductionSlot(state, "Lonewanderer");
                     rs.ballisticReduction += parseInt(val);
                     rs.energyReduction += parseInt(val);
-                }).oninput = evt => recalculateBoth();
+                }, "lonewanderer").oninput = evt => recalculateBoth();
                 createSelectWithFunc(tbl, "&nbsp;&nbsp;&nbsp;Rad Resistant", index + "_Radresistant", ["None", "1", "2", "3", "4"], ["", "10", "20", "30", "40"],                
                 " (rank)", 2, (state, val) => {
                     state.rr += parseInt(val);
-                }).oninput = evt => recalculateBoth();
+                }, "radresistant").oninput = evt => recalculateBoth();
                 createSelectWithFunc(tbl, "&nbsp;&nbsp;&nbsp;Fireproof", index + "_Fireproof", ["None", "1", "2", "3"], ["", "15", "30", "45"],
                 " (rank)", 2, (state, val) => {
                     var rs = getOrCreateReductionSlot(state, "Fireproof");
                     rs.fireReduction += parseInt(val);
                     rs.explosiveReduction += parseInt(val);
-                }).oninput = evt => recalculateBoth();
+                }, "fireproof").oninput = evt => recalculateBoth();
                 createSelectWithData(tbl, "&nbsp;&nbsp;&nbsp;Cola Nut", index + "_Colanut", ["None", "1", "2"], ["", "2", "3"], [
                     null,
                     orderFunc(0, state => state.player.colanut = 2),
                     orderFunc(0, state => state.player.colanut = 3),
-                ], false, " (rank)").oninput = evt => recalculateBoth();
+                ], false, " (rank)", "colanut").oninput = evt => recalculateBoth();
                 createSelectWithData(tbl, "&nbsp;&nbsp;&nbsp;Party Person", index + "_Partyperson", ["None", "1", "2"], ["", "2", "3"], [
                     null,
                     orderFunc(0, state => state.player.partyPerson = 2),
                     orderFunc(0, state => state.player.partyPerson = 3),
-                ], false, " (rank)").oninput = evt => recalculateBoth();
-                createYesNo(tbl, index, "Strangeinnumbers", "&nbsp;&nbsp;&nbsp;Strange In Numbers", undefined, 
+                ], false, " (rank)", "partyperson").oninput = evt => recalculateBoth();
+                createYesNo(tbl, index, "Strangeinnumbers", "&nbsp;&nbsp;&nbsp;Strange In Numbers", "strangeinnumbers", 
                     orderFunc(0, state => state.player.strangeInNumbers = true)
                 );
                 createSelectWithFunc(tbl, "&nbsp;&nbsp;&nbsp;Class Freak", index + "_Classfreak", ["None", "1", "2", "3"], ["", "25", "50", "75"], " (rank)", 1,
-                    (state, val) => state.player.classFreak = parseInt(val)).oninput = evt => recalculateBoth();
+                    (state, val) => state.player.classFreak = parseInt(val)
+                , "classfreak").oninput = evt => recalculateBoth();
 
                 rw = tbl.insertRow(tbl.rows.length);
                 cll = rw.insertCell(rw.cells.length);
@@ -4655,25 +4906,25 @@
                     if (state.player.teamdeaths > 0) {
                         state.dr += parseInt(val);
                     }
-                }).oninput = evt => recalculateBoth();
+                }, "bloodsacrifice").oninput = evt => recalculateBoth();
                 createSelectWithFunc(tbl, "&nbsp;&nbsp;&nbsp;Funky Duds", index + "_Funkyduds", ["None", "1", "2", "3", "4"], ["", "50", "100", "150", "200"],
                 " (rank)", 2, (state, val) => {
                     if (state.player.fullSet) {
                         state.pr += parseInt(val);
                     }
-                }).oninput = evt => recalculateBoth();
+                }, "funkyduds").oninput = evt => recalculateBoth();
                 createSelectWithFunc(tbl, "&nbsp;&nbsp;&nbsp;Sizzling Style", index + "_Sizzlingstyle", ["None", "1", "2", "3", "4"], ["", "50", "100", "150", "200"],
                 " (rank)", 2, (state, val) => {
                     if (state.player.fullSet) {
                         state.fr += parseInt(val);
                     }
-                }).oninput = evt => recalculateBoth();
+                }, "sizzlingstyle").oninput = evt => recalculateBoth();
                 createSelectWithFunc(tbl, "&nbsp;&nbsp;&nbsp;What Rads", index + "_Whatrads", ["None", "1", "2", "3", "4"], ["", "50", "75", "100", "300"],
                 " (rank)", 2, (state, val) => {
                     if (state.player.fullSet) {
                         state.rr += parseInt(val);
                     }
-                }).oninput = evt => recalculateBoth();
+                }, "whatrads").oninput = evt => recalculateBoth();
 
             }
 
@@ -4753,7 +5004,7 @@
                                 rs.energyReduction += 25;
                             }
                         }
-                ).oninput = evt => recalculateBoth();
+                ,"empath").oninput = evt => recalculateBoth();
 
                 createSelectWithData(tbl, "&nbsp;&nbsp;&nbsp;Food-related", index + "_Foodbuff", 
                     ["None", "Carnivore", "Herbivore"], 
@@ -4769,9 +5020,9 @@
                             state.player.mutations++;
                         }),
                     ]
-                ).oninput = evt => recalculateBoth();
+                ,false, "", "foodrelated").oninput = evt => recalculateBoth();
 
-                createYesNo(tbl, index, "Grounded", "&nbsp;&nbsp;&nbsp;Grounded", undefined, 
+                createYesNo(tbl, index, "Grounded", "&nbsp;&nbsp;&nbsp;Grounded", "grounded", 
                     orderFunc(1, state => {
                         if (state.player.strangeInNumbers && state.player.teammates > 0) {
                             state.er += 150;
@@ -4781,7 +5032,7 @@
                         state.player.mutations++;
                     })
                 );
-                createYesNo(tbl, index, "Scalyskin", "&nbsp;&nbsp;&nbsp;Scaly Skin", undefined, 
+                createYesNo(tbl, index, "Scalyskin", "&nbsp;&nbsp;&nbsp;Scaly Skin", "scalyskin", 
                     orderFunc(1, state => {
                         if (state.player.strangeInNumbers && state.player.teammates > 0) {
                             state.dr += 75;
@@ -5484,6 +5735,10 @@
             get("energyTypeLaser").oninput = evt => recalculateBoth();
             get("copyleft").onclick = evt => copy(false);
             get("copyright").onclick = evt => copy(true);
+
+            get("enemykindselect").innerHTML += info("enemykind");
+            get("damagetypemelee").innerHTML += info("damagetypemelee");
+            get("energytypeplasma").innerHTML += info("energytypeplasma");
 
             function processSearch(index, argValues) {
 
