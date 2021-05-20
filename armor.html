@@ -4720,8 +4720,10 @@
                         rb.dispatchEvent(new Event("input"));
                     }
                     var rb = get(part + index + "Lvl" + armorIdSplit[1]);
-                    rb.checked = true;
-                    rb.dispatchEvent(new Event("input"));
+                    if (rb != null) {
+                        rb.checked = true;
+                        rb.dispatchEvent(new Event("input"));
+                    }
                 } finally {
                     selectTypeCatLevelReverseMode = false;
                 }
