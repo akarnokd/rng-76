@@ -61,7 +61,7 @@
     </head>
     <body style="height: 90%">
         <center>
-            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Armor Defense Calculator (0.1.3)</span>
+            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Armor Defense Calculator (0.1.4)</span>
             <br/>
             <!-- <i>(Notification here)</i> -->
         <br/>
@@ -74,11 +74,13 @@
                 <td style='vertical-align: top;'>
                     <table id="table1" style="border: 1px solid black;">
                         <tr>
-                            <td>Armor kind</td>
+                            <td class='bold'>Kind</td>
                             <td>
-                                <label class='ptr'><input type="radio" id="NonPA1" name="PA1" value="0"/> Non Power Armor</label>
+                                <label class='ptr'><input type="radio" id="NonPA1" name="PA1" value="0"/> Armor</label>
                                 &nbsp;&nbsp;&nbsp;&nbsp;
                                 <label class='ptr'><input type="radio" id="PA1" name="PA1" value="1"/> Power Armor</label>
+                                &nbsp;&nbsp;&nbsp;&nbsp;
+                                <label class='ptr'><input type="radio" id="Suit1" name="PA1" value="1"/> Suit</label>
                             </td>
                         </tr>
         
@@ -105,11 +107,13 @@
                 <td style='vertical-align: top;'>
                     <table id="table2" style="border: 1px solid black;">
                         <tr>
-                            <td>Armor kind</td>
+                            <td class='bold'>Kind</td>
                             <td>
-                                <label class='ptr'><input type="radio" id="NonPA2" name="PA2" value="0"/> Non Power Armor</label>
+                                <label class='ptr'><input type="radio" id="NonPA2" name="PA2" value="0"/> Armor</label>
                                 &nbsp;&nbsp;&nbsp;&nbsp;
                                 <label class='ptr'><input type="radio" id="PA2" name="PA2" value="1"/> Power Armor</label>
+                                &nbsp;&nbsp;&nbsp;&nbsp;
+                                <label class='ptr'><input type="radio" id="Suit2" name="PA2" value="1"/> Suit</label>
                             </td>
                         </tr>
         
@@ -471,12 +475,13 @@
                         var dx = xend - xstart;
                         var dy = yend - ystart;
                         var y = ystart + dy * (x - xstart) / dx;
-                        result.push(y);
+                        result.push(Math.floor(y));
                     }
                 }
                 return result;
             }
 
+            // === Leather Common Mods ===
             var leatherTorsoBoiled = {
                 name: "Boiled",
                 order: 1,
@@ -529,7 +534,344 @@
                 func: createBaseNonPA([1,1,1,1,1,1,1], curveLinear(1, 1, 50, 10, leatherLevels), [0,0,0,0,0,0,0])
             };
 
+            // === Raider Common Mods ===
+            var raiderTorsoWelded = {
+                name: "Welded",
+                order: 1,
+                func: createBaseNonPA([3,5,7,9,11],[1,2,3,4,5],[0,0,0,0,0])
+            };
+            var raiderTorsoTempered = {
+                name: "Tempered",
+                order: 1,
+                func: createBaseNonPA([4,7,9,12,14],[3,5,8,11,13],[0,0,0,0,0])
+            };
+            var raiderTorsoHardened = {
+                name: "Hardened",
+                order: 1,
+                func: createBaseNonPA([6,9,12,15,18],[3,5,6,7,9],[0,0,0,0,0])
+            };
+            var raiderTorsoButtressed = {
+                name: "Buttressed",
+                order: 1,
+                func: createBaseNonPA([7,11,15,19,23],[4,6,7,9,11],[0,0,0,0,0])
+            };
 
+            var raiderLimbWelded = {
+                name: "Welded",
+                order: 1,
+                func: createBaseNonPA([1,3,5,7,9],[1,2,2,3,4],[0,0,0,0,0])
+            };
+            var raiderLimbTempered = {
+                name: "Tempered",
+                order: 1,
+                func: createBaseNonPA([2,4,6,8,10],[2,3,3,4,5],[0,0,0,0,0])
+            };
+            var raiderLimbHardened = {
+                name: "Hardened",
+                order: 1,
+                func: createBaseNonPA([3,5,7,9,11],[3,4,4,5,6],[0,0,0,0,0])
+            };
+            var raiderLimbButtressed = {
+                name: "Buttressed",
+                order: 1,
+                func: createBaseNonPA([4,6,8,10,12],[4,5,5,6,7],[0,0,0,0,0])
+            };
+
+            // === Robot Common Mods ===
+            var robotLevels = [10,20,30,40,50];
+            var robotTorsoPainted = {
+                name: "Painted",
+                order: 1,
+                func: createBaseNonPA(curveLinear(1,3,50,13, robotLevels),curveLinear(1,1,50,6, robotLevels),
+                    [0,0,0,0,0])
+            };
+            var robotTorsoEnameled = {
+                name: "Enameled",
+                order: 1,
+                func: createBaseNonPA(curveLinear(1,2,50,12, robotLevels),curveLinear(1,2,50,12, robotLevels),
+                    curveLinear(1,1,50,6, robotLevels))
+            };
+            var robotTorsoAlloyed = {
+                name: "Alloyed",
+                order: 1,
+                func: createBaseNonPA(curveLinear(1,3,50,13, robotLevels),curveLinear(1,3,50,13, robotLevels),
+                    curveLinear(1,1,50,7, robotLevels))
+            };
+            var robotTorsoPolished = {
+                name: "Polished",
+                order: 1,
+                func: createBaseNonPA(curveLinear(1,4,50,14, robotLevels),curveLinear(1,4,50,14, robotLevels),
+                    curveLinear(1,1,50,8, robotLevels))
+            };
+            var robotTorsoShadowed = {
+                name: "Shadowed",
+                order: 1,
+                func: createBaseNonPA(curveLinear(1,1,50,10, robotLevels),curveLinear(1,1,50,10, robotLevels),
+                    curveLinear(1,1,50,5, robotLevels))
+            };
+
+            var robotLimbPainted = {
+                name: "Painted",
+                order: 1,
+                func: createBaseNonPA(curveLinear(1,1,50,10, robotLevels),curveLinear(1,1,50,10, robotLevels),
+                    curveLinear(1,1,50,5, robotLevels))
+            };
+            var robotLimbEnameled = {
+                name: "Enameled",
+                order: 1,
+                func: createBaseNonPA(curveLinear(1,1,50,12, robotLevels),curveLinear(1,1,50,12, robotLevels),
+                    curveLinear(1,1,50,6, robotLevels))
+            };
+            var robotLimbAlloyed = {
+                name: "Alloyed",
+                order: 1,
+                func: createBaseNonPA(curveLinear(1,3,50,13, robotLevels),curveLinear(1,3,50,13, robotLevels),
+                    curveLinear(1,1,50,7, robotLevels))
+            };
+            var robotLimbPolished = {
+                name: "Polished",
+                order: 1,
+                func: createBaseNonPA(curveLinear(1,4,50,14, robotLevels),curveLinear(1,4,50,14, robotLevels),
+                    curveLinear(1,1,50,8, robotLevels))
+            };
+            var robotLimbShadowed = {
+                name: "Shadowed",
+                order: 1,
+                func: createBaseNonPA(curveLinear(1,1,50,10, robotLevels),curveLinear(1,1,50,10, robotLevels),
+                    curveLinear(1,1,50,5, robotLevels))
+            };
+
+            // === Trapper Common Mods ===
+            var trapperLevels = [15,25,35,45];
+            var trapperTorsoWelded = {
+                name: "Welded",
+                order: 1,
+                func: createBaseNonPA(curveLinear(1,1,50,10, trapperLevels),curveLinear(1,1,50,5, trapperLevels),
+                    curveLinear(1,1,50,10, trapperLevels))
+            };
+            var trapperTorsoTempered = {
+                name: "Tempered",
+                order: 1,
+                func: createBaseNonPA(curveLinear(1,2,50,13, trapperLevels),curveLinear(1,2,50,6, trapperLevels),
+                    curveLinear(1,2,50,13, trapperLevels))
+            };
+            var trapperTorsoHardened = {
+                name: "Hardened",
+                order: 1,
+                func: createBaseNonPA(curveLinear(1,3,50,15, trapperLevels),curveLinear(1,3,50,7, trapperLevels),
+                    curveLinear(1,3,50,15, trapperLevels))
+            };
+            var trapperTorsoButtressed = {
+                name: "Buttressed",
+                order: 1,
+                func: createBaseNonPA(curveLinear(1,4,50,18, trapperLevels),curveLinear(1,4,50,8, trapperLevels),
+                    curveLinear(1,4,50,18, trapperLevels))
+            };
+
+            var trapperLimbWelded = {
+                name: "Welded",
+                order: 1,
+                func: createBaseNonPA(curveLinear(1,1,50,10, trapperLevels),curveLinear(1,1,50,5, trapperLevels),
+                    curveLinear(1,1,50,5, trapperLevels))
+            };
+            var trapperLimbTempered = {
+                name: "Tempered",
+                order: 1,
+                func: createBaseNonPA(curveLinear(1,2,50,13, trapperLevels),curveLinear(1,2,50,6, trapperLevels),
+                    curveLinear(1,2,50,13, trapperLevels))
+            };
+            var trapperLimbHardened = {
+                name: "Hardened",
+                order: 1,
+                func: createBaseNonPA(curveLinear(1,3,50,15, trapperLevels),curveLinear(1,3,50,7, trapperLevels),
+                    curveLinear(1,3,50,15, trapperLevels))
+            };
+            var trapperLimbButtressed = {
+                name: "Buttressed",
+                order: 1,
+                func: createBaseNonPA(curveLinear(1,4,50,18, trapperLevels),curveLinear(1,4,50,8, trapperLevels),
+                    curveLinear(1,4,50,18, trapperLevels))
+            };
+
+            // === Combat Common Mods ===
+            var combatLevels = [20,30,40,50];
+            var combatTorsoReinforced = {
+                name: "Reinforced",
+                order: 1,
+                func: createBaseNonPA(curveLinear(1,1,50,10, combatLevels),curveLinear(1,1,50,10, combatLevels),
+                    [0,0,0,0])
+            };
+            var combatTorsoFiberglass = {
+                name: "Fiberglass",
+                order: 1,
+                func: createBaseNonPA(curveLinear(1,2,50,15, combatLevels),curveLinear(1,2,50,15, combatLevels),
+                    [0,0,0,0])
+            };
+            var combatTorsoPolymer = {
+                name: "Polymer",
+                order: 1,
+                func: createBaseNonPA(curveLinear(1,3,50,20, combatLevels),curveLinear(1,3,50,20, combatLevels),
+                    [0,0,0,0])
+            };
+            var combatTorsoBOS = {
+                name: "Brotherhood of Steel",
+                order: 1,
+                func: createBaseNonPA(curveLinear(1,4,50,25, combatLevels),curveLinear(1,4,50,25, combatLevels),
+                    [0,0,0,0])
+            };
+            var combatTorsoShadowed = {
+                name: "Shadowed",
+                order: 1,
+                func: createBaseNonPA(curveLinear(1,1,50,10, combatLevels),curveLinear(1,1,50,10, combatLevels),
+                    [0,0,0,0])
+            };
+
+            var combatLimbReinforced = {
+                name: "Reinforced",
+                order: 1,
+                func: createBaseNonPA(curveLinear(1,1,50,7, combatLevels),curveLinear(1,1,50,7, combatLevels),
+                    [0,0,0,0])
+            };
+            var combatLimbFiberglass = {
+                name: "Fiberglass",
+                order: 1,
+                func: createBaseNonPA(curveLinear(1,3,50,3, combatLevels),curveLinear(1,2,50,10, combatLevels),
+                    [0,0,0,0])
+            };
+            var combatLimbPolymer = {
+                name: "Polymer",
+                order: 1,
+                func: createBaseNonPA(curveLinear(1,3,50,13, combatLevels),curveLinear(1,3,50,13, combatLevels),
+                    [0,0,0,0])
+            };
+            var combatLimbBOS = {
+                name: "Brotherhood of Steel",
+                order: 1,
+                func: createBaseNonPA(curveLinear(1,4,50,15, combatLevels),curveLinear(1,4,50,15, combatLevels),
+                    [0,0,0,0])
+            };
+            var combatLimbShadowed = {
+                name: "Shadowed",
+                order: 1,
+                func: createBaseNonPA(curveLinear(1,1,50,7, combatLevels),curveLinear(1,1,50,7, combatLevels),
+                    [0,0,0,0])
+            };
+
+            // === Combat Common Mods ===
+            var marineLevels = [35,45];
+            var marineTorsoWelded = {
+                name: "Welded",
+                order: 1,
+                func: createBaseNonPA(curveLinear(1,3,50,10, marineLevels),curveLinear(1,4,50,10, marineLevels),
+                    curveLinear(1,4,50,10, marineLevels))
+            };
+            var marineTorsoTempered = {
+                name: "Tempered",
+                order: 1,
+                func: createBaseNonPA(curveLinear(1,5,50,15, marineLevels),curveLinear(1,5,50,15, marineLevels),
+                    curveLinear(1,5,50,15, marineLevels))
+            };
+            var marineTorsoHardened = {
+                name: "Hardened",
+                order: 1,
+                func: createBaseNonPA(curveLinear(1,1,50,15, marineLevels),curveLinear(1,6,50,20, marineLevels),
+                    curveLinear(1,6,50,20, marineLevels))
+            };
+            var marineTorsoButtressed = {
+                name: "Buttressed",
+                order: 1,
+                func: createBaseNonPA(curveLinear(1,7,50,25, marineLevels),curveLinear(1,7,50,25, marineLevels),
+                    curveLinear(1,7,50,25, marineLevels))
+            };
+
+            var marineLimbWelded = {
+                name: "Welded",
+                order: 1,
+                func: createBaseNonPA(curveLinear(1,1,50,6, marineLevels),curveLinear(1,1,50,6, marineLevels),
+                    curveLinear(1,1,50,6, marineLevels))
+            };
+            var marineLimbTempered = {
+                name: "Tempered",
+                order: 1,
+                func: createBaseNonPA(curveLinear(1,2,50,8, marineLevels),curveLinear(1,2,50,8, marineLevels),
+                    curveLinear(1,2,50,8, marineLevels))
+            };
+            var marineLimbHardened = {
+                name: "Hardened",
+                order: 1,
+                func: createBaseNonPA(curveLinear(1,3,50,10, marineLevels),curveLinear(1,3,50,10, marineLevels),
+                    curveLinear(1,3,50,10, marineLevels))
+            };
+            var marineLimbButtressed = {
+                name: "Buttressed",
+                order: 1,
+                func: createBaseNonPA(curveLinear(1,4,50,13, marineLevels),curveLinear(1,4,50,13, marineLevels),
+                    curveLinear(1,4,50,13, marineLevels))
+            };
+
+            // === Metal Common Mods ===
+            var metalLevels = [10,20,30,40,50];
+            var metalTorsoPainted = {
+                name: "Painted",
+                order: 1,
+                func: createBaseNonPA(curveLinear(1,5,50,15, metalLevels),curveLinear(1,1,50,3, metalLevels),
+                    [0,0,0,0,0])
+            };
+            var metalTorsoEnameled = {
+                name: "Enameled",
+                order: 1,
+                func: createBaseNonPA(curveLinear(1,6,50,20, metalLevels),curveLinear(1,1,50,4, metalLevels),
+                    [0,0,0,0,0])
+            };
+            var metalTorsoAlloyed = {
+                name: "Alloyed",
+                order: 1,
+                func: createBaseNonPA(curveLinear(1,7,50,25, metalLevels),curveLinear(1,3,50,20, metalLevels),
+                    [0,0,0,0,0])
+            };
+            var metalTorsoPolished = {
+                name: "Polished",
+                order: 1,
+                func: createBaseNonPA(curveLinear(1,8,50,30, metalLevels),curveLinear(1,2,50,6, metalLevels),
+                    [0,0,0,0,0])
+            };
+            var metalTorsoShadowed = {
+                name: "Shadowed",
+                order: 1,
+                func: createBaseNonPA(curveLinear(1,5,50,15, metalLevels),curveLinear(1,1,50,3, metalLevels),
+                    [0,0,0,0,0])
+            };
+
+            var metalLimbPainted = {
+                name: "Painted",
+                order: 1,
+                func: createBaseNonPA(curveLinear(1,2,50,10, metalLevels),curveLinear(1,1,50,1, metalLevels),
+                    [0,0,0,0,0])
+            };
+            var metalLimbEnameled = {
+                name: "Enameled",
+                order: 1,
+                func: createBaseNonPA(curveLinear(1,3,50,13, metalLevels),curveLinear(1,1,50,2, metalLevels),
+                    [0,0,0,0,0])
+            };
+            var metalLimbAlloyed = {
+                name: "Alloyed",
+                order: 1,
+                func: createBaseNonPA(curveLinear(1,4,50,15, metalLevels),curveLinear(1,1,50,3, metalLevels),
+                    [0,0,0,0,0])
+            };
+            var metalLimbPolished = {
+                name: "Polished",
+                order: 1,
+                func: createBaseNonPA(curveLinear(1,5,50,20, metalLevels),curveLinear(1,1,50,4, metalLevels),
+                    [0,0,0,0,0])
+            };
+            var metalLimbShadowed = {
+                name: "Shadowed",
+                order: 1,
+                func: createBaseNonPA(curveLinear(1,2,50,10, metalLevels),curveLinear(1,1,50,1, metalLevels),
+                    [0,0,0,0,0])
+            };
 
             // datasheet
             var armor = {
@@ -952,13 +1294,21 @@
                                     "Standard": {
                                         name: "Standard",
                                         default: true,
-                                    }
+                                    },
+                                    "Welded": raiderTorsoWelded,
+                                    "Tempered": raiderTorsoTempered,
+                                    "Hardened": raiderTorsoHardened,
+                                    "Buttressed": raiderTorsoButtressed,
                                 },
                                 "Misc": {
                                     "None": {
                                         name: "None",
                                         default: true
-                                    }
+                                    },
+                                    "Asbestos": standardMiscAsbestos,
+                                    "Dense": standardMiscDense,
+                                    "Leaded": standardMiscLeaded,
+                                    "Padded": standardMiscPadded,
                                 }
                             }
                         },
@@ -971,13 +1321,19 @@
                                     "Standard": {
                                         name: "Standard",
                                         default: true,
-                                    }
+                                    },
+                                    "Welded": raiderLimbWelded,
+                                    "Tempered": raiderLimbTempered,
+                                    "Hardened": raiderLimbHardened,
+                                    "Buttressed": raiderLimbButtressed,
                                 },
                                 "Misc": {
                                     "None": {
                                         name: "None",
                                         default: true
-                                    }
+                                    },
+                                    "Braced": standardMiscBraced,
+                                    "Leaded": standardMiscLeaded,
                                 }
                             }
                         },
@@ -994,13 +1350,18 @@
                                     "Standard": {
                                         name: "Standard",
                                         default: true,
-                                    }
+                                    },
+                                    "Welded": raiderLimbWelded,
+                                    "Tempered": raiderLimbTempered,
+                                    "Hardened": raiderLimbHardened,
+                                    "Buttressed": raiderLimbButtressed,
                                 },
                                 "Misc": {
                                     "None": {
                                         name: "None",
                                         default: true
-                                    }
+                                    },
+                                    "Leaded": standardMiscLeaded,
                                 }
                             }
                         },
@@ -1022,13 +1383,21 @@
                                     "Standard": {
                                         name: "Standard",
                                         default: true,
-                                    }
+                                    },
+                                    "Welded": raiderTorsoWelded,
+                                    "Tempered": raiderTorsoTempered,
+                                    "Hardened": raiderTorsoHardened,
+                                    "Buttressed": raiderTorsoButtressed,
                                 },
                                 "Misc": {
                                     "None": {
                                         name: "None",
                                         default: true
-                                    }
+                                    },
+                                    "Asbestos": standardMiscAsbestos,
+                                    "Dense": standardMiscDense,
+                                    "Leaded": standardMiscLeaded,
+                                    "Padded": standardMiscPadded,
                                 }
                             }
                         },
@@ -1041,13 +1410,19 @@
                                     "Standard": {
                                         name: "Standard",
                                         default: true,
-                                    }
+                                    },
+                                    "Welded": raiderLimbWelded,
+                                    "Tempered": raiderLimbTempered,
+                                    "Hardened": raiderLimbHardened,
+                                    "Buttressed": raiderLimbButtressed,
                                 },
                                 "Misc": {
                                     "None": {
                                         name: "None",
                                         default: true
-                                    }
+                                    },
+                                    "Braced": standardMiscBraced,
+                                    "Leaded": standardMiscLeaded,
                                 }
                             }
                         },
@@ -1064,13 +1439,18 @@
                                     "Standard": {
                                         name: "Standard",
                                         default: true,
-                                    }
+                                    },
+                                    "Welded": raiderLimbWelded,
+                                    "Tempered": raiderLimbTempered,
+                                    "Hardened": raiderLimbHardened,
+                                    "Buttressed": raiderLimbButtressed,
                                 },
                                 "Misc": {
                                     "None": {
                                         name: "None",
                                         default: true
-                                    }
+                                    },
+                                    "Leaded": standardMiscLeaded,
                                 }
                             }
                         },
@@ -1092,13 +1472,21 @@
                                     "Standard": {
                                         name: "Standard",
                                         default: true,
-                                    }
+                                    },
+                                    "Welded": raiderTorsoWelded,
+                                    "Tempered": raiderTorsoTempered,
+                                    "Hardened": raiderTorsoHardened,
+                                    "Buttressed": raiderTorsoButtressed,
                                 },
                                 "Misc": {
                                     "None": {
                                         name: "None",
                                         default: true
-                                    }
+                                    },
+                                    "Asbestos": standardMiscAsbestos,
+                                    "Dense": standardMiscDense,
+                                    "Leaded": standardMiscLeaded,
+                                    "Padded": standardMiscPadded,
                                 }
                             }
                         },
@@ -1111,13 +1499,19 @@
                                     "Standard": {
                                         name: "Standard",
                                         default: true,
-                                    }
+                                    },
+                                    "Welded": raiderLimbWelded,
+                                    "Tempered": raiderLimbTempered,
+                                    "Hardened": raiderLimbHardened,
+                                    "Buttressed": raiderLimbButtressed,
                                 },
                                 "Misc": {
                                     "None": {
                                         name: "None",
                                         default: true
-                                    }
+                                    },
+                                    "Braced": standardMiscBraced,
+                                    "Leaded": standardMiscLeaded,
                                 }
                             }
                         },
@@ -1134,13 +1528,18 @@
                                     "Standard": {
                                         name: "Standard",
                                         default: true,
-                                    }
+                                    },
+                                    "Welded": raiderLimbWelded,
+                                    "Tempered": raiderLimbTempered,
+                                    "Hardened": raiderLimbHardened,
+                                    "Buttressed": raiderLimbButtressed,
                                 },
                                 "Misc": {
                                     "None": {
                                         name: "None",
                                         default: true
-                                    }
+                                    },
+                                    "Leaded": standardMiscLeaded,
                                 }
                             }
                         },
@@ -1151,7 +1550,7 @@
                     },
                     "RobotLight": {
                         name: "Robot - Light",
-                        levels: [10,20,30,40,50],
+                        levels: robotLevels,
                         category: "Light",
                         "Torso": {
                             name: "Chest Piece",
@@ -1162,13 +1561,22 @@
                                     "Standard": {
                                         name: "Standard",
                                         default: true,
-                                    }
+                                    },
+                                    "Painted": robotTorsoPainted,
+                                    "Enameled": robotTorsoEnameled,
+                                    "Alloyed": robotTorsoAlloyed,
+                                    "Polished": robotTorsoPolished,
+                                    "Shadowed": robotTorsoShadowed,
                                 },
                                 "Misc": {
                                     "None": {
                                         name: "None",
                                         default: true
-                                    }
+                                    },
+                                    "Asbestos": standardMiscAsbestos,
+                                    "Dense": standardMiscDense,
+                                    "Leaded": standardMiscLeaded,
+                                    "Padded": standardMiscPadded,
                                 }
                             }
                         },
@@ -1181,13 +1589,20 @@
                                     "Standard": {
                                         name: "Standard",
                                         default: true,
-                                    }
+                                    },
+                                    "Painted": robotLimbPainted,
+                                    "Enameled": robotLimbEnameled,
+                                    "Alloyed": robotLimbAlloyed,
+                                    "Polished": robotLimbPolished,
+                                    "Shadowed": robotLimbShadowed,
                                 },
                                 "Misc": {
                                     "None": {
                                         name: "None",
                                         default: true
-                                    }
+                                    },
+                                    "Braced": standardMiscBraced,
+                                    "Leaded": standardMiscLeaded,
                                 }
                             }
                         },
@@ -1204,13 +1619,19 @@
                                     "Standard": {
                                         name: "Standard",
                                         default: true,
-                                    }
+                                    },
+                                    "Painted": robotLimbPainted,
+                                    "Enameled": robotLimbEnameled,
+                                    "Alloyed": robotLimbAlloyed,
+                                    "Polished": robotLimbPolished,
+                                    "Shadowed": robotLimbShadowed,
                                 },
                                 "Misc": {
                                     "None": {
                                         name: "None",
                                         default: true
-                                    }
+                                    },
+                                    "Leaded": standardMiscLeaded,
                                 }
                             }
                         },
@@ -1221,7 +1642,7 @@
                     },
                     "RobotSturdy": {
                         name: "Robot - Sturdy",
-                        levels: [10,20,30,40,50],
+                        levels: robotLevels,
                         category: "Sturdy",
                         "Torso": {
                             name: "Chest Piece",
@@ -1232,13 +1653,22 @@
                                     "Standard": {
                                         name: "Standard",
                                         default: true,
-                                    }
+                                    },
+                                    "Painted": robotTorsoPainted,
+                                    "Enameled": robotTorsoEnameled,
+                                    "Alloyed": robotTorsoAlloyed,
+                                    "Polished": robotTorsoPolished,
+                                    "Shadowed": robotTorsoShadowed,
                                 },
                                 "Misc": {
                                     "None": {
                                         name: "None",
                                         default: true
-                                    }
+                                    },
+                                    "Asbestos": standardMiscAsbestos,
+                                    "Dense": standardMiscDense,
+                                    "Leaded": standardMiscLeaded,
+                                    "Padded": standardMiscPadded,
                                 }
                             }
                         },
@@ -1251,13 +1681,20 @@
                                     "Standard": {
                                         name: "Standard",
                                         default: true,
-                                    }
+                                    },
+                                    "Painted": robotLimbPainted,
+                                    "Enameled": robotLimbEnameled,
+                                    "Alloyed": robotLimbAlloyed,
+                                    "Polished": robotLimbPolished,
+                                    "Shadowed": robotLimbShadowed,
                                 },
                                 "Misc": {
                                     "None": {
                                         name: "None",
                                         default: true
-                                    }
+                                    },
+                                    "Braced": standardMiscBraced,
+                                    "Leaded": standardMiscLeaded,
                                 }
                             }
                         },
@@ -1274,13 +1711,19 @@
                                     "Standard": {
                                         name: "Standard",
                                         default: true,
-                                    }
+                                    },
+                                    "Painted": robotLimbPainted,
+                                    "Enameled": robotLimbEnameled,
+                                    "Alloyed": robotLimbAlloyed,
+                                    "Polished": robotLimbPolished,
+                                    "Shadowed": robotLimbShadowed,
                                 },
                                 "Misc": {
                                     "None": {
                                         name: "None",
                                         default: true
-                                    }
+                                    },
+                                    "Leaded": standardMiscLeaded,
                                 }
                             }
                         },
@@ -1291,7 +1734,7 @@
                     },
                     "RobotHeavy": {
                         name: "Robot - Heavy",
-                        levels: [10,20,30,40,50],
+                        levels: robotLevels,
                         category: "Heavy",
                         "Torso": {
                             name: "Chest Piece",
@@ -1302,13 +1745,22 @@
                                     "Standard": {
                                         name: "Standard",
                                         default: true,
-                                    }
+                                    },
+                                    "Painted": robotTorsoPainted,
+                                    "Enameled": robotTorsoEnameled,
+                                    "Alloyed": robotTorsoAlloyed,
+                                    "Polished": robotTorsoPolished,
+                                    "Shadowed": robotTorsoShadowed,
                                 },
                                 "Misc": {
                                     "None": {
                                         name: "None",
                                         default: true
-                                    }
+                                    },
+                                    "Asbestos": standardMiscAsbestos,
+                                    "Dense": standardMiscDense,
+                                    "Leaded": standardMiscLeaded,
+                                    "Padded": standardMiscPadded,
                                 }
                             }
                         },
@@ -1321,13 +1773,20 @@
                                     "Standard": {
                                         name: "Standard",
                                         default: true,
-                                    }
+                                    },
+                                    "Painted": robotLimbPainted,
+                                    "Enameled": robotLimbEnameled,
+                                    "Alloyed": robotLimbAlloyed,
+                                    "Polished": robotLimbPolished,
+                                    "Shadowed": robotLimbShadowed,
                                 },
                                 "Misc": {
                                     "None": {
                                         name: "None",
                                         default: true
-                                    }
+                                    },
+                                    "Braced": standardMiscBraced,
+                                    "Leaded": standardMiscLeaded,
                                 }
                             }
                         },
@@ -1344,13 +1803,19 @@
                                     "Standard": {
                                         name: "Standard",
                                         default: true,
-                                    }
+                                    },
+                                    "Painted": robotLimbPainted,
+                                    "Enameled": robotLimbEnameled,
+                                    "Alloyed": robotLimbAlloyed,
+                                    "Polished": robotLimbPolished,
+                                    "Shadowed": robotLimbShadowed,
                                 },
                                 "Misc": {
                                     "None": {
                                         name: "None",
                                         default: true
-                                    }
+                                    },
+                                    "Leaded": standardMiscLeaded,
                                 }
                             }
                         },
@@ -1361,7 +1826,7 @@
                     },
                     "Trapper": {
                         name: "Trapper",
-                        levels: [15,25,35,45],
+                        levels: trapperLevels,
                         category: "Light",
                         "Torso": {
                             name: "Chest Piece",
@@ -1372,13 +1837,21 @@
                                     "Standard": {
                                         name: "Standard",
                                         default: true,
-                                    }
+                                    },
+                                    "Welded": trapperTorsoWelded,
+                                    "Tempered": trapperTorsoTempered,
+                                    "Hardened": trapperTorsoHardened,
+                                    "Buttressed": trapperTorsoButtressed,
                                 },
                                 "Misc": {
                                     "None": {
                                         name: "None",
                                         default: true
-                                    }
+                                    },
+                                    "Asbestos": standardMiscAsbestos,
+                                    "Dense": standardMiscDense,
+                                    "Leaded": standardMiscLeaded,
+                                    "Padded": standardMiscPadded,
                                 }
                             }
                         },
@@ -1391,13 +1864,19 @@
                                     "Standard": {
                                         name: "Standard",
                                         default: true,
-                                    }
+                                    },
+                                    "Welded": trapperLimbWelded,
+                                    "Tempered": trapperLimbTempered,
+                                    "Hardened": trapperLimbHardened,
+                                    "Buttressed": trapperLimbButtressed,
                                 },
                                 "Misc": {
                                     "None": {
                                         name: "None",
                                         default: true
-                                    }
+                                    },
+                                    "Braced": standardMiscBraced,
+                                    "Leaded": standardMiscLeaded,
                                 }
                             }
                         },
@@ -1414,13 +1893,18 @@
                                     "Standard": {
                                         name: "Standard",
                                         default: true,
-                                    }
+                                    },
+                                    "Welded": trapperLimbWelded,
+                                    "Tempered": trapperLimbTempered,
+                                    "Hardened": trapperLimbHardened,
+                                    "Buttressed": trapperLimbButtressed,
                                 },
                                 "Misc": {
                                     "None": {
                                         name: "None",
                                         default: true
-                                    }
+                                    },
+                                    "Leaded": standardMiscLeaded,
                                 }
                             }
                         },
@@ -1442,13 +1926,22 @@
                                     "Standard": {
                                         name: "Standard",
                                         default: true,
-                                    }
+                                    },
+                                    "Reinforced": combatTorsoReinforced,
+                                    "Fiberglass": combatTorsoFiberglass,
+                                    "Polymer": combatTorsoPolymer,
+                                    "BOS": combatTorsoBOS,
+                                    "Shadowed": combatTorsoShadowed,
                                 },
                                 "Misc": {
                                     "None": {
                                         name: "None",
                                         default: true
-                                    }
+                                    },
+                                    "Asbestos": standardMiscAsbestos,
+                                    "Dense": standardMiscDense,
+                                    "Leaded": standardMiscLeaded,
+                                    "Padded": standardMiscPadded,
                                 }
                             }
                         },
@@ -1461,13 +1954,20 @@
                                     "Standard": {
                                         name: "Standard",
                                         default: true,
-                                    }
+                                    },
+                                    "Reinforced": combatLimbReinforced,
+                                    "Fiberglass": combatLimbFiberglass,
+                                    "Polymer": combatLimbPolymer,
+                                    "BOS": combatLimbBOS,
+                                    "Shadowed": combatLimbShadowed,
                                 },
                                 "Misc": {
                                     "None": {
                                         name: "None",
                                         default: true
-                                    }
+                                    },
+                                    "Braced": standardMiscBraced,
+                                    "Leaded": standardMiscLeaded
                                 }
                             }
                         },
@@ -1484,13 +1984,19 @@
                                     "Standard": {
                                         name: "Standard",
                                         default: true,
-                                    }
+                                    },
+                                    "Reinforced": combatLimbReinforced,
+                                    "Fiberglass": combatLimbFiberglass,
+                                    "Polymer": combatLimbPolymer,
+                                    "BOS": combatLimbBOS,
+                                    "Shadowed": combatLimbShadowed,
                                 },
                                 "Misc": {
                                     "None": {
                                         name: "None",
                                         default: true
-                                    }
+                                    },
+                                    "Leaded": standardMiscLeaded
                                 }
                             }
                         },
@@ -1512,13 +2018,22 @@
                                     "Standard": {
                                         name: "Standard",
                                         default: true,
-                                    }
+                                    },
+                                    "Reinforced": combatTorsoReinforced,
+                                    "Fiberglass": combatTorsoFiberglass,
+                                    "Polymer": combatTorsoPolymer,
+                                    "BOS": combatTorsoBOS,
+                                    "Shadowed": combatTorsoShadowed,
                                 },
                                 "Misc": {
                                     "None": {
                                         name: "None",
                                         default: true
-                                    }
+                                    },
+                                    "Asbestos": standardMiscAsbestos,
+                                    "Dense": standardMiscDense,
+                                    "Leaded": standardMiscLeaded,
+                                    "Padded": standardMiscPadded,
                                 }
                             }
                         },
@@ -1531,13 +2046,20 @@
                                     "Standard": {
                                         name: "Standard",
                                         default: true,
-                                    }
+                                    },
+                                    "Reinforced": combatLimbReinforced,
+                                    "Fiberglass": combatLimbFiberglass,
+                                    "Polymer": combatLimbPolymer,
+                                    "BOS": combatLimbBOS,
+                                    "Shadowed": combatLimbShadowed,
                                 },
                                 "Misc": {
                                     "None": {
                                         name: "None",
                                         default: true
-                                    }
+                                    },
+                                    "Braced": standardMiscBraced,
+                                    "Leaded": standardMiscLeaded
                                 }
                             }
                         },
@@ -1554,13 +2076,19 @@
                                     "Standard": {
                                         name: "Standard",
                                         default: true,
-                                    }
+                                    },
+                                    "Reinforced": combatLimbReinforced,
+                                    "Fiberglass": combatLimbFiberglass,
+                                    "Polymer": combatLimbPolymer,
+                                    "BOS": combatLimbBOS,
+                                    "Shadowed": combatLimbShadowed,
                                 },
                                 "Misc": {
                                     "None": {
                                         name: "None",
                                         default: true
-                                    }
+                                    },
+                                    "Leaded": standardMiscLeaded
                                 }
                             }
                         },
@@ -1582,13 +2110,22 @@
                                     "Standard": {
                                         name: "Standard",
                                         default: true,
-                                    }
+                                    },
+                                    "Reinforced": combatTorsoReinforced,
+                                    "Fiberglass": combatTorsoFiberglass,
+                                    "Polymer": combatTorsoPolymer,
+                                    "BOS": combatTorsoBOS,
+                                    "Shadowed": combatTorsoShadowed,
                                 },
                                 "Misc": {
                                     "None": {
                                         name: "None",
                                         default: true
-                                    }
+                                    },
+                                    "Asbestos": standardMiscAsbestos,
+                                    "Dense": standardMiscDense,
+                                    "Leaded": standardMiscLeaded,
+                                    "Padded": standardMiscPadded,
                                 }
                             }
                         },
@@ -1601,13 +2138,20 @@
                                     "Standard": {
                                         name: "Standard",
                                         default: true,
-                                    }
+                                    },
+                                    "Reinforced": combatLimbReinforced,
+                                    "Fiberglass": combatLimbFiberglass,
+                                    "Polymer": combatLimbPolymer,
+                                    "BOS": combatLimbBOS,
+                                    "Shadowed": combatLimbShadowed,
                                 },
                                 "Misc": {
                                     "None": {
                                         name: "None",
                                         default: true
-                                    }
+                                    },
+                                    "Braced": standardMiscBraced,
+                                    "Leaded": standardMiscLeaded
                                 }
                             }
                         },
@@ -1624,13 +2168,19 @@
                                     "Standard": {
                                         name: "Standard",
                                         default: true,
-                                    }
+                                    },
+                                    "Reinforced": combatLimbReinforced,
+                                    "Fiberglass": combatLimbFiberglass,
+                                    "Polymer": combatLimbPolymer,
+                                    "BOS": combatLimbBOS,
+                                    "Shadowed": combatLimbShadowed,
                                 },
                                 "Misc": {
                                     "None": {
                                         name: "None",
                                         default: true
-                                    }
+                                    },
+                                    "Leaded": standardMiscLeaded
                                 }
                             }
                         },
@@ -1641,7 +2191,7 @@
                     },
                     "Marine": {
                         name: "Marine",
-                        levels: [35,45],
+                        levels: marineLevels,
                         category: "Sturdy",
                         "Torso": {
                             name: "Chest Piece",
@@ -1652,13 +2202,21 @@
                                     "Standard": {
                                         name: "Standard",
                                         default: true,
-                                    }
+                                    },
+                                    "Welded": marineTorsoWelded,
+                                    "Tempered": marineTorsoTempered,
+                                    "Hardened": marineTorsoHardened,
+                                    "Buttressed": marineTorsoButtressed,
                                 },
                                 "Misc": {
                                     "None": {
                                         name: "None",
                                         default: true
-                                    }
+                                    },
+                                    "Asbestos": standardMiscAsbestos,
+                                    "Dense": standardMiscDense,
+                                    "Leaded": standardMiscLeaded,
+                                    "Padded": standardMiscPadded,
                                 }
                             }
                         },
@@ -1671,13 +2229,19 @@
                                     "Standard": {
                                         name: "Standard",
                                         default: true,
-                                    }
+                                    },
+                                    "Welded": marineLimbWelded,
+                                    "Tempered": marineLimbTempered,
+                                    "Hardened": marineLimbHardened,
+                                    "Buttressed": marineLimbButtressed,
                                 },
                                 "Misc": {
                                     "None": {
                                         name: "None",
                                         default: true
-                                    }
+                                    },
+                                    "Braced": standardMiscBraced,
+                                    "Leaded": standardMiscLeaded,
                                 }
                             }
                         },
@@ -1694,13 +2258,18 @@
                                     "Standard": {
                                         name: "Standard",
                                         default: true,
-                                    }
+                                    },
+                                    "Welded": marineLimbWelded,
+                                    "Tempered": marineLimbTempered,
+                                    "Hardened": marineLimbHardened,
+                                    "Buttressed": marineLimbButtressed,
                                 },
                                 "Misc": {
                                     "None": {
                                         name: "None",
                                         default: true
-                                    }
+                                    },
+                                    "Leaded": standardMiscLeaded,
                                 }
                             }
                         },
@@ -1711,7 +2280,7 @@
                     },
                     "MetalLight": {
                         name: "Metal - Light",
-                        levels: [10,20,30,40,50],
+                        levels: metalLevels,
                         category: "Light",
                         "Torso": {
                             name: "Chest Piece",
@@ -1722,13 +2291,22 @@
                                     "Standard": {
                                         name: "Standard",
                                         default: true,
-                                    }
+                                    },
+                                    "Painted": metalTorsoPainted,
+                                    "Enameled": metalTorsoEnameled,
+                                    "Alloyed": metalTorsoAlloyed,
+                                    "Polished": metalTorsoPolished,
+                                    "Shadowed": metalTorsoShadowed,
                                 },
                                 "Misc": {
                                     "None": {
                                         name: "None",
                                         default: true
-                                    }
+                                    },
+                                    "Asbestos": standardMiscAsbestos,
+                                    "Dense": standardMiscDense,
+                                    "Leaded": standardMiscLeaded,
+                                    "Padded": standardMiscPadded,
                                 }
                             }
                         },
@@ -1741,13 +2319,20 @@
                                     "Standard": {
                                         name: "Standard",
                                         default: true,
-                                    }
+                                    },
+                                    "Painted": metalLimbPainted,
+                                    "Enameled": metalLimbEnameled,
+                                    "Alloyed": metalLimbAlloyed,
+                                    "Polished": metalLimbPolished,
+                                    "Shadowed": metalLimbShadowed,
                                 },
                                 "Misc": {
                                     "None": {
                                         name: "None",
                                         default: true
-                                    }
+                                    },
+                                    "Braced": standardMiscBraced,
+                                    "Leaded": standardMiscLeaded,
                                 }
                             }
                         },
@@ -1764,13 +2349,19 @@
                                     "Standard": {
                                         name: "Standard",
                                         default: true,
-                                    }
+                                    },
+                                    "Painted": metalLimbPainted,
+                                    "Enameled": metalLimbEnameled,
+                                    "Alloyed": metalLimbAlloyed,
+                                    "Polished": metalLimbPolished,
+                                    "Shadowed": metalLimbShadowed,
                                 },
                                 "Misc": {
                                     "None": {
                                         name: "None",
                                         default: true
-                                    }
+                                    },
+                                    "Leaded": standardMiscLeaded,
                                 }
                             }
                         },
@@ -1781,7 +2372,7 @@
                     },
                     "MetalSturdy": {
                         name: "Metal - Sturdy",
-                        levels: [10,20,30,40,50],
+                        levels: metalLevels,
                         category: "Sturdy",
                         "Torso": {
                             name: "Chest Piece",
@@ -1792,13 +2383,22 @@
                                     "Standard": {
                                         name: "Standard",
                                         default: true,
-                                    }
+                                    },
+                                    "Painted": metalTorsoPainted,
+                                    "Enameled": metalTorsoEnameled,
+                                    "Alloyed": metalTorsoAlloyed,
+                                    "Polished": metalTorsoPolished,
+                                    "Shadowed": metalTorsoShadowed,
                                 },
                                 "Misc": {
                                     "None": {
                                         name: "None",
                                         default: true
-                                    }
+                                    },
+                                    "Asbestos": standardMiscAsbestos,
+                                    "Dense": standardMiscDense,
+                                    "Leaded": standardMiscLeaded,
+                                    "Padded": standardMiscPadded,
                                 }
                             }
                         },
@@ -1811,13 +2411,20 @@
                                     "Standard": {
                                         name: "Standard",
                                         default: true,
-                                    }
+                                    },
+                                    "Painted": metalLimbPainted,
+                                    "Enameled": metalLimbEnameled,
+                                    "Alloyed": metalLimbAlloyed,
+                                    "Polished": metalLimbPolished,
+                                    "Shadowed": metalLimbShadowed,
                                 },
                                 "Misc": {
                                     "None": {
                                         name: "None",
                                         default: true
-                                    }
+                                    },
+                                    "Braced": standardMiscBraced,
+                                    "Leaded": standardMiscLeaded,
                                 }
                             }
                         },
@@ -1834,13 +2441,19 @@
                                     "Standard": {
                                         name: "Standard",
                                         default: true,
-                                    }
+                                    },
+                                    "Painted": metalLimbPainted,
+                                    "Enameled": metalLimbEnameled,
+                                    "Alloyed": metalLimbAlloyed,
+                                    "Polished": metalLimbPolished,
+                                    "Shadowed": metalLimbShadowed,
                                 },
                                 "Misc": {
                                     "None": {
                                         name: "None",
                                         default: true
-                                    }
+                                    },
+                                    "Leaded": standardMiscLeaded,
                                 }
                             }
                         },
@@ -1851,7 +2464,7 @@
                     },
                     "MetalHeavy": {
                         name: "Metal - Heavy",
-                        levels: [10,20,30,40,50],
+                        levels: metalLevels,
                         category: "Heavy",
                         "Torso": {
                             name: "Chest Piece",
@@ -1862,13 +2475,22 @@
                                     "Standard": {
                                         name: "Standard",
                                         default: true,
-                                    }
+                                    },
+                                    "Painted": metalTorsoPainted,
+                                    "Enameled": metalTorsoEnameled,
+                                    "Alloyed": metalTorsoAlloyed,
+                                    "Polished": metalTorsoPolished,
+                                    "Shadowed": metalTorsoShadowed,
                                 },
                                 "Misc": {
                                     "None": {
                                         name: "None",
                                         default: true
-                                    }
+                                    },
+                                    "Asbestos": standardMiscAsbestos,
+                                    "Dense": standardMiscDense,
+                                    "Leaded": standardMiscLeaded,
+                                    "Padded": standardMiscPadded,
                                 }
                             }
                         },
@@ -1881,13 +2503,20 @@
                                     "Standard": {
                                         name: "Standard",
                                         default: true,
-                                    }
+                                    },
+                                    "Painted": metalLimbPainted,
+                                    "Enameled": metalLimbEnameled,
+                                    "Alloyed": metalLimbAlloyed,
+                                    "Polished": metalLimbPolished,
+                                    "Shadowed": metalLimbShadowed,
                                 },
                                 "Misc": {
                                     "None": {
                                         name: "None",
                                         default: true
-                                    }
+                                    },
+                                    "Braced": standardMiscBraced,
+                                    "Leaded": standardMiscLeaded,
                                 }
                             }
                         },
@@ -1904,13 +2533,19 @@
                                     "Standard": {
                                         name: "Standard",
                                         default: true,
-                                    }
+                                    },
+                                    "Painted": metalLimbPainted,
+                                    "Enameled": metalLimbEnameled,
+                                    "Alloyed": metalLimbAlloyed,
+                                    "Polished": metalLimbPolished,
+                                    "Shadowed": metalLimbShadowed,
                                 },
                                 "Misc": {
                                     "None": {
                                         name: "None",
                                         default: true
-                                    }
+                                    },
+                                    "Leaded": standardMiscLeaded,
                                 }
                             }
                         },
@@ -2550,6 +3185,58 @@
                             use: "LL"
                         }
                     },
+                },
+                "Suit": {
+                    "Hazmat": {
+                        name: "Hazmat Suit",
+                        levels: ["Any"],
+                        category: "Suit",
+                        "Body": {
+                            name: "Body",
+                            order: 1,
+                            func: createBaseNonPA([0],[0],[1000])
+                        }
+                    },
+                    "HazmatDamaged": {
+                        name: "Damaged Hazmat Suit",
+                        levels: ["Any"],
+                        category: "Suit",
+                        "Body": {
+                            name: "Body",
+                            order: 1,
+                            func: createBaseNonPA([0],[0],[500])
+                        }
+                    },
+                    "HazmatPrototype": {
+                        name: "Prototype Hazmat Suit",
+                        levels: ["Any"],
+                        category: "Suit",
+                        "Body": {
+                            name: "Body",
+                            order: 1,
+                            func: createBaseNonPA([0],[0],[1000])
+                        }
+                    },
+                    "HazmatCamo": {
+                        name: "Swamp Camo Hazmat Suit",
+                        levels: ["Any"],
+                        category: "Suit",
+                        "Body": {
+                            name: "Body",
+                            order: 1,
+                            func: createBaseNonPA([0],[0],[1000])
+                        }
+                    },
+                    "Stealth": {
+                        name: "Chinese Stealth",
+                        levels: [25,30,35,40,45,50],
+                        category: "Suit",
+                        "Body": {
+                            name: "Body",
+                            order: 1,
+                            func: createBaseNonPA([70,84,98,112,126,140],[70,84,98,112,126,140],[1000,1000,1000,1000,1000,1000])
+                        }
+                    }
                 }
             };
 
@@ -3515,7 +4202,12 @@
                     for (let lvl in am.levels) {
                         opt = document.createElement("option");
                         opt.value = a + "-" + am.levels[lvl];
-                        opt.text = armors[a].name + " - Level " + am.levels[lvl];
+                        var lvlName = am.levels[lvl];
+                        if (lvlName === "Any") {
+                            opt.text = armors[a].name;
+                        } else {
+                            opt.text = armors[a].name + " - Level " + lvlName;
+                        }
                         opt.level = lvl;
                         opt.data = {
                             order: p.order,
@@ -3645,36 +4337,40 @@
                     cll = rw.insertCell(rw.cells.length);
 
                     cll.innerText = "Legendary";
-
-                    for (var le in legendaryEffects[mode]) {
-                        var eff = legendaryEffects[mode][le];
-                        rw = tbl.insertRow(sidx++);
+                    if (legendaryEffects[mode] === undefined) {
                         cll = rw.insertCell(rw.cells.length);
+                        cll.innerText = "Can't be legendary";
+                    } else {
+                        for (var le in legendaryEffects[mode]) {
+                            var eff = legendaryEffects[mode][le];
+                            rw = tbl.insertRow(sidx++);
+                            cll = rw.insertCell(rw.cells.length);
 
-                        cll.innerHTML = "&nbsp;&nbsp;&nbsp;" + le;
+                            cll.innerHTML = "&nbsp;&nbsp;&nbsp;" + le;
 
-                        let legSel = document.createElement("select");
-                        cll = rw.insertCell(rw.cells.length);
-                        cll.appendChild(legSel);
-                        createSetFullLink(cll, part, index, "_Legendary_" + le);
-                        legSel.oninput = evt => recalculateBoth();
-                        
-                        legSel.id = index + "_Part_" + part + "_Legendary_" + le;
-                        opt = document.createElement("option");
-                        legSel.options.add(opt);
-
-                        var effList = [];
-                        for (var e in eff) {
-                            effList.push({ key: e, value: eff[e] })
-                        }
-                        effList.sort((a, b) => a.value.name.localeCompare(b.value.name));
-
-                        for (var e of effList) {
+                            let legSel = document.createElement("select");
+                            cll = rw.insertCell(rw.cells.length);
+                            cll.appendChild(legSel);
+                            createSetFullLink(cll, part, index, "_Legendary_" + le);
+                            legSel.oninput = evt => recalculateBoth();
+                            
+                            legSel.id = index + "_Part_" + part + "_Legendary_" + le;
                             opt = document.createElement("option");
-                            opt.value = e.key;
-                            opt.text = e.value.name;
-                            opt.data = { order: e.value.order, func: e.value.func };
                             legSel.options.add(opt);
+
+                            var effList = [];
+                            for (var e in eff) {
+                                effList.push({ key: e, value: eff[e] })
+                            }
+                            effList.sort((a, b) => a.value.name.localeCompare(b.value.name));
+
+                            for (var e of effList) {
+                                opt = document.createElement("option");
+                                opt.value = e.key;
+                                opt.text = e.value.name;
+                                opt.data = { order: e.value.order, func: e.value.func };
+                                legSel.options.add(opt);
+                            }
                         }
                     }
                 } else {
@@ -3736,7 +4432,7 @@
                 var rw = tbl.insertRow(tbl.rows.length);
                 var cll = rw.insertCell(rw.cells.length);
                 cll.innerHTML = "Player";
-                cll.className = "topline";
+                cll.className = "topline bold";
                 cll = rw.insertCell(rw.cells.length);
                 cll.className = "topline";
 
@@ -3747,7 +4443,7 @@
                 createNumber(tbl, "Teammates", index + "_Teammates", 0, 3, 0).oninput = evt => recalculateBoth();
                 createNumber(tbl, "&nbsp;&nbsp;&nbsp;Deaths", index + "_Teamdeaths", 0, 3, 0).oninput = evt => recalculateBoth();
 
-                if (mode === "NonPA") {
+                if (mode !== "PA") {
                     createNumber(tbl, "Strength", index + "_Strength", 1, 100, 1).oninput = evt => recalculateBoth();
                     createNumber(tbl, "Agility", index + "_Agility", 1, 100, 1).oninput = evt => recalculateBoth();
                     createNumber(tbl, "Junk Amount", index + "_Junkamount", 0, 46, 0).oninput = evt => recalculateBoth();
@@ -3832,8 +4528,9 @@
                 rw = tbl.insertRow(tbl.rows.length);
                 cll = rw.insertCell(rw.cells.length);
                 cll.innerHTML = "Perks";
+                cll.className = "bold";
 
-                if (mode == "NonPA") {
+                if (mode !== "PA") {
                     createSelectWithData(tbl, "&nbsp;&nbsp;&nbsp;Junk Shield", index + "_Junkshield", ["None", "1", "2", "3"], ["", "10", "20", "30"], [
                         null,
                         createJunkShieldFunc(1),
@@ -3951,6 +4648,7 @@
                 rw = tbl.insertRow(tbl.rows.length);
                 cll = rw.insertCell(rw.cells.length);
                 cll.innerHTML = "Legendary Perks";
+                cll.className = "bold";
 
                 createSelectWithFunc(tbl, "&nbsp;&nbsp;&nbsp;Blood Sacrifice", index + "_Bloodsacrifice", ["None", "1", "2", "3", "4"], ["", "25", "30", "35", "40"],
                 " (rank)", 2, (state, val) => {
@@ -4035,6 +4733,7 @@
                 var rw = tbl.insertRow(tbl.rows.length);
                 var cll = rw.insertCell(rw.cells.length);
                 cll.innerHTML = "Mutations";
+                cll.className = "bold";
 
                 createSelectWithFunc(tbl, "&nbsp;&nbsp;&nbsp;Empath", index + "_Empath",
                         ["None", "Self", "Teammate", "Both"],
@@ -4155,6 +4854,7 @@
                 var rw = tbl.insertRow(tbl.rows.length);
                 var cll = rw.insertCell(rw.cells.length);
                 cll.innerHTML = "Consumables";
+                cll.className = "bold";
 
                 rw = tbl.insertRow(tbl.rows.length);                
                 cll = rw.insertCell(rw.cells.length);
@@ -4305,12 +5005,17 @@
                 if (mode === "PA") {
                     createBodyPart(tbl, index, mode, "Helmet");
                 }
-                createBodyPart(tbl, index, mode, "Torso");
-                createBodyPart(tbl, index, mode, "LA");
-                createBodyPart(tbl, index, mode, "RA");
-                createBodyPart(tbl, index, mode, "LL");
-                createBodyPart(tbl, index, mode, "RL");
-                if (mode === "NonPA") {
+                if (mode !== "Suit") {
+                    createBodyPart(tbl, index, mode, "Torso");
+                    createBodyPart(tbl, index, mode, "LA");
+                    createBodyPart(tbl, index, mode, "RA");
+                    createBodyPart(tbl, index, mode, "LL");
+                    createBodyPart(tbl, index, mode, "RL");
+                }
+                if (mode === "Suit") {
+                    createBodyPart(tbl, index, mode, "Body");
+                }
+                if (mode !== "PA") {
                     createBackpack(tbl, index, mode);
                 }
                 createParams(tbl, index, mode);
@@ -4397,13 +5102,21 @@
                 state.player.sneaking = getBool(index + "_Sneak_yes");
                 state.player.fireheavy = getBool(index + "_Fireheavy_yes");
                 state.player.stance = getValue(index + "_Stance");
-                state.player.mode = getBool("NonPA" + index) ? "NonPA" : "PA";
+                if (getBool("NonPA" + index)) {
+                    state.player.mode = "NonPA";
+                }
+                if (getBool("PA" + index)) {
+                    state.player.mode = "PA";
+                }
+                if (getBool("Suit" + index)) {
+                    state.player.mode = "Suit";
+                }
                 state.player.mutations = 0;
 
 
                 state.reductionSlots = {};
 
-                if (state.player.mode === "NonPA") {
+                if (state.player.mode !== "PA") {
                     state.player.strength = parseInt(getValue(index + "_Strength"));
                     state.player.agility = parseInt(getValue(index + "_Agility"));
                     state.player.junkamount = parseInt(getValue(index + "_Junkamount"));
@@ -4697,9 +5410,13 @@
                 var components = [];
                 var nonpa = getBool("NonPA" + index);
                 var pa = getBool("PA" + index);
+                var suit = getBool("Suit" + index);
 
-                if (nonpa || pa) {
-                    components.push(nonpa ? "NonPA" : "PA");   
+                if (nonpa || pa || suit) {
+                    if (nonpa) components.push("NonPA");
+                    if (pa) components.push("PA");
+                    if (suit) components.push("Suit");
+
                     for (var elem of document.getElementsByTagName("select")) {
                         if (elem.id.startsWith(index + "_") && elem.selectedIndex > 0) {
                             var key = elem.id.substring(2).replace(/_/g, "~");
@@ -4748,8 +5465,10 @@
 
             get("NonPA1").oninput = evt => createSide(1, "NonPA");
             get("PA1").oninput = evt => createSide(1, "PA");
+            get("Suit1").oninput = evt => createSide(1, "Suit");
             get("NonPA2").oninput = evt => createSide(2, "NonPA");
             get("PA2").oninput = evt => createSide(2, "PA");
+            get("Suit2").oninput = evt => createSide(2, "Suit");
 
             get("enemykind").oninput = evt => recalculateBoth();
             get("dmgBallistic").oninput = evt => recalculateBoth();
@@ -4780,6 +5499,13 @@
                     }
                     else if (av === "PA") {
                         var cb = get("PA" + index);
+                        cb.checked = true;
+                        cb.dispatchEvent(new Event("input"));
+                        argValues.splice(j, 1);
+                        break;
+                    }
+                    else if (av === "Suit") {
+                        var cb = get("Suit" + index);
                         cb.checked = true;
                         cb.dispatchEvent(new Event("input"));
                         argValues.splice(j, 1);
@@ -4890,6 +5616,7 @@
                 }
                 get("NonPA" + dst).checked = false;
                 get("PA" + dst).checked = false;
+                get("Suit" + dst).checked = false;
                 var tbl = get("table" + dst);
                 removeRows(tbl, 1, tbl.rows.length);
                 var ll = createLink(src);
