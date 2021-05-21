@@ -82,7 +82,7 @@
     </head>
     <body style="height: 90%; overflow-y: scroll;">
         <center>
-            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Armor Defense Calculator (0.2.0)</span>
+            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Armor Defense Calculator (0.2.1)</span>
             <br/>
             <!-- <i>(Notification here)</i> -->
         <br/>
@@ -5553,22 +5553,138 @@
                     modList.push({key: bm, value: backpackMods[bm] })
                 }
                 modList.sort((a, b) => a.value.name.localeCompare(b.value.name));
-                var texts = [ "None" ];
-                var values = [ "" ];
-                var data = [ null ];
+
+                rw = tbl.insertRow(tbl.rows.length);
+                cll = rw.insertCell(rw.cells.length);
+                cll.innerHTML = "&nbsp;&nbsp;&nbsp;Backpack";
+
+                cll = rw.insertCell(rw.cells.length);
+
+                let modSel = document.createElement("select");
+                modSel.id = "Backpack" + index + "Mod";
+
+                let modLevelSel = document.createElement("select");
+                modLevelSel.id = index + "_Backpack";
+                modLevelSel.style.display = "none";
+
+                let backpackLevelRadios = [];
+
+                modSel.oninput = evt => {
+                    onBackpackForwardSelect(modLevelSel, modSel, backpackLevelRadios);
+                };
+
+                cll.appendChild(modSel);
+
+                var opt = document.createElement("option");
+                    opt.value = "";
+                    opt.text = "None";
+                    modSel.options.add(opt);
+
+                for (let bm of modList) {
+                    opt = document.createElement("option");
+                    opt.value = bm.key;
+                    opt.text = bm.value.name;
+                    modSel.options.add(opt);
+                }
+
+                let levelSel = document.createElement("div");
+                cll.appendChild(levelSel);
+
+
+                for (let lvl of backpackLevels) {
+                    var rb = createCatLevelRadio("Backpack" + index + "Lvl", lvl, lvl);
+                    levelSel.append(rb.lbl);
+                    levelSel.appendChild(create3Spaces());
+                    backpackLevelRadios.push(rb.radio);
+
+                    rb.radio.oninput = evt => {
+                        onBackpackForwardSelect(modLevelSel, modSel, backpackLevelRadios);
+                    };
+                }
+
+                cll.appendChild(modLevelSel);
+
+                opt = document.createElement("option");
+                    opt.value = "";
+                    opt.text = "None";
+                    modLevelSel.options.add(opt);
+
                 for (let bm of modList) {
                     for (let blIdx = 0; blIdx < backpackLevels.length; blIdx++) {
                         let bl = backpackLevels[blIdx];
-                        texts.push(bm.value.name + " - " + bl);
-                        values.push(bm.key + "-" + bl);
-                        data.push(
-                        { 
+                        opt = document.createElement("option");
+                        opt.value = bm.key + "-" + bl;
+                        opt.text = bm.value.name + " - " + bl;
+                        opt.lvl = bl;
+                        opt.key = bm.key;
+                        opt.data = { 
                             order: bm.value.order, 
                             func: (state) => bm.value.func(state, blIdx)
-                        });
+                        };
+                        modLevelSel.options.add(opt);
                     }
                 }
-                createSelectWithData(tbl, "&nbsp;&nbsp;&nbsp;Backpack", index + "_Backpack", texts, values, data).oninput = evt => recalculateBoth();
+                modLevelSel.oninput = evt => {
+                    onBackpackReverseSelect(modLevelSel, modSel, backpackLevelRadios);
+                    recalculateBoth();
+                }
+                // createSelectWithData(tbl, "&nbsp;&nbsp;&nbsp;Backpack", index + "_Backpack", texts, values, data).oninput = evt => recalculateBoth();
+            }
+
+            var backpackForwardSelectMode = false;
+            var backpackReverseSelectMode = false;
+
+            function onBackpackForwardSelect(sel, modSel, backpackLevelRadios) {
+                if (backpackReverseSelectMode) {
+                    return;
+                }
+                backpackForwardSelectMode = true;
+                try {
+                    if (modSel.selectedIndex == 0) {
+                        sel.selectedIndex = 0;
+                        sel.dispatchEvent(new Event("input"));
+                    } else {
+                        var opt = modSel.options[modSel.selectedIndex];
+                        var mod = opt.value;
+                        var lvl = "";
+                        for (var rb of backpackLevelRadios) {
+                            if (rb.checked) {
+                                lvl = rb.value;
+                                break;
+                            }
+                        }
+                        if (lvl !== "") {
+                            selectValue(sel, mod + "-" + lvl);
+                        }
+                    }
+                } finally {
+                    backpackForwardSelectMode = false;
+                }
+            }
+
+            function onBackpackReverseSelect(sel, modSel, backpackLevelRadios) {
+                if (backpackForwardSelectMode) {
+                    return;
+                }
+                backpackReverseSelectMode = true;
+                try {
+                    if (sel.selectedIndex == 0) {
+                        modSel.selectedIndex = 0;
+                        for (var rb of backpackLevelRadios) {
+                            rb.checked = false;
+                        }
+                        modSel.dispatchEvent(new Event("input"));
+                    } else {
+                        var opt = sel.options[sel.selectedIndex];
+                        for (var rb of backpackLevelRadios) {
+                            rb.checked = rb.value == opt.lvl;
+                        }
+                        selectValue(modSel, opt.key);
+                    }
+                } finally {
+                    backpackReverseSelectMode = false;
+                }
+
             }
 
             function createSide(index, mode) {                
