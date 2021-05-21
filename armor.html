@@ -82,7 +82,7 @@
     </head>
     <body style="height: 90%; overflow-y: scroll;">
         <center>
-            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Armor Defense Calculator (0.2.2)</span>
+            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Armor Defense Calculator (0.2.3)</span>
             <br/>
             <!-- <i>(Notification here)</i> -->
         <br/>
@@ -3511,6 +3511,58 @@
                             name: "Left Leg",
                             order: 1,
                             func: createBasePA([85], [70], [70], 7, 7, 15),
+                        },
+                        "RL": {
+                            name: "Right Leg",
+                            use: "LL"
+                        }
+                    },
+                    "Hellcat": {
+                        name: "Hellcat",
+                        levels: [50],
+                        category: "PA",
+                        "Helmet": {
+                            name: "Helmet",
+                            order: 1,
+                            func: createBasePA([73], [60], [60], 7, 7, 15)
+                        },
+                        "Torso": {
+                            name: "Torso",
+                            order: 1,
+                            func: (state, idx) => {
+                                state.dr += 120;
+                                state.er += 100;
+                                state.rr += 100;
+                                
+                                var rs = getOrCreateReductionSlot(state, "base");
+                                rs.ballisticReduction += 7;
+                                rs.energyReduction += 7;
+                                rs.radiationReduction += 15;
+
+                                if (state.player.fullSet) {
+                                    rs = getOrCreateReductionSlot(state, "hellcat");
+                                    rs.ballisticReduction += 12;
+                                }
+                            },
+                            mods: {
+                                "Main": {
+                                    "Emergency": paTorsoEmergencyProtocol
+                                }
+                            }
+                        },
+                        "LA": {
+                            name: "Left Arm",
+                            order: 1,
+                            func: createBasePA([73], [60], [60], 7, 7, 15),
+                        },
+                        "RA": {
+                            name: "Right Arm",
+                            use: "LA"
+                        },
+                        "LL": {
+                            name: "Left Leg",
+                            order: 1,
+                            func: createBasePA([73], [60], [60], 7, 7, 15),
                         },
                         "RL": {
                             name: "Right Leg",
