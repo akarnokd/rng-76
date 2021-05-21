@@ -20,6 +20,14 @@
             #enemytable td:nth-child(2) {
                 padding-left: 15px;
             }
+            #bottom1 td {
+                padding-left: 3px;
+                padding-right: 3px;
+            }
+            #bottom2 td {
+                padding-left: 3px;
+                padding-right: 3px;
+            }
             
             table.infoTable {
                border: 1px solid black;
@@ -53,18 +61,28 @@
             .topline {
                 border-top: 1px solid black;
             }
+            .leftline {
+                border-left: 1px solid black;
+            }
             .border {
                 border: 1px solid black;
             }
             .right {
                 text-align: right;
             }
+            .footer {
+                position: fixed;
+                right: 0;
+                bottom: 0;
+                left: 0;
+            }
+
         </style>
         <meta name="keywords" content="Fallout,Fallout 76,Armor,Damage,Resistance,DR,ER,Reduction,Calculation,Comparison,Comparator">
     </head>
-    <body style="height: 90%">
+    <body style="height: 90%; overflow-y: scroll;">
         <center>
-            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Armor Defense Calculator (0.1.8)</span>
+            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Armor Defense Calculator (0.2.0)</span>
             <br/>
             <!-- <i>(Notification here)</i> -->
         <br/>
@@ -72,9 +90,9 @@
         <br/>
         <br/>
         <a name="top"></a>
-        <table id="parent">
+        <table id="parent" style='width: 100%;'>
             <tr>
-                <td style='vertical-align: top;'>
+                <td style='vertical-align: top;' width='46%' align='right'>
                     <table id="table1" style="border: 1px solid black;">
                         <tr>
                             <td class='bold'>Kind</td>
@@ -89,7 +107,7 @@
         
                     </table>            
                 </td>
-                <td style="padding-left: 20px; padding-right:20px; text-align: center; vertical-align: top; width: 100px;">
+                <td style="padding-left: 20px; padding-right:20px; text-align: center; vertical-align: top; width: 8%; white-space: nowrap;">
                     <button id="copyright" title="Copy Right">&gt;&gt;</button>
                     <br/>
                     <button id="copyleft" title="Copy left">&lt;&lt;</button>
@@ -107,7 +125,7 @@
                     <br/>
                     <button id="clear" title="Clear" onclick='clearPage(); return false;'>Clear</button>
                 </td>
-                <td style='vertical-align: top;'>
+                <td style='vertical-align: top;' width='46%' align='left'>
                     <table id="table2" style="border: 1px solid black;">
                         <tr>
                             <td class='bold'>Kind</td>
@@ -227,6 +245,73 @@
             </tr>
     </table>
     </center>
+    <div style='height: 100px;'>&nbsp;</div>
+    <div class='footer' style='background-color: #F8F8F8;'>
+        <table style='width: 100%'>
+            <tr>
+                <td width='50%' align='center' style='vertical-align: bottom;'>
+                    <br>
+                    <table id='bottom1' style='width: 80%; border-collapse: collapse; border: 1px solid black; background-color: #EFEFEF;'>
+                        <tr class='bold'>
+                            <td rowspan='2'>&#x2316;</td>
+                            <td id='dr1' class='right'>0</td>
+                            <td rowspan='2' class='leftline'>&#x21AF;</td>
+                            <td id='er1' class='right'>0</td>
+                            <td rowspan='2' class='leftline'>&#x2622;</td>
+                            <td id='rr1' class='right'>0</td>
+                            <td rowspan='2' class='leftline'>&#x1F525;</td>
+                            <td id='fr1' class='right'>0</td>
+                            <td rowspan='2' class='leftline'>&#x2744;</td>
+                            <td id='cr1' class='right'>0</td>
+                            <td rowspan='2' class='leftline'>&#x1F4A7;</td>
+                            <td id='pr1' class='right'>0</td>
+                            <td rowspan='2' class='leftline'>&#x1F4A5;</td>
+                            <td id='xr1' class='right'>0</td>
+                        </tr>
+                        <tr class='bold'>
+                            <td id='dred1' class='right'>0.00%</td>
+                            <td id='ered1' class='right'>0.00%</td>
+                            <td id='rred1' class='right'>0.00%</td>
+                            <td id='fred1' class='right'>0.00%</td>
+                            <td id='cred1' class='right'>0.00%</td>
+                            <td id='pred1' class='right'>0.00%</td>
+                            <td id='xred1' class='right'>0.00%</td>
+                        </tr>
+                    </table>
+                </td>
+                <td width='50%' align='center' style='vertical-align: bottom;'>
+                    <br>
+                    <table id='bottom2' style='width: 80%; border-collapse: collapse; border: 1px solid black; background-color: #EFEFEF;'>
+                        <tr class='bold'>
+                            <td rowspan='2'>&#x2316;</td>
+                            <td id='dr2' class='right'>0</td>
+                            <td rowspan='2' class='leftline'>&#x21AF;</td>
+                            <td id='er2' class='right'>0</td>
+                            <td rowspan='2' class='leftline'>&#x2622;</td>
+                            <td id='rr2' class='right'>0</td>
+                            <td rowspan='2' class='leftline'>&#x1F525;</td>
+                            <td id='fr2' class='right'>0</td>
+                            <td rowspan='2' class='leftline'>&#x2744;</td>
+                            <td id='cr2' class='right'>0</td>
+                            <td rowspan='2' class='leftline'>&#x1F4A7;</td>
+                            <td id='pr2' class='right'>0</td>
+                            <td rowspan='2' class='leftline'>&#x1F4A5;</td>
+                            <td id='xr2' class='right'>0</td>
+                        </tr>
+                        <tr class='bold'>
+                            <td id='dred2' class='right'>0.00%</td>
+                            <td id='ered2' class='right'>0.00%</td>
+                            <td id='rred2' class='right'>0.00%</td>
+                            <td id='fred2' class='right'>0.00%</td>
+                            <td id='cred2' class='right'>0.00%</td>
+                            <td id='pred2' class='right'>0.00%</td>
+                            <td id='xred2' class='right'>0.00%</td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+    </div>
     <script>
             var infoMap = new Map();
 
@@ -5007,46 +5092,10 @@
                 cll.className = "bold";
 
                 if (mode !== "PA") {
-                    createSelectWithData(tbl, "&nbsp;&nbsp;&nbsp;Junk Shield", index + "_Junkshield", ["None", "1", "2", "3"], ["", "10", "20", "30"], [
-                        null,
-                        createJunkShieldFunc(1),
-                        createJunkShieldFunc(2),
-                        createJunkShieldFunc(3),
-                    ], false, " (rank)", "junkshield").oninput = evt => recalculateBoth();
                     createSelectWithFunc(tbl, "&nbsp;&nbsp;&nbsp;Barbarian", index + "_Barbarian", ["None", "1", "2", "3"], ["", "2", "3", "4"],
                     " (rank)", 2, (state, val) => {
                         state.dr += parseInt(val) * clamp(state.player.strength, 1, 20);
                     }, "barbarian").oninput = evt => recalculateBoth();
-                    createSelectWithFunc(tbl, "&nbsp;&nbsp;&nbsp;Evasive", index + "_Evasive", ["None", "1", "2", "3"], ["", "1", "2", "3"],
-                    " (rank)", 2, (state, val) => {
-                        var c = parseInt(val) * clamp(state.player.agility, 1, 15);
-                        state.dr += c;
-                        state.er += c;
-                    }, "evasive").oninput = evt => recalculateBoth();
-                    createSelectWithFunc(tbl, "&nbsp;&nbsp;&nbsp;Ironclad", index + "_Ironclad", ["None", "1", "2", "3", "4", "5"], ["", "10", "20", "30", "40", "50"],
-                    " (rank)", 2, (state, val) => {
-                        var c = parseInt(val);
-                        state.dr += c;
-                        state.er += c;
-                    }, "ironclad").oninput = evt => recalculateBoth();
-                    createSelectWithFunc(tbl, "&nbsp;&nbsp;&nbsp;Moving Target", index + "_Movingtarget", ["None", "1", "2", "3"], ["", "15", "30", "45"],
-                    " (rank)", 2, (state, val) => {
-                        if (state.player.stance === "Sprint") {
-                            var c = parseInt(val);
-                            state.dr += c;
-                            state.er += c;
-                        }
-                    }, "movingtarget").oninput = evt => recalculateBoth();
-                    createSelectWithFunc(tbl, "&nbsp;&nbsp;&nbsp;Serendipity", index + "_Serendipity", ["None", "1", "2", "3"], ["", "15", "30", "45"],
-                    " (rank)", 2, (state, val) => {
-                        if (state.player.hp <= 30) {
-                            var rs = getOrCreateReductionSlot(state, "Serendipity");
-                            var c = parseInt(val);
-                            rs.ballisticReduction += c;
-                            rs.energyReduction += c;
-                        }
-                    }, "serendipity").oninput = evt => recalculateBoth();
-                    //createSelectWithData(tbl, "&nbsp;&nbsp;&nbsp;Adamantium Skeleton", index + "_Adamantium", ["None", "1", "2", "3"], ["", "30", "60", "100"]).oninput = evt => recalculateBoth();
                 }
                 createSelectWithData(tbl, "&nbsp;&nbsp;&nbsp;Blocker", index + "_Blocker", ["None", "1", "2", "3"], ["", "15", "30", "45"], [
                     null,
@@ -5067,60 +5116,106 @@
                         state.dr += parseInt(val);
                     }
                 }, "bulletshield").oninput = evt => recalculateBoth();
-                createSelectWithFunc(tbl, "&nbsp;&nbsp;&nbsp;Refractor", index + "_Refractor", ["None", "1", "2", "3", "4"], ["", "10", "20", "30", "40"],
-                " (rank)", 2, (state, val) => {
-                    state.er += parseInt(val);
-                }, "refractor").oninput = evt => recalculateBoth();
+                createSelectWithFunc(tbl, "&nbsp;&nbsp;&nbsp;Class Freak", index + "_Classfreak", ["None", "1", "2", "3"], ["", "25", "50", "75"], " (rank)", 1,
+                    (state, val) => state.player.classFreak = parseInt(val)
+                , "classfreak").oninput = evt => recalculateBoth();
+                createSelectWithData(tbl, "&nbsp;&nbsp;&nbsp;Cola Nut", index + "_Colanut", ["None", "1", "2"], ["", "2", "3"], [
+                    null,
+                    orderFunc(0, state => state.player.colanut = 2),
+                    orderFunc(0, state => state.player.colanut = 3),
+                ], false, " (rank)", "colanut").oninput = evt => recalculateBoth();
                 createSelectWithFunc(tbl, "&nbsp;&nbsp;&nbsp;Dodgy", index + "_Dodgy", ["None", "1", "2", "3"], ["", "10", "20", "30"],
                 " (rank)", 2, (state, val) => {
                     var rs = getOrCreateReductionSlot(state, "Dodgy");
                     rs.ballisticReduction += parseInt(val);
                     rs.energyReduction += parseInt(val);
                 }, "dodgy").oninput = evt => recalculateBoth();
-                createSelectWithFunc(tbl, "&nbsp;&nbsp;&nbsp;Nerd Rage", index + "_Nerdrage", ["None", "1", "2", "3"], ["", "20", "30", "40"],
-                " (rank)", 2, (state, val) => {
-                    if (state.player.hp <= 20) {
-                        state.dr += parseInt(val);
-                    }
-                }, "nerdrage").oninput = evt => recalculateBoth();
-                createSelectWithFunc(tbl, "&nbsp;&nbsp;&nbsp;Suppressor", index + "_Suppressor", ["None", "1", "2", "3"], ["", "10", "20", "30"],
-                " (rank)", 2, (state, val) => {
-                    var rs = getOrCreateReductionSlot(state, "Suppressor");
-                    rs.ballisticReduction += parseInt(val);
-                    rs.energyReduction += parseInt(val);
-                }, "suppressor").oninput = evt => recalculateBoth();
-                createSelectWithFunc(tbl, "&nbsp;&nbsp;&nbsp;Lone Wanderer", index + "_Lonewanderer", ["None", "1", "2", "3"], ["", "10", "15", "20"],
-                " (rank)", 2, (state, val) => {
-                    var rs = getOrCreateReductionSlot(state, "Lonewanderer");
-                    rs.ballisticReduction += parseInt(val);
-                    rs.energyReduction += parseInt(val);
-                }, "lonewanderer").oninput = evt => recalculateBoth();
-                createSelectWithFunc(tbl, "&nbsp;&nbsp;&nbsp;Rad Resistant", index + "_Radresistant", ["None", "1", "2", "3", "4"], ["", "10", "20", "30", "40"],                
-                " (rank)", 2, (state, val) => {
-                    state.rr += parseInt(val);
-                }, "radresistant").oninput = evt => recalculateBoth();
+                if (mode !== "PA") {
+                    createSelectWithFunc(tbl, "&nbsp;&nbsp;&nbsp;Evasive", index + "_Evasive", ["None", "1", "2", "3"], ["", "1", "2", "3"],
+                    " (rank)", 2, (state, val) => {
+                        var c = parseInt(val) * clamp(state.player.agility, 1, 15);
+                        state.dr += c;
+                        state.er += c;
+                    }, "evasive").oninput = evt => recalculateBoth();
+                }
                 createSelectWithFunc(tbl, "&nbsp;&nbsp;&nbsp;Fireproof", index + "_Fireproof", ["None", "1", "2", "3"], ["", "15", "30", "45"],
                 " (rank)", 2, (state, val) => {
                     var rs = getOrCreateReductionSlot(state, "Fireproof");
                     rs.fireReduction += parseInt(val);
                     rs.explosiveReduction += parseInt(val);
                 }, "fireproof").oninput = evt => recalculateBoth();
-                createSelectWithData(tbl, "&nbsp;&nbsp;&nbsp;Cola Nut", index + "_Colanut", ["None", "1", "2"], ["", "2", "3"], [
-                    null,
-                    orderFunc(0, state => state.player.colanut = 2),
-                    orderFunc(0, state => state.player.colanut = 3),
-                ], false, " (rank)", "colanut").oninput = evt => recalculateBoth();
+                if (mode !== "PA") {
+                    createSelectWithFunc(tbl, "&nbsp;&nbsp;&nbsp;Ironclad", index + "_Ironclad", ["None", "1", "2", "3", "4", "5"], ["", "10", "20", "30", "40", "50"],
+                    " (rank)", 2, (state, val) => {
+                        var c = parseInt(val);
+                        state.dr += c;
+                        state.er += c;
+                    }, "ironclad").oninput = evt => recalculateBoth();
+                }
+                if (mode !== "PA") {
+                    createSelectWithData(tbl, "&nbsp;&nbsp;&nbsp;Junk Shield", index + "_Junkshield", ["None", "1", "2", "3"], ["", "10", "20", "30"], [
+                        null,
+                        createJunkShieldFunc(1),
+                        createJunkShieldFunc(2),
+                        createJunkShieldFunc(3),
+                    ], false, " (rank)", "junkshield").oninput = evt => recalculateBoth();
+                }
+                createSelectWithFunc(tbl, "&nbsp;&nbsp;&nbsp;Lone Wanderer", index + "_Lonewanderer", ["None", "1", "2", "3"], ["", "10", "15", "20"],
+                " (rank)", 2, (state, val) => {
+                    var rs = getOrCreateReductionSlot(state, "Lonewanderer");
+                    rs.ballisticReduction += parseInt(val);
+                    rs.energyReduction += parseInt(val);
+                }, "lonewanderer").oninput = evt => recalculateBoth();
+                if (mode !== "PA") {
+                    createSelectWithFunc(tbl, "&nbsp;&nbsp;&nbsp;Moving Target", index + "_Movingtarget", ["None", "1", "2", "3"], ["", "15", "30", "45"],
+                    " (rank)", 2, (state, val) => {
+                        if (state.player.stance === "Sprint") {
+                            var c = parseInt(val);
+                            state.dr += c;
+                            state.er += c;
+                        }
+                    }, "movingtarget").oninput = evt => recalculateBoth();
+                }
+                createSelectWithFunc(tbl, "&nbsp;&nbsp;&nbsp;Nerd Rage", index + "_Nerdrage", ["None", "1", "2", "3"], ["", "20", "30", "40"],
+                " (rank)", 2, (state, val) => {
+                    if (state.player.hp <= 20) {
+                        state.dr += parseInt(val);
+                    }
+                }, "nerdrage").oninput = evt => recalculateBoth();
                 createSelectWithData(tbl, "&nbsp;&nbsp;&nbsp;Party Person", index + "_Partyperson", ["None", "1", "2"], ["", "2", "3"], [
                     null,
                     orderFunc(0, state => state.player.partyPerson = 2),
                     orderFunc(0, state => state.player.partyPerson = 3),
                 ], false, " (rank)", "partyperson").oninput = evt => recalculateBoth();
+                createSelectWithFunc(tbl, "&nbsp;&nbsp;&nbsp;Rad Resistant", index + "_Radresistant", ["None", "1", "2", "3", "4"], ["", "10", "20", "30", "40"],                
+                " (rank)", 2, (state, val) => {
+                    state.rr += parseInt(val);
+                }, "radresistant").oninput = evt => recalculateBoth();
+                createSelectWithFunc(tbl, "&nbsp;&nbsp;&nbsp;Refractor", index + "_Refractor", ["None", "1", "2", "3", "4"], ["", "10", "20", "30", "40"],
+                " (rank)", 2, (state, val) => {
+                    state.er += parseInt(val);
+                }, "refractor").oninput = evt => recalculateBoth();
+                if (mode !== "PA") {
+                    createSelectWithFunc(tbl, "&nbsp;&nbsp;&nbsp;Serendipity", index + "_Serendipity", ["None", "1", "2", "3"], ["", "15", "30", "45"],
+                    " (rank)", 2, (state, val) => {
+                        if (state.player.hp <= 30) {
+                            var rs = getOrCreateReductionSlot(state, "Serendipity");
+                            var c = parseInt(val);
+                            rs.ballisticReduction += c;
+                            rs.energyReduction += c;
+                        }
+                    }, "serendipity").oninput = evt => recalculateBoth();
+                    //createSelectWithData(tbl, "&nbsp;&nbsp;&nbsp;Adamantium Skeleton", index + "_Adamantium", ["None", "1", "2", "3"], ["", "30", "60", "100"]).oninput = evt => recalculateBoth();
+                }
                 createYesNo(tbl, index, "Strangeinnumbers", "&nbsp;&nbsp;&nbsp;Strange In Numbers", "strangeinnumbers", 
                     orderFunc(0, state => state.player.strangeInNumbers = true)
                 );
-                createSelectWithFunc(tbl, "&nbsp;&nbsp;&nbsp;Class Freak", index + "_Classfreak", ["None", "1", "2", "3"], ["", "25", "50", "75"], " (rank)", 1,
-                    (state, val) => state.player.classFreak = parseInt(val)
-                , "classfreak").oninput = evt => recalculateBoth();
+                createSelectWithFunc(tbl, "&nbsp;&nbsp;&nbsp;Suppressor", index + "_Suppressor", ["None", "1", "2", "3"], ["", "10", "20", "30"],
+                " (rank)", 2, (state, val) => {
+                    var rs = getOrCreateReductionSlot(state, "Suppressor");
+                    rs.ballisticReduction += parseInt(val);
+                    rs.energyReduction += parseInt(val);
+                }, "suppressor").oninput = evt => recalculateBoth();
 
                 rw = tbl.insertRow(tbl.rows.length);
                 cll = rw.insertCell(rw.cells.length);
@@ -5721,6 +5816,22 @@
                     state.radiationReduction * 100.0, state.fireReduction * 100.0,
                     state.cryoReduction * 100.0, state.poisonReduction * 100.0, 
                     state.explosiveReduction * 100.0, " %", 2);
+
+                get("dr" + index).innerText = state.dr.toFixed(0);
+                get("er" + index).innerText = state.er.toFixed(0);
+                get("rr" + index).innerText = state.rr.toFixed(0);
+                get("fr" + index).innerText = state.fr.toFixed(0);
+                get("cr" + index).innerText = state.cr.toFixed(0);
+                get("pr" + index).innerText = state.pr.toFixed(0);
+                get("xr" + index).innerText = state.xr.toFixed(0);
+
+                get("dred" + index).innerText = (100 * state.ballisticReduction).toFixed(2) + "%";
+                get("ered" + index).innerText = (100 * state.energyReduction).toFixed(2) + "%";
+                get("rred" + index).innerText = (100 * state.radiationReduction).toFixed(2) + "%";
+                get("fred" + index).innerText = (100 * state.fireReduction).toFixed(2) + "%";
+                get("cred" + index).innerText = (100 * state.cryoReduction).toFixed(2) + "%";
+                get("pred" + index).innerText = (100 * state.poisonReduction).toFixed(2) + "%";
+                get("xred" + index).innerText = (100 * state.explosiveReduction).toFixed(2) + "%";
 
                 return state;
             }
