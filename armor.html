@@ -82,7 +82,7 @@
     </head>
     <body style="height: 90%; overflow-y: scroll;">
         <center>
-            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Armor Defense Calculator (0.2.1)</span>
+            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Armor Defense Calculator (0.2.2)</span>
             <br/>
             <!-- <i>(Notification here)</i> -->
         <br/>
@@ -4998,9 +4998,11 @@
                 cll.className = "topline";
 
                 createNumber(tbl, "Health", index + "_HP", 0, 100, 100, " %", "health").oninput = evt => recalculateBoth();
-                createNumber(tbl, "Caps", index + "_Caps", 0, 30000, 0, "", "caps").oninput = evt => recalculateBoth();
-                createNumber(tbl, "Food &amp; Drink", index + "_Fooddrink", 0, 100, 100, " %", "food").oninput = evt => recalculateBoth();
-                createNumber(tbl, "Carrying", index + "_Carry", 0, 30000, 0, " lb", "carry").oninput = evt => recalculateBoth();
+                if (mode !== "Suit") {
+                    createNumber(tbl, "Caps", index + "_Caps", 0, 30000, 0, "", "caps").oninput = evt => recalculateBoth();
+                    createNumber(tbl, "Food &amp; Drink", index + "_Fooddrink", 0, 100, 100, " %", "food").oninput = evt => recalculateBoth();
+                    createNumber(tbl, "Carrying", index + "_Carry", 0, 30000, 0, " lb", "carry").oninput = evt => recalculateBoth();
+                }
                 createNumber(tbl, "Teammates", index + "_Teammates", 0, 3, 0, "", "teammates").oninput = evt => recalculateBoth();
                 createNumber(tbl, "&nbsp;&nbsp;&nbsp;Deaths", index + "_Teamdeaths", 0, 3, 0, "", "teamdeaths").oninput = evt => recalculateBoth();
 
@@ -5779,17 +5781,6 @@
                     return state;
                 }
 
-                state.player.hp = parseInt(getValue(index + "_HP"));
-                state.player.caps = parseInt(getValue(index + "_Caps"));
-                state.player.carrying = parseInt(getValue(index + "_Carry"));
-                state.player.fooddrink = parseInt(getValue(index + "_Fooddrink"));
-                state.player.teammates = parseInt(getValue(index + "_Teammates"));
-                state.player.teamdeaths = parseInt(getValue(index + "_Teamdeaths"));
-                state.player.night = getBool(index + "_Night_yes");
-                state.player.blocking = getBool(index + "_Block_yes");
-                state.player.sneaking = getBool(index + "_Sneak_yes");
-                state.player.fireheavy = getBool(index + "_Fireheavy_yes");
-                state.player.stance = getValue(index + "_Stance");
                 if (getBool("NonPA" + index)) {
                     state.player.mode = "NonPA";
                 }
@@ -5799,6 +5790,24 @@
                 if (getBool("Suit" + index)) {
                     state.player.mode = "Suit";
                 }
+
+                state.player.hp = parseInt(getValue(index + "_HP"));
+                if (state.player.mode !== "Suit") {
+                    state.player.caps = parseInt(getValue(index + "_Caps"));
+                    state.player.carrying = parseInt(getValue(index + "_Carry"));
+                    state.player.fooddrink = parseInt(getValue(index + "_Fooddrink"));
+                } else {
+                    state.player.caps = 0;
+                    state.player.carrying = 0;
+                    state.player.fooddrink = 0;
+                }
+                state.player.teammates = parseInt(getValue(index + "_Teammates"));
+                state.player.teamdeaths = parseInt(getValue(index + "_Teamdeaths"));
+                state.player.night = getBool(index + "_Night_yes");
+                state.player.blocking = getBool(index + "_Block_yes");
+                state.player.sneaking = getBool(index + "_Sneak_yes");
+                state.player.fireheavy = getBool(index + "_Fireheavy_yes");
+                state.player.stance = getValue(index + "_Stance");
                 state.player.mutations = 0;
 
 
