@@ -82,7 +82,7 @@
     </head>
     <body style="height: 90%; overflow-y: scroll;">
         <center>
-            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Armor Defense Calculator (0.2.5)</span>
+            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Armor Defense Calculator (0.2.7)</span>
             <br/>
             <!-- <i>(Notification here)</i> -->
         <br/>
@@ -4357,11 +4357,23 @@
                         order: 2,
                         func: (state) => state.dr += 25,
                     },
+                    "MedxAddict": {
+                        name: "Med-X Addiction (-10 DR)",
+                        debuff: ["dr"],
+                        order: 2,
+                        func: (state) => state.dr -= 10,
+                    },
                     "Psycho": {
                         name: "Psycho (+25 DR)",
                         debuff: ["dr"],
                         order: 2,
                         func: (state) => state.dr += 25,
+                    },
+                    "PsychoAddict": {
+                        name: "Psycho Addiction (-10 DR)",
+                        debuff: ["dr"],
+                        order: 2,
+                        func: (state) => state.dr -= 10,
                     },
                     "Psychotats": {
                         name: "Psychotats (+15 DR)",
@@ -4596,6 +4608,654 @@
                     func: (state, level) => {
                         var arg = [15, 30, 45, 60, 75, 90];
                         state.rr += arg[level];
+                    }
+                },
+            };
+
+            var brotherhoodUnderarmorLinings = {
+                "Standard": {
+                    name: "Standard",
+                    default: true
+                },
+                "Treated": {
+                    name: "Treated",
+                    order: 2,
+                    func: (state) => {
+                        state.dr += 6;
+                        state.er += 4;
+                        state.rr += 2;
+                    }
+                },
+                "Resistant": {
+                    name: "Resistant",
+                    order: 2,
+                    func: (state) => {
+                        state.dr += 8;
+                        state.er += 6;
+                        state.rr += 3;
+                    }
+                },
+                "Protective": {
+                    name: "Protective",
+                    order: 2,
+                    func: (state) => {
+                        state.dr += 10;
+                        state.er += 8;
+                        state.rr += 4;
+                    }
+                },
+                "Shielded": {
+                    name: "Shielded",
+                    order: 2,
+                    func: (state) => {
+                        state.dr += 13;
+                        state.er += 9;
+                        state.rr += 5;
+                    }
+                },
+
+            }
+
+            var underarmor = {
+                "BrotherhoodFatigues": {
+                    name: "Brotherhood Fatigues",
+                    mods: brotherhoodUnderarmorLinings
+                },
+                "BrotherhoodKnight": {
+                    name: "Brotherhood Knight",
+                    mods: brotherhoodUnderarmorLinings
+                },
+                "BrotherhoodOfficer": {
+                    name: "Brotherhood Officer",
+                    mods: brotherhoodUnderarmorLinings
+                },
+                "BrotherhoodSoldier": {
+                    name: "Brotherhood Soldier",
+                    mods: brotherhoodUnderarmorLinings
+                },
+                "FlannelShirt": {
+                    name: "Flanner Shirt and Jeans",
+                    mods: {
+                        "Standard": {
+                            name: "Standard",
+                            default: true
+                        },
+                        "Treated": {
+                            name: "Treated",
+                            order: 2,
+                            func: (state) => {
+                                state.dr += 2;
+                                state.er += 2;
+                                state.rr += 2;
+                            }
+                        },
+                        "Resistant": {
+                            name: "Resistant",
+                            order: 2,
+                            func: (state) => {
+                                state.dr += 3;
+                                state.er += 3;
+                                state.rr += 0;
+                            }
+                        },
+                        "Protective": {
+                            name: "Protective",
+                            order: 2,
+                            func: (state) => {
+                                state.dr += 4;
+                                state.er += 4;
+                                state.rr += 4;
+                            }
+                        },
+                        "Shielded": {
+                            name: "Shielded",
+                            order: 2,
+                            func: (state) => {
+                                state.dr += 5;
+                                state.er += 5;
+                                state.rr += 5;
+                            }
+                        },
+                    }
+                },
+                "ForestOperative": {
+                    name: "Forest Operative",
+                    mods: {
+                        "Standard": {
+                            name: "Standard",
+                            default: true
+                        },
+                        "Treated": {
+                            name: "Treated",
+                            order: 2,
+                            func: (state) => {
+                                state.dr += 4;
+                                state.er += 6;
+                                state.rr += 1;
+                            }
+                        },
+                        "Resistant": {
+                            name: "Resistant",
+                            order: 2,
+                            func: (state) => {
+                                state.dr += 6;
+                                state.er += 8;
+                                state.rr += 3;
+                            }
+                        },
+                        "Protective": {
+                            name: "Protective",
+                            order: 2,
+                            func: (state) => {
+                                state.dr += 8;
+                                state.er += 10;
+                                state.rr += 4;
+                            }
+                        },
+                        "Shielded": {
+                            name: "Shielded",
+                            order: 2,
+                            func: (state) => {
+                                state.dr += 9;
+                                state.er += 13;
+                                state.rr += 5;
+                            }
+                        },
+                    }
+                },
+                "Harness": {
+                    name: "Forest Operative",
+                    mods: {
+                        "Standard": {
+                            name: "Standard",
+                            default: true
+                        },
+                        "Treated": {
+                            name: "Treated",
+                            order: 2,
+                            func: (state) => {
+                                state.dr += 4;
+                                state.er += 2;
+                                state.rr += 0;
+                            }
+                        },
+                        "Resistant": {
+                            name: "Resistant",
+                            order: 2,
+                            func: (state) => {
+                                state.dr += 6;
+                                state.er += 3;
+                                state.rr += 0;
+                            }
+                        },
+                        "Protective": {
+                            name: "Protective",
+                            order: 2,
+                            func: (state) => {
+                                state.dr += 8;
+                                state.er += 4;
+                                state.rr += 0;
+                            }
+                        },
+                        "Shielded": {
+                            name: "Shielded",
+                            order: 2,
+                            func: (state) => {
+                                state.dr += 10;
+                                state.er += 5;
+                                state.rr += 0;
+                            }
+                        },
+                    }
+                },
+                "LongJohns": {
+                    name: "Long Johns",
+                    mods: {
+                        "Standard": {
+                            name: "Standard",
+                            default: true
+                        },
+                        "Treated": {
+                            name: "Treated",
+                            order: 2,
+                            func: (state) => {
+                                state.dr += 4;
+                                state.er += 2;
+                                state.rr += 0;
+                            }
+                        },
+                        "Resistant": {
+                            name: "Resistant",
+                            order: 2,
+                            func: (state) => {
+                                state.dr += 6;
+                                state.er += 3;
+                                state.rr += 0;
+                            }
+                        },
+                        "Protective": {
+                            name: "Protective",
+                            order: 2,
+                            func: (state) => {
+                                state.dr += 8;
+                                state.er += 4;
+                                state.rr += 0;
+                            }
+                        },
+                        "Shielded": {
+                            name: "Shielded",
+                            order: 2,
+                            func: (state) => {
+                                state.dr += 10;
+                                state.er += 5;
+                                state.rr += 0;
+                            }
+                        },
+                    }
+                },
+                "MarineWetsuit": {
+                    name: "Marine Wetsuit",
+                    mods: {
+                        "Standard": {
+                            name: "Standard",
+                            default: true
+                        },
+                        "Treated": {
+                            name: "Treated",
+                            order: 2,
+                            func: (state) => {
+                                state.dr += 4;
+                                state.er += 4;
+                                state.rr += 4;
+                            }
+                        },
+                        "Resistant": {
+                            name: "Resistant",
+                            order: 2,
+                            func: (state) => {
+                                state.dr += 6;
+                                state.er += 6;
+                                state.rr += 6;
+                            }
+                        },
+                        "Protective": {
+                            name: "Protective",
+                            order: 2,
+                            func: (state) => {
+                                state.dr += 8;
+                                state.er += 8;
+                                state.rr += 8;
+                            }
+                        },
+                        "Shielded": {
+                            name: "Shielded",
+                            order: 2,
+                            func: (state) => {
+                                state.dr += 9;
+                                state.er += 9;
+                                state.rr += 9;
+                            }
+                        },
+                    }
+                },
+                "MilitaryFatigues": {
+                    name: "Military Fatigues",
+                    mods: {
+                        "Standard": {
+                            name: "Standard",
+                            default: true
+                        },
+                        "Treated": {
+                            name: "Treated",
+                            order: 2,
+                            func: (state) => {
+                                state.dr += 2;
+                                state.er += 2;
+                                state.rr += 2;
+                            }
+                        },
+                        "Resistant": {
+                            name: "Resistant",
+                            order: 2,
+                            func: (state) => {
+                                state.dr += 3;
+                                state.er += 3;
+                                state.rr += 0;
+                            }
+                        },
+                        "Protective": {
+                            name: "Protective",
+                            order: 2,
+                            func: (state) => {
+                                state.dr += 4;
+                                state.er += 4;
+                                state.rr += 4;
+                            }
+                        },
+                        "Shielded": {
+                            name: "Shielded",
+                            order: 2,
+                            func: (state) => {
+                                state.dr += 5;
+                                state.er += 5;
+                                state.rr += 5;
+                            }
+                        },
+                    }
+                },
+                "RaiderLeathers": {
+                    name: "Raider Leathers",
+                    mods: {
+                        "Standard": {
+                            name: "Standard",
+                            default: true
+                        },
+                        "Treated": {
+                            name: "Treated",
+                            order: 2,
+                            func: (state) => {
+                                state.dr += 4;
+                                state.er += 2;
+                                state.rr += 0;
+                            }
+                        },
+                        "Resistant": {
+                            name: "Resistant",
+                            order: 2,
+                            func: (state) => {
+                                state.dr += 6;
+                                state.er += 3;
+                                state.rr += 0;
+                            }
+                        },
+                        "Protective": {
+                            name: "Protective",
+                            order: 2,
+                            func: (state) => {
+                                state.dr += 8;
+                                state.er += 4;
+                                state.rr += 0;
+                            }
+                        },
+                        "Shielded": {
+                            name: "Shielded",
+                            order: 2,
+                            func: (state) => {
+                                state.dr += 10;
+                                state.er += 5;
+                                state.rr += 0;
+                            }
+                        },
+                    }
+                },
+                "RoadLeathers": {
+                    name: "Road Leathers",
+                    mods: {
+                        "Standard": {
+                            name: "Standard",
+                            default: true
+                        },
+                        "Treated": {
+                            name: "Treated",
+                            order: 2,
+                            func: (state) => {
+                                state.dr += 4;
+                                state.er += 2;
+                                state.rr += 0;
+                            }
+                        },
+                        "Resistant": {
+                            name: "Resistant",
+                            order: 2,
+                            func: (state) => {
+                                state.dr += 6;
+                                state.er += 3;
+                                state.rr += 0;
+                            }
+                        },
+                        "Protective": {
+                            name: "Protective",
+                            order: 2,
+                            func: (state) => {
+                                state.dr += 8;
+                                state.er += 4;
+                                state.rr += 0;
+                            }
+                        },
+                        "Shielded": {
+                            name: "Shielded",
+                            order: 2,
+                            func: (state) => {
+                                state.dr += 10;
+                                state.er += 5;
+                                state.rr += 0;
+                            }
+                        },
+                    }
+                },
+                "SecretService": {
+                    name: "Secret Service",
+                    mods: {
+                        "Standard": {
+                            name: "Standard",
+                            default: true
+                        },
+                        "Treated": {
+                            name: "Treated",
+                            order: 2,
+                            func: (state) => {
+                                state.dr += 6;
+                                state.er += 6;
+                                state.rr += 6;
+                            }
+                        },
+                        "Resistant": {
+                            name: "Resistant",
+                            order: 2,
+                            func: (state) => {
+                                state.dr += 9;
+                                state.er += 9;
+                                state.rr += 9;
+                            }
+                        },
+                        "Protective": {
+                            name: "Protective",
+                            order: 2,
+                            func: (state) => {
+                                state.dr += 12;
+                                state.er += 12;
+                                state.rr += 12;
+                            }
+                        },
+                        "Shielded": {
+                            name: "Shielded",
+                            order: 2,
+                            func: (state) => {
+                                state.dr += 16;
+                                state.er += 16;
+                                state.rr += 16;
+                            }
+                        },
+                    }
+                },
+                "Undershirt": {
+                    name: "Undershirt and Jeans",
+                    mods: {
+                        "Standard": {
+                            name: "Standard",
+                            default: true
+                        },
+                        "Treated": {
+                            name: "Treated",
+                            order: 2,
+                            func: (state) => {
+                                state.dr += 2;
+                                state.er += 2;
+                                state.rr += 2;
+                            }
+                        },
+                        "Resistant": {
+                            name: "Resistant",
+                            order: 2,
+                            func: (state) => {
+                                state.dr += 3;
+                                state.er += 3;
+                                state.rr += 0;
+                            }
+                        },
+                        "Protective": {
+                            name: "Protective",
+                            order: 2,
+                            func: (state) => {
+                                state.dr += 4;
+                                state.er += 4;
+                                state.rr += 4;
+                            }
+                        },
+                        "Shielded": {
+                            name: "Shielded",
+                            order: 2,
+                            func: (state) => {
+                                state.dr += 5;
+                                state.er += 5;
+                                state.rr += 0;
+                            }
+                        },
+                    }
+                },
+                "UrbanOperative": {
+                    name: "Urban Operative",
+                    mods: {
+                        "Standard": {
+                            name: "Standard",
+                            default: true
+                        },
+                        "Treated": {
+                            name: "Treated",
+                            order: 2,
+                            func: (state) => {
+                                state.dr += 4;
+                                state.er += 6;
+                                state.rr += 1;
+                            }
+                        },
+                        "Resistant": {
+                            name: "Resistant",
+                            order: 2,
+                            func: (state) => {
+                                state.dr += 6;
+                                state.er += 8;
+                                state.rr += 3;
+                            }
+                        },
+                        "Protective": {
+                            name: "Protective",
+                            order: 2,
+                            func: (state) => {
+                                state.dr += 8;
+                                state.er += 10;
+                                state.rr += 4;
+                            }
+                        },
+                        "Shielded": {
+                            name: "Shielded",
+                            order: 2,
+                            func: (state) => {
+                                state.dr += 9;
+                                state.er += 13;
+                                state.rr += 5;
+                            }
+                        },
+                    }
+                },
+                "Vault76": {
+                    name: "Vault 76",
+                    mods: {
+                        "Standard": {
+                            name: "Standard",
+                            default: true
+                        },
+                        "Treated": {
+                            name: "Treated",
+                            order: 2,
+                            func: (state) => {
+                                state.dr += 2;
+                                state.er += 2;
+                                state.rr += 2;
+                            }
+                        },
+                        "Resistant": {
+                            name: "Resistant",
+                            order: 2,
+                            func: (state) => {
+                                state.dr += 3;
+                                state.er += 3;
+                                state.rr += 3;
+                            }
+                        },
+                        "Protective": {
+                            name: "Protective",
+                            order: 2,
+                            func: (state) => {
+                                state.dr += 4;
+                                state.er += 4;
+                                state.rr += 4;
+                            }
+                        },
+                        "Shielded": {
+                            name: "Shielded",
+                            order: 2,
+                            func: (state) => {
+                                state.dr += 5;
+                                state.er += 5;
+                                state.rr += 5;
+                            }
+                        },
+                    }
+                },
+                "VaultTecUni": {
+                    name: "Vault Tec University",
+                    mods: {
+                        "Standard": {
+                            name: "Standard",
+                            default: true
+                        },
+                        "Treated": {
+                            name: "Treated",
+                            order: 2,
+                            func: (state) => {
+                                state.dr += 2;
+                                state.er += 2;
+                                state.rr += 2;
+                            }
+                        },
+                        "Resistant": {
+                            name: "Resistant",
+                            order: 2,
+                            func: (state) => {
+                                state.dr += 3;
+                                state.er += 3;
+                                state.rr += 3;
+                            }
+                        },
+                        "Protective": {
+                            name: "Protective",
+                            order: 2,
+                            func: (state) => {
+                                state.dr += 4;
+                                state.er += 4;
+                                state.rr += 4;
+                            }
+                        },
+                        "Shielded": {
+                            name: "Shielded",
+                            order: 2,
+                            func: (state) => {
+                                state.dr += 5;
+                                state.er += 5;
+                                state.rr += 5;
+                            }
+                        },
                     }
                 },
             };
@@ -5653,6 +6313,139 @@
                 return { label: lblYes, radio : yes };
             }
 
+            function createUnderarmor(tbl, index, mode) {
+                var rw = tbl.insertRow(tbl.rows.length);
+                var cll = rw.insertCell(rw.cells.length);
+                cll.className = "topline bold";
+                cll.innerText = "Underarmor";
+                cll = rw.insertCell(rw.cells.length);
+                cll.className = "topline";
+
+                var ulist = [];
+                for (ua in underarmor) {
+                    ulist.push({key: ua, value: underarmor[ua]});
+                }
+                ulist.sort((a, b) => a.value.name.localeCompare(b.value.name));
+
+                let uMakeSel = document.createElement("select");
+                cll.appendChild(uMakeSel);
+
+                var opt = document.createElement("option");
+                opt.text = "None";
+                uMakeSel.options.add(opt);
+
+                rw = tbl.insertRow(tbl.rows.length);
+                cll = rw.insertCell(rw.cells.length);
+                cll.innerText = "Lining";
+                cll = rw.insertCell(rw.cells.length);
+
+                let uLiningSel = document.createElement("select");
+                cll.appendChild(uLiningSel);
+                uLiningSel.style.display = "none";
+                let uLiningNone = document.createElement("span");
+                uLiningNone.innerText = "< select an underarmor >";
+                uLiningNone.style.display = "inline";
+                cll.appendChild(uLiningNone);
+
+                let underarmorSel = document.createElement("select");
+                underarmorSel.id = index + "_Underarmor";
+                underarmorSel.style.display = "none";
+                cll.appendChild(underarmorSel);
+
+                opt = document.createElement("option");
+                opt.text = "None";
+                underarmorSel.options.add(opt);
+
+                for (let ua of ulist) {
+                    opt = document.createElement("option");
+                    opt.text = ua.value.name;
+                    opt.value = ua.key;
+                    uMakeSel.options.add(opt);
+
+                    for (let lnKey in ua.value.mods) {
+                        let ln = ua.value.mods[lnKey];
+
+                        opt = document.createElement("option");
+                        opt.text = ua.value.name + " - " + ln.name;
+                        opt.key = ua.key;
+                        opt.mod = lnKey;
+                        opt.value = ua.key + "-" + lnKey;
+                        opt.data = { order: ln.order, func: ln.func };
+                        underarmorSel.options.add(opt);
+                    }
+                }
+
+                uMakeSel.oninput = evt => onUnderarmorMakeSelect(underarmorSel, uMakeSel, uLiningSel, uLiningNone);
+                uLiningSel.oninput = evt => onLiningSelect(underarmorSel, uMakeSel, uLiningSel, uLiningNone);
+                underarmorSel.oninput = evt => onUnderarmorSelect(underarmorSel, uMakeSel, uLiningSel, uLiningNone);
+            }
+
+            var underarmorForwardSelectMode = false;
+            var underarmorReverseSelectMode = false;
+            
+            function onLiningSelect(usel, umakesel, uliningsel, uLiningNone) {
+                if (underarmorReverseSelectMode) {
+                    return;
+                }
+                underarmorForwardSelectMode = true;
+                try {
+                    if (umakesel.selectedIndex > 0 && uliningsel.selectedIndex > 0) {
+                        var optMake = umakesel.options[umakesel.selectedIndex];
+                        var optLining = uliningsel.options[uliningsel.selectedIndex];
+
+                        selectValue(usel, optMake.value + "-" + optLining.value);
+                    }
+                } finally {
+                    underarmorForwardSelectMode = false;
+                }
+                recalculateBoth();
+            }
+
+            function onUnderarmorMakeSelect(usel, umakesel, uliningsel, uLiningNone) {
+                if (!underarmorReverseSelectMode) {
+                    usel.selectedIndex = 0;
+                }
+                if (umakesel.selectedIndex > 0) {
+                    uLiningNone.style.display = "none";
+                    uliningsel.style.display = "inline";
+
+                    uliningsel.options.length = 0;
+                    var ua = umakesel.options[umakesel.selectedIndex];
+                    for (var lnKey in underarmor[ua.value].mods) {
+                        var opt = document.createElement("option");
+                        opt.text = underarmor[ua.value].mods[lnKey].name;
+                        opt.value = lnKey;
+                        uliningsel.options.add(opt);
+                    }
+                } else {
+                    uLiningNone.style.display = "inline";
+                    uliningsel.style.display = "none";
+                }
+                recalculateBoth();
+            }
+            function onUnderarmorSelect(usel, umakesel, uliningsel, uLiningNone) {
+                if (underarmorForwardSelectMode) {
+                    return;
+                }
+                underarmorReverseSelectMode = true;
+                try {
+                    if (usel.selectedIndex > 0) {
+                        var opt = usel.options[usel.selectedIndex];
+                        selectValue(umakesel, opt.key);
+                        uliningsel.style.display = "inline";
+                        uLiningNone.style.display = "none";
+                        selectValue(uliningsel, opt.mod);
+                    } else {
+                        umakesel.selectedIndex = 0;
+                        uliningsel.style.display = "none";
+                        uLiningNone.style.display = "inline";
+                    }
+                } finally {
+                    underarmorReverseSelectMode = false;
+                }
+                recalculateBoth();
+            }
+
             function createBackpack(tbl, index, mode) {
                 var rw = tbl.insertRow(tbl.rows.length);
                 var cll = rw.insertCell(rw.cells.length);
@@ -5815,6 +6608,9 @@
                 }
                 if (mode === "Suit") {
                     createBodyPart(tbl, index, mode, "Body");
+                }
+                if (mode === "NonPA") {
+                    createUnderarmor(tbl, index, mode);
                 }
                 if (mode !== "PA") {
                     createBackpack(tbl, index, mode);
