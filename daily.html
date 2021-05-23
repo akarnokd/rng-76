@@ -992,8 +992,11 @@
             }
 
             function scoreCraftRanged5(offset) {
+                return scoreCraftRanged(offset, 5);
+            }
+            function scoreCraftRanged(offset, count) {
                 return {
-                            name: "Craft or scrap a ranged weapon (x5)",
+                            name: times("Craft or scrap a ranged weapon", count),
                             offset: offset,
                             period: 1400,
                         };
@@ -6461,6 +6464,16 @@
                     scoreModArmor, 3,
                     scoreNWKillCreature, 1
                ], [ dailyOpsValley, dailyOpsRobots, [ dailyOpsPiercingGaze, dailyOpsFreezing ], dailyOpsUplink]);
+               addDaily(challengesDailyEra7, 26, [
+                    scoreCompleteDailyChallenge, 5,
+                    scoreLevelUp, 1,
+                    scoreCompleteOneEvent, 1,
+                    scoreCompleteDailyOps, 1, 
+                    scoreCompleteDaily, 1,
+                    scoreDestroyRobot, 15,
+                    scoreCraftRanged, 3,
+                    scoreNWUseStimpak, 3
+               ], [ dailyOpsValley, dailyOpsRobots, [ dailyOpsReset, dailyOpsPiercingGaze, dailyOpsFreezing ], dailyOpsUplink]);
 
             // ~~~~~~
 
