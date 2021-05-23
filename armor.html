@@ -82,7 +82,7 @@
     </head>
     <body style="height: 90%; overflow-y: scroll;">
         <center>
-            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Armor Defense Calculator (0.2.8)</span>
+            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Armor Defense Calculator (0.2.9)</span>
             <br/>
             <!-- <i>(Notification here)</i> -->
         <br/>
@@ -502,12 +502,13 @@
                 "Aka Party Boy/Girl. Consuming Alcohol is twice or three times as beneficial (based on rank)"
             );
             infoMap.set("strangeinnumbers", 
-                "Positive effects of mutations are 50% stronger if any teammate also has the same mutation:"
+                "Positive effects of mutations are 25% stronger if any teammate also has the same mutation:"
                 + "<ul>"
                 + "<li>Empath: more or less damage reduction depending on who is mutated in a team</li>"
                 + "<li>Carnivore (i.e., Food-related): meat-based foods are 2.5 times more beneficial</li>"
                 + "<li>Herbivore (i.e., Food-related): plant-based foods are 2.5 times more beneficial</li>"
-                + "<li>Scaly skin: +75 DR and ER</li>"
+                + "<li>Grounded: +125 DR and ER</li>"
+                + "<li>Scaly skin: +62 DR and ER</li>"
                 + "</ul>"
             );
             infoMap.set("classfreak", 
@@ -543,10 +544,10 @@
                 + "</ul>"
             );
             infoMap.set("grounded", 
-                "Gain 100 energy resistance (150 with Strange In Numbers perk)."
+                "Gain 100 energy resistance (125 with Strange In Numbers perk)."
             );
             infoMap.set("scalyskin", 
-                "Gain 50 DR and ER (75 with Strange In Numbers perk)"
+                "Gain 50 DR and ER (62 with Strange In Numbers perk)"
             );
             infoMap.set("enemykind", 
                 "Certain armor mods and consumables grant benefits based on the kind enemy:"
@@ -1090,7 +1091,7 @@
             var combatLimbBOS = {
                 name: "Brotherhood of Steel",
                 order: 1,
-                func: createBaseNonPA(curveLinear(1,4,50,15, combatLevels),curveLinear(1,4,50,15, combatLevels),
+                func: createBaseNonPA(curveLinear(1,4,50,15, combatLevels),curveLinear(1,4,50,25, combatLevels),
                     [0,0,0,0])
             };
             var combatLimbShadowed = {
@@ -2971,6 +2972,7 @@
                         name: "Forest Scout",
                         levels: [40,50],
                         category: "Sturdy",
+                        set: "Scout",
                         "Torso": standardEnclaveTorso,
                         "LA": standardEnclaveArm,
                         "RA": {
@@ -2987,6 +2989,7 @@
                         name: "Urban Scout",
                         levels: [40,50],
                         category: "Sturdy",
+                        set: "Scout",
                         "Torso": standardEnclaveTorso,
                         "LA": standardEnclaveArm,
                         "RA": {
@@ -5483,6 +5486,9 @@
                         }
                         opt.mods = p.mods;
                         opt.make = a;
+                        if (am.set) {
+                            opt.make = am.set;
+                        }
                         opt.category = am.category;
                         makeSel.options.add(opt);
                     }
@@ -6119,7 +6125,7 @@
                 createYesNo(tbl, index, "Grounded", "&nbsp;&nbsp;&nbsp;Grounded", "grounded", 
                     orderFunc(1, state => {
                         if (state.player.strangeInNumbers && state.player.teammates > 0) {
-                            state.er += 150;
+                            state.er += 125;
                         } else {
                             state.er += 100;
                         }
@@ -6129,8 +6135,8 @@
                 createYesNo(tbl, index, "Scalyskin", "&nbsp;&nbsp;&nbsp;Scaly Skin", "scalyskin", 
                     orderFunc(1, state => {
                         if (state.player.strangeInNumbers && state.player.teammates > 0) {
-                            state.dr += 75;
-                            state.er += 75;
+                            state.dr += 62;
+                            state.er += 62;
                         } else {
                             state.dr += 50;
                             state.er += 50;
