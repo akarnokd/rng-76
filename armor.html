@@ -82,7 +82,7 @@
     </head>
     <body style="height: 90%; overflow-y: scroll;">
         <center>
-            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Armor Defense Calculator (0.2.7)</span>
+            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Armor Defense Calculator (0.2.8)</span>
             <br/>
             <!-- <i>(Notification here)</i> -->
         <br/>
@@ -4353,25 +4353,25 @@
                     },
                     "Medx": {
                         name: "Med-X (+25 DR)",
-                        debuff: ["dr"],
+                        debuff: ["dr", "medx"],
                         order: 2,
                         func: (state) => state.dr += 25,
                     },
                     "MedxAddict": {
                         name: "Med-X Addiction (-10 DR)",
-                        debuff: ["dr"],
+                        debuff: ["medx"],
                         order: 2,
                         func: (state) => state.dr -= 10,
                     },
                     "Psycho": {
                         name: "Psycho (+25 DR)",
-                        debuff: ["dr"],
+                        debuff: ["dr", "psycho"],
                         order: 2,
                         func: (state) => state.dr += 25,
                     },
                     "PsychoAddict": {
                         name: "Psycho Addiction (-10 DR)",
-                        debuff: ["dr"],
+                        debuff: ["psycho"],
                         order: 2,
                         func: (state) => state.dr -= 10,
                     },
