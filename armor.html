@@ -82,7 +82,7 @@
     </head>
     <body style="height: 90%; overflow-y: scroll;">
         <center>
-            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Armor Defense Calculator (0.2.9)</span>
+            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Armor Defense Calculator (0.2.10)</span>
             <br/>
             <!-- <i>(Notification here)</i> -->
         <br/>
@@ -5668,7 +5668,7 @@
                     cll = rw.insertCell(rw.cells.length);
 
                     cll.innerText = "Legendary";
-                    if (legendaryEffects[mode] === undefined) {
+                    if (legendaryEffects[mode] === undefined || part === "Helmet") {
                         cll = rw.insertCell(rw.cells.length);
                         cll.innerText = "Can't be legendary";
                     } else {
