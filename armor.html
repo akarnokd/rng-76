@@ -82,7 +82,7 @@
     </head>
     <body style="height: 90%; overflow-y: scroll;">
         <center>
-            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Armor Defense Calculator (0.2.4)</span>
+            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Armor Defense Calculator (0.2.5)</span>
             <br/>
             <!-- <i>(Notification here)</i> -->
         <br/>
@@ -182,6 +182,10 @@
                                         <td><input type="number" class='num6' min='0' maxlength='6' value='0' id='dmgCryo'></td>
                                         <td>Poison</td>
                                         <td><input type="number" class='num6' min='0' maxlength='6' value='0' id='dmgPoison'></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Explosive</td>
+                                            <td><input type="number" class='num6' min='0' maxlength='6' value='0' id='dmgExplosive'></td>
                                         </tr>
                                     </table>
                             </td>
@@ -5872,6 +5876,7 @@
                 state.enemy.fireDamage = parseInt(getValue("dmgFire"));
                 state.enemy.cryoDamage = parseInt(getValue("dmgCryo"));
                 state.enemy.poisonDamage = parseInt(getValue("dmgPoison"));
+                state.enemy.explosiveDamage = parseInt(getValue("dmgExplosive"));
                 state.enemy.armorIgnore = parseInt(getValue("armorIgnore"));
                 state.enemy.damageType = getBool("dmgTypeMelee") ? "melee" : "ranged";
                 state.enemy.energyType = getBool("energyTypePlasma") ? "plasma" : "laser";
@@ -6123,11 +6128,11 @@
             }
 
             function compareResults(s1, s2) {
-                var damageDealtValues = ["ballisticDamage", "energyDamage", "radiationDamage", "fireDamage", "cryoDamage", "poisonDamage"];
-                var resistanceValues = ["dr", "er", "rr", "fr", "cr", "pr"];
-                var reductionValues = ["ballisticReduction", "energyReduction", "radiationReduction", "fireReduction", "cryoReduction", "poisonReduction"];
-                var damageReceivedValues = ["ballistic", "energy", "radiation", "fire", "cryo", "poison"];
-                var damageTypes = ["\u2316&nbsp;Ballistic", "\u21AF&nbsp;Energy", "\u2622&nbsp;Radiation", "&#x1F525;&nbsp;Fire", "&#x2744;&nbsp;Cryo", "&#x1F4A7;&nbsp;Poison"];
+                var damageDealtValues = ["ballisticDamage", "energyDamage", "radiationDamage", "fireDamage", "cryoDamage", "poisonDamage", "explosiveDamage"];
+                var resistanceValues = ["dr", "er", "rr", "fr", "cr", "pr", "xr"];
+                var reductionValues = ["ballisticReduction", "energyReduction", "radiationReduction", "fireReduction", "cryoReduction", "poisonReduction", "explosiveReduction"];
+                var damageReceivedValues = ["ballistic", "energy", "radiation", "fire", "cryo", "poison", "explosive"];
+                var damageTypes = ["\u2316&nbsp;Ballistic", "\u21AF&nbsp;Energy", "\u2622&nbsp;Radiation", "&#x1F525;&nbsp;Fire", "&#x2744;&nbsp;Cryo", "&#x1F4A7;&nbsp;Poison", "&#x1F4A5;&nbsp;Explosive"];
 
                 var tbl = get("comparisonTable");
                 removeRows(tbl, 2, tbl.rows.length);
@@ -6268,11 +6273,11 @@
                 var components = [];
 
                 components.push("Kind-" + getOpt("enemykind").value);
-                var k = ["BD", "ED", "RD", "CD", "PD", "AA"];
+                var k = ["BD", "ED", "RD", "FD", "CD", "PD", "XD", "AA"];
                 var j = 0;
-                for (var p of ["dmgBallistic", "dmgEnergy", "dmgRadiation", "dmgFire", "dmgCryo", "dmgPoison", "armorIgnore"]) {
+                for (var p of ["dmgBallistic", "dmgEnergy", "dmgRadiation", "dmgFire", "dmgCryo", "dmgPoison", "dmgExplosive", "armorIgnore"]) {
                     var v = getValue(p);
-                    if (v != 0) {
+                    if (v != 0 || (p == "dmgBallistic" && v != 100)) {
                         components.push(k[j] + "-" + v);
                     }
                     j++;
@@ -6297,6 +6302,7 @@
             get("dmgFire").oninput = evt => recalculateBoth();
             get("dmgCryo").oninput = evt => recalculateBoth();
             get("dmgPoison").oninput = evt => recalculateBoth();
+            get("dmgExplosive").oninput = evt => recalculateBoth();
             get("armorIgnore").oninput = evt => recalculateBoth();
             get("dmgTypeMelee").oninput = evt => recalculateBoth();
             get("dmgTypeRanged").oninput = evt => recalculateBoth();
@@ -6408,8 +6414,8 @@
             }
 
             function processEnemy(argValues) {
-                var k = ["BD", "ED", "RD", "CD", "PD", "AA"];
-                var f = ["dmgBallistic", "dmgEnergy", "dmgRadiation", "dmgFire", "dmgCryo", "dmgPoison", "armorIgnore"];
+                var k = ["BD", "ED", "RD", "FD", "CD", "PD", "XD", "AA"];
+                var f = ["dmgBallistic", "dmgEnergy", "dmgRadiation", "dmgFire", "dmgCryo", "dmgPoison", "dmgExplosive", "armorIgnore"];
 
                 for (var av of argValues) {
                     var param = "";
