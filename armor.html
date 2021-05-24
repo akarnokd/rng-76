@@ -82,7 +82,7 @@
     </head>
     <body style="height: 90%; overflow-y: scroll;">
         <center>
-            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Armor Defense Calculator (0.2.10)</span>
+            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Armor Defense Calculator (0.2.11)</span>
             <br/>
             <!-- <i>(Notification here)</i> -->
         <br/>
@@ -445,6 +445,7 @@
                 + "<ul>"
                 + "<li>+50 DR while aiming</li>"
                 + "<li>+250 DR while reloading</li>"
+                + "<li>-40% damage while power attacking</li>"
                 + "</ul>"
             );
             infoMap.set("evasive", 
@@ -5823,9 +5824,15 @@
 
                 stanceSel.oninput = evt => recalculateBoth();
 
-                createSelectWithFunc(tbl, "&nbsp;&nbsp;&nbsp;Weapon resistance", index + "_Weaponmode", ["None", "+50 DR while Aiming", "+250 DR While Reloading"], ["", "50", "250"],
+                createSelectWithFunc(tbl, "&nbsp;&nbsp;&nbsp;Weapon resistance", index + "_Weaponmode", ["None", "+50 DR while Aiming", "+250 DR while Reloading", "-40% DMG while Power Attacking"], ["", "50", "250", "P40"],
                     "", 2, (state, val) => {
-                        state.dr += parseInt(val);
+                        if (val.startsWith("P")) {
+                            var rs = getOrCreateReductionSlot(state, "powerattack");
+                            rs.ballisticReduction += 40;
+                            rs.energyReduction += 40;
+                        } else {
+                            state.dr += parseInt(val);
+                        }
                     }, "weaponmode").oninput = evt => recalculateBoth();
             }
 
