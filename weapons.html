@@ -27,7 +27,7 @@
     </head>
     <body style="height: 90%">
         <center>
-            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Weapon Damage Calculator (v3.6.0)</span>
+            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Weapon Damage Calculator (v3.6.1)</span>
             <br/>
             <!-- <i>(Notification here)</i> -->
         <br/>
@@ -5247,7 +5247,7 @@
                         versus: ["Player", "NPC"],
                         versusAddPercent: 10,
                         patchOverride: {
-                            "P27": {
+                            "P27A": {
                                 versusAddPercent: 50
                             }
                         }
@@ -5261,7 +5261,7 @@
                         versus: ["Bug", "Mirelurk"],
                         versusAddPercent: 30,
                         patchOverride: {
-                            "P27": {
+                            "P27A": {
                                 versusAddPercent: 50
                             }
                         }                    },
@@ -5283,7 +5283,7 @@
                         versus: ["Scorched"],
                         versusAddPercent: 30,
                         patchOverride: {
-                            "P27": {
+                            "P27A": {
                                 versusAddPercent: 50
                             }
                         }
@@ -5293,7 +5293,7 @@
                         versus: ["Animal"],
                         damageMultPercent: 30,
                         patchOverride: {
-                            "P27": {
+                            "P27A": {
                                 versusAddPercent: 50
                             }
                         }
@@ -5303,7 +5303,7 @@
                         versus: ["Mutant"],
                         versusAddPercent: 30,
                         patchOverride: {
-                            "P27": {
+                            "P27A": {
                                 versusAddPercent: 50
                             }
                         }
@@ -5322,7 +5322,7 @@
                         versus: ["Ghoul"],
                         versusAddPercent: 30,
                         patchOverride: {
-                            "P27": {
+                            "P27A": {
                                 versusAddPercent: 50
                             }
                         }
@@ -5336,7 +5336,7 @@
                         versus: ["Robot"],
                         versusAddPercent: 30,
                         patchOverride: {
-                            "P27": {
+                            "P27A": {
                                 versusAddPercent: 50
                             }
                         }
@@ -5408,7 +5408,7 @@
                         versus: ["Player", "NPC"],
                         versusAddPercent: 10,
                         patchOverride: {
-                            "P27": {
+                            "P27A": {
                                 versusAddPercent: 50
                             }
                         }
@@ -5425,7 +5425,7 @@
                         versus: ["Bug", "Mirelurk"],
                         versusAddPercent: 50,
                         patchOverride: {
-                            "P27": {
+                            "P27A": {
                                 versusAddPercent: 50
                             }
                         }
@@ -5457,7 +5457,7 @@
                         versus: ["Scorched", "Scorchbeast", "Scorchbeast Queen"],
                         versusAddPercent: 30,
                         patchOverride: {
-                            "P27": {
+                            "P27A": {
                                 versusAddPercent: 50
                             }
                         }
@@ -5467,7 +5467,7 @@
                         versus: ["Animal"],
                         versusAddPercent: 30,
                         patchOverride: {
-                            "P27": {
+                            "P27A": {
                                 versusAddPercent: 50
                             }
                         }
@@ -5477,7 +5477,7 @@
                         versus: ["Mutant"],
                         versusAddPercent: 30,
                         patchOverride: {
-                            "P27": {
+                            "P27A": {
                                 versusAddPercent: 50
                             }
                         }
@@ -5487,7 +5487,7 @@
                         damageMultPercent: 10,
                         maxMutations: 1,
                         patchOverride: {
-                            "P27": {
+                            "P27A": {
                                 damageMultPercent: 5,
                                 maxMutations: 5,
                             }
@@ -5498,7 +5498,7 @@
                         versus: ["Ghoul"],
                         versusAddPercent: 30,
                         patchOverride: {
-                            "P27": {
+                            "P27A": {
                                 versusAddPercent: 50
                             }
                         }
@@ -5516,7 +5516,7 @@
                         versus: ["Robot"],
                         versusAddPercent: 30,
                         patchOverride: {
-                            "P27": {
+                            "P27A": {
                                 versusAddPercent: 50
                             }
                         }
@@ -5613,6 +5613,11 @@
                     }
                 ]
             ]);
+
+
+            var patchChain = {
+                "P27": [ "P27A" ]
+            }
 
             // -------------------------------------------------------------------------------------
             enemyCategories = [];
@@ -7621,7 +7626,8 @@
                 + "<br><br>Patch 22 (One Wasteland) changed damage buffs to be mostly additive."
                 + "<br><br>Patch 23 changed a few remaining buffs to be additive."
                 + "<br>Stealth and crit bonuses still appear to be multiplicative."
-                + "<br><br>Patch 27 added more legendary effects and adjusted existing ones."
+                + "<br><br>Patch 27 buffed the slayer damages."
+                + "<br><br>Patch 28 added more legendary effects and adjusted existing ones."
                 + "<br><br>Future patches appear to change the impact of resistances so that"
                 + "<br>there won't be such a sharp drop in damage output for the same level of resistance,"
                 + "<br>resulting in tougher enemies to receive more damage."
@@ -9020,20 +9026,26 @@
                 opt = document.createElement("option");
                 opt.text = "One Wasteland";
                 opt.value = "P22";
-                opt.selected = true;
                 opt.linkId = "P22";
                 calcmodesel.add(opt);
 
                 opt = document.createElement("option");
-                opt.text = "Future";
-                opt.value = "P23";
-                opt.linkId = "P23";
+                opt.text = "Patch 27";
+                opt.value = "P27A";
+                opt.linkId = "P27A";
+                opt.selected = true;
                 calcmodesel.add(opt);
 
                 opt = document.createElement("option");
                 opt.text = "PTS";
                 opt.value = "P27";
                 opt.linkId = "P27";
+                calcmodesel.add(opt);
+
+                opt = document.createElement("option");
+                opt.text = "Future";
+                opt.value = "P23";
+                opt.linkId = "P23";
                 calcmodesel.add(opt);
 
                 calcmodesel.onchange = function() {
@@ -9057,11 +9069,24 @@
             }
 
             function withOverride(entry, patch) {
-                if (entry.patchOverride && entry.patchOverride[patch]) {
+                if (entry.patchOverride) {
                     var newEntry = JSON.parse(JSON.stringify(entry));
-                    var po = entry.patchOverride[patch];
-                    for (var i in po) {
-                        newEntry[i] = po[i];
+
+                    var patches = [];
+
+                    var chain = patchChain[patch];
+                    if (chain !== undefined) {
+                        chain.forEach(v => patches.push(v));
+                    }
+                    patches.push(patch);
+
+                    for (var pv of patches) {
+                        var po = entry.patchOverride[pv];
+                        if (po !== undefined) {
+                            for (var i in po) {
+                                newEntry[i] = po[i];
+                            }
+                        }
                     }
                     return newEntry;
                 }
