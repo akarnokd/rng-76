@@ -27,7 +27,7 @@
     </head>
     <body style="height: 90%">
         <center>
-            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Weapon Damage Calculator (v3.6.1)</span>
+            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Weapon Damage Calculator (v3.6.2)</span>
             <br/>
             <!-- <i>(Notification here)</i> -->
         <br/>
@@ -5108,6 +5108,56 @@
                             ]
                         }
                     ]
+                },
+                {
+                    name: "Pepper Shaker (PTS)",
+                    category: "Heavy,Shotgun",
+                    kind: "ballistic",
+                    speed: 4.1,
+                    clipSize: 50,
+                    reloadTime: 4,
+                    formId: "005E6FC0",
+                    level: [35, 40, 45, 50],
+                    damage: [50,55,55,60],
+                    mods: [
+                        {
+                            slot: "Barrel",
+                            options: [
+                                {
+                                    name: "Standard"
+                                },
+                                {
+                                    name: "Single",
+                                },
+                                {
+                                    name: "Dual",
+                                    damageBallisticMultPercent: 10,
+                                    speedAddPercent: 50,
+                                },
+                                {
+                                    name: "Hex",
+                                    damageBallisticMultPercent: -10,
+                                    speedAddPercent: 100,
+                                }
+                            ]
+                        },
+                        {
+                            slot: "Magazine",
+                            options: [
+                                {
+                                    name: "Standard",
+                                },
+                                {
+                                    name: "Laser",
+                                    addDamageEnergyLeveled: [10, 10, 10, 10]
+                                },
+                                {
+                                    name: "Plasma",
+                                    addDamageEnergyLeveled: [10, 10, 10, 10]
+                                }
+                            ]
+                        }
+                    ]
                 }
             ]);
 
@@ -8206,7 +8256,7 @@
                 opt.value = "0";
                 boost.linkId = "Boost";
 
-                for (var i = 10; i < 61; i += 5) {
+                for (var i = 10; i < 106; i += 5) {
                     opt = document.createElement("option");
                     boost.add(opt);
                     opt.text = "" + i;
@@ -8397,7 +8447,7 @@
                             recalculate(tbl, index, type);
                         };
                     }
-                    if (weap.category == "Heavy") {
+                    if (weap.category.includes("Heavy")) {
                         row = tbl.insertRow(tbl.rows.length);
                         cell1 = row.insertCell(0);
                         cell1.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;Stabilized" + info("stabilized");
@@ -8675,13 +8725,13 @@
                     if (weap.category === "Rifle") {
                         createPerk(tbl, index, type, "Ground Pounder", "groundpounder", "groundpounder", "GroundPounder", [10, 20, 30]);
                     }
-                    if (weap.category === "Heavy") {
+                    if (weap.category.includes("Heavy")) {
                         createPerk(tbl, index, type, "Lock and Load", "lockandload", "lockandload", "LockAndLoad", [ 10, 20, 30]);
                         if (weap.kind === "laser") {
                             createPerk(tbl, index, type, "Power User", "poweruser", "poweruser", "PowerUser", [ 30, 60, 100]);
                         }
                     }
-                    if (weap.category === "Shotgun") {
+                    if (weap.category.includes("Shotgun")) {
                         createPerk(tbl, index, type, "Scattershot", "scattershot", "scattershot", "ScatterShot", [ 10, 20, 30]);
                     }
                 }
@@ -8775,12 +8825,22 @@
                     mutationcountsel.linkDefault = "0";
             }
 
+            function includesAny(a, b) {
+                var list = b.split(",");
+                for (var c of list) {
+                    if (a.includes(c)) {
+                        return true;
+                    }
+                }
+                return false;
+            }
+
             function buffFilter(buff, weap, type) {
                 if (buff.mode.includes(type)) {
-                    if (buff.except !== undefined && buff.except.includes(weap.category)) {
+                    if (buff.except !== undefined && includesAny(buff.except, weap.category)) {
                         return false;
                     }
-                    if (buff.only !== undefined && !buff.only.includes(weap.category)) {
+                    if (buff.only !== undefined && !includesAny(buff.only, weap.category)) {
                         return false;
                     }
                     if (buff.weapon !== undefined && !buff.weapon.includes(weap.name)) {
@@ -10062,7 +10122,7 @@
                         clipSize = clipSizeMult * weap.clipSize + Math.max(0, clipSizeAdd);
                     }
 
-                    if (weap.category === "Heavy" && weap.kind === "laser") {
+                    if (weap.category.includes("Heavy") && weap.kind === "laser") {
                         var powerusersel = document.getElementById("poweruser" + index);
                         if (powerusersel.selectedIndex > 0) {
                             clipSize += weap.clipSize * powerusersel.options[powerusersel.selectedIndex].value / 100.0;
@@ -10250,10 +10310,10 @@
                     if (isAutomatic && weap.category === "Rifle") {
                         pushSelectedValue("groundpounder" + index, reloadTimeAdd, -1.0);
                     }
-                    if (weap.category === "Heavy") {
+                    if (weap.category.includes("Heavy")) {
                         pushSelectedValue("lockandload" + index, reloadTimeAdd, -1.0);
                     }
-                    if (weap.category === "Shotgun") {
+                    if (weap.category.includes("Shotgun")) {
                         pushSelectedValue("scattershot" + index, reloadTimeAdd, -1.0);
                     }
                     var reloadAdd = 0;
