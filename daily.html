@@ -1053,8 +1053,11 @@
             }
 
             function scoreCollectWood25(offset) {
+                return scoreCollectWood(offset, 25);
+            }
+            function scoreCollectWood(offset, count) {
                 return {
-                            name: "Collect wood (x25)",
+                            name: times("Collect wood", count),
                             offset: offset,
                             period: 1400,
                             tipId: "scoreCollectWood",
@@ -6514,6 +6517,16 @@
                     scoreKillLegendary, 1,
                     scoreNWKillCreature, 1
                ], [ dailyOpsV96, dailyOpsMutants, [ dailyOpsReroll, dailyOpsPiercingGaze, dailyOpsCloaked ], dailyOpsUplink]);
+            addDaily(challengesDailyEra7, 30, [
+                    scoreCompleteDailyChallenge, 5,
+                    scoreLevelUp, 1,
+                    scoreCompleteOneEvent, 1,
+                    scoreCompleteDailyOps, 1, 
+                    scoreCollectWood, 10,
+                    scoreClaimWorkshop, 1,
+                    scoreKillCreatureInGroup, 25,
+                    scoreNWUseStimpak, 3
+               ], [ dailyOpsV96, dailyOpsMutants, [ dailyOpsReset, dailyOpsReroll, dailyOpsPiercingGaze, dailyOpsCloaked ], dailyOpsUplink]);
 
             // ~~~~~~
 
