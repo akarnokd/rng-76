@@ -27,7 +27,7 @@
     </head>
     <body style="height: 90%">
         <center>
-            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Weapon Damage Calculator (v3.6.3)</span>
+            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Weapon Damage Calculator (v3.6.4)</span>
             <br/>
             <!-- <i>(Notification here)</i> -->
         <br/>
@@ -600,6 +600,14 @@
                                     damageMultPercent: 25,
                                     ignoreDRPercent: 15
                                 },
+                            ]
+                        },
+                        {
+                            slot: "Material",
+                            options: [
+                                {
+                                    name: "Wood"
+                                },
                                 {
                                     name: "Chef's",
                                     damageMultPercent: 20,
@@ -747,7 +755,20 @@
                     speed: speedMedium,
                     level: [25, 35, 45],
                     damage: [28, 33, 40],
-                    mods: []
+                    mods: [
+                        {
+                            slot: "Main",
+                            options: [
+                                {
+                                    name: "Standard"
+                                },
+                                {
+                                    name: "Electrified",
+                                    addDamageEnergyLeveled: [12.3, 15.4, 18.5]
+                                }
+                            ]
+                        }
+                    ]
                 },
                 {
                     name: "Pitchfork",
@@ -845,7 +866,41 @@
                     speed: speedMedium,
                     level: [5, 15, 25, 35, 45],
                     damage: [15, 25, 30, 35, 40],
-                    mods: []
+                    mods: [
+                        {
+                            slot: "Main",
+                            options: [
+                                {
+                                    name: "Standard"
+                                },
+                                {
+                                    name: "Electrified",
+                                    addDamageEnergyLeveled: [6.2, 9.3, 12.3, 15.4, 18.5]
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    name: "Baton",
+                    category: "One-handed",
+                    speed: speedMedium,
+                    level: [5, 15, 25, 35, 45],
+                    damage: [15, 25, 30, 35, 40],
+                    mods: [
+                        {
+                            slot: "Main",
+                            options: [
+                                {
+                                    name: "Standard"
+                                },
+                                {
+                                    name: "Electrified",
+                                    addDamageEnergyLeveled: [6.2, 9.3, 12.3, 15.4, 18.5]
+                                }
+                            ]
+                        }
+                    ]
                 },
                 {
                     name: "Meat Hook",
@@ -919,6 +974,7 @@
                                 {
                                     name: "Extended",
                                     damageMultPercent: 100,
+                                    addDamageBallisticLeveledAfter: [2]
                                 },
                                 {
                                     name: "Curved",
@@ -1134,7 +1190,7 @@
                                 },
                                 {
                                     name: "Piercing",
-                                    damageMultPercent: 15,
+                                    addDamageBallisticLeveledAfter: [2],
                                     ignoreDRPercent: 20
                                 }
                             ]
@@ -9702,6 +9758,9 @@
                         }
                         if (modInfo.automatic || modInfo.name.toLowerCase().includes("automatic")) {
                             isAutomatic = true;
+                        }
+                        if (modInfo.addDamageBallisticLeveledAfter) {
+                            totalDamageAdditive.push(modInfo.addDamageBallisticLeveledAfter[levelIdx]);
                         }
                     }
                 });
