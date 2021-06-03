@@ -6568,6 +6568,36 @@
                     scoreNWKillPlayer, 1
                ], [ dailyOpsBurrows, dailyOpsMutants, [ dailyOpsSavageStrike, dailyOpsFreezing ], dailyOpsDecryption]);
 
+            addWeekly(challengesWeeklyEra7.options, 35, scoreLevelUp3);
+            addWeekly(challengesWeeklyEra7.options, 35, scoreCompleteEvents10);
+            addWeekly(challengesWeeklyEra7.options, 35, scoreCompleteDailyOps, 5);
+            addWeekly(challengesWeeklyEra7.options, 35, scoreCompleteGoldStar);
+            addWeekly(challengesWeeklyEra7.options, 35, scoreKillLegendary, 15);
+            addWeekly(challengesWeeklyEra7.options, 35, scoreBuildupCamp, 5);
+            addWeekly(challengesWeeklyEra7.options, 35, scoreCollectCaps, 1500);
+            addWeekly(challengesWeeklyEra7.options, 35, scoreKillCreatures, 75);
+            addWeekly(challengesWeeklyEra7.options, 35, scorePlantCrop, 25);
+            addDaily(challengesDailyEra7, 35, [
+                    scoreCompleteDailyChallenge, 5,
+                    scoreLevelUp, 1,
+                    scoreCompleteOneEvent, 1,
+                    scoreCompleteDailyOps, 1, 
+                    scoreCompleteDailyOpsPublicTeam, 1, 
+                    scoreKillLegendary, 3,
+                    scoreRepairArmorWeaponPA, 3,
+                    scoreNWKillCreature, 1
+               ], [ dailyOpsBurning, dailyOpsMutants, [ dailyOpsPiercingGaze, dailyOpsRegenerating ], dailyOpsUplink]);
+            addDaily(challengesDailyEra7, 36, [
+                    scoreCompleteDailyChallenge, 5,
+                    scoreLevelUp, 1,
+                    scoreCompleteOneEvent, 1,
+                    scoreCompleteDailyOps, 1, 
+                    scoreCompleteDailyOpsFullTeam, 1, 
+                    scoreKillLegendary, 3,
+                    scoreBuySellItem, 1,
+                    scoreNWTakePhoto, 1
+               ], [ dailyOpsValley, dailyOpsRobots, [ dailyOpsSavageStrike, dailyOpsFreezing ], dailyOpsDecryption]);
+
             // ~~~~~~
 
             addPlaceholders(challengesDailyEra7, scoreDailyplaceholder, era7Length);
