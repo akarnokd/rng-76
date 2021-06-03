@@ -82,7 +82,7 @@
     </head>
     <body style="height: 90%; overflow-y: scroll;">
         <center>
-            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Armor Defense Calculator (0.2.12)</span>
+            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Armor Defense Calculator (0.2.13)</span>
             <br/>
             <!-- <i>(Notification here)</i> -->
         <br/>
@@ -6809,11 +6809,9 @@
                 if (state.player.mode === "PA") {
                     state.player.fullSet = armorPieces === 6 && armorMakes.length === 1;
                     state.player.fullSetCategory = true;
-                    if (armorPieces == 0) {
-                        state.dr += 60;
-                        state.er += 60;
-                        state.rr += 60;
-                    }
+                    state.dr += 60;
+                    state.er += 60;
+                    state.rr += 60;
                 } else {
                     state.player.fullSet = armorPieces === 5 && armorMakes.length === 1;
                     state.player.fullSetCategory = armorPieces === 5 && armorMakes.length === 1 && armorCategories.length === 1;
