@@ -5169,8 +5169,11 @@
             }
 
             function scoreCraftScrapItems25(offset) {
+                return scoreCraftScrapItems(offset, 25);
+            }
+            function scoreCraftScrapItems(offset, count) {
                 return {
-                            name: "Craft or scrap weapons, armor or clothing (x25)",
+                            name: times("Craft or scrap weapons, armor or clothing", count),
                             offset: offset,
                             period: 1400,
                         };
@@ -6647,6 +6650,26 @@
                     scoreRepairArmorWeaponPA, 3,
                     scoreNWKillPlayer, 1
                ], [ dailyOpsValley, dailyOpsRobots, [ dailyOpsPiercingGaze, dailyOpsCloaked ], dailyOpsUplink]);
+
+            addWeekly(challengesWeeklyEra7.options, 42, scoreLevelUp3);
+            addWeekly(challengesWeeklyEra7.options, 42, scoreCompleteEvents10);
+            addWeekly(challengesWeeklyEra7.options, 42, scoreCompleteDailyOps, 5);
+            addWeekly(challengesWeeklyEra7.options, 42, scoreCompleteGoldStar);
+            addWeekly(challengesWeeklyEra7.options, 42, scoreKillLegendary, 15);
+            addWeekly(challengesWeeklyEra7.options, 42, scoreConsumeAlcohol, 15);
+            addWeekly(challengesWeeklyEra7.options, 42, scoreCraftScrapItems, 50);
+            addWeekly(challengesWeeklyEra7.options, 42, scoreDestroyRobots5);
+            addWeekly(challengesWeeklyEra7.options, 42, scoreKillGlowing, 10);
+            addDaily(challengesDailyEra7, 42, [
+                    scoreCompleteDailyChallenge, 5,
+                    scoreLevelUp, 1,
+                    scoreCompleteOneEvent, 1,
+                    scoreCompleteDailyOps, 1, 
+                    scoreJoinGroup, 1, 
+                    scoreConsumeAlcohol, 5,
+                    scoreKillGhoul15, 15,
+                    scoreNWKillPlayer, 1
+               ], [ dailyOpsValley, dailyOpsRobots, [ dailyOpsReset, dailyOpsPiercingGaze, dailyOpsCloaked ], dailyOpsUplink]);
 
             // ~~~~~~
 
