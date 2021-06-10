@@ -4590,7 +4590,7 @@
                     scoreBuySellItem, 5,
                     scoreCollectCaps, 250,
                     scoreVisitAnotherShelter, 1,
-                    scoreNWKillPlayer, 1
+                    scoreNWKillPlayer, 1,
                ], [ dailyOpsValley, dailyOpsRobots, [ dailyOpsPiercingGaze, dailyOpsFreezing ], dailyOpsUplink]);
 
             var challenges = [
@@ -6696,7 +6696,7 @@
                     scoreJoinGroup, 1, 
                     scoreCookMeatFood, 5,
                     scoreKillCreature25, 25,
-                    scoreNWDeployCamp, 3
+                    scoreNWDeployCamp, 3,
                ], [ dailyOpsWatoga, dailyOpsScorched, [ dailyOpsSavageStrike, dailyOpsRegenerating ], dailyOpsDecryption]);
 
             // ~~~~~~
@@ -7096,6 +7096,30 @@
                             name: "Double for all activities",
                             offset: 0,
                             period: 1
+                        }
+                    ]
+                }
+            }
+
+            function createF1st(start, end) {
+                return {
+                    validStart: start,
+                    validEnd: end,
+                    title: "Fallout 1st Trial Weekend",
+                    options: [
+                        {
+                            name: "&#x2605;&#x2605; <i>Fallout 1st</i> free trial days &#x2605;&#x2605;",
+                            offset: 0,
+                            period: 1,
+                            ignore: true,
+                            subchallenges: [
+                                {
+                                    name: "Claim the free and limited trial from the Atom Shop."
+                                },
+                                {
+                                    name: "Once over, you can still get stuff out from the Scrap Box."
+                                }
+                            ]
                         }
                     ]
                 }
@@ -7507,7 +7531,8 @@
                 createTreasureHunt(ofDate(2021, 4, 27, 16), ofDate(2021, 5, 1, 16), false),
 
                 createDoubleScore(ofDate(2021, 5, 3, 16), ofDate(2021, 5, 7, 16)),
-                createDoubleXP(ofDate(2021, 5, 10, 16), ofDate(2021, 5, 16, 16)),
+                createDoubleXP(ofDate(2021, 5, 10, 16), ofDate(2021, 5, 14, 16)),
+                createF1st(ofDate(2021, 5, 10, 16), ofDate(2021, 5, 14, 16)),
                 createGoldRush(ofDate(2021, 5, 17, 16), ofDate(2021, 5, 21, 16), 25, false),
                 createDoubleScore(ofDate(2021, 5, 24, 16), ofDate(2021, 5, 28, 16)),
                 {
