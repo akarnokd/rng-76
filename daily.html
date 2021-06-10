@@ -1277,6 +1277,14 @@
                         };
             }
 
+            function scoreCookMeatFood(offset, count) {
+                return {
+                            name: times("Cook Meat-based food", count),
+                            offset: offset,
+                            period: 1400,
+                        };
+            }
+
             function scoreNWIncreaseRank(offset) {
                 return {
                             name: "&#x2622; NW: Increase your Overseer rank",
@@ -6680,6 +6688,16 @@
                     scoreKillMoleminer, 15,
                     scoreNWUseStimpak, 3
                ], [ dailyOpsBurning, dailyOpsMutants, [ dailyOpsPiercingGaze, dailyOpsSwift ], dailyOpsUplink]);
+            addDaily(challengesDailyEra7, 44, [
+                    scoreCompleteDailyChallenge, 5,
+                    scoreLevelUp, 1,
+                    scoreCompleteOneEvent, 1,
+                    scoreCompleteDailyOps, 1, 
+                    scoreJoinGroup, 1, 
+                    scoreCookMeatFood, 5,
+                    scoreKillCreature25, 25,
+                    scoreNWDeployCamp, 3
+               ], [ dailyOpsBurning, dailyOpsMutants, [ dailyOpsReset, dailyOpsPiercingGaze, dailyOpsSwift ], dailyOpsUplink]);
 
             // ~~~~~~
 
