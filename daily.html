@@ -6759,7 +6759,7 @@
 
             function scoreStormWeekly(offset, count) {
                 return {
-                    name: times("STORM: Complete daily challenges", count),
+                    name: times("STORM: Complete daily <i>STORM</i> challenges", count),
                             offset: offset,
                             period: 1400,
                 };
@@ -6853,6 +6853,27 @@
                     scoreStorm("STORM: Complete an Event in the Forest"), 1
                 ], [ dailyOpsValley, dailyOpsRobots, [ dailyOpsPiercingGaze, dailyOpsToxic ], dailyOpsUplink]);
 
+            addWeekly(challengesWeeklyEra7.options, 56, scoreLevelUp3);
+            addWeekly(challengesWeeklyEra7.options, 56, scoreBuildFloorWallCamp, 15);
+            addWeekly(challengesWeeklyEra7.options, 56, scoreScrapMoney, 100);
+            addWeekly(challengesWeeklyEra7.options, 56, scoreCompleteGoldStar);
+            addWeekly(challengesWeeklyEra7.options, 56, scoreCompleteDailyOps, 5);
+            addWeekly(challengesWeeklyEra7.options, 56, scoreCompleteEvents10);
+            addWeekly(challengesWeeklyEra7.options, 56, scoreEatPrewarFood, 25);
+            addWeekly(challengesWeeklyEra7.options, 56, scorekillHugeCreatures, 5);
+            addWeekly(challengesWeeklyEra7.options, 56, scoreKillLegendary, 15);
+            addWeekly(challengesWeeklyEra7.options, 56, scoreStormWeekly, 3);
+            addDaily(challengesDailyEra7, 56, [
+                    scoreCompleteDailyChallenge, 5,
+                    scoreLevelUp, 1,
+                    scoreCompleteOneEvent, 1,
+                    scoreCompleteDailyOps, 1, 
+                    scoreUsePhotomode, 1, 
+                    scoreKillMoleminer, 15,
+                    scoreHackTerminal, 1,
+                    scoreNWKillPlayer, 1,
+                    scoreStorm("STORM: Complete an Event in the Savage Divide"), 1
+                ], [ dailyOpsValley, dailyOpsRobots, [ dailyOpsReset, dailyOpsPiercingGaze, dailyOpsToxic ], dailyOpsUplink]);
             // ~~~~~~
 
             addPlaceholders(challengesDailyEra7, scoreDailyplaceholder, era7Length);
