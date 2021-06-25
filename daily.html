@@ -7323,6 +7323,54 @@
                 }
             }
 
+            function createMinerva(start, end) {
+                return {
+                    validStart: start,
+                    validEnd: end,
+                    title: "Minerva's Big Sale",
+                    options: [
+                        {
+                            name: "25% off on plans",
+                            offset: 0,
+                            period: 1,
+                            subchallenges: [
+                                {
+                                    name: "Offers random plans (bullion or daily ops) at a discount"
+                                }
+                            ]
+                        },
+                    ]
+                };
+            }
+            function createBonusChallengesWeek(start, end) {
+                return {
+                    validStart: start,
+                    validEnd: end,
+                    title: "Bonus Challenges Week",
+                    options: [
+                        {
+                            name: "Earn more S.C.O.R.E. with bonus daily and weekly challenges.",
+                            offset: 0,
+                            period: 1
+                        }
+                    ]
+                };
+            }
+            function createBonusChallengesDays(start, end) {
+                return {
+                    validStart: start,
+                    validEnd: end,
+                    title: "Bonus Challenges Days",
+                    options: [
+                        {
+                            name: "Earn more S.C.O.R.E. with bonus daily challenges.",
+                            offset: 0,
+                            period: 1
+                        }
+                    ]
+                };
+            }
+
             var communityEvents = [
                 createEra1Part1(ofDate(2020, 7, 4, 16), 0, 0, 4),
                 createEra1Part1(ofDate(2020, 7, 4, 16), 1, 4, 3),
@@ -7455,18 +7503,7 @@
                     ]
                 },
                 createTreasureHunt(ofDate(2020, 10, 5, 17), ofDate(2020, 10, 9, 17)),
-                {
-                    validStart: ofDate(2020, 10, 10, 17),
-                    validEnd: ofDate(2020, 10, 16, 17),
-                    title: "Bonus Challenges Week",
-                    options: [
-                        {
-                            name: "Earn more S.C.O.R.E. with bonus daily and weekly challenges.",
-                            offset: 0,
-                            period: 1
-                        }
-                    ]
-                },
+                createBonusChallengesWeek(ofDate(2020, 10, 10, 17), ofDate(2020, 10, 16, 17)),
                 createPurveyor(ofDate(2020, 10, 12, 17), ofDate(2020, 10, 16, 17), 25, true),
                 createTreasureHunt(ofDate(2020, 10, 24, 17), ofDate(2020, 10, 30, 17), true),
                 {
@@ -7783,10 +7820,24 @@
                         }
                     ]
                 },
+                // ~~~~ season 5 ~~~~
                 createPurveyor(ofDate(2021, 6, 8, 16), ofDate(2021, 6, 12, 16), 0, true),
                 createTreasureHunt(ofDate(2021, 6, 15, 16), ofDate(2021, 6, 19, 16), false),
                 createDoubleScore(ofDate(2021, 6, 22, 16), ofDate(2021, 6, 26, 16)),
                 createGoldRush(ofDate(2021, 6, 29, 16), ofDate(2021, 7, 2, 16)),
+                createScripSurplus(ofDate(2021, 7, 5, 16), ofDate(2021, 7, 9, 16)),
+                createMinerva(ofDate(2021, 7, 5, 16), ofDate(2021, 7, 9, 16)),
+                createPurveyor(ofDate(2021, 7, 12, 16), ofDate(2021, 7, 16, 16), 25, false),
+                createDoubleScore(ofDate(2021, 7, 12, 16), ofDate(2021, 7, 16, 16)),
+                createMeatWeek(ofDate(2021, 7, 17, 16), 6, "Community Event: Meat Week"),
+                createBonusChallengesDays(ofDate(2021, 7, 17, 16), ofDate(2021, 7, 23, 16)),
+                createDoubleXP(ofDate(2021, 7, 19, 16), ofDate(2021, 7, 23, 16)),
+                createPurveyor(ofDate(2021, 7, 26, 16), ofDate(2021, 7, 30, 16), 0, true),
+                createDoubleScore(ofDate(2021, 8, 1, 16), ofDate(2021, 8, 7, 16)),
+                createGoldRush(ofDate(2021, 8, 2, 16), ofDate(2021, 8, 7, 16)),
+                createMinerva(ofDate(2021, 8, 9, 16), ofDate(2021, 8, 13, 16)),
+                createTreasureHunt(ofDate(2021, 8, 16, 16), ofDate(2021, 8, 20, 16)),
+                createDoubleXP(ofDate(2021, 8, 23, 16), ofDate(2021, 8, 27, 16)),
             ];
 
             function ofDate(year, month, day, hour) {
@@ -7860,15 +7911,15 @@
             };
             var season4 = {
                 validStart: ofDate(2021, 3, 27, 16),
-                validEnd: plusDays(ofDate(2021, 3, 27, 16), 70),
+                validEnd: plusDays(ofDate(2021, 3, 27, 16), 71),
                 title: "Season 4: Cold Steel",
                 options: [
                     
                 ]
             };
             var season5 = {
-                validStart: ofDate(2021, 6, 6, 16),
-                validEnd: plusDays(ofDate(2021, 6, 6, 16), 70),
+                validStart: ofDate(2021, 6, 7, 16),
+                validEnd: plusDays(ofDate(2021, 6, 7, 16), 70),
                 title: "Season 5: TBA",
                 options: [
                     
@@ -7878,7 +7929,7 @@
             fillInSeason(season1, 70, "LR1");
             fillInSeason(season2, 91, "LR2");
             fillInSeason(season3, 133, "LR3");
-            fillInSeason(season4, 70, "LR4");
+            fillInSeason(season4, 71, "LR4");
             fillInSeason(season5, 70, "LR5");
 
             for (var i = 56; i < 91; i++) {
@@ -7898,13 +7949,6 @@
                 });
             }*/
 
-            for (var i = 0; i < era7Length; i++) {
-                season4.options.push({
-                    name: "&#x1F6C8; Note that the length<br>&nbsp;&nbsp;&nbsp;&nbsp;of Season 4 is not yet known.",
-                    offset: i,
-                    period: 1400
-                });
-            }
             for (var i = 0; i < 70; i++) {
                 season5.options.push({
                     name: "&#x1F6C8; Note that the details <br>&nbsp;&nbsp;&nbsp;&nbsp;of Season 5 is not yet known.",
