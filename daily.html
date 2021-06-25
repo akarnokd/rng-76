@@ -6896,6 +6896,17 @@
                     scoreNWDeployCamp, 3,
                     scoreStorm("STORM: Claim a Workshop"), 1
                 ], [ dailyOpsWestTec, dailyOpsMoleminers, [ dailyOpsSavageStrike, dailyOpsCloaked ], dailyOpsDecryption]);
+            addDaily(challengesDailyEra7, 59, [
+                    scoreCompleteDailyChallenge, 5,
+                    scoreLevelUp, 1,
+                    scoreCompleteOneEvent, 1,
+                    scoreCompleteDailyOps, 1, 
+                    scoreJoinGroup, 1, 
+                    scoreKillGhoul15, 15,
+                    scoreHackTerminal, 1,
+                    scoreNWKillPlayer, 1,
+                    scoreStorm("STORM: Complete an Event in the Ash Heap"), 1
+                ], [ dailyOpsWestTec, dailyOpsMoleminers, [ dailyOpsReset, dailyOpsSavageStrike, dailyOpsCloaked ], dailyOpsDecryption]);
 
             // ~~~~~~
 
@@ -7920,7 +7931,7 @@
             var season5 = {
                 validStart: ofDate(2021, 6, 7, 16),
                 validEnd: plusDays(ofDate(2021, 6, 7, 16), 70),
-                title: "Season 5: TBA",
+                title: "Season 5: K.D. Inkwell and escape from<br>the 42nd century",
                 options: [
                     
                 ]
@@ -7951,7 +7962,7 @@
 
             for (var i = 0; i < 70; i++) {
                 season5.options.push({
-                    name: "&#x1F6C8; Note that the details <br>&nbsp;&nbsp;&nbsp;&nbsp;of Season 5 is not yet known.",
+                    name: "&#x1F6C8; Note that some details <br>&nbsp;&nbsp;&nbsp;&nbsp;of Season 5 is not yet known.",
                     offset: i,
                     period: 1400
                 });
