@@ -5186,6 +5186,13 @@
                             period: 1400,
                         };
             }
+            function scoreEatMeat(offset, count) {
+                return {
+                            name: times("Eat Meat-based Meal", count),
+                            offset: offset,
+                            period: 1400,
+                        };
+            }
 
             function scoreDestroyRobots5(offset) {
                 return {
@@ -6940,6 +6947,30 @@
                     scoreNWKillCreature, 1,
                     scoreStorm("STORM: Complete an Event in the Toxic Valley"), 1
                 ], [ dailyOpsBurning, dailyOpsMoleminers, [ dailyOpsSavageStrike, dailyOpsCloaked ], dailyOpsDecryption]);
+
+            addWeekly(challengesWeeklyEra7.options, 63, scoreLevelUp3);
+            addWeekly(challengesWeeklyEra7.options, 63, scoreBuildupCampAny3);
+            addWeekly(challengesWeeklyEra7.options, 63, scoreCollectCaps, 1500);
+            addWeekly(challengesWeeklyEra7.options, 63, scoreCompleteDailyOps, 5);
+            addWeekly(challengesWeeklyEra7.options, 63, scoreCompleteGoldStar);
+            addWeekly(challengesWeeklyEra7.options, 63, scoreCompleteEvents10);
+            addWeekly(challengesWeeklyEra7.options, 63, scoreDestroyRobots5);
+            addWeekly(challengesWeeklyEra7.options, 63, scoreEatMeat, 5);
+            addWeekly(challengesWeeklyEra7.options, 63, scoreKillLegendary, 15);
+            addWeekly(challengesWeeklyEra7.options, 63, scoreStormWeekly, 3);
+            addDaily(challengesDailyEra7, 63, [
+                    scoreCompleteDailyChallenge, 5,
+                    scoreLevelUp, 1,
+                    scoreCompleteOneEvent, 1,
+                    scoreCompleteDailyOps, 1, 
+                    scoreClaimWorkshop, 1, 
+                    scoreCollectCaps, 250,
+                    scoreDestroyRobot, 15,
+                    scoreKillLegendary, 1,
+                    scoreModArmor, 5,
+                    scoreNWKillPlayer, 1,
+                    scoreStorm("STORM: Claim a Workshop"), 1
+                ], [ dailyOpsBurning, dailyOpsMoleminers, [ dailyOpsReset, dailyOpsSavageStrike, dailyOpsCloaked ], dailyOpsDecryption]);
 
             // ~~~~~~
 
