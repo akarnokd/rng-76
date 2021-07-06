@@ -7055,6 +7055,52 @@
             addPlaceholders(challengesDailyEra7, scoreDailyplaceholder, era7Length);
             addPlaceholders(challengesWeeklyEra7, scoreWeeklyplaceholder, era7Length);
 
+            // ===============================================================================================================
+            // ERA 8
+            // ===============================================================================================================
+            var era8Length = 71;
+
+            var challengesDailyEra8 = {
+                validStart: ofDate(2021, 6, 6, 16),
+                validEnd: plusDays(ofDate(2021, 6, 6, 16), era8Length),
+                options: []
+            };
+            var challengesWeeklyEra8 = {
+                validStart: ofDate(2021, 6, 6, 16),
+                validEnd: plusDays(ofDate(2021, 6, 6, 16), era8Length),
+                options: []
+            };
+            challenges.push(challengesDailyEra8);
+            challengesWeekly.push(challengesWeeklyEra8);
+
+            // ~~~~~~
+            addDaily(challengesDailyEra8, 0, [
+                    scoreCompleteDailyChallenge, 5,
+                    scoreLevelUp, 1,
+                    scoreCompleteOneEvent, 1,
+                    scoreCompleteDailyOps, 1, 
+                    scoreBuildFloorWallCamp, 5,
+                    scoreBuySellItem, 1,
+                    scoreClaimWorkshop, 1,
+                    scoreCollectCaps, 250,
+                    scoreCompleteDaily, 1,
+                    scoreHackTerminal, 1,
+                    scoreKillCreatureInGroup, 50,
+                    scoreKillLegendary, 1,
+                    scorePickLock, 1,
+                    scoreRepairArmorWeaponPA, 5,
+               ], [ dailyOpsValley, dailyOpsMutants, [ dailyOpsReset, dailyOpsPiercingGaze, dailyOpsResilient ], dailyOpsUplink]);
+
+
+            challengesWeeklyEra8.options.push({
+                name: "No weekly challenges yet, Wednesday",
+                offset: 0,
+                period: 14,
+            });
+
+            addPlaceholders(challengesDailyEra8, scoreDailyplaceholder, era8Length);
+            addPlaceholders(challengesWeeklyEra8, scoreWeeklyplaceholder, era8Length);
+
             // --------------------------------------------------------------------------------------------------------------
             // Community events
 
