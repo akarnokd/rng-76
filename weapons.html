@@ -27,7 +27,7 @@
     </head>
     <body style="height: 90%">
         <center>
-            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Weapon Damage Calculator (v3.6.5)</span>
+            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Weapon Damage Calculator (v3.6.6)</span>
             <br/>
             <!-- <i>(Notification here)</i> -->
         <br/>
@@ -5172,7 +5172,7 @@
                     ]
                 },
                 {
-                    name: "Pepper Shaker (PTS)",
+                    name: "Pepper Shaker",
                     category: "Heavy,Shotgun",
                     kind: "ballistic",
                     speed: 4.1,
@@ -5465,22 +5465,22 @@
                     },
                     {
                         name: "Aristocrats",
-                        text: "Aristocrat's (PTS)",
+                        text: "Aristocrat's",
                         capsDamageMultPercent: 50,
                     },
                     {
                         name: "Juggernauts",
-                        text: "Juggernaut's (PTS)",
+                        text: "Juggernaut's",
                         healthDamageMultPercent: 25,
                     },
                     {
                         name: "Heavyweight",
-                        text: "Heavyweight (PTS)",
+                        text: "Heavyweight (Cut)",
                         carryDamageMultPercent: 25,
                     },
                     {
                         name: "Gourmands",
-                        text: "Gourmand's (PTS)",
+                        text: "Gourmand's",
                         feedDamageMultPercent: 24,
                     }
                 ],
@@ -5498,13 +5498,13 @@
                     },
                     {
                         name: "Steady",
-                        text: "Steady (PTS)",
+                        text: "Steady",
                         steadyDamageMultPercent: 25,
                     },
                     {
                         name: "VATS Crits do +50% damage",
                         linkId: "VATSCrit50",
-                        text: "VATS Crits do +50% damage (PTS)",
+                        text: "VATS Crits do +50% damage",
                         criticalDamage: 50,
                     },
                 ],
@@ -5652,22 +5652,22 @@
                     },
                     {
                         name: "Aristocrats",
-                        text: "Aristocrat's (PTS)",
+                        text: "Aristocrat's",
                         capsDamageMultPercent: 50,
                     },
                     {
                         name: "Juggernauts",
-                        text: "Juggernaut's (PTS)",
+                        text: "Juggernaut's",
                         healthDamageMultPercent: 25,
                     },
                     {
                         name: "Heavyweight",
-                        text: "Heavyweight (PTS)",
+                        text: "Heavyweight (Cut)",
                         carryDamageMultPercent: 25,
                     },
                     {
                         name: "Gourmands",
-                        text: "Gourmand's (PTS)",
+                        text: "Gourmand's",
                         feedDamageMultPercent: 24,
                     }
                 ],
@@ -5712,13 +5712,13 @@
                     },
                     {
                         name: "Lastshot",
-                        text: "Last Shot (PTS)",
+                        text: "Last Shot",
                         lastDamageMultPercent: 100,
                         lastChance: 25,
                     },
                     {
                         name: "Steady",
-                        text: "Steady (PTS)",
+                        text: "Steady",
                         steadyDamageMultPercent: 25,
                     }
                 ],
@@ -7749,7 +7749,6 @@
                 + "<br><br>Future patches appear to change the impact of resistances so that"
                 + "<br>there won't be such a sharp drop in damage output for the same level of resistance,"
                 + "<br>resulting in tougher enemies to receive more damage."
-                + "<br><br>Note that post Patch 22 calculation options are currently not fleshed out and may produce wonky results."
             );
 
             // ~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o
@@ -9165,8 +9164,8 @@
                 calcmodesel.add(opt);
 
                 opt = document.createElement("option");
-                opt.text = "PTS";
-                opt.value = "P27";
+                opt.text = "Patch 28";
+                opt.value = "P27"; // I know, the patch ids are messed up
                 opt.linkId = "P27";
                 calcmodesel.add(opt);
 
