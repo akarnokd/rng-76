@@ -7096,7 +7096,37 @@
                 name: "No weekly challenges yet, Wednesday",
                 offset: 0,
                 period: 14,
+                dontremove: true,
             });
+
+            addWeekly(challengesWeeklyEra8.options, 0, scoreFixedGainXP10000);
+            addWeekly(challengesWeeklyEra8.options, 0, scoreLevelUp3);
+            addWeekly(challengesWeeklyEra8.options, 0, scoreBuildWallDecor, 15);
+            addWeekly(challengesWeeklyEra8.options, 0, scoreCollectCaps, 1250);
+            addWeekly(challengesWeeklyEra8.options, 0, scoreCompleteDailyOps, 5);
+            addWeekly(challengesWeeklyEra8.options, 0, scoreCompleteGoldStar);
+            addWeekly(challengesWeeklyEra8.options, 0, scoreCompleteEvents10);
+            addWeekly(challengesWeeklyEra8.options, 0, scorekillHugeCreaturesN, 5);
+            addWeekly(challengesWeeklyEra8.options, 0, scoreKillLegendary, 10);
+            addWeekly(challengesWeeklyEra8.options, 0, scoreVisitOwnShelter, 1);
+
+            // From Wednesday only
+            for (var e of challengesWeeklyEra8.options) {
+                if (!e.dontremove && e.offset === 0) {
+                    e.offset = 200;
+                }
+            }
+
+            addDaily(challengesDailyEra8, 1, [
+                    scoreCompleteDailyChallenge, 5,
+                    scoreLevelUp, 1,
+                    scoreCompleteOneEvent, 1,
+                    scoreCompleteDailyOps, 1,
+                    scoreKillCreature25, 25,
+                    scoreKillLegendary, 1,
+                    scoreVisitOwnShelter, 1,
+                    scoreNWUseStimpak, 2,
+               ], [ dailyOpsBurning, dailyOpsEagles, [ dailyOpsPiercingGaze, dailyOpsResilient ], dailyOpsUplink]);
 
             addPlaceholders(challengesDailyEra8, scoreDailyplaceholder, era8Length);
             addPlaceholders(challengesWeeklyEra8, scoreWeeklyplaceholder, era8Length);

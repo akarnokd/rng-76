@@ -30,7 +30,7 @@
     </head>
     <body>
         <center>
-            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Patch Difference Viewer (0.0.7)</span><br/>
+            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Patch Difference Viewer (0.0.8)</span><br/>
             <br/>
             <br/>
             <table>
@@ -761,6 +761,35 @@
                         cll.style.borderTop = "1px solid #808080";
                         if (entry.rightInfo !== undefined || entry.type !== "removed") {
                             cll.innerHTML = formatEdid(entry.id, entry.rightInfo, versionright);
+
+                            if (entry.type === "added") {
+                                let dotdotdot = document.createElement("span");
+                                dotdotdot.innerText = "...";
+                                dotdotdot.style.border = "1px dotted black";
+                                dotdotdot.style.cursor = "pointer";
+                                cll.appendChild(dotdotdot);
+
+                                let ctadd = document.createElement("div");
+                                ctadd.style.display = "none"
+                                cll.appendChild(ctadd);
+
+                                dotdotdot.onclick = evt => {
+                                    if (ctadd.style.display !== "block") {
+                                        ctadd.style.display = "block";
+                                    } else {
+                                        ctadd.style.display = "none";
+                                    }
+                                };
+
+                                var xyi = 0;
+                                for (var xy of dedupAndFix(entry.rightValue)) {
+                                    if (xyi > 0) {
+                                        ctadd.appendChild(document.createElement("br"));
+                                    }
+                                    ctadd.appendChild(document.createTextNode("X = " + xy.x + "; Y = " + xy.y));
+                                    xyi++;
+                                }
+                            }
                         }
                         if (entry.rightValue !== undefined) {
                             // TODO curve table diff

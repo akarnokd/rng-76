@@ -3541,15 +3541,15 @@
                         "Helmet": {
                             name: "Helmet",
                             order: 1,
-                            func: createBasePA([73], [60], [60], 7, 7, 15)
+                            func: createBasePA([68], [48], [48], 7, 7, 15)
                         },
                         "Torso": {
                             name: "Torso",
                             order: 1,
                             func: (state, idx) => {
-                                state.dr += 120;
-                                state.er += 100;
-                                state.rr += 100;
+                                state.dr += 96;
+                                state.er += 80;
+                                state.rr += 80;
                                 
                                 var rs = getOrCreateReductionSlot(state, "base");
                                 rs.ballisticReduction += 7;
@@ -3570,7 +3570,7 @@
                         "LA": {
                             name: "Left Arm",
                             order: 1,
-                            func: createBasePA([73], [60], [60], 7, 7, 15),
+                            func: createBasePA([68], [48], [48], 7, 7, 15)
                         },
                         "RA": {
                             name: "Right Arm",
@@ -3579,7 +3579,7 @@
                         "LL": {
                             name: "Left Leg",
                             order: 1,
-                            func: createBasePA([73], [60], [60], 7, 7, 15),
+                            func: createBasePA([68], [48], [48], 7, 7, 15)
                         },
                         "RL": {
                             name: "Right Leg",
