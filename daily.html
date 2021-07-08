@@ -7355,7 +7355,7 @@
                 };
             }
 
-            function createPurveyor(start, end, sale, mystery) {
+            function createPurveyor(start, end, sale, mystery, pa) {
                 var txt = "Purveyor ";
                 if (sale > 0) {
                     txt += sale + "% off sale"
@@ -7416,6 +7416,12 @@
                     };
                     if (sale > 0) {
                         opt.name = "Visit the Purveyor for a special <s>60</s> 45 Scrip offer."
+                    }
+
+                    if (pa === 0) {
+                        opt.subchallenges[1].name = "&#x1F6C8; 1/3 chance for getting armor, melee or ranged weapons. No power armor.";
+                    } else if (pa === 1) {
+                        opt.subchallenges[1].name = "&#x1F6C8; 1/4 chance for getting armor, power armor, melee or ranged weapons.";
                     }
 
                     result.options.push(opt);
@@ -7513,6 +7519,14 @@
                     ]
                 }
             }
+
+            function addTo(entry, options) {
+                for (var o of options) {
+                    entry.options.push(o);
+                }
+                return entry;
+            }
+
             function createDoubleXP(start, end) {
                 return {
                     validStart: start,
@@ -8050,7 +8064,14 @@
                     ]
                 },
                 // ~~~~ season 5 ~~~~
-                createPurveyor(ofDate(2021, 6, 8, 16), ofDate(2021, 6, 12, 16), 0, true),
+                createPurveyor(ofDate(2021, 6, 8, 16), ofDate(2021, 6, 12, 16), 0, true, 0),
+                addTo(createDoubleScore(ofDate(2021, 6, 8, 16), ofDate(2021, 6, 12, 16)), [
+                    {
+                        name: "&#x1F6C8; Compensation for the weekly challenges bugging out",
+                        offset: 0,
+                        period: 1,
+                    }
+                ]),
                 createTreasureHunt(ofDate(2021, 6, 15, 16), ofDate(2021, 6, 19, 16), false),
                 createDoubleScore(ofDate(2021, 6, 22, 16), ofDate(2021, 6, 26, 16)),
                 createGoldRush(ofDate(2021, 6, 29, 16), ofDate(2021, 7, 2, 16)),
