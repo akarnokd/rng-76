@@ -6809,9 +6809,8 @@
                 if (state.player.mode === "PA") {
                     state.player.fullSet = armorPieces === 6 && armorMakes.length === 1;
                     state.player.fullSetCategory = true;
-                    state.dr += 60;
-                    state.er += 60;
-                    state.rr += 60;
+                    state.dr += 2;
+                    state.er += 2;
                 } else {
                     state.player.fullSet = armorPieces === 5 && armorMakes.length === 1;
                     state.player.fullSetCategory = armorPieces === 5 && armorMakes.length === 1 && armorCategories.length === 1;
