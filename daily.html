@@ -7176,7 +7176,7 @@
                     scoreKillLegendary, 1,
                     scoreVisitAnotherShelter, 1,
                     scoreNWUseStimpak, 2,
-               ], [ dailyOpsWatoga, dailyOpsMoleminers, [ dailyOpsReset, dailyOpsPiercingGaze, dailyOpsResilient ], dailyOpsUplink]);
+               ], [ dailyOpsV96, dailyOpsEagles, [ dailyOpsSavageStrike, dailyOpsVolatile ], dailyOpsDecryption]);
 
             addPlaceholders(challengesDailyEra8, scoreDailyplaceholder, era8Length);
             addPlaceholders(challengesWeeklyEra8, scoreWeeklyplaceholder, era8Length);
@@ -7616,7 +7616,37 @@
                 }
             }
 
-            function createMinerva(start, end, location) {
+            var minervaPools = {
+                "P1": [
+                    "Plan: Secret Service Left Arm",
+                    "Plan: Secret Service Left Right Arm",
+                    "Plan: Secret Service Left Left Leg",
+                    "Plan: Secret Service Left Right Leg",
+                    "Plan: Secret Service Helmet",
+                    "Plan: Secret Service Chest Piece",
+                    "Plan: Farmable Dirt Tiles",
+                    "Plan: Sympto-Matic",
+                    "Plan: Super Reactor",
+                    "Plan: War Glaive",
+                    "Plan: Gauss Minigun Gunner Sights",
+                    "Plan: Gauss Minigun Tesla Capacitor",
+                    "Plan: Gauss Minigun Tesla Dynamo",
+                    "Plan: Chemist's Backpack",
+                    "Plan: Cattle Prod"
+                ]
+            };
+
+            function createMinerva(start, end, location, pool) {
+                let minervaTip = "<table class='infoTable'>";
+                if (pool) {
+                    for (var items of minervaPools[pool]) {
+                        minervaTip += "<tr><td>" + items + "</td></tr>";
+                    }
+                } else {
+                    minervaTip += "<tr><td>Not known yet</td></tr>";
+                }
+                
+                minervaTip += "</table>";
                 return {
                     validStart: start,
                     validEnd: end,
@@ -7629,6 +7659,11 @@
                             subchallenges: [
                                 {
                                     name: "Offers random plans (bullion or daily ops) at a discount"
+                                },
+                                {
+                                    name: "This week's plans:",
+                                    tipId: "MinervaPool" + pool,
+                                    tip: minervaTip
                                 }
                             ]
                         },
@@ -8122,7 +8157,7 @@
                         period: 1,
                     }
                 ]),
-                createMinerva(ofDate(2021, 6, 12, 16), ofDate(2021, 6, 16, 16), "Foundation"),
+                createMinerva(ofDate(2021, 6, 12, 16), ofDate(2021, 6, 16, 16), "Foundation", "P1"),
                 createTreasureHunt(ofDate(2021, 6, 15, 16), ofDate(2021, 6, 19, 16), false),
                 createDoubleScore(ofDate(2021, 6, 22, 16), ofDate(2021, 6, 26, 16)),
                 createGoldRush(ofDate(2021, 6, 29, 16), ofDate(2021, 7, 2, 16)),
