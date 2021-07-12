@@ -7616,11 +7616,11 @@
                 }
             }
 
-            function createMinerva(start, end) {
+            function createMinerva(start, end, location) {
                 return {
                     validStart: start,
                     validEnd: end,
-                    title: "Minerva's Big Sale",
+                    title: "Minerva's Big Sale @ " + location,
                     options: [
                         {
                             name: "25% off on plans",
@@ -8122,7 +8122,7 @@
                         period: 1,
                     }
                 ]),
-                createMinerva(ofDate(2021, 7, 12, 16), ofDate(2021, 7, 16, 16)),
+                createMinerva(ofDate(2021, 6, 12, 16), ofDate(2021, 6, 16, 16), "Foundation"),
                 createTreasureHunt(ofDate(2021, 6, 15, 16), ofDate(2021, 6, 19, 16), false),
                 createDoubleScore(ofDate(2021, 6, 22, 16), ofDate(2021, 6, 26, 16)),
                 createGoldRush(ofDate(2021, 6, 29, 16), ofDate(2021, 7, 2, 16)),
