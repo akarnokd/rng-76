@@ -5872,7 +5872,12 @@
                     name: "&#x1F6C8; Double S.C.O.R.E. for weekly challenges",
                     offset: offset,
                     period: 1400,
-                    ignore: true
+                    ignore: true,
+                    subchallenges: [
+                        {
+                            name: "Including the repeatable XP challenge"
+                        }
+                    ]
                 };
             }
 
@@ -7178,6 +7183,7 @@
                     scoreNWUseStimpak, 2,
                ], [ dailyOpsV96, dailyOpsEagles, [ dailyOpsSavageStrike, dailyOpsVolatile ], dailyOpsDecryption]);
 
+            addWeekly(challengesWeeklyEra8.options, 7, scoreDoubleWeeklyScore);
             addWeekly(challengesWeeklyEra8.options, 7, scoreFixedGainXP10000);
             addWeekly(challengesWeeklyEra8.options, 7, scoreLevelUp3);
             addWeekly(challengesWeeklyEra8.options, 7, scoreBuildAnythingCamp, 15);
