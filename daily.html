@@ -7716,6 +7716,30 @@
                     ]
                 };
             }
+            function createBonusChallengesAndDoubleScoreWeek(start, end) {
+                return {
+                    validStart: start,
+                    validEnd: end,
+                    title: "Bonus Challenges and<br>Double Weekly S.C.O.R.E Week",
+                    options: [
+                        {
+                            name: "Earn more S.C.O.R.E. with bonus weekly challenges.",
+                            offset: 0,
+                            period: 1
+                        },
+                        {
+                            name: "The Weekly challenges grant double S.C.O.R.E",
+                            offset: 0,
+                            period: 1,
+                            subchallenges: [
+                                {
+                                    name: "Including the repeatable XP challenge"
+                                }
+                            ]
+                        }
+                    ]
+                };
+            }
             function createBonusChallengesDays(start, end) {
                 return {
                     validStart: start,
@@ -8190,6 +8214,7 @@
                     }
                 ]),
                 createMinerva(ofDate(2021, 6, 12, 16), ofDate(2021, 6, 15, 16), "Foundation", "P1"),
+                createBonusChallengesAndDoubleScoreWeek(ofDate(2021, 6, 13, 16), ofDate(2021, 6, 20, 16)),
                 createTreasureHunt(ofDate(2021, 6, 15, 16), ofDate(2021, 6, 19, 16), false),
                 createDoubleScore(ofDate(2021, 6, 22, 16), ofDate(2021, 6, 26, 16)),
                 createGoldRush(ofDate(2021, 6, 29, 16), ofDate(2021, 7, 2, 16)),
