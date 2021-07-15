@@ -27,7 +27,7 @@
     </head>
     <body style="height: 90%">
         <center>
-            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Weapon Damage Calculator (v3.6.7)</span>
+            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Weapon Damage Calculator (v3.6.8)</span>
             <br/>
             <!-- <i>(Notification here)</i> -->
         <br/>
@@ -157,6 +157,7 @@
             var baseDamagesFire = [0, 0, 0];
             var baseDamagesCold = [0, 0, 0];
             var baseDamagesPoison = [0, 0, 0];
+            var enemyDamageResistances = [0, 0, 0];
 
             var speedsWithReload = [0, 0, 0];
 
@@ -6823,6 +6824,50 @@
                     strength: 2
                 },
                 createStrengthOnly("Wine", "Wine"),
+                {
+                    id: "ToxicGinAndTonic",
+                    type: "alcohol",
+                    desc: "Toxic Gin and Tonic (+10% DMG)",
+                    mode: "Melee,Ranged",
+                    damage: 10,
+                    nopartyboy: true,
+                },
+                {
+                    id: "ToxicGinMartini",
+                    type: "alcohol",
+                    desc: "Toxic Gin Martini (+1 Poison, -10 DR)",
+                    mode: "Melee",
+                    damagePoison: 1,
+                    enemyDr: -10,
+                    nopartyboy: true,
+                },
+                {
+                    id: "ToxicGin",
+                    type: "alcohol",
+                    desc: "Toxic Gin (+1 Poison, -10 DR)",
+                    mode: "Melee",
+                    damagePoison: 1,
+                    enemyDr: -10,
+                    nopartyboy: true,
+                },
+                {
+                    id: "VintageToxicGinRanged",
+                    type: "alcohol",
+                    desc: "Vintage Toxic Gin (+10% DMG)",
+                    mode: "Ranged",
+                    damage: 10,
+                    nopartyboy: true,
+                },
+                {
+                    id: "VintageToxicGinMelee",
+                    type: "alcohol",
+                    desc: "Vintage Toxic Gin (+10% DMG, +1 Poison, -10 DR)",
+                    mode: "Melee",
+                    damagePoison: 1,
+                    enemyDr: -10,
+                    damage: 10,
+                    nopartyboy: true,
+                },
             ];
             alcohols.sort(function(a, b) {
                 return a.desc.localeCompare(b.desc);
@@ -9219,7 +9264,7 @@
             }
 
             function getAlcoholAndColaBuff(partyMultiplier, colanutMultiplier, buff) {
-                if (buff.type === "alcohol") {
+                if (buff.type === "alcohol" && !buff.nopartyboy) {
                     if (partyMultiplier != 0 && (colanutMultiplier == 0 || !buff.cola)) {
                         return partyMultiplier + 1;
                     } else
@@ -9416,6 +9461,7 @@
                 var totalDamageFireAdditive = [];
                 var totalDamageColdAdditive = [];
                 var totalDamagePoisonAdditive = [];
+                var deferredDamagePoisonAdditive = [];
 
                 var totalDamageRadiationAdditive = [];
                 var totalDamageRadiationMultiply = [];
@@ -9426,6 +9472,8 @@
 
                 var totalDamageDebuff = [];
                 var totalDamageEnergyDebuff = [];
+
+                var enemyDamageResistanceBuff = 0;
 
                 var effects = allEffects.get(type);
 
@@ -10131,7 +10179,7 @@
                 // apply selectable buffs
                 for (var buff of buffOpts) {
                     var pmult = 1 + partyMultiplier;
-                    if (buff.type !== "alcohol") {
+                    if (buff.type !== "alcohol" || buff.nopartyboy) {
                         pmult = 1;
                     }
 
@@ -10187,6 +10235,12 @@
                     }
                     if (buff.criticalDamage !== undefined) {
                         critMultiplier += buff.criticalDamage * pmult;
+                    }
+                    if (buff.damagePoison) {
+                        deferredDamagePoisonAdditive.push(buff.damagePoison);
+                    }
+                    if (buff.enemyDr) {
+                        enemyDamageResistanceBuff += buff.enemyDr;
                     }
                 }
 
@@ -10433,6 +10487,9 @@
                     }
                 }
 
+                for (var pd of deferredDamagePoisonAdditive) {
+                    totalDamagePoison += pd;
+                }
 
                 var totalArmorIgnore = 0;
                 if (totalArmorIgnoreArray.length != 0) {
@@ -10516,6 +10573,8 @@
                 baseDamagesFire[index] = weaponBaseDamageFire;
                 baseDamagesCold[index] = weaponBaseDamageCold;
                 baseDamagesPoison[index] = weaponBaseDamagePoison;
+
+                enemyDamageResistances[index] = enemyDamageResistanceBuff;
 
                 recalculateDiff();
 
@@ -10775,7 +10834,7 @@
                     var calcMode = calcModes[index];
                     var leftIsP23 = calcMode === "P23";
 
-                    var leftDr = actualResist(res.dr, ignores[index]);
+                    var leftDr = Math.max(0, actualResist(res.dr, ignores[index]) + enemyDamageResistances[index]);
                     var leftEr = aaEnergy ? actualResist(res.er, ignores[index]) : res.er;
                     var leftRr = res.rr;
                     var leftFr = actualResist(res.fr, ignores[index]); 
@@ -10806,7 +10865,7 @@
                     index = 2;
                     var rightIsP23 = calcModes[index] === "P23";
 
-                    var rightDr = actualResist(res.dr, ignores[index]);
+                    var rightDr = Math.max(0, actualResist(res.dr, ignores[index]) + enemyDamageResistances[index]);
                     var rightEr = aaEnergy ? actualResist(res.er, ignores[index]) : res.er;
                     var rightRr = res.rr;
                     var rightFr = actualResist(res.fr, ignores[index]); 
