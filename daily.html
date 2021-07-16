@@ -21,6 +21,22 @@
                 width: 150px; 
                 display: inline-block;
             }
+            /*Simple dark mode support based on brower detection*/
+            @media(prefers-color-scheme: dark) {
+                html {
+                    filter: invert(1) hue-rotate(180deg);
+                    background-color: #222;
+                }
+                a {
+                    color: #54E;
+                }
+                a:visited {
+                    color: #76B;
+                }
+                html img {
+                    filter: invert(1) hue-rotate(180deg);
+                }
+            }
         </style>
         <meta name="keywords" content="Fallout,Fallout 76,Daily,Challenge,Challenges,Atom,Weekly,Score,S.C.O.R.E.,Community,Seasons,Season,Legenary Run,ATLAS,Fortify,Fortifying">
     </head>
