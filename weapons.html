@@ -27,7 +27,7 @@
     </head>
     <body style="height: 90%">
         <center>
-            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Weapon Damage Calculator (v3.6.8)</span>
+            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Weapon Damage Calculator (v3.6.9)</span>
             <br/>
             <!-- <i>(Notification here)</i> -->
         <br/>
@@ -1858,7 +1858,9 @@
                         },
                         {
                             name: "Flamer",
-                            damageMultPercent: 25
+                            damageMultPercent: 25,
+                            automatic: true,
+                            speedSet: 9.1
                         },
                         {
                             name: "Splitter",
@@ -1871,8 +1873,9 @@
                         },
                         {
                             name: "Automatic",
-                            damageMultPercent: -15
-                        }
+                            damageMultPercent: -15,
+                            speedSet: 9.1
+                        },
                     ]
                 };
             }
@@ -1900,6 +1903,11 @@
                         {
                             name: "Refined Beta Wave",
                             preinstalled: isSlugBuster
+                        },
+                        {
+                            name: "Pulse",
+                            damageMultPercent: -15,
+                            debuffViaMultiply: true
                         },
                         {
                             name: "Prime",
