@@ -5387,6 +5387,26 @@
                         };
             }
 
+            function scoreFixedGainXP10000Rank100(offset) {
+                return {
+                            name: "&#x267B; Repeatable: Gain 10.000 XP (below rank 100)",
+                            offset: offset,
+                            period: 7,
+                            ignore: true,
+                            tipId: "ScoreRepeatableXPRank100",
+                            tip: "Currently bugged and disappears after reaching rank 99."
+                        };
+            }
+
+            function scoreGainXP2500(offset) {
+                return {
+                            name: "Gain 2500 XP (above rank 100)",
+                            offset: offset,
+                            period: 1400,
+                            ignore: true,
+                        };
+            }
+
             function scoreCompleteEvents10(offset) {
                 return {
                             name: "Complete an event (x10)",
@@ -7104,7 +7124,7 @@
                 dontremove: true,
             });
 
-            addWeekly(challengesWeeklyEra8.options, 0, scoreFixedGainXP10000);
+            addWeekly(challengesWeeklyEra8.options, 0, scoreFixedGainXP10000Rank100);
             addWeekly(challengesWeeklyEra8.options, 0, scoreLevelUp3);
             addWeekly(challengesWeeklyEra8.options, 0, scoreBuildWallDecor, 15);
             addWeekly(challengesWeeklyEra8.options, 0, scoreCollectCaps, 1250);
@@ -7284,8 +7304,20 @@
                     scoreKillGlowing, 1,
                     scoreKillCreatureInGroup, 25,
                     scoreJoinGroup, 1,
+                    scoreGainXP2500, 1,
                     scoreNWPickLock, 3,
                ], [ dailyOpsWatoga, dailyOpsRobots, [ dailyOpsSavageStrike, dailyOpsRegenerating ], dailyOpsDecryption]);
+            addDaily(challengesDailyEra8, 15, [
+                    scoreCompleteDailyChallenge, 5,
+                    scoreLevelUp, 1,
+                    scoreCompleteOneEvent, 1,
+                    scoreCompleteDailyOps, 1,
+                    scoreJoinGroup, 1,
+                    scoreKillCreatureInGroup, 25,
+                    scoreDestroyRobot, 15,
+                    scoreGainXP2500, 1,
+                    scoreNWPickLock, 1,
+               ], [ dailyOpsWatoga, dailyOpsRobots, [ dailyOpsReset, dailyOpsSavageStrike, dailyOpsRegenerating ], dailyOpsDecryption]);
 
 
 
