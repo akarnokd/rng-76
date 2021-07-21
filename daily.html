@@ -5391,7 +5391,7 @@
                 return {
                             name: "&#x267B; Repeatable: Gain 10.000 XP (below rank 100)",
                             offset: offset,
-                            period: 7,
+                            period: 1400,
                             ignore: true,
                             tipId: "ScoreRepeatableXPRank100",
                             tip: "Currently bugged and disappears after reaching rank 99."
@@ -7120,7 +7120,7 @@
             challengesWeeklyEra8.options.push({
                 name: "No weekly challenges yet, Wednesday",
                 offset: 0,
-                period: 14,
+                period: 1400,
                 dontremove: true,
             });
 
@@ -7204,6 +7204,7 @@
                ], [ dailyOpsV96, dailyOpsEagles, [ dailyOpsSavageStrike, dailyOpsVolatile ], dailyOpsDecryption]);
 
             addWeekly(challengesWeeklyEra8.options, 7, scoreDoubleWeeklyScore);
+            addWeekly(challengesWeeklyEra8.options, 7, scoreFixedGainXP10000Rank100);
             addWeekly(challengesWeeklyEra8.options, 7, scoreLevelUp3);
             addWeekly(challengesWeeklyEra8.options, 7, scoreBuildAnythingCamp, 15);
             addWeekly(challengesWeeklyEra8.options, 7, scoreCompleteDailyOps, 5);
@@ -7287,6 +7288,7 @@
                     scoreVisitOwnShelter, 1,
                     scoreNWDeployCamp, 3,
                ], [ dailyOpsValley, dailyOpsMutants, [ dailyOpsPiercingGaze, dailyOpsRegenerating ], dailyOpsUplink]);
+            addWeekly(challengesWeeklyEra8.options, 14, scoreFixedGainXP10000Rank100);
             addWeekly(challengesWeeklyEra8.options, 14, scoreLevelUp3);
             addWeekly(challengesWeeklyEra8.options, 14, scoreBuildFloorWallCamp, 15);
             addWeekly(challengesWeeklyEra8.options, 14, scoreClaimWorkshop, 10);
