@@ -1475,6 +1475,11 @@
                             name: "<i>(Further challenges will be posted when the day comes.)</i>",
                             offset: offset,
                             period: 1400,
+                            subchallenges: [
+                                {
+                                    name: "Alternatively, check out the <a href='https://www.reddit.com/r/fo76/search?q=daily%20reset%20thread&restrict_sr=1&sort=new' target='_blank'>Daily Reset Thread</a>"
+                                }
+                            ]
                         };
             }
 
@@ -7364,6 +7369,17 @@
                     scoreGainXP2500, 1,
                     scoreNWKillCreature, 1,
                ], [ dailyOpsBurrows, dailyOpsMoleminers, [ dailyOpsPiercingGaze, dailyOpsResilient ], dailyOpsUplink]);
+            addDaily(challengesDailyEra8, 20, [
+                    scoreCompleteDailyChallenge, 5,
+                    scoreLevelUp, 1,
+                    scoreCompleteOneEvent, 1,
+                    scoreCompleteDailyOps, 1,
+                    scoreJoinGroup, 1,
+                    scoreKillCreatureInGroup, 25,
+                    scoreKillMoleminer, 15,
+                    scoreGainXP2500, 1,
+                    scoreNWKillCreature, 1,
+               ], [ dailyOpsWestTec, dailyOpsEagles, [ dailyOpsSavageStrike, dailyOpsToxic ], dailyOpsDecryption]);
 
 
 
@@ -7837,6 +7853,20 @@
                     "Plan: Strangler Heart Left Leg",
                     "Plan: Strangler Heart Right Arm",
                     "Plan: Strangler Heart Right Leg",
+                ],
+                "P3": [
+                    "Plan: Ammo Converter",
+                    "Plan: Chinese Stealth Armor",
+                    "Plan: Chinese Stealth Helmet",
+                    "Plan: Gauntlet",
+                    "Plan: Secret Service Jetpack Armor",
+                    "Plan: Secret Service Pocketed Armor Limb",
+                    "Plan: Secret Service Pocketed Armor Torso",
+                    "Plan: T-65 Medic Pump",
+                    "Plan: T-65 Overdrive Servos",
+                    "Plan: T-65 Stealth Boy",
+                    "Plan: War Glaive Cryo Blade",
+                    "Plan: War Glaive Plasma Blade"
                 ]
             };
 
@@ -8393,6 +8423,7 @@
                 createTreasureHunt(ofDate(2021, 6, 15, 16), ofDate(2021, 6, 19, 16), false),
                 createMinerva(ofDate(2021, 6, 19, 16), ofDate(2021, 6, 21, 16), "Emporium @ Crater", "P2"),
                 createDoubleScore(ofDate(2021, 6, 22, 16), ofDate(2021, 6, 26, 16)),
+                createMinerva(ofDate(2021, 6, 26, 16), ofDate(2021, 6, 28, 16), "Emporium @ Fort Atlas", "P3"),
                 createGoldRush(ofDate(2021, 6, 29, 16), ofDate(2021, 7, 2, 16)),
                 createScripSurplus(ofDate(2021, 7, 5, 16), ofDate(2021, 7, 9, 16)),
                 createMinerva(ofDate(2021, 7, 5, 16), ofDate(2021, 7, 9, 16)),
