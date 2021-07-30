@@ -7761,6 +7761,28 @@
                     ]
                 };
             }
+            function createScripSurplus2(start, end) {
+                return {
+                    validStart: start,
+                    validEnd: end,
+                    title: "Scrip Surplus Weekend",
+                    options: [
+                        {
+                            name: "Scrip Machines have 600 scrip per day",
+                            offset: 0,
+                            period: 1,
+                            subchallenges: [
+                                {
+                                    name: "This is only for the duration of this event"
+                                },
+                                {
+                                    name: "You may need to wait for the 20 hour reset to happen"
+                                }
+                            ]
+                        },
+                    ]
+                };
+            }
             function createGoldRush(start, end) {
                 return {
                     validStart: start,
@@ -7769,6 +7791,34 @@
                     options: [
                         {
                             name: "Double the daily Gold Bullion limit (400)",
+                            offset: 0,
+                            period: 1,
+                            subchallenges: [
+                                {
+                                    name: "You have to complete the Wastelanders questline to earn notes"
+                                },
+                                {
+                                    name: "Public Events reward Treasury Notes"
+                                },
+                                {
+                                    name: "Turn notes into Bullion at the faction HQs"
+                                },
+                                {
+                                    name: "You may have to wait 20 hours for the machines to reset"
+                                }
+                            ]
+                        }
+                    ]
+                };
+            }
+            function createGoldRush2(start, end) {
+                return {
+                    validStart: start,
+                    validEnd: end,
+                    title: "Gold Rush Weekend",
+                    options: [
+                        {
+                            name: "Double the daily Gold Bullion limit (800)",
                             offset: 0,
                             period: 1,
                             subchallenges: [
@@ -8478,8 +8528,8 @@
                 createMinerva(ofDate(2021, 6, 19, 16), ofDate(2021, 6, 21, 16), "Emporium @ Crater", "P2"),
                 createDoubleScore(ofDate(2021, 6, 22, 16), ofDate(2021, 6, 26, 16)),
                 createMinerva(ofDate(2021, 6, 26, 16), ofDate(2021, 6, 28, 16), "Emporium @ Fort Atlas", "P3"),
-                createGoldRush(ofDate(2021, 6, 29, 16), ofDate(2021, 7, 2, 16)),
-                createScripSurplus(ofDate(2021, 7, 5, 16), ofDate(2021, 7, 9, 16)),
+                createGoldRush2(ofDate(2021, 6, 29, 16), ofDate(2021, 7, 2, 16)),
+                createScripSurplus2(ofDate(2021, 7, 5, 16), ofDate(2021, 7, 9, 16)),
                 createMinerva(ofDate(2021, 7, 5, 16), ofDate(2021, 7, 9, 16)),
                 createPurveyor(ofDate(2021, 7, 12, 16), ofDate(2021, 7, 16, 16), 25, false),
                 createDoubleScore(ofDate(2021, 7, 12, 16), ofDate(2021, 7, 16, 16)),
