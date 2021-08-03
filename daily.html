@@ -5419,6 +5419,14 @@
                             period: 1400,
                         };
             }
+            function scoreCompleteEncryptid(offset, count) {
+                return {
+                            name: times("Complete the Event: Encryptid", count),
+                            offset: offset,
+                            period: 1400,
+                        };
+            }
+
 
             function scoreClaimWorkshop5(offset) {
                 return {
@@ -7467,6 +7475,27 @@
                     scoreGainXP2500, 1,
                     scoreNWTakePhoto, 1,
                ], [ dailyOpsV96, dailyOpsMoleminers, [ dailyOpsPiercingGaze, dailyOpsToxic ], dailyOpsUplink]);
+            addWeekly(challengesWeeklyEra8.options, 28, scoreFixedGainXP10000Rank100);
+            addWeekly(challengesWeeklyEra8.options, 28, scoreLevelUp3);
+            addWeekly(challengesWeeklyEra8.options, 28, scoreCollectCaps, 1500);
+            addWeekly(challengesWeeklyEra8.options, 28, scoreCompleteDailyOps, 5);
+            addWeekly(challengesWeeklyEra8.options, 28, scoreCompleteGoldStar);
+            addWeekly(challengesWeeklyEra8.options, 28, scoreCompleteEvents10, 10);
+            addWeekly(challengesWeeklyEra8.options, 28, scoreCompleteEncryptid);
+            addWeekly(challengesWeeklyEra8.options, 28, scoreDestroyRobots5);
+            addWeekly(challengesWeeklyEra8.options, 28, scoreKillGlowing, 10);
+            addWeekly(challengesWeeklyEra8.options, 28, scoreRepairArmorWeaponPA, 25);
+            addDaily(challengesDailyEra8, 28, [
+                    scoreCompleteDailyChallenge, 5,
+                    scoreLevelUp, 1,
+                    scoreCompleteOneEvent, 1,
+                    scoreCompleteDailyOps, 1,
+                    scoreHackTerminal, 1,
+                    scoreKillScorched, 15,
+                    scoreKillLegendary, 1,
+                    scoreGainXP2500, 1,
+                    scoreNWKillCreature, 1,
+               ], [ dailyOpsBurrows, dailyOpsRobots, [ dailyOpsSavageStrike, dailyOpsResilient ], dailyOpsDecryption]);
 
 
 
