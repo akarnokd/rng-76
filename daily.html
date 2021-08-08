@@ -26,7 +26,7 @@
     </head>
     <body>
         <center>
-            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Timed Challenges (0.7.0)</span><br/>
+            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Timed Challenges (0.7.1)</span><br/>
             <br/>
             <br/>
             <table>
@@ -7152,6 +7152,7 @@
             for (var e of challengesWeeklyEra8.options) {
                 if (!e.dontremove && e.offset === 0) {
                     e.offset = 200;
+                    e.ignore = true;
                 }
             }
 
