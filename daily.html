@@ -5433,7 +5433,20 @@
                             period: 1400,
                         };
             }
-
+            function scoreCompleteMeatCook(offset, count) {
+                return {
+                            name: times("Complete the Event: Grahm's Meat Cook", count),
+                            offset: offset,
+                            period: 1400,
+                        };
+            }
+            function scoreCompletePrimalCuts(offset, count) {
+                return {
+                            name: times("Complete the Event: Primal Cuts", count),
+                            offset: offset,
+                            period: 1400,
+                        };
+            }
 
             function scoreClaimWorkshop5(offset) {
                 return {
@@ -7657,6 +7670,30 @@
                     scoreGainXP2500, 1,
                     scoreNWUseStimpak, 3,
                 ], [ dailyOpsV96, dailyOpsMutants, [ dailyOpsPiercingGaze, dailyOpsFreezing ], dailyOpsUplink]);
+            addWeekly(challengesWeeklyEra8.options, 42, scoreFixedGainXP10000Rank100);
+            addWeekly(challengesWeeklyEra8.options, 42, scoreLevelUp3);
+            addWeekly(challengesWeeklyEra8.options, 42, scoreBuildFloorWallCamp, 25);
+            addWeekly(challengesWeeklyEra8.options, 42, scoreClaimWorkshop, 5);
+            addWeekly(challengesWeeklyEra8.options, 42, scoreCompleteDailyOps, 5);
+            addWeekly(challengesWeeklyEra8.options, 42, scoreCompleteGoldStar);
+            addWeekly(challengesWeeklyEra8.options, 42, scoreCompleteEvents10, 15);
+            addWeekly(challengesWeeklyEra8.options, 42, scoreCompleteMeatCook, 5);
+            addWeekly(challengesWeeklyEra8.options, 42, scoreConsumeAlcohol, 25);
+            addWeekly(challengesWeeklyEra8.options, 42, scoreEatMeat, 25);
+            addWeekly(challengesWeeklyEra8.options, 42, scoreKillGlowing, 10);
+            addDaily(challengesDailyEra8, 42, [
+                    scoreCompleteDailyChallenge, 5,
+                    scoreLevelUp, 1,
+                    scoreCompleteOneEvent, 1,
+                    scoreCompleteDailyOps, 1,
+                    scoreCompleteMeatCook, 1,
+                    scoreCompletePrimalCuts, 3,
+                    scoreEatCookedMeal, 15,
+                    scoreKillCreature15, 25,
+                    scoreUsePhotomodeGroup, 1,
+                    scoreGainXP2500, 1,
+                    scoreNWDeployCamp, 1,
+                ], [ dailyOpsV96, dailyOpsMutants, [ dailyOpsReset, dailyOpsPiercingGaze, dailyOpsFreezing ], dailyOpsUplink]);
 
             addPlaceholders(challengesDailyEra8, scoreDailyplaceholder, era8Length);
             addPlaceholders(challengesWeeklyEra8, scoreWeeklyplaceholder, era8Length);
