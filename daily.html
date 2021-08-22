@@ -7116,7 +7116,7 @@
             // ===============================================================================================================
             // ERA 8
             // ===============================================================================================================
-            var era8Length = 71;
+            var era8Length = 64;
 
             var challengesDailyEra8 = {
                 validStart: ofDate(2021, 6, 6, 16),
@@ -9002,9 +9002,17 @@
                 ]
             };
             var season5 = {
-                validStart: ofDate(2021, 6, 7, 16),
-                validEnd: plusDays(ofDate(2021, 6, 7, 16), 70),
+                validStart: ofDate(2021, 6, 8, 16),
+                validEnd: plusDays(ofDate(2021, 6, 7, 16), 62),
                 title: "Season 5: K.D. Inkwell and escape from<br>the 42nd century",
+                options: [
+                    
+                ]
+            };
+            var season6 = {
+                validStart: ofDate(2021, 8, 7, 16),
+                validEnd: plusDays(ofDate(2021, 8, 7, 16), 70),
+                title: "Season 6: TBD",
                 options: [
                     
                 ]
@@ -9014,7 +9022,8 @@
             fillInSeason(season2, 91, "LR2");
             fillInSeason(season3, 133, "LR3");
             fillInSeason(season4, 71, "LR4");
-            fillInSeason(season5, 70, "LR5");
+            fillInSeason(season5, 62, "LR5");
+            fillInSeason(season6, 70, "LR6");
 
             for (var i = 56; i < 91; i++) {
                 season2.options.push({
@@ -9032,7 +9041,7 @@
                     period: 1400
                 });
             }*/
-
+            /*
             for (var i = 0; i < 70; i++) {
                 season5.options.push({
                     name: "&#x1F6C8; Note that some details <br>&nbsp;&nbsp;&nbsp;&nbsp;of Season 5 is not yet known.",
@@ -9040,13 +9049,15 @@
                     period: 1400
                 });
             }
+            */
 
             var seasonEvents = [
                 season1,
                 season2,
                 season3,
                 season4,
-                season5
+                season5,
+                season6
             ];
 
             // --------------------------------------------------------------------------------------------------------------
