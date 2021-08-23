@@ -9295,7 +9295,7 @@
                     }
                 }
 
-                nextCommunityList.sort((a, b) => a.validStart)
+                nextCommunityList.sort((a, b) => a.validStart < b.validStart ? -1 : (a.validStart > b.validStart ? 1 : 0));
                 for (var evt of nextCommunityList) {
                     var rw = tbl.insertRow(tbl.rows.length);
                     var cll = rw.insertCell(0);
