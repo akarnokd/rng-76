@@ -7759,6 +7759,19 @@
                     scoreGainXP2500, 1,
                     scoreNWKillCreature, 1,
                 ], [ dailyOpsWatoga, dailyOpsRobots, [ dailyOpsPiercingGaze, dailyOpsRegenerating ], dailyOpsUplink]);
+            addDaily(challengesDailyEra8, 48, [
+                    scoreCompleteDailyChallenge, 5,
+                    scoreLevelUp, 1,
+                    scoreCompleteOneEvent, 1,
+                    scoreCompleteDailyOps, 1,
+                    scoreCompleteMeatCook, 1,
+                    scoreCompletePrimalCuts, 3,
+                    scoreEatCookedMeal, 5,
+                    scoreKillCreature25, 25,
+                    scoreUsePhotomodeGroup, 1,
+                    scoreGainXP2500, 1,
+                    scoreNWKillPlayer, 1,
+                ], [ dailyOpsWatoga, dailyOpsRobots, [ dailyOpsReset, dailyOpsPiercingGaze, dailyOpsRegenerating ], dailyOpsUplink]);
 
             addPlaceholders(challengesDailyEra8, scoreDailyplaceholder, era8Length);
             addPlaceholders(challengesWeeklyEra8, scoreWeeklyplaceholder, era8Length);
@@ -8351,6 +8364,20 @@
                     "Plan: Thorn armor right arm",
                     "Plan: Thorn armor right leg"
                 ],
+                "P6": [
+                    "Plan: Secret Service Limbs Lighter Build",
+                    "Plan: Secret Service Limbs Ultra Light Build",
+                    "Plan: Plasma Caster",
+                    "Plan: Secret Service Underarmor",
+                    "Plan: The Gutter",
+                    "Plan: War Glaive Flaming Blade",
+                    "Plan: War Glaive Shock Blade",
+                    "Plan: Water Well",
+                    "Plan: Whistle In The Dark",
+                    "Plan: T-65 Calibrated Shocks",
+                    "Plan: T-65 Jet Pack",
+                    "Plan: T-65 Rusty Knuckles",
+                ],
                 "P?": [
                     "To be confirmed"
                 ]
@@ -8916,10 +8943,10 @@
                 createPurveyor(ofDate(2021, 7, 12, 16), ofDate(2021, 7, 16, 16), 25, false),
                 createDoubleScore(ofDate(2021, 7, 12, 16), ofDate(2021, 7, 16, 16)),
                 createMinerva(ofDate(2021, 7, 16, 16), ofDate(2021, 7, 18, 16), "Emporium @ Crater", "P5"),
-                createMeatWeek(ofDate(2021, 7, 17, 16), 6, "Community Event: Meat Week"),
+                createMeatWeek(ofDate(2021, 7, 17, 16), 7, "Community Event: Meat Week"),
                 createBonusChallengesDays(ofDate(2021, 7, 17, 16), ofDate(2021, 7, 23, 16)),
                 createDoubleXP(ofDate(2021, 7, 19, 16), ofDate(2021, 7, 23, 16)),
-                createMinerva(ofDate(2021, 7, 23, 16), ofDate(2021, 7, 25, 16), "Emporium @ TBD", "P?"),
+                createMinerva(ofDate(2021, 7, 23, 16), ofDate(2021, 7, 25, 16), "Emporium @ Fort Atlas", "P6"),
                 createPurveyor(ofDate(2021, 7, 26, 16), ofDate(2021, 7, 30, 16), 0, true),
                 createMinerva(ofDate(2021, 7, 30, 16), ofDate(2021, 8, 1, 16), "Emporium @ TBD", "P?"),
                 createDoubleScore(ofDate(2021, 8, 1, 16), ofDate(2021, 8, 7, 16)),
