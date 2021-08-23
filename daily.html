@@ -26,7 +26,7 @@
     </head>
     <body>
         <center>
-            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Timed Challenges (0.7.1)</span><br/>
+            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Timed Challenges (0.7.2)</span><br/>
             <br/>
             <br/>
             <table>
@@ -8350,6 +8350,9 @@
                     "Plan: Thorn armor left leg",
                     "Plan: Thorn armor right arm",
                     "Plan: Thorn armor right leg"
+                ],
+                "P?": [
+                    "To be confirmed"
                 ]
             };
 
@@ -8916,10 +8919,12 @@
                 createMeatWeek(ofDate(2021, 7, 17, 16), 6, "Community Event: Meat Week"),
                 createBonusChallengesDays(ofDate(2021, 7, 17, 16), ofDate(2021, 7, 23, 16)),
                 createDoubleXP(ofDate(2021, 7, 19, 16), ofDate(2021, 7, 23, 16)),
+                createMinerva(ofDate(2021, 7, 23, 16), ofDate(2021, 7, 25, 16), "Emporium @ TBD", "P?"),
                 createPurveyor(ofDate(2021, 7, 26, 16), ofDate(2021, 7, 30, 16), 0, true),
+                createMinerva(ofDate(2021, 7, 30, 16), ofDate(2021, 8, 1, 16), "Emporium @ TBD", "P?"),
                 createDoubleScore(ofDate(2021, 8, 1, 16), ofDate(2021, 8, 7, 16)),
                 createGoldRush(ofDate(2021, 8, 2, 16), ofDate(2021, 8, 7, 16)),
-                createMinerva(ofDate(2021, 8, 9, 16), ofDate(2021, 8, 13, 16)),
+                createMinerva(ofDate(2021, 8, 9, 16), ofDate(2021, 8, 13, 16), "Big Sale @ TBD", "P?"),
                 createTreasureHunt(ofDate(2021, 8, 16, 16), ofDate(2021, 8, 20, 16)),
                 createDoubleXP(ofDate(2021, 8, 23, 16), ofDate(2021, 8, 27, 16)),
             ];
@@ -9003,7 +9008,7 @@
             };
             var season5 = {
                 validStart: ofDate(2021, 6, 8, 16),
-                validEnd: plusDays(ofDate(2021, 6, 7, 16), 62),
+                validEnd: plusDays(ofDate(2021, 6, 8, 16), 63),
                 title: "Season 5: K.D. Inkwell and escape from<br>the 42nd century",
                 options: [
                     
@@ -9022,7 +9027,7 @@
             fillInSeason(season2, 91, "LR2");
             fillInSeason(season3, 133, "LR3");
             fillInSeason(season4, 71, "LR4");
-            fillInSeason(season5, 62, "LR5");
+            fillInSeason(season5, 63, "LR5");
             fillInSeason(season6, 70, "LR6");
 
             for (var i = 56; i < 91; i++) {
@@ -9250,6 +9255,26 @@
                 }
 
                 addPrevNext(tbl, communityEvents, false);
+
+                insertSeparatorRow(tbl)
+
+                var nextCommunityList = [];
+                for (var evt of communityEvents) {
+                    if (evt.validStart >= endDate) {
+                        nextCommunityList.push(evt);
+                        if (nextCommunityList.length == 6) {
+                            break;
+                        }
+                    }
+                }
+
+                nextCommunityList.sort((a, b) => a.validStart)
+                for (var evt of nextCommunityList) {
+                    var rw = tbl.insertRow(tbl.rows.length);
+                    var cll = rw.insertCell(0);
+                    cll.colSpan = 2;
+                    cll.innerHTML = "&nbsp;&nbsp;&nbsp;" + evt.validStart.toLocaleDateString() + " - " + evt.title;
+                }
 
                 insertSeparatorRow(tbl)
 
