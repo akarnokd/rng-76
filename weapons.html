@@ -27,7 +27,7 @@
     </head>
     <body style="height: 90%">
         <center>
-            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Weapon Damage Calculator (v3.6.9)</span>
+            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Weapon Damage Calculator (v3.6.10)</span>
             <br/>
             <!-- <i>(Notification here)</i> -->
         <br/>
@@ -9971,9 +9971,12 @@
                                 }
                             }
                             if (effInfo.name === "Executioner's") {
-                                if (parseFloat(document.getElementById("enemyhealth" + index).value) > 40) {
-                                    perc = 0;
+                                if (parseFloat(document.getElementById("enemyhealth" + index).value) <= 40) {
+                                    // Still multiplicative: https://nukacrypt.com/database/json/004F6AA6
+                                    totalDamageDebuff.push(effInfo.damageMultPercent);
+                                    totalDamageEnergyDebuff.push(effInfo.damageMultPercent);
                                 }
+                                perc = 0;
                             }
                             if (effInfo.name === "Bloodied") {
                                 var health = parseFloat(document.getElementById("playerhealth" + index).value);
