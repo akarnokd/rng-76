@@ -1393,8 +1393,11 @@
             }
 
             function scoreKillGhoul15(offset) {
+                return scoreKillGhoul(offset, 15);
+            }
+            function scoreKillGhoul(offset, count) {
                 return {
-                    name: "Kill a ghoul (x15)",
+                    name: times("Kill a ghoul", count),
                     offset: offset,
                     period: 1400
                 };
@@ -7837,6 +7840,17 @@
                     scoreGainXP2500, 1,
                     scoreNWUseStimpak, 3,
                 ], [ dailyOpsBurrows, dailyOpsScorched, [ dailyOpsPiercingGaze, dailyOpsToxic ], dailyOpsUplink]);
+            addDaily(challengesDailyEra8, 54, [
+                    scoreCompleteDailyChallenge, 5,
+                    scoreLevelUp, 1,
+                    scoreCompleteOneEvent, 1,
+                    scoreCompleteDailyOps, 1,
+                    scoreBuildAnythingCamp, 5,
+                    scoreKillGhoul, 25,
+                    scoreBuySellItem, 1,
+                    scoreGainXP2500, 1,
+                    scoreNWSurviveMinutes, 3,
+                ], [ dailyOpsBurrows, dailyOpsScorched, [ dailyOpsReset, dailyOpsPiercingGaze, dailyOpsToxic ], dailyOpsUplink]);
 
             addPlaceholders(challengesDailyEra8, scoreDailyplaceholder, era8Length);
             addPlaceholders(challengesWeeklyEra8, scoreWeeklyplaceholder, era8Length);
