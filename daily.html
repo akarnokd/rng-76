@@ -9073,7 +9073,23 @@
                 createMinerva(ofDate(2021, 7, 23, 16), ofDate(2021, 7, 25, 16), "Emporium @ Fort Atlas", "P6"),
                 createPurveyor(ofDate(2021, 7, 26, 16), ofDate(2021, 7, 30, 16), 0, true),
                 createMinerva(ofDate(2021, 7, 30, 16), ofDate(2021, 8, 1, 16), "Emporium @ Foundation", "P7"),
-                createDoubleScore(ofDate(2021, 8, 1, 16), ofDate(2021, 8, 7, 16)),
+                {
+                    validStart: ofDate(2021, 7, 31, 16),
+                    validEnd: ofDate(2021, 8, 7, 16),
+                    title: "Double S.C.O.R.E. Week",
+                    options: [
+                        {
+                            name: "Double for Daily Challanges",
+                            offset: 0,
+                            period: 1
+                        },
+                        {
+                            name: "Double for Weekly Challanges",
+                            offset: 0,
+                            period: 1
+                        }
+                    ]
+                },
                 createGoldRush(ofDate(2021, 8, 2, 16), ofDate(2021, 8, 7, 16)),
                 createMinerva(ofDate(2021, 8, 9, 16), ofDate(2021, 8, 13, 16), "Big Sale @ TBD", "P?"),
                 createTreasureHunt(ofDate(2021, 8, 16, 16), ofDate(2021, 8, 20, 16)),
