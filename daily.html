@@ -8219,6 +8219,43 @@
                 return result;
             }
 
+            function createHolidayScorched(start, end) {
+                return {
+                    validStart: start,
+                    validEnd: end,
+                    title: "Holiday Scorched",
+                    options: [
+                        {
+                            name: "Hunt Holiday Scorched for Gift packs",
+                            offset: 0,
+                            period: 1,
+                            subchallenges: [
+                                {
+                                    name: "They wear distinctive clothing and make jingle sounds."
+                                },
+                                {
+                                    name: "40% chance for a &#x2605;&#x2605; enemy"
+                                },
+                                {
+                                    name: "5% chance for a &#x2605;&#x2605;&#x2605; enemy"
+                                },
+                                {
+                                    name: "10% chance for a Large Gift"
+                                },
+                                {
+                                    name: "30% chance for a Medium Gift"
+                                }
+                            ]
+                        },
+                        {
+                            name: "Rewards &amp; tips: <a href='https://docs.google.com/spreadsheets/d/1ugsPWW8jLU_QWJJXolwy0dnY8k0J5gpqXWv1G_G5qKE/edit#gid=0'>depend on make and type of gifts</a>",
+                            offset: 0,
+                            period: 1,
+                        }
+                    ]
+                };
+            }
+
             function createScripSurplus(start, end) {
                 return {
                     validStart: start,
@@ -8249,6 +8286,28 @@
                     options: [
                         {
                             name: "Scrip Machines have 600 scrip per day",
+                            offset: 0,
+                            period: 1,
+                            subchallenges: [
+                                {
+                                    name: "This is only for the duration of this event"
+                                },
+                                {
+                                    name: "You may need to wait for the 20 hour reset to happen"
+                                }
+                            ]
+                        },
+                    ]
+                };
+            }
+            function createSuperScripSurplus(start, end) {
+                return {
+                    validStart: start,
+                    validEnd: end,
+                    title: "Super Scrip Surplus Weekend",
+                    options: [
+                        {
+                            name: "Scrip Machines have 900 scrip per day",
                             offset: 0,
                             period: 1,
                             subchallenges: [
@@ -8378,7 +8437,26 @@
                             period: 1
                         }
                     ]
-                }
+                };
+            }
+            function createDoubleMutations(start, end) {
+                return {
+                    validStart: start,
+                    validEnd: end,
+                    title: "Double Mutations Weekend",
+                    options: [
+                        {
+                            name: "Daily Ops Features two of the secondary mutations",
+                            offset: 0,
+                            period: 1
+                        },
+                        {
+                            name: "Rewards: double XP",
+                            offset: 0,
+                            period: 1
+                        }
+                    ]
+                };
             }
 
             function createF1st(start, end) {
@@ -8805,40 +8883,7 @@
                         }
                     ]
                 },
-                {
-                    validStart: ofDate(2020, 11, 17, 17),
-                    validEnd: ofDate(2021, 0, 4, 17),
-                    title: "Holiday Scorched",
-                    options: [
-                        {
-                            name: "Hunt Holiday Scorched for Gift packs",
-                            offset: 0,
-                            period: 1,
-                            subchallenges: [
-                                {
-                                    name: "They wear distinctive clothing and make jingle sounds."
-                                },
-                                {
-                                    name: "40% chance for a &#x2605;&#x2605; enemy"
-                                },
-                                {
-                                    name: "5% chance for a &#x2605;&#x2605;&#x2605; enemy"
-                                },
-                                {
-                                    name: "10% chance for a Large Gift"
-                                },
-                                {
-                                    name: "30% chance for a Medium Gift"
-                                }
-                            ]
-                        },
-                        {
-                            name: "Rewards &amp; tips: <a href='https://docs.google.com/spreadsheets/d/1ugsPWW8jLU_QWJJXolwy0dnY8k0J5gpqXWv1G_G5qKE/edit#gid=0'>depend on make and type of gifts</a>",
-                            offset: 0,
-                            period: 1,
-                        }
-                    ]
-                },
+                createHolidayScorched(ofDate(2020, 11, 17, 17), ofDate(2021, 0, 4, 17)),
                 createPurveyor(ofDate(2020, 11, 22, 17), ofDate(2020, 11, 29, 17), false, true),
                 {
                     validStart: ofDate(2021, 0, 7, 17),
@@ -9127,6 +9172,57 @@
                 createMinerva(ofDate(2021, 8, 9, 16), ofDate(2021, 8, 13, 16), "Big Sale @ TBD", "P?"),
                 createTreasureHunt(ofDate(2021, 8, 16, 16), ofDate(2021, 8, 20, 16)),
                 createDoubleXP(ofDate(2021, 8, 23, 16), ofDate(2021, 8, 27, 16)),
+                createDoubleMutations(ofDate(2021, 9, 7, 16), ofDate(2021, 9, 11, 16)),
+                createGoldRush(ofDate(2021, 9, 7, 16), ofDate(2021, 9, 11, 16)),
+                {
+                    validStart: ofDate(2021, 9, 19, 16),
+                    validEnd: ofDate(2021, 10, 2, 16),
+                    title: "Spooky Scorched Seasonal Event",
+                    options: [
+                        {
+                            name: "Unique Humanoid Scorched",
+                            offset: 0,
+                            period: 1
+                        },
+                        {
+                            name: "Rewards: TBD"
+                        }
+                    ]
+                },
+                createSuperScripSurplus(ofDate(2021, 9, 21, 16), ofDate(2021, 9, 25, 16)),
+                createDoubleMutations(ofDate(2021, 9, 21, 16), ofDate(2021, 9, 25, 16)),
+                createPurveyor(ofDate(2021, 9, 21, 16), ofDate(2021, 9, 25, 16), 50, false, true),
+                {
+                    validStart: ofDate(2021, 9, 23, 16),
+                    validEnd: ofDate(2021, 9, 23, 16),
+                    title: "Bombs Drop Day",
+                    options: []
+                },
+                createDoubleScore(ofDate(2021, 9, 28, 16), ofDate(2021, 10, 1, 16)),
+                createDoubleXP(ofDate(2021, 10, 4, 16), ofDate(2021, 10, 8, 16)),
+                createDoubleMutations(ofDate(2021, 10, 4, 16), ofDate(2021, 10, 8, 16)),
+                createGoldRush2(ofDate(2021, 10, 11, 16), ofDate(2021, 10, 15, 16)),
+                createPurveyor(ofDate(2021, 10, 11, 16), ofDate(2021, 10, 15, 16), 0, true, true),
+                {
+                    validStart: ofDate(2021, 10, 14, 16),
+                    validEnd: ofDate(2021, 10, 14, 16),
+                    title: "Fallout 76 3 Year Anniversary",
+                    options: []
+                },
+                createDoubleScore(ofDate(2021, 10, 18, 16), ofDate(2021, 10, 22, 16)),
+                createCapsOPlenty(ofDate(2021, 10, 18, 16), ofDate(2021, 10, 22, 16)),
+                createDoubleMutations(ofDate(2021, 10, 18, 16), ofDate(2021, 10, 22, 16)),
+                createMinerva(ofDate(2021, 10, 18, 16), ofDate(2021, 10, 22, 16), "Big Sale @ TBD", "P?"),
+                createBonusChallengesDays(ofDate(2021, 10, 23, 16), ofDate(2021, 10, 29, 16)),
+                createScripSurplus2(ofDate(2021, 10, 25, 16), ofDate(2021, 10, 29, 16)),
+                createDoubleMutations(ofDate(2021, 11, 2, 16), ofDate(2021, 11, 6, 16)),
+                createPurveyor(ofDate(2021, 11, 2, 16), ofDate(2021, 11, 6, 16), 25, false, true),
+                createGoldRush2(ofDate(2021, 11, 16, 16), ofDate(2021, 11, 20, 16)),
+                createHolidayScorched(ofDate(2021, 11, 21, 17), ofDate(2022, 0, 3, 17)),
+                createDoubleScore(ofDate(2021, 11, 23, 16), ofDate(2021, 11, 27, 16)),
+                createMinerva(ofDate(2021, 11, 23, 16), ofDate(2021, 11, 27, 16), "Big Sale @ TBD", "P?"),
+                createDoubleXP(ofDate(2021, 11, 30, 16), ofDate(2022, 0, 3, 16)),
+                createDoubleMutations(ofDate(2021, 11, 30, 16), ofDate(2022, 0, 3, 16)),
             ];
 
             function ofDate(year, month, day, hour) {
@@ -9208,16 +9304,24 @@
             };
             var season5 = {
                 validStart: ofDate(2021, 6, 8, 16),
-                validEnd: plusDays(ofDate(2021, 6, 8, 16), 63),
+                validEnd: plusDays(ofDate(2021, 6, 8, 16), 62),
                 title: "Season 5: K.D. Inkwell and escape from<br>the 42nd century",
                 options: [
                     
                 ]
             };
             var season6 = {
-                validStart: ofDate(2021, 8, 7, 16),
-                validEnd: plusDays(ofDate(2021, 8, 7, 16), 70),
-                title: "Season 6: TBD",
+                validStart: ofDate(2021, 8, 8, 16),
+                validEnd: plusDays(ofDate(2021, 8, 8, 16), 91),
+                title: "Season 6: Tales From The Stars",
+                options: [
+                    
+                ]
+            };
+            var season7 = {
+                validStart: ofDate(2021, 11, 8, 16),
+                validEnd: plusDays(ofDate(2021, 11, 8, 16), 70),
+                title: "Season 7: TBD",
                 options: [
                     
                 ]
@@ -9227,8 +9331,9 @@
             fillInSeason(season2, 91, "LR2");
             fillInSeason(season3, 133, "LR3");
             fillInSeason(season4, 71, "LR4");
-            fillInSeason(season5, 63, "LR5");
-            fillInSeason(season6, 70, "LR6");
+            fillInSeason(season5, 62, "LR5");
+            fillInSeason(season6, 91, "LR6");
+            fillInSeason(season7, 70, "LR7");
 
             for (var i = 56; i < 91; i++) {
                 season2.options.push({
@@ -9262,7 +9367,8 @@
                 season3,
                 season4,
                 season5,
-                season6
+                season6,
+                season7,
             ];
 
             // --------------------------------------------------------------------------------------------------------------
