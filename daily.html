@@ -7938,7 +7938,7 @@
                     scoreGainXP2500, 1,
                     scoreNWSurviveMinutes, 3,
                 ], [ dailyOpsV96, dailyOpsMutants, [ dailyOpsPiercingGaze, dailyOpsCloaked ], dailyOpsUplink]);
-                addDaily(challengesDailyEra8, 62, [
+            addDaily(challengesDailyEra8, 62, [
                     scoreCompleteDailyChallenge, 5,
                     scoreLevelUp, 1,
                     scoreCompleteOneEvent, 1,
@@ -7975,6 +7975,31 @@
 
             addPlaceholders(challengesDailyEra8, scoreDailyplaceholder, era8Length);
             addPlaceholders(challengesWeeklyEra8, scoreWeeklyplaceholder, era8Length);
+
+            // ===============================================================================================================
+            // ERA 9
+            // ===============================================================================================================
+
+            var era9Length = 91;
+
+            var challengesDailyEra9 = {
+                validStart: ofDate(2021, 8, 8, 16),
+                validEnd: plusDays(ofDate(2021, 8, 8, 16), era9Length),
+                options: []
+            };
+            var challengesWeeklyEra9 = {
+                validStart: ofDate(2021, 8, 8, 16),
+                validEnd: plusDays(ofDate(2021, 8, 8, 16), era9Length),
+                options: []
+            };
+            challenges.push(challengesDailyEra9);
+            challengesWeekly.push(challengesWeeklyEra9);
+
+            //addWeekly(challengesWeeklyEra9.options, -1, scoreFixedGainXP10000Rank100);
+            //addWeekly(challengesWeeklyEra9.options, -1, scoreLevelUp3);
+
+            addPlaceholders(challengesDailyEra9, scoreDailyplaceholder, era9Length);
+            addPlaceholders(challengesWeeklyEra9, scoreWeeklyplaceholder, era9Length);
 
             // --------------------------------------------------------------------------------------------------------------
             // Community events
