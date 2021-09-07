@@ -7949,6 +7949,29 @@
                     scoreGainXP2500, 1,
                     scoreNWSurviveMinutes, 2,
                 ], [ dailyOpsWestTec, dailyOpsEagles, [ dailyOpsSavageStrike, dailyOpsToxic ], dailyOpsDecryption]);
+            addDaily(challengesDailyEra8, 63, [
+                    scoreCompleteDailyChallenge, 5,
+                    scoreLevelUp, 1,
+                    scoreCompleteOneEvent, 1,
+                    scoreCompleteDailyOps, 1,
+                    scoreBuildWallDecor, 5,
+                    scoreBuySellItem, 1,
+                    scoreClaimWorkshop, 1,
+                    scoreCollectCaps, 250,
+                    scoreCraftAmmo, 50,
+                    scoreDestroyRobot, 25,
+                    scoreJoinGroup, 1,
+                    scoreKillLegendary, 3,
+                    scoreRepairArmorWeaponPA, 3,
+                    scoreGainXP2500, 1,
+                    scoreNWSurviveMinutes, 1,
+                ], [ dailyOpsWestTec, dailyOpsEagles, [ dailyOpsReset, dailyOpsSavageStrike, dailyOpsToxic ], dailyOpsDecryption]);
+            challengesWeeklyEra8.options.push({
+                name: "No weekly challenges yet, Wednesday",
+                offset: 63,
+                period: 1400,
+                dontremove: true,
+            });
 
             addPlaceholders(challengesDailyEra8, scoreDailyplaceholder, era8Length);
             addPlaceholders(challengesWeeklyEra8, scoreWeeklyplaceholder, era8Length);
