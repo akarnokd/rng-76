@@ -26,16 +26,18 @@
     </head>
     <body>
         <center>
-            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Timed Challenges (0.7.3)</span><br/>
+            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Timed Challenges (0.7.4)</span><br/>
             <br/>
             <br/>
             <table>
                 <tr>
+                    <td><button id='prevMonth' title='Go back a month.'>&lt;&lt;&lt;</button></td>
                     <td><button id='prevWeek' title='Go back a week.'>&lt;&lt;</button></td>
                     <td><button id='prevDay' title='Previous day.'>&lt;</button></td>
                     <td id='showndate' style='font-size: 24; text-align: center;'></td>
                     <td><button id='nextDay' title='Next day.'>&gt;</button></td>
                     <td><button id='nextWeek' title='Go forward a week.'>&gt;&gt;</button></td>
+                    <td><button id='nextMonth' title='Go forward a month.'>&gt;&gt;&gt;</button></td>
                 </tr>
             </table>
             <br/>
@@ -9348,6 +9350,18 @@
                         tipId: seasonId + "ScoreUniform",
                         tip: "If you play so that you earn 220,000 / " + seasonDays + " ~ " + (220000 / seasonDays).toFixed(0) + " S.C.O.R.E. each day on average."
                     });
+                    season.options.push({
+                        name: "Season total length: <b style='color: green;'>"  + seasonDays + " days</b>",
+                        offset: i,
+                        period: 1400
+                    });
+                    season.options.push({
+                        name: "Season ends: <b style='color: green;'>"  + season.validEnd.toLocaleDateString() 
+                            + " (" + season.validEnd.toLocaleDateString(window.navigator.language, {weekday: 'long'}) + ")"
+                            + " " + season.validEnd.toLocaleTimeString() + "</b>",
+                        offset: i,
+                        period: 1400
+                    });
                 }
             }
 
@@ -9413,7 +9427,7 @@
             fillInSeason(season3, 133, "LR3");
             fillInSeason(season4, 71, "LR4");
             fillInSeason(season5, 76, "LR5");
-            fillInSeason(season6, 91, "LR6");
+            fillInSeason(season6, 77, "LR6");
             fillInSeason(season7, 70, "LR7");
 
             for (var i = 56; i < 91; i++) {
@@ -9577,6 +9591,10 @@
                     + selectedDate.toLocaleDateString() + " " + selectedDate.toLocaleTimeString()
                     + " - " + endDate.toLocaleDateString() + " " + endDate.toLocaleTimeString()
                     + "</a>"
+                    + "<br><span>"
+                    + selectedDate.toLocaleDateString(window.navigator.language, {weekday: 'long'}) 
+                    + " - " + endDate.toLocaleDateString(window.navigator.language, {weekday: 'long'})
+                    + "</span>"
                     ;
 
                 var tbl = document.getElementById("challenges");
@@ -9662,12 +9680,16 @@
                 }
 
                 nextCommunityList.sort((a, b) => a.validStart < b.validStart ? -1 : (a.validStart > b.validStart ? 1 : 0));
+                var rw = tbl.insertRow(tbl.rows.length);
+                var cll = rw.insertCell(0);
+                cll.colSpan = 2;
+                var commListHTML = "<table>";
                 for (var evt of nextCommunityList) {
-                    var rw = tbl.insertRow(tbl.rows.length);
-                    var cll = rw.insertCell(0);
-                    cll.colSpan = 2;
-                    cll.innerHTML = "&nbsp;&nbsp;&nbsp;" + evt.validStart.toLocaleDateString() + " - " + evt.title;
+                    commListHTML += "<tr><td>&nbsp;&nbsp;&nbsp;" + evt.validStart.toLocaleDateString() 
+                    + " (" + evt.validStart.toLocaleDateString(window.navigator.language, {weekday: 'long'}) + ")"
+                    + "</td><td> - " + evt.title + "</td></tr>";
                 }
+                cll.innerHTML += commListHTML + "</table>";
 
                 insertSeparatorRow(tbl)
 
@@ -9914,10 +9936,19 @@
                 updateTimer();
             }
 
+            function goDateM(delta) {
+                selectedDate.setMonth(selectedDate.getMonth() + delta);
+                normalizeDate(selectedDate);
+                updateChallenges();
+                updateTimer();
+            }
+
             document.getElementById("prevDay").onclick = evt => goDate(-1);
             document.getElementById("nextDay").onclick = evt => goDate(1);
             document.getElementById("prevWeek").onclick = evt => goDate(-7);
             document.getElementById("nextWeek").onclick = evt => goDate(7);
+            document.getElementById("prevMonth").onclick = evt => goDateM(-1);
+            document.getElementById("nextMonth").onclick = evt => goDateM(1);
 
             setInterval(updateTimer, 1000);
             updateChallenges();
