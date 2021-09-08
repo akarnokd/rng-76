@@ -26,7 +26,7 @@
     </head>
     <body>
         <center>
-            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Timed Challenges (0.7.4)</span><br/>
+            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Timed Challenges (0.8.0)</span><br/>
             <br/>
             <br/>
             <table>
@@ -5049,6 +5049,15 @@
                     }
                 }
             }
+            function addWeeklyWednesday(target, offset, func, param) {
+                for (var i = offset + 1; i < offset + 7; i++) {
+                    if (param === undefined) {
+                        target.push(func(i));
+                    } else {
+                        target.push(func(i, param));
+                    }
+                }
+            }
 
             var challengesWeeklyEra1 = {
                 validStart: ofDate(2020, 3, 21, 15),
@@ -7121,7 +7130,7 @@
             // ===============================================================================================================
             // ERA 8
             // ===============================================================================================================
-            var era8Length = 78;
+            var era8Length = 64;
 
             var challengesDailyEra8 = {
                 validStart: ofDate(2021, 6, 6, 16),
@@ -7968,6 +7977,7 @@
                     scoreGainXP2500, 1,
                     scoreNWSurviveMinutes, 1,
                 ], [ dailyOpsValley, dailyOpsMutants, [ dailyOpsPiercingGaze, dailyOpsRegenerating ], dailyOpsUplink]);
+
             challengesWeeklyEra8.options.push({
                 name: "No weekly challenges yet, Wednesday",
                 offset: 63,
@@ -7982,23 +7992,42 @@
             // ERA 9
             // ===============================================================================================================
 
-            var era9Length = 77;
+            var era9Length = 91;
 
             var challengesDailyEra9 = {
-                validStart: ofDate(2021, 8, 22, 16),
-                validEnd: plusDays(ofDate(2021, 8, 22, 16), era9Length),
+                validStart: ofDate(2021, 8, 8, 16),
+                validEnd: plusDays(ofDate(2021, 8, 8, 16), era9Length),
                 options: []
             };
             var challengesWeeklyEra9 = {
-                validStart: ofDate(2021, 8, 22, 16),
-                validEnd: plusDays(ofDate(2021, 8, 22, 16), era9Length),
+                validStart: ofDate(2021, 8, 8, 16),
+                validEnd: plusDays(ofDate(2021, 8, 8, 16), era9Length),
                 options: []
             };
             challenges.push(challengesDailyEra9);
             challengesWeekly.push(challengesWeeklyEra9);
 
-            //addWeekly(challengesWeeklyEra9.options, -1, scoreFixedGainXP10000Rank100);
-            //addWeekly(challengesWeeklyEra9.options, -1, scoreLevelUp3);
+            addWeeklyWednesday(challengesWeeklyEra9.options, -1, scoreFixedGainXP10000Rank100);
+            addWeeklyWednesday(challengesWeeklyEra9.options, -1, scoreLevelUp3);
+            addWeeklyWednesday(challengesWeeklyEra9.options, -1, scoreCompleteDailyOps, 5);
+            addWeeklyWednesday(challengesWeeklyEra9.options, -1, scoreCompleteGoldStar);
+            addWeeklyWednesday(challengesWeeklyEra9.options, -1, scoreCompleteEvents10);
+            
+            /*
+            addWeeklyWednesday(challengesWeeklyEra9.options, -1, scoreBuildAnythingCamp, 25);
+            addWeeklyWednesday(challengesWeeklyEra9.options, -1, scoreCollectPurifiedWater, 25);
+            addWeeklyWednesday(challengesWeeklyEra9.options, -1, scoreCompleteEvents10);
+            addWeeklyWednesday(challengesWeeklyEra9.options, -1, scoreKillCreatures, 76);
+            addWeeklyWednesday(challengesWeeklyEra9.options, -1, scoreKillLegendary, 10);
+            addWeeklyWednesday(challengesWeeklyEra9.options, -1, scoreRepairArmorWeaponPA, 15);
+            */
+            addDaily(challengesDailyEra9, 0, [
+                    scoreCompleteDailyChallenge, 5,
+                    scoreLevelUp, 1,
+                    scoreCompleteOneEvent, 1,
+                    scoreCompleteDailyOps, 1,
+                    scoreGainXP2500, 1,
+                ], [ dailyOpsValley, dailyOpsMutants, [ dailyOpsSavageStrike, dailyOpsRegenerating ], dailyOpsDecryption]);
 
             addPlaceholders(challengesDailyEra9, scoreDailyplaceholder, era9Length);
             addPlaceholders(challengesWeeklyEra9, scoreWeeklyplaceholder, era9Length);
@@ -9252,6 +9281,9 @@
                     ]
                 },
                 createGoldRush2(ofDate(2021, 8, 2, 16), ofDate(2021, 8, 7, 16)),
+                // ~~~~ season 6 ~~~~
+                createDoubleXP(ofDate(2021, 8, 8, 16), ofDate(2021, 8, 13, 16)),
+                createDoubleScore(ofDate(2021, 8, 8, 16), ofDate(2021, 8, 13, 16)),
                 createMinerva(ofDate(2021, 8, 9, 16), ofDate(2021, 8, 13, 16), "Big Sale @ TBD", "P?"),
                 createTreasureHunt(ofDate(2021, 8, 16, 16), ofDate(2021, 8, 20, 16)),
                 createDoubleXP(ofDate(2021, 8, 23, 16), ofDate(2021, 8, 27, 16)),
@@ -9399,15 +9431,15 @@
             };
             var season5 = {
                 validStart: ofDate(2021, 6, 8, 16),
-                validEnd: plusDays(ofDate(2021, 6, 8, 16), 76),
+                validEnd: plusDays(ofDate(2021, 6, 8, 16), 62),
                 title: "Season 5: K.D. Inkwell and escape from<br>the 42nd century",
                 options: [
                     
                 ]
             };
             var season6 = {
-                validStart: ofDate(2021, 8, 22, 16),
-                validEnd: plusDays(ofDate(2021, 8, 22, 16), 77),
+                validStart: ofDate(2021, 8, 8, 16),
+                validEnd: plusDays(ofDate(2021, 8, 8, 16), 91),
                 title: "Season 6: The Unstoppables vs.<br>The Diabolicals",
                 options: [
                     
@@ -9426,8 +9458,8 @@
             fillInSeason(season2, 91, "LR2");
             fillInSeason(season3, 133, "LR3");
             fillInSeason(season4, 71, "LR4");
-            fillInSeason(season5, 76, "LR5");
-            fillInSeason(season6, 77, "LR6");
+            fillInSeason(season5, 62, "LR5");
+            fillInSeason(season6, 91, "LR6");
             fillInSeason(season7, 70, "LR7");
 
             for (var i = 56; i < 91; i++) {
@@ -9468,8 +9500,106 @@
 
             // --------------------------------------------------------------------------------------------------------------
 
+            function addMonth(date, n) {
+                var d = new Date(date);
+                d.setMonth(d.getMonth() + n);
+                return d;
+            }
+
+            function createPW(startDate, title, settings) {
+                var ve = addMonth(startDate, 1);
+                var r = {
+                    validStart: startDate,
+                    validEnd: ve,
+                    title: "Public World: Happy Builder",
+                    options: [
+                        {
+                            name: "Settings",
+                            offset: 0,
+                            period: 1,
+                            subchallenges: [
+                            ]
+                        },
+                        {
+                            name: "Ends: <b style='color: green;'>"  + ve.toLocaleDateString() 
+                            + " (" + ve.toLocaleDateString(window.navigator.language, {weekday: 'long'}) + ")"
+                            + " " + ve.toLocaleTimeString() + "</b>", 
+                            offset: 0,
+                            period: 1
+                        }
+                    ]
+                };
+                for (var s of settings) {
+                    if (typeof(s) == "string") {
+                        r.options[0].subchallenges.push({ name: s });
+                    } else {
+                        r.options[0].subchallenges.push(s);
+                    }
+                }
+
+                return r;
+            }
+
+            function createPWHappyBuilder(startDate) {
+                return createPW(startDate, "Public World: Happy Builder", [
+                    "Reduced C.A.M.P. placement restrictions",
+                    "Relaxed building restrictions",
+                    "All Map locations discovered",
+                    "PvP has been disabled."
+                ]);
+            }
+            function createPWHighRisk(startDate) {
+                return createPW(startDate, "Public World: High Risk", [
+                    "No Fast Travel",
+                    "Always-on PVP",
+                    "Players drop additional loot on death",
+                    "Free workbench crafting",
+                    "Legendary item attributes have been disabled"
+                ]);
+            }
+            function createPWDwellerMustDie(startDate) {
+                return createPW(startDate, "Public World: Dweller Must Die", [
+                    "Greatly increased enemy difficulty",
+                    "Increased damage",
+                    "Increased equipment durability", 
+                    "“Dark Bog” weather effects"
+                ]);
+            }
+            function createPWQuantumWorld(startDate) {
+                return createPW(startDate, "Public World: Quantum World", [
+                    "Max jump height", 
+                    "No fall damage", 
+                    "Nuked creatures and flora", 
+                    "“Quantum Storm” weather"
+                ]);
+            }
+            function createPWButchersDelight(startDate) {
+                return createPW(startDate, "Public World: Butcher's Delight", [
+                    "Infinite ammo", 
+                    "No VATS or melee attack AP costs", 
+                    "Enhanced dismemberment"
+                ]);
+            }
+
+            var publicWorlds = [
+                createPWHappyBuilder(ofDate(2021, 8, 8, 16)),
+                createPWHighRisk(ofDate(2021, 9, 8, 16)),
+                createPWDwellerMustDie(ofDate(2021, 10, 8, 16)),
+                createPWQuantumWorld(ofDate(2021, 11, 8, 16)),
+                createPWButchersDelight(ofDate(2022, 0, 8, 16)),
+
+                createPWHappyBuilder(ofDate(2022, 1, 8, 16)),
+                createPWHighRisk(ofDate(2022, 2, 8, 16)),
+                createPWDwellerMustDie(ofDate(2022, 3, 8, 16)),
+                createPWQuantumWorld(ofDate(2022, 4, 8, 16)),
+                createPWButchersDelight(ofDate(2022, 5, 8, 16))
+
+            ]
+
+            // --------------------------------------------------------------------------------------------------------------
+
             var infoMap = new Map();
-            for (var list of [challenges, challengesWeekly, communityEvents, seasonEvents]) {
+            for (var list of [challenges, challengesWeekly, communityEvents, seasonEvents, publicWorlds]) {
                 for (var challenge of list) {
                     for (var opt of challenge.options) {
                         if (opt.tipId !== undefined) {
@@ -9693,6 +9823,33 @@
 
                 insertSeparatorRow(tbl)
 
+                if (isActive(publicWorlds, endDate)) {
+                    var rw = tbl.insertRow(tbl.rows.length);
+                    var cll = rw.insertCell(rw.cells.length);
+                    cll.colSpan = 2;
+                    cll.style.textAlign = "center";
+                    cll.style.fontWeight = "bold";
+                    cll.style.padding = "10px";
+                    cll.innerHTML = "<span style='font-size: 24px;' id='pwtitle'></span><br><span id='remainingpw'></span>";
+                    cll.style.border = '1px dotted black';
+
+                    renderList(tbl, publicWorlds, endDate, "pwtitle");
+                } else {
+                    var rw = tbl.insertRow(tbl.rows.length);
+                    var cll = rw.insertCell(0);
+
+                    cll.innerText = "No active Public Worlds.";
+                    cll.style.textAlign = "center";
+                    cll.style.color = "blue";
+                    cll.style.fontWeight = "bold";
+                    cll.colSpan = 2;
+                    cll.style.padding = "10px";
+                    cll.style.border = '1px dotted black';
+                }
+                addPrevNext(tbl, publicWorlds, true);
+
+                insertSeparatorRow(tbl)
+
                 if (isActive(seasonEvents, endDate)) {
                     var rw = tbl.insertRow(tbl.rows.length);
                     var cll = rw.insertCell(rw.cells.length);
@@ -9880,6 +10037,13 @@
                 var i = 1;
                 for (var communityStartEnd of communityStartEnds) {
                     calcRemainingTime("remainingcommunity" + i, selectedDate, communityStartEnd.start, communityStartEnd.end);
+                    i++;
+                }
+
+                var seasonStartEnds = currentStartEndDate(publicWorlds, selectedDate);
+                var i = 1;
+                for (var seasonStartEnd of seasonStartEnds) {
+                    calcRemainingTime("remainingpw" /* + i */, selectedDate, seasonStartEnd.start, seasonStartEnd.end);
                     i++;
                 }
 
