@@ -2757,6 +2757,7 @@
             var dailyOpsV96 = "Vault 96";
             var dailyOpsWatoga = "Watoga Civic Center";
             var dailyOpsWestTec = "West Tek Research Center"
+            var dailyOpsWatogaHighschool = "Watoga High School";
 
             var dailyOpsRobots = "Robots";
             var dailyOpsEagles = "Blood Eagles";
@@ -2765,7 +2766,8 @@
             var dailyOpsCultists = "Mothman Cultists";
             var dailyOpsScorched = "Scorched";
             var dailyOpsMoleminers = "Mole miners";
-            
+            var dailyOpsCommunists = "Communists";
+
             var dailyOpsDecryption = "Decryption";
             var dailyOpsUplink = "Uplink";
 
@@ -8007,27 +8009,54 @@
             challenges.push(challengesDailyEra9);
             challengesWeekly.push(challengesWeeklyEra9);
 
+            function scoreCompleteEventCostume(offset, count) {
+                return {
+                    name: times("Complete an Event while wearing a Costume", count),
+                    offset: offset,
+                    period: 1400,
+                };
+            }
+            function scoreCompleteEventScorchedEarth(offset, count) {
+                return {
+                    name: times("Complete Event: Scorched Earth", count),
+                    offset: offset,
+                    period: 1400,
+                };
+            }
+            function scoreKillCreatureCostume(offset, count) {
+                return {
+                    name: times("Kill a creature while wearing a Costume", count),
+                    offset: offset,
+                    period: 1400,
+                };
+            }
+
             addWeeklyWednesday(challengesWeeklyEra9.options, -1, scoreFixedGainXP10000Rank100);
             addWeeklyWednesday(challengesWeeklyEra9.options, -1, scoreLevelUp3);
             addWeeklyWednesday(challengesWeeklyEra9.options, -1, scoreCompleteDailyOps, 5);
             addWeeklyWednesday(challengesWeeklyEra9.options, -1, scoreCompleteGoldStar);
             addWeeklyWednesday(challengesWeeklyEra9.options, -1, scoreCompleteEvents10);
-            
-            /*
-            addWeeklyWednesday(challengesWeeklyEra9.options, -1, scoreBuildAnythingCamp, 25);
-            addWeeklyWednesday(challengesWeeklyEra9.options, -1, scoreCollectPurifiedWater, 25);
-            addWeeklyWednesday(challengesWeeklyEra9.options, -1, scoreCompleteEvents10);
-            addWeeklyWednesday(challengesWeeklyEra9.options, -1, scoreKillCreatures, 76);
-            addWeeklyWednesday(challengesWeeklyEra9.options, -1, scoreKillLegendary, 10);
-            addWeeklyWednesday(challengesWeeklyEra9.options, -1, scoreRepairArmorWeaponPA, 15);
-            */
+            addWeeklyWednesday(challengesWeeklyEra9.options, -1, scoreCraftAmmo, 250);
+            addWeeklyWednesday(challengesWeeklyEra9.options, -1, scoreConsumeAlcohol, 25);
+            addWeeklyWednesday(challengesWeeklyEra9.options, -1, scoreCompleteEventInGroup, 5);
+            addWeeklyWednesday(challengesWeeklyEra9.options, -1, scoreCompleteDailyOpsPublicTeam, 5);
+            addWeeklyWednesday(challengesWeeklyEra9.options, -1, scoreCompleteEventCostume, 5);
+            addWeeklyWednesday(challengesWeeklyEra9.options, -1, scoreCompleteEventScorchedEarth, 5);
+            addWeeklyWednesday(challengesWeeklyEra9.options, -1, scoreKillBloodEagle, 25);
+            addWeeklyWednesday(challengesWeeklyEra9.options, -1, scoreKillCreatureCostume, 50);
+            addWeeklyWednesday(challengesWeeklyEra9.options, -1, scoreRepairArmorWeaponPA, 25);
+
             addDaily(challengesDailyEra9, 0, [
                     scoreCompleteDailyChallenge, 5,
                     scoreLevelUp, 1,
                     scoreCompleteOneEvent, 1,
                     scoreCompleteDailyOps, 1,
+                    scoreKillSupermutant, 15,
+                    scoreEatPrewarFood, 5,
+                    scoreVisitOwnShelter, 1,
+                    scoreKillLegendary, 1,
                     scoreGainXP2500, 1,
-                ], [ dailyOpsValley, dailyOpsMutants, [ dailyOpsSavageStrike, dailyOpsRegenerating ], dailyOpsDecryption]);
+                ], [ dailyOpsWatogaHighschool, dailyOpsCommunists, [ dailyOpsSavageStrike, dailyOpsToxic ], dailyOpsDecryption]);
 
             addPlaceholders(challengesDailyEra9, scoreDailyplaceholder, era9Length);
             addPlaceholders(challengesWeeklyEra9, scoreWeeklyplaceholder, era9Length);
