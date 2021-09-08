@@ -26,7 +26,7 @@
     </head>
     <body>
         <center>
-            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Timed Challenges (0.7.2)</span><br/>
+            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Timed Challenges (0.7.3)</span><br/>
             <br/>
             <br/>
             <table>
@@ -7119,7 +7119,7 @@
             // ===============================================================================================================
             // ERA 8
             // ===============================================================================================================
-            var era8Length = 64;
+            var era8Length = 78;
 
             var challengesDailyEra8 = {
                 validStart: ofDate(2021, 6, 6, 16),
@@ -7980,16 +7980,16 @@
             // ERA 9
             // ===============================================================================================================
 
-            var era9Length = 91;
+            var era9Length = 77;
 
             var challengesDailyEra9 = {
-                validStart: ofDate(2021, 8, 8, 16),
-                validEnd: plusDays(ofDate(2021, 8, 8, 16), era9Length),
+                validStart: ofDate(2021, 8, 22, 16),
+                validEnd: plusDays(ofDate(2021, 8, 22, 16), era9Length),
                 options: []
             };
             var challengesWeeklyEra9 = {
-                validStart: ofDate(2021, 8, 8, 16),
-                validEnd: plusDays(ofDate(2021, 8, 8, 16), era9Length),
+                validStart: ofDate(2021, 8, 22, 16),
+                validEnd: plusDays(ofDate(2021, 8, 22, 16), era9Length),
                 options: []
             };
             challenges.push(challengesDailyEra9);
@@ -9385,15 +9385,15 @@
             };
             var season5 = {
                 validStart: ofDate(2021, 6, 8, 16),
-                validEnd: plusDays(ofDate(2021, 6, 8, 16), 62),
+                validEnd: plusDays(ofDate(2021, 6, 8, 16), 76),
                 title: "Season 5: K.D. Inkwell and escape from<br>the 42nd century",
                 options: [
                     
                 ]
             };
             var season6 = {
-                validStart: ofDate(2021, 8, 8, 16),
-                validEnd: plusDays(ofDate(2021, 8, 8, 16), 91),
+                validStart: ofDate(2021, 8, 22, 16),
+                validEnd: plusDays(ofDate(2021, 8, 22, 16), 77),
                 title: "Season 6: The Unstoppables vs.<br>The Diabolicals",
                 options: [
                     
@@ -9412,7 +9412,7 @@
             fillInSeason(season2, 91, "LR2");
             fillInSeason(season3, 133, "LR3");
             fillInSeason(season4, 71, "LR4");
-            fillInSeason(season5, 62, "LR5");
+            fillInSeason(season5, 76, "LR5");
             fillInSeason(season6, 91, "LR6");
             fillInSeason(season7, 70, "LR7");
 
@@ -9646,10 +9646,16 @@
                 insertSeparatorRow(tbl)
 
                 var nextCommunityList = [];
+                var listUniqueDates = 0;
+                var listLastDate = null;
                 for (var evt of communityEvents) {
                     if (evt.validStart >= endDate) {
                         nextCommunityList.push(evt);
-                        if (nextCommunityList.length == 6) {
+                        if (listLastDate < evt.validStart) {
+                            listUniqueDates++;
+                        }
+                        listLastDate = evt.validStart;
+                        if (listUniqueDates == 6) {
                             break;
                         }
                     }
