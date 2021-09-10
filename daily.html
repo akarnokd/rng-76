@@ -2753,12 +2753,17 @@
                 name: "Clouded Toxins (double)",
                 tipId: "DailyOpsCloudedToxins",
                 tip: "Cloaking enemies and toxic hazard on death."
-            }
+            };
             var dailyOpsUnstable = {
                 name: "Unstable (double)",
                 tipId: "DailyOpsUnstable",
                 tip: "Extra fast and explodes upon death."
-            }
+            };
+            var dailyOpsChillingMend = {
+                name: "Chilling Mend (double)",
+                tipId: "DailyOpsChillingMend",
+                tip: "Heals in proximity and freezing attacks."
+            };
 
             var dailyOpsBurrows = "The Burrows";
             var dailyOpsV94 = "Vault 94";
@@ -2769,6 +2774,7 @@
             var dailyOpsWestTec = "West Tek Research Center"
             var dailyOpsWatogaHighschool = "Watoga High School";
             var dailyOpsArktos = "Arktos Pharma";
+            var dailyOpsUncanny = "Uncanny Caverns";
 
             var dailyOpsRobots = "Robots";
             var dailyOpsEagles = "Blood Eagles";
@@ -8089,7 +8095,7 @@
                     scoreUsePhotomode, 3,
                     scoreVisitOwnShelter, 1,
                     scoreGainXP2500, 1,
-                ], [ dailyOpsArktos, dailyOpsEagles, [ dailyOpsReset, dailyOpsPiercingGaze, dailyOpsUnstable ], dailyOpsUplink]);
+                ], [ dailyOpsUncanny, dailyOpsMutants, [ dailyOpsSavageStrike, dailyOpsChillingMend ], dailyOpsDecryption]);
 
             addPlaceholders(challengesDailyEra9, scoreDailyplaceholder, era9Length);
             addPlaceholders(challengesWeeklyEra9, scoreWeeklyplaceholder, era9Length);
