@@ -27,7 +27,7 @@
     </head>
     <body style="height: 90%">
         <center>
-            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Weapon Damage Calculator (v3.6.10)</span>
+            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Weapon Damage Calculator (v3.7.0)</span>
             <br/>
             <!-- <i>(Notification here)</i> -->
         <br/>
@@ -145,6 +145,7 @@
             var damagesPoison = [0, 0, 0];
 
             var ignores = [0, 0, 0];
+            var armorDr = [0, 0, 0];
             var speeds = [1, 1, 1];
             var enemySelection = [ null, null, null ];
             var enemySelectionName = [ null, null, null ];
@@ -5825,6 +5826,11 @@
                     { level: 95, dr: 120, er: 250, rr: 250, fr: 250, cr: 250, pr: 250 }, 
                     { level: 100, dr: 120, er: 250, rr: 250, fr: 250, cr: 250, pr: 250 }, 
                 ],
+                "communistcommander": [
+                    { level: 20, dr: 1, er: 1, rr: 1, fr: 1, cr: 1, pr: 1 }, 
+                    { level: 40, dr: 100, er: 100, rr: 100, fr: 100, cr: 100, pr: 100 }, 
+                    { level: 100, dr: 250, er: 250, rr: 250, fr: 250, cr: 250, pr: 250 }, 
+                ],
                 "critter": [
                     { level: 1, dr: 5, er: 5, rr: 5, fr: 5, cr: 5, pr: 5 }, 
                     { level: 100, dr: 5, er: 5, rr: 5, fr: 5, cr: 5, pr: 5 }, 
@@ -6626,6 +6632,9 @@
             addEnemy("Norland", ["Human", "NPC"], enemyResistancesMap["norland"]);
             addEnemy("Hewsen", ["Human", "NPC"], enemyResistancesMap["hewsen"]);
             addEnemy("Hellcat Mercenary", ["Human", "NPC"], enemyResistancesMap["hellcatmercenary"]);
+
+            // P30
+            addEnemy("Communist Commander", ["Human"], enemyResistancesMap["communistcommander"]);
 
             // some enemies are immune to radiation or even heal off it
             var enemyRadiationEffect = new Map();
@@ -7446,6 +7455,7 @@
             infoMap.set("bowbeforeme", "Bows and Crossbows only. Each level ignores 12% more armor up to 36% total.");
             infoMap.set("stabilized", "Heavy ballistic weapons only. Each level ignores 15% more armor up to 45% total.");
             infoMap.set("incisor", "Melee weapons only. Each level ignores 25% more armor up to 75% total.");
+            infoMap.set("weighted", "Melee weapons only. One armor piece with this mod ignores 10% + 5 DR, two ignores 20% + 10 DR of armor.");
             infoMap.set("covertoperative", "Ranged weapons only. Sets the sneak attack multiplier to 2.15x, 2.3x and 2.5x.");
             infoMap.set("exterminator", "Each level ignores 25% more armor of Bugs and Mirelurks up to 75% total.");
             infoMap.set("glowsight", "Each level adds 20% damage against Glowing enemies up to 60% total.");
@@ -8453,6 +8463,32 @@
                     incisor.onchange = function() {
                         recalculate(tbl, index, type);
                     };
+
+                    row = tbl.insertRow(tbl.rows.length);
+                    cell1 = row.insertCell(0);
+                    cell1.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;Weighted" + info("weighted");
+                    cell2 = row.insertCell(1);
+                    cell2.innerHTML = "<select id='weighted" + index + "'></select> (armor pieces modded)"
+
+                    var weighted = document.getElementById("weighted" + index);
+                    opt = document.createElement("option");
+                    weighted.add(opt);
+                    opt.text = "None";
+                    opt.value = "0";
+                    weighted.linkId = "Weighted";
+
+                    for (var i = 1; i < 3; i++) {
+                        opt = document.createElement("option");
+                        weighted.add(opt);
+                        opt.text = "" + i;
+                        opt.value = "" + i;
+                        opt.linkId = opt.value;
+                    }
+                    weighted.selectedIndex = 0;
+                    weighted.onchange = function() {
+                        recalculate(tbl, index, type);
+                    };
+
 
                     row = tbl.insertRow(tbl.rows.length);
                     cell1 = row.insertCell(0);
@@ -9475,6 +9511,7 @@
                 var totalDamageRadiationMultiply = [];
 
                 var totalArmorIgnoreArray = [];
+                var totalArmorAddDR = [];
                 var totalSpeedMultiply = [];
                 var totalSpeedAdditive = [];
 
@@ -10115,6 +10152,12 @@
                 if (incisor != null && incisor.selectedIndex > 0) {
                     totalArmorIgnoreArray.push(parseFloat(valueOf(incisor)));
                 }
+                var weighted = document.getElementById("weighted" + index);
+                if (weighted != null && weighted.selectedIndex > 0) {
+                    var v = parseFloat(valueOf(weighted));
+                    totalArmorIgnoreArray.push(v * 10);
+                    totalArmorAddDR.push(-v * 5)
+                }
 
                 var martialartist = document.getElementById("martialartist" + index);
                 if (martialartist != null && martialartist.selectedIndex > 0) {
@@ -10510,11 +10553,18 @@
                     });
                     totalArmorIgnore = Math.min(95, 100 * (1 - totalArmorIgnore));
                 }
+                var totalArmorAddDRSum = 0;
+                totalArmorAddDR.forEach(v => totalArmorAddDRSum += v);
 
                 cell2.innerHTML = createDamageDisplayHTML(totalDamage, totalDamageEnergy, totalDamageRadiation,
                         totalDamageFire, totalDamageCold, totalDamagePoison);
 
                 cell4.innerText = totalArmorIgnore.toFixed(2) + " %";
+
+                if (totalArmorAddDRSum != 0) {
+                    cell4.innerText += " & " + totalArmorAddDRSum + " DR";
+                }
+
                 cell6.innerText = speed.toFixed(2);
                 cell8.innerHTML = createDamageDisplayHTML(totalDamage * speed, totalDamageEnergy * speed, totalDamageRadiation * speed,
                         totalDamageFire * speed, totalDamageCold * speed, totalDamagePoison * speed);
@@ -10576,6 +10626,7 @@
                 damagesPoison[index] = totalDamagePoison;
 
                 ignores[index] = totalArmorIgnore;
+                armorDr[index] = totalArmorAddDRSum;
                 speeds[index] = speed;
 
                 baseDamagesBallistic[index] = weaponBaseDamageBallistic;
@@ -10845,7 +10896,7 @@
                     var calcMode = calcModes[index];
                     var leftIsP23 = calcMode === "P23";
 
-                    var leftDr = Math.max(0, actualResist(res.dr, ignores[index]) + enemyDamageResistances[index]);
+                    var leftDr = Math.max(0, actualResist(res.dr, ignores[index]) + enemyDamageResistances[index] + armorDr[index]);
                     var leftEr = aaEnergy ? actualResist(res.er, ignores[index]) : res.er;
                     var leftRr = res.rr;
                     var leftFr = actualResist(res.fr, ignores[index]); 
@@ -10876,7 +10927,7 @@
                     index = 2;
                     var rightIsP23 = calcModes[index] === "P23";
 
-                    var rightDr = Math.max(0, actualResist(res.dr, ignores[index]) + enemyDamageResistances[index]);
+                    var rightDr = Math.max(0, actualResist(res.dr, ignores[index]) + enemyDamageResistances[index] + armorDr[index]);
                     var rightEr = aaEnergy ? actualResist(res.er, ignores[index]) : res.er;
                     var rightRr = res.rr;
                     var rightFr = actualResist(res.fr, ignores[index]); 
