@@ -8044,6 +8044,20 @@
                     period: 1400,
                 };
             }
+            function scoreKillCreatureUnstoppables(offset, count) {
+                return {
+                    name: times("Kill Creatures while wearing an Unstoppables Costume", count),
+                    offset: offset,
+                    period: 1400,
+                };
+            }
+            function scoreCompleteRadiationRumble(offset, count) {
+                return {
+                    name: times("Complete Event: Radiation Rumble", count),
+                    offset: offset,
+                    period: 1400,
+                };
+            }
             function scoreCompleteEventScorchedEarth(offset, count) {
                 return {
                     name: times("Complete Event: Scorched Earth", count),
@@ -8228,6 +8242,27 @@
                     scoreKillSupermutant, 15,
                     scoreGainXP2500, 1,
                 ], [ dailyOpsV96, dailyOpsMutants, [ dailyOpsSavageStrike, dailyOpsResilient ], dailyOpsDecryption]);
+            addWeekly(challengesWeeklyEra9.options, 13, scoreFixedGainXP10000Rank100);
+            addWeekly(challengesWeeklyEra9.options, 13, scoreLevelUp3);
+            addWeekly(challengesWeeklyEra9.options, 13, scoreCollectCaps, 1500);
+            addWeekly(challengesWeeklyEra9.options, 13, scoreCompleteDailyOps, 5);
+            addWeekly(challengesWeeklyEra9.options, 13, scoreCompleteGoldStar);
+            addWeekly(challengesWeeklyEra9.options, 13, scoreCompleteEvents10);
+            addWeekly(challengesWeeklyEra9.options, 13, scoreCompleteRadiationRumble, 1);
+            addWeekly(challengesWeeklyEra9.options, 13, scoreKillCreatureUnstoppables, 50);
+            addWeekly(challengesWeeklyEra9.options, 13, scoreKillGlowing, 3);
+            addWeekly(challengesWeeklyEra9.options, 13, scoreRepairArmorWeaponPA, 15);
+            addDaily(challengesDailyEra9, 13, [
+                    scoreCompleteDailyChallenge, 5,
+                    scoreLevelUp, 1,
+                    scoreCompleteOneEvent, 1,
+                    scoreCompleteDailyOps, 1,
+                    scoreClaimWorkshop, 1,
+                    scoreUsePhotomodeGroup, 3,
+                    scoreKillScorched, 25,
+                    scoreVisitAnotherShelter, 1,
+                    scoreGainXP2500, 1,
+                ], [ dailyOpsV96, dailyOpsMutants, [ dailyOpsReset, dailyOpsSavageStrike, dailyOpsResilient ], dailyOpsDecryption]);
 
             addPlaceholders(challengesDailyEra9, scoreDailyplaceholder, era9Length);
             addPlaceholders(challengesWeeklyEra9, scoreWeeklyplaceholder, era9Length);
