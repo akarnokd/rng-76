@@ -27,7 +27,7 @@
     </head>
     <body style="height: 90%">
         <center>
-            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Weapon Damage Calculator (v3.7.0)</span>
+            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Weapon Damage Calculator (v3.8.0)</span>
             <br/>
             <!-- <i>(Notification here)</i> -->
         <br/>
@@ -5520,6 +5520,19 @@
                         text: "+1 Strength"
                         // no multiplier, considered with the base calculation
                     }
+                ],
+                // 4: 4th legendary effect
+                [
+                    {
+                        name: "Warmonger's",
+                        linkId: "Warmongers",
+                        damageMultPercent: 150,
+                    },
+                    {
+                        name: "Bruiser's",
+                        linkId: "Bruisers",
+                        damageMultPercent: 15
+                    }
                 ]
             ]);
 
@@ -5728,6 +5741,19 @@
                         name: "15% faster reload",
                         linkId: "FRL",
                         reloadTimeMult: -15
+                    }
+                ],
+                // 4: 4th legendary effect
+                [
+                    {
+                        name: "Warmonger's",
+                        linkId: "Warmongers",
+                        damageMultPercent: 150,
+                    },
+                    {
+                        name: "Bruiser's",
+                        linkId: "Bruisers",
+                        damageMultPercent: 15
                     }
                 ]
             ]);
@@ -7897,6 +7923,12 @@
                     + "<li><b>PTS</b>: each mutation gives +5% damage up to 25%</li>"
                 + "</ul>"
             );
+            infoMap.set("4thstar", 
+                "<ul>"
+                    + "<li><b>Bruiser's</b>: +15% damage after bashing an enemy.</li>"
+                    + "<li><b>Warmonger's</b>: +150% damage after killing an enemy for 15 seconds.</li>"
+                + "</ul>"
+            );
 
 
             // add HTML explanation marker
@@ -8129,7 +8161,8 @@
                 var cell1 = row.insertCell(0);
                 cell1.innerText = "Legendary effects";
 
-                var titles = ["Prefix", "Major", "Minor"];
+                var titles = ["Prefix", "Major", "Minor", "4th"];
+                var tips = [null, null, null, "4thstar"];
 
                 var effects = allEffects.get(type);
                 effects.forEach(function(effect, idx) {
@@ -8137,6 +8170,9 @@
 
                     var effCell1 = effRow.insertCell(0);
                     effCell1.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;" + titles[idx];
+                    if (tips[idx]) {
+                        effCell1.innerHTML += info(tips[idx]);
+                    }
 
                     var effCell2 = effRow.insertCell(1);
 

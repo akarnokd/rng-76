@@ -82,7 +82,7 @@
     </head>
     <body style="height: 90%; overflow-y: scroll;">
         <center>
-            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Armor Defense Calculator (0.3.0)</span>
+            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Armor Defense Calculator (0.4.0)</span>
             <br/>
             <!-- <i>(Notification here)</i> -->
         <br/>
@@ -374,6 +374,10 @@
                 + "<ul>"
                 + "<li>Barbarian (Perk): more resistances the more strength</li>"
                 + "</ul>"
+            );
+            infoMap.set("guardians", 
+                "If nearby allies are equipped with Guardian's legendary armor (4th star),<br>"
+                + "each piece grants +10 to Fire, Cold and Poison resistances on you."
             );
             infoMap.set("agility", 
             "Non Power Armor only. Affects the following:"
@@ -4061,6 +4065,29 @@
                                 }
                             }
                         }
+                    },
+                    "4th": {
+                        "Elemental-Fire": {
+                            name: "+20 Fire Resist (random)",
+                            order: 2,
+                            func: (state) => {
+                                state.fr += 20;
+                            }
+                        },
+                        "Elemental-Cold": {
+                            name: "+20 Cold Resist (random)",
+                            order: 2,
+                            func: (state) => {
+                                state.cr += 20;
+                            }
+                        },
+                        "Elemental-Poison": {
+                            name: "+20 Poison Resist (random)",
+                            order: 2,
+                            func: (state) => {
+                                state.pr += 20;
+                            }
+                        }
                     }
                 },
                 "PA": {
@@ -4237,6 +4264,29 @@
                                     rs.ballisticReduction += 15 * 3 / 4;
                                     rs.energyReduction += 15 * 3 / 4;
                                 }
+                            }
+                        }
+                    },
+                    "4th": {
+                        "Elemental-Fire": {
+                            name: "+20 Fire Resist (random)",
+                            order: 2,
+                            func: (state) => {
+                                rs.fr += 20;
+                            }
+                        },
+                        "Elemental-Cold": {
+                            name: "+20 Cold Resist (random)",
+                            order: 2,
+                            func: (state) => {
+                                rs.cr += 20;
+                            }
+                        },
+                        "Elemental-Poison": {
+                            name: "+20 Poison Resist (random)",
+                            order: 2,
+                            func: (state) => {
+                                rs.pr += 20;
                             }
                         }
                     }
@@ -5980,6 +6030,10 @@
                             state.dr += parseInt(val);
                         }
                     }, "weaponmode").oninput = evt => recalculateBoth();
+
+                if (mode != "Suit") {
+                    createNumber(tbl, "Guardian's", index + "_Guardians", 0, 15, 0, " armor pieces", "guardians").oninput = evt => recalculateBoth();
+                }
             }
 
             function createBlockerFunc(amount) {
@@ -6886,6 +6940,12 @@
                     state.player.strength = parseInt(getValue(index + "_Strength"));
                     state.player.agility = parseInt(getValue(index + "_Agility"));
                     state.player.junkamount = parseInt(getValue(index + "_Junkamount"));
+                }
+                if (state.player.mode !== "Suit") {
+                    var nguardians = parseInt(getValue(index + "_Guardians"));
+                    state.fr += nguardians * 10;
+                    state.cr += nguardians * 10;
+                    state.pr += nguardians * 10;
                 }
 
                 var modifiers = [];
