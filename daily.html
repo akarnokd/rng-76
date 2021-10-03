@@ -10155,13 +10155,13 @@
                 cll.style.width='50%';
                 if (prevEvt !== undefined) {
                     var prevDay = prevEvt.validStart.toISOString().substring(0, 10);
-                    cll.innerHTML = ("<a href='daily.html?day=" + prevDay + "' title='" + prevEvt.title + "'>&lt; Previous<br>" + prevDay + "</a>");
+                    cll.innerHTML = ("<a href='daily.html?day=" + prevDay + "' title=\"" + prevEvt.title.replace("<br>", "\n") + "\">&lt; Previous<br>" + prevDay + "</a>");
                 }
                 cll = rw.insertCell(1);
                 cll.style.width='50%';
                 if (nextEvt !== undefined) {
                     var nextDay = nextEvt.validStart.toISOString().substring(0, 10);
-                    cll.innerHTML = ("<a href='daily.html?day=" + nextDay + "' title='" + nextEvt.title + "'>Next &gt;<br>" + nextDay + "</a>");
+                    cll.innerHTML = ("<a href='daily.html?day=" + nextDay + "' title=\"" + nextEvt.title.replace("<br>", "\n") + "\">Next &gt;<br>" + nextDay + "</a>");
                     cll.style.textAlign = "right";
                 } else {
                     cll.innerHTML = "Next &gt;<br>To be announced";
@@ -10281,32 +10281,35 @@
                 }
                 cll.innerHTML += commListHTML + "</table>";
 
-                insertSeparatorRow(tbl)
+                // public worlds was released on 2021-09-08
+                if (selectedDate >= ofDate(2021, 8, 8, 16)) {
+                    insertSeparatorRow(tbl)
 
-                if (isActive(publicWorlds, endDate)) {
-                    var rw = tbl.insertRow(tbl.rows.length);
-                    var cll = rw.insertCell(rw.cells.length);
-                    cll.colSpan = 2;
-                    cll.style.textAlign = "center";
-                    cll.style.fontWeight = "bold";
-                    cll.style.padding = "10px";
-                    cll.innerHTML = "<span style='font-size: 24px;' id='pwtitle'></span><br><span id='remainingpw'></span>";
-                    cll.style.border = '1px dotted black';
+                    if (isActive(publicWorlds, endDate)) {
+                        var rw = tbl.insertRow(tbl.rows.length);
+                        var cll = rw.insertCell(rw.cells.length);
+                        cll.colSpan = 2;
+                        cll.style.textAlign = "center";
+                        cll.style.fontWeight = "bold";
+                        cll.style.padding = "10px";
+                        cll.innerHTML = "<span style='font-size: 24px;' id='pwtitle'></span><br><span id='remainingpw'></span>";
+                        cll.style.border = '1px dotted black';
 
-                    renderList(tbl, publicWorlds, endDate, "pwtitle");
-                } else {
-                    var rw = tbl.insertRow(tbl.rows.length);
-                    var cll = rw.insertCell(0);
+                        renderList(tbl, publicWorlds, endDate, "pwtitle");
+                    } else {
+                        var rw = tbl.insertRow(tbl.rows.length);
+                        var cll = rw.insertCell(0);
 
-                    cll.innerText = "No active Public Worlds.";
-                    cll.style.textAlign = "center";
-                    cll.style.color = "blue";
-                    cll.style.fontWeight = "bold";
-                    cll.colSpan = 2;
-                    cll.style.padding = "10px";
-                    cll.style.border = '1px dotted black';
+                        cll.innerText = "No active Public Worlds.";
+                        cll.style.textAlign = "center";
+                        cll.style.color = "blue";
+                        cll.style.fontWeight = "bold";
+                        cll.colSpan = 2;
+                        cll.style.padding = "10px";
+                        cll.style.border = '1px dotted black';
+                    }
+                    addPrevNext(tbl, publicWorlds, false);
                 }
-                addPrevNext(tbl, publicWorlds, true);
 
                 insertSeparatorRow(tbl)
 
@@ -10334,7 +10337,7 @@
                     cll.style.border = '1px dotted black';
                 }
 
-                addPrevNext(tbl, seasonEvents, true);
+                addPrevNext(tbl, seasonEvents, false);
             }
 
             function isActive(challenges, endDate) {
