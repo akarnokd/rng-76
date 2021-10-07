@@ -10035,8 +10035,8 @@
                 return d;
             }
 
-            function createPW(startDate, title, settings) {
-                var ve = addMonth(startDate, 1);
+            function createPW(startDate, endDate, title, settings) {
+                var ve = endDate;
                 var r = {
                     validStart: startDate,
                     validEnd: ve,
@@ -10069,8 +10069,8 @@
                 return r;
             }
 
-            function createPWHappyBuilder(startDate) {
-                return createPW(startDate, "Public World: Happy Builder", [
+            function createPWHappyBuilder(startDate, endDate) {
+                return createPW(startDate, endDate, "Public World: Happy Builder", [
                     "Reduced C.A.M.P. placement restrictions",
                     "Relaxed building restrictions",
                     "All Map locations discovered",
@@ -10078,8 +10078,8 @@
                     "PvP has been disabled"
                 ]);
             }
-            function createPWHighRisk(startDate) {
-                return createPW(startDate, "Public World: High Risk", [
+            function createPWHighRisk(startDate, endDate) {
+                return createPW(startDate, endDate, "Public World: High Risk", [
                     "No Fast Travel",
                     "Always-on PVP",
                     "Players drop additional loot on death",
@@ -10087,24 +10087,24 @@
                     "Legendary item attributes have been disabled"
                 ]);
             }
-            function createPWDwellerMustDie(startDate) {
-                return createPW(startDate, "Public World: Dweller Must Die", [
+            function createPWDwellerMustDie(startDate, endDate) {
+                return createPW(startDate, endDate, "Public World: Dweller Must Die", [
                     "Greatly increased enemy difficulty",
                     "Increased damage",
                     "Increased equipment durability", 
                     "\"Dark Bog\" weather effects"
                 ]);
             }
-            function createPWQuantumWorld(startDate) {
-                return createPW(startDate, "Public World: Quantum World", [
+            function createPWQuantumWorld(startDate, endDate) {
+                return createPW(startDate, endDate, "Public World: Quantum World", [
                     "Max jump height", 
                     "No fall damage", 
                     "Nuked creatures and flora", 
                     "\"Quantum Storm\" weather"
                 ]);
             }
-            function createPWButchersDelight(startDate) {
-                return createPW(startDate, "Public World: Butcher's Delight", [
+            function createPWButchersDelight(startDate, endDate) {
+                return createPW(startDate, endDate, "Public World: Butcher's Delight", [
                     "Infinite ammo", 
                     "No VATS or melee attack AP costs", 
                     "Enhanced dismemberment"
@@ -10112,19 +10112,19 @@
             }
 
             var publicWorlds = [
-                createPWHappyBuilder(ofDate(2021, 8, 8, 16)),
-                createPWHighRisk(ofDate(2021, 9, 8, 16)),
-                createPWDwellerMustDie(ofDate(2021, 10, 8, 16)),
-                createPWQuantumWorld(ofDate(2021, 11, 8, 16)),
-                createPWButchersDelight(ofDate(2022, 0, 8, 16)),
+                createPWHappyBuilder(ofDate(2021, 8, 8, 16), ofDate(2021, 9, 6, 16)),
+                createPWHighRisk(ofDate(2021, 9, 6, 16), ofDate(2021, 10, 6, 16)),
+                createPWDwellerMustDie(ofDate(2021, 10, 6, 16), ofDate(2021, 11, 6, 16)),
+                createPWQuantumWorld(ofDate(2021, 11, 6, 16), ofDate(2022, 0, 6, 16)),
+                createPWButchersDelight(ofDate(2022, 0, 6, 16), ofDate(2022, 1, 6, 16)),
 
-                createPWHappyBuilder(ofDate(2022, 1, 8, 16)),
-                createPWHighRisk(ofDate(2022, 2, 8, 16)),
-                createPWDwellerMustDie(ofDate(2022, 3, 8, 16)),
-                createPWQuantumWorld(ofDate(2022, 4, 8, 16)),
-                createPWButchersDelight(ofDate(2022, 5, 8, 16))
+                createPWHappyBuilder(ofDate(2022, 1, 6, 16), ofDate(2022, 2, 6, 16)),
+                createPWHighRisk(ofDate(2022, 2, 6, 16), ofDate(2022, 3, 6, 16)),
+                createPWDwellerMustDie(ofDate(2022, 3, 6, 16), ofDate(2022, 4, 6, 16)),
+                createPWQuantumWorld(ofDate(2022, 4, 6, 16), ofDate(2022, 5, 6, 16)),
+                createPWButchersDelight(ofDate(2022, 5, 6, 16), ofDate(2022, 6, 6, 16))
 
-            ]
+            ];
 
             // --------------------------------------------------------------------------------------------------------------
 
