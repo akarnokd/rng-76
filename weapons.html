@@ -27,7 +27,7 @@
     </head>
     <body style="height: 90%">
         <center>
-            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Weapon Damage Calculator (v3.8.0)</span>
+            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Weapon Damage Calculator (v3.9.0)</span>
             <br/>
             <!-- <i>(Notification here)</i> -->
         <br/>
@@ -6671,6 +6671,40 @@
 
             // xoxoxoxoxoxoxoxoxoxoxoxoxoxoxoxoxoxoxoxoxoxoxoxoxoxoxoxoxoxoxoxoxoxoxoxoxoxoxoxoxoxo
 
+            var food = [
+                {
+                    id: "BlightSoup",
+                    type: "food",
+                    desc: "Blight Soup (+20% Crit)",
+                    mode: "Melee,Ranged",
+                    criticalDamage: 20,
+                    mutation: "herbivore",
+                    exclude: ""
+                },
+                {
+                    id: "MutantHoundChops",
+                    type: "food",
+                    desc: "Mutant Hound Chops (+10% Melee DMG)",
+                    mode: "Melee",
+                    mutation: "carnivore",
+                    damage: 10,
+                    exclude: "meleebonusdamage"
+                },
+                {
+                    id: "MutantHoundStew",
+                    type: "food",
+                    desc: "Mutant Hound Stew (+15% Melee DMG)",
+                    mode: "Melee",
+                    mutation: "carnivore",
+                    damage: 15,
+                    exclude: "meleebonusdamage"
+                },
+            ];
+
+            food.sort(function(a, b) {
+                return a.desc.localeCompare(b.desc);
+            });
+
             // chem configurations
             var chems = [
                     {
@@ -7127,6 +7161,13 @@
                     mode: "Melee,Ranged",
                     teamDamage: 5
                 },
+                {
+                    id: "LiveAndLove3",
+                    type: "magazine",
+                    desc: "Live... # 3 (+50% vegetable effect)",
+                    mode: "Melee,Ranged",
+                    vegetableBuff: 50
+                },
                 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
                 {
                     id: "TalesFromWVHills1",
@@ -7353,6 +7394,9 @@
             // create a mapping of the buffs
 
             var buffMap = new Map();
+            for (var f of food) {
+                buffMap.set(f.id, f);
+            }
             for (var chm of chems) {
                 buffMap.set(chm.id, chm);
             }
@@ -7512,6 +7556,13 @@
                 "+25% critical damage, -4 Strength (and +4 Perception)."
                 + "<br>The <b>Strange in Numbers</b> perk increases the bonus to 31.25%."
                 + "<br>The <b>Class Freak</b> perk ranks reduce the strength penalty to -3, -2 and -1 respectively."
+            );
+            infoMap.set("foodmutation", 
+                "<br><b>Carnivore</b>: Meat based foods are 100% more effective."
+                + "<br>- The <b>Strange in Numbers</b> perk increases the bonus to 150%."
+                + "<br><br><b>Herbivore</b>: Plant based foods are 100% more effective."
+                + "<br>- The <b>Strange in Numbers</b> perk increases the bonus to 150%."
+                + "<br>- Live and Love #3 (Magazine) increases the bonus by 50% multiplicatively."
             );
             infoMap.set("speeddemon", 
                 "+30% faster reload speed (and +20% movement speed)."
@@ -7676,6 +7727,14 @@
                 + "<br>Chems are mutually exlusive and you can have only one active at a time."
                 + "<br>Chems not affecting the current weapon or not related to damage output are not listed."
                 + "<br>Effects of the individual chems not related to damage are not displayed."
+            );
+            infoMap.set("food", 
+                "Select food(s) to apply extra bonuses."
+                + "<br>- Certain foods are mutually exclusive with each other."
+                + "<br>- Food not affecting the current weapon or not related to damage output are not listed."
+                + "<br>- Effects of the individual food not related to damage are not displayed."
+                + "<br>- <b>Carnivore</b>, <b>Herbivore</b> mutations increases the bonus effect by 100%"
+                + "<br>&nbsp;&nbsp;(or 150% when using <b>Strange In Numbers</b> perk)."
             );
             infoMap.set("alcohols", 
                 "Select an alcohol to apply extra bonuses."
@@ -9038,9 +9097,38 @@
 
                 createYesNo(tbl, index, type, "Grounded", "grounded", "grounded", "Grounded");
                 createYesNo(tbl, index, type, "Eagle Eyes", "eagleeyes", "eagleeyes", "EagleEyes");
+
                 if (type === "Ranged") {
                     createYesNo(tbl, index, type, "Speed Demon", "speeddemon", "speeddemon", "SpeedDemon");
                 }
+                row = tbl.insertRow(tbl.rows.length);
+                    cell1 = row.insertCell(0);
+                    cell1.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;Food-related" + info("foodmutation");
+                    cell2 = row.insertCell(1);
+                    cell2.innerHTML = "<select id='foodmutation" + index + "'></select>"
+
+                    var sel = document.getElementById("foodmutation" + index);
+                    sel.linkId = "FoodMutation";
+                    opt = document.createElement("option");
+                    sel.add(opt);
+                    opt.text = "None";
+                    opt = document.createElement("option");
+                    sel.add(opt);
+                    opt.text = "Carnivore";
+                    opt.value = "carnivore";
+                    opt.linkId = "C";
+                    opt = document.createElement("option");
+                    sel.add(opt);
+                    opt.text = "Herbivore";
+                    opt.value = "herbivore";
+                    opt.linkId = "H";
+
+                    sel.selectedIndex = 0;
+                    sel.onchange = function() {
+                        recalculate(tbl, index, type);
+                    };
+
+
                 createYesNo(tbl, index, type, "Any other mutation", "mutation", "mutation", "Mutation");
                 row = tbl.insertRow(tbl.rows.length);
                     cell1 = row.insertCell(0);
@@ -9084,6 +9172,18 @@
                 return false;
             }
 
+            function foodExclusion(foodCb, foodEntry, allFood) {
+                if (foodCb.checked) {
+                    for (var af of allFood) {
+                        if (af.checkbox != foodCb) {
+                            if (af.foodEntry.exclude === foodEntry.exclude) {
+                                af.checkbox.checked = false;
+                            }
+                        }
+                    }
+                }
+            }
+
             function createOther(tbl, index, type) {
                 var weapIdx = document.getElementById("weapon" + index).selectedIndex;
                 var weap = allWeapons.get(type)[weapIdx];
@@ -9092,6 +9192,47 @@
                 var cell1 = row.insertCell(0);
                 cell1.innerText = "Consumables";
                 var cell2 = row.insertCell(1);
+
+                // food
+                row = tbl.insertRow(tbl.rows.length);
+                cell1 = row.insertCell(0);
+                cell1.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;Food" + info("food");
+                cell2 = row.insertCell(1);
+                var foodDiv = document.createElement("div");
+                cell2.appendChild(foodDiv);
+                foodDiv.style.width = "100%";
+                foodDiv.style.height = "50px";
+                foodDiv.style.overflowY = "auto";
+                foodDiv.style.border = "1px solid #E0E0E0";
+
+                var fidx = 0;
+                let foodList = [];
+                for (let f of food) {
+                    if (!f.mode.includes(type)) {
+                        continue;
+                    }
+                    if (fidx > 0) {
+                        foodDiv.appendChild(document.createElement("br"));
+                    }
+                    let fcheck = document.createElement("input");
+                    foodDiv.appendChild(fcheck);
+                    fcheck.type = "checkbox";
+                    fcheck.id = "Food_" + index + "_" + f.id;
+                    fcheck.linkId = f.id;
+
+                    var ftxt = document.createElement("label");
+                    foodDiv.appendChild(ftxt);
+                    ftxt.htmlFor = fcheck.id;
+                    ftxt.innerText = f.desc;
+                    fidx++;
+
+                    foodList.push({ checkbox: fcheck, foodEntry: f });
+
+                    fcheck.onchange = evt => {
+                        foodExclusion(fcheck, f, foodList);
+                        recalculate(tbl, index, type);
+                    };
+                }
 
                 // chems
                 row = tbl.insertRow(tbl.rows.length);
@@ -9586,6 +9727,12 @@
 
                 // prepare selectable buffs
                 var buffOpts = [];
+                for (var f of food) {
+                    var foodsel = document.getElementById("Food_" + index + "_" + f.id);
+                    if (foodsel != null && foodsel.checked) {
+                        buffOpts.push(f);
+                    }
+                }
                 var chemsel = document.getElementById("chem" + index);
                 if (chemsel.selectedIndex > 0) {
                     buffOpts.push(buffMap.get(valueOf(chemsel)));
@@ -9666,6 +9813,7 @@
                 var isCrit = document.getElementById("crit" + index + "_yes").checked;
 
                 var isEagleEyes = document.getElementById("eagleeyes" + index + "_yes").checked;
+                var foodMutation = valueOf(document.getElementById("foodmutation" + index));
 
                 // adjust for melee strength
                 // ~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -10266,11 +10414,24 @@
                 var sneakBonusMultiply = 1;
                 var isSneaking = document.getElementById("sneaking" + index + "_yes").checked;
 
+                var isLiveAndLove3 = false;
+                // preselect certain buffs
+                for (var buff of buffOpts) {
+                    if (buff.id === "LiveAndLove3") {
+                        isLiveAndLove3 = true;
+                    }
+                }
                 // apply selectable buffs
                 for (var buff of buffOpts) {
                     var pmult = 1 + partyMultiplier;
                     if (buff.type !== "alcohol" || buff.nopartyboy) {
                         pmult = 1;
+                    }
+                    if (buff.mutation && buff.mutation === foodMutation) {
+                        pmult += 1;
+                        if (isStrangeInNumbers) {
+                            pmult += 0.5;
+                        }
                     }
 
                     if (buff.damage !== undefined) {
@@ -10324,6 +10485,9 @@
                         totalDamageEnergyMultiply.push(udmg * buffMultiply);
                     }
                     if (buff.criticalDamage !== undefined) {
+                        if (buff.mutation === "herbivore" && isLiveAndLove3) {
+                            pmult *= 1.5;
+                        }
                         critMultiplier += buff.criticalDamage * pmult;
                     }
                     if (buff.damagePoison) {
@@ -10739,6 +10903,7 @@
                 var tal = document.getElementById("talons" + index + "_yes");
                 var talons = tal != null && tal.checked;
                 var eae = document.getElementById("eagleeyes" + index + "_yes").checked;
+                var food = document.getElementById("foodmutation" + index).selectedIndex > 0;
                 
                 var spd = document.getElementById("speeddemon" + index + "_yes");
                 var sde = spd != null && spd.checked;
@@ -10750,7 +10915,8 @@
                     + (grounded ? 1 : 0)
                     + (talons ? 1 : 0)
                     + (eae ? 1 : 0)
-                    + (sde ? 1 : 0);
+                    + (sde ? 1 : 0)
+                    + (food ? 1 : 0);
                 return mutationCount;
             }
 
@@ -11225,7 +11391,7 @@
                         if (nodeOther.selectedIndex !== undefined) {
                             nodeOther.selectedIndex = node.selectedIndex;
                         } else
-                        if (nodeOther.type === "radio") {
+                        if (nodeOther.type === "radio" || nodeOther.type === "checkbox") {
                             nodeOther.checked = node.checked;
                         } else
                         if (nodeOther.value !== undefined) {
@@ -11258,7 +11424,7 @@
                                     linkStr += node.linkId + "-" + opt.linkId + "_";
                                 }
                             } else
-                            if (node.type === "radio") {
+                            if (node.type === "radio" || node.type === "checkbox") {
                                 if (node.checked) {
                                     linkStr += node.linkId + "_"
                                 }
@@ -11354,7 +11520,7 @@
                         var paramVal = paramMap.get(node.linkId);
 
                         if (paramVal != null) {
-                            if (node.type === "radio") {
+                            if (node.type === "radio" || node.type === "checkbox") {
                                 if (!node.id.startsWith("wt")) {
                                     node.checked = "true" === paramVal;
                                 }
