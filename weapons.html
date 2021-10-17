@@ -1861,7 +1861,8 @@
                             name: "Flamer",
                             damageMultPercent: 25,
                             automatic: true,
-                            speedSet: 9.1
+                            speedSet: 9.1,
+                            clipSizeSet: 300
                         },
                         {
                             name: "Splitter",
@@ -9705,6 +9706,7 @@
 
                 var clipSizeMult = 1;
                 var clipSizeAdd = 0;
+                var clipSizeSet = 0;
                 var reloadTime = weap.reloadTime ? weap.reloadTime : 0;
                 var reloadTimeMult = [];
                 var reloadTimeAdd = [];
@@ -10119,6 +10121,9 @@
                         }
                         if (modInfo.clipSizeAdd) {
                             clipSizeAdd += modInfo.clipSizeAdd;
+                        }
+                        if (modInfo.clipSizeSet) {
+                            clipSizeSet = modInfo.clipSizeSet;
                         }
                         if (modInfo.automatic || modInfo.name.toLowerCase().includes("automatic")) {
                             isAutomatic = true;
@@ -10578,10 +10583,17 @@
 
                 var clipSize = 0;
                 if (isReload) {
-                    if (clipSizeAdd < 0 && clipSizeMult == 1) {
-                        clipSize = weap.clipSize + clipSizeAdd;
+                    if (clipSizeSet > 0) {
+                        clipSize = clipSizeSet;
+                        if (clipSizeMult > 1) {
+                            clipSize += clipSizeMult * weap.clipSize;
+                        }
                     } else {
-                        clipSize = clipSizeMult * weap.clipSize + Math.max(0, clipSizeAdd);
+                        if (clipSizeAdd < 0 && clipSizeMult == 1) {
+                            clipSize = weap.clipSize + clipSizeAdd;
+                        } else {
+                            clipSize = clipSizeMult * weap.clipSize + Math.max(0, clipSizeAdd);
+                        }
                     }
 
                     if (weap.category.includes("Heavy") && weap.kind === "laser") {
