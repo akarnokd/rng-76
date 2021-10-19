@@ -8608,6 +8608,60 @@
                     scoreGainXP2500, 1,
                 ], [ dailyOpsWatoga, dailyOpsCultists, [ dailyOpsSavageStrike, dailyOpsRegenerating ], dailyOpsDecryption]);
 
+            function scoreSpookyCandyBowl(offset, count) {
+                return {
+                        name: times("HALLOWEEN: Build Spooky Candy Bowl and<br>give out candy from your C.A.M.P.", count),
+                        offset: offset,
+                        period: 1400,
+                    };
+            }
+            function scoreCompleteDailyCandyHandout(offset, count) {
+                return {
+                        name: times("HALLOWEEN: Complete Give out Candy Daily Challenge", count),
+                        offset: offset,
+                        period: 1400,
+                    };
+            }
+            function scoreKillSpookyScorched(offset, count) {
+                return {
+                        name: times("HALLOWEEN: Kill Spooky Scorched", count),
+                        offset: offset,
+                        period: 1400,
+                    };
+            }
+            function scoreTrickOrTreat(offset, count) {
+                return {
+                        name: times("HALLOWEEN: Trick Or Treat from other's Candy Bowl", count),
+                        offset: offset,
+                        period: 1400,
+                    };
+            }
+
+            addWeekly(challengesWeeklyEra9.options, 41, scoreFixedGainXP10000Rank100);
+            addWeekly(challengesWeeklyEra9.options, 41, scoreLevelUp3);
+            addWeekly(challengesWeeklyEra9.options, 41, scoreCompleteGoldStar);
+            addWeekly(challengesWeeklyEra9.options, 41, scoreCompleteDailyOps, 5);
+            addWeekly(challengesWeeklyEra9.options, 41, scoreCompleteEvents10);
+            addWeekly(challengesWeeklyEra9.options, 41, scoreCompleteEncryptid, 1);
+            addWeekly(challengesWeeklyEra9.options, 41, scoreCompleteDailyCandyHandout, 5);
+            addWeekly(challengesWeeklyEra9.options, 41, scoreKillSpookyScorched, 50);
+            addWeekly(challengesWeeklyEra9.options, 41, scoreKillCreatureCostume, 100);
+            addWeekly(challengesWeeklyEra9.options, 41, scoreKillGlowing, 10);
+            addWeekly(challengesWeeklyEra9.options, 41, scoreRepairArmorWeaponPA, 25);
+            addDaily(challengesDailyEra9, 41, [
+                    scoreCompleteDailyChallenge, 5,
+                    scoreLevelUp, 1,
+                    scoreCompleteEventCostume, 1,
+                    scoreCompleteDailyOps, 1,
+                    scoreCollectPurifiedWater, 5,
+                    scoreSpookyCandyBowl, 5,
+                    scoreKillSpookyScorched, 5,
+                    scoreTrickOrTreat, 5,
+                    scoreKillCryptid3, 3,
+                    scoreKillLegendary, 1,
+                    scoreGainXP2500, 1,
+                ], [ dailyOpsV96, dailyOpsMoleminers, [ dailyOpsPiercingGaze, dailyOpsResilient ], dailyOpsUplink]);
+
             addPlaceholders(challengesDailyEra9, scoreDailyplaceholder, era9Length);
             addPlaceholders(challengesWeeklyEra9, scoreWeeklyplaceholder, era9Length);
 
