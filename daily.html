@@ -50,6 +50,7 @@
             var oneHourLaterSince = ofDate(2020, 5, 30, 15);
             var shiftDate2 = ofDate(2020, 10, 3, 16);
             var shiftDate3 = ofDate(2021, 2, 14, 16);
+            var shiftDate4 = ofDate(2021, 10, 7, 16);
 
             function normalizeDate(date) {
                 if (date < oneHourLaterSince) {
@@ -62,8 +63,11 @@
                 if (date < shiftDate3) {
                     date.setUTCHours(17, 0, 0, 0);
                 }
-                else {
+                if (date < shiftDate4) {
                     date.setUTCHours(16, 0, 0, 0);
+                }
+                else {
+                    date.setUTCHours(17, 0, 0, 0);
                 }
             }
 
@@ -8815,6 +8819,19 @@
                     scoreKillSpookyScorched, 5,
                     scoreTrickOrTreat, 5,
                 ], [ dailyOpsWatogaHighschool, dailyOpsCultists, [ dailyOpsSavageStrike, dailyOpsSwift ], dailyOpsDecryption]);
+            addDaily(challengesDailyEra9, 53, [
+                    scoreCompleteDailyChallenge, 5,
+                    scoreLevelUp, 1,
+                    scoreCompleteEventCostume, 1,
+                    scoreCompleteDailyOps, 1,
+                    scoreKillCreatureCostume, 25,
+                    scoreKillLegendary, 1,
+                    scorePickLock, 1,
+                    scoreGainXP2500, 1,
+                    scoreSpookyCandyBowl, 1,
+                    scoreKillSpookyScorched, 5,
+                    scoreTrickOrTreat, 5,
+                ], [ dailyOpsWatogaHighschool, dailyOpsCultists, [ dailyOpsSavageStrike, dailyOpsSwift ], dailyOpsDecryption]);
 
             addPlaceholders(challengesDailyEra9, scoreDailyplaceholder, era9Length);
             addPlaceholders(challengesWeeklyEra9, scoreWeeklyplaceholder, era9Length);
@@ -10951,6 +10968,7 @@
 
                 var endDate = new Date(selectedDate);
                 endDate.setDate(endDate.getDate() + 1);
+                normalizeDate(endDate);
 
                 var now = new Date();
 
