@@ -1390,9 +1390,9 @@
                 }
             }
 
-            function scoreUsePhotomodeTeammate(offset) {
+            function scoreUsePhotomodeTeammate(offset, count) {
                 return {
-                    name: "Use photomode at a teammate's C.A.M.P.",
+                    name: times("Use photomode at a teammate's C.A.M.P.", count),
                     offset: offset,
                     period: 1400
                 };
@@ -1750,7 +1750,7 @@
                     scoreCompleteOneEvent(22, 3),
                     scoreKillCreatureInGroup(22, 25),
                     scoreKillCryptid3(22),
-                    scoreUsePhotomodeTeammate(22),
+                    scoreUsePhotomodeTeammate(22, 1),
                     scoreNWDeployCamp(22, 3),
 
                     scoreBuySellItem(23, 3),
@@ -2024,7 +2024,7 @@
                     scoreKillDeathclaw(56, 1),
                     scoreKillMoleminer(56, 10),
                     scoreRepairArmorWeapon(56, 5),
-                    scoreUsePhotomodeTeammate(56),
+                    scoreUsePhotomodeTeammate(56, 1),
                     scoreNWSurviveMinutes(56, 15),
 
                     scoreBuildWallDecor(57, 5),
@@ -2960,7 +2960,7 @@
                     scoreCompleteOneEvent(10, 1),
                     scoreConsumeAlcohol(10, 5),
                     scoreKillLegendary(10, 1),
-                    scoreUsePhotomodeTeammate(10),
+                    scoreUsePhotomodeTeammate(10, 1),
                     scoreNWDeployCamp(10, 1),
                     scoreBonusWeekDaily(10),
 
@@ -3062,7 +3062,7 @@
                     scoreCompleteDailyOps(22, 1),
                     scoreCompleteOneEvent(22, 1),
                     scoreDestroyRobot(22, 15),
-                    scoreUsePhotomodeTeammate(22),
+                    scoreUsePhotomodeTeammate(22, 1),
                     scoreVisitAnotherShelter(22, 1),
                     scoreVisitOwnShelter(22, 1),
                     scoreNWUseStimpak(22, 1),
@@ -3614,7 +3614,7 @@
                     scoreCompleteDailyOps(37, 1),
                     scoreCompleteOneEvent(37, 1),
                     scoreKillCreature25(37),
-                    scoreUsePhotomodeTeammate(37),
+                    scoreUsePhotomodeTeammate(37, 1),
                     scoreVisitAnotherShelter(37, 1),
                     scoreNWUseStimpak(37, 3),
 
@@ -3892,7 +3892,7 @@
                     scoreCompleteOneEvent(65, 1),
                     scoreCraftAmmo(65, 50),
                     scoreKillScorched(65, 15),
-                    scoreUsePhotomodeTeammate(65),
+                    scoreUsePhotomodeTeammate(65, 1),
                     scoreNWSurviveMinutes(65, 5),
 
                     scoreCompleteDailyChallenge(66, 5),
@@ -8997,7 +8997,7 @@
                     scoreCompleteDailyOps, 1,
                     scoreDestroyRobot, 15,
                     scoreUsePhotomodeTeammate, 3,
-                    scoreRepairArmorWeaponPA, 5,
+                    scoreRepairArmorWeaponPA, 3,
                     scoreVisitAnotherShelter, 1,
                     scoreGainXP2500, 1,
                 ], [ dailyOpsUncanny, dailyOpsRobots, [ dailyOpsPiercingGaze, dailyOpsResilient ], dailyOpsUplink]);
