@@ -1306,9 +1306,9 @@
                             period: 1400,
                         };
             }
-            function scoreUsePhotomodeGroup(offset) {
+            function scoreUsePhotomodeGroup(offset, count) {
                 return {
-                            name: "Use the photomode while in a group",
+                            name: times("Use the photomode while in a group", count),
                             offset: offset,
                             period: 1400,
                         };
@@ -10091,6 +10091,23 @@
                     "Plan: Weight bench",
                     "Plan: Wendigo tube",
                 ],
+                "P17": [
+                    "Plan: Cattle Prod",
+                    "Plan: War Galive",
+                    "Plan: Secret Service Chest Piece",
+                    "Plan: Secret Service Helment",
+                    "Plan: Secret Service Left Arm",
+                    "Plan: Secret Service Left Leg",
+                    "Plan: Secret Service Right Arm",
+                    "Plan: Sectet Service Right Leg",
+                    "Plan: Super Reactor",
+                    "Plan: Sympto-Matic",
+                    "Plan: Farmable Dirt Tiles",
+                    "Plan: Gauss Minigun Gunner Sights",
+                    "Plan: Gauss Minigun Tesla Capacitor",
+                    "Plan: Gauss Minigun Tesla Dynamo",
+                    "Plan: Chemist's Backpack",
+                ],
                 "P?": [
                     "TBD"
                 ]
@@ -10729,6 +10746,7 @@
                 createCapsOPlenty(ofDate(2021, 10, 25, 17), ofDate(2021, 10, 29, 17)),
                 createScripSurplus2(ofDate(2021, 10, 25, 17), ofDate(2021, 10, 29, 17)),
                 createPurveyor(ofDate(2021, 10, 25, 17), ofDate(2021, 10, 29, 17), 25, false, true),
+                createMinerva(ofDate(2021, 10, 29, 17), ofDate(2021, 11, 1, 17), "Big Sale @ Crater", "P17"),
                 createDoubleMutations(ofDate(2021, 11, 2, 17), ofDate(2021, 11, 6, 17)),
                 {
                     validStart: ofDate(2021, 11, 7, 17),
