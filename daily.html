@@ -9224,6 +9224,28 @@
                     scoreGainXP2500, 1,
                 ], dops(dailyOpsWatogaHighschool, dailyOpsMoleminers, dailyOpsCloaked, true));
 
+            addWeekly(challengesWeeklyEra9.options, 83, scoreFixedGainXP10000Rank100);
+            addWeekly(challengesWeeklyEra9.options, 83, scoreLevelUp3);
+            addWeekly(challengesWeeklyEra9.options, 83, scoreCompleteGoldStar);
+            addWeekly(challengesWeeklyEra9.options, 83, scoreCompleteDailyOps, 5);
+            addWeekly(challengesWeeklyEra9.options, 83, scoreCompleteEvents10);
+            addWeekly(challengesWeeklyEra9.options, 83, scoreBuildWallDecor, 15);
+            addWeekly(challengesWeeklyEra9.options, 83, scoreCollectCaps, 1250);
+            addWeekly(challengesWeeklyEra9.options, 83, scorekillHugeCreaturesN, 5);
+            addWeekly(challengesWeeklyEra9.options, 83, scoreKillLegendary, 10);
+            addWeekly(challengesWeeklyEra9.options, 83, scoreVisitOwnShelter, 1);
+            addDaily(challengesDailyEra9, 83, [
+                    scoreCompleteDailyChallenge, 5,
+                    scoreLevelUp, 1,
+                    scoreCompleteOneEvent, 1,
+                    scoreCompleteDailyOps, 1,
+                    scoreBuildFloorWallCamp, 5,
+                    scoreBuySellItem, 1,
+                    scoreKillCreature25, 25,
+                    scoreKillGlowing, 3,
+                    scoreGainXP2500, 1,
+                ], dops(dailyOpsWestTec, dailyOpsMoleminers, dailyOpsResilient, false));
+
             addPlaceholders(challengesDailyEra9, scoreDailyplaceholder, era9Length);
             addPlaceholders(challengesWeeklyEra9, scoreWeeklyplaceholder, era9Length);
 
