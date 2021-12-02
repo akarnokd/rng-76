@@ -10804,6 +10804,60 @@
                 createMinerva(ofDate(2021, 11, 23, 17), ofDate(2021, 11, 27, 17), "Big Sale @ TBD", "P?"),
                 createDoubleXP(ofDate(2021, 11, 30, 17), ofDate(2022, 0, 3, 17)),
                 createDoubleMutations(ofDate(2021, 11, 30, 17), ofDate(2022, 0, 3, 17)),
+                // ------------------------------------------
+                createPurveyor(ofDate(2022, 0, 6, 17), ofDate(2022, 0, 10, 17), 0, true, true),
+                createTreasureHunt(ofDate(2022, 0, 13, 17), ofDate(2022, 0, 17, 17)),
+                createDoubleMutations(ofDate(2022, 0, 13, 17), ofDate(2022, 0, 17, 17)),
+                createDoubleScore(ofDate(2022, 0, 20, 17), ofDate(2022, 0, 24, 17)),
+                createGoldRush2(ofDate(2022, 0, 20, 17), ofDate(2022, 0, 24, 17)),
+                createScripSurplus2(ofDate(2022, 0, 27, 17), ofDate(2022, 0, 31, 17)),
+                createDoubleMutations(ofDate(2022, 0, 27, 17), ofDate(2022, 0, 31, 17)),
+
+                createPurveyor(ofDate(2022, 1, 3, 17), ofDate(2022, 1, 7, 17), 25, false, true),
+                createDoubleScore(ofDate(2022, 1, 10, 17), ofDate(2022, 1, 14, 17)),
+                createDoubleMutations(ofDate(2022, 1, 10, 17), ofDate(2022, 1, 14, 17)),
+                {
+                    validStart: ofDate(2022, 1, 10, 17),
+                    validEnd: ofDate(2022, 1, 22, 17),
+                    title: "Fasnacht",
+                    options: [
+                        {
+                            name: "Visit Helvetia every exact hour to start the public event",
+                            offset: 0,
+                            period: 1
+                        },
+                        {
+                            name: "Perform 5 tasks to have the robots in place",
+                            offset: 0,
+                            period: 1,
+                        },
+                        {
+                            name: "Protect the robots at 3 ambush points",
+                            offset: 0,
+                            period: 1,
+                            subchallenges: [
+                                {
+                                    name: "Use Friendly Fire and Shishkebab to heal the robots."
+                                },
+                                {
+                                    name: "Focus on grenade/molotov throwing Super Mutants."
+                                }
+                            ]
+                        },
+                        {
+                            name: "Rewards: <a href='https://docs.google.com/spreadsheets/d/1DVUs-pRpATIpE6HrNoEySblUVnBUm-ry3RG1KTaAyzc/edit#gid=0' target='_blank'>depend on how many robots make it</a>.",
+                            offset: 0,
+                            period: 1
+                        },
+                    ]
+                },
+                createBonusChallengesDays(ofDate(2022, 1, 15, 17), ofDate(2022, 1, 22, 17)),
+                createGoldRush2(ofDate(2022, 1, 24, 17), ofDate(2022, 1, 28, 17)),
+                createDoubleMutations(ofDate(2022, 1, 24, 17), ofDate(2022, 1, 28, 17)),
+                createDoubleMutations(ofDate(2022, 2, 10, 17), ofDate(2022, 2, 14, 17)),
+                createDoubleScore(ofDate(2022, 2, 17, 17), ofDate(2022, 2, 21, 17)),
+                createTreasureHunt(ofDate(2022, 2, 24, 17), ofDate(2022, 2, 28, 17)),
+                createDoubleMutations(ofDate(2022, 2, 24, 17), ofDate(2022, 2, 28, 17)),
             ];
 
             function ofDate(year, month, day, hour) {
