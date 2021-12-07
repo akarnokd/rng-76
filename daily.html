@@ -8041,7 +8041,7 @@
             // ERA 9
             // ===============================================================================================================
 
-            var era9Length = 90;
+            var era9Length = 91;
 
             var challengesDailyEra9 = {
                 validStart: ofDate(2021, 8, 8, 16),
@@ -9312,8 +9312,37 @@
                     scoreGainXP2500, 1,
                 ], dops(dailyOpsWatoga, dailyOpsCultists, dailyOpsRelentless, false));
 
+            challengesWeeklyEra9.options.push({
+                name: "No weekly challenges yet, Wednesday",
+                offset: 90,
+                period: 1400,
+                dontremove: true,
+            });
+
             addPlaceholders(challengesDailyEra9, scoreDailyplaceholder, era9Length);
             addPlaceholders(challengesWeeklyEra9, scoreWeeklyplaceholder, era9Length);
+
+            // ===============================================================================================================
+            // ERA 10
+            // ===============================================================================================================
+
+            var era10Length = 91;
+
+            var challengesDailyEra10 = {
+                validStart: ofDate(2021, 11, 8, 17),
+                validEnd: plusDays(ofDate(2021, 11, 8, 17), era10Length),
+                options: []
+            };
+            var challengesWeeklyEra10 = {
+                validStart: ofDate(2021, 11, 8, 17),
+                validEnd: plusDays(ofDate(2021, 11, 8, 17), era10Length),
+                options: []
+            };
+            challenges.push(challengesDailyEra10);
+            challengesWeekly.push(challengesWeeklyEra10);
+
+            addPlaceholders(challengesDailyEra10, scoreDailyplaceholder, era10Length);
+            addPlaceholders(challengesWeeklyEra10, scoreWeeklyplaceholder, era10Length);
 
             // --------------------------------------------------------------------------------------------------------------
             // Community events
@@ -10855,7 +10884,7 @@
                 createDoubleMutations(ofDate(2021, 11, 2, 17), ofDate(2021, 11, 7, 17)),
                 createMinerva(ofDate(2021, 11, 6, 17), ofDate(2021, 11, 8, 17), "Emporium @ Fort Atlas", "P18"),
                 {
-                    validStart: ofDate(2021, 11, 7, 17),
+                    validStart: ofDate(2021, 11, 8, 17),
                     validEnd: ofDate(2021, 11, 21, 17),
                     title: "Mothman Equinox Seasonal Event",
                     options: []
@@ -11021,15 +11050,15 @@
             };
             var season6 = {
                 validStart: ofDate(2021, 8, 8, 16),
-                validEnd: plusDays(ofDate(2021, 8, 8, 16), 90),
+                validEnd: plusDays(ofDate(2021, 8, 8, 17), 91),
                 title: "Season 6: The Unstoppables vs.<br>The Diabolicals",
                 options: [
                     
                 ]
             };
             var season7 = {
-                validStart: ofDate(2021, 11, 7, 16),
-                validEnd: plusDays(ofDate(2021, 11, 7, 16), 70),
+                validStart: ofDate(2021, 11, 8, 17),
+                validEnd: plusDays(ofDate(2021, 11, 8, 17), 70),
                 title: "Season 7: Zorbo's Revenge",
                 options: [
                     
@@ -11041,7 +11070,7 @@
             fillInSeason(season3, 133, "LR3");
             fillInSeason(season4, 71, "LR4");
             fillInSeason(season5, 62, "LR5");
-            fillInSeason(season6, 90, "LR6");
+            fillInSeason(season6, 91, "LR6");
             fillInSeason(season7, 70, "LR7");
 
             for (var i = 56; i < 91; i++) {
