@@ -9360,6 +9360,57 @@
             challenges.push(challengesDailyEra10);
             challengesWeekly.push(challengesWeeklyEra10);
 
+            function scoreCompleteEventMothman(offset, count) {
+                return {
+                            name: times("Complete the Event: The Mothman Equinox", count),
+                            offset: offset,
+                            period: 1400,
+                        };
+            }
+            function scoreCompleteDailyMothman(offset, count) {
+                return {
+                            name: times("Complete the Daily Challenge: The Mothman Equinox", count),
+                            offset: offset,
+                            period: 1400,
+                        };
+            }
+            function scoreKillCreatureXerxoGun(offset, count) {
+                return {
+                            name: times("Kill a creature with Xerxo's Gamma Ray Gun", count),
+                            offset: offset,
+                            period: 1400,
+                        };
+            }
+            function scoreCollectScrip(offset, count) {
+                return {
+                            name: times("Collect Scrip", count),
+                            offset: offset,
+                            period: 1400,
+                        };
+            }
+
+
+            addWeeklyWednesday(challengesWeeklyEra10.options, -1, scoreFixedGainXP10000Rank100);
+            addWeeklyWednesday(challengesWeeklyEra10.options, -1, scoreLevelUp3);
+            addWeeklyWednesday(challengesWeeklyEra10.options, -1, scoreCompleteDailyOps, 5);
+            addWeeklyWednesday(challengesWeeklyEra10.options, -1, scoreCompleteGoldStar);
+            addWeeklyWednesday(challengesWeeklyEra10.options, -1, scoreCompleteEvents10);
+            addWeeklyWednesday(challengesWeeklyEra10.options, -1, scoreBuildWallDecor, 15);
+            addWeeklyWednesday(challengesWeeklyEra10.options, -1, scoreCollectScrip, 500);
+            addWeeklyWednesday(challengesWeeklyEra10.options, -1, scoreCompleteDailyMothman, 5);
+            addWeeklyWednesday(challengesWeeklyEra10.options, -1, scoreKillGlowing, 10);
+            addDaily(challengesDailyEra10, 0, [
+                    scoreCompleteDailyChallenge, 5,
+                    scoreLevelUp, 1,
+                    scoreCompleteDailyOps, 1,
+                    scorePlantCrop, 5,
+                    scoreKillCultist, 15,
+                    scoreCompleteEventMothman, 1,
+                    scoreKillCreatureXerxoGun, 3,
+                    scoreCollectScrip, 100,
+                    scoreGainXP2500, 1,
+                ], dops(dailyOpsWatoga, dailyOpsEagles, dailyOpsToxic, false));
+
             addPlaceholders(challengesDailyEra10, scoreDailyplaceholder, era10Length);
             addPlaceholders(challengesWeeklyEra10, scoreWeeklyplaceholder, era10Length);
 
