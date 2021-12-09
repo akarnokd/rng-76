@@ -9388,6 +9388,13 @@
                             period: 1400,
                         };
             }
+            function scoreCollectBullion(offset, count) {
+                return {
+                            name: times("Collect Gold Bullion", count),
+                            offset: offset,
+                            period: 1400,
+                        };
+            }
 
 
             addWeeklyWednesday(challengesWeeklyEra10.options, -1, scoreFixedGainXP10000Rank100);
@@ -9410,6 +9417,17 @@
                     scoreCollectScrip, 100,
                     scoreGainXP2500, 1,
                 ], dops(dailyOpsWatoga, dailyOpsEagles, dailyOpsToxic, false));
+            addDaily(challengesDailyEra10, 1, [
+                    scoreCompleteDailyChallenge, 5,
+                    scoreLevelUp, 1,
+                    scoreCompleteDailyOps, 1,
+                    scoreBuildFloorWallCamp, 5,
+                    scoreCollectBullion, 50,
+                    scoreCompleteEventMothman, 1,
+                    scoreKillCryptid1, 1,
+                    scoreUsePhotomodeTeammate, 1,
+                    scoreGainXP2500, 1,
+                ], dops(dailyOpsV94, dailyOpsCultists, dailyOpsRegenerating, true));
 
             addPlaceholders(challengesDailyEra10, scoreDailyplaceholder, era10Length);
             addPlaceholders(challengesWeeklyEra10, scoreWeeklyplaceholder, era10Length);
