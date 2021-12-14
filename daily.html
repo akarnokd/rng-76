@@ -9473,6 +9473,27 @@
                     scoreGainXP2500, 1,
                 ], dops(dailyOpsWatoga, dailyOpsMutants, dailyOpsToxic, true));
 
+            addWeeklyWednesday(challengesWeeklyEra10.options, 6, scoreFixedGainXP10000Rank100);
+            addWeeklyWednesday(challengesWeeklyEra10.options, 6, scoreLevelUp3);
+            addWeeklyWednesday(challengesWeeklyEra10.options, 6, scoreCompleteDailyOps, 5);
+            addWeeklyWednesday(challengesWeeklyEra10.options, 6, scoreCompleteGoldStar);
+            addWeeklyWednesday(challengesWeeklyEra10.options, 6, scoreVisitOwnShelter, 1);
+            addWeeklyWednesday(challengesWeeklyEra10.options, 6, scoreBuildWallDecor, 15);
+            addWeeklyWednesday(challengesWeeklyEra10.options, 6, scoreCollectCaps, 1250);
+            addWeeklyWednesday(challengesWeeklyEra10.options, 6, scoreCompleteDailyMothman, 5);
+            addWeeklyWednesday(challengesWeeklyEra10.options, 6, scoreKillLegendary, 10);
+            addDaily(challengesDailyEra10, 6, [
+                    scoreCompleteDailyChallenge, 5,
+                    scoreLevelUp, 1,
+                    scoreCompleteDailyOps, 1,
+                    scoreBuildWallDecor, 5,
+                    scoreCollectScrip, 100,
+                    scoreCompleteEventMothman, 1,
+                    scoreKillCultist, 15,
+                    scoreModArmor, 3,
+                    scoreGainXP2500, 1,
+                ], dops(dailyOpsUncanny, dailyOpsEagles, dailyOpsFreezing, false));
+
             addPlaceholders(challengesDailyEra10, scoreDailyplaceholder, era10Length);
             addPlaceholders(challengesWeeklyEra10, scoreWeeklyplaceholder, era10Length);
 
