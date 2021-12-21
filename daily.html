@@ -9374,6 +9374,13 @@
                             period: 1400,
                         };
             }
+            function scoreKillFestiveScorched(offset, count) {
+                return {
+                            name: times("Kill Festive Scorched", count),
+                            offset: offset,
+                            period: 1400,
+                        };
+            }
             function scoreKillCreatureXerxoGun(offset, count) {
                 return {
                             name: times("Kill a creature with Xerxo's Gamma Ray Gun", count),
@@ -9559,6 +9566,27 @@
                     scoreKillLegendary, 3,
                     scoreGainXP2500, 1,
                 ], dops(dailyOpsWatogaHighschool, dailyOpsMoleminers, dailyOpsBlisteringCold, false));
+            addWeekly(challengesWeeklyEra10.options, 13, scoreFixedGainXP10000Rank100);
+            addWeekly(challengesWeeklyEra10.options, 13, scoreLevelUp3);
+            addWeekly(challengesWeeklyEra10.options, 13, scoreCompleteDailyOps, 5);
+            addWeekly(challengesWeeklyEra10.options, 13, scoreCompleteGoldStar);
+            addWeekly(challengesWeeklyEra10.options, 13, scoreCollectBullion, 300);
+            addWeekly(challengesWeeklyEra10.options, 13, scoreCompleteOneEvent, 10);
+            addWeekly(challengesWeeklyEra10.options, 13, scoreKillFestiveScorched, 10);
+            addWeekly(challengesWeeklyEra10.options, 13, scorekillHugeCreatures, 5);
+            addWeekly(challengesWeeklyEra10.options, 13, scorePlantCrop, 15);
+            addWeekly(challengesWeeklyEra10.options, 13, scoreVisitAnotherShelter, 1);
+            addDaily(challengesDailyEra10, 13, [
+                    scoreCompleteDailyChallenge, 5,
+                    scoreLevelUp, 1,
+                    scoreCompleteDailyOps, 1,
+                    scoreCompleteOneEvent, 1,
+                    scoreBuildWallDecor, 5,
+                    scoreCollectCaps, 250,
+                    scoreKillFestiveScorched, 3,
+                    scoreVisitAnotherShelter, 3,
+                    scoreGainXP2500, 1,
+                ], dops(dailyOpsArktos, dailyOpsScorched, dailyOpsRegenerating, true));
 
             addPlaceholders(challengesDailyEra10, scoreDailyplaceholder, era10Length);
             addPlaceholders(challengesWeeklyEra10, scoreWeeklyplaceholder, era10Length);
@@ -11123,9 +11151,70 @@
                     title: "Mothman Equinox Seasonal Event",
                     options: [
                         {
+                            name: "Visit Point Pleasant every hour on the dot to participate",
+                            offset: 0,
+                            period: 1,
+                        },
+                        {
+                            name: "Perform preparations around three Pyres:",
+                            offset: 0,
+                            period: 1,
+                            subchallenges: [
+                                {
+                                    name: "Destroy vines around the Pyres"
+                                },
+                                {
+                                    name: "Destroy 10 totems (glowing red on rooftops)"
+                                },
+                                {
+                                    name: "Kill 6 Cultist Leaders around the town"
+                                },
+                                {
+                                    name: "Kill 15 Albino Radstags and put their blood into containers"
+                                },
+                                {
+                                    name: "Light the 3 pyres"
+                                }
+                            ]
+                        },
+                        {
+                            name: "Defend the Pyres",
+                            offset: 0,
+                            period: 1,
+                            subchallenges: [
+                                {
+                                    name: "Defend the Church Pyre"
+                                },
+                                {
+                                    name: "Defend the Church and Bridge Pyres"
+                                },
+                                {
+                                    name: "Defend the Church, Bridge and Waterside Pyres"
+                                }
+                            ]
+                        },
+                        {
+                            name: "Finish the Ritual",
+                            offset: 0,
+                            period: 1,
+                            subchallenges: [
+                                {
+                                    name: "Go to the rooftop of the Museum"
+                                },
+                                {
+                                    name: "Emote anything (x30)"
+                                }
+                            ]
+                        },
+                        {
                             name: "Rewards: <a href='https://docs.google.com/spreadsheets/d/1Wkbr4232bOYWRxwv6pwj0NBOvtFliyi05agCg9oxHLY/' target='_blank'>Plans, Ammo, Consumables</a>",
                             offset: 0,
                             period: 1,
+                            subchallenges: [
+                                {
+                                    name: "Interact with the Wise Mothman to get +15% XP for an hour"
+                                }
+                            ]
                         }
                     ]
                 },
