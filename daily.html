@@ -9653,6 +9653,27 @@
                     scorePlantCrop, 5,
                     scoreGainXP2500, 1,
                 ], dops(dailyOpsBurning, dailyOpsScorched, dailyOpsVolatile, true));
+            addWeekly(challengesWeeklyEra10.options, 20, scoreFixedGainXP10000Rank100);
+            addWeekly(challengesWeeklyEra10.options, 20, scoreLevelUp3);
+            addWeekly(challengesWeeklyEra10.options, 20, scoreCompleteDailyOps, 5);
+            addWeekly(challengesWeeklyEra10.options, 20, scoreCompleteGoldStar);
+            addWeekly(challengesWeeklyEra10.options, 20, scoreCompleteOneEvent, 10);
+            addWeekly(challengesWeeklyEra10.options, 20, scoreKillFestiveScorched, 10);
+            addWeekly(challengesWeeklyEra10.options, 20, scoreKillCreatures, 76);
+            addWeekly(challengesWeeklyEra10.options, 20, scoreConsumeAlcohol, 15);
+            addWeekly(challengesWeeklyEra10.options, 20, scoreBuildFloorWallCamp, 15);
+            addWeekly(challengesWeeklyEra10.options, 20, scoreCriticalHit50);
+            addDaily(challengesDailyEra10, 20, [
+                    scoreCompleteDailyChallenge, 5,
+                    scoreLevelUp, 1,
+                    scoreCompleteDailyOps, 1,
+                    scoreCompleteOneEvent, 1,
+                    scoreKillFestiveScorched, 3,
+                    scoreBuildAnythingCamp, 5,
+                    scoreCollectWood, 50,
+                    scoreKillDeathclaw, 1,
+                    scoreGainXP2500, 1,
+                ], dops(dailyOpsValley, dailyOpsMoleminers, dailyOpsRegenerating, false));
 
             addPlaceholders(challengesDailyEra10, scoreDailyplaceholder, era10Length);
             addPlaceholders(challengesWeeklyEra10, scoreWeeklyplaceholder, era10Length);
