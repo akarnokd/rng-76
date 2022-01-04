@@ -9740,6 +9740,27 @@
                     scoreKillScorched, 20,
                     scoreGainXP2500, 1,
                 ], dops(dailyOpsArktos, dailyOpsMutants, dailyOpsStingingFrost, false));
+            addWeekly(challengesWeeklyEra10.options, 27, scoreFixedGainXP10000Rank100);
+            addWeekly(challengesWeeklyEra10.options, 27, scoreLevelUp3);
+            addWeekly(challengesWeeklyEra10.options, 27, scoreCompleteDailyOps, 5);
+            addWeekly(challengesWeeklyEra10.options, 27, scoreCompleteGoldStar);
+            addWeekly(challengesWeeklyEra10.options, 27, scoreCompleteEventInGroup, 5);
+            addWeekly(challengesWeeklyEra10.options, 27, scoreBuildWallDecor, 15);
+            addWeekly(challengesWeeklyEra10.options, 27, scoreBuildupCampAny3, 3);
+            addWeekly(challengesWeeklyEra10.options, 27, scoreCollectScrip, 500);
+            addWeekly(challengesWeeklyEra10.options, 27, scoreCompleteRadiationRumble, 3);
+            addWeekly(challengesWeeklyEra10.options, 27, scoreKillLegendary, 10);
+            addDaily(challengesDailyEra10, 27, [
+                    scoreCompleteDailyChallenge, 5,
+                    scoreLevelUp, 1,
+                    scoreCompleteDailyOps, 1,
+                    scoreCompleteOneEvent, 1,
+                    scoreBuildAnythingCamp, 5,
+                    scoreClaimWorkshop, 1,
+                    scoreCollectCaps, 250,
+                    scoreUsePhotomodeGroup, 1,
+                    scoreGainXP2500, 1,
+                ], dops(dailyOpsV94, dailyOpsScorched, dailyOpsCloaked, true));
 
             addPlaceholders(challengesDailyEra10, scoreDailyplaceholder, era10Length);
             addPlaceholders(challengesWeeklyEra10, scoreWeeklyplaceholder, era10Length);
