@@ -1282,6 +1282,18 @@
                             period: 1400,
                         };
             }
+            function scoreJoinBuildingGroup(offset) {
+                return {
+                            name: "Join a Public Building Group",
+                            offset: offset,
+                            period: 1400,
+                            subchallenges: [
+                                {
+                                    name: "Appears to be bugged because there is no such team mode."
+                                }
+                            ]
+                        };
+            }
 
             function scoreCookMeatFood(offset, count) {
                 return {
@@ -9794,6 +9806,17 @@
                     scorePlantCrop, 5,
                     scoreGainXP2500, 1,
                 ], dops(dailyOpsV94, dailyOpsScorched, dailyOpsFreezing, false));
+            addDaily(challengesDailyEra10, 31, [
+                    scoreCompleteDailyChallenge, 5,
+                    scoreLevelUp, 1,
+                    scoreCompleteDailyOps, 1,
+                    scoreCompleteOneEvent, 1,
+                    scoreBuildFloorWallCamp, 5,
+                    scoreCollectScrip, 100,
+                    scoreJoinBuildingGroup, 1,
+                    scoreRepairArmorWeaponPA, 3,
+                    scoreGainXP2500, 1,
+                ], dops(dailyOpsUncanny, dailyOpsCultists, dailyOpsToxic, true));
 
             addPlaceholders(challengesDailyEra10, scoreDailyplaceholder, era10Length);
             addPlaceholders(challengesWeeklyEra10, scoreWeeklyplaceholder, era10Length);
