@@ -9830,6 +9830,17 @@
                     scoreVisitAnotherShelter, 1,
                     scoreGainXP2500, 1,
                 ], dops(dailyOpsBurrows, dailyOpsMutants, dailyOpsResilient, false));
+            addDaily(challengesDailyEra10, 33, [
+                    scoreCompleteDailyChallenge, 5,
+                    scoreLevelUp, 1,
+                    scoreCompleteDailyOps, 1,
+                    scoreCompleteOneEvent, 1,
+                    scoreBuildAnythingCamp, 5,
+                    scoreCollectWood, 50,
+                    scoreEatPrewarFood, 5,
+                    scoreCompleteEventInGroup, 1,
+                    scoreGainXP2500, 1,
+                ], dops(dailyOpsWatogaHighschool, dailyOpsCommunists, dailyOpsFreezing, true));
 
             addPlaceholders(challengesDailyEra10, scoreDailyplaceholder, era10Length);
             addPlaceholders(challengesWeeklyEra10, scoreWeeklyplaceholder, era10Length);
@@ -10805,6 +10816,20 @@
                     "Plan: Thorn Armor Right Arm",
                     "Plan: Thorn Armor Right Leg",
                 ],
+                "P22": [
+                    "Plan: Secret Service Limb Lighter Build",
+                    "Plan: Secret Service Limb Ultra-light Build",
+                    "Plan: Plasma Caster",
+                    "Plan: Secret Service Underarmor",
+                    "Plan: The Gutter",
+                    "Plan: War Glaive Flaming Blade",
+                    "Plan: War Glaive Shock Blade",
+                    "Plan: Water Well",
+                    "Plan: Whistle In The Dark",
+                    "Plan: T-65 Calibrated Shocks",
+                    "Plan: T-65 Jet Pack",
+                    "Plan: T-65 Rusty Knuckles",
+                ],
                 "P?": [
                     "TBD"
                 ]
@@ -11529,8 +11554,9 @@
                 createDoubleXP(ofDate(2021, 11, 30, 17), ofDate(2022, 0, 3, 17)),
                 createDoubleMutations(ofDate(2021, 11, 30, 17), ofDate(2022, 0, 3, 17)),
                 // ------------------------------------------
-                createMinerva(ofDate(2022, 0, 3, 17), ofDate(2022, 0, 5, 17), "Fort Atlas @ Foundation", "P21"),
+                createMinerva(ofDate(2022, 0, 3, 17), ofDate(2022, 0, 5, 17), "Emporium @ Fort Atlas", "P21"),
                 createPurveyor(ofDate(2022, 0, 6, 17), ofDate(2022, 0, 10, 17), 0, true, 1),
+                createMinerva(ofDate(2022, 0, 10, 17), ofDate(2022, 0, 12, 17), "Emporium @ Foundation", "P22"),
                 createTreasureHunt(ofDate(2022, 0, 13, 17), ofDate(2022, 0, 17, 17)),
                 createDoubleMutations(ofDate(2022, 0, 13, 17), ofDate(2022, 0, 17, 17)),
                 createDoubleScore(ofDate(2022, 0, 20, 17), ofDate(2022, 0, 24, 17)),
