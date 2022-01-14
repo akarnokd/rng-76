@@ -1282,6 +1282,18 @@
                             period: 1400,
                         };
             }
+            function scoreJoinBuildingGroup(offset) {
+                return {
+                            name: "Join a Public Building Group",
+                            offset: offset,
+                            period: 1400,
+                            subchallenges: [
+                                {
+                                    name: "Appears to be bugged because there is no such team mode."
+                                }
+                            ]
+                        };
+            }
 
             function scoreCookMeatFood(offset, count) {
                 return {
@@ -9783,6 +9795,96 @@
                     scoreKillDeathclaw, 1,
                     scoreGainXP2500, 1,
                 ], dops(dailyOpsValley, dailyOpsRobots, dailyOpsVolatile, true));
+                addDaily(challengesDailyEra10, 30, [
+                    scoreCompleteDailyChallenge, 5,
+                    scoreLevelUp, 1,
+                    scoreCompleteDailyOps, 1,
+                    scoreCompleteOneEvent, 1,
+                    scoreBuildAnythingShelter, 5,
+                    scoreCollectScrip, 100,
+                    scoreCompleteEventInGroup, 1,
+                    scorePlantCrop, 5,
+                    scoreGainXP2500, 1,
+                ], dops(dailyOpsV94, dailyOpsScorched, dailyOpsFreezing, false));
+            addDaily(challengesDailyEra10, 31, [
+                    scoreCompleteDailyChallenge, 5,
+                    scoreLevelUp, 1,
+                    scoreCompleteDailyOps, 1,
+                    scoreCompleteOneEvent, 1,
+                    scoreBuildFloorWallCamp, 5,
+                    scoreCollectScrip, 100,
+                    scoreJoinBuildingGroup, 1,
+                    scoreRepairArmorWeaponPA, 3,
+                    scoreGainXP2500, 1,
+                ], dops(dailyOpsUncanny, dailyOpsCultists, dailyOpsToxic, true));
+            addDaily(challengesDailyEra10, 32, [
+                    scoreCompleteDailyChallenge, 5,
+                    scoreLevelUp, 1,
+                    scoreCompleteDailyOps, 1,
+                    scoreCompleteOneEvent, 1,
+                    scoreBuildWallDecor, 5,
+                    scoreCollectScrip, 100,
+                    scoreCraftRanged, 3,
+                    scoreKillLegendary, 1,
+                    scoreKillCreatureInGroup, 15,
+                    scoreVisitAnotherShelter, 1,
+                    scoreGainXP2500, 1,
+                ], dops(dailyOpsBurrows, dailyOpsMutants, dailyOpsResilient, false));
+            addDaily(challengesDailyEra10, 33, [
+                    scoreCompleteDailyChallenge, 5,
+                    scoreLevelUp, 1,
+                    scoreCompleteDailyOps, 1,
+                    scoreCompleteOneEvent, 1,
+                    scoreBuildAnythingCamp, 5,
+                    scoreCollectWood, 50,
+                    scoreEatPrewarFood, 5,
+                    scoreCompleteEventInGroup, 1,
+                    scoreGainXP2500, 1,
+                ], dops(dailyOpsWatogaHighschool, dailyOpsCommunists, dailyOpsFreezing, true));
+            addWeekly(challengesWeeklyEra10.options, 34, scoreFixedGainXP10000Rank100);
+            addWeekly(challengesWeeklyEra10.options, 34, scoreLevelUp3);
+            addWeekly(challengesWeeklyEra10.options, 34, scoreCompleteDailyOps, 5);
+            addWeekly(challengesWeeklyEra10.options, 34, scoreCompleteDailyOpsPublicTeam, 3);
+            addWeekly(challengesWeeklyEra10.options, 34, scoreCompleteGoldStar);
+            addWeekly(challengesWeeklyEra10.options, 34, scoreBuildAnythingCamp, 15);
+            addWeekly(challengesWeeklyEra10.options, 34, scoreCollectCaps, 2000);
+            addWeekly(challengesWeeklyEra10.options, 34, scoreDestroyRobots3, 3);
+            addWeekly(challengesWeeklyEra10.options, 34, scoreCompleteEncryptid, 1);
+            addWeekly(challengesWeeklyEra10.options, 34, scoreKillLegendary, 10);
+            addDaily(challengesDailyEra10, 34, [
+                    scoreCompleteDailyChallenge, 5,
+                    scoreLevelUp, 1,
+                    scoreCompleteDailyOps, 1,
+                    scoreCompleteOneEvent, 1,
+                    scoreCollectAudiotape, 1,
+                    scoreCompleteDailyOpsPublicTeam, 1,
+                    scoreKillMoleminer, 10,
+                    scorePlantCrop, 5,
+                    scoreVisitAnotherShelter, 1,
+                    scoreGainXP2500, 1,
+                ], dops(dailyOpsArktos, dailyOpsMutants, dailyOpsRegenerating, false));
+            addDaily(challengesDailyEra10, 35, [
+                    scoreCompleteDailyChallenge, 5,
+                    scoreLevelUp, 1,
+                    scoreCompleteDailyOps, 1,
+                    scoreCompleteOneEvent, 1,
+                    scoreBuildFloorWallCamp, 5,
+                    scoreCollectCaps, 250,
+                    scoreKillBloodEagle, 10,
+                    scoreUsePhotomodeOwnCamp, 1,
+                    scoreGainXP2500, 1,
+                ], dops(dailyOpsValley, dailyOpsMoleminers, dailyOpsVolatile, true));
+            addDaily(challengesDailyEra10, 36, [
+                    scoreCompleteDailyChallenge, 5,
+                    scoreLevelUp, 1,
+                    scoreCompleteDailyOps, 1,
+                    scoreCompleteOneEvent, 1,
+                    scoreBuildWallDecor, 5,
+                    scoreCollectBobblehead, 1,
+                    scoreKillSupermutant, 10,
+                    scoreRepairArmorWeaponPA, 3,
+                    scoreGainXP2500, 1,
+                ], dops(dailyOpsWestTec, dailyOpsCommunists, dailyOpsSwift, false));
 
             addPlaceholders(challengesDailyEra10, scoreDailyplaceholder, era10Length);
             addPlaceholders(challengesWeeklyEra10, scoreWeeklyplaceholder, era10Length);
@@ -10758,6 +10860,20 @@
                     "Plan: Thorn Armor Right Arm",
                     "Plan: Thorn Armor Right Leg",
                 ],
+                "P22": [
+                    "Plan: Secret Service Limb Lighter Build",
+                    "Plan: Secret Service Limb Ultra-light Build",
+                    "Plan: Plasma Caster",
+                    "Plan: Secret Service Underarmor",
+                    "Plan: The Gutter",
+                    "Plan: War Glaive Flaming Blade",
+                    "Plan: War Glaive Shock Blade",
+                    "Plan: Water Well",
+                    "Plan: Whistle In The Dark",
+                    "Plan: T-65 Calibrated Shocks",
+                    "Plan: T-65 Jet Pack",
+                    "Plan: T-65 Rusty Knuckles",
+                ],
                 "P?": [
                     "TBD"
                 ]
@@ -11482,8 +11598,9 @@
                 createDoubleXP(ofDate(2021, 11, 30, 17), ofDate(2022, 0, 3, 17)),
                 createDoubleMutations(ofDate(2021, 11, 30, 17), ofDate(2022, 0, 3, 17)),
                 // ------------------------------------------
-                createMinerva(ofDate(2022, 0, 3, 17), ofDate(2022, 0, 5, 17), "Fort Atlas @ Foundation", "P21"),
+                createMinerva(ofDate(2022, 0, 3, 17), ofDate(2022, 0, 5, 17), "Emporium @ Fort Atlas", "P21"),
                 createPurveyor(ofDate(2022, 0, 6, 17), ofDate(2022, 0, 10, 17), 0, true, 1),
+                createMinerva(ofDate(2022, 0, 10, 17), ofDate(2022, 0, 12, 17), "Emporium @ Foundation", "P22"),
                 createTreasureHunt(ofDate(2022, 0, 13, 17), ofDate(2022, 0, 17, 17)),
                 createDoubleMutations(ofDate(2022, 0, 13, 17), ofDate(2022, 0, 17, 17)),
                 createDoubleScore(ofDate(2022, 0, 20, 17), ofDate(2022, 0, 24, 17)),
