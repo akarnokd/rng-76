@@ -27,7 +27,7 @@
     </head>
     <body style="height: 90%">
         <center>
-            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Weapon Damage Calculator (v3.9.0)</span>
+            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Weapon Damage Calculator (v3.9.1)</span>
             <br/>
             <!-- <i>(Notification here)</i> -->
         <br/>
@@ -7951,6 +7951,7 @@
                 + "<br>Stealth and crit bonuses still appear to be multiplicative."
                 + "<br><br>Patch 27 buffed the slayer damages."
                 + "<br><br>Patch 28 added more legendary effects and adjusted existing ones."
+                + "<br><br>Patch 33 (PTS) fixed the damage formula for non-ballistic damage types. Previously, only the weapon's base damage was pitted against the enemy resistance, ignoring any damage buffs."
                 + "<br><br>Future patches appear to change the impact of resistances so that"
                 + "<br>there won't be such a sharp drop in damage output for the same level of resistance,"
                 + "<br>resulting in tougher enemies to receive more damage."
@@ -7959,19 +7960,19 @@
             // ~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o
 
             infoMap.set("aristocrats", 
-                "Enables the following legendary effects on the PTS:"
+                "Enables the following legendary effects:"
                 + "<ul>"
                     + "<li><b>Aristocrat's</b>: up to 25% more damage when having 29000+ caps</li>"
                 + "</ul>"
             );
             infoMap.set("gourmands", 
-                "Enables the following legendary effects on the PTS:"
+                "Enables the following legendary effects:"
                 + "<ul>"
                     + "<li><b>Gourmand's</b>: up to 24% more damage when having 100% food and thirst meter</li>"
                 + "</ul>"
             );
             infoMap.set("steady", 
-                "Enables the following legendary effects on the PTS:"
+                "Enables the following legendary effects:"
                 + "<ul>"
                     + "<li><b>Steady</b>: +25% damage while standing still</li>"
                 + "</ul>"
@@ -7979,8 +7980,8 @@
             infoMap.set("mutationcount", 
                 "Indicate how many other mutations you have for the following legendary effects:"
                 + "<ul>"
-                    + "<li><b>Live</b>: 10% more damage if mutated</li>"
-                    + "<li><b>PTS</b>: each mutation gives +5% damage up to 25%</li>"
+                    + "<li><b>Pre Patch 28</b>: 10% more damage if mutated</li>"
+                    + "<li><b>Post Patch 28</b>: each mutation gives +5% damage up to 25%</li>"
                 + "</ul>"
             );
             infoMap.set("4thstar", 
@@ -9472,6 +9473,12 @@
                 opt.value = "P27"; // I know, the patch ids are messed up
                 opt.linkId = "P27";
                 opt.selected = true;
+                calcmodesel.add(opt);
+
+                opt = document.createElement("option");
+                opt.text = "Patch 33 (PTS)";
+                opt.value = "P33";
+                opt.linkId = "P33";
                 calcmodesel.add(opt);
 
                 opt = document.createElement("option");
@@ -11109,6 +11116,7 @@
                     var index = 1;
                     var calcMode = calcModes[index];
                     var leftIsP23 = calcMode === "P23";
+                    var leftEnergyFormulaBug = calcMode < "P33";
 
                     var leftDr = Math.max(0, actualResist(res.dr, ignores[index]) + enemyDamageResistances[index] + armorDr[index]);
                     var leftEr = aaEnergy ? actualResist(res.er, ignores[index]) : res.er;
@@ -11121,25 +11129,27 @@
                                              : damageFormula(damages[index], leftDr))
                          * speedFactorLeft * damageMitigation;
                     var leftDmgEnergy = (leftIsP23 ? damageFormulaP23(damagesEnergy[index], res.er, ignores[index]) 
-                                             : damageFormula(damagesEnergy[index], leftEr, baseDamagesEnergy[index]))
+                                             : damageFormula(damagesEnergy[index], leftEr, leftEnergyFormulaBug ? baseDamagesEnergy[index] : undefined))
                          * speedFactorLeft * damageMitigation;
                     var leftDmgRadiation = (leftIsP23 ? damageFormulaP23(damagesRadiation[index], res.rr, ignores[index]) 
                                              : damageFormula(damagesRadiation[index], leftRr))
                          * speedFactorLeft * damageMitigation;
                     var leftDmgFire = (leftIsP23 ? damageFormulaP23(damagesFire[index], res.fr, ignores[index]) 
-                                             : damageFormula(damagesFire[index], leftFr, baseDamagesFire[index]))
+                                             : damageFormula(damagesFire[index], leftFr, leftEnergyFormulaBug ? baseDamagesFire[index] : undefined))
                          * speedFactorLeft * damageMitigation;
                     var leftDmgCold = (leftIsP23 ? damageFormulaP23(damagesCold[index], res.cr, ignores[index]) 
-                                             : damageFormula(damagesCold[index], leftCr))
+                                             : damageFormula(damagesCold[index], leftCr, leftEnergyFormulaBug ? baseDamagesCold[index] : undefined))
                          * speedFactorLeft * damageMitigation;
                     var leftDmgPoison = (leftIsP23 ? damageFormulaP23(damagesPoison[index], res.pr, ignores[index]) 
-                                             : damageFormula(damagesPoison[index], leftPr))
+                                             : damageFormula(damagesPoison[index], leftPr, leftEnergyFormulaBug ? baseDamagesPoison[index] : undefined))
                          * speedFactorLeft * damageMitigation;
 
                     var leftDmgSum = leftDmg + leftDmgEnergy + leftDmgRadiation + leftDmgFire + leftDmgCold + leftDmgPoison;
 
                     index = 2;
-                    var rightIsP23 = calcModes[index] === "P23";
+                    calcMode = calcModes[index]
+                    var rightIsP23 = calcMode === "P23";
+                    var rightEnergyFormulaBug = calcMode < "P33";
 
                     var rightDr = Math.max(0, actualResist(res.dr, ignores[index]) + enemyDamageResistances[index] + armorDr[index]);
                     var rightEr = aaEnergy ? actualResist(res.er, ignores[index]) : res.er;
@@ -11152,19 +11162,19 @@
                                              : damageFormula(damages[index], rightDr))
                          * speedFactorRight * damageMitigation;
                     var rightDmgEnergy = (rightIsP23 ? damageFormulaP23(damagesEnergy[index], res.er, ignores[index]) 
-                                             : damageFormula(damagesEnergy[index], rightEr, baseDamagesEnergy[index]))
+                                             : damageFormula(damagesEnergy[index], rightEr, rightEnergyFormulaBug ? baseDamagesEnergy[index] : undefined))
                          * speedFactorRight * damageMitigation;
                     var rightDmgRadiation = (rightIsP23 ? damageFormulaP23(damagesRadiation[index], res.rr, ignores[index]) 
                                              : damageFormula(damagesRadiation[index], rightRr))
                          * speedFactorRight * damageMitigation;
                     var rightDmgFire = (rightIsP23 ? damageFormulaP23(damagesFire[index], res.fr, ignores[index]) 
-                                             : damageFormula(damagesFire[index], rightFr, baseDamagesFire[index]))
+                                             : damageFormula(damagesFire[index], rightFr, rightEnergyFormulaBug ? baseDamagesFire[index] : undefined))
                          * speedFactorRight * damageMitigation;
                     var rightDmgCold = (rightIsP23 ? damageFormulaP23(damagesCold[index], res.cr, ignores[index]) 
-                                             : damageFormula(damagesCold[index], rightCr))
+                                             : damageFormula(damagesCold[index], rightCr, rightEnergyFormulaBug ? baseDamagesCold[index] : undefined))
                          * speedFactorRight * damageMitigation;
                     var rightDmgPoison = (rightIsP23 ? damageFormulaP23(damagesPoison[index], res.pr, ignores[index]) 
-                                             : damageFormula(damagesPoison[index], rightPr))
+                                             : damageFormula(damagesPoison[index], rightPr, rightEnergyFormulaBug ? baseDamagesPoison[index] : undefined))
                          * speedFactorRight * damageMitigation;
 
                     var rightDmgSum = rightDmg + rightDmgEnergy + rightDmgRadiation + rightDmgFire + rightDmgCold + rightDmgPoison;
