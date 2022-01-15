@@ -9896,6 +9896,17 @@
                     scoreKillMoleminer, 15,
                     scoreGainXP2500, 1,
                 ], dops(dailyOpsBurning, dailyOpsEagles, dailyOpsStingingFrost, true));
+            addDaily(challengesDailyEra10, 38, [
+                    scoreCompleteDailyChallenge, 5,
+                    scoreLevelUp, 1,
+                    scoreCompleteDailyOps, 1,
+                    scoreCompleteOneEvent, 1,
+                    scoreEatPrewarFood, 3,
+                    scoreKillGlowing, 3,
+                    scoreModArmor, 1,
+                    scorePlantCrop, 5,
+                    scoreGainXP2500, 1,
+                ], dops(dailyOpsWestTec, dailyOpsCommunists, dailyOpsChillingMend, false));
 
             addPlaceholders(challengesDailyEra10, scoreDailyplaceholder, era10Length);
             addPlaceholders(challengesWeeklyEra10, scoreWeeklyplaceholder, era10Length);
@@ -11773,7 +11784,7 @@
             };
             var season7 = {
                 validStart: ofDate(2021, 11, 8, 17),
-                validEnd: plusDays(ofDate(2021, 11, 8, 17), 70),
+                validEnd: plusDays(ofDate(2021, 11, 8, 17), era10Length),
                 title: "Season 7: Zorbo's Revenge",
                 options: [
                     
@@ -11786,7 +11797,7 @@
             fillInSeason(season4, 71, "LR4");
             fillInSeason(season5, 62, "LR5");
             fillInSeason(season6, 91, "LR6");
-            fillInSeason(season7, 70, "LR7");
+            fillInSeason(season7, era10Length, "LR7");
 
             for (var i = 56; i < 91; i++) {
                 season2.options.push({
