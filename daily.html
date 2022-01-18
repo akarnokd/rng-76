@@ -5697,19 +5697,18 @@
                         };
             }
 
-            function scoreHarvestPlantFungi25(offset) {
+            function scoreHarvestPlantFungi(offset, count) {
                 return {
-                            name: "Harvest a wild plant or fungi (x25)",
+                            name: times("Harvest a wild plant or fungi", count),
                             offset: offset,
                             period: 1400,
                         };
             }
+            function scoreHarvestPlantFungi25(offset) {
+                return scoreHarvestPlantFungi(offset, 25);
+            }
             function scoreHarvestPlantFungi50(offset) {
-                return {
-                            name: "Harvest a wild plant or fungi (x50)",
-                            offset: offset,
-                            period: 1400,
-                        };
+                return scoreHarvestPlantFungi(offset, 50);
             }
 
             function scoreCompleteEvents5(offset) {
@@ -9929,6 +9928,27 @@
                     scorePlantCrop, 5,
                     scoreGainXP2500, 1,
                 ], dops(dailyOpsWestTec, dailyOpsRobots, dailyOpsCloudedToxins, false));
+            addWeekly(challengesWeeklyEra10.options, 41, scoreFixedGainXP10000Rank100);
+            addWeekly(challengesWeeklyEra10.options, 41, scoreLevelUp3);
+            addWeekly(challengesWeeklyEra10.options, 41, scoreCompleteDailyOps, 5);
+            addWeekly(challengesWeeklyEra10.options, 41, scoreCompleteGoldStar);
+            addWeekly(challengesWeeklyEra10.options, 41, scoreCompleteEventInGroup, 5);
+            addWeekly(challengesWeeklyEra10.options, 41, scoreCompleteEventScorchedEarth, 1);
+            addWeekly(challengesWeeklyEra10.options, 41, scoreCollectBullion, 300);
+            addWeekly(challengesWeeklyEra10.options, 41, scoreHarvestPlantFungi, 20);
+            addWeekly(challengesWeeklyEra10.options, 41, scoreKillLegendary, 10);
+            addWeekly(challengesWeeklyEra10.options, 41, scorePlantCrop, 15);
+            addDaily(challengesDailyEra10, 41, [
+                    scoreCompleteDailyChallenge, 5,
+                    scoreLevelUp, 1,
+                    scoreCompleteDailyOps, 1,
+                    scoreCompleteOneEvent, 1,
+                    scoreBuildFloorWallCamp, 5,
+                    scoreHackTerminal, 1,
+                    scoreKillCreatureInGroup, 15,
+                    scoreRepairArmorWeaponPA, 3,
+                    scoreGainXP2500, 1,
+                ], dops(dailyOpsValley, dailyOpsMutants, dailyOpsSwift, true));
 
             addPlaceholders(challengesDailyEra10, scoreDailyplaceholder, era10Length);
             addPlaceholders(challengesWeeklyEra10, scoreWeeklyplaceholder, era10Length);
