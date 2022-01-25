@@ -10015,6 +10015,27 @@
                     scoreKillCreatureInGroup, 15,
                     scoreGainXP2500, 1,
                 ], dops(dailyOpsBurning, dailyOpsScorched, dailyOpsResilient, true));
+            addWeekly(challengesWeeklyEra10.options, 48, scoreFixedGainXP10000Rank100);
+            addWeekly(challengesWeeklyEra10.options, 48, scoreLevelUp3);
+            addWeekly(challengesWeeklyEra10.options, 48, scoreCompleteDailyOps, 5);
+            addWeekly(challengesWeeklyEra10.options, 48, scoreCompleteGoldStar);
+            addWeekly(challengesWeeklyEra10.options, 48, scoreCompleteOneEvent, 10);
+            addWeekly(challengesWeeklyEra10.options, 48, scoreBuildAnythingCamp, 15);
+            addWeekly(challengesWeeklyEra10.options, 48, scoreCollectScrip, 500);
+            addWeekly(challengesWeeklyEra10.options, 48, scoreCompleteColossal, 1);
+            addWeekly(challengesWeeklyEra10.options, 48, scoreKillGlowing, 5);
+            addWeekly(challengesWeeklyEra10.options, 48, scoreRepairArmorWeaponPA, 10);
+            addDaily(challengesDailyEra10, 48, [
+                    scoreCompleteDailyChallenge, 5,
+                    scoreLevelUp, 1,
+                    scoreCompleteDailyOps, 1,
+                    scoreCompleteOneEvent, 1,
+                    scoreCollectScrip, 100,
+                    scoreKillLegendary, 3,
+                    scorePickLock, 1,
+                    scorePlantCrop, 5,
+                    scoreGainXP2500, 1,
+                ], dops(dailyOpsV94, dailyOpsEagles, dailyOpsSwift, false));
 
             addPlaceholders(challengesDailyEra10, scoreDailyplaceholder, era10Length);
             addPlaceholders(challengesWeeklyEra10, scoreWeeklyplaceholder, era10Length);
