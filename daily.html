@@ -5766,6 +5766,13 @@
                             period: 1400,
                         };
             }
+            function scoreKillCreaturesNuked(offset, count) {
+                return {
+                            name: times("Kill creatures in a Nuke Zone", count),
+                            offset: offset,
+                            period: 1400,
+                        };
+            }
 
             function scoreWeeklyplaceholder(offset) {
                 return {
@@ -10134,6 +10141,17 @@
                     scorePlantCrop, 5,
                     scoreGainXP2500, 1,
                 ], dops(dailyOpsBurrows, dailyOpsScorched, dailyOpsToxic, false));
+            addDaily(challengesDailyEra10, 57, [
+                    scoreCompleteDailyChallenge, 5,
+                    scoreLevelUp, 1,
+                    scoreCompleteDailyOps, 1,
+                    scoreCompleteOneEvent, 1,
+                    scoreBuildFloorWallCamp, 5,
+                    scoreBuySellItem, 1,
+                    scoreKillCreaturesNuked, 5,
+                    scoreUsePhotomode, 3,
+                    scoreGainXP2500, 1,
+                ], dops(dailyOpsWestTec, dailyOpsMoleminers, dailyOpsCloaked, true));
 
             addPlaceholders(challengesDailyEra10, scoreDailyplaceholder, era10Length);
             addPlaceholders(challengesWeeklyEra10, scoreWeeklyplaceholder, era10Length);
