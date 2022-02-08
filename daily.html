@@ -5501,6 +5501,13 @@
                             period: 1400,
                         };
             }
+            function scoreCompleteFasnacht(offset, count) {
+                return {
+                            name: times("Complete the Event: Fasnacht Day", count),
+                            offset: offset,
+                            period: 1400,
+                        };
+            }
             function scoreCompleteColossal(offset, count) {
                 return {
                             name: times("Complete the Event: A Colossal Problem", count),
@@ -10196,6 +10203,27 @@
                     scoreKillGhoul, 10,
                     scoreGainXP2500, 1,
                 ], dops(dailyOpsBurrows, dailyOpsEagles, dailyOpsRegenerating, true));
+            addWeekly(challengesWeeklyEra10.options, 62, scoreFixedGainXP10000Rank100);
+            addWeekly(challengesWeeklyEra10.options, 62, scoreLevelUp3);
+            addWeekly(challengesWeeklyEra10.options, 62, scoreCompleteDailyOps, 5);
+            addWeekly(challengesWeeklyEra10.options, 62, scoreCompleteGoldStar);
+            addWeekly(challengesWeeklyEra10.options, 62, scoreCompleteOneEvent, 10);
+            addWeekly(challengesWeeklyEra10.options, 62, scoreBuildFloorWallCamp, 15);
+            addWeekly(challengesWeeklyEra10.options, 62, scoreCompleteFasnacht, 3);
+            addWeekly(challengesWeeklyEra10.options, 62, scoreCraftScrapItems, 10);
+            addWeekly(challengesWeeklyEra10.options, 62, scoreEatPrewarFood, 15);
+            addWeekly(challengesWeeklyEra10.options, 62, scorekillHugeCreaturesN, 5);
+            addDaily(challengesDailyEra10, 62, [
+                    scoreCompleteDailyChallenge, 5,
+                    scoreLevelUp, 1,
+                    scoreCompleteDailyOps, 1,
+                    scoreCompleteOneEvent, 2,
+                    scoreBuildWallDecor, 5,
+                    scoreCookMealPlant, 5,
+                    scoreKillCreatures, 15,
+                    scoreCompleteFasnacht, 1,
+                    scoreGainXP2500, 1,
+                ], dops(dailyOpsWatogaHighschool, dailyOpsCultists, dailyOpsVolatile, true));
 
             addPlaceholders(challengesDailyEra10, scoreDailyplaceholder, era10Length);
             addPlaceholders(challengesWeeklyEra10, scoreWeeklyplaceholder, era10Length);
