@@ -10223,7 +10223,19 @@
                     scoreKillCreatures, 15,
                     scoreCompleteFasnacht, 1,
                     scoreGainXP2500, 1,
-                ], dops(dailyOpsWatogaHighschool, dailyOpsCultists, dailyOpsVolatile, true));
+                ], dops(dailyOpsWatogaHighschool, dailyOpsCultists, dailyOpsVolatile, false));
+            addDaily(challengesDailyEra10, 63, [
+                    scoreCompleteDailyChallenge, 5,
+                    scoreLevelUp, 1,
+                    scoreCompleteDailyOps, 1,
+                    scoreCompleteOneEvent, 2,
+                    scoreJoinGroup, 1,
+                    scoreBuildAnythingCamp, 5,
+                    scoreCollectCaps, 250,
+                    scoreKillCreatures, 15,
+                    scoreKillSupermutant, 10,
+                    scoreGainXP2500, 1,
+                ], dops(dailyOpsBurrows, dailyOpsCommunists, dailyOpsResilient, true));
 
             addPlaceholders(challengesDailyEra10, scoreDailyplaceholder, era10Length);
             addPlaceholders(challengesWeeklyEra10, scoreWeeklyplaceholder, era10Length);
