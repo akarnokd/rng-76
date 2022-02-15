@@ -5508,6 +5508,13 @@
                             period: 1400,
                         };
             }
+            function scoreCraftLegendaryWeapon(offset, count) {
+                return {
+                            name: times("Craft a Legendary Weapon", count),
+                            offset: offset,
+                            period: 1400,
+                        };
+            }
             function scoreCompleteColossal(offset, count) {
                 return {
                             name: times("Complete the Event: A Colossal Problem", count),
@@ -10291,6 +10298,30 @@
                     scoreUsePhotomodeTeammate, 1,
                     scoreGainXP2500, 1,
                 ], dops(dailyOpsV94, dailyOpsMutants, dailyOpsSwiftStalker, false));
+            addWeekly(challengesWeeklyEra10.options, 69, scoreFixedGainXP10000Rank100);
+            addWeekly(challengesWeeklyEra10.options, 69, scoreLevelUp3);
+            addWeekly(challengesWeeklyEra10.options, 69, scoreCompleteDailyOps, 5);
+            addWeekly(challengesWeeklyEra10.options, 69, scoreCompleteGoldStar);
+            addWeekly(challengesWeeklyEra10.options, 69, scoreCompleteOneEvent, 10);
+            addWeekly(challengesWeeklyEra10.options, 69, scorePlantCrop, 15);
+            addWeekly(challengesWeeklyEra10.options, 69, scoreCompleteFasnacht, 3);
+            addWeekly(challengesWeeklyEra10.options, 69, scoreCraftLegendaryWeapon, 5);
+            addWeekly(challengesWeeklyEra10.options, 69, scoreDrinkNukaCola, 20);
+            addWeekly(challengesWeeklyEra10.options, 69, scoreKillCreatures, 76);
+            addWeekly(challengesWeeklyEra10.options, 69, scoreKillLegendary, 15);
+            addDaily(challengesDailyEra10, 69, [
+                    scoreCompleteDailyChallenge, 5,
+                    scoreLevelUp, 1,
+                    scoreCompleteDailyOps, 1,
+                    scoreCompleteOneEvent, 2,
+                    scoreCompleteFasnacht, 1,
+                    scoreBuildFloorWallCamp, 5,
+                    scoreKillCreatures, 15,
+                    scoreKillSupermutant, 10,
+                    scoreHackTerminal, 1,
+                    scoreModWeapon, 1,
+                    scoreGainXP2500, 1,
+                ], dops(dailyOpsUncanny, dailyOpsMoleminers, dailyOpsResilient, true));
 
             addPlaceholders(challengesDailyEra10, scoreDailyplaceholder, era10Length);
             addPlaceholders(challengesWeeklyEra10, scoreWeeklyplaceholder, era10Length);
