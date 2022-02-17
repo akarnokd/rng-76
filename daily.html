@@ -9377,7 +9377,7 @@
             // ERA 10
             // ===============================================================================================================
 
-            var era10Length = 91;
+            var era10Length = 83;
 
             var challengesDailyEra10 = {
                 validStart: ofDate(2021, 11, 8, 17),
@@ -10350,6 +10350,27 @@
             addPlaceholders(challengesDailyEra10, scoreDailyplaceholder, era10Length);
             addPlaceholders(challengesWeeklyEra10, scoreWeeklyplaceholder, era10Length);
 
+            // ===============================================================================================================
+            // ERA 9
+            // ===============================================================================================================
+
+            var era11Length = 91;
+
+            var challengesDailyEra11 = {
+                validStart: ofDate(2022, 2, 1, 17),
+                validEnd: plusDays(ofDate(2022, 2, 1, 17), era11Length),
+                options: []
+            };
+            var challengesWeeklyEra11 = {
+                validStart: ofDate(2022, 2, 1, 17),
+                validEnd: plusDays(ofDate(2022, 2, 1, 17), era11Length),
+                options: []
+            };
+            challenges.push(challengesDailyEra11);
+            challengesWeekly.push(challengesWeeklyEra11);
+
+            addPlaceholders(challengesDailyEra11, scoreDailyplaceholder, era11Length);
+            addPlaceholders(challengesWeeklyEra11, scoreWeeklyplaceholder, era11Length);
             // --------------------------------------------------------------------------------------------------------------
             // Community events
 
@@ -12197,6 +12218,23 @@
                 createBonusChallengesDays(ofDate(2022, 1, 15, 17), ofDate(2022, 1, 22, 17)),
                 createGoldRush2(ofDate(2022, 1, 24, 17), ofDate(2022, 1, 28, 17)),
                 createDoubleMutations(ofDate(2022, 1, 24, 17), ofDate(2022, 1, 28, 17)),
+                {
+                    validStart: ofDate(2022, 2, 1, 17),
+                    validEnd: ofDate(2022, 2, 15, 17),
+                    title: "Invaders from Beyond",
+                    options: [
+                        {
+                            name: "TBD",
+                            offset: 0,
+                            period: 1
+                        },
+                        {
+                            name: "Rewards: <a href='#' target='_blank'>TBD</a>.",
+                            offset: 0,
+                            period: 1
+                        },
+                    ]
+                },
                 createDoubleMutations(ofDate(2022, 2, 10, 17), ofDate(2022, 2, 14, 17)),
                 createDoubleScore(ofDate(2022, 2, 17, 17), ofDate(2022, 2, 21, 17)),
                 createTreasureHunt(ofDate(2022, 2, 24, 17), ofDate(2022, 2, 28, 17)),
@@ -12316,6 +12354,14 @@
                     
                 ]
             };
+            var season8 = {
+                validStart: ofDate(2022, 2, 1, 17),
+                validEnd: plusDays(ofDate(2022, 2, 1, 17), era11Length),
+                title: "Season 8: A Better Life Underground",
+                options: [
+                    
+                ]
+            };
 
             fillInSeason(season1, 70, "LR1");
             fillInSeason(season2, 91, "LR2");
@@ -12324,6 +12370,7 @@
             fillInSeason(season5, 62, "LR5");
             fillInSeason(season6, 91, "LR6");
             fillInSeason(season7, era10Length, "LR7");
+            fillInSeason(season8, era11Length, "LR8");
 
             for (var i = 56; i < 91; i++) {
                 season2.options.push({
@@ -12359,6 +12406,7 @@
                 season5,
                 season6,
                 season7,
+                season8
             ];
 
             // --------------------------------------------------------------------------------------------------------------
