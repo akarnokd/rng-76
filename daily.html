@@ -10495,7 +10495,7 @@
             addPlaceholders(challengesWeeklyEra10, scoreWeeklyplaceholder, era10Length);
 
             // ===============================================================================================================
-            // ERA 9
+            // ERA 11
             // ===============================================================================================================
 
             var era11Length = 91;
@@ -10512,6 +10512,72 @@
             };
             challenges.push(challengesDailyEra11);
             challengesWeekly.push(challengesWeeklyEra11);
+
+            function scoreCompleteInvaders(offset, count) {
+                return {
+                            name: times("Complete Event: Invaders from Beyond", count),
+                            offset: offset,
+                            period: 1400,
+                            ignore: true
+                        };
+            }
+            function scoreTakePictureAlienDrone(offset, count) {
+                return {
+                            name: times("Take Picture of an Alien Drone", count),
+                            offset: offset,
+                            period: 1400,
+                            ignore: true
+                        };
+            }
+            function scoreTakePictureAlienEnemy(offset, count) {
+                return {
+                            name: times("Take Picture of an Alien Enemy", count),
+                            offset: offset,
+                            period: 1400,
+                            ignore: true
+                        };
+            }
+            function scoreCompleteInvadersDaily(offset, count) {
+                return {
+                            name: times("Complete Daily \"Invaders from Beyond\" challenge", count),
+                            offset: offset,
+                            period: 1400,
+                            ignore: true
+                        };
+            }
+            function scoreTakePictureLTKappa(offset, count) {
+                return {
+                            name: times("Take a Camera Picture of Lieutenant Kappa", count),
+                            offset: offset,
+                            period: 1400,
+                            ignore: true
+                        };
+            }
+
+            addWeekly(challengesWeeklyEra11.options, 0, scoreFixedGainXP10000Rank100);
+            addWeekly(challengesWeeklyEra11.options, 0, scoreLevelUp3);
+            addWeekly(challengesWeeklyEra11.options, 0, scoreCompleteDailyOps, 5);
+            addWeekly(challengesWeeklyEra11.options, 0, scoreCompleteGoldStar);
+            addWeekly(challengesWeeklyEra11.options, 0, scoreCompleteOneEvent, 10);
+            addWeekly(challengesWeeklyEra11.options, 0, scoreBuildFloorWallCamp, 15);
+            addWeekly(challengesWeeklyEra11.options, 0, scoreClaimWorkshop, 3);
+            addWeekly(challengesWeeklyEra11.options, 0, scoreCollectCaps, 1250);
+            addWeekly(challengesWeeklyEra11.options, 0, scoreCompleteInvadersDaily, 5);
+            addWeekly(challengesWeeklyEra11.options, 0, scoreCompleteInvaders, 3);
+            addWeekly(challengesWeeklyEra11.options, 0, scoreTakePictureLTKappa, 1);
+            addDaily(challengesDailyEra11, 0, [
+                    scoreCompleteDailyChallenge, 5,
+                    scoreLevelUp, 1,
+                    scoreCompleteDailyOps, 1,
+                    scoreCompleteOneEvent, 2,
+                    scoreBuildWallDecor, 5,
+                    scoreCollectBobblehead, 1,
+                    scoreCompleteInvaders, 1,
+                    scoreConsumeAlcohol, 3,
+                    scoreTakePictureAlienDrone, 1,
+                    scoreTakePictureAlienEnemy, 1,
+                    scoreGainXP2500, 1,
+                ], dops(dailyOpsV96, dailyOpsCommunists, dailyOpsRegenerating, true));
 
             addPlaceholders(challengesDailyEra11, scoreDailyplaceholder, era11Length);
             addPlaceholders(challengesWeeklyEra11, scoreWeeklyplaceholder, era11Length);
