@@ -10537,6 +10537,14 @@
                             ignore: true
                         };
             }
+            function scoreTakePictureAlienInvader(offset, count) {
+                return {
+                            name: times("Take Picture of an Alien Invader", count),
+                            offset: offset,
+                            period: 1400,
+                            ignore: true
+                        };
+            }
             function scoreCompleteInvadersDaily(offset, count) {
                 return {
                             name: times("Complete Daily \"Invaders from Beyond\" challenge", count),
@@ -10588,7 +10596,7 @@
                     scoreCollectCaps, 250,
                     scoreDrinkNukaCola, 3,
                     scoreTakePictureAlienDrone, 1,
-                    scoreTakePictureAlienEnemy, 1,
+                    scoreTakePictureAlienInvader, 1,
                     scoreGainXP2500, 1,
                 ], dops(dailyOpsValley, dailyOpsRobots, dailyOpsCloaked, false));
 
