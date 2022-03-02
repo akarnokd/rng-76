@@ -27,7 +27,7 @@
     </head>
     <body style="height: 90%">
         <center>
-            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Weapon Damage Calculator (v3.9.5)</span>
+            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Weapon Damage Calculator (v3.9.6)</span>
             <br/>
             <!-- <i>(Notification here)</i> -->
         <br/>
@@ -4708,12 +4708,12 @@
                     ]
                 },
                 {
-                    name: "Alien Rifle",
+                    name: "Alien Desintegrator",
                     category: "Rifle",
                     kind: "energy",
                     explosive: true,
-                    speed: 4,
-                    clipSize: 30,
+                    speed: 3.3,
+                    clipSize: 25,
                     reloadTime: 2.866677,
                     formId: "0062FE8E",
                     level: [20,30,40,50],
@@ -4727,26 +4727,27 @@
                                     name: "Standard",
                                 },
                                 {
-                                    name: "Sniper",
-                                    damageMultPercent: 10,
-                                    clipSizeAdd: -15
+                                    name: "High-powered",
+                                    damageMultPercent: 110,
+                                    clipSizeAdd: -19,
+                                    speedSet: 1.3
                                 },
                                 {
                                     name: "Poison",
-                                    damageMultPercent: -20,
+                                    addDamageEnergyLeveled: [-25 * 0.2, -31 * 0.2, -36*0.2, -40 * 0.2],
                                     addDamagePoisonLeveled: [10, 10, 10, 10]
                                 },
                                 {
                                     name: "Cryo",
-                                    damageMultPercent: -20,
-                                    addDamageColdLeveled: [10, 12.7, 15.3, 18]
+                                    addDamageEnergyLeveled: [-25 * 0.2, -31 * 0.2, -36*0.2, -40 * 0.2],
+                                    addDamageColdLeveled: [10, 13.3, 16.6, 20]
                                 },
                                 {
                                     name: "Automatic",
-                                    clipSizeAdd: 18,
+                                    clipSizeAdd: 15,
                                     isAutomatic: true,
                                     damageMultPercent: -15,
-                                    speedSet: 7.2
+                                    speedSet: 7.5
                                 }
                             ]
                         }
@@ -5756,11 +5757,11 @@
                     },
                     {
                         name: "Double",
-                        clipSizeMult: 2,
+                        clipSizeMult: 1,
                     },
                     {
                         name: "Quad",
-                        clipSizeMult: 4,
+                        clipSizeMult: 3,
                     },
                     {
                         name: "Aristocrats",
@@ -10788,15 +10789,11 @@
                 if (isReload) {
                     if (clipSizeSet > 0) {
                         clipSize = clipSizeSet;
-                        if (clipSizeMult > 1) {
-                            clipSize += clipSizeMult * weap.clipSize;
-                        }
                     } else {
-                        if (clipSizeAdd < 0 && clipSizeMult == 1) {
-                            clipSize = weap.clipSize + clipSizeAdd;
-                        } else {
-                            clipSize = clipSizeMult * weap.clipSize + Math.max(0, clipSizeAdd);
-                        }
+                        clipSize = weap.clipSize + clipSizeAdd;
+                    }
+                    if (clipSizeMult > 0) {
+                        clipSize += weap.clipSize * clipSizeMult;
                     }
 
                     if (weap.category.includes("Heavy") && weap.kind === "laser") {
