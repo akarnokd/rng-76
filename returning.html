@@ -112,6 +112,13 @@
                             </tr>
                             <tr>
                                 <td class='someindent'>
+                                    <label><input type='checkbox' id='filterItem' checked> Items <span id='itemsCount'></span></label>
+                                    <label><input type='checkbox' id='filterPerk' checked> Perks <span id='perkCount'></span></label>
+                                    <label><input type='checkbox' id='filterMutation' checked> Mutations <span id='mutationCount'></span></label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class='someindent'>
                                     <label><input type='checkbox' id='filterPvP' checked> PvP <span id='pvpCount'></span></label>
                                     <label><input type='checkbox' id='filterSurvival' checked> Survival Mode <span id='survivalCount'></span></label>
                                     <label><input type='checkbox' id='filterNW' checked> Nuclear Winter <span id='nwCount'></span></label>
@@ -119,9 +126,7 @@
                             </tr>
                             <tr>
                                 <td class='someindent'>
-                                    <label><input type='checkbox' id='filterItem' checked> Items <span id='itemsCount'></span></label>
-                                    <label><input type='checkbox' id='filterPerk' checked> Perks <span id='perkCount'></span></label>
-                                    <label><input type='checkbox' id='filterMutation' checked> Mutations <span id='mutationCount'></span></label>
+                                    <label><input type='checkbox' id='filterWorlds' checked> Fallout Worlds <span id='worldsCount'></span></label>
                                 </td>
                             </tr>
                             <tr>
@@ -236,6 +241,578 @@
             }
 
             var releaseNotes = [
+                {
+                    id: "P33",
+                    patch: "33",
+                    descripton: "Invaders from Beyond Update",
+                    date: ofDate(2022, 2, 1),
+                    reddit: "https://www.reddit.com/r/fo76/comments/t4abu8/fallout_76_update_notes_march_1_2022/",
+                    bethesda: "https://bethesda.net/en/article/BRIF0qHDKw962fp0WPmvO/fallout-76-update-notes-march-1-2022",
+                    notes: [
+                        {
+                            category: "Event",
+                            name: "Seasonal Event: Out of this World",
+                            description: "Mysterious beings from the outer reaches of space have arrived in our skies, and they're planning to steal the brainwaves from lifeforms throughout Appalachia!"
+                            + "<ul>"
+                            + "<li>Every hour on the hour until March 15, an Alien Mothership will materialize above one of six Appalachian landmarks to deploy three Brainwave Siphons in the area.</li>"
+                            + "<li>Travel to the Mothership’s location and examine Siphon Kappa to start the event.</li>"
+                            + "<li>When the event begins, work to destroy all three Brainwave Siphons, one after the other, before the aliens can complete their Brainwave Extraction process.</li>"
+                            + "<li>If you manage to demolish all three Brainwave Siphons in time, you will receive some loot, XP, and have a chance to earn plans to craft new alien weaponry, like the Alien Disintegrator and Electro Enforcer, as well as high-tech new C.A.M.P. objects.</li>"
+                            + "<li>Keep your guard up, because as long as the Seasonal Event is live, you may encounter extraterrestrial interlopers at select Public Events, including Campfire Tales, Free Range, and Line in the Sand. You may also spot our curious visitors in new Random Encounters that we’re adding with this update.</li>"
+                            + "</ul>"
+                        },
+                        {
+                            category: "Season",
+                            name: "Season 8: A Better Life Underground",
+                            description: "Relive the glory days of your past life inside the cozy confines of the Vault on an all-new Scoreboard for Season 8. Achieve Rank 100 (and beyond!) once again this Season to earn a suite of new rewards that would even make an Overseer jealous."
+                        },
+                        {
+                            category: "UI,Atomic Shop",
+                            name: "Rank Purchasing Improvements",
+                            description: "Clicking over and over to purchase rank-ups with Atoms one at a time can be a drag! We’ve added a new option to the Season Scoreboard, which you can use to purchase as many rank-ups as you’d like, all in one go."
+                        },
+                        {
+                            category: "Other,Sound",
+                            name: "Fresh Radio Plays",
+                            description: "Tune in to Pirate Radio to experience all the drama, intrigue, and suspense that come with living in close quarters alongside other Dwellers. Sponsored by Abraxo Chemical, our latest round of Radio Plays for Season 8 follows the lives and times of Vault Dwellers as they struggle to get along."
+                        },
+                        {
+                            category: "Worlds,Balance",
+                            name: "S.C.O.R.E. in Fallout Worlds",
+                            description: "In response to community feedback, we’ve implemented the ability for you to continue your Season journey in Fallout Worlds. Going forward, you will now be able to earn S.C.O.R.E. from non-repeatable Daily and Weekly Challenges you complete while playing in Public and Custom Worlds."
+                        },
+                        {
+                            category: "Worlds",
+                            name: "Custom World Settings Improvements",
+                            description: "<ul>"
+                                + "<li>Carry Weight: Set how much weight a player can carry to a specific number, reduce it to zero, or multiply it up to eleven times the default amount.</li>"
+                                + "<li>Frequent Confetti: New Dismemberment setting that will cause enemies you take down to explode into a cloud of confetti.</li>"
+                                + "<li>Perk Effects: Choose whether players can benefit from Normal Perk effects, Legendary Perk effects, both, or neither with this setting.</li>"
+                                + "<li>VATS: We’ve added the ability to turn off VATS targeting versus other players, or even disable VATS entirely.</li>"
+                                + "<li>Relaxed Building Restrictions: When using \"Relaxed Building Restrictions\" in a Fallout World, you will now see a new \"Placement Mode\" option that can be toggled while building in a Workshop or C.A.M.P. Adjusting it will allow you to place C.A.M.P. objects even if they intersect.</li>"
+                                + "<li>Weather: If you enjoyed the darkened skies above the Mothman Equinox Seasonal Event, you can now bring it to your Custom Worlds using the Weather Setting.</li>"
+                                + "<li>Happy Builder: Players can now adjust the Snapping Toggle to place intersecting objects in their C.A.M.P.s.</li>"
+                                + "<li>High Risk: Perk Card effects, Legendary Perk Card effects, and VATS have been disabled to provide an even riskier experience to thrill seekers.</li>"
+                                + "</ul>"
+                        },
+                        {
+                            category: "C.A.M.P.",
+                            name: "Buildable Pirate Radio",
+                            description: "Tap your toes to Appalachia’s newest radio station when you’re relaxing at home with a buildable Pirate Radio that you can place in your C.A.M.P. Open the build menu and navigate to the Appliances section to find it."
+                        },
+                        {
+                            category: "UI,Visual",
+                            name: "Invisible Backpacks",
+                            description: "The community has long requested the ability to hide their currently equipped backpacks from view. Now, you can do just that with the new “Show Backpack” toggle in the game’s settings menu. Don’t worry, you’ll still receive all the benefits of your pack while it’s hidden."
+                        },
+                        {
+                            category: "UI,Balance",
+                            name: "Invulnerable Enemies",
+                            description: "To help you more easily identify when creatures are invulnerable, we've added in a new shield icon to better indicate that they won’t take damage."
+                        },
+                        {
+                            category: "Balance",
+                            name: "Minerva",
+                            description: "We’ve added several holiday-themed item plans to Minerva’s inventory that were previously only available in Nuclear Winter, so that you can purchase them with Gold Bullion."
+                        },
+                        {
+                            category: "Balance,C.A.M.P.",
+                            name: "Overbudget C.A.M.P. Limits",
+                            description: "Much like the absolute carry weight maximums we’ve introduced previously, in today’s update we’re implementing limits for C.A.M.P.s that are excessively overbudget. Upon login, the owners of C.A.M.P.s that have greatly surpassed the build budget will be notified that they are unable to perform certain actions while overbudget. The following actions will be disabled until the player scraps or destroys enough items to drop back under the budget limit:<ul>"
+                            + "<li>Fast Travel: On login, the owner will have one opportunity to travel to their overbudget C.A.M.P. to reduce its budget. If they don’t, Fast Travel will behave as if the player is overencumbered.</li>"
+                            + "<li>C.A.M.P. object placement, rearranging, and storing.</li>"
+                            + "<li>C.A.M.P. Slot swapping</li>"
+                            + "<li>C.A.M.P. broadcasting on the Map</li>"
+                            + "<li>Furniture and activator interactions, including Shelter Entrances.</li>"
+                            + "</ul>"
+                        },
+                        {
+                            category: "Balance,Items",
+                            name: "Stimpak Adjustments",
+                            description: "We’ve reduced the weight of Stimpaks and Diluted Stimpaks by 25%, and reduced their prices by 25% as well. Additionally, we’ve increased the number of Stimpaks and Diluted Stimpaks that will appear in Medical Vending Machines."
+                        },
+                        {
+                            category: "Bugfix,Items,Visual",
+                            name: "Outfits",
+                            description: "Players’ ankles no longer stretch in odd ways while wearing the Hellcat Field Gear Outfit."
+                        },
+                        {
+                            category: "Bugfix,Items,Visual",
+                            name: "Weapons",
+                            description: "Firing a Railway Rifle now correctly causes it to emit steam visual effects from the barrel."
+                        },
+                        {
+                            category: "Bugfix,C.A.M.P.,Balance",
+                            name: "Appliances",
+                            description: "Popcorn from the Popcorn Machine now correctly reduces Hunger and Thirst gains by 25%."
+                        },
+                        {
+                            category: "Bugfix,C.A.M.P.,UI",
+                            name: "Build",
+                            description: "Items in the Build Menu’s “New” tab now remain visible after logging out and back in, and after relaunching the game client."
+                        },
+                        {
+                            category: "Bugfix,C.A.M.P.,UI",
+                            name: "Build",
+                            description: "Fixed an issue that could prevent certain C.A.M.P. objects from appearing in the Build Menu’s “New” tab."
+                        },
+                        {
+                            category: "Bugfix,C.A.M.P.,Visual",
+                            name: "Build",
+                            description: "Scrapping or storing a C.A.M.P. object now correctly removes the grey highlight around that object."
+                        },
+                        {
+                            category: "Bugfix,C.A.M.P.,UI,Visual",
+                            name: "Build",
+                            description: "Selecting an object for placement and then switching to an empty tab in Build Mode now correctly removes the placement preview for that object."
+                        },
+                        {
+                            category: "Bugfix,C.A.M.P.,Balance",
+                            name: "Build",
+                            description: "Slightly increased the crafting requirements for several C.A.M.P. items, such as Crops, which previously returned the same amount of crafting materials when scrapped as they cost to build."
+                        },
+                        {
+                            category: "Bugfix,C.A.M.P.",
+                            name: "Collectron Stations",
+                            description: "Collectron Plans purchased using Gold Bullion, like the Nuka-Cola and Red Rocket Collectrons, now correctly grant access to their unique “Collect” options in the Collectron Station terminal."
+                        },
+                        {
+                            category: "Bugfix,C.A.M.P.",
+                            name: "Defenses",
+                            description: "Adjusted the Wire attach point for Enclave Turrets so that players can now correctly connect Wires from one Enclave Turret to another."
+                        },
+                        {
+                            category: "Bugfix,C.A.M.P.,Sound",
+                            name: "Defenses",
+                            description: "Enclave Turrets now correctly play sound effects while powered."
+                        },
+                        {
+                            category: "Bugfix,C.A.M.P.,UI",
+                            name: "Displays",
+                            description: "When scrapping or storing Display Cases and Mannequins, a warning now appears stating that any items assigned to that Display or Mannequin will be unassigned."
+                        },
+                        {
+                            category: "Bugfix,C.A.M.P.,Items",
+                            name: "Displays",
+                            description: "The Pepper Shaker is now properly aligned when assigned to wall-mounted weapon Displays."
+                        },
+                        {
+                            category: "Bugfix,C.A.M.P.",
+                            name: "Displays",
+                            description: "Souvenir Teddy Bear variants now face the correct direction when assigned to a Display."
+                        },
+                        {
+                            category: "Bugfix,C.A.M.P.,Balance",
+                            name: "Displays",
+                            description: "The Fasnacht Mask Display now has a build limit of 30."
+                        },
+                        {
+                            category: "Bugfix,C.A.M.P.,Exploit",
+                            name: "Exploit",
+                            description: "Addressed an exploit that allowed players to duplicate certain Crops."
+                        },
+                        {
+                            category: "Bugfix,C.A.M.P.,Balance",
+                            name: "Flags",
+                            description: "Flag objects now have a build limit of 10."
+                        },
+                        {
+                            category: "Bugfix,C.A.M.P.,Balance",
+                            name: "Misc.:",
+                            description: "The West Virginia Slot Machine now has a build limit of 5."
+                        },
+                        {
+                            category: "Bugfix,C.A.M.P.,UI",
+                            name: "Modify",
+                            description: "Fixed a visual issue that could cause incorrect error messages to appear when attempting to replace a C.A.M.P. object using the Modify Menu."
+                        },
+                        {
+                            category: "Bugfix,C.A.M.P.",
+                            name: "Power",
+                            description: "Ceiling Conduit Junctions can now correctly connect through Enclave Flat Roof pieces to electrical objects placed beneath."
+                        },
+                        {
+                            category: "Bugfix,C.A.M.P.",
+                            name: "Stairs",
+                            description: "Removed the railing at the top of the Guild of Antiquities Stairs with Posts, which could clip with other objects when built indoors."
+                        },
+                        {
+                            category: "Bugfix,C.A.M.P.",
+                            name: "Structures",
+                            description: "The Wildwood Den can now be sunk into the terrain more easily, and in cases where the terrain isn’t perfectly flat, it will appear closer to the ground and more natural than before."
+                        },
+                        {
+                            category: "Bugfix,C.A.M.P.",
+                            name: "Walls",
+                            description: "Upper-level flooring pieces no longer clip into Enclave C.A.M.P. Walls."
+                        },
+                        {
+                            category: "Bugfix,Challenge",
+                            name: "Combat",
+                            description: "Brotherhood Recon Armor Plans now correctly progress lifetime Challenges that require the player to learn Armor Plans."
+                        },
+                        {
+                            category: "Bugfix,Challenge",
+                            name: "Weekly",
+                            description: "The “Repeatable Under Rank 100: Gain XP” Weekly Challenge is now correctly available at Rank 99."
+                        },
+                        {
+                            category: "Bugfix,Challenge",
+                            name: "World",
+                            description: "“Pass the Buck” has been removed from the list of subchallenges for the “Complete Different Daily Quests” World Challenge."
+                        },
+                        {
+                            category: "Bugfix,Challenge",
+                            name: "World",
+                            description: "The Dirty Fedora and Crumpled Fedora now count toward progress for the Possum: Archaeologist World Challenge to “Collect bones while wearing a Fedora.”"
+                        },
+                        {
+                            category: "Bugfix,Balance",
+                            name: "Elemental Resistances",
+                            description: "Adjusted the calculation for energy and elemental damage to be in line with physical damage calculation. As a result, energy and elemental damage have been increased overall."
+                        },
+                        {
+                            category: "Bugfix",
+                            name: "Enemy Health",
+                            description: "Addressed an instance of enemy health “rubber banding” that could occur when using a high rate of fire weapon under poor network conditions."
+                        },
+                        {
+                            category: "Bugfix",
+                            name: "Floating Damage Numbers",
+                            description: "Armor penetration is now correctly factored into floating damage numbers that appear when attacking enemies."
+                        },
+                        {
+                            category: "Bugfix",
+                            name: "VATS",
+                            description: "Players can now use VATS to target and hit airborne grenades."
+                        },
+                        {
+                            category: "Bugfix,Daily Ops",
+                            name: "Bosses",
+                            description: "Addressed an issue that could cause Daily Ops Bosses to flee from the player."
+                        },
+                        {
+                            category: "Bugfix,Daily Ops,Items",
+                            name: "Rewards",
+                            description: "Fusion Cores for the Ultracite Gatling Laser now appear in the contextual ammo rewards granted after completing a Daily Op."
+                        },
+                        {
+                            category: "Bugfix,Visual",
+                            name: "Corpses",
+                            description: "Opening the quick loot menu by hovering the crosshairs over a dismembered enemy corpse no longer causes that enemy’s limbs or clothing to reappear."
+                        },
+                        {
+                            category: "Bugfix,NPC",
+                            name: "Humans",
+                            description: "Corrected an issue that allowed human enemies to attempt to enter sets of pre-placed Power Armor."
+                        },
+                        {
+                            category: "Bugfix",
+                            name: "Mothmen",
+                            description: "Scorched Mothmen now correctly take bonus damage from weapons with the Zealot’s legendary attribute."
+                        },
+                        {
+                            category: "Bugfix",
+                            name: "Wild Mongrels",
+                            description: "After being crippled, Wild Mongrels now continue their attempts to attack the player instead of preferring to stare at them ominously."
+                        },
+                        {
+                            category: "Bugfix,Event",
+                            name: "A Colossal Problem",
+                            description: "Fixed an issue that could cause the Public Event, \"A Colossal Problem\", to begin after nuking Cranberry Bog to start Scorched Earth."
+                        },
+                        {
+                            category: "Bugfix,Main Quest",
+                            name: "A Satisfied Conscience",
+                            description: "Valdez and other NPCs no longer become stuck after taking cover at the end of the battle during this quest."
+                        },
+                        {
+                            category: "Bugfix,Event",
+                            name: "Campfire Tales",
+                            description: "Fixed an issue that prevented players from remaining hidden from enemies while sneaking during the event."
+                        },
+                        {
+                            category: "Bugfix,Event",
+                            name: "Campfire Tales",
+                            description: "Scout Leader Penny no longer plays placeholder voiceover for one of her lines during the boss fight."
+                        },
+                        {
+                            category: "Bugfix,Event",
+                            name: "Free Range",
+                            description: "Players now earn the correct rewards after completing Free Range."
+                        },
+                        {
+                            category: "Bugfix,Event",
+                            name: "Lode Bearing",
+                            description: "Ultracite Ore that spawns during this event is now correctly minable."
+                        },
+                        {
+                            category: "Bugfix,Event",
+                            name: "One Violent Night",
+                            description: "Updated the text for the optional objective “Kill the Nightstalker bare-handed” to reflect that players can use explosives and thrown weapons."
+                        },
+                        {
+                            category: "Bugfix,Event",
+                            name: "Tea Time",
+                            description: "Fixed an issue that could cause Tea Time to continue running in the background, which prevented the next Public Event from starting."
+                        },
+                        {
+                            category: "Bugfix,Worlds",
+                            name: "Legendary Perk Cards",
+                            description: "Fixed an issue that could cause the Master Infiltrator Legendary Perk Card to unequip itself after joining a Custom World."
+                        },
+                        {
+                            category: "Bugfix,Worlds",
+                            name: "Menus",
+                            description: "The ordering of Custom World settings categories is now uniform across different platforms."
+                        },
+                        {
+                            category: "Bugfix,Worlds",
+                            name: "Settings",
+                            description: "Players can no longer earn Wanted status when PVP rules in a Custom World are set to “Never.”"
+                        },
+                        {
+                            category: "Bugfix,Worlds",
+                            name: "Settings",
+                            description: "When Fast Travel is disabled in a Custom World, players now correctly receive a message that they are unable to Fast Travel."
+                        },
+                        {
+                            category: "Bugfix,Worlds",
+                            name: "Settings",
+                            description: "Jump animations are now smoother in Custom Worlds where Jump Height has been increased."
+                        },
+                        {
+                            category: "Bugfix,Worlds",
+                            name: "Settings",
+                            description: "Jumping while overencumbered no longer consumes Action Points when Jump AP Cost is set to “Zero” in a Custom World."
+                        },
+                        {
+                            category: "Bugfix,Worlds",
+                            name: "Settings",
+                            description: "Players can no longer damage their own CAMP objects when PVP is set to “Always” in a Custom World."
+                        },
+                        {
+                            category: "Bugfix,Worlds",
+                            name: "Settings",
+                            description: "VATS now correctly targets enemies when the player has no Action Points in Custom Worlds with VATS and Melee AP Cost set to “Zero.”"
+                        },
+                        {
+                            category: "Bugfix,Worlds",
+                            name: "Settings",
+                            description: "Enemies now correctly stop spawning while the player is on the respawn screen when Proximity Enemy Spawns is enabled in a Custom World."
+                        },
+                        {
+                            category: "Bugfix,Worlds",
+                            name: "Settings",
+                            description: "Players can no longer place stored C.A.M.P. objects when C.A.M.P. Budget is set to “Zero” in a Custom World."
+                        },
+                        {
+                            category: "Bugfix,Worlds",
+                            name: "Settings",
+                            description: "Blueprints that contain floating objects can now be placed in Custom Worlds with Relaxed Building Restrictions enabled."
+                        },
+                        {
+                            category: "Bugfix,Items",
+                            name: "Aid",
+                            description: "Certain buff timers, like the Lunchbox XP buff, will no longer become out of sync with the server."
+                        },
+                        {
+                            category: "Bugfix,Items",
+                            name: "Aid",
+                            description: "Corrected the description of Toxic Goo to clarify the actual amount of Rad damage the player will take after consuming the item."
+                        },
+                        {
+                            category: "Bugfix,Items,Balance",
+                            name: "Ammo",
+                            description: "The contextual ammo system now drops .45 ammo and Cannonballs in amounts that are more consistent with other ammo types."
+                        },
+                        {
+                            category: "Bugfix,Items",
+                            name: "Armor",
+                            description: "Life Saving legendary armor now correctly consumes a Stimpak when reviving the player."
+                        },
+                        {
+                            category: "Bugfix,Items,Exploit",
+                            name: "Exploit",
+                            description: "Addressed an exploit that allowed players to activate multiple aid items simultaneously."
+                        },
+                        {
+                            category: "Bugfix,Items,Exploit",
+                            name: "Exploit",
+                            description: "Addressed an exploit that allowed players to repeatedly and rapidly stack aid item buffs."
+                        },
+                        {
+                            category: "Bugfix,Items,Exploit",
+                            name: "Exploit",
+                            description: "Addressed an exploit that allowed players to significantly increase a weapon’s magazine size."
+                        },
+                        {
+                            category: "Bugfix,Items",
+                            name: "Headwear",
+                            description: "The Covert Scout Armor Mask no longer prevents the Chameleon Mutation from triggering."
+                        },
+                        {
+                            category: "Balance,Items",
+                            name: "Melee Weapons",
+                            description: "Attacking with an automatic melee weapon, like the Chainsaw, Drill, or Ripper, now correctly drains Action Points."
+                        },
+                        {
+                            category: "Bugfix,Items",
+                            name: "Power Armor",
+                            description: " Being melee attacked by another player while wearing Burning, Electrified, Frozen, or Toxic legendary Power Armor will no longer trigger PVP."
+                        },
+                        {
+                            category: "Bugfix,Items",
+                            name: "Power Armor",
+                            description: "Removing a Fusion Core from Power Armor that has an equipped Jetpack no longer causes that Jetpack to appear to float near the player."
+                        },
+                        {
+                            category: "Bugfix,Items",
+                            name: "Power Armor",
+                            description: "The Rusty Knuckles Power Armor mod now correctly adds damage when applied to only one arm, rather than requiring both arms to have the mod."
+                        },
+                        {
+                            category: "Bugfix,Items",
+                            name: "Power Armor",
+                            description: "The Optimized Bracers Power Armor mod’s Action Point cost reduction for Power Attacks now stacks when the mod is applied to both arms, instead of only granting the benefit for one arm."
+                        },
+                        {
+                            category: "Bugfix,Items",
+                            name: "Power Armor",
+                            description: "Fixed an issue that prevented the Slocum’s Joe Power Armor paint from being applied to Power Armor pieces."
+                        },
+                        {
+                            category: "Bugfix,Items",
+                            name: "Ranged Weapons",
+                            description: "The Alien Blaster now correctly deals damage to the enemy limbs that it hits, instead of damaging limbs at random."
+                        },
+                        {
+                            category: "Bugfix,Items",
+                            name: "Ranged Weapons",
+                            description: "Aiming down sights with a weapon that has a scope attached no longer interrupts Jetpack use."
+                        },
+                        {
+                            category: "Bugfix,Items",
+                            name: "Ranged Weapons",
+                            description: "Gatling weapons no longer reset their windup times if the player attempts to fire immediately after they stop aiming down sights."
+                        },
+                        {
+                            category: "Bugfix,Items",
+                            name: "Ranged Weapons",
+                            description: "Guns that use Cores as ammo, like the Gatling Plasma and Gatling Laser, can no longer spawn with the Quad legendary attribute."
+                        },
+                        {
+                            category: "Bugfix,Items",
+                            name: "Ranged Weapons",
+                            description: "Alien Blaster Rounds should now drop from all contextual ammo sources."
+                        },
+                        {
+                            category: "Bugfix,Items",
+                            name: "Thrown Explosives",
+                            description: "Players can now correctly throw grenades while sprinting."
+                        },
+                        {
+                            category: "Bugfix,Mutation",
+                            name: "Plague Walker",
+                            description: "The Plague Walker Mutation now correctly deals damage to enemies within its area of effect."
+                        },
+                        {
+                            category: "Bugfix,NPC",
+                            name: "Allies",
+                            description: "Daphne and Maul’s C.A.M.P. items can no longer become partially destroyed, which was inconsistent with other Allies’ C.A.M.P. items."
+                        },
+                        {
+                            category: "Bugfix,Stability",
+                            name: "Client Stability",
+                            description: "Fixed an issue that could cause duplicate items to appear in the player’s Pip-Boy and result in a client crash."
+                        },
+                        {
+                            category: "Bugfix,Stability",
+                            name: "Client Stability",
+                            description: "Consuming Aid items in rapid succession no longer causes the client to freeze or crash."
+                        },
+                        {
+                            category: "Bugfix,Stability",
+                            name: "Client Stability",
+                            description: "Fixed a client crash that could occur while playing on a team."
+                        },
+                        {
+                            category: "Bugfix,Stability",
+                            name: "Server Stability",
+                            description: "Addressed a server crash that could occur during combat."
+                        },
+                        {
+                            category: "Bugfix,Perks",
+                            name: "Cap Collector",
+                            description: "Looting Brahmin and Chickens no longer causes the fanfare for the Cap Collector Perk Card to appear."
+                        },
+                        {
+                            category: "Bugfix,Perks",
+                            name: "Commando",
+                            description: "Automatic fire and critical hits now work properly in VATS when the Commando Perk Card is equipped."
+                        },
+                        {
+                            category: "Bugfix,Perks",
+                            name: "Daytime Perk Effects",
+                            description: "Perk Cards that activate between 6am and 6pm now correctly work when the player is in an instanced location."
+                        },
+                        {
+                            category: "Bugfix,Perks",
+                            name: "Friendly Fire",
+                            description: "Updated the description of the Friendly Fire Perk Card to clarify that it does not affect Grenades."
+                        },
+                        {
+                            category: "Bugfix,Perks",
+                            name: "Friendly Fire",
+                            description: "The Hellstorm Missile Launcher’s Napalm Payload mod is now correctly affected by the Friendly Fire Perk Card."
+                        },
+                        {
+                            category: "Bugfix,Perks",
+                            name: "Friendly Fire",
+                            description: "Turrets that are owned by NPCs can no longer be healed by the Friendly Fire Perk Card."
+                        },
+                        {
+                            category: "Bugfix,Perks",
+                            name: "Pain Train:",
+                            description: "Fixed an issue that prevented Pain Train’s effects from triggering correctly if the player had a weapon drawn in a relaxed state."
+                        },
+                        {
+                            category: "Balance,Other",
+                            name: "Diseases",
+                            description: "Now have fixed durations and they are no longer affected by the region they are contracted in. Additionally, Fast Traveling to different regions while affected by a Disease no longer alters its duration."
+                        },
+                        {
+                            category: "Bugfix,UI",
+                            name: "Controls",
+                            description: "Fixed an issue that caused the game’s controls to become unresponsive after dying at the very end of an event, which could prevent the player from respawning."
+                        },
+                        {
+                            category: "Bugfix,UI",
+                            name: "Notifications",
+                            description: "“Crafting item unlocked” notifications that appear after learning plans for various Generators and the Windmill now correctly include the names of those items."
+                        },
+                        {
+                            category: "Bugfix,UI",
+                            name: "Pip-Boy",
+                            description: "Fixed an issue that could prevent players from scrolling down in the Pip-Boy’s Collections tab on the STAT menu."
+                        },
+                        {
+                            category: "Bugfix,UI",
+                            name: "Social",
+                            description: "The Social Menu now opens correctly after using the Social Menu hotkey from the game’s Main Menu."
+                        },
+                        {
+                            category: "Bugfix,Locations,Items",
+                            name: "Camden Park",
+                            description: "The Mr. Fuzzy Terminal now correctly dispenses rewards after turning in Mr. Fuzzy Tokens to redeem the Super Comic Book option."
+                        },
+                        {
+                            category: "Bugfix,Locations,Exploit",
+                            name: "Exploit",
+                            description: "Addressed an exploit that enabled players to repeatedly disarm pre-placed Traps."
+                        },
+                    ]
+                },
                 {
                     id: "P32",
                     patch: "32",
@@ -515,22 +1092,22 @@
                             description: "Players now receive the proper amount of reputation with Foundation when choosing to donate the recovered item."
                         },
                         {
-                            category: "Bugfix,UI",
+                            category: "Bugfix,UI,Worlds",
                             name: "Fallout Worlds: Menus",
                             description: "The Shared Worlds menu now reflects changes to a shared Custom World more quickly after the world owner makes settings adjustments."
                         },
                         {
-                            category: "Bugfix,UI",
+                            category: "Bugfix,UI,Worlds",
                             name: "Fallout Worlds: Settings",
                             description: "Crafting quest items with Free Workbench Crafting enabled no longer consumes standard crafting materials."
                         },
                         {
-                            category: "Bugfix,UI,PvP",
+                            category: "Bugfix,UI,PvP,Worlds",
                             name: "Fallout Worlds: Settings",
                             description: "When PVP is set to “Always,” the players in that world will now correctly be marked as hostile toward one another."
                         },
                         {
-                            category: "Bugfix,UI",
+                            category: "Bugfix,UI,Worlds",
                             name: "Fallout Worlds: Private Adventure",
                             description: "Fixed an issue that could prevent players from joining Private Adventure worlds from the main menu while on a team."
                         },
@@ -1010,29 +1587,29 @@
                             description: "As with the previous Season, you can once again surpass Rank 100 to continue earning additional rank-up rewards<br>through the end of Season 6. Each rank you achieve after 100 will award items like Perk Card Packs,<br>Legendary Crafting components, consumables, Atoms, and more."
                         },
                         {
-                            category: "Other",
+                            category: "Worlds",
                             name: "Public Worlds",
                             description: "The new Public Worlds mode will help you shake up your normal gameplay by offering special worlds<br>that have a pre-selected group of Fallout Worlds settings enabled, fit to a theme.<br><b>All players can join Public Worlds</b>",
                             link: "https://fallout.fandom.com/wiki/Fallout_Worlds"
                         },
                         {
-                            category: "Other",
+                            category: "Worlds",
                             name: "Public Worlds Rotations",
                             description: "Here are the first five Public Worlds that you will be able to check out in-game:<ul><li>Happy Builder: Reduced C.A.M.P. placement restrictions, relaxed building restrictions, all Map locations discovered, and PvP has been disabled.</li><li>High Risk: No Fast Travel, always-on PVP, players drop additional loot on death, free workbench crafting, and legendary item attributes have been disabled.</li><li>Dweller Must Die: Greatly increased enemy difficulty, increased damage, increased equipment durability, and “Dark Bog” weather effects.</li><li>Quantum World: Max jump height, no fall damage, nuked creatures and flora, and “Quantum Storm” weather.</li><li>Butcher’s Delight: Infinite ammo, no VATS or melee attack AP costs, and enhanced dismemberment.</li></ul>"
                         },
                         {
-                            category: "Other,Fallout 1st",
+                            category: "Fallout 1st,Worlds",
                             name: "Custom Worlds",
                             description: "layers with active Fallout 1st memberships can now choose the Custom Worlds option from the Play menu<br>to create a new type of world where they can adjust a wide variety of different settings to create an Appalachia that’s tailored to their liking.<br>To create a Custom World, click “Play” from the Main Menu, select Custom World, hit “Select World Template,” and then start tinkering with settings you’d like to try out.",
                             link: "https://fallout.fandom.com/wiki/Fallout_Worlds#Custom_Worlds"
                         },
                         {
-                            category: "Other,Fallout 1st",
+                            category: "Worlds,Fallout 1st",
                             name: "Custom Worlds settings",
                             description: "While creating your Custom World, you can choose among a broad array of customization settings<br>and let your imagination run wild with the possibilities! Here are some of the options at your disposal:<ul><li>Workshop: Build in previously restricted areas, disable the need for electricity, increase your C.A.M.P. budget and build height, relax building restrictions, and more.</li><li>Combat: Infinite enemy spawns, alter PvP rules, adjust enemy difficulty, give yourself infinite ammo, change item durability, and more.</li><li>General: Disable Fast Travel or make it free. Choose special weather effects, including Radstorms and Nuke Zones, as well as new weather effects,<br>like Quantum Storm and Dark Bog. Add filters for a unique view of Appalachia, adjust jump height, fall damage, or even the consequences on death.</li></ul>"
                         },
                         {
-                            category: "Other",
+                            category: "Worlds",
                             name: "Public/Custom Worlds progression",
                             description: "The progress each of your characters make in Public or Custom Worlds is specific to those worlds, and is completely separate from Adventure Mode."
                         },
@@ -17615,6 +18192,7 @@
                 "Daily Quest" : "dailyCount",
                 "NW" : "nwCount",
                 "Survival" : "survivalCount",
+                "Worlds": "worldsCount"
             };
 
             function filterByKeywords(note, keywords) {
@@ -17757,6 +18335,9 @@
                 }
                 if (get("filterNW").checked) {
                     filter.push("NW");
+                }
+                if (get("filterWorlds").checked) {
+                    filter.push("Worlds");
                 }
                 if (get("filterSurvival").checked) {
                     filter.push("Survival");
