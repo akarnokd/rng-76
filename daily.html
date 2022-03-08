@@ -10561,6 +10561,14 @@
                             ignore: true
                         };
             }
+            function scoreTakePictureZeta(offset, count) {
+                return {
+                            name: times("Take a Camera Picture of Admiral Zeta", count),
+                            offset: offset,
+                            period: 1400,
+                            ignore: true
+                        };
+            }
 
             addWeekly(challengesWeeklyEra11.options, 0, scoreFixedGainXP10000Rank100);
             addWeekly(challengesWeeklyEra11.options, 0, scoreLevelUp3);
@@ -10665,6 +10673,31 @@
                     scoreTakePictureAlienDrone, 1,
                     scoreGainXP2500, 1,
                 ], dops(dailyOpsBurning, dailyOpsMutants, dailyOpsResilient, true));
+            addWeekly(challengesWeeklyEra11.options, 7, scoreFixedGainXP10000Rank100);
+            addWeekly(challengesWeeklyEra11.options, 7, scoreLevelUp3);
+            addWeekly(challengesWeeklyEra11.options, 7, scoreCompleteDailyOps, 5);
+            addWeekly(challengesWeeklyEra11.options, 7, scoreCompleteGoldStar);
+            addWeekly(challengesWeeklyEra11.options, 7, scoreCompleteOneEvent, 10);
+            addWeekly(challengesWeeklyEra11.options, 7, scoreCompleteEventsGroup, 5);
+            addWeekly(challengesWeeklyEra11.options, 7, scoreDrinkNukaCola, 25);
+            addWeekly(challengesWeeklyEra11.options, 7, scoreCraftAmmo, 250);
+            addWeekly(challengesWeeklyEra11.options, 7, scoreCompleteInvadersDaily, 5);
+            addWeekly(challengesWeeklyEra11.options, 7, scoreCompleteInvaders, 3);
+            addWeekly(challengesWeeklyEra11.options, 7, scoreTakePictureZeta, 1);
+            addWeekly(challengesWeeklyEra11.options, 7, scoreKillCreatures, 76);
+            addDaily(challengesDailyEra11, 7, [
+                    scoreCompleteDailyChallenge, 5,
+                    scoreLevelUp, 1,
+                    scoreCompleteDailyOps, 1,
+                    scoreCompleteOneEvent, 2,
+                    scoreCompleteInvaders, 1,
+                    scoreBuySellItem, 1,
+                    scoreCollectPurifiedWater, 5,
+                    scoreModArmor, 1,
+                    scoreTakePictureAlienEnemy, 1,
+                    scoreTakePictureAlienDrone, 1,
+                    scoreGainXP2500, 1,
+                ], dops(dailyOpsUncanny, dailyOpsCommunists, dailyOpsSwift, false));
 
             addPlaceholders(challengesDailyEra11, scoreDailyplaceholder, era11Length);
             addPlaceholders(challengesWeeklyEra11, scoreWeeklyplaceholder, era11Length);
