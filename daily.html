@@ -51,6 +51,7 @@
             var shiftDate2 = ofDate(2020, 10, 3, 16);
             var shiftDate3 = ofDate(2021, 2, 14, 16);
             var shiftDate4 = ofDate(2021, 10, 7, 16);
+            var shiftDate5 = ofDate(2022, 2, 13, 16);
 
             function normalizeDate(date) {
                 if (date < oneHourLaterSince) {
@@ -59,15 +60,18 @@
                 if (date < shiftDate2)
                 {
                     date.setUTCHours(16, 0, 0, 0);
-                }
+                } else
                 if (date < shiftDate3) {
                     date.setUTCHours(17, 0, 0, 0);
-                }
+                } else
                 if (date < shiftDate4) {
                     date.setUTCHours(16, 0, 0, 0);
+                } else 
+                if (date < shiftDate5) {
+                    date.setUTCHours(17, 0, 0, 0);
                 }
                 else {
-                    date.setUTCHours(17, 0, 0, 0);
+                    date.setUTCHours(16, 0, 0, 0);
                 }
             }
 
@@ -10748,6 +10752,19 @@
                     scoreKillGhoul, 10,
                     scoreTakePictureAlienEnemy, 1,
                     scoreTakePictureAlienDrone, 1,
+                    scoreGainXP2500, 1,
+                ], dops(dailyOpsBurrows, dailyOpsCommunists, dailyOpsChillingMend, false));
+            addDaily(challengesDailyEra11, 12, [
+                    scoreCompleteDailyChallenge, 5,
+                    scoreLevelUp, 1,
+                    scoreCompleteDailyOps, 1,
+                    scoreCompleteOneEvent, 2,
+                    scoreCompleteInvaders, 1,
+                    scoreCookMeatFood, 3,
+                    scoreRepairArmorWeaponPA, 5,
+                    scoreUsePhotomodeGroup, 1,
+                    scoreTakePictureAlienEnemy, 1,
+                    scoreTakePictureAlienInvader, 1,
                     scoreGainXP2500, 1,
                 ], dops(dailyOpsBurrows, dailyOpsCommunists, dailyOpsChillingMend, false));
 
