@@ -5600,9 +5600,9 @@
                         };
             }
 
-            function scoreCriticalHit25(offset) {
+            function scoreCriticalHit(offset, count) {
                 return {
-                            name: "Deal critical hit to an enemy (x25)",
+                            name: times("Deal critical hit to an enemy", count),
                             offset: offset,
                             period: 1400,
                             tipId: "ScoreCriticalHit",
@@ -5610,14 +5610,12 @@
                         };
             }
 
+            function scoreCriticalHit25(offset) {
+                return scoreCriticalHit(offset, 25);
+            }
+
             function scoreCriticalHit10(offset) {
-                return {
-                            name: "Deal critical hit to an enemy (x10)",
-                            offset: offset,
-                            period: 1400,
-                            tipId: "ScoreCriticalHit",
-                            tip: "Scoring a critical hit with a Shotgun may still count as 8 critical hits at once."
-                        };
+                return scoreCriticalHit(offset, 10);
             }
 
             function scoreKillCreature20(offset) {
@@ -10778,6 +10776,26 @@
                     scoreTakePictureAlienDrone, 1,
                     scoreTakePictureAlienEnemy, 1,
                     scoreTakePictureAlienInvader, 1,
+                    scoreGainXP2500, 1,
+                ], dops(dailyOpsV96, dailyOpsMutants, dailyOpsToxic, false));
+            addWeekly(challengesWeeklyEra11.options, 14, scoreFixedGainXP10000Rank100);
+            addWeekly(challengesWeeklyEra11.options, 14, scoreLevelUp3);
+            addWeekly(challengesWeeklyEra11.options, 14, scoreCompleteDailyOps, 5);
+            addWeekly(challengesWeeklyEra11.options, 14, scoreCompleteGoldStar);
+            addWeekly(challengesWeeklyEra11.options, 14, scoreCompleteOneEvent, 10);
+            addWeekly(challengesWeeklyEra11.options, 14, scoreCollectBullion, 250);
+            addWeekly(challengesWeeklyEra11.options, 14, scoreCompleteEncryptid, 1);
+            addWeekly(challengesWeeklyEra11.options, 14, scoreCriticalHit, 20);
+            addWeekly(challengesWeeklyEra11.options, 14, scoreEatCookedMeal, 15);
+            addWeekly(challengesWeeklyEra11.options, 14, scoreKillCreatures, 76);
+            addDaily(challengesDailyEra11, 14, [
+                    scoreCompleteDailyChallenge, 5,
+                    scoreLevelUp, 1,
+                    scoreCompleteDailyOps, 1,
+                    scoreCompleteOneEvent, 1,
+                    scoreBuySellItem, 1,
+                    scoreEatPrewarFood, 3,
+                    scoreKillMoleminer, 15,
                     scoreGainXP2500, 1,
                 ], dops(dailyOpsV96, dailyOpsMutants, dailyOpsToxic, false));
 
