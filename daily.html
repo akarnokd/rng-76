@@ -11048,6 +11048,27 @@
                     scoreKillThreestarLegendary, 1,
                     scoreGainXP2500, 1,
                 ], dops(dailyOpsBurning, dailyOpsCultists, dailyOpsResilient, true));
+            addWeekly(challengesWeeklyEra11.options, 35, scoreFixedGainXP10000Rank100);
+            addWeekly(challengesWeeklyEra11.options, 35, scoreLevelUp3);
+            addWeekly(challengesWeeklyEra11.options, 35, scoreCompleteDailyOps, 5);
+            addWeekly(challengesWeeklyEra11.options, 35, scoreCompleteGoldStar);
+            addWeekly(challengesWeeklyEra11.options, 35, scoreCompleteOneEvent, 10);
+            addWeekly(challengesWeeklyEra11.options, 35, scoreBuySellItem, 3);
+            addWeekly(challengesWeeklyEra11.options, 35, scoreCollectCaps, 1250);
+            addWeekly(challengesWeeklyEra11.options, 35, scoreConsumeAlcohol, 15);
+            addWeekly(challengesWeeklyEra11.options, 35, scoreHarvestPlantFungi, 50);
+            addWeekly(challengesWeeklyEra11.options, 35, scoreKillGlowing, 15);
+            addDaily(challengesDailyEra11, 35, [
+                    scoreCompleteDailyChallenge, 5,
+                    scoreLevelUp, 1,
+                    scoreCompleteDailyOps, 1,
+                    scoreCompleteOneEvent, 1,
+                    scoreCompleteDailyOpsPublicTeam, 1,
+                    scoreCollectPurifiedWater, 5,
+                    scoreCraftAmmo, 50,
+                    scoreJoinGroup, 1,
+                    scoreGainXP2500, 1,
+                ], dops(dailyOpsBurning, dailyOpsCultists, dailyOpsResilient, true));
 
             addPlaceholders(challengesDailyEra11, scoreDailyplaceholder, era11Length);
             addPlaceholders(challengesWeeklyEra11, scoreWeeklyplaceholder, era11Length);
