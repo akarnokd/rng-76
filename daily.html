@@ -11135,6 +11135,27 @@
                     scoreUsePhotomode, 1,
                     scoreGainXP2500, 1,
                 ], dops(dailyOpsV94, dailyOpsCommunists, dailyOpsCloaked, false));
+            addWeekly(challengesWeeklyEra11.options, 42, scoreFixedGainXP10000Rank100);
+            addWeekly(challengesWeeklyEra11.options, 42, scoreLevelUp3);
+            addWeekly(challengesWeeklyEra11.options, 42, scoreCompleteDailyOps, 5);
+            addWeekly(challengesWeeklyEra11.options, 42, scoreCompleteGoldStar);
+            addWeekly(challengesWeeklyEra11.options, 42, scoreCompleteOneEvent, 10);
+            addWeekly(challengesWeeklyEra11.options, 42, scoreCompleteDailyOpsPublicTeam, 3);
+            addWeekly(challengesWeeklyEra11.options, 42, scoreCraftScrapItems, 20);
+            addWeekly(challengesWeeklyEra11.options, 42, scoreEatMeat, 30);
+            addWeekly(challengesWeeklyEra11.options, 42, scoreKillCultist, 50);
+            addWeekly(challengesWeeklyEra11.options, 42, scoreRepairArmorWeaponPA, 15);
+            addDaily(challengesDailyEra11, 42, [
+                    scoreCompleteDailyChallenge, 5,
+                    scoreLevelUp, 1,
+                    scoreCompleteDailyOps, 1,
+                    scoreCompleteOneEvent, 1,
+                    scoreJoinGroup, 1,
+                    scoreCookMealPlant, 3,
+                    scoreCraftAmmo, 50,
+                    scoreKillCreatures, 15,
+                    scoreGainXP2500, 1,
+                ], dops(dailyOpsV94, dailyOpsCommunists, dailyOpsCloaked, false));
 
             addPlaceholders(challengesDailyEra11, scoreDailyplaceholder, era11Length);
             addPlaceholders(challengesWeeklyEra11, scoreWeeklyplaceholder, era11Length);

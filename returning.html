@@ -73,14 +73,14 @@
                     </td>
                     <td>
                         <input id='keywordFilter' type="text" style='width: 250px;'>
-                        &nbsp;<button onclick='clearFilter();return false;'>Clear</button>
+                        &nbsp;<button onclick='clearFilter();'>Clear</button>
                     </td>
                 </tr>
                 <tr>
                     <td class='bolded topped'>Include categories:</td>
                     <td>
                         <button id='checkAll'>All</button>&nbsp;<button id='checkNone'>None</button>&nbsp;&nbsp;&nbsp;
-                        <a href='#' id='includeCustom' onclick='showHideInclude(); return false;'>&#x25BE; Customize...</a>
+                        <a href='#' id='includeCustom' onclick='showHideInclude();'>&#x25BE; Customize...</a>
                         <br>
                         <table id='includeFilterTable' style='display: none;'>
                             <tr>
@@ -241,6 +241,21 @@
             }
 
             var releaseNotes = [
+                {
+                    id: "P34",
+                    patch: "34",
+                    descripton: "Bugfixes Update",
+                    date: ofDate(2022, 3, 12),
+                    reddit: "https://www.reddit.com/r/fo76/comments/u2017n/fallout_76_update_notes_april_12_2022/",
+                    bethesda: "https://fallout.bethesda.net/en/article/6Xry209o4ysZAsuVW19b9d/fallout-76-update-notes-april-12-2022",
+                    notes: [
+                        {
+                            category: "Other",
+                            name: "TBD",
+                            description: "TBD"
+                        }
+                    ]
+                },
                 {
                     id: "P33",
                     patch: "33",
@@ -18678,6 +18693,7 @@
             function clearFilter() {
                 get("keywordFilter").value = ""; 
                 setTimeout(updateTable, 100);
+                return false;
             }
 
             function showHideInclude() {
@@ -18689,6 +18705,7 @@
                     tbl.style.display = "none";
                     get("includeCustom").innerHTML = "&#x25BE; Customize...";
                 }
+                return false;
             }
 
             function createOpt(text, value, title) {
