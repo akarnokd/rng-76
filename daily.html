@@ -11222,6 +11222,27 @@
                     scoreKillGlowing, 3,
                     scoreGainXP2500, 1,
                 ], dops(dailyOpsBurrows, dailyOpsScorched, dailyOpsRegenerating, true));
+            addWeekly(challengesWeeklyEra11.options, 49, scoreFixedGainXP10000Rank100);
+            addWeekly(challengesWeeklyEra11.options, 49, scoreLevelUp3);
+            addWeekly(challengesWeeklyEra11.options, 49, scoreCompleteDailyOps, 5);
+            addWeekly(challengesWeeklyEra11.options, 49, scoreCompleteGoldStar);
+            addWeekly(challengesWeeklyEra11.options, 49, scoreCompleteOneEvent, 10);
+            addWeekly(challengesWeeklyEra11.options, 49, scoreClaimWorkshop, 3);
+            addWeekly(challengesWeeklyEra11.options, 49, scoreCollectBullion, 500);
+            addWeekly(challengesWeeklyEra11.options, 49, scoreCriticalHit, 30);
+            addWeekly(challengesWeeklyEra11.options, 49, scoreEatPrewarFood, 25);
+            addWeekly(challengesWeeklyEra11.options, 49, scoreKillBloodEagle, 50);
+            addDaily(challengesDailyEra11, 49, [
+                    scoreCompleteDailyChallenge, 5,
+                    scoreLevelUp, 1,
+                    scoreCompleteDailyOps, 1,
+                    scoreCompleteOneEvent, 1,
+                    scoreCollectAudiotape, 1,
+                    scoreEatPrewarFood, 3,
+                    scoreJoinGroup, 1,
+                    scoreKillLegendary, 5,
+                    scoreGainXP2500, 1,
+                ], dops(dailyOpsBurning, dailyOpsCultists, dailyOpsCloaked, false));
                 
             addPlaceholders(challengesDailyEra11, scoreDailyplaceholder, era11Length);
             addPlaceholders(challengesWeeklyEra11, scoreWeeklyplaceholder, era11Length);
