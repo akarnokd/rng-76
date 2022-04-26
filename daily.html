@@ -5533,6 +5533,13 @@
                             period: 1400,
                         };
             }
+            function scoreCompleteMeatCookDaily(offset, count) {
+                return {
+                            name: times("Complete the Daily Grahm's Meat Cook challenge", count),
+                            offset: offset,
+                            period: 1400,
+                        };
+            }
             function scoreCompletePrimalCuts(offset, count) {
                 return {
                             name: times("Complete the Event: Primal Cuts", count),
@@ -11308,7 +11315,28 @@
                     scoreKillThreestarLegendary, 1,
                     scoreRepairArmorWeaponPA, 5,
                     scoreGainXP2500, 1,
-                ], dops(dailyOpsWatogaHighschool, dailyOpsMoleminers, "???", false));
+                ], dops(dailyOpsWatogaHighschool, dailyOpsMoleminers, dailyOpsFreezing, false));
+            addWeekly(challengesWeeklyEra11.options, 56, scoreFixedGainXP10000Rank100);
+            addWeekly(challengesWeeklyEra11.options, 56, scoreLevelUp3);
+            addWeekly(challengesWeeklyEra11.options, 56, scoreCompleteDailyOps, 5);
+            addWeekly(challengesWeeklyEra11.options, 56, scoreCompleteGoldStar);
+            addWeekly(challengesWeeklyEra11.options, 56, scoreCompleteOneEvent, 10);
+            addWeekly(challengesWeeklyEra11.options, 56, scoreCollectPurifiedWater, 25);
+            addWeekly(challengesWeeklyEra11.options, 56, scoreCompleteMeatCook, 3);
+            addWeekly(challengesWeeklyEra11.options, 56, scoreCompleteMeatCookDaily, 5);
+            addWeekly(challengesWeeklyEra11.options, 56, scoreEatPrewarFood, 15);
+            addWeekly(challengesWeeklyEra11.options, 56, scoreScrapMoney, 20);
+            addDaily(challengesDailyEra11, 56, [
+                    scoreCompleteDailyChallenge, 5,
+                    scoreLevelUp, 1,
+                    scoreCompleteDailyOps, 1,
+                    scoreJoinGroup, 1,
+                    scoreBuildWallDecor, 5,
+                    scoreCollectPurifiedWater, 5,
+                    scoreCompleteMeatCook, 1,
+                    scoreCompletePrimalCuts, 1,
+                    scoreGainXP2500, 1,
+                ], dops(dailyOpsWatogaHighschool, dailyOpsMoleminers, dailyOpsFreezing, false));
 
             addPlaceholders(challengesDailyEra11, scoreDailyplaceholder, era11Length);
             addPlaceholders(challengesWeeklyEra11, scoreWeeklyplaceholder, era11Length);
@@ -13295,7 +13323,7 @@
                 createDoubleMutations(ofDate(2022, 3, 21, 16), ofDate(2022, 3, 25, 16)),
                 createMinerva(ofDate(2022, 3, 25, 16), ofDate(2022, 3, 27, 16), "Big Sale @ Foundation", "P?"),
 
-                createMeatWeek(ofDate(2022, 3, 26, 16), ofDate(2022, 4, 10, 16), "Two Helpings of Meat Week"),
+                createMeatWeek(ofDate(2022, 3, 26, 16), 14, "Two Helpings of Meat Week"),
                 createBonusChallengesWeek(ofDate(2022, 4, 3, 16), ofDate(2022, 4, 10, 16)),
                 createGoldRush2(ofDate(2022, 4, 5, 16), ofDate(2022, 4, 9, 16)),
                 createDoubleMutations(ofDate(2022, 4, 5, 16), ofDate(2022, 4, 9, 16)),
