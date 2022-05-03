@@ -10592,6 +10592,22 @@
                             ignore: true
                         };
             }
+            function scoreKillCreatureWellFed(offset, count) {
+                return {
+                            name: times("Kill Creatures while being well fed", count),
+                            offset: offset,
+                            period: 1400,
+                            ignore: true
+                        };
+            }
+            function scoreCompleteEventWellFed(offset, count) {
+                return {
+                            name: times("Complete an Event while being well fed", count),
+                            offset: offset,
+                            period: 1400,
+                            ignore: true
+                        };
+            }
 
             addWeekly(challengesWeeklyEra11.options, 0, scoreFixedGainXP10000Rank100);
             addWeekly(challengesWeeklyEra11.options, 0, scoreLevelUp3);
@@ -11415,6 +11431,31 @@
                     scoreCompleteInvaders, 1,
                     scoreCookMealPlant, 3,
                     scoreTakePictureAlienInvader, 1,
+                    scoreGainXP2500, 1,
+                ], dops(dailyOpsUncanny, dailyOpsMoleminers, dailyOpsRegenerating, true));
+            addWeekly(challengesWeeklyEra11.options, 63, scoreFixedGainXP10000Rank100);
+            addWeekly(challengesWeeklyEra11.options, 63, scoreLevelUp3);
+            addWeekly(challengesWeeklyEra11.options, 63, scoreCompleteDailyOps, 5);
+            addWeekly(challengesWeeklyEra11.options, 63, scoreCompleteGoldStar);
+            addWeekly(challengesWeeklyEra11.options, 63, scoreClaimWorkshop, 5);
+            addWeekly(challengesWeeklyEra11.options, 63, scoreCompleteEventWellFed, 3);
+            addWeekly(challengesWeeklyEra11.options, 63, scoreCompleteInvadersDaily, 5);
+            addWeekly(challengesWeeklyEra11.options, 63, scoreCompleteInvaders, 3);
+            addWeekly(challengesWeeklyEra11.options, 63, scoreCraftScrapItems, 10);
+            addWeekly(challengesWeeklyEra11.options, 63, scoreHarvestPlantFungi, 25);
+            addWeekly(challengesWeeklyEra11.options, 63, scoreKillCreatureWellFed, 30);
+            addWeekly(challengesWeeklyEra11.options, 63, scoreKillLegendary, 15);
+            addDaily(challengesDailyEra11, 63, [
+                    scoreCompleteDailyChallenge, 5,
+                    scoreLevelUp, 1,
+                    scoreCompleteDailyOps, 1,
+                    scoreCompleteEventWellFed, 1,
+                    scoreBuildFloorWallCamp, 5,
+                    scoreCompleteInvaders, 1,
+                    scoreKillCreatureWellFed, 10,
+                    scoreTakePictureAlienEnemy, 1,
+                    scoreKillLegendary, 1,
+                    scoreModWeapon, 3,
                     scoreGainXP2500, 1,
                 ], dops(dailyOpsUncanny, dailyOpsMoleminers, dailyOpsRegenerating, true));
 
