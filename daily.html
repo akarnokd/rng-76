@@ -11624,6 +11624,27 @@
                     scoreKillCryptid1, 1,
                     scoreGainXP2500, 1,
                 ], dops(dailyOpsWatoga, dailyOpsMutants, dailyOpsCloaked, true));
+            addWeekly(challengesWeeklyEra11.options, 77, scoreFixedGainXP10000Rank100);
+            addWeekly(challengesWeeklyEra11.options, 77, scoreLevelUp3);
+            addWeekly(challengesWeeklyEra11.options, 77, scoreCompleteDailyOps, 5);
+            addWeekly(challengesWeeklyEra11.options, 77, scoreCompleteGoldStar);
+            addWeekly(challengesWeeklyEra11.options, 77, scoreCompleteEvents10);
+            addWeekly(challengesWeeklyEra11.options, 77, scoreBuildAnythingCamp, 15);
+            addWeekly(challengesWeeklyEra11.options, 77, scoreCollectCaps, 1500);
+            addWeekly(challengesWeeklyEra11.options, 77, scoreCompleteRadiationRumble, 1);
+            addWeekly(challengesWeeklyEra11.options, 77, scoreCriticalHit, 30);
+            addWeekly(challengesWeeklyEra11.options, 77, scoreKillCultist, 50);
+            addDaily(challengesDailyEra11, 77, [
+                    scoreCompleteDailyChallenge, 5,
+                    scoreLevelUp, 1,
+                    scoreCompleteDailyOps, 1,
+                    scoreCompleteOneEvent, 1,
+                    scoreBuildAnythingCamp, 5,
+                    scoreJoinGroup, 1,
+                    scoreKillCreatures, 15,
+                    scoreRepairArmorWeaponPA, 3,
+                    scoreGainXP2500, 1,
+                ], dops(dailyOpsBurrows, dailyOpsCultists, dailyOpsResilient, false));
 
             addPlaceholders(challengesDailyEra11, scoreDailyplaceholder, era11Length);
             addPlaceholders(challengesWeeklyEra11, scoreWeeklyplaceholder, era11Length);
