@@ -14488,7 +14488,7 @@
 
                 var str = "";
                 if (days > 0) {
-                    str += days + " days ";
+                    str += days + (days > 1 ? " days " : " day ");
                 }
                 str += padZero(hours) + ":" + padZero(minutes) + ":" + padZero(seconds);
                 return str;
