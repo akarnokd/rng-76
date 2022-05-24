@@ -11711,6 +11711,27 @@
                     scorePickLock, 1,
                     scoreGainXP2500, 1,
                 ], dops(dailyOpsWestTec, dailyOpsCommunists, dailyOpsToxic, false));
+            addWeekly(challengesWeeklyEra11.options, 84, scoreFixedGainXP10000Rank100);
+            addWeekly(challengesWeeklyEra11.options, 84, scoreLevelUp3);
+            addWeekly(challengesWeeklyEra11.options, 84, scoreCompleteDailyOps, 5);
+            addWeekly(challengesWeeklyEra11.options, 84, scoreCompleteGoldStar);
+            addWeekly(challengesWeeklyEra11.options, 84, scoreCompleteEvents10);
+            addWeekly(challengesWeeklyEra11.options, 84, scoreBuildWallDecor, 15);
+            addWeekly(challengesWeeklyEra11.options, 84, scoreCompleteEventScorchedEarth, 1);
+            addWeekly(challengesWeeklyEra11.options, 84, scoreCriticalHit, 25);
+            addWeekly(challengesWeeklyEra11.options, 84, scoreEatMeat, 10);
+            addWeekly(challengesWeeklyEra11.options, 84, scoreVisitOwnShelter, 1);
+            addDaily(challengesDailyEra11, 84, [
+                    scoreCompleteDailyChallenge, 5,
+                    scoreLevelUp, 1,
+                    scoreCompleteDailyOps, 1,
+                    scoreCompleteOneEvent, 1,
+                    scoreBuildWallDecor, 5,
+                    scoreCollectScrip, 150,
+                    scoreEatCookedMeal, 3,
+                    scoreKillGhoul, 10,
+                    scoreGainXP2500, 1,
+                ], dops(dailyOpsWestTec, dailyOpsCommunists, dailyOpsToxic, false));
 
             addPlaceholders(challengesDailyEra11, scoreDailyplaceholder, era11Length);
             addPlaceholders(challengesWeeklyEra11, scoreWeeklyplaceholder, era11Length);
@@ -13750,7 +13771,7 @@
                 maxscore += scoreAtRank(i);
             }
 
-            function fillInSeason(season, seasonDays, seasonId) {
+            function fillInSeason(season, seasonDays, seasonId, uncertain) {
                 for (var i = 0; i < seasonDays; i++) {
                     var rankLinear = (100 * (i + 1) / (seasonDays)).toFixed(0);
                     var scoreProgress = maxscore * i / seasonDays;
@@ -13786,6 +13807,14 @@
                         offset: i,
                         period: 1400
                     });
+
+                    if (uncertain) {
+                        season.options.push({
+                            name: "&#x1F6C8; Note that the end date is not confirmed yet and may change.",
+                            offset: i,
+                            period: 1400
+                        });
+                    }
                 }
             }
 
@@ -13861,7 +13890,7 @@
             fillInSeason(season5, 62, "LR5");
             fillInSeason(season6, 91, "LR6");
             fillInSeason(season7, era10Length, "LR7");
-            fillInSeason(season8, era11Length, "LR8");
+            fillInSeason(season8, era11Length, "LR8", true);
 
             for (var i = 56; i < 91; i++) {
                 season2.options.push({
