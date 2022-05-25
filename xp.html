@@ -39,7 +39,7 @@
     </head>
     <body>
         <center>
-            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Experience Calculator (0.0.8)</span><br/>
+            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Experience Calculator (0.0.9)</span><br/>
             <br>
             <a href="#" target='_blank' id='thelink'>Link to this setup</a>
             &nbsp;&nbsp;&nbsp;&nbsp;<a href="?">Clear</a>
@@ -259,7 +259,8 @@
                             <option value='CranberryCobbler'>Cranberry Cobbler (+5% XP)</option>
                             <option value='CranberryRelish'>Cranberry Relish (+10% XP)</option>
                             <option value='NukaCranberry'>Nuka Cola Cranberry (+2% XP*)</option>
-                            <option value='CannedMeatSteew'>Canned Meat Stew (+5% XP)</option>
+                            <option value='CannedMeatStew'>Canned Meat Stew (+5% XP)</option>
+                            <option value='TastySquirrelStew'>Tasty Squirrel Stew (+10% XP)</option>
                         </select>
                     </td>
                 </tr>
@@ -1312,6 +1313,9 @@
                 }
                 if (foodXP == "CannedMeatStew") {
                     xp.push(carnivoreBuff * 5);
+                }
+                if (foodXP == "TastySquirrelStew") {
+                    xp.push(carnivoreBuff * 10);
                 }
                 if (foodXP == "NukaCranberry") {
                     if (colaNut == "1") {
