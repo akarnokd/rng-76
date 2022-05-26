@@ -39,7 +39,7 @@
     </head>
     <body>
         <center>
-            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Experience Calculator (0.0.9)</span><br/>
+            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Experience Calculator (0.0.10)</span><br/>
             <br>
             <a href="#" target='_blank' id='thelink'>Link to this setup</a>
             &nbsp;&nbsp;&nbsp;&nbsp;<a href="?">Clear</a>
@@ -51,7 +51,7 @@
                 </tr>
                 <tr>
                     <td id='infoLegendaryInt'>Legendary intelligence</td>
-                    <td><input type='number' id='legendaryint' min='0' max='4' value='0' style='width: 75px;'></td>
+                    <td><input type='number' id='legendaryint' min='0' max='5' value='0' style='width: 75px;'></td>
                 </tr>
                 <tr>
                     <td id='infoPlayerHealth'>Player health</td>
@@ -882,8 +882,8 @@
             var infoMap = new Map();
 
             infoMap.set("infoLegendaryInt", 
-                "PTS preview." 
-                + "<br>It is assumed it stacks with the base <b>intelligence</b> regarding XP"
+                "One of the legendary perks, 4 ranks; +1, +2, +3, +5 INT respectively."
+                + "<br>It is stacks with the base <b>intelligence</b> regarding XP"
                  + "<br> but will only unlock up to 15 total slots."
             );
             infoMap.set("infoPlayerHealth", 
@@ -1136,7 +1136,7 @@
                 var int = cap(valueOf("baseint"), 1, 15);
                 var xp = [];
 
-                int += cap(valueOf("legendaryint"), 0, 4);
+                int += cap(valueOf("legendaryint"), 0, 5);
 
                 // PERKS ================================================
                 
