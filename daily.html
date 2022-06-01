@@ -11819,6 +11819,17 @@
                     scoreModArmor, 5,
                     scoreGainXP2500, 1,
                 ], dops(dailyOpsArktos, dailyOpsScorched, dailyOpsCloaked, false));
+            addDaily(challengesDailyEra11, 92, [
+                    scoreCompleteDailyChallenge, 5,
+                    scoreLevelUp, 1,
+                    scoreCompleteDailyOps, 1,
+                    scoreCompleteOneEvent, 1,
+                    scoreBuildWallDecor, 5,
+                    scoreCollectCaps, 200,
+                    scoreConsumeAlcohol, 3,
+                    scoreBuySellItem, 1,
+                    scoreGainXP2500, 1,
+                ], dops(dailyOpsArktos, dailyOpsScorched, dailyOpsCloaked, false));
 
             addPlaceholders(challengesDailyEra11, scoreDailyplaceholder, era11Length);
             addPlaceholders(challengesWeeklyEra11, scoreWeeklyplaceholder, era11Length);
@@ -14008,7 +14019,7 @@
             fillInSeason(season5, 62, "LR5");
             fillInSeason(season6, 91, "LR6");
             fillInSeason(season7, era10Length, "LR7");
-            fillInSeason(season8, era11Length, "LR8", true);
+            fillInSeason(season8, era11Length, "LR8");
             fillInSeason(season9, era12Length, "LR9", true);
 
             for (var i = 56; i < 91; i++) {
