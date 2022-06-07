@@ -11885,6 +11885,27 @@
                     scoreEatPrewarFood, 3,
                     scoreGainXP2500, 1,
                 ], dops(dailyOpsV94, dailyOpsMutants, dailyOpsRegenerating, false));
+            addWeekly(challengesWeeklyEra11.options, 98, scoreFixedGainXP10000Rank100);
+            addWeekly(challengesWeeklyEra11.options, 98, scoreLevelUp3);
+            addWeekly(challengesWeeklyEra11.options, 98, scoreCompleteDailyOps, 5);
+            addWeekly(challengesWeeklyEra11.options, 98, scoreCompleteGoldStar);
+            addWeekly(challengesWeeklyEra11.options, 98, scoreCompleteEvents10);
+            addWeekly(challengesWeeklyEra11.options, 98, scoreBuildFloorWallCamp, 15);
+            addWeekly(challengesWeeklyEra11.options, 98, scoreCollectPurifiedWater, 25);
+            addWeekly(challengesWeeklyEra11.options, 98, scoreCompleteColossal, 1);
+            addWeekly(challengesWeeklyEra11.options, 98, scoreConsumeAlcohol, 15);
+            addWeekly(challengesWeeklyEra11.options, 98, scoreVisitAnotherShelter, 1);
+            addDaily(challengesDailyEra11, 98, [
+                    scoreCompleteDailyChallenge, 5,
+                    scoreLevelUp, 1,
+                    scoreCompleteDailyOps, 1,
+                    scoreCompleteOneEvent, 1,
+                    scoreCompleteEventInGroup, 1,
+                    scoreCraftAmmo, 50,
+                    scoreKillBloodEagle, 10,
+                    scorePlantCrop, 5,
+                    scoreGainXP2500, 1,
+                ], dops(dailyOpsV94, dailyOpsMutants, dailyOpsRegenerating, false));
 
             addPlaceholders(challengesDailyEra11, scoreDailyplaceholder, era11Length);
             addPlaceholders(challengesWeeklyEra11, scoreWeeklyplaceholder, era11Length);
