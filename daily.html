@@ -11905,7 +11905,7 @@
                     scoreKillBloodEagle, 10,
                     scorePlantCrop, 5,
                     scoreGainXP2500, 1,
-                ], dops(dailyOpsV94, dailyOpsMutants, dailyOpsRegenerating, false));
+                ], dops(dailyOpsWatoga, dailyOpsScorched, dailyOpsVolatile, true));
 
             addPlaceholders(challengesDailyEra11, scoreDailyplaceholder, era11Length);
             addPlaceholders(challengesWeeklyEra11, scoreWeeklyplaceholder, era11Length);
@@ -13944,12 +13944,36 @@
                 createTreasureHunt(ofDate(2022, 5, 2, 16), ofDate(2022, 5, 6, 16), false),
                 createDoubleMutations(ofDate(2022, 5, 2, 16), ofDate(2022, 5, 6, 16)),
                 createMinerva(ofDate(2022, 5, 6, 16), ofDate(2022, 5, 8, 16), "Emporium @ Fort Atlas", "P?"),
-                createGoldRush(ofDate(2022, 5, 9, 16), ofDate(2022, 5, 13, 16)),
+                createGoldRush2(ofDate(2022, 5, 9, 16), ofDate(2022, 5, 13, 16)),
                 createDoubleMutations(ofDate(2022, 5, 16, 16), ofDate(2022, 5, 20, 16)),
                 createMinerva(ofDate(2022, 5, 16, 16), ofDate(2022, 5, 20, 16), "Big Sale @ TBD", "P?"),
-                createMothmanEquinox(ofDate(2022, 5, 21, 18), ofDate(2022, 6, 5, 16)),
                 createPurveyor(ofDate(2022, 5, 23, 16), ofDate(2022, 5, 27, 16), 25, false, 1),
-                createDoubleMutations(ofDate(2022, 5, 30, 16), ofDate(2022, 6, 4, 16))
+                createMothmanEquinox(ofDate(2022, 5, 28, 16), ofDate(2022, 6, 12, 16)),
+                createDoubleMutations(ofDate(2022, 5, 30, 16), ofDate(2022, 6, 4, 16)),
+
+                createGoldRush2(ofDate(2022, 6, 7, 16), ofDate(2022, 6, 11, 16)),
+                createScripSurplus2(ofDate(2022, 6, 14, 16), ofDate(2022, 6, 18, 16)),
+                createDoubleMutations(ofDate(2022, 6, 14, 16), ofDate(2022, 6, 18, 16)),
+                createMinerva(ofDate(2022, 6, 21, 16), ofDate(2022, 6, 25, 16), "Big Sale @ TBD", "P?"),
+                createPurveyor(ofDate(2022, 6, 21, 16), ofDate(2022, 6, 25, 16), 25, false, 1),
+                createTreasureHunt(ofDate(2022, 6, 28, 16), ofDate(2022, 7, 1, 16)),              
+                createDoubleMutations(ofDate(2022, 6, 28, 16), ofDate(2022, 7, 1, 16)),
+
+                createPurveyor(ofDate(2022, 7, 4, 16), ofDate(2022, 7, 8, 16), 0, true, 1),
+                createGoldRush2(ofDate(2022, 7, 11, 16), ofDate(2022, 7, 15, 16)),
+                createDoubleMutations(ofDate(2022, 7, 11, 16), ofDate(2022, 7, 15, 16)),
+                createMeatWeek(ofDate(2022, 7, 18, 16), 14, "Two Helpings of Meat Week"),
+                createDoubleXP(ofDate(2022, 7, 18, 16), ofDate(2022, 7, 22, 16)),
+                createDoubleMutations(ofDate(2022, 7, 25, 16), ofDate(2022, 7, 29, 16)),
+                createMinerva(ofDate(2022, 7, 25, 16), ofDate(2022, 7, 29, 16), "Big Sale @ TBD", "P?"),
+
+                createScripSurplus2(ofDate(2022, 8, 1, 16), ofDate(2022, 8, 6, 16)),
+                createDoubleMutations(ofDate(2022, 8, 8, 16), ofDate(2022, 8, 12, 16)),
+                createDoubleMutations(ofDate(2022, 8, 22, 16), ofDate(2022, 8, 26, 16)),
+                createScripSurplus2(ofDate(2022, 8, 29, 16), ofDate(2022, 9, 3, 16)),
+                createGoldRush2(ofDate(2022, 8, 29, 16), ofDate(2022, 9, 3, 16)),
+                createMinerva(ofDate(2022, 8, 29, 16), ofDate(2022, 9, 3, 16), "Big Sale @ TBD", "P?"),
+
             ];
 
             function ofDate(year, month, day, hour) {
