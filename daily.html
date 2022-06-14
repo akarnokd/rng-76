@@ -5490,6 +5490,14 @@
                             ignore: true,
                         };
             }
+            function scoreGainXP1000Rank75(offset) {
+                return {
+                            name: "Gain 1000 XP (under rank 75)",
+                            offset: offset,
+                            period: 1400,
+                            ignore: true,
+                        };
+            }
 
             function scoreCompleteEvents10(offset) {
                 return {
@@ -8149,6 +8157,13 @@
             function scoreKillCreatureCostume(offset, count) {
                 return {
                     name: times("Kill a creature while wearing a Costume", count),
+                    offset: offset,
+                    period: 1400,
+                };
+            }
+            function scoreKillCreatureCostume1st(offset, count) {
+                return {
+                    name: times("1<sup>st</sup>: Kill a creature while wearing a Costume", count),
                     offset: offset,
                     period: 1400,
                 };
@@ -11994,31 +12009,38 @@
             challenges.push(challengesDailyEra12);
             challengesWeekly.push(challengesWeeklyEra12);
 
+            function scoreCompleteMoonshineJamboree(offset, count) {
+                return {
+                            name: times("Complete event: Moonshine Jamboree", count),
+                            offset: offset,
+                            period: 1400,
+                        };
+            }
+
             addWeekly(challengesWeeklyEra12.options, 0, scoreFixedGainXP10000Rank100);
             addWeekly(challengesWeeklyEra12.options, 0, scoreLevelUp3);
             addWeekly(challengesWeeklyEra12.options, 0, scoreCompleteDailyOps, 5);
             addWeekly(challengesWeeklyEra12.options, 0, scoreCompleteGoldStar);
             addWeekly(challengesWeeklyEra12.options, 0, scoreCompleteEvents10);
-            /*
-            addWeekly(challengesWeeklyEra12.options, 0, scoreBuildFloorWallCamp, 15);
-            addWeekly(challengesWeeklyEra12.options, 0, scoreCollectPurifiedWater, 25);
-            addWeekly(challengesWeeklyEra12.options, 0, scoreCompleteColossal, 1);
-            addWeekly(challengesWeeklyEra12.options, 0, scoreConsumeAlcohol, 15);
-            addWeekly(challengesWeeklyEra12.options, 0, scoreVisitAnotherShelter, 1);
-            */
+            addWeekly(challengesWeeklyEra12.options, 0, scoreBuildWallDecor, 25);
+            addWeekly(challengesWeeklyEra12.options, 0, scoreCollectBullion, 150);
+            addWeekly(challengesWeeklyEra12.options, 0, scoreCompleteMoonshineJamboree, 5);
+            addWeekly(challengesWeeklyEra12.options, 0, scoreCriticalHit, 25);
+            addWeekly(challengesWeeklyEra12.options, 0, scoreEatMeat, 25);
+
             addDaily(challengesDailyEra12, 0, [
                     scoreCompleteDailyChallenge, 5,
                     scoreLevelUp, 1,
                     scoreCompleteDailyOps, 1,
-                    scoreCompleteOneEvent, 1,
-                    /*
-                    scoreCompleteEventInGroup, 1,
-                    scoreCraftAmmo, 50,
-                    scoreKillBloodEagle, 10,
-                    scorePlantCrop, 5,
-                    */
+                    scoreCompleteOneEvent, 2,
+                    scoreCollectAudiotape, 1,
+                    scoreCompleteMoonshineJamboree, 1,
+                    scoreCraftScrapArmor, 5,
+                    scoreJoinGroup, 1,
                     scoreGainXP2500, 1,
-                ], dops(dailyOpsWatoga, dailyOpsScorched, dailyOpsVolatile, true));
+                    scoreGainXP1000Rank75, 1,
+                    scoreKillCreatureCostume1st, 20,
+                ], dops(dailyOpsValley, dailyOpsCultists, dailyOpsFreezing, false));
 
 
             addPlaceholders(challengesDailyEra12, scoreDailyplaceholder, era12Length);
