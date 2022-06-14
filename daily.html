@@ -5478,7 +5478,7 @@
                             period: 1400,
                             ignore: true,
                             tipId: "ScoreRepeatableXPRank100",
-                            tip: "Currently bugged and disappears after reaching rank 99."
+                            //tip: "Currently bugged and disappears after reaching rank 99."
                         };
             }
 
@@ -11993,6 +11993,33 @@
             };
             challenges.push(challengesDailyEra12);
             challengesWeekly.push(challengesWeeklyEra12);
+
+            addWeekly(challengesWeeklyEra12.options, 0, scoreFixedGainXP10000Rank100);
+            addWeekly(challengesWeeklyEra12.options, 0, scoreLevelUp3);
+            addWeekly(challengesWeeklyEra12.options, 0, scoreCompleteDailyOps, 5);
+            addWeekly(challengesWeeklyEra12.options, 0, scoreCompleteGoldStar);
+            addWeekly(challengesWeeklyEra12.options, 0, scoreCompleteEvents10);
+            /*
+            addWeekly(challengesWeeklyEra12.options, 0, scoreBuildFloorWallCamp, 15);
+            addWeekly(challengesWeeklyEra12.options, 0, scoreCollectPurifiedWater, 25);
+            addWeekly(challengesWeeklyEra12.options, 0, scoreCompleteColossal, 1);
+            addWeekly(challengesWeeklyEra12.options, 0, scoreConsumeAlcohol, 15);
+            addWeekly(challengesWeeklyEra12.options, 0, scoreVisitAnotherShelter, 1);
+            */
+            addDaily(challengesDailyEra12, 0, [
+                    scoreCompleteDailyChallenge, 5,
+                    scoreLevelUp, 1,
+                    scoreCompleteDailyOps, 1,
+                    scoreCompleteOneEvent, 1,
+                    /*
+                    scoreCompleteEventInGroup, 1,
+                    scoreCraftAmmo, 50,
+                    scoreKillBloodEagle, 10,
+                    scorePlantCrop, 5,
+                    */
+                    scoreGainXP2500, 1,
+                ], dops(dailyOpsWatoga, dailyOpsScorched, dailyOpsVolatile, true));
+
 
             addPlaceholders(challengesDailyEra12, scoreDailyplaceholder, era12Length);
             addPlaceholders(challengesWeeklyEra12, scoreWeeklyplaceholder, era12Length);
