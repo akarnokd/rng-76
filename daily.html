@@ -12016,6 +12016,13 @@
                             period: 1400,
                         };
             }
+            function scoreCompleteMoonshineJamboreeDaily(offset, count) {
+                return {
+                            name: times("Complete daily challenge: Moonshine Jamboree event", count),
+                            offset: offset,
+                            period: 1400,
+                        };
+            }
 
             addWeekly(challengesWeeklyEra12.options, 0, scoreFixedGainXP10000Rank100);
             addWeekly(challengesWeeklyEra12.options, 0, scoreLevelUp3);
@@ -12024,7 +12031,7 @@
             addWeekly(challengesWeeklyEra12.options, 0, scoreCompleteEvents10);
             addWeekly(challengesWeeklyEra12.options, 0, scoreBuildWallDecor, 25);
             addWeekly(challengesWeeklyEra12.options, 0, scoreCollectBullion, 150);
-            addWeekly(challengesWeeklyEra12.options, 0, scoreCompleteMoonshineJamboree, 5);
+            addWeekly(challengesWeeklyEra12.options, 0, scoreCompleteMoonshineJamboreeDaily, 5);
             addWeekly(challengesWeeklyEra12.options, 0, scoreCriticalHit, 25);
             addWeekly(challengesWeeklyEra12.options, 0, scoreEatMeat, 25);
 
