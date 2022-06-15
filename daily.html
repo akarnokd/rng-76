@@ -1432,6 +1432,13 @@
                     period: 1400
                 };
             }
+            function scoreCollectBobblehead1st(offset) {
+                return {
+                    name: "1<sup>st</sup> Collect a bobblehead",
+                    offset: offset,
+                    period: 1400
+                };
+            }
             function scoreChewBubblegum3(offset) {
                 return {
                     name: "Chew bubblegum (x3)",
@@ -5493,6 +5500,14 @@
             function scoreGainXP1000Rank75(offset) {
                 return {
                             name: "Gain 1000 XP (under rank 75)",
+                            offset: offset,
+                            period: 1400,
+                            ignore: true,
+                        };
+            }
+            function scoreGainXP1000Rank50(offset) {
+                return {
+                            name: "Gain 1000 XP (under rank 50)",
                             offset: offset,
                             period: 1400,
                             ignore: true,
@@ -12048,7 +12063,19 @@
                     scoreGainXP1000Rank75, 1,
                     scoreKillCreatureCostume1st, 20,
                 ], dops(dailyOpsValley, dailyOpsCultists, dailyOpsFreezing, false));
-
+            addDaily(challengesDailyEra12, 1, [
+                    scoreCompleteDailyChallenge, 5,
+                    scoreLevelUp, 1,
+                    scoreCompleteDailyOps, 1,
+                    scoreCompleteOneEvent, 2,
+                    scoreCookMealPlant, 5,
+                    scoreCompleteMoonshineJamboree, 1,
+                    scoreKillGlowing, 1,
+                    scoreKillMoleminer, 10,
+                    scoreGainXP2500, 1,
+                    scoreGainXP1000Rank50, 1,
+                    scoreCollectBobblehead1st, 1,
+                ], dops(dailyOpsValley, dailyOpsCultists, dailyOpsFreezing, false));
 
             addPlaceholders(challengesDailyEra12, scoreDailyplaceholder, era12Length);
             addPlaceholders(challengesWeeklyEra12, scoreWeeklyplaceholder, era12Length);
