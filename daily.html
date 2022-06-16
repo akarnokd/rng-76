@@ -1432,6 +1432,13 @@
                     period: 1400
                 };
             }
+            function make1st(func) {
+                return (offset, count) => {
+                    let v = func(offset, count);
+                    v.name = "1<sup>st</sup> " + v.name;
+                    return v;
+                };
+            }
             function scoreCollectBobblehead1st(offset) {
                 return {
                     name: "1<sup>st</sup> Collect a bobblehead",
@@ -12075,6 +12082,18 @@
                     scoreGainXP2500, 1,
                     scoreGainXP1000Rank50, 1,
                     scoreCollectBobblehead1st, 1,
+                ], dops(dailyOpsWestTec, dailyOpsCommunists, dailyOpsToxic, true));
+            addDaily(challengesDailyEra12, 2, [
+                    scoreCompleteDailyChallenge, 5,
+                    scoreLevelUp, 1,
+                    scoreCompleteDailyOps, 1,
+                    scoreCompleteOneEvent, 2,
+                    scoreCompleteMoonshineJamboree, 1,
+                    scoreKillCultist, 10,
+                    scoreKillCreatures, 20,
+                    scoreCollectCaps, 100,
+                    scoreGainXP2500, 1,
+                    make1st(scoreBuildFloorWallCamp), 10,
                 ], dops(dailyOpsWestTec, dailyOpsCommunists, dailyOpsToxic, true));
 
             addPlaceholders(challengesDailyEra12, scoreDailyplaceholder, era12Length);
