@@ -12045,6 +12045,13 @@
                             period: 1400,
                         };
             }
+            function scoreKillCreatureMireMoonshine(offset, count) {
+                return {
+                    name: times("Kill creatures while intoxicated with Mire Magic Moonshine", count),
+                    offset: offset,
+                    period: 1400
+                }
+            }
 
             addWeekly(challengesWeeklyEra12.options, 0, scoreFixedGainXP10000Rank100);
             addWeekly(challengesWeeklyEra12.options, 0, scoreLevelUp3);
@@ -12094,6 +12101,19 @@
                     scoreCollectCaps, 100,
                     scoreGainXP2500, 1,
                     make1st(scoreBuildFloorWallCamp), 10,
+                ], dops(dailyOpsWatogaHighschool, dailyOpsMutants, dailyOpsBlisteringCold, false));
+            addDaily(challengesDailyEra12, 3, [
+                    scoreCompleteDailyChallenge, 5,
+                    scoreLevelUp, 1,
+                    scoreCompleteDailyOps, 1,
+                    scoreCompleteOneEvent, 2,
+                    scoreCompleteMoonshineJamboree, 1,
+                    scoreBuildAnythingCamp, 10,
+                    scoreDestroyRobot, 10,
+                    scoreRankupPerkCard, 1,
+                    scoreKillCreatureMireMoonshine, 10,
+                    scoreGainXP2500, 1,
+                    make1st(scoreCollectWood), 50,
                 ], dops(dailyOpsWatogaHighschool, dailyOpsMutants, dailyOpsBlisteringCold, false));
 
             addPlaceholders(challengesDailyEra12, scoreDailyplaceholder, era12Length);
