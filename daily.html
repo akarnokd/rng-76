@@ -5504,6 +5504,14 @@
                             ignore: true,
                         };
             }
+            function scoreGainXP2500NoRank(offset) {
+                return {
+                            name: "Gain 2500 XP",
+                            offset: offset,
+                            period: 1400,
+                            ignore: true,
+                        };
+            }
             function scoreGainXP1000Rank75(offset) {
                 return {
                             name: "Gain 1000 XP (under rank 75)",
@@ -12114,6 +12122,19 @@
                     scoreKillCreatureMireMoonshine, 5,
                     scoreGainXP2500, 1,
                     make1st(scoreCollectWood), 50,
+                ], dops(dailyOpsUncanny, dailyOpsMoleminers, dailyOpsRelentless, true));
+            addDaily(challengesDailyEra12, 4, [
+                    scoreCompleteDailyChallenge, 5,
+                    scoreLevelUp, 1,
+                    scoreCompleteDailyOps, 1,
+                    scoreCompleteOneEvent, 2,
+                    scoreCompleteMoonshineJamboree, 1,
+                    scoreBuildWallDecor, 5,
+                    scoreCollectScrip, 50,
+                    scoreKillSupermutant, 5,
+                    scoreGainXP2500NoRank, 1,
+                    scoreGainXP2500, 1,
+                    make1st(scoreKillThreestarLegendary), 1,
                 ], dops(dailyOpsUncanny, dailyOpsMoleminers, dailyOpsRelentless, true));
 
             addPlaceholders(challengesDailyEra12, scoreDailyplaceholder, era12Length);
