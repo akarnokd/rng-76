@@ -7371,15 +7371,15 @@
                 {
                     id: "BlightSoup",
                     type: "food",
-                    desc: "Blight Soup (+20% Crit)",
+                    desc: "Blight Soup (+20% Crit DMG)",
                     mode: "Melee,Ranged",
                     criticalDamage: 20,
                     mutation: "herbivore",
-                    exclude: "",
+                    exclude: "critdmg",
                     patchOverride: {
                         "P34": {
                             criticalDamage: 50,
-                            desc: "Blight Soup (+50% Crit)",
+                            desc: "Blight Soup (+50% Crit DMG)",
                         }
                     },
                 },
@@ -7406,6 +7406,7 @@
                     type: "food",
                     desc: "Megasloth Mushroom Soup (+20% crit DMG)",
                     mode: "Melee,Ranged",
+                    exclude: "critdmg",
                     criticalDamage: 20,
                     patchOverride: {
                         "P34": {
