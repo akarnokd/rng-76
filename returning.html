@@ -43,7 +43,7 @@
     <body>
         <center>
             <span style="font-size: 36px; font-weight: bold;">Fallout 76 Returning Player Here, What's Changed?</span><br/>
-            <span>(v0.9.9)</span>
+            <span>(v0.10.0)</span>
             <br/>
             <br/>
             <table>
@@ -127,6 +127,7 @@
                             <tr>
                                 <td class='someindent'>
                                     <label><input type='checkbox' id='filterWorlds' checked> Fallout Worlds <span id='worldsCount'></span></label>
+                                    <label><input type='checkbox' id='filterCombat' checked> Combat <span id='combatCount'></span></label>
                                 </td>
                             </tr>
                             <tr>
@@ -250,10 +251,480 @@
                     bethesda: "https://fallout.bethesda.net/en/article/7bKshvhYtAtHExCPqE8P3c/fallout-76-test-your-metal-update-notes-june-14-2022",
                     notes: [
                         {
-                            category: "Other",
-                            name: "TBD",
-                            description: "Will post the release log within a few days, sorry for the delay."
+                            category: "Event",
+                            name: "New Public Events",
+                            description: "Today’s update introduces three new Public Events to Fallout 76: “Test Your Metal,” “Moonshine Jamboree,” and “Eviction Notice.”"
                         },
+                        {
+                            category: "Event",
+                            name: "Test Your Metal",
+                            description: "will appear on your map at the Metal Dome, north of Fort Atlas in the Savage Divide. Travel there and speak with Initiate Pappas to start the event."
+                        },
+                        {
+                            category: "Event",
+                            name: "Test Your Metal",
+                            description: "You and the Gladiators of Steel will square off against the bots in three rounds of frenzied combat. Defeat the opposition in one round, and you’ll advance to the next."
+                        },
+                        {
+                            category: "Event,Items",
+                            name: "Test Your Metal",
+                            description: "Once you’ve conquered all three rounds, you will earn some loot, XP, and have a chance to pick up rare rewards, including plans to craft the new Botsmith Armor set."
+                        },
+                        {
+                            category: "Event",
+                            name: "Eviction Notice",
+                            description: "A challenging new Public Event tuned for higher-level characters. It will appear on your map in the Savage Divide at a crater that can be found east of Foundation, and south of Huntersville."
+                        },
+                        {
+                            category: "Event",
+                            name: "Eviction Notice",
+                            description: "Make sure to defend the Rad Scrubber from an onslaught of Super Mutants. If the Rad Scrubber takes too much damage, it will deactivate. Repair it as quickly as possible, or else rad levels in the area will become much more hazardous."
+                        },
+                        {
+                            category: "Event,Items",
+                            name: "Eviction Notice",
+                            description: "If you’re successful in driving the Super Mutants from the crater, you will earn Settler faction reputation, some loot, and a chance to receive one of six unique 3-star legendary weapons."
+                        },
+                        {
+                            category: "Event",
+                            name: "Moonshine Jamboree",
+                            description: "Meet up with Moonshiner Ned behind the bar inside Sunday Brothers Cabin in The Mire to kick off the festivities."
+                        },
+                        {
+                            category: "Event",
+                            name: "Moonshine Jamboree",
+                            description: "Light the Jamboree Bonfire, and then keep your guard up. Vicious Gulpers and other curious creatures will soon flood the area to investigate the raucous Jamboree. Take down Gulpers and collect as much Acidic Gulper Venom as you can. Pour it, as directed by Moonshiner Ned, into a nearby bathtub so that it can be used to serve up a fresh batch of moonshine."
+                        },
+                        {
+                            category: "Event,Items",
+                            name: "Moonshine Jamboree",
+                            description: "You will earn Raider faction reputation, some loot, the all-new “Gulper Smacker” melee weapon, and a few bottles of Mire Magic Moonshine, which you can drink to increase the Gulper Smacker’s damage vs. Gulpers."
+                        },
+                        {
+                            category: "Season",
+                            name: "New Scoreboard",
+                            description: "Following a turbulent storm and an ill-fated flight around the world, Anna and Emilio Franklin now find themselves stranded on the wonderous and deadly Dread Island, with only their assaultron bodyguard, H-4RT, to help them survive. Keep up with their adventures by earning S.C.O.R.E. to rank up and claim a new suite of rewards on the all-new Season 9 Scoreboard."
+                        },
+                        {
+                            category: "Season,Fallout 1st",
+                            name: "Unlock S.C.O.R.E. Boosts",
+                            description: "Claim three new S.C.O.R.E. Boost rewards at ranks 15, 50, and 75, which increase the S.C.O.R.E. they earn from Challenges for the rest of Season 9 by +5%, +10%, and +10%, respectively."
+                        },
+                        {
+                            category: "Season,Fallout 1st,Challenge",
+                            name: "Complete Bonus Challenges",
+                            description: "Members can also earn even more S.C.O.R.E. by completing Fallout 1st Bonus Challenges, which will appear as Daily or Weekly Challenges alongside the existing lineup in the Challenges menu."
+                        },
+                        {
+                            category: "Season,Fallout 1st,Items",
+                            name: "Claim Even More Rewards",
+                            description: "This Season’s Scoreboard features many additional rank-up rewards for Fallout 1st Members. Hover over rank-up icons that have a gold ring on the Scoreboard to display both the standard and Fallout 1st rewards for that rank, side-by-side."
+                        },
+                        {
+                            category: "Audio",
+                            name: "Fresh Radio Plays",
+                            description: "Tune your Pip-Boy’s radio dial to the Pirate Radio Station to catch six new Radio Plays that follow along with Anna, Emilio, and H-4RT as they explore Dread Island and try to survive its many perils."
+                        },
+                        {
+                            category: "UI",
+                            name: "Corpse Highlighting",
+                            description: "Will help you more easily spot nearby creature corpses and claim your hard-earned loot. Corpse Highlights will be enabled by default on the Display tab in the game’s Settings menu."
+                        },
+                        {
+                            category: "Balance",
+                            name: "Critical Hit Bonus Adjustments",
+                            description: "Critical Hit damage bonuses are now all additive, and we've increased the bonuses from a wide variety of sources to help compensate for this change."
+                        },
+                        {
+                            category: "Balance,Perks",
+                            name: "Better Criticals Perk Card",
+                            description: "Bonuses per Perk Card rank increased from +20/30/40% to +50/75/100%, respectively."
+                        },
+                        {
+                            category: "Balance,Items",
+                            name: "Critical Hit: Standard Receiver Mods",
+                            description: "Bonus increased from +68% to +100%"
+                        },
+                        {
+                            category: "Balance,Items",
+                            name: "Critical Hit: Auto Receiver Mods",
+                            description: "Bonus increased from +36% to +50%"
+                        },
+                        {
+                            category: "Balance,Items",
+                            name: "Critical Hit: Overdrive",
+                            description: "Bonus increased from +15% to +30%"
+                        },
+                        {
+                            category: "Balance,Mutation,Perks",
+                            name: "Critical Hit: Eagle Eyes Mutation",
+                            description: "Bonus increased from +25% to +60%. With Strange In Numbers perk: Bonus increased from +32% to +75%"
+                        },
+                        {
+                            category: "Balance,Items",
+                            name: "Critical Hit: Tesla Science Magazine #8",
+                            description: "Bonus increased from +15% to +50%"
+                        },
+                        {
+                            category: "Balance,Items",
+                            name: "Critical Hit: Firecracker Berry Juice",
+                            description: "Bonus increased from +10% to +25%"
+                        },
+                        {
+                            category: "Balance,Items",
+                            name: "Critical Hit: Sweet Mutfruit Tea",
+                            description: "Bonus increased from +20% to +50%"
+                        },
+                        {
+                            category: "Balance,Items",
+                            name: "Critical Hit: Megasloth Mushroom Soup",
+                            description: "Bonus increased from +20% to +50%"
+                        },
+                        {
+                            category: "Balance,Items",
+                            name: "Critical Hit: Blight Soup",
+                            description: "Bonus increased from +20% to +50%"
+                        },
+                        {
+                            category: "Balance,Items",
+                            name: "Critical Hit: Steeped Thistle Tea",
+                            description: "Bonus increased from +20% to +50%"
+                        },
+                        {
+                            category: "Balance,Items",
+                            name: "Critical Hit: All Magazines affecting per weapon type critical",
+                            description: "Bonuses increased from +30% to +100%"
+                        },
+                        {
+                            category: "Bugfix,Visual",
+                            name: "Armor",
+                            description: "Leather Left Arms with an equipped Brawling mod no longer appear to clip through the left shoulder of male characters."
+                        },
+                        {
+                            category: "Bugfix,Visual",
+                            name: "Emotes",
+                            description: "Using an Emote while standing in a fire or similar hazard no longer causes the player to become stuck in an Emote animation."
+                        },
+                        {
+                            category: "Bugfix,Visual",
+                            name: "Enemies",
+                            description: "Crippled Super Mutants no longer launch into the air on death."
+                        },
+                        {
+                            category: "Bugfix,Visual",
+                            name: "Outfits",
+                            description: "The Firewall Outfit’s Helmet now correctly displays a glass face shield while equipped."
+                        },
+                        {
+                            category: "Bugfix,Visual",
+                            name: "Power Armor",
+                            description: "The headlamp for Equalizer and Matte Black Equalizer Power Armor Paint now shines in the correct direction when applied to Hellcat Power Armor."
+                        },
+                        {
+                            category: "Bugfix,Visual",
+                            name: "Power Armor",
+                            description: "Applying the Yellow Power Armor Paint to a set of Power Armor now applies proper interior textures, as well."
+                        },
+                        {
+                            category: "Bugfix,Visual",
+                            name: "Terminals",
+                            description: "Corrected an animation issue when entering a Terminal that could cause the player’s view to become misaligned from the Terminal screen."
+                        },
+                        {
+                            category: "Bugfix,Visual",
+                            name: "Weapons",
+                            description: "Fixed an issue that could cause NPCs to hold Pipe Pistols at odd angles."
+                        },
+                        {
+                            category: "Bugfix,Visual",
+                            name: "Weapons",
+                            description: "Characters’ hands no longer clip into the Alien Disintegrator."
+                        },
+                        {
+                            category: "Bugfix",
+                            name: "Weapons",
+                            description: "The Alien Disintegrator’s impact visual effects now correctly change color based on which Receiver mod the player is using."
+                        },
+                        {
+                            category: "Bugfix,C.A.M.P.",
+                            name: "Ally Furniture",
+                            description: "Sam Nguyen's Workbench can now be moved after being built."
+                        },
+                        {
+                            category: "Bugfix,C.A.M.P.",
+                            name: "Beds",
+                            description: "Players can now correctly interact with the Alien Stasis Chamber Bed."
+                        },
+                        {
+                            category: "Bugfix,C.A.M.P.",
+                            name: "C.A.M.P. Deployable",
+                            description: "Allies can now move toward a C.A.M.P. that has the Future Tec Skin applied to the C.A.M.P. Deployable."
+                        },
+                        {
+                            category: "Bugfix,C.A.M.P.",
+                            name: "Misc. Structures",
+                            description: "The notification that appears after learning a West Virginia Slot Machine Plan that was purchased from a Gold Bullion Vendor now displays the correct item name."
+                        },
+                        {
+                            category: "Bugfix,C.A.M.P.",
+                            name: "Signs",
+                            description: "Characters can no longer clip into the Water Park Sign."
+                        },
+                        {
+                            category: "Bugfix,C.A.M.P.",
+                            name: "Survival Tent",
+                            description: "The Scrapbox in the APC Survival Tent is now facing the correct direction."
+                        },
+                        {
+                            category: "Bugfix,Combat",
+                            name: "Stealth",
+                            description: "Firing a silenced weapon while in Stealth no longer causes nearby enemies to instantly detect the player."
+                        },
+                        {
+                            category: "Bugfix,Combat",
+                            name: "VATS",
+                            description: "Fixed an issue in which VATS critical hits were not guaranteed to strike the target."
+                        },
+                        {
+                            category: "Bugfix,Combat",
+                            name: "VATS",
+                            description: "Fixed an issue that could cause VATS to randomly close while firing at an enemy with clear line of sight."
+                        },
+                        {
+                            category: "Bugfix,Combat",
+                            name: "VATS",
+                            description: " VATS no longer randomly closes while targeting certain robotic enemies."
+                        },
+                        {
+                            category: "Bugfix,Combat",
+                            name: "VATS",
+                            description: "Firing explosive weapons in VATS no longer causes duplicate damage numbers to appear."
+                        },
+                        {
+                            category: "Bugfix,Combat",
+                            name: "VATS",
+                            description: "Firing a Missile Launcher in VATS now correctly progresses the critical hit meter."
+                        },
+                        {
+                            category: "Bugfix,Combat",
+                            name: "VATS",
+                            description: "Exiting a World with the ProSnap Deluxe Camera equipped no longer prevents the player from opening VATS after joining a new World."
+                        },
+                        {
+                            category: "Bugfix,Combat",
+                            name: "VATS",
+                            description: "Players can no longer target disarmed mines using VATS."
+                        },
+                        {
+                            category: "Bugfix,Side Quest",
+                            name: "Ally: Crash Landing",
+                            description: "Super Mutants now correctly approach the Crash Site when the player is retrieving the Flight Recorder."
+                        },
+                        {
+                            category: "Bugfix,Event",
+                            name: "Lode Baring",
+                            description: "Fixed an issue in which players could not mine some mineral deposits during the Lode Baring Public Event."
+                        },
+                        {
+                            category: "Bugfix,Event",
+                            name: "Lode Baring",
+                            description: "The miscellaneous objective to “Exchange tokens at Terminal” that displays after completing this Public Event no longer always reappears after logging out and back in."
+                        },
+                        {
+                            category: "Bugfix,Event",
+                            name: "Monster Mash",
+                            description: "Removed a non-functioning reward option from the S.M.A.R.T. Choice Machine."
+                        },
+                        {
+                            category: "Bugfix,Main Quest",
+                            name: "Overseer’s Mission",
+                            description: "The Small Backpack Plan no longer spawns in the Overseer’s Cache inside the Morgantown Airport for players who have already learned it."
+                        },
+                        {
+                            category: "Bugfix,Main Quest",
+                            name: "Overseer’s Mission",
+                            description: "The Overseer's Cache at Site Bravo now correctly spawns Vault Boy and Vault Girl Statue plans instead of two Vault Girl Statue plans. These plans no longer spawn in the Overseer’s Cache if the player has already learned them."
+                        },
+                        {
+                            category: "Bugfix,Event",
+                            name: "Path to Enlightenment",
+                            description: "The Lighthouse Lamp no longer continues to prompt the player to “Deposit Bioluminescent Fluid” after completing this Public Event."
+                        },
+                        {
+                            category: "Bugfix,Main Quest",
+                            name: "Trade Secrets",
+                            description: "Players can now correctly pass through the laser grid to access the Hornwright Estate Safe Room, as long as they’ve collected the required keycard."
+                        },
+                        {
+                            category: "Bugfix,Worlds",
+                            name: "Custom Worlds",
+                            description: "Fixed an issue in which characters that were linked to a shared Custom World could still join that World after the owner had deleted it."
+                        },
+                        {
+                            category: "Bugfix,Items",
+                            name: "Armor",
+                            description: "Thorn Armor’s description now correctly indicates that it deals 250 damage."
+                        },
+                        {
+                            category: "Bugfix,Items",
+                            name: "Armor",
+                            description: "The Shrouded mod for Wood Armor now correctly provides improved Stealth in dark areas."
+                        },
+                        {
+                            category: "Bugfix,Items",
+                            name: "Armor",
+                            description: "Fixed an issue causing Hardened mods for Brotherhood Recon and Secret Service Armors to provide less Damage Resistance than intended."
+                        },
+                        {
+                            category: "Bugfix,Items",
+                            name: "Armor",
+                            description: "Fixed an issue causing the Fiberglass mod for Combat Armor to provide less Damage Resistance than intended."
+                        },
+                        {
+                            category: "Bugfix,Items",
+                            name: "Armor",
+                            description: "Crafting Sturdy Robot Torso Armor no longer costs fewer materials than intended."
+                        },
+                        {
+                            category: "Bugfix,Items",
+                            name: "Armor",
+                            description: "Arctic Marine Armor can now receive the same armor paints that Marine Armor can."
+                        },
+                        {
+                            category: "Bugfix,Items",
+                            name: "Backpacks",
+                            description: "Fixed a visual issue causing the High-Capacity Backpack mod to display astronomically huge Damage Resistance stats."
+                        },
+                        {
+                            category: "Bugfix,Items,Exploit",
+                            name: "Exploit",
+                            description: "Addressed an exploit through which players could significantly increase the size of a weapon’s magazine."
+                        },
+                        {
+                            category: "Bugfix,Items,Exploit",
+                            name: "Exploit",
+                            description: "Addressed an exploit through which it was possible to duplicate a set of Power Armor."
+                        },
+                        {
+                            category: "Bugfix,Items",
+                            name: "Food and Drinks",
+                            description: "Pip-Boy item previews for alcoholic beverages now correctly display any S.P.E.C.I.A.L. bonuses and penalties the player will receive after consuming them."
+                        },
+                        {
+                            category: "Bugfix,Items",
+                            name: "Item Names",
+                            description: "Corrected several typos and naming inconsistencies across a variety of different item plans and mods."
+                        },
+                        {
+                            category: "Bugfix,Items",
+                            name: "Power Armor",
+                            description: "The Father Winter Power Armor Helmet can now be restored to its standard appearance."
+                        },
+                        {
+                            category: "Bugfix,Items",
+                            name: "Power Armor",
+                            description: "Excavator Power Armor Arms now correctly provide extra ore from mining when both left and right arms are equipped."
+                        },
+                        {
+                            category: "Bugfix,Items",
+                            name: "Power Armor",
+                            description: "Equipping a Power Armor Torso with the Kinetic Dynamo mod no longer interferes with the effects of the Kinetic Servos mod on Power Armor Legs."
+                        },
+                        {
+                            category: "Bugfix,Items",
+                            name: "Legendary Weapons",
+                            description: "The Lucky Legendary weapon effect now correctly provides its 15% bonus to the critical hit meter’s fill rate."
+                        },
+                        {
+                            category: "Bugfix,Items",
+                            name: "Legendary Weapons",
+                            description: "The “Cursed” prefix now properly appears in the names of Cursed Legendary Weapons."
+                        },
+                        {
+                            category: "Bugfix,Items",
+                            name: "Melee Weapons",
+                            description: "The Switchblade can now be restored to its standard appearance."
+                        },
+                        {
+                            category: "Bugfix,Items",
+                            name: "Melee Weapons",
+                            description: "The Revolutionary Sword no longer has an extra “no upgrade” mod that visually removes its blade."
+                        },
+                        {
+                            category: "Bugfix,Items",
+                            name: "Ranged Weapons",
+                            description: "The Handmade Rifle’s Tweaked Receiver mod now correctly increases critical hit damage."
+                        },
+                        {
+                            category: "Bugfix,Items",
+                            name: "Ranged Weapons",
+                            description: "The Flamer now takes condition damage at a lower rate."
+                        },
+                        {
+                            category: "Bugfix,Items",
+                            name: "Ranged Weapons",
+                            description: "Fixed an issue that prevented the Cryolator from taking condition damage."
+                        },
+                        {
+                            category: "Bugfix,Items",
+                            name: "Rewards",
+                            description: "Corrected an issue in which a number of former Nuclear Winter mode rewards could be traded or built in the C.A.M.P.s of players who did not own them."
+                        },
+                        {
+                            category: "Bugfix,Perks",
+                            name: "Mr. Sandman",
+                            description: "The Mr. Sandman Perk Card no longer provides a different sneak attack bonus when equipped before or after the Covert Ops Perk Card. Additionally, the sneak attack bonus from Mr. Sandman has been doubled at all ranks."
+                        },
+                        {
+                            category: "Bugfix,Perks",
+                            name: "Quick Hands",
+                            description: "Fixed an issue that could cause the Quick Hands Perk Card to trigger more often than intended."
+                        },
+                        {
+                            category: "Bugfix,Perks",
+                            name: "Super Duper",
+                            description: "Fixed an issue that could cause the Super Duper Perk Card’s fanfare to play even though the Perk hadn’t triggered."
+                        },
+                        {
+                            category: "Bugfix,Sound",
+                            name: "Music",
+                            description: "Daily Ops music no longer plays in interior cells when the player isn’t participating in a Daily Op."
+                        },
+                        {
+                            category: "Bugfix,UI,Challenge",
+                            name: "Challenge Tracker",
+                            description: "Attempting to track multiple Challenges in quick succession no longer causes Challenges to visually duplicate in the Challenge Tracker."
+                        },
+                        {
+                            category: "Bugfix,UI",
+                            name: "Notifications",
+                            description: "Following a successful sneak attack with a melee weapon, a notification now correctly appears to inform the player that the attack dealt bonus damage."
+                        },
+                        {
+                            category: "Bugfix,UI",
+                            name: "Player Vending Machines",
+                            description: "Players can now inspect items listed for sale in other players’ Vending Machines, and the preview images for items now correctly appear in the Vending Machine menu."
+                        },
+                        {
+                            category: "Bugfix,UI",
+                            name: "Quest Tracker",
+                            description: "Addressed an issue in which a Public Event would sometimes not appear in the quest tracker after Fast Traveling to that Public Event via the Map or World Activity menu."
+                        },
+                        {
+                            category: "Bugfix,UI,Fallout 1st",
+                            name: "Scoreboard",
+                            description: "Fallout 1st rewards for previously achieved rank-ups now correctly appear claimable if the player joins Fallout 1st partway through a Season."
+                        },
+                        {
+                            category: "Bugfix,UI",
+                            name: "Trade",
+                            description: "Legendary item previews in player trade menus now correctly display all of an item’s legendary attributes."
+                        },
+                        {
+                            category: "Bugfix,Locations",
+                            name: "Pathing",
+                            description: "Addressed a number of locations where the player could become stuck."
+                        }
                     ]
                 },
                 {
@@ -305,7 +776,7 @@
                             description: "The requirements for the “Complete Different Daily Quests” World Challenge have been reduced from 23 to 22, and it can now be correctly completed."
                         },
                         {
-                            category: "Bugfix",
+                            category: "Bugfix,Combat",
                             name: "VATS",
                             description: "Melee VATS attacks while in third-person view no longer cause the player to encounter a black screen."
                         },
@@ -667,22 +1138,22 @@
                             description: "The Dirty Fedora and Crumpled Fedora now count toward progress for the Possum: Archaeologist World Challenge to “Collect bones while wearing a Fedora.”"
                         },
                         {
-                            category: "Bugfix,Balance",
+                            category: "Bugfix,Balance,Combat",
                             name: "Elemental Resistances",
                             description: "Adjusted the calculation for energy and elemental damage to be in line with physical damage calculation. As a result, energy and elemental damage have been increased overall."
                         },
                         {
-                            category: "Bugfix",
+                            category: "Bugfix,Combat",
                             name: "Enemy Health",
                             description: "Addressed an instance of enemy health “rubber banding” that could occur when using a high rate of fire weapon under poor network conditions."
                         },
                         {
-                            category: "Bugfix",
+                            category: "Bugfix,Combat",
                             name: "Floating Damage Numbers",
                             description: "Armor penetration is now correctly factored into floating damage numbers that appear when attacking enemies."
                         },
                         {
-                            category: "Bugfix",
+                            category: "Bugfix,Combat",
                             name: "VATS",
                             description: "Players can now use VATS to target and hit airborne grenades."
                         },
@@ -1262,7 +1733,7 @@
                             description: "Building a wood instrument now correctly progresses the “Possum: Musician” challenge."
                         },
                         {
-                            category: "Bugfix",
+                            category: "Bugfix,Combat",
                             name: "Enemy Health",
                             description: "Implemented a fix to significantly reduce enemy health “rubber banding” that could occur when damaging them with certain weapons, like the Pepper Shaker."
                         },
@@ -3267,7 +3738,7 @@
                             description: "The “Repair All Structures” option no longer appears greyed out if a player’s Beehive has been destroyed.",
                         },
                         {
-                            category: "Bugfix",
+                            category: "Bugfix,Combat,PvP",
                             name: "VATS",
                             description: "Successful VATS attacks now correctly deal damage to other players during PvP combat.",
                         },
@@ -3477,7 +3948,7 @@
                             description: "Following community feedback, we’ve also rebalanced Daily Ops rewards lists to give players a better chance at getting rare rewards.",
                         },
                         {
-                            category: "Bugfix",
+                            category: "Bugfix,Combat",
                             name: "Melee Attack Updates",
                             description: "We’ve implemented a number of fixes, tweaks, and improvements to player melee attacks so that your strikes more consistently meet their targets.",
                         },
@@ -4942,32 +5413,32 @@
                             description: "Now scraps into Aluminum, Copper, and Rubber, instead of just Rubber."
                         },
                         {
-                            category: "Bugfix",
+                            category: "Bugfix,Combat",
                             name: "Explosion Damage",
                             description: "Fixed an issue that caused non-physical explosions from weapons, like Floater Grenades, to deal less damage than intended."
                         },
                         {
-                            category: "Bugfix",
+                            category: "Bugfix,Combat",
                             name: "VATS",
                             description: "Greatly improved the accuracy of chance to hit percentages when using VATS."
                         },
                         {
-                            category: "Bugfix",
+                            category: "Bugfix,Combat",
                             name: "VATS",
                             description: "Hits that successfully strike the target now deal damage correctly."
                         },
                         {
-                            category: "Bugfix",
+                            category: "Bugfix,Combat",
                             name: "VATS",
                             description: "Fixed an issue that could cause VATS to close when line of sight to the targeted enemy became partially obstructed."
                         },
                         {
-                            category: "Bugfix",
+                            category: "Bugfix,Combat",
                             name: "VATS",
                             description: "Continuing to fire a Flamer or Cryolator after closing VATS no longer stops those weapons from damaging enemies."
                         },
                         {
-                            category: "Bugfix",
+                            category: "Bugfix,Combat",
                             name: "VATS",
                             description: "Corrected the damage dealt when firing the Tesla Rifle and uncharged Gauss Weapons in VATS."
                         },
@@ -5573,8 +6044,8 @@
                             + "For additional details and our reasoning behind these changes, please read our most recent <a href='https://fallout.bethesda.net/en/article/2d9r0zJNbst99qwmLL1zM0/fallout-76-inside-the-vault-pts-news-upcoming-hotfix-and-more' target='_blank'>Inside the Vault</a> article on Fallout.com.",
                         },
                         {
-                            category: "Bugfix,PvP",
-                            name: "PvP Combat",
+                            category: "Bugfix,PvP,Combat",
+                            name: "PvP",
                             description: "Fixed an issue that could allow players to bypass the rules of PVP to kill neutral players.",
                         },
                         {
@@ -5649,7 +6120,7 @@
                             description: "It is now free to Fast Travel to Foundation and Crater."
                         },
                         {
-                            category: "Balance",
+                            category: "Balance,Combat",
                             name: "Bonus Damage",
                             description: "We’ve changed the way that damage bonuses are calculated so that they now apply additively instead of multiplicatively."
                         },
@@ -6329,12 +6800,12 @@
                             description: "Fixed an issue in which previous limited-time Nuclear Winter Challenges were available and could be still completed past their end-dates."
                         },
                         {
-                            category: "Exploit",
+                            category: "Exploit,Combat",
                             name: "Exploit",
                             description: "Fixed an exploit resulting from reviving another player under certain circumstances."
                         },
                         {
-                            category: "Exploit",
+                            category: "Exploit,Combat",
                             name: "Exploit",
                             description: "Fixed an exploit allowing Bows to fire much faster than intended."
                         },
@@ -6751,12 +7222,12 @@
                             description: "Added “The Importance of Communication,” “Photo Opportunity,” “Retirement Plan,” and “Vital Equipment”<br>as subchallenges for the “Complete Different Daily Quests” Challenge.",
                         },
                         {
-                            category: "Bugfix,Exploit",
+                            category: "Bugfix,Exploit,Combat",
                             name: "Exploit",
                             description: "Addressed an issue that could result in a player becoming invulnerable after dying under very specific circumstances.",
                         },
                         {
-                            category: "Bugfix,Items",
+                            category: "Bugfix,Items,Combat",
                             name: "VATS",
                             description: "Charging weapons, like Gauss weapons or the Bow, now correctly deal damage based on how much they were charged when fired in VATS.",
                         },
@@ -7255,12 +7726,12 @@
                             description: "Exiting a Power Armor Station no longer sometimes causes the controls to temporarily lock up."
                         },
                         {
-                            category: "Bugfix",
+                            category: "Bugfix,Combat",
                             name: "Stealth",
                             description: "Receiving Stealth from multiple sources at once, like the Escape Artist Perk Card, Stealth Boys, Chameleon Armor, etc.<br>no longer causes enemies to instantly detect the player."
                         },
                         {
-                            category: "Bugfix",
+                            category: "Bugfix,Combat",
                             name: "VATS",
                             description: "Changing the body part selection in VATS while using charging weapons, like a Bow or Gauss Weapon,<br>no longer causes the next shot to hit the previously selected body part."
                         },
@@ -18392,7 +18863,8 @@
                 "Daily Quest" : "dailyCount",
                 "NW" : "nwCount",
                 "Survival" : "survivalCount",
-                "Worlds": "worldsCount"
+                "Worlds": "worldsCount",
+                "Combat": "combatCount",
             };
 
             function filterByKeywords(note, keywords) {
@@ -18541,6 +19013,9 @@
                 }
                 if (get("filterSurvival").checked) {
                     filter.push("Survival");
+                }
+                if (get("filterCombat").checked) {
+                    filter.push("Combat");
                 }
                 if (get("filterBugExclude").checked) {
                     filterExclude.push("Bugfix");
