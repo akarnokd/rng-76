@@ -27,9 +27,9 @@
     </head>
     <body style="height: 90%">
         <center>
-            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Weapon Damage Calculator (v3.9.6)</span>
+            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Weapon Damage Calculator (v3.10.0)</span>
             <br/>
-            <!-- <i>(Notification here)</i> -->
+            <i>(Patch 34 data &amp; behavior added but not fully verified yet.)</i>
         <br/>
         <br/>
         <table id="parent">
@@ -1689,6 +1689,103 @@
                         }
                     ]
                 },
+                {
+                    name: "Gulper Smacker",
+                    category: "One-handed",
+                    speed: speedMedium,
+                    formId: "00633475",
+                    special: true,
+                    info: "WeaponGulperSmacker",
+                    level:  [ 1, 5,10,15,20,25,30,35,40,45,50],
+                    damage: [29,35,38,41,44,47,50,53,56,59,62],
+                    mods: [
+                        {
+                            slot: "Blade",
+                            options: [
+                                {
+                                    name: "Standard"
+                                },
+                                {
+                                    name: "Sharp",
+                                    damageMultPercent: 15
+                                },
+                                {
+                                    name: "Chain-wrapped",
+                                    damageMultPercent: 50
+                                }
+                            ]
+                        },
+                        {
+                            slot: "Shaft",
+                            options: [
+                                {
+                                    name: "Standard"
+                                },
+                                {
+                                    name: "Acidic Gulper Hand",
+                                    addDamagePoisonLeveled: [5,5,5,5,5,5,5,5,5,5,5]
+                                },
+                                {
+                                    name: "Spiked",
+                                    damageMultPercent: 16,
+                                    ignoreDRPercent: 20
+                                }
+                            ]
+                        },
+                        {
+                            slot: "Special",
+                            options: [
+                                {
+                                    name: "Bonus vs Gulpers",
+                                    versusMultPercent: 50,
+                                    versus: ["Gulper"]
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    name: "Tone Death",
+                    category: "Unarmed",
+                    kind: "unarmed",
+                    speed: speedMedium,
+                    formId: "006477EF",
+                    special: true,
+                    info: "WeaponToneDeath",
+                    level: [15, 25, 35, 45],
+                    damage: [30, 35, 40, 45],
+                    mods: [],
+                    //legendaryPrefix: "Suppressor's",
+                    legendaryMajor: "40% increased swing speed",
+                    legendaryMinor: "Strength"
+                },
+                {
+                    name: "The Debilitator",
+                    category: "Two-handed",
+                    speed: speedSlow,
+                    formId: "006477ED",
+                    special: true,
+                    info: "WeaponTheDebilitator",
+                    level: [30, 40, 50],
+                    damage: [65, 75, 85],
+                    mods: [
+                        {
+                            slot: "Main",
+                            options: [
+                                {
+                                    name: "Standard"
+                                },
+                                {
+                                    name: "Heating coil",
+                                    addDamageFireLeveled: [5, 7.5, 10]
+                                }
+                            ]
+                        }
+                    ],
+                    legendaryPrefix: "Mutant slayer's",
+                    legendaryMajor: "40% increased swing speed",
+                    legendaryMinor: "Strength",
+                },
             ]);
 
             // xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
@@ -1778,22 +1875,42 @@
             };
             var viciousMod = {
                 name: "Vicious",
-                criticalDamageMultiply: 17
+                criticalDamageMultiply: 17,
+                patchOverride: {
+                    "P34": {
+                        criticalDamageMultiply: 50
+                    }
+                }
             };
             var fierceMod = {
                 name: "Fierce",
                 speedAddPercent: 25,
-                criticalDamageMultiply: 17
+                criticalDamageMultiply: 17,
+                patchOverride: {
+                    "P34": {
+                        criticalDamageMultiply: 50
+                    }
+                }
             };
             var snappyMod = {
                 name: "Snappy",
                 speedAddPercent: 25,
-                criticalDamageMultiply: 17
+                criticalDamageMultiply: 17,
+                patchOverride: {
+                    "P34": {
+                        criticalDamageMultiply: 50
+                    }
+                }
             };
             var severeMod = {
                 name: "Severe",
                 criticalDamageMultiply: 17,
-                damageMultPercent: 12.5
+                damageMultPercent: 12.5,
+                patchOverride: {
+                    "P34": {
+                        criticalDamageMultiply: 50
+                    }
+                }
             };
             var hairTriggerReloadMod = {
                 name: "Hair trigger",
@@ -1838,7 +1955,12 @@
                         {
                             name: "Critical .38",
                             criticalDamageMultiply: 17,
-                            damageMultPercent: -25
+                            damageMultPercent: -25,
+                            patchOverride: {
+                                "P34": {
+                                    criticalDamageMultiply: 50
+                                }
+                            }
                         },
                         {
                             name: "Automatic .38",
@@ -1853,7 +1975,12 @@
                         {
                             name: "Tweaked Automatic",
                             speedSet: 7.5,
-                            criticalDamageMultiply: 17
+                            criticalDamageMultiply: 17,
+                            patchOverride: {
+                                "P34": {
+                                    criticalDamageMultiply: 50
+                                }
+                            }
                         },
                         snappyMod,
                         {
@@ -1862,7 +1989,12 @@
                         {
                             name: "Calibrated",
                             criticalDamageMultiply: 34,
-                            preinstalled: isFixer
+                            preinstalled: isFixer,
+                            patchOverride: {
+                                "P34": {
+                                    criticalDamageMultiply: 100
+                                }
+                            }
                         },
                         severeMod,
                         viciousMod,
@@ -1929,16 +2061,31 @@
                         },
                         {
                             name: "Calibrated",
-                            criticalDamageMultiply: 34
+                            criticalDamageMultiply: 34,
+                            patchOverride: {
+                                "P34": {
+                                    criticalDamageMultiply: 100
+                                }
+                            }
                         },
                         {
                             name: "Calibrated Beta Wave",
                             criticalDamageMultiply: 34,
-                            addDamageFireLeveled: [3, 3, 3, 3]
+                            addDamageFireLeveled: [3, 3, 3, 3],
+                            patchOverride: {
+                                "P34": {
+                                    criticalDamageMultiply: 100
+                                }
+                            }
                         },
                         {
                             name: "Vicious",
-                            criticalDamageMultiply: 17
+                            criticalDamageMultiply: 17,
+                            patchOverride: {
+                                "P34": {
+                                    criticalDamageMultiply: 50
+                                }
+                            }
                         },
                         {
                             name: "Refined Beta Wave",
@@ -2000,6 +2147,7 @@
                 result.options.push({
                     name: "Long Night Vision Scope",
                     scope: true,
+                    preinstalled: weaponType === "Doctor's Orders"
                 });
 
                 if (hasRecon) {
@@ -2129,7 +2277,12 @@
                         },
                         {
                             name: "Calibrated",
-                            criticalDamageMultiply: 34
+                            criticalDamageMultiply: 34,
+                            patchOverride: {
+                                "P34": {
+                                    criticalDamageMultiply: 100
+                                }
+                            }
                         },
                         severeMod,
                         viciousMod,
@@ -2151,7 +2304,12 @@
                     },
                     {
                         name: "Calibrated",
-                        criticalDamageMultiply: 34
+                        criticalDamageMultiply: 34,
+                        patchOverride: {
+                            "P34": {
+                                criticalDamageMultiply: 100
+                            }
+                        }
                     },
                     {
                         name: "Hasty .38",
@@ -2161,7 +2319,12 @@
                     {
                         name: "Critical .38",
                         damageMultPercent: -25,
-                        criticalDamageMultiply: 17
+                        criticalDamageMultiply: 17,
+                        patchOverride: {
+                            "P34": {
+                                criticalDamageMultiply: 50
+                            }
+                        }
                     },
                     snappyMod,
                     severeMod,
@@ -2196,6 +2359,11 @@
                         damageMultPercent: -10,
                         speedSet: 7.5,
                         criticalDamageMultiply: 17,
+                        patchOverride: {
+                            "P34": {
+                                criticalDamageMultiply: 50
+                            }
+                        }
                     },
                     scorchKillerMod,
                     primeMod,
@@ -2221,7 +2389,12 @@
                     },
                     {
                         name: "Calibrated",
-                        criticalDamageMultiply: 34
+                        criticalDamageMultiply: 34,
+                        patchOverride: {
+                            "P34": {
+                                criticalDamageMultiply: 100
+                            }
+                        }
                     },
                     snappyMod,
                     severeMod,
@@ -2242,7 +2415,12 @@
                     {
                         name: "Critical .45",
                         criticalDamageMultiply: 17,
-                        damageMultPercent: 8
+                        damageMultPercent: 8,
+                        patchOverride: {
+                            "P34": {
+                                criticalDamageMultiply: 50
+                            }
+                        }
                     },
                     {
                         name: "Automatic",
@@ -2257,7 +2435,12 @@
                     {
                         name: "Tweaked Automatic",
                         criticalDamageMultiply: 17,
-                        speedSet: 7.5
+                        speedSet: 7.5,
+                        patchOverride: {
+                            "P34": {
+                                criticalDamageMultiply: 50
+                            }
+                        }
                     },
                     {
                         name: "Prime Automatic",
@@ -2281,7 +2464,12 @@
                     },
                     {
                         name: "Calibrated",
-                        criticalDamageMultiply: 34
+                        criticalDamageMultiply: 34,
+                        patchOverride: {
+                            "P34": {
+                                criticalDamageMultiply: 100
+                            }
+                        }
                     },
                     severeMod,
                     snappyMod,
@@ -2305,7 +2493,12 @@
                         name: "Critical .38",
                         criticalDamageMultiply: 17,
                         speedMultPercent: -10,
-                        damageMultPercent: -25
+                        damageMultPercent: -25,
+                        patchOverride: {
+                            "P34": {
+                                criticalDamageMultiply: 50
+                            }
+                        }
                     },
                     primeMod,
                 ]
@@ -2354,6 +2547,62 @@
                 return result;
             }
 
+            function createCombatShotgunReceivers() {
+                return {
+                            slot: "Receiver",
+                            options: [
+                                {
+                                    name: "Standard"
+                                },
+                                {
+                                    name: "Automatic",
+                                    damageMultPercent: -10,
+                                    speedAddPercent: 10
+                                },
+                                {
+                                    name: "Powerful Automatic",
+                                    damageMultPercent: 11.11,
+                                    speedAddPercent: 10
+                                },
+                                {
+                                    name: "Focused Automatic",
+                                    damageMultPercent: 11.11,
+                                    speedAddPercent: 10
+                                },
+                                {
+                                    name: "Tweaked Automatic",
+                                    damageMultPercent: 11.11,
+                                    speedAddPercent: 10,
+                                    criticalDamageMultiply: 17,
+                                    patchOverride: {
+                                        "P34": {
+                                            criticalDamageMultiply: 50
+                                        }
+                                    }
+                                },
+                                {
+                                    name: "Hardened",
+                                    damageMultPercent: 25
+                                },
+                                {
+                                    name: "Refined",
+                                    damageMultPercent: 12.5
+                                },
+                                severeMod,
+                                viciousMod,
+                                scorchKillerMod,
+                                primeMod,
+                                {
+                                    name: "Prime Automatic",
+                                    damageMultPercent: 15,
+                                    speedAddPercent: 10,
+                                    versus: ["Scorched", "Scorchbeast", "Scorchbeast Queen"],
+                                    versusMultPercent: 35
+                                }
+                            ]
+                        };
+            }
+
             allWeapons.set("Ranged", [
                 {
                     name: "Handmade",
@@ -2397,7 +2646,12 @@
                                 },
                                 {
                                     name: "Calibrated",
-                                    criticalDamageMultiply: 34
+                                    criticalDamageMultiply: 34,
+                                    patchOverride: {
+                                        "P34": {
+                                            criticalDamageMultiply: 100
+                                        }
+                                    }
                                 },
                                 fierceMod,
                                 severeMod,
@@ -2411,7 +2665,12 @@
                                     name: "Tweaked Automatic",
                                     damageMultPercent: 12.5,
                                     speedSet: 7.5,
-                                    criticalDamageMultiply: 17
+                                    criticalDamageMultiply: 17,
+                                    patchOverride: {
+                                        "P34": {
+                                            criticalDamageMultiply: 50
+                                        }
+                                    }
                                 },
                                 {
                                     name: "Tweaked Automatic (bugged)",
@@ -2509,7 +2768,12 @@
                                 {
                                     name: "Critical .38",
                                     damageMultPercent: -25,
-                                    criticalDamageMultiply: 17
+                                    criticalDamageMultiply: 17,
+                                    patchOverride: {
+                                        "P34": {
+                                            criticalDamageMultiply: 50
+                                        }
+                                    }
                                 },
                                 {
                                     name: ".50",
@@ -2523,11 +2787,21 @@
                                 {
                                     name: "Critical .50",
                                     damageMultPercent: 22.5,
-                                    criticalDamageMultiply: 17
+                                    criticalDamageMultiply: 17,
+                                    patchOverride: {
+                                        "P34": {
+                                            criticalDamageMultiply: 50
+                                        }
+                                    }
                                 },
                                 {
                                     name: "Calibrated",
-                                    criticalDamageMultiply: 34
+                                    criticalDamageMultiply: 34,
+                                    patchOverride: {
+                                        "P34": {
+                                            criticalDamageMultiply: 100
+                                        }
+                                    }
                                 },
                                 snappyMod,
                                 severeMod,
@@ -2567,13 +2841,23 @@
                                 },
                                 {
                                     name: "Calibrated",
-                                    criticalDamageMultiply: 34
+                                    criticalDamageMultiply: 34,
+                                    patchOverride: {
+                                        "P34": {
+                                            criticalDamageMultiply: 100
+                                        }
+                                    }
                                 },
                                 severeMod,
                                 {
                                     name: "Fierce",
                                     criticalDamageMultiply: 17,
-                                    speedAddPercent: 25
+                                    speedAddPercent: 25,
+                                    patchOverride: {
+                                        "P34": {
+                                            criticalDamageMultiply: 50
+                                        }
+                                    }
                                 },
                                 scorchKillerMod,
                                 primeMod,
@@ -2989,57 +3273,33 @@
                     level: [20, 30, 40, 50],
                     damage: [60, 70, 80, 90],
                     mods: [
-                        {
-                            slot: "Receiver",
-                            options: [
-                                {
-                                    name: "Standard"
-                                },
-                                {
-                                    name: "Automatic",
-                                    damageMultPercent: -10,
-                                    speedAddPercent: 10
-                                },
-                                {
-                                    name: "Powerful Automatic",
-                                    damageMultPercent: 11.11,
-                                    speedAddPercent: 10
-                                },
-                                {
-                                    name: "Focused Automatic",
-                                    damageMultPercent: 11.11,
-                                    speedAddPercent: 10
-                                },
-                                {
-                                    name: "Tweaked Automatic",
-                                    damageMultPercent: 11.11,
-                                    speedAddPercent: 10,
-                                    criticalDamageMultiply: 17
-                                },
-                                {
-                                    name: "Hardened",
-                                    damageMultPercent: 25
-                                },
-                                {
-                                    name: "Refined",
-                                    damageMultPercent: 12.5
-                                },
-                                severeMod,
-                                viciousMod,
-                                scorchKillerMod,
-                                primeMod,
-                                {
-                                    name: "Prime Automatic",
-                                    damageMultPercent: 15,
-                                    speedAddPercent: 10,
-                                    versus: ["Scorched", "Scorchbeast", "Scorchbeast Queen"],
-                                    versusMultPercent: 35
-                                }
-                            ]
-                        },
+                        createCombatShotgunReceivers(),
                         createStandardMagazines("Large", 8),
                         standardMuzzle
                     ]
+                },
+                {
+                    name: "Crowd Control",
+                    category: "Shotgun",
+                    kind: "ballistic",
+                    explosive: false,
+                    silencer: true,
+                    speed: 2,
+                    clipSize: 8,
+                    reloadTime: 3.200010,
+                    formId: "006477EC",
+                    info: "WeaponCrowdControl",
+                    special: true,
+                    level: [20, 30, 40, 50],
+                    damage: [60, 70, 80, 90],
+                    mods: [
+                        createCombatShotgunReceivers(),
+                        createStandardMagazines("Large", 8),
+                        standardMuzzle
+                    ],
+                    //legendaryPrefix: "Suppressor's",
+                    legendaryMajor: "ExplosiveCustomShotgun"
+                    //legendaryMinor: "90% reduced weight"
                 },
                 {
                     name: "Pump Action Shotgun",
@@ -3067,7 +3327,12 @@
                                 },
                                 {
                                     name: "Calibrated",
-                                    criticalDamageMultiply: 34
+                                    criticalDamageMultiply: 34,
+                                    patchOverride: {
+                                        "P34": {
+                                            criticalDamageMultiply: 100
+                                        }
+                                    }
                                 },
                                 snappyMod,
                                 severeMod,
@@ -3107,7 +3372,12 @@
                                 },
                                 {
                                     name: "Calibrated",
-                                    criticalDamageMultiply: 34
+                                    criticalDamageMultiply: 34,
+                                    patchOverride: {
+                                        "P34": {
+                                            criticalDamageMultiply: 100
+                                        }
+                                    }
                                 },
                                 snappyMod,
                                 severeMod,
@@ -3144,7 +3414,12 @@
                                 },
                                 {
                                     name: "Calibrated",
-                                    criticalDamageMultiply: 34
+                                    criticalDamageMultiply: 34,
+                                    patchOverride: {
+                                        "P34": {
+                                            criticalDamageMultiply: 100
+                                        }
+                                    }
                                 },
                                 fierceMod,
                                 severeMod,
@@ -3181,7 +3456,12 @@
                                 },
                                 {
                                     name: "Calibrated",
-                                    criticalDamageMultiply: 34
+                                    criticalDamageMultiply: 34,
+                                    patchOverride: {
+                                        "P34": {
+                                            criticalDamageMultiply: 100
+                                        }
+                                    }
                                 },
                                 fierceMod,
                                 severeMod,
@@ -3274,7 +3554,12 @@
                                 },
                                 {
                                     name: "Calibrated",
-                                    criticalDamageMultiply: 34
+                                    criticalDamageMultiply: 34,
+                                    patchOverride: {
+                                        "P34": {
+                                            criticalDamageMultiply: 100
+                                        }
+                                    }
                                 },
                                 severeMod,
                                 viciousMod,
@@ -3282,7 +3567,12 @@
                                 {
                                     name: "Tweaked Automatic",
                                     speedSet: 7.5,
-                                    criticalDamageMultiply: 17
+                                    criticalDamageMultiply: 17,
+                                    patchOverride: {
+                                        "P34": {
+                                            criticalDamageMultiply: 50
+                                        }
+                                    }
                                 },
                                 scorchKillerMod,
                                 primeMod,
@@ -3323,7 +3613,12 @@
                                 },
                                 {
                                     name: "Calibrated",
-                                    criticalDamageMultiply: 34
+                                    criticalDamageMultiply: 34,
+                                    patchOverride: {
+                                        "P34": {
+                                            criticalDamageMultiply: 100
+                                        }
+                                    }
                                 },
                                 {
                                     name: "Refined",
@@ -3341,7 +3636,12 @@
                                 {
                                     name: "Severe (Bugged)",
                                     damageMultPercent: 12.5 + 25,
-                                    criticalDamageMultiply: 17
+                                    criticalDamageMultiply: 17,
+                                    patchOverride: {
+                                        "P34": {
+                                            criticalDamageMultiply: 50
+                                        }
+                                    }
                                 },
                                 viciousMod,
                                 fierceMod,
@@ -3685,7 +3985,12 @@
                                 },
                                 {
                                     name: "Calibrated",
-                                    criticalDamageMultiply: 34
+                                    criticalDamageMultiply: 34,
+                                    patchOverride: {
+                                        "P34": {
+                                            criticalDamageMultiply: 100
+                                        }
+                                    }
                                 },
                                 severeMod,
                                 fierceMod,
@@ -3722,7 +4027,12 @@
                                 },
                                 {
                                     name: "Calibrated",
-                                    criticalDamageMultiply: 34
+                                    criticalDamageMultiply: 34,
+                                    patchOverride: {
+                                        "P34": {
+                                            criticalDamageMultiply: 100
+                                        }
+                                    }
                                 },
                                 severeMod,
                                 fierceMod,
@@ -3774,7 +4084,12 @@
                                 },
                                 {
                                     name: "Calibrated",
-                                    criticalDamageMultiply: 34
+                                    criticalDamageMultiply: 34,
+                                    patchOverride: {
+                                        "P34": {
+                                            criticalDamageMultiply: 100
+                                        }
+                                    }
                                 },
                                 severeMod,
                                 fierceMod,
@@ -3810,7 +4125,12 @@
                                 },
                                 {
                                     name: "Calibrated",
-                                    criticalDamageMultiply: 34
+                                    criticalDamageMultiply: 34,
+                                    patchOverride: {
+                                        "P34": {
+                                            criticalDamageMultiply: 100
+                                        }
+                                    }
                                 },
                                 severeMod,
                                 fierceMod,
@@ -3852,6 +4172,24 @@
                     level: [10, 20, 30, 40, 50],
                     damage: [115, 130, 145, 160, 175],
                     mods: []
+                },
+                {
+                    name: "Pirate Punch",
+                    category: "Pistol",
+                    kind: "ballistic",
+                    explosive: false,
+                    speed: 0.2,
+                    clipSize: 1,
+                    reloadTime: 5.000010,
+                    formId: "00647820",
+                    special: true,
+                    info: "WeaponPiratePunch",
+                    level: [10, 20, 30, 40, 50],
+                    damage: [115, 130, 145, 160, 175],
+                    mods: [],
+                    legendaryPrefix: "Two shot",
+                    // legendaryMajor: "50% VATS hit chance"
+                    legendaryMinor: "15% faster reload"
                 },
                 {
                     name: "Pipe Bolt-action Pistol",
@@ -4034,7 +4372,12 @@
                                 },
                                 {
                                     name: "Calibrated",
-                                    criticalDamageMultiply: 34
+                                    criticalDamageMultiply: 34,
+                                    patchOverride: {
+                                        "P34": {
+                                            criticalDamageMultiply: 100
+                                        }
+                                    }
                                 },
                                 severeMod,
                                 viciousMod,
@@ -4043,6 +4386,11 @@
                                     name: "Tweaked Auto",
                                     criticalDamageMultiply: 17,
                                     speedSet: 7.5,
+                                    patchOverride: {
+                                        "P34": {
+                                            criticalDamageMultiply: 50
+                                        }
+                                    }
                                 },
                                 primeMod
                             ]
@@ -4158,11 +4506,21 @@
                                 {
                                     name: "Severe Beta Wave",
                                     criticalDamageMultiply: 34,
-                                    addDamageFireLeveled: [3, 3, 3]
+                                    addDamageFireLeveled: [3, 3, 3],
+                                    patchOverride: {
+                                        "P34": {
+                                            criticalDamageMultiply: 100
+                                        }
+                                    }
                                 },
                                 {
                                     name: "Calibrated",
                                     criticalDamageMultiply: 34,
+                                    patchOverride: {
+                                        "P34": {
+                                            criticalDamageMultiply: 100
+                                        }
+                                    }
                                 },
                                 viciousMod,
                                 primeMod,
@@ -4213,11 +4571,21 @@
                                 {
                                     name: "Severe Beta Wave",
                                     criticalDamageMultiply: 34,
-                                    addDamageFireLeveled: [3, 3, 3]
+                                    addDamageFireLeveled: [3, 3, 3],
+                                    patchOverride: {
+                                        "P34": {
+                                            criticalDamageMultiply: 100
+                                        }
+                                    }
                                 },
                                 {
                                     name: "Calibrated",
                                     criticalDamageMultiply: 34,
+                                    patchOverride: {
+                                        "P34": {
+                                            criticalDamageMultiply: 100
+                                        }
+                                    }
                                 },
                                 viciousMod,
                                 primeMod
@@ -5012,7 +5380,12 @@
                                 },
                                 {
                                     name: "Calibrated",
-                                    criticalDamageMultiply: 34
+                                    criticalDamageMultiply: 34,
+                                    patchOverride: {
+                                        "P34": {
+                                            criticalDamageMultiply: 100
+                                        }
+                                    }
                                 },
                                 {
                                     name: "Pulse",
@@ -5325,7 +5698,134 @@
                             ]
                         }
                     ]
-                }
+                },
+                {
+                    name: "Doctor's Orders",
+                    category: "Rifle",
+                    kind: "ballistic",
+                    explosive: false,
+                    silencer: true,
+                    speed: 0.3,
+                    clipSize: 5,
+                    reloadTime: 4.000010,
+                    special: true,
+                    formId: "006477EE",
+                    info: "WeaponDoctorsOrders",
+                    level: [1, 5, 10, 20, 30, 40, 50],
+                    damage: [40, 45, 50, 55, 60, 65, 70],
+                    mods: [
+                        {
+                            slot: "Receiver",
+                            options: [
+                                {
+                                    name: "Standard"
+                                },
+                                {
+                                    name: "Hardened",
+                                    damageMultPercent: 25,
+                                    preinstalled: true
+                                    
+                                },
+                                {
+                                    name: ".38",
+                                    damageMultPercent: -25
+                                },
+                                {
+                                    name: "Hasty .38",
+                                    damageMultPercent: -25,
+                                    speedAddPercent: 25
+                                },
+                                {
+                                    name: "Critical .38",
+                                    damageMultPercent: -25,
+                                    criticalDamageMultiply: 17,
+                                    patchOverride: {
+                                        "P34": {
+                                            criticalDamageMultiply: 50
+                                        }
+                                    }
+                                },
+                                {
+                                    name: ".50",
+                                    damageMultPercent: 33.3
+                                },
+                                {
+                                    name: "Hasty .50",
+                                    damageMultPercent: 22.5,
+                                    speedAddPercent: 25
+                                },
+                                {
+                                    name: "Critical .50",
+                                    damageMultPercent: 22.5,
+                                    criticalDamageMultiply: 17,
+                                    patchOverride: {
+                                        "P34": {
+                                            criticalDamageMultiply: 50
+                                        }
+                                    }
+                                },
+                                {
+                                    name: "Calibrated",
+                                    criticalDamageMultiply: 34,
+                                    patchOverride: {
+                                        "P34": {
+                                            criticalDamageMultiply: 100
+                                        }
+                                    }
+                                },
+                                snappyMod,
+                                severeMod,
+                                viciousMod,
+                                scorchKillerMod,
+                                primeMod,
+                            ]
+                        },
+                        createStandardMagazines("Large", 5),
+                        standardMuzzle,
+                        createStandardSights("Doctor's Orders", true, true)
+                    ],
+                    // legendaryPrefix: "Vampire's",
+                    // legendaryMajor: "50% limb damage",
+                    // legendaryMinor: "Generate stealth field"
+                },
+                {
+                    name: "Foundation's Vengeance",
+                    category: "Heavy",
+                    kind: "ballistic",
+                    explosive: false,
+                    speed: 18.2,
+                    clipSize: 500,
+                    reloadTime: 2.200000,
+                    formId: "00646880",
+                    special: true,
+                    info: "WeaponFoundationsVengeance",
+                    level: [35, 45],
+                    damage: [20, 24],
+                    mods: [
+                        {
+                            slot: "Barrel",
+                            options: [
+                                {
+                                    name: "Standard"
+                                },
+                                {
+                                    name: "Accelerated",
+                                    damageMultPercent: 15,
+                                    speedAddPercent: 15
+                                },
+                                {
+                                    name: "Tri",
+                                    damageMultPercent: 25,
+                                    speedAddPercent: -35
+                                },
+                                primeMod
+                            ]
+                        }
+                    ],
+                    legendaryPrefix: "Bloodied",
+                    legendaryMajor: "Explosive",
+                    // legendaryMinor: "250DR while reloading"
+                },
             ]);
 
             // uuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu
@@ -5856,7 +6356,8 @@
 
             var patchChain = {
                 "P27": [ "P27A" ],
-                "P33": [ "P27A", "P27" ]
+                "P33": [ "P27A", "P27" ],
+                "P34": [ "P27A", "P27" ]
             }
 
             // -------------------------------------------------------------------------------------
@@ -6732,7 +7233,7 @@
             addEnemy("Glowing Snallygaster", ["Cryptid", "Snallygaster", "Glowing"], enemyResistancesMap["snallygaster"]);
             addEnemy("Scorched Snallygaster", ["Cryptid", "Snallygaster", "Scorched"], enemyResistancesMap["snallygaster"]);
 
-            addEnemy("Gulper", [], enemyResistancesMap["gulper"]);
+            addEnemy("Gulper", ["Gulper"], enemyResistancesMap["gulper"]);
             addEnemy("Glowing Gulper", ["Glowing"], enemyResistancesMap["gulper"]);
             addEnemy("Scorched Gulper", ["Scorched"], enemyResistancesMap["gulper"]);
 
@@ -6874,7 +7375,13 @@
                     mode: "Melee,Ranged",
                     criticalDamage: 20,
                     mutation: "herbivore",
-                    exclude: ""
+                    exclude: "",
+                    patchOverride: {
+                        "P34": {
+                            criticalDamage: 50,
+                            desc: "Blight Soup (+50% Crit)",
+                        }
+                    },
                 },
                 {
                     id: "MutantHoundChops",
@@ -6893,6 +7400,19 @@
                     mutation: "carnivore",
                     damage: 15,
                     exclude: "meleebonusdamage"
+                },
+                {
+                    id: "MegaslothMushroomSoup",
+                    type: "food",
+                    desc: "Megasloth Mushroom Soup (+20% crit DMG)",
+                    mode: "Melee,Ranged",
+                    criticalDamage: 20,
+                    patchOverride: {
+                        "P34": {
+                            criticalDamage: 50,
+                            desc: "Megasloth Mushroom Soup (+50% crit DMG)",
+                        }
+                    }
                 },
             ];
 
@@ -6943,7 +7463,13 @@
                         desc: "Overdrive (+15% DMG, +15% crit DMG)",
                         mode: "Melee,Ranged",
                         damage: 15,
-                        criticalDamage: 15
+                        criticalDamage: 15,
+                        patchOverride: {
+                            "P34": {
+                                criticalDamage: 30,
+                                desc: "Overdrive (+15% DMG, +30% crit DMG)",
+                            }
+                        }
                     },
                     {
                         id: "Psycho",
@@ -7008,9 +7534,16 @@
                 {
                     id: "FirecrackerBerryJuice",
                     type: "alcohol",
-                    desc: "Firecracker Berry Juice (+15% crit DMG)",
+                    desc: "Firecracker Berry Juice (+10% crit DMG)",
                     mode: "Melee,Ranged",
-                    criticalDamage: 15
+                    criticalDamage: 10,
+                    patchOverride: {
+                        "P34": {
+                            criticalDamage: 25,
+                            desc: "Firecracker Berry Juice (+25% crit DMG)",
+                        }
+                    }
+                    
                 },
                 {
                     id: "HighVoltageHefe",
@@ -7078,14 +7611,26 @@
                     type: "alcohol",
                     desc: "Steeped Thistle Tea (+20% crit DMG)",
                     mode: "Melee,Ranged",
-                    criticalDamage: 20
+                    criticalDamage: 20,
+                    patchOverride: {
+                        "P34": {
+                            criticalDamage: 50,
+                            desc: "Steeped Thistle Tea (+20% crit DMG)",
+                        }
+                    }
                 },
                 {
                     id: "SweetMutfruitTea",
                     type: "alcohol",
                     desc: "Sweet Mutfruit Tea (+20% crit DMG)",
                     mode: "Melee,Ranged",
-                    criticalDamage: 20
+                    criticalDamage: 20,
+                    patchOverride: {
+                        "P34": {
+                            criticalDamage: 50,
+                            desc: "Sweet Mutfruit Tea (+20% crit DMG)",
+                        }
+                    }
                 },
                 createStrengthOnly("Vodka", "Vodka"),
                 {
@@ -7139,6 +7684,46 @@
                     enemyDr: -10,
                     damage: 10,
                     nopartyboy: true,
+                },
+                {
+                    id: "MireMagicMoonshine",
+                    type: "alcohol",
+                    desc: "Mire Magic Moonshine (+2 STR, +50% vs Gulp)",
+                    mode: "Melee",
+                    strength: 2,
+                    nopartyboy: true,
+                    versusDamage: 50,
+                    versus: ["Gulper"],
+                    weapon: "Gulper Smacker"
+                },
+                {
+                    id: "VintageMireMagicMoonshine",
+                    type: "alcohol",
+                    desc: "Vintage Mire Magic Moonshine (+4 STR, +100% vs Gulp)",
+                    mode: "Melee",
+                    strength: 4,
+                    nopartyboy: true,
+                    versusDamage: 100,
+                    versus: ["Gulper"],
+                    weapon: "Gulper Smacker"
+                },
+                {
+                    id: "MireMagicMoonshineNoSmacker",
+                    type: "alcohol",
+                    desc: "Mire Magic Moonshine (+2 STR)",
+                    mode: "Melee",
+                    strength: 2,
+                    nopartyboy: true,
+                    excludeWeapon: "Gulper Smacker"
+                },
+                {
+                    id: "VintageMireMagicMoonshineNoSmacker",
+                    type: "alcohol",
+                    desc: "Vintage Mire Magic Moonshine (+4 STR)",
+                    mode: "Melee",
+                    strength: 4,
+                    nopartyboy: true,
+                    excludeWeapon: "Gulper Smacker"
                 },
             ];
             alcohols.sort(function(a, b) {
@@ -7282,7 +7867,13 @@
                     type: "magazine",
                     desc: "Grognak... # 4 (+30% crit DMG)",
                     mode: "Melee",
-                    criticalDamage: 30
+                    criticalDamage: 30,
+                    patchOverride: {
+                        "P34": {
+                            criticalDamage: 100,
+                            desc: "Grognak... # 4 (+100% crit DMG)"
+                        }
+                    }
                 },
                 {
                     id: "Grognak5",
@@ -7307,7 +7898,13 @@
                     desc: "Guns... # 2 (+30% crit DMG w/ lasers)",
                     mode: "Ranged",
                     kind: "laser",
-                    criticalDamage: 30
+                    criticalDamage: 30,
+                    patchOverride: {
+                        "P34": {
+                            criticalDamage: 100,
+                            desc: "Guns... # 2 (+100% crit DMG w/ lasers)"
+                        }
+                    }
                 },
                 {
                     id: "GunsAndBullets3",
@@ -7315,7 +7912,13 @@
                     desc: "Guns... # 3 (+30% crit DMG w/ ballistic)",
                     mode: "Ranged",
                     kind: "ballistic",
-                    criticalDamage: 30
+                    criticalDamage: 30,
+                    patchOverride: {
+                        "P34": {
+                            criticalDamage: 100,
+                            desc: "Guns... # 3 (+100% crit DMG w/ ballistic)"
+                        }
+                    }
                 },
                 {
                     id: "GunsAndBullets7",
@@ -7338,7 +7941,13 @@
                     desc: "Guns... # 9 (+30% crit DMG w/ plasma)",
                     mode: "Ranged",
                     kind: "plasma",
-                    criticalDamage: 30
+                    criticalDamage: 30,
+                    patchOverride: {
+                        "P34": {
+                            criticalDamage: 100,
+                            desc: "Guns... # 9 (+100% crit DMG w/ plasma)"
+                        }
+                    }
                 },
                 {
                     id: "GunsAndBullets10",
@@ -7419,14 +8028,26 @@
                     desc: "Tesla... # 7 (+15% crit DMG w/ energy)",
                     mode: "Ranged",
                     criticalDamage: 15,
-                    kind: "energy"
+                    kind: "energy",
+                    patchOverride: {
+                        "P34": {
+                            criticalDamage: 50,
+                            desc: "Tesla... # 7 (+50% crit DMG w/ energy)"
+                        }
+                    }
                 },
                 {
                     id: "TeslaScience8",
                     type: "magazine",
                     desc: "Tesla... # 8 (+15% crit DMG)",
                     mode: "Melee,Ranged",
-                    criticalDamage: 15
+                    criticalDamage: 15,
+                    patchOverride: {
+                        "P34": {
+                            criticalDamage: 50,
+                            desc: "Tesla... # 8 (+50% crit DMG)"
+                        }
+                    }
                 },
                 {
                     id: "TeslaScience9",
@@ -7434,7 +8055,13 @@
                     desc: "Tesla... # 9 (+15% crit DMG w/ heavy)",
                     mode: "Ranged",
                     criticalDamage: 15,
-                    only: "Heavy"
+                    only: "Heavy",
+                    patchOverride: {
+                        "P34": {
+                            criticalDamage: 50,
+                            desc: "Tesla... # 9 (+50% crit DMG w/ heavy)"
+                        }
+                    }
                 },
                // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
                {
@@ -7747,10 +8374,14 @@
                 "50% less energy damage (for 100% more energy resistance)."
                 + "<br>The <b>Class Freak</b> perk ranks reduce the penalty to -37.5%, -25% and -12.5% respectively."
             );
-            infoMap.set("eagleeyes", 
-                "+25% critical damage, -4 Strength (and +4 Perception)."
-                + "<br>The <b>Strange in Numbers</b> perk increases the bonus to 31.25%."
-                + "<br>The <b>Class Freak</b> perk ranks reduce the strength penalty to -3, -2 and -1 respectively."
+            infoMap.set("eagleeyes",
+                "<b>Before Patch 34:</b>"
+                + "<br>&nbsp;&nbsp;+25% critical damage, -4 Strength (and +4 Perception)."
+                + "<br>&nbsp;&nbsp;The <b>Strange in Numbers</b> perk increases the bonus to 31.25%."
+                + "<br><br><b>After Patch 34:</b>"
+                + "<br>&nbsp;&nbsp;+60% critical damage, -4 Strength (and +4 Perception)."
+                + "<br>&nbsp;&nbsp;The <b>Strange in Numbers</b> perk increases the bonus to 75%."
+                + "<br><br>The <b>Class Freak</b> perk ranks reduce the strength penalty to -3, -2 and -1 respectively."
             );
             infoMap.set("foodmutation", 
                 "<br><b>Carnivore</b>: Meat based foods are 100% more effective."
@@ -7953,7 +8584,8 @@
                 + "<br>Does not show up currently in the floating damage numbers ingame."
             );
             infoMap.set("bettercrits", 
-                "V.A.T.S. critial hits do +20%, +30% or +40% damage respectively."
+                "<b>Before Patch 34</b>: V.A.T.S. critial hits do +20%, +30% or +40% damage respectively."
+                + "<br><b>After Patch 34</b>: V.A.T.S. critial hits do +50%, +75% or +100% damage respectively."
             );
             infoMap.set("colanut", 
                 "Effects of Nuka Cola products doubles (rank 1) or triples (rank 2)."
@@ -8149,10 +8781,51 @@
                 + "<br><br>Patch 27 buffed the slayer damages."
                 + "<br><br>Patch 28 added more legendary effects and adjusted existing ones."
                 + "<br><br>Patch 33 fixed the damage formula for non-ballistic damage types. Previously, only the weapon's base damage was pitted against the enemy resistance, ignoring any damage buffs."
+                + "<br><br>Patch 34 changed critical bonus calculation to be additive, increased crit bonuses across."
                 + "<br><br>Future patches appear to change the impact of resistances so that"
                 + "<br>there won't be such a sharp drop in damage output for the same level of resistance,"
                 + "<br>resulting in tougher enemies to receive more damage."
             );
+
+            infoMap.set("WeaponCrowdControl",
+                "<b>Unique Combat Shotgun from the public event Eviction Notice</b>" 
+                + "<br>Legendary: <i>Suppressor's, Explosive, 90% reduced weight</i>"
+                + "<br>Form ID: <a href='https://nukacrypt.com/database/json/006477EC' target='_blank'>006477EC</a>"
+                );
+            infoMap.set("WeaponPiratePunch",
+                "<b>Unique Black Powder Blunderbuss from the public event Eviction Notice</b>" 
+                + "<br>Legendary: <i>Two Shot, 33% better VATS, 15% faster reload</i>"
+                + "<br>Form ID: <a href='https://nukacrypt.com/database/json/00647820' target='_blank'>00647820</a>"
+                );
+            infoMap.set("WeaponGulperSmacker",
+                "<b>One handed melee weapon from the public event Moonshine Jamboree</b>" 
+                + "<br>Special mod: <i>50% bonus damage to Gulpers</i>"
+                + "<br>Form ID: <a href='https://nukacrypt.com/database/json/00633475' target='_blank'>00633475</a>"
+                );
+            infoMap.set("WeaponToneDeath",
+                "<b>Unique Death Tambo from the public event Eviction Notice</b>" 
+                + "<br>Legendary: <i>Suppressor's, 40% increased swing speed, +1 Strength</i>"
+                + "<br>Form ID: <a href='https://nukacrypt.com/database/json/006477EF' target='_blank'>006477EF</a>"
+                );
+                
+            infoMap.set("WeaponDoctorsOrders",
+                "<b>Unique Hunting Rifle from the public event Eviction Notice</b>" 
+                + "<br>Legendary: <i>Vampire's, 50% limb damage, Hits generate stealth field</i>"
+                + "<br>Pre-modded: <i>Hardened receiver, Standard long barrel, True stock, Long night vision scope</i>"
+                + "<br>Form ID: <a href='https://nukacrypt.com/database/json/006477EE' target='_blank'>006477EE</a>"
+                );
+
+            infoMap.set("WeaponFoundationsVengeance",
+                "<b>Unique Minigun from the public event Eviction Notice</b>" 
+                + "<br>Legendary: <i>Bloodied, Explosive 250 DR while reloading</i>"
+                + "<br>Pre-modded: <i>Gunner Sight, Shredder</i>"
+                + "<br>Form ID: <a href='https://nukacrypt.com/database/json/00646880' target='_blank'>00646880</a>"
+                );
+            infoMap.set("WeaponTheDebilitator",
+                "<b>Unique Super Sledge from the public event Eviction Notice</b>" 
+                + "<br>Legendary: <i>Mutant Slayer's, 40% faster swing speed, +1 Strength</i>"
+                + "<br>Form ID: <a href='https://nukacrypt.com/database/json/00646880' target='_blank'>00646880</a>"
+                );
 
             // ~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o
 
@@ -9206,7 +9879,7 @@
                 };
 
                 createPerk(tbl, index, type, "Tenderizer", "tenderizer", "tenderizer", "Tenderizer", [5, 7, 10]);
-                createPerk(tbl, index, type, "Better Criticals", "bettercrits", "bettercrits", "QuickHands", [20, 30, 40]);
+                createPerk(tbl, index, type, "Better Criticals", "bettercrits", "bettercrits", "BetterCrits", [20, 30, 40]);
 
                 if (type === "Ranged") {
                     createPerk(tbl, index, type, "Quick Hands", "quickhands", "quickhands", "QuickHands", [6, 12, 18]);
@@ -9366,6 +10039,9 @@
                     if (buff.kind !== undefined && weap.kind !== undefined && !buff.kind.includes(weap.kind)) {
                         return false;
                     }
+                    if (buff.excludeWeapon !== undefined && buff.excludeWeapon.includes(weap.name)) {
+                        return false;
+                    }
                     return true;
                 }
                 return false;
@@ -9400,9 +10076,10 @@
                 var foodDiv = document.createElement("div");
                 cell2.appendChild(foodDiv);
                 foodDiv.style.width = "100%";
-                foodDiv.style.height = "50px";
+                foodDiv.style.height = "60px";
                 foodDiv.style.overflowY = "auto";
                 foodDiv.style.border = "1px solid #E0E0E0";
+                foodDiv.style.resize = "vertical";
 
                 var fidx = 0;
                 let foodList = [];
@@ -9423,6 +10100,8 @@
                     foodDiv.appendChild(ftxt);
                     ftxt.htmlFor = fcheck.id;
                     ftxt.innerText = f.desc;
+                    ftxt.dataRef = f;
+                    ftxt.id = "Label_" + fcheck.id;
                     fidx++;
 
                     foodList.push({ checkbox: fcheck, foodEntry: f });
@@ -9453,6 +10132,7 @@
                         opt.text = chm.desc;
                         opt.value = chm.id;
                         opt.linkId = linkIdFor(chm, chm.id);
+                        opt.dataRef = chm;
                     }
                 }
                 chemsel.selectedIndex = 0;
@@ -9480,6 +10160,7 @@
                         opt.text = alc.desc;
                         opt.value = alc.id;
                         opt.linkId = linkIdFor(alc, alc.id);
+                        opt.dataRef = alc;
                     }
                 }
                 alcoholsel.selectedIndex = 0;
@@ -9507,6 +10188,7 @@
                         opt.text = bh.desc;
                         opt.value = bh.id;
                         opt.linkId = linkIdFor(bh, bh.id);
+                        opt.dataRef = bh;
                     }
                 }
                 bobbleheadsel.selectedIndex = 0;
@@ -9534,6 +10216,7 @@
                         opt.text = mag.desc;
                         opt.value = mag.id;
                         opt.linkId = linkIdFor(mag, mag.id);
+                        opt.dataRef = mag;
                     }
                 }
                 magazinesel.selectedIndex = 0;
@@ -9629,7 +10312,7 @@
                 cell1 = row.insertCell(0);
                 cell1.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;Criticals" + info("critboost");
                 cell2 = row.insertCell(1);
-                cell2.innerHTML = "<input type='number' id='critboost" + index + "' value='0' maxlength='6' style='width: 5em;' min='-1000' max='1000'> %";
+                cell2.innerHTML = "<input type='number' id='critboost" + index + "' value='0' maxlength='6' style='width: 5em;' min='-1000' max='1000'> %&nbsp;&nbsp;&nbsp;&nbsp;<span id='critrate" + index + "'></span>";
                 var critboostsel = document.getElementById("critboost" + index );
                 critboostsel.oninput = function() {
                     recalculate(tbl, index, type);
@@ -9675,6 +10358,12 @@
                 opt.text = "Patch 33";
                 opt.value = "P33";
                 opt.linkId = "P33";
+                calcmodesel.add(opt);
+
+                opt = document.createElement("option");
+                opt.text = "Patch 34";
+                opt.value = "P34";
+                opt.linkId = "P34";
                 opt.selected = true;
                 calcmodesel.add(opt);
 
@@ -9685,8 +10374,43 @@
                 calcmodesel.add(opt);
 
                 calcmodesel.onchange = function() {
+                    updateWithPatchOverrides(calcmodesel, index);
                     recalculate(tbl, index, type);
                 };
+                updateWithPatchOverrides(calcmodesel, index);
+            }
+
+            function updateWithPatchOverrides(modeSel, index) {
+                var calcMode = valueOf(modeSel);
+                var sels = document.getElementsByTagName("select");
+                for (let sel of sels) {
+                    if (sel.id.endsWith("" + index)) {
+                        for (let opt of sel.options) {
+                            if (opt.dataRef != null) {
+                                opt.text = withOverride(opt.dataRef, calcMode).desc;
+                            }
+                        }
+                    }
+                }
+                var inps = document.getElementsByTagName("label")
+                for (let inp of inps) {
+                    if (inp.id.includes("_" + index)) {
+                        if (inp.dataRef != null) {
+                            inp.innerText = withOverride(inp.dataRef, calcMode).desc;
+                        }
+                    }
+                }
+
+                var betterCritsSel = document.getElementById("bettercrits" + index);
+                if (calcMode >= "P34") {
+                    betterCritsSel.options[1].value = "50";
+                    betterCritsSel.options[2].value = "75";
+                    betterCritsSel.options[3].value = "100";
+                } else {
+                    betterCritsSel.options[1].value = "20";
+                    betterCritsSel.options[2].value = "30";
+                    betterCritsSel.options[3].value = "40";
+                }
             }
 
             function getAlcoholAndColaBuff(partyMultiplier, colanutMultiplier, buff) {
@@ -10034,6 +10758,8 @@
                     }
                     // chem adjust
                     for (var buff of buffOpts) {
+                        buff = withOverride(buff, calcMode);
+
                         if (buff.strength !== undefined) {
 
                             var buffMultiply = getAlcoholAndColaBuff(partyMultiplier, colanutMultiplier, buff);
@@ -10085,10 +10811,14 @@
                 }
 
                 if (isEagleEyes) {
+                    var eagleEyesCritBase = 25;
+                    if (calcMode >= "P34") {
+                        eagleEyesCritBase = 60
+                    }
                     if (isStrangeInNumbers && isTeam) {
-                        critMultiplier += 25 * 1.25;
+                        critMultiplier += eagleEyesCritBase * 1.25;
                     } else {
-                        critMultiplier += 25;
+                        critMultiplier += eagleEyesCritBase;
                     }
                 }
 
@@ -10098,6 +10828,9 @@
                     
                     if (modTypeIdx >= 0) {
                         var modInfo = mod.options[modTypeIdx];
+
+                        modInfo = withOverride(modInfo, calcMode);
+
                         if (modInfo.addDamageBallisticLeveled !== undefined) {
                             var amount = modInfo.addDamageBallisticLeveled[levelIdx];
                             weaponBaseDamageBallistic += amount;
@@ -10253,6 +10986,8 @@
                     
                     if (modTypeIdx >= 0) {
                         var modInfo = mod.options[modTypeIdx];
+
+                        modInfo = withOverride(modInfo, calcMode);
 
                         if (modInfo.damageMultPercent !== undefined) {
                             if (modInfo.debuffViaMultiply) {
@@ -10632,6 +11367,8 @@
                 }
                 // apply selectable buffs
                 for (var buff of buffOpts) {
+                    buff = withOverride(buff, calcMode);
+
                     var pmult = 1 + partyMultiplier;
                     if (buff.type !== "alcohol" || buff.nopartyboy) {
                         pmult = 1;
@@ -10885,20 +11622,28 @@
                 totalDamageCold *= sneakBonusMultiply;
                 totalDamagePoison *= sneakBonusMultiply;
 
-                if (isCrit) {
+                var critboost = parseFloat(document.getElementById("critboost" + index).value);
+                critMultiplier += critboost;
 
-                    var critboost = parseFloat(document.getElementById("critboost" + index).value);
-                    critMultiplier += critboost;
-
+                if (calcMode >= "P34") {
+                    for (var critm of critMultiplierMultiply) {
+                        critMultiplier += critm;
+                    }
+                } else {
                     for (var critm of critMultiplierMultiply) {
                         critMultiplier *= 1.0 + critm / 100.0
                     }
+                }
+                document.getElementById("critrate" + index).innerHTML = "<b>(" + (critMultiplier).toFixed(2) + " %)</b>";
+
+                if (isCrit) {
                     totalDamage *= critMultiplier / 100;
                     totalDamageEnergy *= critMultiplier / 100;
                     totalDamageFire *= critMultiplier / 100;
                     totalDamageCold *= critMultiplier / 100;
                     totalDamagePoison *= critMultiplier / 100;
                 }
+            
 
                 if (document.getElementById("grounded" + index + "_yes").checked) {
                     if (classFreak == "1") {
