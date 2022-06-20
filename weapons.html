@@ -27,7 +27,7 @@
     </head>
     <body style="height: 90%">
         <center>
-            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Weapon Damage Calculator (v3.10.0)</span>
+            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Weapon Damage Calculator (v3.10.1)</span>
             <br/>
             <i>(Patch 34 data &amp; behavior added but not fully verified yet.)</i>
         <br/>
@@ -6389,16 +6389,16 @@
                     { level: 100, dr: 250, er: 250, rr: 250, fr: 250, cr: 250, pr: 250 }, 
                 ],
                 "alien_general-zeta": [
-                    { level: 1, dr: 18, er: 18, rr: 18, fr: 18, cr: 18, pr: 1000 }, 
-                    { level: 10, dr: 18, er: 18, rr: 18, fr: 18, cr: 18, pr: 1000 }, 
-                    { level: 20, dr: 25, er: 25, rr: 25, fr: 25, cr: 25, pr: 1000 }, 
-                    { level: 30, dr: 50, er: 50, rr: 50, fr: 50, cr: 50, pr: 1000 }, 
-                    { level: 40, dr: 50, er: 50, rr: 50, fr: 50, cr: 50, pr: 1000 }, 
-                    { level: 50, dr: 50, er: 50, rr: 50, fr: 50, cr: 50, pr: 1000 }, 
-                    { level: 60, dr: 100, er: 100, rr: 100, fr: 100, cr: 100, pr: 1000 }, 
-                    { level: 70, dr: 100, er: 100, rr: 100, fr: 100, cr: 100, pr: 1000 }, 
-                    { level: 80, dr: 100, er: 100, rr: 100, fr: 100, cr: 100, pr: 1000 }, 
-                    { level: 100, dr: 100, er: 100, rr: 100, fr: 100, cr: 100, pr: 1000 }, 
+                    { level: 1, dr: 27, er: 27, rr: 27, fr: 27, cr: 27, pr: 1000 }, 
+                    { level: 10, dr: 27, er: 27, rr: 27, fr: 27, cr: 27, pr: 1000 }, 
+                    { level: 20, dr: 38, er: 38, rr: 38, fr: 38, cr: 38, pr: 1000 }, 
+                    { level: 30, dr: 75, er: 75, rr: 75, fr: 75, cr: 75, pr: 1000 }, 
+                    { level: 40, dr: 75, er: 75, rr: 75, fr: 75, cr: 75, pr: 1000 }, 
+                    { level: 50, dr: 75, er: 75, rr: 75, fr: 75, cr: 75, pr: 1000 }, 
+                    { level: 60, dr: 150, er: 150, rr: 150, fr: 150, cr: 150, pr: 1000 }, 
+                    { level: 70, dr: 150, er: 150, rr: 150, fr: 150, cr: 150, pr: 1000 }, 
+                    { level: 80, dr: 150, er: 150, rr: 150, fr: 150, cr: 150, pr: 1000 }, 
+                    { level: 100, dr: 150, er: 150, rr: 150, fr: 150, cr: 150, pr: 1000 }, 
                 ],
                 "alien_lt-kappa": [
                     { level: 1, dr: 50, er: 50, rr: 50, fr: 50, cr: 50, pr: 50 }, 
@@ -6510,6 +6510,18 @@
                 "critter": [
                     { level: 1, dr: 5, er: 5, rr: 5, fr: 5, cr: 5, pr: 5 }, 
                     { level: 100, dr: 5, er: 5, rr: 5, fr: 5, cr: 5, pr: 5 }, 
+                ],
+                "cultisthighpriest": [
+                    { level: 1, dr: 3, er: 3, rr: 3, fr: 3, cr: 3, pr: 3 }, 
+                    { level: 4, dr: 3, er: 3, rr: 3, fr: 3, cr: 3, pr: 3 }, 
+                    { level: 7, dr: 3, er: 3, rr: 3, fr: 3, cr: 3, pr: 3 }, 
+                    { level: 9, dr: 13, er: 13, rr: 13, fr: 13, cr: 13, pr: 13 }, 
+                    { level: 14, dr: 13, er: 13, rr: 13, fr: 13, cr: 13, pr: 13 }, 
+                    { level: 21, dr: 31, er: 31, rr: 31, fr: 31, cr: 31, pr: 31 }, 
+                    { level: 30, dr: 31, er: 31, rr: 31, fr: 31, cr: 31, pr: 31 }, 
+                    { level: 39, dr: 63, er: 63, rr: 63, fr: 63, cr: 63, pr: 63 }, 
+                    { level: 50, dr: 125, er: 125, rr: 125, fr: 125, cr: 125, pr: 125 }, 
+                    { level: 100, dr: 187, er: 187, rr: 187, fr: 187, cr: 187, pr: 187 }, 
                 ],
                 "deathclaw": [
                     { level: 21, dr: 100, er: 100, rr: 100, fr: 100, cr: 100, pr: 100 }, 
@@ -7134,7 +7146,7 @@
                     { level: 75, dr: 110, er: 100, rr: 110, fr: 100, cr: 100, pr: 1000 }, 
                     { level: 100, dr: 110, er: 100, rr: 110, fr: 100, cr: 100, pr: 1000 }, 
                 ],
-            };
+                };
 
             enemyResistancesMap["scorchbeastqueen"] = JSON.parse(JSON.stringify(enemyResistancesMap["scorchbeast"]));
             for (var e of enemyResistancesMap["scorchbeastqueen"]) {
@@ -7357,6 +7369,9 @@
             addEnemy("Alien General Zeta", ["Alien"], enemyResistancesMap["alien_general-zeta"]);
             addEnemy("Alien Lieutenant Kappa", ["Alien"], enemyResistancesMap["alien_lt-kappa"]);
             addEnemy("Alien Exo Trooper", ["Alien"], enemyResistancesMap["alienexotrooper"]);
+
+            // P34
+            addEnemy("Cultist High Priest", ["NPC"], enemyResistancesMap["cultisthighpriest"]);
 
             // some enemies are immune to radiation or even heal off it
             var enemyRadiationEffect = new Map();
