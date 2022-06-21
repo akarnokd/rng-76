@@ -12060,6 +12060,20 @@
                     period: 1400
                 }
             }
+            function scoreCompleteTestYourMetal(offset, count) {
+                return {
+                            name: times("Complete event: Test Your Metal", count),
+                            offset: offset,
+                            period: 1400,
+                        };
+            }
+            function scoreCompleteTestYourMetalDaily(offset, count) {
+                return {
+                            name: times("Complete daily challenge: Test Your Metal event", count),
+                            offset: offset,
+                            period: 1400,
+                        };
+            }
 
             addWeekly(challengesWeeklyEra12.options, 0, scoreFixedGainXP10000Rank100);
             addWeekly(challengesWeeklyEra12.options, 0, scoreLevelUp3);
@@ -12161,6 +12175,29 @@
                     scoreScrapPowerArmor, 10,
                     scoreGainXP2500, 1,
                     make1st(scoreCookMeatFood), 5,
+                ], dops(dailyOpsBurning, dailyOpsMoleminers, dailyOpsResilient, false));
+            addWeekly(challengesWeeklyEra12.options, 7, scoreFixedGainXP10000Rank100);
+            addWeekly(challengesWeeklyEra12.options, 7, scoreLevelUp3);
+            addWeekly(challengesWeeklyEra12.options, 7, scoreCompleteDailyOps, 5);
+            addWeekly(challengesWeeklyEra12.options, 7, scoreCompleteGoldStar);
+            addWeekly(challengesWeeklyEra12.options, 7, scoreCompleteEvents10);
+            addWeekly(challengesWeeklyEra12.options, 7, scoreBuildAnythingCamp, 25);
+            addWeekly(challengesWeeklyEra12.options, 7, scoreCollectCaps, 2500);
+            addWeekly(challengesWeeklyEra12.options, 7, scoreCompleteTestYourMetalDaily, 5);
+            addWeekly(challengesWeeklyEra12.options, 7, scoreEatPrewarFood, 25);
+            addWeekly(challengesWeeklyEra12.options, 7, scoreKillCreatureWellFed, 20);
+            addDaily(challengesDailyEra12, 7, [
+                    scoreCompleteDailyChallenge, 5,
+                    scoreLevelUp, 1,
+                    scoreCompleteDailyOps, 1,
+                    scoreCompleteOneEvent, 2,
+                    scoreCompleteTestYourMetal, 1,
+                    scoreClaimWorkshop, 1,
+                    scoreCookMealPlant, 5,
+                    scoreUsePhotomode, 3,
+                    scoreKillSupermutant, 5,
+                    scoreGainXP2500, 1,
+                    make1st(scoreBuildWallDecorShelter), 5,
                 ], dops(dailyOpsBurning, dailyOpsMoleminers, dailyOpsResilient, false));
 
             addPlaceholders(challengesDailyEra12, scoreDailyplaceholder, era12Length);
