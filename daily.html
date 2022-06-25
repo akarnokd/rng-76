@@ -12075,6 +12075,17 @@
                         };
             }
 
+            function scoreTakePictureGulper(offset, count) {
+                return {
+                            name: times("Take a camera picture of a Gulper", count),
+                            offset: offset,
+                            period: 1400,
+                        };
+            }
+
+
+            
+
             addWeekly(challengesWeeklyEra12.options, 0, scoreFixedGainXP10000Rank100);
             addWeekly(challengesWeeklyEra12.options, 0, scoreLevelUp3);
             addWeekly(challengesWeeklyEra12.options, 0, scoreCompleteDailyOps, 5);
@@ -12235,6 +12246,19 @@
                     scorePickLock, 1,
                     scoreRepairArmorWeaponPA, 10,
                     scoreVisitAnotherShelter, 1,
+                    scoreGainXP2500, 1,
+                    make1st(scoreUsePhotomodeOwnCamp), 1,
+                ], dops(dailyOpsWestTec, dailyOpsCultists, dailyOpsFreezing, false));
+            addDaily(challengesDailyEra12, 11, [
+                    scoreCompleteDailyChallenge, 5,
+                    scoreLevelUp, 1,
+                    scoreCompleteDailyOps, 1,
+                    scoreCompleteOneEvent, 1,
+                    scoreCompleteTestYourMetal, 1,
+                    scoreKillGhoul, 10,
+                    scoreTakePictureGulper, 1,
+                    scoreModArmor, 5,
+                    scoreJoinGroup, 1,
                     scoreGainXP2500, 1,
                     make1st(scoreUsePhotomodeOwnCamp), 1,
                 ], dops(dailyOpsWestTec, dailyOpsCultists, dailyOpsFreezing, false));
