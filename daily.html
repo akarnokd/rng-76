@@ -12083,7 +12083,7 @@
                         };
             }
 
-            function scoreTakePictureAlienSuperMutant(offset, count) {
+            function scoreTakePictureSuperMutant(offset, count) {
                 return {
                             name: times("Take a camera picture of a Super Mutant", count),
                             offset: offset,
@@ -12241,7 +12241,7 @@
                     scoreCraftAmmo, 50,
                     scoreGainXP2500, 1,
                     make1st(scoreCookMeatFood), 5,
-                ], dops(dailyOps96, dailyOpsRobots, dailyOpsToxic, true));
+                ], dops(dailyOpsV96, dailyOpsRobots, dailyOpsToxic, true));
             addDaily(challengesDailyEra12, 10, [
                     scoreCompleteDailyChallenge, 5,
                     scoreLevelUp, 1,
@@ -12277,7 +12277,7 @@
                     scoreBuildAnythingShelter, 10,
                     scoreKillBloodEagle, 20,
                     scoreKillCreatures, 20,
-                    scoreTakePictureAlienSuperMutant, 1,
+                    scoreTakePictureSuperMutant, 1,
                     scoreGainXP2500, 1,
                     make1st(scoreModWeapon), 5,
                 ], dops(dailyOpsWatoga, dailyOpsCultists, dailyOpsResilient, false));
