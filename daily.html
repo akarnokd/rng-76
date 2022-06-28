@@ -12294,6 +12294,29 @@
                     scoreGainXP2500, 1,
                     make1st(scoreKillCreatureWellFed), 20,
                 ], dops(dailyOpsWestTec, dailyOpsCommunists, dailyOpsRegenerating, true));
+            addWeekly(challengesWeeklyEra12.options, 14, scoreFixedGainXP10000Rank100);
+            addWeekly(challengesWeeklyEra12.options, 14, scoreLevelUp3);
+            addWeekly(challengesWeeklyEra12.options, 14, scoreCompleteDailyOps, 5);
+            addWeekly(challengesWeeklyEra12.options, 14, scoreCompleteGoldStar);
+            addWeekly(challengesWeeklyEra12.options, 14, scoreCompleteEvents10);
+            addWeekly(challengesWeeklyEra12.options, 14, scorePlantCrop, 25);
+            addWeekly(challengesWeeklyEra12.options, 14, scoreCollectScrip, 500);
+            addWeekly(challengesWeeklyEra12.options, 14, scoreCompleteDailyMothman, 5);
+            addWeekly(challengesWeeklyEra12.options, 14, scoreCraftAmmo, 250);
+            addWeekly(challengesWeeklyEra12.options, 14, scoreKillCultist, 50);
+            addDaily(challengesDailyEra12, 14, [
+                    scoreCompleteDailyChallenge, 5,
+                    scoreLevelUp, 1,
+                    scoreCompleteDailyOps, 1,
+                    scoreCompleteOneEvent, 2,
+                    scoreCompleteEventMothman, 1,
+                    scoreCraftAmmo, 50,
+                    scoreKillCultist, 10,
+                    scoreKillDeathclaw, 1,
+                    scoreCollectAudiotape, 1,
+                    scoreGainXP2500, 1,
+                    make1st(scoreBuildFloorWallCamp), 5,
+                ], dops(dailyOpsArktos, dailyOpsMutants, dailyOpsCloaked, false));
 
             addPlaceholders(challengesDailyEra12, scoreDailyplaceholder, era12Length);
             addPlaceholders(challengesWeeklyEra12, scoreWeeklyplaceholder, era12Length);
