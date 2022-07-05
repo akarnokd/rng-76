@@ -12090,6 +12090,14 @@
                             period: 1400,
                         };
             }
+
+            function scoreDestroyProtectronHardLemonade(offset, count) {
+                return {
+                            name: times("Destroy a protectron while high on Hard Lemonade", count),
+                            offset: offset,
+                            period: 1400,
+                        };
+            }
             
 
             addWeekly(challengesWeeklyEra12.options, 0, scoreFixedGainXP10000Rank100);
@@ -12394,6 +12402,29 @@
                     scoreKillCreatureCostume, 20,
                     scoreGainXP2500, 1,
                     make1st(scoreBuildFloorWallShelter), 5,
+                ], dops(dailyOpsUncanny, dailyOpsRobots, dailyOpsFreezing, false));
+            addWeekly(challengesWeeklyEra12.options, 21, scoreFixedGainXP10000Rank100);
+            addWeekly(challengesWeeklyEra12.options, 21, scoreLevelUp3);
+            addWeekly(challengesWeeklyEra12.options, 21, scoreCompleteDailyOps, 5);
+            addWeekly(challengesWeeklyEra12.options, 21, scoreCompleteGoldStar);
+            addWeekly(challengesWeeklyEra12.options, 21, scoreCompleteEvents10);
+            addWeekly(challengesWeeklyEra12.options, 21, scoreBuildFloorWallCamp, 25);
+            addWeekly(challengesWeeklyEra12.options, 21, scoreDrinkNukaCola, 25);
+            addWeekly(challengesWeeklyEra12.options, 21, scoreCompleteDailyMothman, 5);
+            addWeekly(challengesWeeklyEra12.options, 21, scoreRepairArmorWeaponPA, 10);
+            addWeekly(challengesWeeklyEra12.options, 21, scoreKillCultist, 50);
+            addDaily(challengesDailyEra12, 21, [
+                    scoreCompleteDailyChallenge, 5,
+                    scoreLevelUp, 1,
+                    scoreCompleteDailyOps, 1,
+                    scoreCompleteOneEvent, 2,
+                    scoreCompleteEventMothman, 1,
+                    scoreCraftRanged, 5,
+                    scoreCollectScrip   , 50,
+                    scoreTakePictureGulper, 1,
+                    scoreDestroyProtectronHardLemonade, 1,
+                    scoreGainXP2500, 1,
+                    make1st(scoreVisitAnotherShelter), 1,
                 ], dops(dailyOpsUncanny, dailyOpsRobots, dailyOpsFreezing, false));
 
             addPlaceholders(challengesDailyEra12, scoreDailyplaceholder, era12Length);
