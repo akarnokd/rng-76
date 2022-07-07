@@ -5528,6 +5528,14 @@
                             ignore: true,
                         };
             }
+            function scoreGainXP1000Rank25(offset) {
+                return {
+                            name: "Gain 1000 XP (under rank 25)",
+                            offset: offset,
+                            period: 1400,
+                            ignore: true,
+                        };
+            }
 
             function scoreCompleteEvents10(offset) {
                 return {
@@ -12067,6 +12075,14 @@
                     period: 1400
                 }
             }
+            
+            function scoreKillSuperMutantUnderLeadChampagne(offset, count) {
+                return {
+                    name: times("Kill a Super Mutant while intoxicated with Lead Champagne", count),
+                    offset: offset,
+                    period: 1400
+                }
+            }
             function scoreCompleteTestYourMetal(offset, count) {
                 return {
                             name: times("Complete event: Test Your Metal", count),
@@ -12444,6 +12460,19 @@
                     scoreKillGulperMireMoonshine, 1,
                     scoreGainXP2500, 1,
                     make1st(scoreCraftScrapArmor), 5,
+                ], dops(dailyOpsBurning, dailyOpsCommunists, dailyOpsSwift, false));
+            addDaily(challengesDailyEra12, 23, [
+                    scoreCompleteDailyChallenge, 5,
+                    scoreLevelUp, 1,
+                    scoreCompleteDailyOps, 1,
+                    scoreCompleteOneEvent, 2,
+                    scoreCompleteEventMothman, 1,
+                    scoreBuildWallDecorShelter, 5,
+                    scoreScrapPowerArmor, 1,
+                    scoreGainXP1000Rank25, 1,
+                    scoreUsePhotomodeOwnCamp, 3,
+                    scoreGainXP2500, 1,
+                    make1st(scoreKillSuperMutantUnderLeadChampagne), 1,
                 ], dops(dailyOpsBurning, dailyOpsCommunists, dailyOpsSwift, false));
 
             addPlaceholders(challengesDailyEra12, scoreDailyplaceholder, era12Length);
