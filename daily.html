@@ -12105,6 +12105,13 @@
                             period: 1400,
                         };
             }
+            function scoreTakePictureGulperMoonshine(offset, count) {
+                return {
+                            name: times("Take a camera picture of a Gulper while high on Mire Magic Moonshine", count),
+                            offset: offset,
+                            period: 1400,
+                        };
+            }
 
             function scoreTakePictureSuperMutant(offset, count) {
                 return {
@@ -12512,6 +12519,18 @@
                     scoreVisitOwnShelter, 1,
                     scoreGainXP2500, 1,
                     make1st(scoreRepairArmorWeaponPA), 10,
+                ], dops(dailyOpsUncanny, dailyOpsMoleminers, dailyOpsVolatile, false));
+            addDaily(challengesDailyEra12, 27, [
+                    scoreCompleteDailyChallenge, 5,
+                    scoreLevelUp, 1,
+                    scoreCompleteDailyOps, 1,
+                    scoreCompleteOneEvent, 2,
+                    scoreCompleteEventMothman, 1,
+                    scoreCraftScrapPowerArmor, 1,
+                    scoreVisitAnotherShelter, 1,
+                    scoreTakePictureGulperMoonshine, 1,
+                    scoreGainXP2500, 1,
+                    make1st(scoreKillBloodEagle), 10,
                 ], dops(dailyOpsUncanny, dailyOpsMoleminers, dailyOpsVolatile, false));
 
             addPlaceholders(challengesDailyEra12, scoreDailyplaceholder, era12Length);
