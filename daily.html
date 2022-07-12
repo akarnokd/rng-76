@@ -12128,6 +12128,28 @@
                             period: 1400,
                         };
             }
+
+            function scoreCompleteEventToxicRegion(offset, count) {
+                return {
+                            name: times("Complete an event in the Toxic Valley region", count),
+                            offset: offset,
+                            period: 1400,
+                        };
+            }
+            function scoreCompleteEvictionNotice(offset, count) {
+                return {
+                            name: times("Complete Event Eviction Notice", count),
+                            offset: offset,
+                            period: 1400,
+                        };
+            }
+            function scoreCompleteEvictionNoticeDaily(offset, count) {
+                return {
+                            name: times("Complete daily challenge 'Complete Eviction Notice'", count),
+                            offset: offset,
+                            period: 1400,
+                        };
+            }
             
 
             addWeekly(challengesWeeklyEra12.options, 0, scoreFixedGainXP10000Rank100);
@@ -12531,6 +12553,29 @@
                     scoreTakePictureGulperMoonshine, 1,
                     scoreGainXP2500, 1,
                     make1st(scoreKillBloodEagle), 10,
+                ], dops(dailyOpsBurrows, dailyOpsEagles, dailyOpsFreezing, true));
+            addWeekly(challengesWeeklyEra12.options, 28, scoreFixedGainXP10000Rank100);
+            addWeekly(challengesWeeklyEra12.options, 28, scoreLevelUp3);
+            addWeekly(challengesWeeklyEra12.options, 28, scoreCompleteDailyOps, 5);
+            addWeekly(challengesWeeklyEra12.options, 28, scoreCompleteGoldStar);
+            addWeekly(challengesWeeklyEra12.options, 28, scoreCompleteEvents10);
+            addWeekly(challengesWeeklyEra12.options, 28, scoreClaimWorkshop, 5);
+            addWeekly(challengesWeeklyEra12.options, 28, scoreCollectPurifiedWater, 25);
+            addWeekly(challengesWeeklyEra12.options, 28, scoreCompleteEvictionNoticeDaily, 5);
+            addWeekly(challengesWeeklyEra12.options, 28, scoreConsumeAlcohol, 25);
+            addWeekly(challengesWeeklyEra12.options, 28, scoreKillLegendary, 3);
+            addDaily(challengesDailyEra12, 28, [
+                    scoreCompleteDailyChallenge, 5,
+                    scoreLevelUp, 1,
+                    scoreCompleteDailyOps, 1,
+                    scoreCompleteOneEvent, 2,
+                    scoreCollectWood, 50,
+                    scoreCompleteEvictionNotice, 1,
+                    scoreCookMealPlant, 5,
+                    scoreKillCreatures, 50,
+                    scorePlantCrop, 10,
+                    scoreGainXP2500, 1,
+                    make1st(scoreCompleteEventToxicRegion), 10,
                 ], dops(dailyOpsBurrows, dailyOpsEagles, dailyOpsFreezing, true));
 
             addPlaceholders(challengesDailyEra12, scoreDailyplaceholder, era12Length);
