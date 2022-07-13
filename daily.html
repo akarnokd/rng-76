@@ -12136,6 +12136,13 @@
                             period: 1400,
                         };
             }
+            function scoreCompleteEventSavageRegion(offset, count) {
+                return {
+                            name: times("Complete an event in the Savage Divide region", count),
+                            offset: offset,
+                            period: 1400,
+                        };
+            }
             function scoreCompleteEvictionNotice(offset, count) {
                 return {
                             name: times("Complete Event Eviction Notice", count),
@@ -12561,7 +12568,7 @@
             addWeekly(challengesWeeklyEra12.options, 28, scoreCompleteEvents10);
             addWeekly(challengesWeeklyEra12.options, 28, scoreClaimWorkshop, 5);
             addWeekly(challengesWeeklyEra12.options, 28, scoreCollectPurifiedWater, 25);
-            addWeekly(challengesWeeklyEra12.options, 28, scoreCompleteEvictionNoticeDaily, 5);
+            addWeekly(challengesWeeklyEra12.options, 28, scoreCompleteEvictionNoticeDaily, 2);
             addWeekly(challengesWeeklyEra12.options, 28, scoreConsumeAlcohol, 25);
             addWeekly(challengesWeeklyEra12.options, 28, scoreKillLegendary, 3);
             addDaily(challengesDailyEra12, 28, [
@@ -12576,6 +12583,20 @@
                     scorePlantCrop, 10,
                     scoreGainXP2500, 1,
                     make1st(scoreCompleteEventToxicRegion), 10,
+                ], dops(dailyOpsWatoga, dailyOpsMutants, dailyOpsRegenerating, false));
+            addDaily(challengesDailyEra12, 29, [
+                    scoreCompleteDailyChallenge, 5,
+                    scoreLevelUp, 1,
+                    scoreCompleteDailyOps, 1,
+                    scoreCompleteOneEvent, 2,
+                    scoreCompleteEvictionNotice, 1,
+                    scoreBuildAnythingCamp, 10,
+                    scoreCollectAudiotape, 1,
+                    scoreCompleteEventSavageRegion, 1,
+                    scoreCookMeatFood, 5,
+                    scoreKillCreatureCostume, 20,
+                    scoreGainXP2500, 1,
+                    make1st(scoreCollectScrip), 50,
                 ], dops(dailyOpsWatoga, dailyOpsMutants, dailyOpsRegenerating, false));
 
             addPlaceholders(challengesDailyEra12, scoreDailyplaceholder, era12Length);
