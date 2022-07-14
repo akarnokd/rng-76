@@ -12143,6 +12143,13 @@
                             period: 1400,
                         };
             }
+            function scoreCompleteEventMireRegion(offset, count) {
+                return {
+                            name: times("Complete an event in the Mire region", count),
+                            offset: offset,
+                            period: 1400,
+                        };
+            }
             function scoreCompleteEvictionNotice(offset, count) {
                 return {
                             name: times("Complete Event Eviction Notice", count),
@@ -12597,6 +12604,20 @@
                     scoreKillCreatureCostume, 20,
                     scoreGainXP2500, 1,
                     make1st(scoreCollectScrip), 50,
+                ], dops(dailyOpsValley, dailyOpsCultists, dailyOpsToxic, true));
+            addDaily(challengesDailyEra12, 30, [
+                    scoreCompleteDailyChallenge, 5,
+                    scoreLevelUp, 1,
+                    scoreCompleteDailyOps, 1,
+                    scoreCompleteOneEvent, 2,
+                    scoreCompleteEvictionNotice, 1,
+                    scoreBuildFloorWallCamp, 10,
+                    scoreCollectPurifiedWater, 5,
+                    scoreCompleteEventMireRegion, 1,
+                    scoreKillMoleminer, 10,
+                    scoreKillSupermutant, 5,
+                    scoreGainXP2500, 1,
+                    make1st(scoreCraftAmmo), 50,
                 ], dops(dailyOpsValley, dailyOpsCultists, dailyOpsToxic, true));
 
             addPlaceholders(challengesDailyEra12, scoreDailyplaceholder, era12Length);
