@@ -12150,6 +12150,13 @@
                             period: 1400,
                         };
             }
+            function scoreCompleteEventForestRegion(offset, count) {
+                return {
+                            name: times("Complete an event in the Forest region", count),
+                            offset: offset,
+                            period: 1400,
+                        };
+            }
             function scoreCompleteEvictionNotice(offset, count) {
                 return {
                             name: times("Complete Event Eviction Notice", count),
@@ -12618,6 +12625,20 @@
                     scoreKillSupermutant, 5,
                     scoreGainXP2500, 1,
                     make1st(scoreCraftAmmo), 50,
+                ], dops(dailyOpsArktos, dailyOpsRobots, dailyOpsSwiftStalker, false));
+            addDaily(challengesDailyEra12, 31, [
+                    scoreCompleteDailyChallenge, 5,
+                    scoreLevelUp, 1,
+                    scoreCompleteDailyOps, 1,
+                    scoreCompleteOneEvent, 2,
+                    scoreCompleteEvictionNotice, 1,
+                    scoreCollectBullion, 50,
+                    scoreCollectBobblehead, 1,
+                    scoreCompleteEventForestRegion, 1,
+                    scoreKillScorched, 10,
+                    scoreRepairArmorWeaponPA, 10,
+                    scoreGainXP2500, 1,
+                    make1st(scoreBuildWallDecor), 5,
                 ], dops(dailyOpsArktos, dailyOpsRobots, dailyOpsSwiftStalker, false));
 
             addPlaceholders(challengesDailyEra12, scoreDailyplaceholder, era12Length);
