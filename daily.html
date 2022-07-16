@@ -12128,6 +12128,13 @@
                             period: 1400,
                         };
             }
+            function scoreKillCreatureHardLemonade(offset, count) {
+                return {
+                            name: times("Kill a creature while high on Hard Lemonade", count),
+                            offset: offset,
+                            period: 1400,
+                        };
+            }
 
             function scoreCompleteEventToxicRegion(offset, count) {
                 return {
@@ -12153,6 +12160,13 @@
             function scoreCompleteEventForestRegion(offset, count) {
                 return {
                             name: times("Complete an event in the Forest region", count),
+                            offset: offset,
+                            period: 1400,
+                        };
+            }
+            function scoreCompleteEventCranberryRegion(offset, count) {
+                return {
+                            name: times("Complete an event in the Cranberry Bog region", count),
                             offset: offset,
                             period: 1400,
                         };
@@ -12639,6 +12653,20 @@
                     scoreRepairArmorWeaponPA, 10,
                     scoreGainXP2500, 1,
                     make1st(scoreBuildWallDecor), 5,
+                ], dops(dailyOpsWatogaHighschool, dailyOpsScorched, dailyOpsBlisteringCold, true));
+            addDaily(challengesDailyEra12, 32, [
+                    scoreCompleteDailyChallenge, 5,
+                    scoreLevelUp, 1,
+                    scoreCompleteDailyOps, 1,
+                    scoreCompleteOneEvent, 2,
+                    scoreCompleteEvictionNotice, 1,
+                    scoreCollectCaps, 100,
+                    scoreClaimWorkshop, 1,
+                    scoreBuySellItem, 1,
+                    scoreKillCreatureHardLemonade, 10,
+                    scoreKillDeathclaw, 1,
+                    scoreGainXP2500, 1,
+                    make1st(scoreCompleteEventCranberryRegion), 1,
                 ], dops(dailyOpsWatogaHighschool, dailyOpsScorched, dailyOpsBlisteringCold, true));
 
             addPlaceholders(challengesDailyEra12, scoreDailyplaceholder, era12Length);
