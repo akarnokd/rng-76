@@ -12135,6 +12135,13 @@
                             period: 1400,
                         };
             }
+            function scoreKillCreatureLeadChampagne(offset, count) {
+                return {
+                            name: times("Kill a creature while high on Lead Champagne", count),
+                            offset: offset,
+                            period: 1400,
+                        };
+            }
 
             function scoreCompleteEventToxicRegion(offset, count) {
                 return {
@@ -12167,6 +12174,13 @@
             function scoreCompleteEventCranberryRegion(offset, count) {
                 return {
                             name: times("Complete an event in the Cranberry Bog region", count),
+                            offset: offset,
+                            period: 1400,
+                        };
+            }
+            function scoreCompleteEventAshHeapRegion(offset, count) {
+                return {
+                            name: times("Complete an event in the Ash Heap region", count),
                             offset: offset,
                             period: 1400,
                         };
@@ -12667,6 +12681,20 @@
                     scoreKillDeathclaw, 1,
                     scoreGainXP2500, 1,
                     make1st(scoreCompleteEventCranberryRegion), 1,
+                ], dops(dailyOpsBurning, dailyOpsMoleminers, dailyOpsChillingMend, false));
+            addDaily(challengesDailyEra12, 33, [
+                    scoreCompleteDailyChallenge, 5,
+                    scoreLevelUp, 1,
+                    scoreCompleteDailyOps, 1,
+                    scoreCompleteOneEvent, 2,
+                    scoreCompleteEvictionNotice, 1,
+                    scoreBuildAnythingCamp, 10,
+                    scoreCompleteEventAshHeapRegion, 1,
+                    scoreCraftAmmo, 50,
+                    scoreKillCreatureLeadChampagne, 5,
+                    scoreKillGhoul, 10,
+                    scoreGainXP2500, 1,
+                    make1st(scoreCollectAudiotape), 1,
                 ], dops(dailyOpsBurning, dailyOpsMoleminers, dailyOpsChillingMend, false));
 
             addPlaceholders(challengesDailyEra12, scoreDailyplaceholder, era12Length);
