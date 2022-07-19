@@ -12185,6 +12185,13 @@
                             period: 1400,
                         };
             }
+            function scoreCompleteEventRegion(offset, count) {
+                return {
+                            name: times("Complete an Event in Region daily challenge", count),
+                            offset: offset,
+                            period: 1400,
+                        };
+            }
             function scoreCompleteEvictionNotice(offset, count) {
                 return {
                             name: times("Complete Event Eviction Notice", count),
@@ -12709,6 +12716,29 @@
                     scoreKillCultist, 10,
                     scoreGainXP2500, 1,
                     make1st(scoreCookMealPlant), 5,
+                ], dops(dailyOpsValley, dailyOpsCultists, dailyOpsToxic, false));
+            addWeekly(challengesWeeklyEra12.options, 35, scoreFixedGainXP10000Rank100);
+            addWeekly(challengesWeeklyEra12.options, 35, scoreLevelUp3);
+            addWeekly(challengesWeeklyEra12.options, 35, scoreCompleteDailyOps, 5);
+            addWeekly(challengesWeeklyEra12.options, 35, scoreCompleteGoldStar);
+            addWeekly(challengesWeeklyEra12.options, 35, scoreCompleteEvents10);
+            addWeekly(challengesWeeklyEra12.options, 35, scoreBuildWallDecor, 25);
+            addWeekly(challengesWeeklyEra12.options, 35, scoreCollectBullion, 150);
+            addWeekly(challengesWeeklyEra12.options, 35, scoreCompleteEventRegion, 5);
+            addWeekly(challengesWeeklyEra12.options, 35, scoreEatCookedMeal, 50);
+            addWeekly(challengesWeeklyEra12.options, 35, scoreKillBloodEagle, 50);
+            addDaily(challengesDailyEra12, 35, [
+                    scoreCompleteDailyChallenge, 5,
+                    scoreLevelUp, 1,
+                    scoreCompleteDailyOps, 1,
+                    scoreCompleteOneEvent, 2,
+                    scoreBuildWallDecor, 5,
+                    scoreCompleteEventAshHeapRegion, 1,
+                    scoreDestroyProtectronHardLemonade, 1,
+                    scoreUsePhotomode, 3,
+                    scoreVisitOwnShelter, 1,
+                    scoreGainXP2500, 1,
+                    make1st(scoreClaimWorkshop), 5,
                 ], dops(dailyOpsValley, dailyOpsCultists, dailyOpsToxic, false));
 
             addPlaceholders(challengesDailyEra12, scoreDailyplaceholder, era12Length);
