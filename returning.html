@@ -43,7 +43,7 @@
     <body>
         <center>
             <span style="font-size: 36px; font-weight: bold;">Fallout 76 Returning Player Here, What's Changed?</span><br/>
-            <span>(v0.10.0)</span>
+            <span>(v0.11.0)</span>
             <br/>
             <br/>
             <table>
@@ -242,6 +242,261 @@
             }
 
             var releaseNotes = [
+            {
+                    id: "P37",
+                    patch: "37",
+                    date: ofDate(2022, 6, 26),
+                    description: "Bugfixes",
+                    reddit: "https://www.reddit.com/r/fo76/comments/w8kxoj/fallout_76_update_notes_july_26_2022/",
+                    bethesda: "https://fallout.bethesda.net/en/article/2guEiFF0eEWtFQ5gfW28h2/fallout-76-update-notes-july-26-2022",
+                    notes: [
+                        {
+                            category: "Other",
+                            name: "(Version numbers)",
+                            description: "Patch numbering has been awkward lately. Some hotfixes used to be not getting a full patch number. This seems to be changed."
+                        },
+                        {
+                            category: "Bugfix,Items,Visual",
+                            name: "Apparel",
+                            description: "The Black Jack-o’-Lantern Helmet now correctly emits smoke and flame visual effects."
+                        },
+                        {
+                            category: "Bugfix,Items,Visual",
+                            name: "Apparel",
+                            description: "Underarmors no longer clip through the Vault Survivor Outfit."
+                        },
+                        {
+                            category: "Bugfix,C.A.M.P.,Visual",
+                            name: "Beds",
+                            description: "Characters no longer clip into the Wavy Willard’s Waterbed when climbing into the top bunk."
+                        },
+                        {
+                            category: "Bugfix,C.A.M.P.,Visual",
+                            name: "Chairs",
+                            description: "When seated in the Throne of Bone, the character’s hand now correctly rests on the skull."
+                        },
+                        {
+                            category: "Bugfix,C.A.M.P.,Visual",
+                            name: "Workbenches",
+                            description: "Meat no longer appears to partially float during the cooking animation that plays while using the Chuckwagon Cooking Station."
+                        },
+                        {
+                            category: "Bugfix,C.A.M.P.,NPC",
+                            name: "Allies",
+                            description: "The Settler Forager Ally can once again give Daily Quests to the player."
+                        },
+                        {
+                            category: "Bugfix,C.A.M.P.",
+                            name: "Appliances",
+                            description: "The Wavy Willards Bubble Blower is now located in the same row of items in the Build Menu as the Wavy Willards Bubble Machine, instead of appearing in a row by itself."
+                        },
+                        {
+                            category: "Bugfix,C.A.M.P.",
+                            name: "Collectron Stations",
+                            description: "The F.E.T.C.H. Collectron is now correctly classified as a robot."
+                        },
+                        {
+                            category: "Bugfix,C.A.M.P.,Exploit",
+                            name: "Exploit",
+                            description: "Addressed an item duplication exploit."
+                        },
+                        {
+                            category: "Bugfix,C.A.M.P.,Exploit",
+                            name: "Exploit",
+                            description: "Addressed an exploit that could enable a player to move items from a Public Workshop to their C.A.M.P."
+                        },
+                        {
+                            category: "Bugfix,C.A.M.P.",
+                            name: "Floors",
+                            description: "The amount of C.A.M.P. budget consumed by Log Cabin Porches is now consistent with other Porch variants."
+                        },
+                        {
+                            category: "Bugfix,C.A.M.P.",
+                            name: "Floor Décor",
+                            description: "Classical Columns can now be snapped on top of one another."
+                        },
+                        {
+                            category: "Bugfix,C.A.M.P.",
+                            name: "Mannequins",
+                            description: "The build limit for the Dr. Bones Skeleton Mannequin is now consistent with other Mannequin variants."
+                        },
+                        {
+                            category: "Bugfix,C.A.M.P.,Fallout 1st",
+                            name: "Survival Tents",
+                            description: "The Scrapbox no longer faces the wrong direction in the Rusted APC Survival Tent."
+                        },
+                        {
+                            category: "Bugfix,Challenge",
+                            name: "Combat",
+                            description: "Killing robots with the Voice of Set now correctly progresses the “Kill Robots with a Revolver” Challenge."
+                        },
+                        {
+                            category: "Bugfix,Challenge",
+                            name: "Weekly",
+                            description: "Fixed an issue that prevented the “Kill a Huge Creature” Weekly Challenge from progressing correctly."
+                        },
+                        {
+                            category: "Bugfix,Combat",
+                            name: "VATS",
+                            description: "Explosive weapon attacks in VATS no longer increase the critical hit meter twice."
+                        },
+                        {
+                            category: "Bugfix,Event",
+                            name: "Eviction Notice",
+                            description: "Corrected a small area near the Rad Scrubber where players would take far less rad damage than intended while the Rad Scrubber was broken."
+                        },
+                        {
+                            category: "Bugfix,Event",
+                            name: "Eviction Notice",
+                            description: "The Rad Scrubber’s windmill now correctly stops turning when the Rad Scrubber needs repairs, and when the event ends in failure."
+                        },
+                        {
+                            category: "Bugfix,Event",
+                            name: "Grahm’s Meat-Cook",
+                            description: "Players now receive proper rewards based on the success of the Meat-Cook, rather than always receiving items from the event’s lowest reward tier."
+                        },
+                        {
+                            category: "Bugfix,Event",
+                            name: "Grahm’s Meat-Cook",
+                            description: "Grahm will no longer wander away from the Meat-Cook to explore other areas in The Forest region."
+                        },
+                        {
+                            category: "Bugfix,Event",
+                            name: "Heart of the Swamp",
+                            description: "The Strangler Heart no longer visually appears to regenerate health while taking damage from players."
+                        },
+                        {
+                            category: "Bugfix,Event",
+                            name: "Invaders from Beyond",
+                            description: "When speaking with Homer at Black Mountain Ordnance Works, selecting the “That’s all for now” response option now correctly closes the dialogue menu."
+                        },
+                        {
+                            category: "Bugfix,Event",
+                            name: "Invaders from Beyond",
+                            description: "Fixed an issue that could prevent dialogue from starting correctly when attempting to speak with Homer at Black Mountain Ordnance Works."
+                        },
+                        {
+                            category: "Bugfix,Event",
+                            name: "Moonshine Jamboree",
+                            description: "Addressed an issue that could cause Moonshine Jamboree to end in failure even though players had deposited enough Acidic Gulper Venom to complete the objectives."
+                        },
+                        {
+                            category: "Bugfix,Event",
+                            name: "Moonshine Jamboree",
+                            description: "A notification will now appear to inform the player that they lack the required materials if they attempt to deposit Acidic Gulper Venom into the bathtub when they don’t have any in their inventory."
+                        },
+                        {
+                            category: "Bugfix,Event",
+                            name: "Test Your Metal",
+                            description: "Fixed an issue that could cause the Golden Eyebot to appear hostile toward players, and allow them to target it with VATS."
+                        },
+                        {
+                            category: "Bugfix,Items",
+                            name: "ProSnap Deluxe Camera",
+                            description: "Added a new option to the ProSnap Deluxe Camera that allows players to decide whether or not the pictures they take will be saved to the Photo Gallery. While aiming through the Camera’s viewfinder, use the “Toggle Saving” button to choose whether your photos you take will be saved or discarded. Please note: Saving is currently toggled off by default.Photos taken while the Camera is set to “Not Saving” will still progress Quests and Challenges that require the player to take photos."
+                        },
+                        {
+                            category: "Bugfix,Items",
+                            name: "Armor",
+                            description: "Applying a Deep Pocketed mod to a piece of limb armor now correctly updates the armor’s appearance."
+                        },
+                        {
+                            category: "Bugfix,Items",
+                            name: "Energy Weapons",
+                            description: "The item condition for energy weapons now degrades at a more reasonable rate."
+                        },
+                        {
+                            category: "Bugfix,Items",
+                            name: "Energy Weapons",
+                            description: "Made improvements to Automatic Barrel mods for the Ultracite Laser Gun so that they perform comparably with Automatic Barrel mods for the normal Laser Gun."
+                        },
+                        {
+                            category: "Bugfix,Items,Exploit",
+                            name: "Exploit",
+                            description: "Addressed an exploit that enabled players to trade items that are normally untradable."
+                        },
+                        {
+                            category: "Bugfix,Items",
+                            name: "Melee Weapons",
+                            description: "The description of The Invader Skin now correctly states that it can be applied to Batons."
+                        },
+                        {
+                            category: "Bugfix,Items",
+                            name: "Power Armor",
+                            description: "The “Skull Raider” name prefix now appears correctly after applying the Skull Raider Paint to pieces of Power Armor."
+                        },
+                        {
+                            category: "Bugfix,Items",
+                            name: "Quest Items",
+                            description: "Fixed an issue that could prevent a character with a large stack of quest items in its inventory, like Government Supply Requisitions, from loading into a world."
+                        },
+                        {
+                            category: "Bugfix,Items",
+                            name: "Ranged Weapons",
+                            description: "When firing an automatic weapon while affected by the frozen status, the weapon’s sound effects now more closely match its visual effects."
+                        },
+                        {
+                            category: "Bugfix,Visual",
+                            name: "Eviction Notice",
+                            description: "The notification that appears when the Rad Scrubber has been repaired is now properly translated in non-English versions of the game."
+                        },
+                        {
+                            category: "Bugfix,Visual",
+                            name: "Scorched Earth",
+                            description: "Event objectives, notifications, the description, and all other text that appears during Scorched Earth are now properly translated in non-English versions of the game."
+                        },
+                        {
+                            category: "Bugfix,Visual",
+                            name: "Scoreboard",
+                            description: "The Secret Service Dog Statues reward is now properly translated on the Scoreboard in French, Italian, Japanese, Polish, and Russian versions of the game."
+                        },
+                        {
+                            category: "Bugfix,Visual",
+                            name: "Settings",
+                            description: "Increased the font size of Corpse Highlighting options in non-English versions of the game so that they are easier to read."
+                        },
+                        {
+                            category: "Bugfix,Visual",
+                            name: "Test Your Metal",
+                            description: "Added proper translations for several lines of dialogue from Initiate Pappas and Botsmith Amp in non-English versions of the game."
+                        },
+                        {
+                            category: "Bugfix,Visual",
+                            name: "Weapons",
+                            description: "Tone Death and Foundation’s Vengeance are now properly translated in non-English versions of the game."
+                        },
+                        {
+                            category: "Bugfix,Perks",
+                            name: "Awareness",
+                            description: "When the player has both the Awareness and Stabilized Perk Cards equipped, all types of damage reduction will now be correctly displayed."
+                        },
+                        {
+                            category: "Bugfix,Perks",
+                            name: "E.M.T.",
+                            description: "Revived players now receive Health Regeneration for the full duration stated on the E.M.T. Perk Card."
+                        },
+                        {
+                            category: "Bugfix,Stability",
+                            name: "Server Stability",
+                            description: "Fixed an issue that could result in a server crash during normal gameplay."
+                        },
+                        {
+                            category: "Bugfix,UI",
+                            name: "Character Creation",
+                            description: "Fixed an issue that could prevent players from creating a new character, even if they had fewer than 5 existing characters."
+                        },
+                        {
+                            category: "Bugfix,UI",
+                            name: "Controls",
+                            description: "Attempting to open the Map while running a Holotape Game no longer causes the controls to become unresponsive."
+                        },
+                        {
+                            category: "Bugfix,UI",
+                            name: "Scoreboard",
+                            description: "Players can no longer spam the confirmation button after using the “Rank Up to Here” button on the Scoreboard."
+                        },
+                    ]
+                },
                 {
                     id: "P34A",
                     patch: "34A",
@@ -274,7 +529,7 @@
                 {
                     id: "P34",
                     patch: "34",
-                    descripton: "Test Your Metal, New Season",
+                    description: "Test Your Metal, New Season",
                     date: ofDate(2022, 5, 14),
                     reddit: "https://www.reddit.com/r/fo76/comments/vc4jia/fallout_76_test_your_metal_update_notes_june_14/",
                     bethesda: "https://fallout.bethesda.net/en/article/7bKshvhYtAtHExCPqE8P3c/fallout-76-test-your-metal-update-notes-june-14-2022",
@@ -759,7 +1014,7 @@
                 {
                     id: "P33A",
                     patch: "33A",
-                    descripton: "Bugfixes Update",
+                    description: "Bugfixes Update",
                     date: ofDate(2022, 3, 12),
                     reddit: "https://www.reddit.com/r/fo76/comments/u2017n/fallout_76_update_notes_april_12_2022/",
                     bethesda: "https://fallout.bethesda.net/en/article/6Xry209o4ysZAsuVW19b9d/fallout-76-update-notes-april-12-2022",
@@ -944,7 +1199,7 @@
                 {
                     id: "P33",
                     patch: "33",
-                    descripton: "Invaders from Beyond Update",
+                    description: "Invaders from Beyond Update",
                     date: ofDate(2022, 2, 1),
                     reddit: "https://www.reddit.com/r/fo76/comments/t4abu8/fallout_76_update_notes_march_1_2022/",
                     bethesda: "https://bethesda.net/en/article/BRIF0qHDKw962fp0WPmvO/fallout-76-update-notes-march-1-2022",
@@ -1516,7 +1771,7 @@
                 {
                     id: "P32",
                     patch: "32",
-                    descripton: "Night of the Moth Update",
+                    description: "Night of the Moth Update",
                     date: ofDate(2021, 11, 8),
                     reddit: "https://www.reddit.com/r/fo76/comments/rbtl3e/fallout_76_night_of_the_moth_update_notes/",
                     bethesda: "https://fallout.bethesda.net/en/article/7xktBrYTw6WeFSHHrPl53z/fallout-76-night-of-the-moth-update-notes-december-8-2021",
@@ -2001,7 +2256,7 @@
                 {
                     id: "P31",
                     patch: "31",
-                    descripton: "Halloween update",
+                    description: "Halloween update",
                     date: ofDate(2021, 9, 19),
                     reddit: "https://www.reddit.com/r/fo76/comments/qbcgdd/fallout_76_update_notes_october_19_2021/",
                     bethesda: "https://fallout.bethesda.net/en/article/4cB0S5XJS7kFqq7zYr3zAk/fallout-76-update-notes-october-19-2021",
@@ -2251,7 +2506,7 @@
                 {
                     id: "P30",
                     patch: "30",
-                    descripton: "Fallout Worlds, Season 6, End of Nuclear Winter",
+                    description: "Fallout Worlds, Season 6, End of Nuclear Winter",
                     date: ofDate(2021, 8, 8),
                     reddit: "https://www.reddit.com/r/fo76/comments/pkar7w/fallout_76_fallout_worlds_update_notes_september/",
                     bethesda: "https://bethesda.net/en/article/4fPuRwYLvKLptY6afUHYro/fallout-76-fallout-worlds-update-notes-september-8-2021",
@@ -2846,7 +3101,7 @@
                 {
                     id: "P29",
                     patch: "29",
-                    descripton: "Bugfixes",
+                    description: "Bugfixes",
                     date: ofDate(2021, 7, 3),
                     reddit: "https://www.reddit.com/r/fo76/comments/ox4f4p/fallout_76_update_notes_august_3_2021/",
                     bethesda: "https://fallout.bethesda.net/en/article/33grmpp4ZZw6Za2sDgtMfN/fallout-76-update-notes-august-3-2021",
@@ -3121,7 +3376,7 @@
                 {
                     id: "P28",
                     patch: "28",
-                    descripton: "Steel Reign",
+                    description: "Steel Reign",
                     date: ofDate(2021, 6, 7),
                     reddit: "https://www.reddit.com/r/fo76/comments/ofjso2/steel_reign_update_notes_july_7_2021/",
                     bethesda: "https://fallout.bethesda.net/en/article/64ch36shf2Q9rpGsosrDN8/fallout-76-update-notes-july-7-2021",
@@ -3681,7 +3936,7 @@
                 {
                     id: "P27",
                     patch: "27",
-                    descripton: "Bugfixes and improvements",
+                    description: "Bugfixes and improvements",
                     date: ofDate(2021, 4, 25),
                     reddit: "https://www.reddit.com/r/fo76/comments/nkqizh/fallout_76_update_notes_may_25_2021/",
                     bethesda: "https://fallout.bethesda.net/en/article/2GiflqO27btsm0fkKAuVio/fallout-76-update-notes-may-25-2021",
@@ -3861,7 +4116,7 @@
                 {
                     id: "P26",
                     patch: "26",
-                    descripton: "Season 4, New Features, Balance and Bugfixes",
+                    description: "Season 4, New Features, Balance and Bugfixes",
                     date: ofDate(2021, 3, 27),
                     reddit: "https://www.reddit.com/r/fo76/comments/mzmd9u/fallout_76_locked_loaded_update_notes_april_27/",
                     bethesda: "https://fallout.bethesda.net/en/article/5RiAu8JrYvPtdow8jeunls/fallout-76-locked-and-loaded-update-notes-april-27-2021",
@@ -4421,7 +4676,7 @@
                 {
                     id: "P25",
                     patch: "25",
-                    descripton: "Quality of Life, Balance and Bugfixes",
+                    description: "Quality of Life, Balance and Bugfixes",
                     date: ofDate(2021, 0, 26),
                     reddit: "https://www.reddit.com/r/fo76/comments/l5g0uo/fallout_76_inventory_update_notes_january_26_2021/",
                     bethesda: "https://fallout.bethesda.net/en/article/4nMJ3QEIKoK16nZ0A8P7Ec/fallout-76-inventory-update-notes-january-26-2021",
@@ -5006,7 +5261,7 @@
                 {
                     id: "P24A",
                     patch: "24-A",
-                    descripton: "Scribe of Avalon Update",
+                    description: "Scribe of Avalon Update",
                     date: ofDate(2020, 11, 15),
                     reddit: "https://www.reddit.com/r/fo76/comments/kdnjgu/fallout_76_scribe_of_avalon_update_notes_december/",
                     bethesda: "https://fallout.bethesda.net/en/article/5taGWKjR5NZkJTNgEGYwzj/fallout-76-scribe-of-avalon-update-notes-december-15-2020",
@@ -5232,7 +5487,7 @@
                 {
                     id: "P24",
                     patch: "24",
-                    descripton: "Steel Dawn Update",
+                    description: "Steel Dawn Update",
                     date: ofDate(2020, 10, 24),
                     reddit: "https://www.reddit.com/r/fo76/comments/k0emrg/fallout_76_steel_dawn_update_notes_november_24/",
                     bethesda: "https://fallout.bethesda.net/en/article/7sARlh1E2yHEwVnKrsyqIv/fallout-76-steel-dawn-update-notes-november-24-2020",
@@ -5741,7 +5996,7 @@
                 {
                     id: "P23",
                     patch: "23",
-                    descripton: "General Update",
+                    description: "General Update",
                     date: ofDate(2020, 9, 13),
                     reddit: "https://www.reddit.com/r/fo76/comments/jaebww/fallout_76_update_23_patch_notes_october_13_2020/",
                     bethesda: "https://fallout.bethesda.net/en/article/2xDD9PAmU2FNhsyanugddk/fallout-76-update-23-patch-notes-october-13-2020",
@@ -6061,7 +6316,7 @@
                 {
                     id: "P22A",
                     patch: "22-A",
-                    descripton: "Hotfix Update",
+                    description: "Hotfix Update",
                     date: ofDate(2020, 8, 29),
                     reddit: "https://www.reddit.com/r/fo76/comments/j208k3/fallout_76_hotfix_notes_september_29_2020/",
                     bethesda: "https://fallout.bethesda.net/en/article/60z7gSBKKSlj9UvbtITx0I/fallout-76-hotfix-notes-september-29-2020",
@@ -6092,7 +6347,7 @@
                 {
                     id: "P22",
                     patch: "22",
-                    descripton: "Season 2 and One Wasteland Update",
+                    description: "Season 2 and One Wasteland Update",
                     date: ofDate(2020, 8, 15),
                     reddit: "https://www.reddit.com/r/fo76/comments/it9qed/fallout_76_update_22_patch_notes_september_15_2020/",
                     bethesda: "https://fallout.bethesda.net/en/article/5cRE8qhGB6BrOuJBnPhNGO/fallout-76-update-22-patch-notes-september-15-2020",
@@ -6579,7 +6834,7 @@
                 {
                     id: "P21-B",
                     patch: "21-B",
-                    descripton: "Console release of Patch 21-A",
+                    description: "Console release of Patch 21-A",
                     date: ofDate(2020, 7, 24),
                     reddit: "https://www.reddit.com/r/fo76/comments/ic2o2p/link_pc_hotfix_notes_18th_august_2020_on/",
                     bethesda: "https://fallout.bethesda.net/en/article/2uZWTGKr44jRhx8wuCaGU8/fallout-76-hotfix-notes-august-18-2020",
@@ -6594,7 +6849,7 @@
                 {
                     id: "P21A",
                     patch: "21-A",
-                    descripton: "Hotfix Update",
+                    description: "Hotfix Update",
                     date: ofDate(2020, 7, 18),
                     reddit: "https://www.reddit.com/r/fo76/comments/ic2o2p/link_pc_hotfix_notes_18th_august_2020_on/",
                     bethesda: "https://fallout.bethesda.net/en/article/2uZWTGKr44jRhx8wuCaGU8/fallout-76-hotfix-notes-august-18-2020",
@@ -6650,7 +6905,7 @@
                 {
                     id: "P21",
                     patch: "21",
-                    descripton: "Fortifying ATLAS",
+                    description: "Fortifying ATLAS",
                     date: ofDate(2020, 7, 4),
                     reddit: "https://www.reddit.com/r/fo76/comments/i3k4rr/fallout_76_update_21_patch_notes_august_4_2020/",
                     bethesda: "https://fallout.bethesda.net/en/article/2Z8aZWK1CISDkxWAcwQhw8/fallout-76-update-21-patch-notes-august-4-2020",
@@ -7079,7 +7334,7 @@
                 {
                     id: "P20",
                     patch: "20",
-                    descripton: "The Legendary Run",
+                    description: "The Legendary Run",
                     date: ofDate(2020, 5, 30),
                     reddit: "https://www.reddit.com/r/fo76/comments/hio4tb/fallout_76_update_20_patch_notes_june_30_2020/",
                     bethesda: "https://fallout.bethesda.net/en/article/47XE9Dbh3weAd5kusOIA8p/fallout-76-update-20-patch-notes-june-30-2020",
@@ -7600,7 +7855,7 @@
                 {
                     id: "P19",
                     patch: "19",
-                    descripton: "Wastelanders Update",
+                    description: "Wastelanders Update",
                     date: ofDate(2020, 4, 19),
                     reddit: "https://www.reddit.com/r/fo76/comments/gmpb43/fallout_76_update_19_patch_notes_may_19_2020/",
                     bethesda: "https://fallout.bethesda.net/en/article/41anUUoQsqOgdWzOFxg3St/fallout-76-update-19-patch-notes-may-19-2020",
@@ -8299,7 +8554,7 @@
                 {
                     id: "P18",
                     patch: "18",
-                    descripton: "Wastelanders",
+                    description: "Wastelanders",
                     date: ofDate(2020, 3, 14),
                     reddit: "https://www.reddit.com/r/fo76/comments/g115dv/fallout_76_wastelanders_update_notes_april_14_2020/",
                     bethesda: "https://fallout.bethesda.net/en/article/2asdca6YRz43ctgyo0o2d3/fallout-76-wastelanders-update-notes-april-14-2020",
@@ -8822,7 +9077,7 @@
                 {
                     id: "P175",
                     patch: "17.5",
-                    descripton: "Bugfix Update",
+                    description: "Bugfix Update",
                     date: ofDate(2020, 1, 25),
                     reddit: "https://www.reddit.com/r/fo76/comments/f9bo23/fallout_76_update_notes_february_25_2020/",
                     bethesda: "https://fallout.bethesda.net/en/article/77DFEUrDpIWI9F4TStqqhs/fallout-76-update-notes-february-25-2020",
@@ -8897,7 +9152,7 @@
                 {
                     id: "P17",
                     patch: "17",
-                    descripton: "Bugfix Update",
+                    description: "Bugfix Update",
                     date: ofDate(2020, 0, 14),
                     reddit: "https://www.reddit.com/r/fo76/comments/eomk0d/fallout_76_update_notes_january_14_2020/",
                     bethesda: "https://fallout.bethesda.net/en/article/7JSq4wTkPSdiI9gPZT45lU/fallout-76-update-notes-january-14-2020",
@@ -9017,7 +9272,7 @@
                 {
                     id: "P16A",
                     patch: "16-A",
-                    descripton: "Hotfix Update",
+                    description: "Hotfix Update",
                     date: ofDate(2019, 11, 13),
                     reddit: "https://www.reddit.com/r/fo76/comments/e9wh2r/maintenance_tomorrow_8am_est_dec_13/",
                     bethesda: "https://bethesda.net/community/topic/376149/complete-fallout-76-maintenance-december-13-2019/2?language%5B%5D=en",
@@ -9032,7 +9287,7 @@
                 {
                     id: "P16",
                     patch: "16",
-                    descripton: "Holiday Update",
+                    description: "Holiday Update",
                     date: ofDate(2019, 11, 10),
                     reddit: "https://www.reddit.com/r/fo76/comments/e8rtbn/fallout_76_update_16_patch_notes_december_10_2019/",
                     bethesda: "https://fallout.bethesda.net/en/article/2QXaaomaaBSTRSOS2AoTk/fallout-76-update-16-patch-notes-december-10-2019",
@@ -9318,7 +9573,7 @@
                 {
                     id: "P15A",
                     patch: "15-A",
-                    descripton: "Hotfix",
+                    description: "Hotfix",
                     date: ofDate(2019, 10, 22),
                     notes: [
                         {
@@ -9331,7 +9586,7 @@
                 {
                     id: "P15",
                     patch: "15",
-                    descripton: "Improvements and Bugfixes",
+                    description: "Improvements and Bugfixes",
                     date: ofDate(2019, 10, 19),
                     reddit: "https://www.reddit.com/r/fo76/comments/dylpue/fallout_76_update_15_patch_notes_november_19_2019/",
                     bethesda: "https://fallout.bethesda.net/en/article/3oFJrUfj6iNPVEWch2L1qI/fallout-76-update-15-patch-notes-november-19-2019",
@@ -9781,7 +10036,7 @@
                 {
                     id: "P14C",
                     patch: "14-C",
-                    descripton: "Hotfix",
+                    description: "Hotfix",
                     date: ofDate(2019, 10, 14),
                     bethesda: "https://fallout.bethesda.net/en/article/26emkOnXeAk2KzkzQpq2xb/fallout-76-hotfix-notes-november-14-2019",
                     notes: [
@@ -9810,7 +10065,7 @@
                 {
                     id: "P14B",
                     patch: "14-B",
-                    descripton: "Hotfix",
+                    description: "Hotfix",
                     date: ofDate(2019, 10, 12),
                     reddit: "https://www.reddit.com/r/fo76/comments/dvbgl7/fallout_76_november_12_hotfix_notes/",
                     bethesda: "https://fallout.bethesda.net/en/article/3aDmdi6Rk91U832uk2o7BW/fallout-76-hotfix-notes-november-12-2019",
@@ -9865,7 +10120,7 @@
                 {
                     id: "P14A",
                     patch: "14-A",
-                    descripton: "Hotfix",
+                    description: "Hotfix",
                     date: ofDate(2019, 9, 25),
                     reddit: "https://www.reddit.com/r/fo76/comments/dn0im6/upcoming_fallout_76_maintenance_october_25_2019/",
                     bethesda: "https://bethesda.net/community/topic/370433/complete-fallout-76-maintenance-october-25-2019?language%5B%5D=en",
@@ -9880,7 +10135,7 @@
                 {
                     id: "P14",
                     patch: "14",
-                    descripton: "Halloween and Fallout 1st Update",
+                    description: "Halloween and Fallout 1st Update",
                     date: ofDate(2019, 9, 23),
                     reddit: "https://www.reddit.com/r/fo76/comments/dlzulb/fallout_76_update_14_patch_notes_october_23_2019/",
                     bethesda: "https://fallout.bethesda.net/en/article/5OZH9xTsc8DNuEN539nN6y/fallout-76-14-2019-10-23",
@@ -10427,7 +10682,7 @@
                 {
                     id: "P13B",
                     patch: "13-B",
-                    descripton: "Survival Mode removal",
+                    description: "Survival Mode removal",
                     date: ofDate(2019, 9, 1),
                     reddit: "https://www.reddit.com/r/fo76/comments/d6fnmx/we_have_decided_to_disable_the_survival_mode_beta/",
                     bethesda: "https://fallout.bethesda.net/en/article/4ZKOaWgcjj9ShSaduDeyI7/fallout-76-inside-the-vault-september-updates?utm_source=Community&utm_medium=Social&sf109189438=1",
@@ -10442,7 +10697,7 @@
                 {
                     id: "P13A",
                     patch: "13-A",
-                    descripton: "Hotfix",
+                    description: "Hotfix",
                     date: ofDate(2019, 8, 17),
                     reddit: "https://www.reddit.com/r/fo76/comments/d5hqmd/fallout_76_hotfix_notes_september_17_2019/",
                     bethesda: "https://fallout.bethesda.net/en/article/5WeaOUZbpPYcQCnByXCcEJ/fallout-76-hotfix-notes-september-17-2019",
@@ -10467,7 +10722,7 @@
                 {
                     id: "P13",
                     patch: "13",
-                    descripton: "Content and Bugfix Update",
+                    description: "Content and Bugfix Update",
                     date: ofDate(2019, 8, 10),
                     reddit: "https://www.reddit.com/r/fo76/comments/d28asr/fallout_76_patch_13_notes_september_10_2019/",
                     bethesda: "https://fallout.bethesda.net/en/article/4bGHdIFQ27EzLbZp1EoWoW/fallout-76-patch-13-notes-september-10-2019",
@@ -11024,7 +11279,7 @@
                 {
                     id: "P12",
                     patch: "12",
-                    descripton: "Content and Bugfix Update",
+                    description: "Content and Bugfix Update",
                     date: ofDate(2019, 7, 20),
                     reddit: "https://www.reddit.com/r/fo76/comments/cszm8s/fallout_76_patch_12_notes_august_20_2019/",
                     bethesda: "https://fallout.bethesda.net/en/article/6uccERg8HYxx78P07jhS9j/fallout-76-patch-12-notes-august-20-2019",
@@ -11635,7 +11890,7 @@
                 {
                     id: "P11A",
                     patch: "11.5",
-                    descripton: "Meat Week and Bugfixes Update",
+                    description: "Meat Week and Bugfixes Update",
                     date: ofDate(2019, 7, 1),
                     reddit: "https://www.reddit.com/r/fo76/comments/ckp09c/fallout_76_patch_115_notes_august_1_2019/",
                     bethesda: "https://fallout.bethesda.net/en/article/2KNOC09rmYSXpkBUPAUUvv/fallout-76-patch-11-5-notes-august-1-2019",
@@ -11773,7 +12028,7 @@
                 {
                     id: "P11A",
                     patch: "11-A",
-                    descripton: "Hotfix",
+                    description: "Hotfix",
                     date: ofDate(2019, 6, 25),
                     reddit: "https://www.reddit.com/r/fo76/comments/cho7dn/fallout_76_hotfix_notes_july_25_2019/",
                     bethesda: "https://fallout.bethesda.net/en/article/6kxcGxeZ63Uxx8LqEYFIc3/fallout-76-hotfix-notes-july-25-2019",
@@ -11838,7 +12093,7 @@
                 {
                     id: "P11",
                     patch: "11",
-                    descripton: "Balance and Bugfix Update",
+                    description: "Balance and Bugfix Update",
                     date: ofDate(2019, 6, 16),
                     reddit: "https://www.reddit.com/r/fo76/comments/cdxj6g/fallout_76_patch_11_notes_july_16_2019/",
                     bethesda: "https://fallout.bethesda.net/en/article/6XdkW9ENbXzmFb0qDadc4D/fallout-76-patch-11-notes-july-16-2019",
@@ -12793,7 +13048,7 @@
                 {
                     id: "P10A",
                     patch: "10.5",
-                    descripton: "Bugfixes and Nuclear Winter Adjustments",
+                    description: "Bugfixes and Nuclear Winter Adjustments",
                     date: ofDate(2019, 5, 25),
                     reddit: "https://www.reddit.com/r/fo76/comments/c59447/fallout_76_patch_105_notes_june_25_2019/",
                     bethesda: "https://fallout.bethesda.net/en/article/64WJTKyU1TfEuddQzg4D4Z/fallout-76-patch-10-5-notes-june-25-2019",
@@ -13158,7 +13413,7 @@
                 {
                     id: "P10",
                     patch: "10",
-                    descripton: "Nuclear Winter",
+                    description: "Nuclear Winter",
                     date: ofDate(2019, 5, 10),
                     reddit: "https://www.reddit.com/r/fo76/comments/byylhe/fallout_76_nuclear_winter_patch_notes_june_10_2019/",
                     bethesda: "https://fallout.bethesda.net/en/article/55pboVqiIBImKOzWBDrUBp/fallout-76-nuclear-winter-patch-notes-june-10-2019",
@@ -13389,7 +13644,7 @@
                 {
                     id: "P9B",
                     patch: "9.5-A",
-                    descripton: "Stability Hotfix",
+                    description: "Stability Hotfix",
                     date: ofDate(2019, 4, 29),
                     // reddit: "",
                     bethesda: "https://bethesda.net/community/topic/345510/complete-fallout-76-pc-update-m",
@@ -13404,7 +13659,7 @@
                 {
                     id: "P9A",
                     patch: "9.5",
-                    descripton: "New Event and Bugfixes",
+                    description: "New Event and Bugfixes",
                     date: ofDate(2019, 4, 21),
                     reddit: "https://www.reddit.com/r/fo76/comments/braydy/fallout_76_wild_appalachia_patch_95_notes_may_21/",
                     bethesda: "https://fallout.bethesda.net/en/article/QZSsPQ9Mus9sRWZwcsdcH/fallout-76-wild-appalachia-patch-9-5-notes-may-21-2019",
@@ -13505,7 +13760,7 @@
                 {
                     id: "P9",
                     patch: "9",
-                    descripton: "Content and Bugfix Update",
+                    description: "Content and Bugfix Update",
                     date: ofDate(2019, 4, 7),
                     reddit: "https://www.reddit.com/r/fo76/comments/blra0h/fallout_76_wild_appalachia_patch_9_notes_may_7/",
                     bethesda: "https://fallout.bethesda.net/en/article/1GzFRJ3M5wmdnunkTDcbHZ/fallout-76-wild-appalachia-patch-9-notes-may-7-2019",
@@ -14299,7 +14554,7 @@
                 {
                     id: "P8A",
                     patch: "8.5",
-                    descripton: "Content and Bugfix Update",
+                    description: "Content and Bugfix Update",
                     date: ofDate(2019, 3, 23),
                     reddit: "https://www.reddit.com/r/fo76/comments/bggxol/fallout_76_wild_appalachia_patch_85_notes_april/",
                     bethesda: "https://fallout.bethesda.net/en/article/64xBDO2aEDqzWOsXuWPtle/fallout-76-wild-appalachia-patch-8-5-notes-april-23-2019",
@@ -14460,7 +14715,7 @@
                 {
                     id: "P8",
                     patch: "8",
-                    descripton: "Content and Bugfix Update",
+                    description: "Content and Bugfix Update",
                     date: ofDate(2019, 3, 9),
                     reddit: "https://www.reddit.com/r/fo76/comments/bb8c7d/wild_appalachia_patch_notes_april_9_2019/",
                     bethesda: "https://fallout.bethesda.net/en/article/5hrHjCk5RTycypyr3ub4aQ/fallout-76-wild-appalachia-patch-notes-april-9-2019",
@@ -15160,7 +15415,7 @@
                 {
                     id: "P7A",
                     patch: "7.5",
-                    descripton: "Survival Mode and Bugfixes",
+                    description: "Survival Mode and Bugfixes",
                     date: ofDate(2019, 2, 26),
                     reddit: "https://www.reddit.com/r/fo76/comments/b5qbmc/fallout_76_wild_appalachia_patch_notes_march_26/",
                     bethesda: "https://fallout.bethesda.net/en/article/62MOIbuwGb2pCFNuRKwYJo/fallout-76-wild-appalachia-patch-notes-march-26-2019",
@@ -15306,7 +15561,7 @@
                 {
                     id: "P7",
                     patch: "7",
-                    descripton: "Wild Appalachia",
+                    description: "Wild Appalachia",
                     date: ofDate(2019, 2, 13),
                     reddit: "https://www.reddit.com/r/fo76/comments/b0mjux/fallout_76_wild_appalachia_patch_notes_march_13/",
                     bethesda: "https://fallout.bethesda.net/en/article/4rzMQ3PdnK5hOjt1fc9VAV/fallout-76-wild-appalachia-patch-notes-march-13-2019",
@@ -16230,7 +16485,7 @@
                 {
                     id: "P6",
                     patch: "6",
-                    descripton: "Balance and Bugfix Update",
+                    description: "Balance and Bugfix Update",
                     date: ofDate(2019, 1, 19),
                     reddit: "https://www.reddit.com/r/fo76/comments/asat8r/fallout_76_patch_notes_february_19_2019/",
                     bethesda: "https://fallout.bethesda.net/en/article/21zDUJWJbcIyv2vKmvSSjB/fallout-76-patch-notes-february-19-2019",
@@ -16690,7 +16945,7 @@
                 {
                     id: "P5A",
                     patch: "5-A",
-                    descripton: "Hotfix",
+                    description: "Hotfix",
                     date: ofDate(2019, 0, 31),
                     reddit: "https://www.reddit.com/r/fo76/comments/alttx6/fallout_76_hotfix_notes_january_31_2019/",
                     bethesda: "https://fallout.bethesda.net/article/44hSMCa7BGSxsftNvbMUQT/fallout-76-hotfix-notes-january-31-2019",
@@ -16715,7 +16970,7 @@
                 {
                     id: "P5",
                     patch: "5",
-                    descripton: "Balance and Bugfix Update",
+                    description: "Balance and Bugfix Update",
                     date: ofDate(2019, 0, 29),
                     reddit: "https://www.reddit.com/r/fo76/comments/al0bl3/fallout_76_patch_notes_january_29_2019/",
                     bethesda: "https://fallout.bethesda.net/article/2J2ong0O2B6GAI1AeIdGcp/fallout-76-patch-notes-january-29-2019",
@@ -17210,7 +17465,7 @@
                 {
                     id: "P4-A",
                     patch: "4-A",
-                    descripton: "Console release of Patch 4",
+                    description: "Console release of Patch 4",
                     date: ofDate(2019, 0, 15),
                     reddit: "https://www.reddit.com/r/fo76/comments/aejlcj/fallout_76_january_10_patch_notes/",
                     bethesda: "https://fallout.bethesda.net/article/7hpeHkKxyM6aMWUCCIkeW6/fallout-76-patch-notes-january-10-2019",
@@ -17225,7 +17480,7 @@
                 {
                     id: "P4",
                     patch: "4",
-                    descripton: "Balance and Bugfix Update",
+                    description: "Balance and Bugfix Update",
                     date: ofDate(2019, 0, 10),
                     reddit: "https://www.reddit.com/r/fo76/comments/aejlcj/fallout_76_january_10_patch_notes/",
                     bethesda: "https://fallout.bethesda.net/article/7hpeHkKxyM6aMWUCCIkeW6/fallout-76-patch-notes-january-10-2019",
@@ -17770,7 +18025,7 @@
                 {
                     id: "P3-B",
                     patch: "3-B",
-                    descripton: "Hotfix",
+                    description: "Hotfix",
                     date: ofDate(2018, 11, 19),
                     reddit: "https://www.reddit.com/r/fo76/comments/a7m2hl/hotfix_notes_december_19_2018/",
                     bethesda: "https://fallout.bethesda.net/article/3AEV0uXGGkyW0OAUOAisMW/fallout-76-hotfix-notes-december-19-2018",
@@ -17805,7 +18060,7 @@
                 {
                     id: "P3-A",
                     patch: "3-A",
-                    descripton: "Console release of Patch 3",
+                    description: "Console release of Patch 3",
                     date: ofDate(2018, 11, 13),
                     reddit: "https://www.reddit.com/r/fo76/comments/a575z2/fallout_76_patch_notes_december_11_2018/",
                     bethesda: "https://fallout.bethesda.net/article/1EDxoSmqFye0QYa2GyQw2u/fallout-76-patch-notes-december-11-2018",
@@ -17820,7 +18075,7 @@
                 {
                     id: "P3",
                     patch: "3",
-                    descripton: "Overall Improvements",
+                    description: "Overall Improvements",
                     date: ofDate(2018, 11, 11),
                     reddit: "https://www.reddit.com/r/fo76/comments/a575z2/fallout_76_patch_notes_december_11_2018/",
                     bethesda: "https://fallout.bethesda.net/article/1EDxoSmqFye0QYa2GyQw2u/fallout-76-patch-notes-december-11-2018",
@@ -18550,7 +18805,7 @@
                 {
                     id: "P2",
                     patch: "2",
-                    descripton: "Improvements",
+                    description: "Improvements",
                     date: ofDate(2018, 11, 4),
                     reddit: "https://www.reddit.com/r/fo76/comments/a1to3g/december_4th_patch_notes/",
                     bethesda: "https://fallout.bethesda.net/en/article/yzCWHFufFm0iUEyc4UWgA/upcoming-fallout-76-patch-notes-december-4-2018",
@@ -18755,7 +19010,7 @@
                 {
                     id: "P1",
                     patch: "1",
-                    descripton: "Improvements",
+                    description: "Improvements",
                     date: ofDate(2018, 10, 19),
                     reddit: "https://www.reddit.com/r/fo76/comments/9yhri9/patch_notes_november_19_2018/",
                     bethesda: "https://fallout.bethesda.net/article/6AZhnwmqwE8SkOeoeuiamw/fallout-76-patch-notes-november-19-2018",
@@ -19167,13 +19422,13 @@
                         cll = rw.insertCell(rw.cells.length);
                         cll.innerHTML = "<b style='font-size: 30px;'>Patch " + releaseNote.patch + "</b>";
                         cll.colSpan = 2;
-                        if (releaseNote.descripton !== undefined) {
+                        if (releaseNote.description !== undefined) {
                             if (isLayoutFlat) {
                                 cll.innerHTML += "&nbsp;&nbsp;&ndash;&nbsp;&nbsp;"
                             } else {
                                 cll.innerHTML += "<br>";
                             }
-                            cll.innerHTML += "<span style='font-size: 20; font-weight:bold;'><i>" + releaseNote.descripton + "</i>&nbsp;&nbsp;&nbsp;(" + releaseNote.count + ")</span>";
+                            cll.innerHTML += "<span style='font-size: 20; font-weight:bold;'><i>" + releaseNote.description + "</i>&nbsp;&nbsp;&nbsp;(" + releaseNote.count + ")</span>";
                         }
 
                         var links = [];
@@ -19281,7 +19536,7 @@
 
                     var alinks = [];
                     for (var a of anchors) {
-                        alinks.push("<span style='white-space: nowrap;'><a href='#" + a.id + "' title='" + a.descripton + "'>Patch " + a.patch + "</a>&nbsp;(" + a.count + ")</span>");
+                        alinks.push("<span style='white-space: nowrap;'><a href='#" + a.id + "' title='" + a.description + "'>Patch " + a.patch + "</a>&nbsp;(" + a.count + ")</span>");
                     }
 
                     var linksPerLine = window.innerHeight > window.innerWidth ? 2 : 8;
@@ -19435,6 +19690,11 @@
                     sel.add(createOpt("Legendary Run", ofDate(2020, 5, 30).getTime(), "Patch 20 - " + ofDate(2020, 5, 30).toLocaleDateString()));
                     sel.add(createOpt("One Wasteland", ofDate(2020, 8, 15).getTime(), "Patch 22 - " - ofDate(2020, 8, 15).toLocaleDateString()));
                     sel.add(createOpt("Steel Dawn", ofDate(2020, 10, 24).getTime(), "Patch 24 - " + ofDate(2020, 10, 24).toLocaleDateString()));
+                    sel.add(createOpt("Steel Reign", ofDate(2021, 6, 7).getTime(), "Patch 28 - " + ofDate(2021, 6, 7).toLocaleDateString()));
+                    sel.add(createOpt("Fallout Worlds", ofDate(2021, 8, 8).getTime(), "Patch 30 - " + ofDate(2021, 8, 8).toLocaleDateString()));
+                    sel.add(createOpt("Night of the Moth", ofDate(2021, 11, 8).getTime(), "Patch 32 - " + ofDate(2021, 11, 8).toLocaleDateString()));
+                    sel.add(createOpt("Invaders from Beyond", ofDate(2022, 2, 1).getTime(), "Patch 33 - " + ofDate(2022, 2, 1).toLocaleDateString()));
+                    sel.add(createOpt("Test your metal", ofDate(2022, 5, 14).getTime(), "Patch 34 - " + ofDate(2022, 5, 14).toLocaleDateString()));
 
                     separator = createOpt("---", "", "");
                     separator.disabled = true;
@@ -19442,7 +19702,7 @@
 
                     for (var p of allNotes) {
                         sel.add(createOpt("Patch " + p.patch, p.date.getTime(), 
-                                p.descripton + "\r\n" + p.date.toLocaleDateString()));
+                                p.description + "\r\n" + p.date.toLocaleDateString()));
                     }
                 }
 
