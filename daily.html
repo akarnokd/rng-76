@@ -13100,6 +13100,29 @@
                     scoreGainXP2500, 1,
                     make1st(scoreEatPrewarFood), 3,
                 ], dops(dailyOpsBurning, dailyOpsScorched, dailyOpsRegenerating, false));
+            addWeekly(challengesWeeklyEra12.options, 63, scoreFixedGainXP10000Rank100);
+            addWeekly(challengesWeeklyEra12.options, 63, scoreLevelUp3);
+            addWeekly(challengesWeeklyEra12.options, 63, scoreCompleteDailyOps, 5);
+            addWeekly(challengesWeeklyEra12.options, 63, scoreCompleteGoldStar);
+            addWeekly(challengesWeeklyEra12.options, 63, scoreCompleteEvents10);
+            addWeekly(challengesWeeklyEra12.options, 63, scoreCompleteDailyOpsPublicTeam, 3);
+            addWeekly(challengesWeeklyEra12.options, 63, scoreCompleteMeatCookDaily, 5);
+            addWeekly(challengesWeeklyEra12.options, 63, scoreDrinkNukaCola, 15);
+            addWeekly(challengesWeeklyEra12.options, 63, scoreKillLegendary, 10);
+            addWeekly(challengesWeeklyEra12.options, 63, scoreRepairArmorWeaponPA, 25);
+            addDaily(challengesDailyEra12, 63, [
+                    scoreCompleteDailyChallenge, 5,
+                    scoreLevelUp, 1,
+                    scoreCompleteDailyOps, 1,
+                    scoreCompleteOneEvent, 2,
+                    scoreBuildWallDecor, 5,
+                    scoreCollectPurifiedWater, 5,
+                    scoreCompleteDailyOpsPublicTeam, 1,
+                    scoreCompleteMeatCook, 1,
+                    scoreCompletePrimalCuts, 1,
+                    scoreGainXP2500, 1,
+                    make1st(scoreJoinGroup), 1,
+                ], dops(dailyOpsBurning, dailyOpsScorched, dailyOpsRegenerating, false));
 
             addPlaceholders(challengesDailyEra12, scoreDailyplaceholder, era12Length);
             addPlaceholders(challengesWeeklyEra12, scoreWeeklyplaceholder, era12Length);
@@ -15142,7 +15165,7 @@
                 createDoubleMutations(ofDate(2022, 7, 11, 16), ofDate(2022, 7, 15, 16)),
                 createDoubleScore(ofDate(2022, 7, 11, 16), ofDate(2022, 7, 15, 16)),
                 createMinerva(ofDate(2022, 7, 15, 16), ofDate(2022, 7, 17, 16), "Emporium @ Crater", "P?"),
-                createMeatWeek(ofDate(2022, 7, 18, 16), 14, "Two Helpings of Meat Week"),
+                createMeatWeek(ofDate(2022, 7, 16, 16), 14, "Two Helpings of Meat Week"),
                 createDoubleXP(ofDate(2022, 7, 18, 16), ofDate(2022, 7, 22, 16)),
                 createDoubleMutations(ofDate(2022, 7, 25, 16), ofDate(2022, 7, 29, 16)),
                 createMinerva(ofDate(2022, 7, 25, 16), ofDate(2022, 7, 29, 16), "Big Sale @ TBD", "P?"),
