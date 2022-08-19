@@ -13153,6 +13153,60 @@
             addPlaceholders(challengesDailyEra12, scoreDailyplaceholder, era12Length);
             addPlaceholders(challengesWeeklyEra12, scoreWeeklyplaceholder, era12Length);
 
+
+            // oooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo
+            // Season 10
+            // oooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo
+
+            var era13Length = 91;
+            var challengesDailyEra13 = {
+                validStart: ofDate(2022, 8, 13, 16),
+                validEnd: plusDays(ofDate(2022, 8, 13, 16), era13Length),
+                options: []
+            };
+            var challengesWeeklyEra13 = {
+                validStart: ofDate(2022, 8, 13, 16),
+                validEnd: plusDays(ofDate(2022, 8, 13, 16), era13Length),
+                options: []
+            };
+            challenges.push(challengesDailyEra13);
+            challengesWeekly.push(challengesWeeklyEra13);
+
+            var communityEventsAppend = [];
+
+            addWeekly(challengesWeeklyEra13.options, 0, scoreFixedGainXP10000Rank100);
+            addWeekly(challengesWeeklyEra13.options, 0, scoreLevelUp3);
+            addWeekly(challengesWeeklyEra13.options, 0, scoreCompleteDailyOps, 5);
+            addWeekly(challengesWeeklyEra13.options, 0, scoreCompleteGoldStar);
+            addWeekly(challengesWeeklyEra13.options, 0, scoreCompleteEvents10);
+            /*
+            addWeekly(challengesWeeklyEra13.options, 0, scoreCompleteDailyOpsPublicTeam, 3);
+            addWeekly(challengesWeeklyEra13.options, 0, scoreCompleteMeatCookDaily, 5);
+            addWeekly(challengesWeeklyEra13.options, 0, scoreDrinkNukaCola, 15);
+            addWeekly(challengesWeeklyEra13.options, 0, scoreKillLegendary, 10);
+            addWeekly(challengesWeeklyEra13.options, 0, scoreRepairArmorWeaponPA, 25);
+            */
+            addDaily(challengesDailyEra13, 0, [
+                    scoreCompleteDailyChallenge, 5,
+                    scoreLevelUp, 1,
+                    scoreCompleteDailyOps, 1,
+                    scoreCompleteOneEvent, 1,
+                    /*
+                    scoreBuildWallDecor, 5,
+                    scoreCollectPurifiedWater, 5,
+                    scoreCompleteDailyOpsPublicTeam, 1,
+                    scoreCompleteMeatCook, 1,
+                    scoreCompletePrimalCuts, 1,
+                    */
+                    scoreGainXP2500, 1,
+                    //make1st(scoreJoinGroup), 1,
+                ], dops(dailyOpsUncanny, dailyOpsEagles, dailyOpsSwift, true));
+
+            communityEventsAppend.push(createDoubleMutations(ofDate(2022, 8, 22, 16), ofDate(2022, 8, 26, 16)));
+            communityEventsAppend.push(createScripSurplus2(ofDate(2022, 8, 29, 16), ofDate(2022, 9, 3, 16)));
+            communityEventsAppend.push(createGoldRush2(ofDate(2022, 8, 29, 16), ofDate(2022, 9, 3, 16)));
+            communityEventsAppend.push(createMinerva(ofDate(2022, 8, 29, 16), ofDate(2022, 9, 3, 16), "Big Sale @ TBD", "P?"));
+
             // --------------------------------------------------------------------------------------------------------------
             // Community events
 
@@ -13716,581 +13770,7 @@
                 }
             }
 
-            var minervaPools = {
-                "P1": [
-                    "Plan: Secret Service Left Arm",
-                    "Plan: Secret Service Left Right Arm",
-                    "Plan: Secret Service Left Left Leg",
-                    "Plan: Secret Service Left Right Leg",
-                    "Plan: Secret Service Helmet",
-                    "Plan: Secret Service Chest Piece",
-                    "Plan: Farmable Dirt Tiles",
-                    "Plan: Sympto-Matic",
-                    "Plan: Super Reactor",
-                    "Plan: War Glaive",
-                    "Plan: Gauss Minigun Gunner Sights",
-                    "Plan: Gauss Minigun Tesla Capacitor",
-                    "Plan: Gauss Minigun Tesla Dynamo",
-                    "Plan: Chemist's Backpack",
-                    "Plan: Cattle Prod"
-                ],
-                "P2": [
-                    "Plan: Dynamite",
-                    "Plan: Floater Gnasher Grenade",
-                    "Plan: Gauss Pistol",
-                    "Plan: Grocer's Backpack Mod",
-                    "Plan: Resistant Lining Secret Service Underarmor Mod",
-                    "Plan: Scavenged Solar Panel",
-                    "Plan: Treated Lining Secret Service Underarmor Mod",
-                    "Plan: Strangler Heart Chest Piece",
-                    "Plan: Strangler Heart Helmet",
-                    "Plan: Strangler Heart Left Arm",
-                    "Plan: Strangler Heart Left Leg",
-                    "Plan: Strangler Heart Right Arm",
-                    "Plan: Strangler Heart Right Leg",
-                ],
-                "P3": [
-                    "Plan: Ammo Converter",
-                    "Plan: Chinese Stealth Armor",
-                    "Plan: Chinese Stealth Helmet",
-                    "Plan: Gauntlet",
-                    "Plan: Secret Service Jetpack Armor",
-                    "Plan: Secret Service Pocketed Armor Limb",
-                    "Plan: Secret Service Pocketed Armor Torso",
-                    "Plan: T-65 Medic Pump",
-                    "Plan: T-65 Overdrive Servos",
-                    "Plan: T-65 Stealth Boy",
-                    "Plan: War Glaive Cryo Blade",
-                    "Plan: War Glaive Plasma Blade"
-                ],
-                "P4": [
-                    "Plan: Ammo Converter",
-                    "Plan: Cattle prod",
-                    "Plan: Chemist's backpack mod",
-                    "Plan: Chinese stealth armor",
-                    "Plan: Chinese stealth helmet",
-                    "Plan: Dynamite",
-                    "Plan: Farmable dirt tiles",
-                    "Plan: Gauntlet",
-                    "Plan: Gauss minigun gunner sights",
-                    "Plan: Gauss minigun Tesla capacitor",
-                    "Plan: Gauss minigun Tesla dynamo",
-                    "Plan: Gauss pistol",
-                    "Plan: Grocer's backpack mod",
-                    "Plan: Floater gnasher grenade",
-                    "Plan: Resistant lining Secret Service underarmor",
-                    "Plan: Scavenged solar panel",
-                    "Plan: Secret Service chest piece",
-                    "Plan: Secret Service helmet",
-                    "Plan: Secret Service jet pack armor",
-                    "Plan: Secret Service left arm",
-                    "Plan: Secret Service left leg",
-                    "Plan: Secret Service pocketed armor limb",
-                    "Plan: Secret Service pocketed armor torso",
-                    "Plan: Secret Service right arm",
-                    "Plan: Secret Service right leg",
-                    "Plan: Super reactor",
-                    "Plan: Strangler heart chest piece",
-                    "Plan: Strangler heart helmet",
-                    "Plan: Strangler heart left arm",
-                    "Plan: Strangler heart left leg",
-                    "Plan: Strangler heart right arm",
-                    "Plan: Strangler heart right leg",
-                    "Plan: Sympto-Matic",
-                    "Plan: T-65 medic pump",
-                    "Plan: T-65 overdrive servos",
-                    "Plan: T-65 Stealth Boy",
-                    "Plan: Treated lining Secret Service underarmor",
-                    "Plan: War glaive",
-                    "Plan: War glaive cryo blade",
-                    "Plan: War glaive plasma blade"
-                ],
-                "P5": [
-                    "Plan: Chicken coop",
-                    "Plan: Gauss minigun",
-                    "Plan: Gauss pistol aligned short barrel",
-                    "Plan: Gauss pistol drum magazine",
-                    "Plan: Gauss pistol refined receiver",
-                    "Plan: Protective lining Secret Service underarmor",
-                    "Plan: Shielded lining Secret Service underarmor",
-                    "Plan: Thorn armor chest piece",
-                    "Plan: Thorn armor left arm",
-                    "Plan: Thorn armor left leg",
-                    "Plan: Thorn armor right arm",
-                    "Plan: Thorn armor right leg"
-                ],
-                "P6": [
-                    "Plan: Secret Service Limbs Lighter Build",
-                    "Plan: Secret Service Limbs Ultra Light Build",
-                    "Plan: Plasma Caster",
-                    "Plan: Secret Service Underarmor",
-                    "Plan: The Gutter",
-                    "Plan: War Glaive Flaming Blade",
-                    "Plan: War Glaive Shock Blade",
-                    "Plan: Water Well",
-                    "Plan: Whistle In The Dark",
-                    "Plan: T-65 Calibrated Shocks",
-                    "Plan: T-65 Jet Pack",
-                    "Plan: T-65 Rusty Knuckles",
-                ],
-                "P7": [
-                    "Plan: Floater Flamer Grenade",
-                    "Plan: Gauss Shotgun",
-                    "Plan: Gauss Shotgun extended barrel",
-                    "Plan: Gauss Shotgun extended magazine",
-                    "Plan: Gauss Shotgun hardened receiver",
-                    "Plan: Brotherhood Recon chest piece",
-                    "Plan: Brotherhood Recon helmet",
-                    "Plan: Brotherhood Recon left arm",
-                    "Plan: Brotherhood Recon left leg",
-                    "Plan: Brotherhood Recon right arm",
-                    "Plan: Brotherhood Recon right leg",
-                ],
-                "P8": [
-                    "Plan: Brotherhood Recon Helmet",
-                    "Plan: Brotherhood Recon Chest Piece",
-                    "Plan: Brotherhood Recon Left Arm",
-                    "Plan: Brotherhood Recon Left Leg",
-                    "Plan: Brotherhood Recon Right Arm",
-                    "Plan: Brotherhood Recon Right Leg",
-                    "Plan: Floater Flamer Grenade",
-                    "Plan: Gauss Minigun",
-                    "Plan: Gauss Pistol Aligned Short Barrel",
-                    "Plan: Gauss Pistol Drum Magazine",
-                    "Plan: Gauss Pistol Refined Receiver",
-                    "Plan: Gauss Shotgun",
-                    "Plan: Gauss Shotgun Extended Barrel",
-                    "Plan: Gauss Shotgun Extended Magazine",
-                    "Plan: Gauss Shotgun Hardened Receiver",
-                    "Plan: Plasma Caster",
-                    "Plan: Secret Service Armor Limbs Lighter Build",
-                    "Plan: Secret Service Armor Limbs Ultra-light Build",
-                    "Plan: Secret Service Underarmor",
-                    "Plan: Secret Service Underarmor Protective Lining",
-                    "Plan: Secret Service Underarmor Shielded Lining",
-                    "Plan: T-65 Calibrated Shocks",
-                    "Plan: T-65 Rusty Knuckles",
-                    "Plan: The Gutter",
-                    "Plan: Thorn Armor Chest Piece",
-                    "Plan: Thorn Armor Left Arm",
-                    "Plan: Thorn Armor Left Leg",
-                    "Plan: Thorn Armor Right Arm",
-                    "Plan: Thorn Armor Right Leg",
-                    "Plan: War Glaive Flaming Blade",
-                    "Plan: War Glaive Shock Blade",
-                    "Plan: Water Well",
-                    "Plan: Whistle In The Dark",
-                ],
-                "P9": [
-                    "Plan: Asylum Light",
-                    "Plan: Crusader Pistol",
-                    "Plan: Dynamite Bundle",
-                    "Plan: Meat Bag Stash Box",
-                    "Plan: Plasma Caster Aligned Sniper Barrel",
-                    "Plan: Plasma Caster Calibrated Capacitor",
-                    "Plan: Plasma Caster Pulse Capacitor",
-                    "Plan: T-65 Helmet",
-                    "Plan: T-65 Left Arm",
-                    "Plan: T-65 Left Leg",
-                    "Plan: T-65 Right Arm",
-                    "Plan: T-65 Right Leg",
-                    "Plan: T-65 Torso",
-                ],
-                "P10": [
-                    "Plan: Flare",
-                    "Plan: Gauntlet",
-                    "Plan: Gauss Minigun Triple Barrel",
-                    "Plan: Gauss Shotgun Precise Stock",
-                    "Plan: Gauss Shotgun Refined Receiver",
-                    "Plan: Gauss Shotgun Vicious Receiver",
-                    "Plan: Hellstorm Missile Launcher",
-                    "Plan: Turbo Fert-Fertilizer",
-                    "Plan: Unstoppable Monster",
-                    "Plan: Brotherhood Recon Armor Pocketed Limb",
-                    "Plan: Brotherhood Recon Armor Pocketed Torso",
-                ],
-                "P11": [
-                    "Plan: Floater Freezer Grenade",
-                    "Plan: Plasma Caster True Capacitor",
-                    "Plan: Plasma Caster True Long Barrel",
-                    "Plan: Science Chalkboards",
-                    "Plan: Solar Armor Chest Piece",
-                    "Plan: Solar Armor Left Arm",
-                    "Plan: Solar Armor Left Leg",
-                    "Plan: Solar Armor Right Arm",
-                    "Plan: Solar Armor Right Leg",
-                    "Plan: Super Mutant Tube",
-                    "Plan: Plasma Cutter Cryo Blade",
-                    "Plan: Plasma Cutter Flaming Blade",
-                    "Plan: Plasma Caster Shock Blade",
-                ],
-                "P12": [
-                    "Plan: Asylum Light",
-                    "Plan: Crusader Pistol",
-                    "Plan: Dynamite Bundle",
-                    "Plan: Flare",
-                    "Plan: Floater Freezer Grenade",
-                    "Plan: Gauntlet",
-                    "Plan: Gauss Minigun Triple Barrel",
-                    "Plan: Gauss Shotgun Precise Stock",
-                    "Plan: Gauss Shotgun Refined Receiver",
-                    "Plan: Gauss Shotgin Vicious Receiver",
-                    "Plan: Hellstorm Missile Launcher",
-                    "Plan: Meat Bag Stash Box",
-                    "Plan: Plasma Caster Aligned Sniper Barrel",
-                    "Plan: Plasma Caster Calibrated Capacitor",
-                    "Plan: Plasma Caster Pulse Capacitor",
-                    "Plan: Plasma Caster True Capacitor",
-                    "Plan: Plasma Caster True Long Barrel",
-                    "Plan: Science Chalkboards",
-                    "Plan: Solar Armor Chest Piece",
-                    "Plan: Solar Armor Left Arm",
-                    "Plan: Solar Armor Left Leg",
-                    "Plan: Solar Armor Right Arm",
-                    "Plan: Solar Armor Right Leg",
-                    "Plan: Super Mutant Tube",
-                    "Plan: T-65 Helm",
-                    "Plan: T-65 Torso",
-                    "Plan: T-65 Left Arm",
-                    "Plan: T-65 Left Leg",
-                    "Plan: T-65 Right Arm",
-                    "Plan: T-65 Right Leg",
-                    "Plan: Turbo-fert Fertilizer",
-                    "Plan: Unstoppable Monster",
-                    "Plan: Brotherhood Recon Armor Pocketed Limbs",
-                    "Plan: Brotherhood Recon Armor Pocketed Torso",
-                    "Plan: Plasma Cutter Cryo Blade",
-                    "Plan: Plasma Cutter Flaming Blade",
-                    "Plan: Plasma Cutter Shock Blade",
-                ],
-                "P13": [
-                    "Plan: BoS Medallion",
-                    "Plan: Emmet Mountain Disposal Signs",
-                    "Plan: Gauss Minigun",
-                    "Plan: Gauss Pistol Hardened Receiver",
-                    "Plan: Gauss Pistol Suppressed Barrel",
-                    "Plan: Gauss Pistol Vicious Receiver",
-                    "Plan: Hello Neon Sign",
-                    "Plan: Plasma Cutter",
-                    "Plan: Brotherhood Recon Jet Pack",
-                ],
-                "P14": [
-
-                ],
-                "P15": [
-                    "Plan: Covert Scout Armor Mask",
-                    "Plan: Covert Scout Armor Left Arm",
-                    "Plan: Covert Scout Armor Left Leg",
-                    "Plan: Covert Scout Armor Right Arm",
-                    "Plan: Covert Scout Armor Right Leg",
-                    "Plan: Covert Scout Armor Torso",
-                    "Plan: Open Neon Sign",
-                    "Plan: Crusader Pistol Cryo Receiver",
-                    "Plan: Crusader Pistol Fusion Receiver",
-                    "Plan: Crusader Pistol Pyro Receiver",
-                ],
-                "P16": [
-                    "Plan: BoS medallion",
-                    "Plan: Brotherhood recon jet pack",
-                    "Plan: Covert scout armor mask",
-                    "Plan: Covert scout armor chest piece",
-                    "Plan: Covert scout armor left arm",
-                    "Plan: Covert scout armor left leg",
-                    "Plan: Covert scout armor right arm",
-                    "Plan: Covert scout armor right leg",
-                    "Plan: Crusader pistol cryo receiver",
-                    "Plan: Crusader pistol fusion receiver",
-                    "Plan: Crusader pistol pyro receiver",
-                    "Plan: Emmett Mountain Disposal signs",
-                    "Plan: Enclave medallion",
-                    "Plan: Gauss minigun",
-                    "Plan: Gauss pistol hardened receiver",
-                    "Plan: Gauss pistol suppressed barrel",
-                    "Plan: Gauss pistol vicious receiver",
-                    "Plan: Hello neon sign",
-                    "Plan: Hellstorm missile launcher cryo payload",
-                    "Plan: Hellstorm missile launcher napalm payload",
-                    "Plan: Hellstorm missile launcher plasma payload",
-                    "Plan: Medical Malpractice",
-                    "Plan: Open neon sign",
-                    "Plan: Plasma cutter",
-                    "Plan: Weight bench",
-                    "Plan: Wendigo tube",
-                ],
-                "P17": [
-                    "Plan: Cattle Prod",
-                    "Plan: War Galive",
-                    "Plan: Secret Service Chest Piece",
-                    "Plan: Secret Service Helment",
-                    "Plan: Secret Service Left Arm",
-                    "Plan: Secret Service Left Leg",
-                    "Plan: Secret Service Right Arm",
-                    "Plan: Sectet Service Right Leg",
-                    "Plan: Super Reactor",
-                    "Plan: Sympto-Matic",
-                    "Plan: Farmable Dirt Tiles",
-                    "Plan: Gauss Minigun Gunner Sights",
-                    "Plan: Gauss Minigun Tesla Capacitor",
-                    "Plan: Gauss Minigun Tesla Dynamo",
-                    "Plan: Chemist's Backpack",
-                ],
-                "P18": [
-                    "Plan: Dynamite",
-                    "Plan: Floater Gnasher Grenade",
-                    "Plan: Gauss Pistol",
-                    "Plan: Sole Survivor",
-                    "Plan: Scavenged Solar Panel",
-                    "Plan: Strangler Heart Chest Piece",
-                    "Plan: Strangler Heart Helmet",
-                    "Plan: Strangler Heart Left Arm",
-                    "Plan: Strangler Heart Left Leg",
-                    "Plan: Strangler Heart Right Arm",
-                    "Plan: Strangler Heart Right Leg",
-                    "Plan: Grocer's Backpack mod",
-                    "Plan: Treated Lining Secret Service Underarmor",
-                    "Plan: Resistant Lining Secret Service Underarmor"
-                ],
-                "P19": [
-                    "Plan: Chinese Stealth Armor",
-                    "Plan: Chinese Stealth Helmet",
-                    "Plan: Gauntlet",
-                    "Plan: Mirelurk King Tube",
-                    "Plan: War Glaive Cryo Blade",
-                    "Plan: War Glaive Plasma Blade",
-                    "Plan: Hellfire Prototype Power Armor Paint",
-                    "Plan: Secret Service Jetpack",
-                    "Plan: Secret Service Pocketed Limb",
-                    "Plan: Secret Service Pocketed Torso",
-                    "Plan: T-65 Medic Pump",
-                    "Plan: T-65 Overdrive Servo",
-                    "Plan: T-65 Stealth Boy",
-                ],
-                "P20": [
-                    "Plan: Cattle Prod",
-                    "Plan: Dynamite",
-                    "Plan: Gauntlet",
-                    "Plan: Gauss Pistol",
-                    "Plan: Floater Gnasher Grenade",
-                    "Plan: Sole Survivor",
-                    "Plan: War Glaive",
-                    "Plan: Chinese Stealth Armor",
-                    "Plan: Chinese Stealth Helmet",
-                    "Plan: Secret Service Chest Piece",
-                    "Plan: Secret Service Helmet",
-                    "Plan: Secret Service Left Arm",
-                    "Plan: Secret Service Left Leg",
-                    "Plan: Secret Service Right Arm",
-                    "Plan: Secret Service Right Leg",
-                    "Plan: Strangler Heart Chest Piece",
-                    "Plan: Strangler Heart Helmet",
-                    "Plan: Strangler Heart Left Arm",
-                    "Plan: Strangler Heart Left Leg",
-                    "Plan: Strangler Heart Right Arm",
-                    "Plan: Strangler Heart Right Leg",
-                    "Plan: Farmable Dirt Tiles",
-                    "Plan: Mirelurk King Tube",
-                    "Plan: Scavenged Solar Panel",
-                    "Plan: Super Reactor",
-                    "Plan: Sympto-Matic",
-                    "Plan: Gauss Minigun Gunner Sights",
-                    "Plan: Gauss Minigun Tesla Capacitor",
-                    "Plan: Gauss Minigun Tesla Dynamo",
-                    "Plan: War Glaive Cryo Blade",
-                    "Plan: War Glaive Plasma Blade",
-                    "Plan: Chemist's Backpack",
-                    "Plan: Grocer's Backpack",
-                    "Plan: Secret Service Underarmor Treated Lining",
-                    "Plan: Secret Service Underarmor Resistant Lining",
-                    "Plan: Secret Service Jet Pack",
-                    "Plan: Secret Service Limb Pocketed",
-                    "Plan: Secret Service Torso Pocketed",
-                    "Plan: T-65 Medic Pimp",
-                    "Plan: T-65 Overdirve Servos",
-                    "Plan: T-65 Stealth Boy"
-
-                ],
-                "P21": [
-                    "Plan: Gauss Minigun",
-                    "Plan: Protective Lining Secret Service Underarmor",
-                    "Plan: Shielded Lining Secret Service Underarmor",
-                    "Plan: Gauss Pistol Aligned Short Barrel",
-                    "Plan: Gauss Pistol Drum Magazine",
-                    "Plan: Gauss Pistol Refined Receiver",
-                    "Plan: Mechanic's Best Friend",
-                    "Plan: Medium Supply Crate",
-                    "Plan: Thorn Armor Chest Piece",
-                    "Plan: Thorn Armor Left Arm",
-                    "Plan: Thorn Armor Left Leg",
-                    "Plan: Thorn Armor Right Arm",
-                    "Plan: Thorn Armor Right Leg",
-                ],
-                "P22": [
-                    "Plan: Secret Service Limb Lighter Build",
-                    "Plan: Secret Service Limb Ultra-light Build",
-                    "Plan: Plasma Caster",
-                    "Plan: Secret Service Underarmor",
-                    "Plan: The Gutter",
-                    "Plan: War Glaive Flaming Blade",
-                    "Plan: War Glaive Shock Blade",
-                    "Plan: Water Well",
-                    "Plan: Whistle In The Dark",
-                    "Plan: T-65 Calibrated Shocks",
-                    "Plan: T-65 Jet Pack",
-                    "Plan: T-65 Rusty Knuckles",
-                ],
-                "P23": [
-                    "Plan: Arctic Marine Armor Helmet",
-                    "Plan: Arctic Marine Left Arm",
-                    "Plan: Arctic Marine Left Leg",
-                    "Plan: Arctic Marine Right Arm",
-                    "Plan: Arctic Marine Right Leg",
-                    "Plan: Arctic Marine Torso",
-                    "Plan: Crusader Pistol",
-                    "Plan: Gauss Minigun",
-                    "Plan: Meat Bag Stash Box",
-                    "Plan: Wendigo Tube",
-                ],
-                "P24": [
-                    "Plan: Arctic Marine Armor Helmet",
-                    "Plan: Arctic Marine Armor Left Arm",
-                    "Plan: Arctic Marine Armor Left Leg",
-                    "Plan: Arctic Marine Armor Right Arm",
-                    "Plan: Arctic Marine Armor Right Leg",
-                    "Plan: Arctic Marine Armor Torso",
-                    "Plan: Brotherhood of Steel Minigun Paint",
-                    "Plan: Crusader Pistol",
-                    "Plan: Gauss Minigun",
-                    "Plan: Gauss Pistol Aligned Short Barrel",
-                    "Plan: Gauss Pistol Aligned Drum Magazine",
-                    "Plan: Gauss Pistol Aligned Refined Receiver",
-                    "Plan: Gauss Pistol Aligned Short Barrel",
-                    "Plan: Medium Supply Crate",
-                    "Plan: Meat Bag Stash Box",
-                    "Plan: Mechanic's Best Friend",
-                    "Plan: Plasma Caster",
-                    "Plan: Secret Service Armor Limb Lighter Build",
-                    "Plan: Secret Service Armor Limb Ultra-light Build",
-                    "Plan: Secret Service Underarmor",
-                    "Plan: Secret Service Underarmor Protective Lining",
-                    "Plan: Secret Service Underarmor Shielded Lining",
-                    "Plan: Slocum Joe's Power Armor Paint",
-                    "Plan: T-65 Calibrated Shocks",
-                    "Plan: T-65 Jet Pack",
-                    "Plan: T-65 Rusty Knuckles",
-                    "Plan: The Gutter",
-                    "Plan: Thorn Armor Left Arm",
-                    "Plan: Thorn Armor Left Leg",
-                    "Plan: Thorn Armor Right Arm",
-                    "Plan: Thorn Armor Right Leg",
-                    "Plan: Thorn Armor Torso",
-                    "Plan: War Glaive Flaming Blade",
-                    "Plan: War Glaive Shock Blade",
-                    "Plan: Water Well",
-                    "Plan: Wendigo Tube",
-                    "Plan: Whistle In The Dark",
-                ],
-                "P25": [
-                    "Plan: Cattle Prod",
-                    "Plan: Chemist Backpack Mod",
-                    "Plan: Farmable Dirt Tiles",
-                    "Plan: Gauss Minigun Gunner Sights",
-                    "Plan: Gauss Minigun Tesla Capacitor",
-                    "Plan: Gauss Minigun Tesla Dynamo",
-                    "Plan: Secret Service Helmet",
-                    "Plan: Secret Service Left Arm",
-                    "Plan: Secret Service Left Leg",
-                    "Plan: Secret Service Right Arm",
-                    "Plan: Secret Service Right Leg",
-                    "Plan: Secret Service Torso",
-                    "Plan: Super Reactor",
-                    "Plan: Sympto-matic",
-                    "Plan: War Glaive",
-                ],
-                "P26": [
-                    "Plan: Dynamite",
-                    "Plan: Floater Gnasher Grenade",
-                    "Plan: Gauss Pistol",
-                    "Plan: Grocer's Backpack Mod",
-                    "Plan: Secret Service Underarmor Resistant Lining",
-                    "Plan: Secret Service Underarmor Treated Lining",
-                    "Plan: Scavenged Solar Panel",
-                    "Plan: Strangler Heart Helmet",
-                    "Plan: Strangler Heart Left Arm",
-                    "Plan: Strangler Heart Left Leg",
-                    "Plan: Strangler Heart Right Arm",
-                    "Plan: Strangler Heart Right Leg",
-                    "Plan: Strangler Heart Torso",
-                ],
-                "P27": [
-                    "Plan: Chinese Stealth Armor",
-                    "Plan: Chinese Stealth Helmet",
-                    "Plan: Gauntlet",
-                    "Plan: Secret Service Jet Pak Armor",
-                    "Plan: Secret Service Limb Pocketed",
-                    "Plan: Secret Service Torso Pocketed",
-                    "Plan: T-65 Medic Pump",
-                    "Plan: T-65 Overdrive Servos",
-                    "Plan: T-65 Stealth Boy",
-                    "Plan: War Glaive Cryo Blade",
-                    "Plan: War Glaive Plasma Blade",
-                ],
-                "P28": [
-                    "Plan: Cattle Prod",
-                    "Plan: Chemist Backpack Mod",
-                    "Plan: Chinese Stealth Armor",
-                    "Plan: Chinese Stealth Helmet",
-                    "Plan: Dynamite",
-                    "Plan: Farmable Dirt Tiles",
-                    "Plan: Floater Gnasher Grenade",
-                    "Plan: Gauntlet",
-                    "Plan: Gauss Minigun Gunner Sights",
-                    "Plan: Gauss Minigun Tesla Capacitor",
-                    "Plan: Gauss Minigun Tesla Dynamo",
-                    "Plan: Gauss Pistol",
-                    "Plan: Grocer's Backpack Mod",
-                    "Plan: Scavenged Solar Panel",
-                    "Plan: Secret Service Underarmor Resistant Lining",
-                    "Plan: Secret Service Jet Pack",
-                    "Plan: Secret Service Chest Piece",
-                    "Plan: Secret Service Helmet",
-                    "Plan: Secret Service Limb Pocketed",
-                    "Plan: Secret Service Torso Pocketed",
-                    "Plan: Secret Service Left Arm",
-                    "Plan: Secret Service Left Leg",
-                    "Plan: Secret Service Right Arm",
-                    "Plan: Secret Service Right Leg",
-                    "Plan: Secret Service Underarmor Treated Lining",
-                    "Plan: Strangler Heart Chest Pice",
-                    "Plan: Strangler Heart Helmet",
-                    "Plan: Strangler Heart Left Arm",
-                    "Plan: Strangler Heart Left Leg",
-                    "Plan: Strangler Heart Right Arm",
-                    "Plan: Strangler Heart Right Leg",
-                    "Plan: Super Reactor",
-                    "Plan: Sympto-Matic",
-                    "Plan: T-65 Medic Pump",
-                    "Plan: T-65 Overdrive Servos",
-                    "Plan: T-65 Stealth Boy",
-                    "Plan: War Glaive",
-                    "Plan: War Glaive Cryo Blade",
-                    "Plan: War Glaive Plasma Blade",
-                ],
-                "P?": [
-                    "TBD"
-                ]
-            };
-
             function createMinerva(start, end, location, pool) {
-                let minervaTip = "<table class='infoTable'>";
-                if (pool) {
-                    for (var items of minervaPools[pool]) {
-                        minervaTip += "<tr><td>" + items + "</td></tr>";
-                    }
-                } else {
-                    minervaTip += "<tr><td>Not known yet</td></tr>";
-                }
-                
-                minervaTip += "</table>";
                 return {
                     validStart: start,
                     validEnd: end,
@@ -14303,11 +13783,6 @@
                             subchallenges: [
                                 {
                                     name: "Offers random plans (bullion or daily ops) at a discount"
-                                },
-                                {
-                                    name: "This week's plans:",
-                                    tipId: "MinervaPool" + pool,
-                                    tip: minervaTip
                                 },
                                 {
                                     name: "<a href='https://fallout.fandom.com/wiki/Minerva#Vendor_inventory' target='_blank'>All of her Inventory</a>"
@@ -15198,12 +14673,9 @@
 
                 createScripSurplus2(ofDate(2022, 8, 1, 16), ofDate(2022, 8, 6, 16)),
                 createDoubleMutations(ofDate(2022, 8, 8, 16), ofDate(2022, 8, 12, 16)),
-                createDoubleMutations(ofDate(2022, 8, 22, 16), ofDate(2022, 8, 26, 16)),
-                createScripSurplus2(ofDate(2022, 8, 29, 16), ofDate(2022, 9, 3, 16)),
-                createGoldRush2(ofDate(2022, 8, 29, 16), ofDate(2022, 9, 3, 16)),
-                createMinerva(ofDate(2022, 8, 29, 16), ofDate(2022, 9, 3, 16), "Big Sale @ TBD", "P?"),
-
             ];
+
+            communityEventsAppend.forEach(e => communityEvents.push(e));
 
             function ofDate(year, month, day, hour) {
                 return new Date(Date.UTC(year, month, day, hour, 0, 0, 0));
@@ -15343,6 +14815,15 @@
                 ]
             };
 
+            var season10 = {
+                validStart: ofDate(2022, 8, 13, 16),
+                validEnd: plusDays(ofDate(2022, 8, 13, 16), era13Length),
+                title: "Season 10: TBD",
+                options: [
+                    
+                ]
+            };
+
             fillInSeason(season1, 70, "LR1");
             fillInSeason(season2, 91, "LR2");
             fillInSeason(season3, 133, "LR3");
@@ -15351,7 +14832,8 @@
             fillInSeason(season6, 91, "LR6");
             fillInSeason(season7, era10Length, "LR7");
             fillInSeason(season8, era11Length, "LR8");
-            fillInSeason(season9, era12Length, "LR9", true);
+            fillInSeason(season9, era12Length, "LR9");
+            fillInSeason(season10, era13Length, "LR10", true);
 
             for (var i = 56; i < 91; i++) {
                 season2.options.push({
@@ -15388,7 +14870,8 @@
                 season6,
                 season7,
                 season8,
-                season9
+                season9,
+                season10
             ];
 
             // --------------------------------------------------------------------------------------------------------------
