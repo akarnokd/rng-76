@@ -13301,6 +13301,28 @@
                     scoreGainXP2500, 1,
                     make1st(scoreKillCreatureInGroup), 15,
                 ], dops(dailyOpsValley, dailyOpsCommunists, dailyOpsFreezing, false));
+            addWeekly(challengesWeeklyEra12.options, 77, scoreFixedGainXP10000Rank100);
+            addWeekly(challengesWeeklyEra12.options, 77, scoreLevelUp3);
+            addWeekly(challengesWeeklyEra12.options, 77, scoreCompleteDailyOps, 5);
+            addWeekly(challengesWeeklyEra12.options, 77, scoreCompleteGoldStar);
+            addWeekly(challengesWeeklyEra12.options, 77, scoreCompleteEvents10);
+            addWeekly(challengesWeeklyEra12.options, 77, scoreBuildWallDecor, 25);
+            addWeekly(challengesWeeklyEra12.options, 77, scoreCollectBullion, 150);
+            addWeekly(challengesWeeklyEra12.options, 77, scoreClaimWorkshop, 3);
+            addWeekly(challengesWeeklyEra12.options, 77, scoreCriticalHit, 25);
+            addWeekly(challengesWeeklyEra12.options, 77, scoreEatMeat, 25);
+            addDaily(challengesDailyEra12, 77, [
+                    scoreCompleteDailyChallenge, 5,
+                    scoreLevelUp, 1,
+                    scoreCompleteDailyOps, 1,
+                    scoreCompleteOneEvent, 1,
+                    scoreJoinGroup, 1,
+                    scoreEatPrewarFood, 3,
+                    scoreKillLegendary, 5,
+                    scoreUsePhotomode, 3,
+                    scoreGainXP2500, 1,
+                    make1st(scoreCollectAudiotape), 1,
+                ], dops(dailyOpsValley, dailyOpsCommunists, dailyOpsFreezing, false));
 
             addPlaceholders(challengesDailyEra12, scoreDailyplaceholder, era12Length);
             addPlaceholders(challengesWeeklyEra12, scoreWeeklyplaceholder, era12Length);
