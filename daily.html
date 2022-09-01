@@ -13335,10 +13335,26 @@
                     scoreGainXP2500, 1,
                     make1st(scoreUsePhotomodeTeammate), 1,
                 ], dops(dailyOpsArktos, dailyOpsScorched, dailyOpsCloaked, false));
+            addDaily(challengesDailyEra12, 79, [
+                    scoreCompleteDailyChallenge, 5,
+                    scoreLevelUp, 1,
+                    scoreCompleteDailyOps, 1,
+                    scoreCompleteOneEvent, 1,
+                    scoreCompleteEventInGroup, 1,
+                    scoreBuildFloorWallCamp, 5,
+                    scoreModArmor, 3,
+                    scoreKillThreestarLegendary, 1,
+                    scoreGainXP2500, 1,
+                    make1st(scoreKillMoleminer), 15,
+                ], dops(dailyOpsArktos, dailyOpsScorched, dailyOpsCloaked, false));
 
             addPlaceholders(challengesDailyEra12, scoreDailyplaceholder, era12Length);
             addPlaceholders(challengesWeeklyEra12, scoreWeeklyplaceholder, era12Length);
 
+            // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~11
+
+            var communityEventsAppend = [];
+            var seasonEventsAppend = [];
 
             // oooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo
             // Season 10
@@ -13358,7 +13374,16 @@
             challenges.push(challengesDailyEra13);
             challengesWeekly.push(challengesWeeklyEra13);
 
-            var communityEventsAppend = [];
+            var season10 = {
+                validStart: ofDate(2022, 8, 13, 16),
+                validEnd: plusDays(ofDate(2022, 8, 13, 16), era13Length),
+                title: "Season 10: TBD",
+                options: [
+                    
+                ]
+            };
+            fillInSeason(season10, era13Length, "LR10", true);
+            seasonEventsAppend.push(season10);
 
             addWeekly(challengesWeeklyEra13.options, 0, scoreFixedGainXP10000Rank100);
             addWeekly(challengesWeeklyEra13.options, 0, scoreLevelUp3);
@@ -14859,6 +14884,7 @@
 
                 createScripSurplus2(ofDate(2022, 8, 1, 16), ofDate(2022, 8, 6, 16)),
                 createDoubleMutations(ofDate(2022, 8, 8, 16), ofDate(2022, 8, 12, 16)),
+                createPurveyor(ofDate(2022, 8, 8, 16), ofDate(2022, 8, 12, 16), 25, false, 1)
             ];
 
             communityEventsAppend.forEach(e => communityEvents.push(e));
@@ -15001,15 +15027,6 @@
                 ]
             };
 
-            var season10 = {
-                validStart: ofDate(2022, 8, 13, 16),
-                validEnd: plusDays(ofDate(2022, 8, 13, 16), era13Length),
-                title: "Season 10: TBD",
-                options: [
-                    
-                ]
-            };
-
             fillInSeason(season1, 70, "LR1");
             fillInSeason(season2, 91, "LR2");
             fillInSeason(season3, 133, "LR3");
@@ -15019,7 +15036,6 @@
             fillInSeason(season7, era10Length, "LR7");
             fillInSeason(season8, era11Length, "LR8");
             fillInSeason(season9, era12Length, "LR9");
-            fillInSeason(season10, era13Length, "LR10", true);
 
             for (var i = 56; i < 91; i++) {
                 season2.options.push({
@@ -15057,8 +15073,8 @@
                 season7,
                 season8,
                 season9,
-                season10
             ];
+            seasonEventsAppend.forEach(v => seasonEvents.push(v));
 
             // --------------------------------------------------------------------------------------------------------------
 
