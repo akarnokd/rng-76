@@ -52,6 +52,7 @@
             var shiftDate3 = ofDate(2021, 2, 14, 16);
             var shiftDate4 = ofDate(2021, 10, 7, 16);
             var shiftDate5 = ofDate(2022, 2, 13, 16);
+            var shiftDate6 = ofDate(2022, 10, 6, 16);
 
             function normalizeDate(date) {
                 if (date < oneHourLaterSince) {
@@ -69,9 +70,12 @@
                 } else 
                 if (date < shiftDate5) {
                     date.setUTCHours(17, 0, 0, 0);
+                } else 
+                if (date < shiftDate6) {
+                    date.setUTCHours(16, 0, 0, 0);
                 }
                 else {
-                    date.setUTCHours(16, 0, 0, 0);
+                    date.setUTCHours(17, 0, 0, 0);
                 }
             }
 
@@ -13377,7 +13381,7 @@
             var season10 = {
                 validStart: ofDate(2022, 8, 13, 16),
                 validEnd: plusDays(ofDate(2022, 8, 13, 16), era13Length),
-                title: "Season 10: TBD",
+                title: "Season 10: Red Rocket 'Across America' Presents: The City of Steel",
                 options: [
                     
                 ]
@@ -13417,6 +13421,95 @@
             communityEventsAppend.push(createScripSurplus2(ofDate(2022, 8, 29, 16), ofDate(2022, 9, 3, 16)));
             communityEventsAppend.push(createGoldRush2(ofDate(2022, 8, 29, 16), ofDate(2022, 9, 3, 16)));
             communityEventsAppend.push(createMinerva(ofDate(2022, 8, 29, 16), ofDate(2022, 9, 3, 16), "Big Sale @ TBD", "P?"));
+
+            communityEventsAppend.push(createInvaders(ofDate(2022, 9, 4, 16), ofDate(2022, 9, 18, 16)));
+            communityEventsAppend.push(createDoubleMutations(ofDate(2022, 9, 6, 16), ofDate(2022, 9, 10, 16)));
+            communityEventsAppend.push(createCapsOPlenty(ofDate(2022, 9, 13, 16), ofDate(2022, 9, 17, 16)));
+            communityEventsAppend.push(createHolidayScorched(ofDate(2022, 9, 25, 16), ofDate(2022, 10, 8, 16), "Spooky Scorched"));
+
+            communityEventsAppend.push(createDoubleMutations(ofDate(2022, 10, 3, 16), ofDate(2022, 10, 7, 16)));
+            communityEventsAppend.push(createGoldRush2(ofDate(2022, 10, 3, 16), ofDate(2022, 10, 7, 16)));
+            communityEventsAppend.push(createMinerva(ofDate(2022, 10, 3, 16), ofDate(2022, 10, 7, 17), "Big Sale @ TBD", "P?"));
+            communityEventsAppend.push(createDoubleXP(ofDate(2022, 10, 10, 17), ofDate(2022, 10, 14, 17)));
+            communityEventsAppend.push(createCallToAxetion(ofDate(2022, 10, 15, 17), ofDate(2022, 10, 29, 17)));
+            communityEventsAppend.push(createDoubleMutations(ofDate(2022, 10, 17, 17), ofDate(2022, 10, 21, 17)));
+            communityEventsAppend.push(createPurveyor(ofDate(2022, 10, 24, 17), ofDate(2022, 10, 28, 17), 25, false, 1));
+            communityEventsAppend.push(createScripSurplus2(ofDate(2022, 10, 24, 17), ofDate(2022, 10, 27, 17)));
+            communityEventsAppend.push(createCapsOPlenty(ofDate(2022, 10, 24, 17), ofDate(2022, 10, 28, 17)));
+
+            communityEventsAppend.push(createDoubleMutations(ofDate(2022, 11, 1, 17), ofDate(2022, 11, 5, 17)));
+            communityEventsAppend.push(createMinerva(ofDate(2022, 11, 8, 17), ofDate(2022, 11, 12, 17), "Big Sale @ TBD", "P?"));
+
+            addPlaceholders(challengesDailyEra13, scoreDailyplaceholder, era13Length);
+            addPlaceholders(challengesWeeklyEra13, scoreWeeklyplaceholder, era13Length);
+
+
+            // oooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo
+            // Season 11
+            // oooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo
+
+            var era14Length = 91;
+            var challengesDailyEra14 = {
+                validStart: ofDate(2022, 11, 13, 17),
+                validEnd: plusDays(ofDate(2022, 11, 13, 17), era14Length),
+                options: []
+            };
+            var challengesWeeklyEra14 = {
+                validStart: ofDate(2022, 11, 13, 17),
+                validEnd: plusDays(ofDate(2022, 11, 13, 17), era14Length),
+                options: []
+            };
+            challenges.push(challengesDailyEra14);
+            challengesWeekly.push(challengesWeeklyEra14);
+
+            var season11 = {
+                validStart: ofDate(2022, 11, 13, 17),
+                validEnd: plusDays(ofDate(2022, 11, 13, 17), era14Length),
+                title: "Season 11: Nuka-World on Tour",
+                options: [
+                    
+                ]
+            };
+            fillInSeason(season11, era14Length, "LR11", true);
+            seasonEventsAppend.push(season11);
+
+            addWeekly(challengesWeeklyEra14.options, 0, scoreFixedGainXP10000Rank100);
+            addWeekly(challengesWeeklyEra14.options, 0, scoreLevelUp3);
+            addWeekly(challengesWeeklyEra14.options, 0, scoreCompleteDailyOps, 5);
+            addWeekly(challengesWeeklyEra14.options, 0, scoreCompleteGoldStar);
+            addWeekly(challengesWeeklyEra14.options, 0, scoreCompleteEvents10);
+            /*
+            addWeekly(challengesWeeklyEra14.options, 0, scoreCompleteDailyOpsPublicTeam, 3);
+            addWeekly(challengesWeeklyEra14.options, 0, scoreCompleteMeatCookDaily, 5);
+            addWeekly(challengesWeeklyEra14.options, 0, scoreDrinkNukaCola, 15);
+            addWeekly(challengesWeeklyEra14.options, 0, scoreKillLegendary, 10);
+            addWeekly(challengesWeeklyEra14.options, 0, scoreRepairArmorWeaponPA, 25);
+            */
+            addDaily(challengesDailyEra14, 0, [
+                    scoreCompleteDailyChallenge, 5,
+                    scoreLevelUp, 1,
+                    scoreCompleteDailyOps, 1,
+                    scoreCompleteOneEvent, 1,
+                    /*
+                    scoreBuildWallDecor, 5,
+                    scoreCollectPurifiedWater, 5,
+                    scoreCompleteDailyOpsPublicTeam, 1,
+                    scoreCompleteMeatCook, 1,
+                    scoreCompletePrimalCuts, 1,
+                    */
+                    scoreGainXP2500, 1,
+                    //make1st(scoreJoinGroup), 1,
+                ], dops(dailyOpsUncanny, dailyOpsEagles, dailyOpsSwift, true));
+
+            communityEventsAppend.push(createDoubleMutations(ofDate(2022, 11, 15, 17), ofDate(2022, 11, 19, 17)));
+            communityEventsAppend.push(createGoldRush2(ofDate(2022, 11, 15, 17), ofDate(2022, 11, 19, 17)));
+            communityEventsAppend.push(createHolidayScorched(ofDate(2022, 11, 20, 17), ofDate(2023, 0, 3, 17)));
+            communityEventsAppend.push(createDoubleXP(ofDate(2022, 11, 22, 17), ofDate(2022, 11, 26, 17)));
+            communityEventsAppend.push(createPurveyor(ofDate(2022, 11, 29, 17), ofDate(2023, 0, 2, 17), 25, false, 1));
+            communityEventsAppend.push(createScripSurplus2(ofDate(2022, 11, 29, 17), ofDate(2023, 0, 2, 17)));
+
+            addPlaceholders(challengesDailyEra14, scoreDailyplaceholder, era14Length);
+            addPlaceholders(challengesWeeklyEra14, scoreWeeklyplaceholder, era14Length);
 
             // --------------------------------------------------------------------------------------------------------------
             // Community events
@@ -13717,11 +13810,14 @@
                 return result;
             }
 
-            function createHolidayScorched(start, end) {
+            function createHolidayScorched(start, end, title) {
+                if (title === undefined) {
+                    title = "Holiday Scorched";
+                }
                 return {
                     validStart: start,
                     validEnd: end,
-                    title: "Holiday Scorched",
+                    title: title,
                     options: [
                         {
                             name: "Hunt Holiday Scorched for Gift packs",
@@ -13931,6 +14027,20 @@
                     options: [
                         {
                             name: "Double for all activities",
+                            offset: 0,
+                            period: 1
+                        }
+                    ]
+                };
+            }
+            function createCallToAxetion(start, end) {
+                return {
+                    validStart: start,
+                    validEnd: end,
+                    title: "Call to Axe-tion challenge event",
+                    options: [
+                        {
+                            name: "Don't know what this event is right now. TBD",
                             offset: 0,
                             period: 1
                         }
@@ -15175,9 +15285,15 @@
 
                 createPWHappyBuilder(ofDate(2022, 7, 1, 16), ofDate(2022, 8, 1, 16)),
                 createPWHighRisk(ofDate(2022, 8, 1, 16), ofDate(2022, 9, 1, 16)),
-                createPWDwellerMustDie(ofDate(2022, 9, 1, 16), ofDate(2022, 10, 1, 17)),
-                createPWQuantumWorld(ofDate(2022, 10, 1, 17), ofDate(2022, 11, 1, 17)),
-                createPWButchersDelight(ofDate(2023, 1, 1, 17), ofDate(2022, 2, 1, 17))
+                createPWDwellerMustDie(ofDate(2022, 9, 1, 16), ofDate(2022, 10, 1, 16)),
+                createPWQuantumWorld(ofDate(2022, 10, 1, 16), ofDate(2022, 11, 1, 17)),
+                createPWButchersDelight(ofDate(2022, 11, 1, 17), ofDate(2023, 0, 1, 17)),
+
+                createPWHappyBuilder(ofDate(2023, 0, 1, 16), ofDate(2023, 1, 1, 16)),
+                createPWHighRisk(ofDate(2023, 1, 1, 16), ofDate(2023, 2, 1, 16)),
+                createPWDwellerMustDie(ofDate(2023, 2, 1, 16), ofDate(2023, 3, 1, 17)),
+                createPWQuantumWorld(ofDate(2023, 3, 1, 17), ofDate(2023, 4, 1, 17)),
+                createPWButchersDelight(ofDate(2023, 4, 1, 17), ofDate(2023, 5, 1, 17))
             ];
 
             // --------------------------------------------------------------------------------------------------------------
