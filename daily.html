@@ -2253,18 +2253,27 @@
                     period: 1400
                 });
                 var muts = {
-                    name: "Mutations:",
+                    name: "",
                     offset: day,
                     period: 1400,
                     subchallenges: []
                 };
+                let i = 0;
                 for (var m of mutations) {
-                    muts.subchallenges.push({
-                        name: m.name,
-                        tipId: m.tipId,
-                        tip: m.tip
-                    });
+                    if (i == 1) {
+                        muts.name = "<span class='dopsHeader'>Mutations:</span> <i>" + m.name + "</i>";
+                        muts.tipId = m.tipId;
+                        muts.tip = m.tip;
+                    } else {
+                        muts.subchallenges.push({
+                            name: m.name,
+                            tipId: m.tipId,
+                            tip: m.tip
+                        });
+                    }
+                    i++;
                 }
+                
 
                 options.push(muts);
                 options.push({
