@@ -27,7 +27,7 @@
     </head>
     <body style="height: 90%">
         <center>
-            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Weapon Damage Calculator (v3.10.2)</span>
+            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Weapon Damage Calculator (v3.10.3)</span>
             <br/>
             <i>(Patch 38 [The Pitt] update in progress.)</i>
         <br/>
@@ -7470,6 +7470,12 @@
             addEnemy("Glowing Trog", ["Glowing"], enemyResistancesMap["trogglowing"]);
             addEnemy("Trog Melee", [], enemyResistancesMap["trogmelee"]);
             addEnemy("Trog Superior", [], enemyResistancesMap["trogsuperior"]);
+
+            addEnemy("Human Fanatic", ["NPC"], enemyResistancesMap["humanfanatic"]);
+            addEnemy("Human Fanatic Boss", ["NPC"], enemyResistancesMap["humanfanaticboss"]);
+            addEnemy("Human Fanatic Miniboss", ["NPC"], enemyResistancesMap["humanfanaticminiboss"]);
+            addEnemy("Human Fanatic Lite Miniboss", ["NPC"], enemyResistancesMap["humanfanaticminibosselite"]);
+            addEnemy("Human Fanatic Power Armor", ["NPC"], enemyResistancesMap["humanfanaticpowerarmor"]);
 
             // some enemies are immune to radiation or even heal off it
             var enemyRadiationEffect = new Map();
