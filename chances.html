@@ -45,7 +45,7 @@
     </head>
     <body>
         <center>
-            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Drop Chances (0.3.10)</span><br/>
+            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Drop Chances (0.4.0)</span><br/>
             <a href='leveledlist' target='_blank'>How does it work?</a>
             <br/>
             <br/>
@@ -71,7 +71,8 @@
                 <option value='P33'>Update 33: 1st March, 2022</option>
                 <option value='P33A'>Update 33A: 12th April, 2022</option>
                 <option value='P34'>Update 34: 14th June, 2022</option>
-                <option value='P37' selected='selected'>Update 37: 26th July, 2022 (latest)</option>
+                <option value='P37'>Update 37: 26th July, 2022</option>
+                <option value='P38' selected='selected'>Update 38: 13th September, 2022 (latest)</option>
             </select>
             &nbsp;&nbsp;
             <button id='loadversion'>Load</button>
@@ -988,6 +989,7 @@
             addFunction("HasKeyword", displayOneLinkCheckFunc, addCheckBoxFunc, evalCheckBoxFunc);
             addFunction("HasActiveMagicEffect", displayOneLinkCheckFunc, addCheckBoxFunc, evalCheckBoxFunc);
             addFunction("GetEquipped", displayOneLinkCheckFunc, addCheckBoxFunc, evalCheckBoxFunc);
+            addFunction("PlayerHasQuest", displayOneLinkCheckFunc, addCheckBoxFunc, evalCheckBoxFunc);
 
             // A global value keyed by its ID
             // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
