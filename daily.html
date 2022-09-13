@@ -13540,33 +13540,79 @@
             fillInSeason(season10, era13Length, "LR10", true);
             seasonEventsAppend.push(season10);
 
+            function scoreExpeditionsPitt(offset, count) {
+                return {
+                    name: times("&#x1F681; Expeditions: Complete a mission in The Pitt", count),
+                    offset: offset,
+                    period: 1400
+                };
+            }
+            function scoreExpeditionsRefugeDaily(offset, count) {
+                return {
+                    name: times("&#x1F681; Expeditions: Complete a Refuge Daily", count),
+                    offset: offset,
+                    period: 1400
+                };
+            }
+            function scoreCollectVertibirdFuel(offset, count) {
+                return {
+                    name: times("Collect Vertibird Fuel", count),
+                    offset: offset,
+                    period: 1400
+                };
+            }
+            function scoreCompleteDailyOpsDailies(offset, count) {
+                return {
+                    name: times("Complete Daily Operations Daily Challenge", count),
+                    offset: offset,
+                    period: 1400,
+                };
+            }
+            function scoreExpeditionsUnionsDue(offset, count) {
+                return {
+                    name: times("&#x1F681; Expeditions: Complete Unions Dues In The Pitt", count),
+                    offset: offset,
+                    period: 1400
+                };
+            }
+            function scoreKillFanatic(offset, count) {
+                return {
+                    name: times("&#x1F681; Kill a Fanatic", count),
+                    offset: offset,
+                    period: 1400
+                };
+            }
+            function scoreTakeCameraPictureFanaticConqueror(offset, count) {
+                return {
+                    name: times("&#x1F681; Take a Camera Picture of a Fanatic Conqueror", count),
+                    offset: offset,
+                    period: 1400
+                };
+            }
+
             addWeekly(challengesWeeklyEra13.options, 0, scoreFixedGainXP10000Rank100);
             addWeekly(challengesWeeklyEra13.options, 0, scoreLevelUp3);
-            addWeekly(challengesWeeklyEra13.options, 0, scoreCompleteDailyOps, 5);
+            addWeekly(challengesWeeklyEra13.options, 0, scoreCompleteDailyOpsDailies, 3);
             addWeekly(challengesWeeklyEra13.options, 0, scoreCompleteGoldStar);
             addWeekly(challengesWeeklyEra13.options, 0, scoreCompleteEvents10);
-            /*
-            addWeekly(challengesWeeklyEra13.options, 0, scoreCompleteDailyOpsPublicTeam, 3);
-            addWeekly(challengesWeeklyEra13.options, 0, scoreCompleteMeatCookDaily, 5);
-            addWeekly(challengesWeeklyEra13.options, 0, scoreDrinkNukaCola, 15);
-            addWeekly(challengesWeeklyEra13.options, 0, scoreKillLegendary, 10);
-            addWeekly(challengesWeeklyEra13.options, 0, scoreRepairArmorWeaponPA, 25);
-            */
+            addWeekly(challengesWeeklyEra13.options, 0, scoreBuildWallDecor, 25);
+            addWeekly(challengesWeeklyEra13.options, 0, scoreCollectPurifiedWater, 25);
+            addWeekly(challengesWeeklyEra13.options, 0, scoreKillFanatic, 50);
+            addWeekly(challengesWeeklyEra13.options, 0, scoreExpeditionsUnionsDue, 1);
+            addWeekly(challengesWeeklyEra13.options, 0, scoreTakeCameraPictureFanaticConqueror, 1);
+
             addDaily(challengesDailyEra13, 0, [
                     scoreCompleteDailyChallenge, 5,
                     scoreLevelUp, 1,
                     scoreCompleteDailyOps, 1,
                     scoreCompleteOneEvent, 1,
-                    /*
-                    scoreBuildWallDecor, 5,
-                    scoreCollectPurifiedWater, 5,
-                    scoreCompleteDailyOpsPublicTeam, 1,
-                    scoreCompleteMeatCook, 1,
-                    scoreCompletePrimalCuts, 1,
-                    */
+                    scoreCollectAudiotape, 1,
+                    scoreKillCultist, 10,
                     scoreGainXP2500, 1,
-                    //make1st(scoreJoinGroup), 1,
-                ], dops(dailyOpsUncanny, dailyOpsEagles, dailyOpsSwift, true));
+                    scoreExpeditionsRefugeDaily, 1,
+                    scoreExpeditionsPitt, 1,
+                    make1st(scoreCollectVertibirdFuel), 1000,
+                ], dops(dailyOpsWatoga, dailyOpsCommunists, dailyOpsToxic, true));
 
             communityEventsAppend.push(createDoubleMutations(ofDate(2022, 8, 22, 16), ofDate(2022, 8, 26, 16)));
             communityEventsAppend.push(createScripSurplus2(ofDate(2022, 8, 29, 16), ofDate(2022, 9, 3, 16)));
