@@ -27,7 +27,7 @@
     </head>
     <body style="height: 90%">
         <center>
-            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Weapon Damage Calculator (v3.10.3)</span>
+            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Weapon Damage Calculator (v3.10.4)</span>
             <br/>
             <i>(Patch 38 [The Pitt] update in progress.)</i>
         <br/>
@@ -9245,7 +9245,7 @@
                                 if (!(effItem.name.includes("Explosive") && weap.explosive)) {
                                     effOpt = document.createElement("option");
                                     effSelector.add(effOpt);
-                                    effOpt.value = "" + effIdx;
+                                    effOpt.value = effItem.name;
                                     effOpt.linkId = linkIdFor(effItem, effItem.name);
 
                                     if (effItem.text !== undefined) {
@@ -11211,7 +11211,15 @@
                 effects.forEach(function(effect, idx) {
                     var effectSel = document.getElementById("effs_" + index + "_" + idx);
                     if (effectSel != null && effectSel.selectedIndex > 0) {
-                        var effInfo = withOverride(effects[idx][effectSel.selectedIndex - 1], calcMode);
+                        let ename = effectSel.options[effectSel.selectedIndex].value;
+                        let effectOfType = effects[idx];
+                        var effInfoRaw = undefined;
+                        effectOfType.forEach(e => {
+                            if (e.name === ename) {
+                                effInfoRaw = e;
+                            }
+                        });
+                        var effInfo = withOverride(effInfoRaw, calcMode);
                         
                         if (effInfo.damageMultPercent !== undefined) {
                             var perc = effInfo.damageMultPercent;
