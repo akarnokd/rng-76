@@ -13589,6 +13589,20 @@
                     period: 1400
                 };
             }
+            function scoreKillMirelurk(offset, count) {
+                return {
+                    name: times("&#x1F681; Kill Mirelurk", count),
+                    offset: offset,
+                    period: 1400
+                };
+            }
+            function scoreScrapJunkRubber(offset, count) {
+                return {
+                    name: times("&#x1F681; Scrap junk to produce rubber", count),
+                    offset: offset,
+                    period: 1400
+                };
+            }
 
             addWeekly(challengesWeeklyEra13.options, 0, scoreFixedGainXP10000Rank100);
             addWeekly(challengesWeeklyEra13.options, 0, scoreLevelUp3);
@@ -13648,6 +13662,18 @@
                     scoreKillMoleminer, 10,
                     scoreGainXP2500, 1,
                     make1st(scoreHackTerminal), 1,
+                ], dops(dailyOpsV96, dailyOpsScorched, dailyOpsSwift, false));
+            addDaily(challengesDailyEra13, 4, [
+                    scoreCompleteDailyChallenge, 5,
+                    scoreLevelUp, 1,
+                    scoreCompleteDailyOps, 1,
+                    scoreCompleteOneEvent, 1,
+                    scoreCompleteEncryptid, 1,
+                    scoreCraftScrapArmor, 5,
+                    scoreKillMirelurk, 10,
+                    scoreScrapJunkRubber, 10,
+                    scoreGainXP2500, 1,
+                    make1st(scoreVisitAnotherShelter), 1,
                 ], dops(dailyOpsV96, dailyOpsScorched, dailyOpsSwift, false));
 
             communityEventsAppend.push(createDoubleMutations(ofDate(2022, 8, 22, 16), ofDate(2022, 8, 26, 16)));
