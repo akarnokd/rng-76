@@ -15279,6 +15279,12 @@
             }
 
             function fillInSeason(season, seasonDays, seasonId, uncertain) {
+                if (maxscore === undefined) {
+                    maxscore = 0;
+                    for (var i = 2; i <= 100; i++) {
+                        maxscore += scoreAtRank(i);
+                    }
+                }
                 for (var i = 0; i < seasonDays; i++) {
                     var rankLinear = (100 * (i + 1) / (seasonDays)).toFixed(0);
                     var scoreProgress = maxscore * i / seasonDays;
