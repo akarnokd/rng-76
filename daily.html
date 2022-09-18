@@ -13604,6 +13604,14 @@
                 };
             }
 
+            function scoreHarvestCornRazorgrainTato(offset, count) {
+                return {
+                    name: times("Harvest Corn, Razorgrain or Tato", count),
+                    offset: offset,
+                    period: 1400
+                };
+            }
+
             addWeekly(challengesWeeklyEra13.options, 0, scoreFixedGainXP10000Rank100);
             addWeekly(challengesWeeklyEra13.options, 0, scoreLevelUp3);
             addWeekly(challengesWeeklyEra13.options, 0, scoreCompleteDailyOpsDailies, 3);
@@ -13674,6 +13682,18 @@
                     scoreScrapJunkRubber, 10,
                     scoreGainXP2500, 1,
                     make1st(scoreVisitAnotherShelter), 1,
+                ], dops(dailyOpsValley, dailyOpsCultists, dailyOpsRegenerating, true));
+            addDaily(challengesDailyEra13, 5, [
+                    scoreCompleteDailyChallenge, 5,
+                    scoreLevelUp, 1,
+                    scoreCompleteDailyOps, 1,
+                    scoreCompleteOneEvent, 1,
+                    scoreBuildFloorWallCamp, 5,
+                    scoreHarvestCornRazorgrainTato, 20,
+                    scoreKillBloodEagle, 10,
+                    scoreRepairArmorWeaponPA, 10,
+                    scoreGainXP2500, 1,
+                    make1st(scoreBuySellItem), 1,
                 ], dops(dailyOpsValley, dailyOpsCultists, dailyOpsRegenerating, true));
 
             communityEventsAppend.push(createDoubleMutations(ofDate(2022, 8, 22, 16), ofDate(2022, 8, 26, 16)));
