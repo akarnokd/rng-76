@@ -13611,6 +13611,20 @@
                     period: 1400
                 };
             }
+            function scoreCollectMagazine(offset, count) {
+                return {
+                    name: times("Collect a Magazine", count),
+                    offset: offset,
+                    period: 1400
+                };
+            }
+            function scoreCraftScrapMelee(offset, count) {
+                return {
+                    name: times("Craft or Scrap a Melee Weapon", count),
+                    offset: offset,
+                    period: 1400
+                };
+            }
 
             addWeekly(challengesWeeklyEra13.options, 0, scoreFixedGainXP10000Rank100);
             addWeekly(challengesWeeklyEra13.options, 0, scoreLevelUp3);
@@ -13695,6 +13709,19 @@
                     scoreGainXP2500, 1,
                     make1st(scoreBuySellItem), 1,
                 ], dops(dailyOpsV96, dailyOpsCommunists, dailyOpsSwift, false));
+            addDaily(challengesDailyEra13, 6, [
+                    scoreCompleteDailyChallenge, 5,
+                    scoreLevelUp, 1,
+                    scoreCompleteDailyOps, 1,
+                    scoreCompleteOneEvent, 1,
+                    scoreCollectMagazine, 1,
+                    scoreCraftScrapMelee, 5,
+                    scoreKillGhoul, 10,
+                    scoreDrinkNukaCola, 3,
+                    scoreGainXP2500, 1,
+                    make1st(scoreCollectBullion), 25,
+                ], dops(dailyOpsV96, dailyOpsCommunists, dailyOpsSwift, false));
+            communityEventsAppend.push(createMinerva(ofDate(2022, 8, 19, 16), ofDate(2022, 8, 21, 16), "Emporium @ Fort Atlas", "P?"));
 
             communityEventsAppend.push(createDoubleMutations(ofDate(2022, 8, 22, 16), ofDate(2022, 8, 26, 16)));
             communityEventsAppend.push(createScripSurplus2(ofDate(2022, 8, 29, 16), ofDate(2022, 9, 3, 16)));
