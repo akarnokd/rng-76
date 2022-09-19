@@ -101,6 +101,11 @@
                                 </td>
                             </tr>
                             <tr>
+                                <td class='someindent'>
+                                    <label><input type='checkbox' id='filterExpeditions' checked> Expeditions <span id='expeditionsCount'></span></label>
+                                </td>
+                            </tr>
+                            <tr>
                                 <td class='bolded'>Gameplay</td>
                             </tr>
                             <tr>
@@ -251,10 +256,529 @@
                     bethesda: "https://fallout.bethesda.net/en/article/2NghS9QLcLTGqMtD5FGDQo/fallout-76-the-pitt-update-notes-september-13-2022",
                     notes: [
                         {
-                            category: "Other",
-                            name: "TBD",
-                            description: "When I have the time this week."
+                            category: "Expeditions",
+                            name: "Expeditions: The Pitt",
+                            description: "Introducing the Expeditions system, which will take you and up to three other teammates beyond the reaches of Appalachia for the first time in order to complete challenging and repeatable Missions. While anyone can participate in an Expedition, we currently recommend reaching level 50+ for the best experience."
                         },
+                        {
+                            category: "Expeditions,Main Quest,Daily Quest",
+                            name: "Preparations",
+                            description: "After completing the “Responders Reborn” quest, you can visit the Whitespring Refuge every day to automatically start 3 different Refuge Daily Quests. In exchange for your help, the Responders will grant you 25% Ultracell Charge for completing certain Refuge Daily Quests, and 50% charge for others."
+                        },
+                        {
+                            category: "Expeditions,Other,UI",
+                            name: "Expeditions Public Team",
+                            description: "We’ve added an “Expeditions” Team to the Public Teams list, which provides bonus XP for completing Expeditions and will help you find teammates more easily."
+                        },
+                        {
+                            category: "Expeditions",
+                            name: "Union Dues",
+                            description: "Fanatic Raiders have overtaken The Foundry, a steel mill that the Union had been using as a stronghold and home base. As you touch down in The Pitt, you will rendezvous with Hex, a leader of one of the Union Local chapters. Hex will share details with you about how to sabotage the Fanatics’ operations, so the Union can take steps toward reclaiming the Foundry."
+                        },
+                        {
+                            category: "Expeditions",
+                            name: "From Ashes to Fire",
+                            description: "Get in contact with Danilo, who will send you on a rescue mission to Sanctum. There, ruthless Fanatics have imprisoned and enslaved many members of the Union. Prepare an escape path for captive Union members, free as many of them as you can, and then raise mayhem within Sanctum to hit the Fanatics where it hurts."
+                        },
+                        {
+                            category: "Expeditions,Items",
+                            name: "Rewards",
+                            description: "Every time you finish a Mission, you will earn up to 5 legendary items based on how many primary and optional objectives you and your team completed. You will also receive one Legendary Module, with a chance to earn a second, some Legendary Scrips or Treasury Notes, loot, and XP. Once per week, you will earn a random item from the pool of rare Expeditions-themed rewards by completing all optional objectives during a Mission. <b>You will not earn duplicate items from the rare Expeditions reward pool.</b>"
+                        },
+                        {
+                            category: "Expeditions,Other",
+                            name: "Stamps",
+                            description: "With the arrival of Expeditions, were also introducing a new in-game currency, called “Stamps.” All Expedition participants will earn Stamps every time they complete a Mission, and completing optional objectives will increase the number of Stamps they receive. The Expedition Leader will earn a few extra Stamps due the effort required to complete Refuge Daily Quests and charge up the Vertibird’s battery."
+                        },
+                        {
+                            category: "Expeditions,NPC",
+                            name: "Spend Stamps",
+                            description: "Bring your Stamps to Giuseppe, a new vendor inside The Whitespring Refuge to exchange them for specific rare Expeditions rewards that you’d like to add to your collection."
+                        },
+                        {
+                            category: "Season",
+                            name: "Season 10: The City of Steel",
+                            description: "Ride shotgun alongside Red Rocket for a road trip to experience the sights and sounds of sterling Pittsburgh, Pennsylvania! Take in breathtaking views of the city’s towering skyline, get acquainted with its friendly and hard-working citizens, and explore its rich history at the center of U.S. steel production. Do all this, and more, as you rank up on the all-new Fallout 76 Season 10 Scoreboard: “Red Rocket ‘Across America’ Presents: The City of Steel”."
+                        },
+                        {
+                            category: "Season,Items",
+                            name: "Rewards",
+                            description: "For the first time ever, you will unlock the ability to craft brand new items, like weapons and Power Armor, as you rank up on The City of Steel Scoreboard. Once Season 10 concludes, we plan to add them to Giuseppe’s inventory. That way players who miss them this Season will still be able to unlock them in the future using Stamps."
+                        },
+                        {
+                            category: "Season,Items",
+                            name: "Auto Axe",
+                            description: "In the right hands, the industrious Auto Axe is a workhorse that can chew through any obstacle in your path. With a little know-how and elbow grease, you can modify it to dish out poison, electrical, or fire damage."
+                        },
+                        {
+                            category: "Season,Items",
+                            name: "Union Power Armor",
+                            description: "Perfect for your forays into The Pitt, you will receive +150 Poison Resistance and +75 Carry Weight bonuses whenever you’re wearing a full set of Union Power Armor."
+                        },
+                        {
+                            category: "UI,Locations",
+                            name: "Fast Travel",
+                            description: "or certain points of interest, like The Whitespring Resort, The Rusty Pick, The Crater, Foundation, or Fort Atlas, players can now decide whether to Fast Travel directly inside that location, or to its exterior."
+                        },
+                        {
+                            category: "Locations",
+                            name: "Whitespring North Entrance",
+                            description: "Fast Travel point has been added to The Whitespring Resort. Players can discover it on foot, and then use it to travel directly inside The Whitespring Mall."
+                        },
+                        {
+                            category: "Balance,Items",
+                            name: "Purveyor Murmrgh",
+                            description: "Players can now purchase up to 100 Legendary Modules and up to 500 Vault Steel at once from Purveyor Murmrgh."
+                        },
+                        {
+                            category: "Locations",
+                            name: "The Whitespring Resort",
+                            description: "A Legendary Exchange Machine and a Gold Press Machine are now available inside of Artisan’s Corner in the Whitespring mall."
+                        },
+                        {
+                            category: "Balance,Items",
+                            name: "Automatic Melee Weapons",
+                            description: "Legendary Versions of auto-melee weapons, like the Chainsaw, Ripper, Drill, etc., can now be crafted at Weapons Workbenches, and they can drop as legendary loot from Events, Quests, and Legendary Enemies."
+                        },
+                        {
+                            category: "Balance,Items",
+                            name: "Starting Gear",
+                            description: "With today’s update, we have included some adjustments to the starting experience for Dwellers who are taking their first steps out of Vault 76. They receive the following items as they exit Vault 76:"
+                            + "<ul>"
+                            + "<li>1x 10mm Pistol with 200+ 10mm ammo</li>"
+                            + "<li>1x Combat Knife</li>"
+                            + "<li>1x Light Leather Torso Armor</li>"
+                            + "<li>1x Small Backpack (Players will still need to find and learn the Plan in order to craft a Small Backpack.)</li>"
+                            + "<li>A variety of consumables, including: Stimpaks, RadAway, Antibiotics, food and water, a Vault-Tec Supply Package, and Scrap and Repair Kits.</li>"
+                            + "<li>In addition, they will now receive the “Vault Fed” buff, which will prevent hunger and thirst from increasing for 2 hours.</li>"
+                            + "</ul>"
+                        },
+                        {
+                            category: "Balance,Combat",
+                            name: "Starting difficulty",
+                            description: "The resistances and damage for many creatures in the Level 1 - 15 range have been reduced, which should help smooth out early combat."
+                        },
+                        {
+                            category: "Bugfix,Visual",
+                            name: "Beds",
+                            description: "Fixed an issue on consoles that could prevent the Alien Stasis Chamber’s swirling blue visual effects from appearing while it is in use."
+                        },
+                        {
+                            category: "Bugfix,Visual",
+                            name: "Power Armor",
+                            description: "The player’s arms no longer clip when entering or exiting a set of Power Armor."
+                        },
+                        {
+                            category: "Bugfix,Visual",
+                            name: "Ranged Weapons",
+                            description: "The Dastardly Duo Paint can now be applied to the unique legendary Double-Barrel Shotgun, “Salt of the Earth.”"
+                        },
+                        {
+                            category: "Bugfix,C.A.M.P.",
+                            name: "Allies",
+                            description: "C.A.M.P. objects can no longer be placed on top of Xerxo’s Spaceship."
+                        },
+                        {
+                            category: "Bugfix,C.A.M.P.",
+                            name: "Chairs",
+                            description: "Players can now sit on Modular Sofas."
+                        },
+                        {
+                            category: "Bugfix,C.A.M.P.",
+                            name: "Doors",
+                            description: "The Chain-Link Door now plays the correct sound and visual effects when destroyed."
+                        },
+                        {
+                            category: "Bugfix,C.A.M.P.,Exploit",
+                            name: "Exploit",
+                            description: "Addressed an exploit that could allow the player to have two active C.A.M.P.s at once."
+                        },
+                        {
+                            category: "Bugfix,C.A.M.P.",
+                            name: "Floors",
+                            description: "Corrected a pathing issue affecting the Upper Floor variant of the Destroyed Tile Floor."
+                        },
+                        {
+                            category: "Bugfix,C.A.M.P.",
+                            name: "Floor Décor",
+                            description: "Different types of Radiation Dummies now share the same row in the build menu’s Floor Décor category, and players can move left or right to select between them."
+                        },
+                        {
+                            category: "Bugfix,C.A.M.P.",
+                            name: "Floor Décor",
+                            description: "The crafting requirements for the Floating Face Flagon are now consistent in both the C.A.M.P. build menu and the Tinker’s Workbench."
+                        },
+                        {
+                            category: "Bugfix,C.A.M.P.",
+                            name: "Misc. Structures",
+                            description: "When the Firewatch Tower is connected to power, lights placed on the Tower’s upper beams now receive power correctly."
+                        },
+                        {
+                            category: "Bugfix,C.A.M.P.",
+                            name: "Misc. Structures",
+                            description: "C.A.M.P. Allies and Collectrons, can now correctly walk on the roof of the Destroyed Trailer."
+                        },
+                        {
+                            category: "Bugfix,C.A.M.P.",
+                            name: "Misc. Structures",
+                            description: "Players can now shoot and throw grenades through gaps in the walls of the Destroyed Trailer when it is in a destroyed state."
+                        },
+                        {
+                            category: "Bugfix,C.A.M.P.",
+                            name: "Vendors",
+                            description: "Tipsy Tom Vending Machine variants now animate correctly after being repaired."
+                        },
+                        {
+                            category: "Bugfix,C.A.M.P.",
+                            name: "Wallpapers",
+                            description: "Wall Décor items no longer sink into walls that have the Order of Mystery Wallpaper applied."
+                        },
+                        {
+                            category: "Bugfix,C.A.M.P.",
+                            name: "Wallpapers",
+                            description: "Flat Wall Décor, like posters, paintings, pennants, Scoreboards, and etc., no longer sink into walls that have Wallpaper applied."
+                        },
+                        {
+                            category: "Bugfix,C.A.M.P.",
+                            name: "Wallpapers",
+                            description: "The Stripes, Haunted House, and Order of Mystery Wallpapers are now oriented correctly when applied to triangle walls."
+                        },
+                        {
+                            category: "Bugfix,C.A.M.P.",
+                            name: "Workbenches",
+                            description: "Fixed an issue in which Tinker’s Workbenches in players’ C.A.M.P.s could sometimes become unusable and unmovable."
+                        },
+                        {
+                            category: "Bugfix,Challenge",
+                            name: "Daily",
+                            description: "Crafting or scrapping Alien Blasters and V.A.T.S. Unknown now correctly progresses the “Craft or Scrap a Ranged Weapon” Daily Challenge."
+                        },
+                        {
+                            category: "Bugfix,Challenge",
+                            name: "Daily",
+                            description: "Using a Repair Kit to repair an item that is inside the player’s Stash now correctly progresses the “Repair Armor, Weapons, or Power Armor” Daily Challenge."
+                        },
+                        {
+                            category: "Bugfix,Challenge",
+                            name: "Weekly",
+                            description: "Crafting and scrapping headwear and underarmors now correctly progresses the “Craft or Scrap Clothing, Armor, or Weapons” Weekly Challenge."
+                        },
+                        {
+                            category: "Bugfix,Challenge",
+                            name: "Weekly",
+                            description: "Fixed an issue that caused Treasure Hunter Mole Miners and Prime Mole Rats to progress the “Kill a Glowing Creature” Weekly Challenge."
+                        },
+                        {
+                            category: "Bugfix,Combat",
+                            name: "Melee Enemies",
+                            description: "Continuously circling around certain enemies, like Cave Crickets, Wolves, and Mr. Handy Bots, no longer prevents them from attacking the player."
+                        },
+                        {
+                            category: "Bugfix,Items",
+                            name: "Bloodbugs",
+                            description: "On death, Bloodbugs now have a chance to drop Bloodbug Meat as loot."
+                        },
+                        {
+                            category: "Bugfix,Items",
+                            name: "Dogs",
+                            description: "Dog-type enemies, like Mongrels and Wolves, can now run after attacking the player instead of always walking."
+                        },
+                        {
+                            category: "Bugfix,Event",
+                            name: "A Colossal Problem",
+                            description: "Fixed an issue that could temporarily block player movement through the tunnel when attempting to escape Monongah Mine."
+                        },
+                        {
+                            category: "Bugfix,Side Quest",
+                            name: "Ally: Patently False",
+                            description: "Fixed an issue in which players were directed to collect an incorrect item during the quest."
+                        },
+                        {
+                            category: "Bugfix,Side Quest",
+                            name: "An Organic Solution",
+                            description: "The quest marker on Ella Ames’s body is now correctly removed after looting “Ella’s Research.”"
+                        },
+                        {
+                            category: "Bugfix,Side Quest",
+                            name: "An Ounce of Prevention",
+                            description: "The optional objective to “Enter Charleston Trainyard's main gate” can now be completed again after logging out and back in."
+                        },
+                        {
+                            category: "Bugfix,Event",
+                            name: "AWOL Armaments",
+                            description: "Interacting with Sergeant Gutsy while it is already speaking no longer interrupts its dialogue or causes it to replay."
+                        },
+                        {
+                            category: "Bugfix,Event",
+                            name: "Bots on Parade",
+                            description: "All enemies during the event are now hostile to the player by default, and can be targeted in VATS."
+                        },
+                        {
+                            category: "Bugfix,Event",
+                            name: "Distinguished Guests",
+                            description: "Fixed an issue that sometimes caused the Waiter Bots to leave the function room after players send them back to work."
+                        },
+                        {
+                            category: "Bugfix,Event",
+                            name: "Heart of the Swamp",
+                            description: "Objectives now appear correctly in the quest tracker if the Grafton Monster spawns as the boss."
+                        },
+                        {
+                            category: "Bugfix,Event",
+                            name: "Irrational Fear",
+                            description: "Enemies that spawn during the event can now target and deal damage to Beckham."
+                        },
+                        {
+                            category: "Bugfix,Event",
+                            name: "Line in the Sand",
+                            description: "Quest targets no longer appear on Scorchbeasts that spawn during the event."
+                        },
+                        {
+                            category: "Bugfix,Event",
+                            name: "Lode Bearing",
+                            description: "Event failure fanfare now correctly appears if players do not open the mine before the timer expires."
+                        },
+                        {
+                            category: "Bugfix,Side Quest",
+                            name: "Miner Miracles",
+                            description: "The Power Armor registration console is now only useable when players have reached the appropriate stage of the quest."
+                        },
+                        {
+                            category: "Bugfix,Misc Quest",
+                            name: "Misc",
+                            description: "Reuben’s Safe Key is now correctly removed from the player’s inventory after using it to unlock Mr. Gill’s Safe inside the Shelters Claim Center."
+                        },
+                        {
+                            category: "Bugfix,Main Quest",
+                            name: "Missing Persons",
+                            description: "Scribe Valdez’s dialogue near the end of the quest now correctly matches the player’s current quest progress."
+                        },
+                        {
+                            category: "Bugfix,Event",
+                            name: "One Violent Night",
+                            description: "Event failure fanfare now correctly appears when players do not complete the objectives before the timer expires."
+                        },
+                        {
+                            category: "Bugfix,Event",
+                            name: "One Violent Night",
+                            description: "The optional objective to “Defeat the Nightstalker Bare-Handed” can now be completed while unarmed, as well as while unarmed in Power Armor."
+                        },
+                        {
+                            category: "Bugfix,Event",
+                            name: "Path to Enlightenment",
+                            description: "The Wise Mothman now correctly appears in front of Landview Lighthouse after completing the event."
+                        },
+                        {
+                            category: "Bugfix,Side Quest",
+                            name: "Pet Peeve",
+                            description: "Noodles can no longer spawn as Diseased or Glowing, and will not turn hostile when attacked by the player."
+                        },
+                        {
+                            category: "Bugfix,Event",
+                            name: "Radiation Rumble",
+                            description: "Marion Copeland will now ignore combat until players initiate the event and enemies start spawning."
+                        },
+                        {
+                            category: "Bugfix,Event",
+                            name: "Radiation Rumble",
+                            description: "Marion Copeland now uses a consistent weapon during the event, instead of sometimes swapping to unarmed combat."
+                        },
+                        {
+                            category: "Bugfix,Main Quest",
+                            name: "Supplying Demands",
+                            description: "Paladin Rahmani will no longer bring up a trade deal if the player did not secure one during the quest."
+                        },
+                        {
+                            category: "Bugfix,Main Quest",
+                            name: "Supplying Demands",
+                            description: "The objective to “Negotiate a deal with Foundation” no longer completes before the player has confirmed the deal with Gloria."
+                        },
+                        {
+                            category: "Bugfix,Event",
+                            name: "Thrill of the Grill",
+                            description: "Carrots, which are needed for the quest’s optional objective, can now spawn at Graninger Farm, Smith Farm, and Becker Farm in the Toxic Valley."
+                        },
+                        {
+                            category: "Bugfix,Event",
+                            name: "Test Your Metal",
+                            description: "Addressed an issue in which Grimm Bots could clip through the western wall of the Rust Eagle Arena and leave the event area."
+                        },
+                        {
+                            category: "Bugfix,Event",
+                            name: "Test Your Metal",
+                            description: "The Golden Eyebot no longer occasionally becomes stuck when trying to enter or exit the Rust Eagle Arena."
+                        },
+                        {
+                            category: "Bugfix,Misc Quest",
+                            name: "Treasure Unknown",
+                            description: "The “Filtcher Farm Interview” Holotape is no longer retains its quest item status after completing the quest."
+                        },
+                        {
+                            category: "Bugfix,Main Quest",
+                            name: "Wayward Souls",
+                            description: "Fixed an issue where Duchess would look straight ahead instead of at the player after handing them a drink."
+                        },
+                        {
+                            category: "Bugfix,Items",
+                            name: "Allies",
+                            description: "Plans for Katherine Swan and Xerxo are now visible in Samuel’s inventory and can be purchased using Gold Bullion by players who have not yet learned them."
+                        },
+                        {
+                            category: "Bugfix,Items",
+                            name: "Ammo",
+                            description: "Reduced the weight and crafting requirements for Alien Blaster Rounds so that they now match Fusion Cells."
+                        },
+                        {
+                            category: "Bugfix,Items",
+                            name: "Armor",
+                            description: "Atomic Camo, Free States, and Red Viper Paints can now be applied to Urban Scout Armor."
+                        },
+                        {
+                            category: "Bugfix,Items",
+                            name: "Lunchboxes",
+                            description: "Lunchbox effects now trigger correctly for nearby players, even if they aren’t within line of sight of the Lunchbox owner."
+                        },
+                        {
+                            category: "Bugfix,Items",
+                            name: "Mods",
+                            description: "The \"Extra Limb Damage\" weapon Mod effect now correctly adds +25% increased damage to limbs, and the \"Extra Chance to Cripple\" weapon Mod effect now correctly adds +20% chance to instantly cripple."
+                        },
+                        {
+                            category: "Bugfix,Items",
+                            name: "ProSnap Deluxe:",
+                            description: "The ProSnap Deluxe Camera now registers targets more consistently when zoomed in and while the player is moving."
+                        },
+                        {
+                            category: "Bugfix,Items",
+                            name: "Weapons",
+                            description: "The Dual Bar Mod for the Chainsaw now correctly increases the weapon’s damage. <i>Please note: We are aware of a related visual issue in which the damage stat in the crafting menu may not reflect bonus damage from the Dual Bar and other Chainsaw mods.</i>"
+                        },
+                        {
+                            category: "Bugfix,Items",
+                            name: "Weapons",
+                            description: "Fixed an issue that caused charging weapons to deal less damage than intended when they were not fully-charged."
+                        },
+                        {
+                            category: "Bugfix,Items",
+                            name: "Weapons",
+                            description: "The Gauss Shotgun now counts as an energy weapon in addition to its other weapon types, and it correctly benefits from Perk Cards and other buffs that affect energy weapons."
+                        },
+                        {
+                            category: "Bugfix,Items",
+                            name: "Weapons",
+                            description: "Short and Long Barrel Mods for the Flamer no longer conflict with range reductions applied by Nozzle Mods."
+                        },
+                        {
+                            category: "Bugfix,Items",
+                            name: "Weapons",
+                            description: "Receiver Mods that increase the Lever Action Rifle’s fire rate now function as intended."
+                        },
+                        {
+                            category: "Bugfix,Items",
+                            name: "Weapons",
+                            description: "The Hunting Rifle’s Refined .50 Receiver Mod now correctly applies more bonus damage to the weapon than the normal .50 Receiver Mod."
+                        },
+                        {
+                            category: "Bugfix,Items",
+                            name: "Weapons",
+                            description: "10mm Pistols with the Tweaked Automatic Receiver and Gamma Guns with the Signal Repeater Mod are now correctly affected by the Guerilla Perk Card."
+                        },
+                        {
+                            category: "Bugfix,Items",
+                            name: "Weapons",
+                            description: "The Gyro Compensating Lens Mod for Laser Guns now correctly provides superior hip fire accuracy."
+                        },
+                        {
+                            category: "Bugfix,Items",
+                            name: "Weapons",
+                            description: "The “Mods Unlocked” portion of the crafting menu now correctly displays a total of 65 available Mods for the Pipe Gun, instead of 66."
+                        },
+                        {
+                            category: "Bugfix,Items",
+                            name: "Weapons",
+                            description: "The Gatling Laser, Gatling Plasma, and Ultracite Gatling Laser can no longer spawn with the “Quad” Legendary attribute."
+                        },
+                        {
+                            category: "Bugfix,Perks",
+                            name: "Electric Absorption",
+                            description: "The description of the Electric Absorption Legendary Perk Card now correctly communicates that it heals the player in addition to its other effects."
+                        },
+                        {
+                            category: "Bugfix,Perks",
+                            name: "Glow Sight",
+                            description: "The Glow Sight Perk Card now correctly applies bonus damage to Glowing Wendigo Spawns during the “A Colossal Problem” Public Event."
+                        },
+                        {
+                            category: "Bugfix,UI",
+                            name: "Character Levels",
+                            description: "Character levels that are four and five digits long now display correctly on the Map, as well as in the Social, Team, and Play menus."
+                        },
+                        {
+                            category: "Bugfix,UI",
+                            name: "Crafting",
+                            description: "On PC, the bulk crafting slider now closes correctly after using the crafting menu buttons at the bottom of the screen."
+                        },
+                        {
+                            category: "Bugfix,UI",
+                            name: "Inventory",
+                            description: "Item Plans that the player has already learned now automatically sort to the bottom of inventory lists."
+                        },
+                        {
+                            category: "Bugfix,UI",
+                            name: "Loading Screens",
+                            description: "Event details now display correctly on loading screens when joining a Public Event."
+                        },
+                        {
+                            category: "Bugfix,UI",
+                            name: "Main Menu",
+                            description: "Fixed an issue that could cause the in-game “Message of the Day” and News Screen to appear blank for those who play Fallout 76 on consoles."
+                        },
+                        {
+                            category: "Bugfix,UI",
+                            name: "Map",
+                            description: "Fixed an issue that could cause elements of the UI to flicker after interacting with the Map and the Social menu."
+                        },
+                        {
+                            category: "Bugfix,UI",
+                            name: "Notifications",
+                            description: "The notifications that appear after learning Plans for the Brahmin Grill, Milk Vending Machine, Grim Reaper Vault Boy Cutout, and Tinker’s Workbench now display the appropriate item names."
+                        },
+                        {
+                            category: "Bugfix,UI",
+                            name: "Pip-Boy",
+                            description: "Opening the Keyring in the Pip-Boy’s Misc. inventory tab now correctly selects the first key in the list."
+                        },
+                        {
+                            category: "Bugfix,UI",
+                            name: "Pip-Boy",
+                            description: "Exiting the Keyring to return to the Pip-Boy’s Misc. inventory tab now properly highlights the Keyring in the list."
+                        },
+                        {
+                            category: "Bugfix,UI",
+                            name: "Pip-Boy",
+                            description: "Removed a non-functional “Drop” button that appeared when highlighting the Keyring in the Pip-Boy’s Misc. inventory tab."
+                        },
+                        {
+                            category: "Bugfix,UI",
+                            name: "Scoreboard",
+                            description: "Fixed an issue that could cause the standard Rank 100 reward to appear incorrect for players who claimed the Fallout 1st Rank 100 reward first."
+                        },
+                        {
+                            category: "Bugfix,Locations",
+                            name: "Drop Site V9",
+                            description: "Entering the pre-placed set of Power Armor at Drop Site V9 no longer causes a brief control lock."
+                        },
+                        {
+                            category: "Bugfix,Locations",
+                            name: "Misc",
+                            description: "Corrected multiple locations throughout Appalachia where attempting to use pre-placed furniture could result in a brief control lock."
+                        },
+                        {
+                            category: "Bugfix,Locations",
+                            name: "Pathing",
+                            description: "Addressed several locations throughout Appalachia where the player could become stuck."
+                        },
+                        
                     ]
                 },
                 {
@@ -19164,6 +19688,7 @@
                 "Survival" : "survivalCount",
                 "Worlds": "worldsCount",
                 "Combat": "combatCount",
+                "Expeditions": "expeditionsCount"
             };
 
             function filterByKeywords(note, keywords) {
@@ -19220,6 +19745,9 @@
                 }
                 if (get("filterMisc").checked) {
                     filter.push("Misc Quest");
+                }
+                if (get("filterExpeditions").checked) {
+                    filter.push("Expeditions");
                 }
                 if (get("filterBug").checked) {
                     filter.push("Bugfix");
