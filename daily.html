@@ -13575,6 +13575,13 @@
                     period: 1400
                 };
             }
+            function scoreExpeditionsFromAshes(offset, count) {
+                return {
+                    name: times("&#x1F681; Expeditions: Complete From Ashes to Fire In The Pitt", count),
+                    offset: offset,
+                    period: 1400
+                };
+            }
             function scoreKillFanatic(offset, count) {
                 return {
                     name: times("&#x1F681; Kill a Fanatic", count),
@@ -13585,6 +13592,13 @@
             function scoreTakeCameraPictureFanaticConqueror(offset, count) {
                 return {
                     name: times("&#x1F681; Take a Camera Picture of a Fanatic Conqueror", count),
+                    offset: offset,
+                    period: 1400
+                };
+            }
+            function scoreTakeCameraPictureTrog(offset, count) {
+                return {
+                    name: times("&#x1F681; Take a Camera Picture of a Trog Superior or Trog Devourer", count),
                     offset: offset,
                     period: 1400
                 };
@@ -13722,6 +13736,28 @@
                     make1st(scoreCollectBullion), 25,
                 ], dops(dailyOpsV94, dailyOpsMutants, dailyOpsFreezing, true));
             communityEventsAppend.push(createMinerva(ofDate(2022, 8, 19, 16), ofDate(2022, 8, 21, 16), "Emporium @ Fort Atlas", "P?"));
+            addWeekly(challengesWeeklyEra13.options, 7, scoreFixedGainXP10000Rank100);
+            addWeekly(challengesWeeklyEra13.options, 7, scoreLevelUp3);
+            addWeekly(challengesWeeklyEra13.options, 7, scoreCompleteDailyOpsPublicTeam, 5);
+            addWeekly(challengesWeeklyEra13.options, 7, scoreCompleteGoldStar);
+            addWeekly(challengesWeeklyEra13.options, 7, scoreCompleteEvents10);
+            addWeekly(challengesWeeklyEra13.options, 7, scoreCriticalHit, 25);
+            addWeekly(challengesWeeklyEra13.options, 7, scoreEatPrewarFood, 25);
+            addWeekly(challengesWeeklyEra13.options, 7, scoreKillCreatureCostume, 20);
+            addWeekly(challengesWeeklyEra13.options, 7, scoreExpeditionsFromAshes, 1);
+            addWeekly(challengesWeeklyEra13.options, 7, scoreTakeCameraPictureTrog, 1);
+            addDaily(challengesDailyEra13, 7, [
+                    scoreCompleteDailyChallenge, 5,
+                    scoreLevelUp, 1,
+                    scoreCompleteDailyOpsPublicTeam, 1,
+                    scoreCompleteOneEvent, 1,
+                    scoreChewBubblegum, 1,
+                    scoreClaimWorkshop, 1,
+                    scoreCollectAudiotape, 1,
+                    scoreGainXP2500, 1,
+                    scoreKillFanatic, 10,
+                    make1st(scoreExpeditionsRefugeDaily), 1,
+                ], dops(dailyOpsV94, dailyOpsMutants, dailyOpsFreezing, true));
 
             communityEventsAppend.push(createDoubleMutations(ofDate(2022, 8, 22, 16), ofDate(2022, 8, 26, 16)));
             communityEventsAppend.push(createScripSurplus2(ofDate(2022, 8, 29, 16), ofDate(2022, 9, 3, 16)));
