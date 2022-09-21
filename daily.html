@@ -13639,6 +13639,20 @@
                     period: 1400
                 };
             }
+            function scoreScrapJunkAluminium(offset, count) {
+                return {
+                    name: times("Scrap Junk to produce Aluminium", count),
+                    offset: offset,
+                    period: 1400
+                };
+            }
+            function scoreCraftMineGrenadeThrown(offset, count) {
+                return {
+                    name: times("Craft a Mine, Grenade or Thrown weapon", count),
+                    offset: offset,
+                    period: 1400
+                };
+            }
 
             addWeekly(challengesWeeklyEra13.options, 0, scoreFixedGainXP10000Rank100);
             addWeekly(challengesWeeklyEra13.options, 0, scoreLevelUp3);
@@ -13757,6 +13771,18 @@
                     scoreGainXP2500, 1,
                     scoreKillFanatic, 10,
                     make1st(scoreExpeditionsRefugeDaily), 1,
+                ], dops(dailyOpsWestTec, dailyOpsCommunists, dailyOpsRegenerating, false));
+            addDaily(challengesDailyEra13, 8, [
+                    scoreCompleteDailyChallenge, 5,
+                    scoreLevelUp, 1,
+                    scoreCompleteDailyOpsPublicTeam, 1,
+                    scoreCompleteOneEvent, 1,
+                    scoreCookMealPlant, 5,
+                    scoreCraftMineGrenadeThrown, 5,
+                    scoreEatPrewarFood, 20,
+                    scoreKillCreatureCostume, 20,
+                    scoreGainXP2500, 1,
+                    make1st(scoreScrapJunkAluminium), 1,
                 ], dops(dailyOpsWestTec, dailyOpsCommunists, dailyOpsRegenerating, false));
 
             communityEventsAppend.push(createDoubleMutations(ofDate(2022, 8, 22, 16), ofDate(2022, 8, 26, 16)));
