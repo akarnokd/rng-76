@@ -13660,6 +13660,27 @@
                     period: 1400
                 };
             }
+            function scoreEatDogFood(offset, count) {
+                return {
+                    name: times("Eat Dog Food", count),
+                    offset: offset,
+                    period: 1400
+                };
+            }
+            function scoreKillWendigo(offset, count) {
+                return {
+                    name: times("Kill a Wendigo", count),
+                    offset: offset,
+                    period: 1400
+                };
+            }
+            function scoreCraftAlcohol(offset, count) {
+                return {
+                    name: times("Craft Alcohol", count),
+                    offset: offset,
+                    period: 1400
+                };
+            }
 
             addWeekly(challengesWeeklyEra13.options, 0, scoreFixedGainXP10000Rank100);
             addWeekly(challengesWeeklyEra13.options, 0, scoreLevelUp3);
@@ -13814,6 +13835,18 @@
                     scoreKillScorched, 10,
                     scoreGainXP2500, 1,
                     make1st(scoreBuySellItem), 1,
+                ], dops(dailyOpsV96, dailyOpsCommunists, dailyOpsChillingMend, true));
+            addDaily(challengesDailyEra13, 11, [
+                    scoreCompleteDailyChallenge, 5,
+                    scoreLevelUp, 1,
+                    scoreCompleteDailyOpsPublicTeam, 1,
+                    scoreCompleteOneEvent, 1,
+                    scoreCollectMagazine, 1,
+                    scoreCraftAlcohol, 5,
+                    scoreKillWendigo, 1,
+                    scoreTakePictureGulper, 1,
+                    scoreGainXP2500, 1,
+                    make1st(scoreEatDogFood), 1,
                 ], dops(dailyOpsV96, dailyOpsCommunists, dailyOpsChillingMend, true));
 
             communityEventsAppend.push(createDoubleMutations(ofDate(2022, 8, 22, 16), ofDate(2022, 8, 26, 16)));
