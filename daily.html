@@ -13682,6 +13682,14 @@
                 };
             }
 
+            function scoreConsumeVintageAlcohol(offset, count) {
+                return {
+                    name: times("Consume Vintage Alcoholic Beverage", count),
+                    offset: offset,
+                    period: 1400
+                };
+            }
+
             addWeekly(challengesWeeklyEra13.options, 0, scoreFixedGainXP10000Rank100);
             addWeekly(challengesWeeklyEra13.options, 0, scoreLevelUp3);
             addWeekly(challengesWeeklyEra13.options, 0, scoreCompleteDailyOpsDailies, 3);
@@ -13847,6 +13855,18 @@
                     scoreTakePictureGulper, 1,
                     scoreGainXP2500, 1,
                     make1st(scoreEatDogFood), 1,
+                ], dops(dailyOpsWatogaHighschool, dailyOpsCultists, dailyOpsUnstable, false));
+            addDaily(challengesDailyEra13, 12, [
+                    scoreCompleteDailyChallenge, 5,
+                    scoreLevelUp, 1,
+                    scoreCompleteDailyOpsPublicTeam, 1,
+                    scoreCompleteOneEvent, 1,
+                    scoreBuildFloorWallShelter, 10,
+                    scoreCollectCaps, 100,
+                    scoreConsumeVintageAlcohol, 1,
+                    scoreDestroyRobot, 10,
+                    scoreGainXP2500, 1,
+                    make1st(scoreHarvestCornRazorgrainTato), 20,
                 ], dops(dailyOpsWatogaHighschool, dailyOpsCultists, dailyOpsUnstable, false));
 
             communityEventsAppend.push(createDoubleMutations(ofDate(2022, 8, 22, 16), ofDate(2022, 8, 26, 16)));
