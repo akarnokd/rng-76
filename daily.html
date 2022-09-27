@@ -13690,6 +13690,31 @@
                 };
             }
 
+            function scoreCompleteEncounterRefuge(offset, count) {
+                return {
+                    name: times("Complete an encounter at The Whitespring Refuge", count),
+                    offset: offset,
+                    period: 1400,
+                    tipId: "scoreCompleteEncounterRefuge",
+                    tip: "Inside The Whitespring Refuge, there is a daily random NPC encounter asking for something every day.<br>Resets when Daily Ops resets."
+                };
+            }
+
+            function scoreCollectSteelIngots(offset, count) {
+                return {
+                    name: times("&#x1F681; Expeditions - Unions Dues - Collect Steel Ingot from the Pitt", count),
+                    offset: offset,
+                    period: 1400
+                };
+            }
+            function scoreKillTrog(offset, count) {
+                return {
+                    name: times("&#x1F681; Kill a Trog", count),
+                    offset: offset,
+                    period: 1400
+                };
+            }
+
             addWeekly(challengesWeeklyEra13.options, 0, scoreFixedGainXP10000Rank100);
             addWeekly(challengesWeeklyEra13.options, 0, scoreLevelUp3);
             addWeekly(challengesWeeklyEra13.options, 0, scoreCompleteDailyOpsDailies, 3);
@@ -13879,6 +13904,28 @@
                     scorePlantCrop, 10,
                     scoreGainXP2500, 1,
                     make1st(scoreTakePictureGulperMoonshine), 1,
+                ], dops(dailyOpsBurning, dailyOpsCommunists, dailyOpsSwift, false));
+            addWeekly(challengesWeeklyEra13.options, 14, scoreFixedGainXP10000Rank100);
+            addWeekly(challengesWeeklyEra13.options, 14, scoreLevelUp3);
+            addWeekly(challengesWeeklyEra13.options, 14, scoreCompleteGoldStar);
+            addWeekly(challengesWeeklyEra13.options, 14, scoreCompleteDailyOpsDailies, 3);
+            addWeekly(challengesWeeklyEra13.options, 14, scoreCompleteEvents10);
+            addWeekly(challengesWeeklyEra13.options, 14, scoreClaimWorkshop, 5);
+            addWeekly(challengesWeeklyEra13.options, 14, scoreCollectVertibirdFuel, 300);
+            addWeekly(challengesWeeklyEra13.options, 14, scoreCollectPurifiedWater, 25);
+            addWeekly(challengesWeeklyEra13.options, 14, scoreCompleteEncounterRefuge, 5);
+            addWeekly(challengesWeeklyEra13.options, 14, scoreCollectSteelIngots, 5);
+            addDaily(challengesDailyEra13, 14, [
+                    scoreCompleteDailyChallenge, 5,
+                    scoreLevelUp, 1,
+                    scoreCompleteDailyOpsPublicTeam, 1,
+                    scoreCompleteOneEvent, 1,
+                    scoreCollectCaps, 100,
+                    scoreCompleteEncounterRefuge, 1,
+                    scoreKillCreatureCostume, 20,
+                    scoreKillTrog, 10,
+                    scoreGainXP2500, 1,
+                    make1st(scorePickLock), 1,
                 ], dops(dailyOpsBurning, dailyOpsCommunists, dailyOpsSwift, false));
 
             communityEventsAppend.push(createDoubleMutations(ofDate(2022, 8, 22, 16), ofDate(2022, 8, 26, 16)));
