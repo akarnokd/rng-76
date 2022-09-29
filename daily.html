@@ -13711,7 +13711,9 @@
                 return {
                     name: times("&#x1F681; Expeditions - Unions Dues - Collect Steel Ingot from the Pitt", count),
                     offset: offset,
-                    period: 1400
+                    period: 1400,
+                    tipId: "scoreCollectSteelIngots",
+                    tip: "You have to collect the ingots in person. Teammates picking them up doesn't count towards this challenge."
                 };
             }
             function scoreKillTrog(offset, count) {
@@ -13960,9 +13962,10 @@
                 ], dops(dailyOpsWatoga, dailyOpsMutants, dailyOpsToxic, false));
 
             communityEventsAppend.push(createDoubleMutations(ofDate(2022, 8, 22, 16), ofDate(2022, 8, 26, 16)));
+            communityEventsAppend.push(createDoubleScore(ofDate(2022, 8, 29, 16), ofDate(2022, 9, 3, 16)));
             communityEventsAppend.push(createScripSurplus2(ofDate(2022, 8, 29, 16), ofDate(2022, 9, 3, 16)));
             communityEventsAppend.push(createGoldRush2(ofDate(2022, 8, 29, 16), ofDate(2022, 9, 3, 16)));
-            communityEventsAppend.push(createMinerva(ofDate(2022, 8, 29, 16), ofDate(2022, 9, 3, 16), "Big Sale @ TBD", "P?"));
+            communityEventsAppend.push(createMinerva(ofDate(2022, 8, 29, 16), ofDate(2022, 9, 3, 16), "Big Sale @ Foundation", "P?"));
 
             communityEventsAppend.push(createInvaders(ofDate(2022, 9, 4, 16), ofDate(2022, 9, 18, 16)));
             communityEventsAppend.push(createDoubleMutations(ofDate(2022, 9, 6, 16), ofDate(2022, 9, 10, 16)));
