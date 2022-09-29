@@ -1058,9 +1058,9 @@
                         };
             }
 
-            function scoreClaimWorkshop(offset) {
+            function scoreClaimWorkshop(offset, count) {
                 return {
-                            name: "Claim a Workshop",
+                            name: times("Claim a Workshop", count),
                             offset: offset,
                             period: 1400,
                         };
