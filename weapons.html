@@ -27,7 +27,7 @@
     </head>
     <body style="height: 90%">
         <center>
-            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Weapon Damage Calculator (v3.10.4)</span>
+            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Weapon Damage Calculator (v3.10.5)</span>
             <br/>
             <i>(Patch 38 [The Pitt] update in progress.)</i>
         <br/>
@@ -1785,6 +1785,43 @@
                     legendaryPrefix: "Mutant slayer's",
                     legendaryMajor: "40% increased swing speed",
                     legendaryMinor: "Strength",
+                },
+                {
+                    name: "Auto Axe",
+                    category: "Two-handed",
+                    speed: speedVFast,
+                    level:  [20, 25, 30, 35, 40, 45, 50],
+                    damage: [10, 11, 12, 14, 18, 22, 26],
+                    mods: [
+                        {
+                            slot: "Main",
+                            options: [
+                                {
+                                    name: "Standard"
+                                },
+                                {
+                                    name: "Burning",
+                                    damageMultPercent: 20,
+                                    addDamageFireLeveled: [8, 8, 8, 8, 8, 8, 8]
+                                },
+                                {
+                                    name: "Electrified",
+                                    damageMultPercent: 20,
+                                    addDamageEnergyLeveled: [8, 8, 8, 8, 8, 8, 8]
+                                },
+                                {
+                                    name: "Poisoned",
+                                    damageMultPercent: 20,
+                                    addDamagePoisonLeveled: [8, 8, 8, 8, 8, 8, 8]
+                                },
+                                {
+                                    name: "Turbo",
+                                    damageMultPercent: -33,
+                                    speedAddPercent: 100
+                                }
+                            ]
+                        }
+                    ]
                 },
             ]);
 
