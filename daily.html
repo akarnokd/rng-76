@@ -13653,6 +13653,13 @@
                     period: 1400
                 };
             }
+            function scoreScrapJunkScrews(offset, count) {
+                return {
+                    name: times("Scrap Junk to produce Screws", count),
+                    offset: offset,
+                    period: 1400
+                };
+            }
             function scoreCraftMineGrenadeThrown(offset, count) {
                 return {
                     name: times("Craft a Mine, Grenade or Thrown weapon", count),
@@ -13938,6 +13945,18 @@
                     scoreKillCultist, 10,
                     scoreGainXP2500, 1,
                     make1st(scoreCraftAmmo), 50,
+                ], dops(dailyOpsWatoga, dailyOpsMutants, dailyOpsToxic, false));
+            addDaily(challengesDailyEra13, 16, [
+                    scoreCompleteDailyChallenge, 5,
+                    scoreLevelUp, 1,
+                    scoreCompleteDailyOpsPublicTeam, 1,
+                    scoreCompleteOneEvent, 1,
+                    scoreBuildWallDecor, 5,
+                    scoreCollectBobblehead, 1,
+                    scoreEatDogFood, 10,
+                    scoreKillGhoul, 10,
+                    scoreGainXP2500, 1,
+                    make1st(scoreScrapJunkScrews), 5,
                 ], dops(dailyOpsWatoga, dailyOpsMutants, dailyOpsToxic, false));
 
             communityEventsAppend.push(createDoubleMutations(ofDate(2022, 8, 22, 16), ofDate(2022, 8, 26, 16)));
