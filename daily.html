@@ -13723,6 +13723,13 @@
                     period: 1400
                 };
             }
+            function scoreFermentAlcohol(offset, count) {
+                return {
+                    name: times("Ferment an Alcoholic Beverage", count),
+                    offset: offset,
+                    period: 1400
+                };
+            }
 
             addWeekly(challengesWeeklyEra13.options, 0, scoreFixedGainXP10000Rank100);
             addWeekly(challengesWeeklyEra13.options, 0, scoreLevelUp3);
@@ -13995,6 +14002,18 @@
                     scoreScrapJunkScrews, 5,
                     scoreGainXP2500, 1,
                     make1st(scoreKillCreatureWellFed), 20,
+                ], dops(dailyOpsUncanny, dailyOpsMutants, dailyOpsSwift, false));
+            addDaily(challengesDailyEra13, 20, [
+                    scoreCompleteDailyChallenge, 5,
+                    scoreLevelUp, 1,
+                    scoreCompleteDailyOpsPublicTeam, 1,
+                    scoreCompleteOneEvent, 1,
+                    scoreClaimWorkshop, 1,
+                    scoreCollectCaps, 100,
+                    scoreKillCreatureInGroup, 20,
+                    scoreKillLegendary, 3,
+                    scoreGainXP2500, 1,
+                    make1st(scoreFermentAlcohol), 10,
                 ], dops(dailyOpsUncanny, dailyOpsMutants, dailyOpsSwift, false));
 
             communityEventsAppend.push(createDoubleMutations(ofDate(2022, 8, 22, 16), ofDate(2022, 8, 26, 16)));
