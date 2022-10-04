@@ -13731,6 +13731,23 @@
                 };
             }
 
+            function scoreDestroyFanaticProtectron(offset, count) {
+                return {
+                    name: times("Destroy a Fanatic Protectron", count),
+                    offset: offset,
+                    period: 1400
+                };
+            }
+            function scoreCollectPrisonerCollars(offset, count) {
+                return {
+                    name: times("&#x1F681; Expeditions - From Ashes To Fire - Collect Prisoners' Collars", count),
+                    offset: offset,
+                    period: 1400,
+                    tipId: "scoreCollectSteelIngots",
+                    tip: "You have to collect the collars yourself. Teammates picking them up doesn't count towards this challenge."
+                };
+            }
+
             addWeekly(challengesWeeklyEra13.options, 0, scoreFixedGainXP10000Rank100);
             addWeekly(challengesWeeklyEra13.options, 0, scoreLevelUp3);
             addWeekly(challengesWeeklyEra13.options, 0, scoreCompleteDailyOpsDailies, 3);
@@ -14017,12 +14034,36 @@
                 ], dops(dailyOpsWestTec, dailyOpsEagles, dailyOpsVolatile, true));
 
             communityEventsAppend.push(createDoubleMutations(ofDate(2022, 8, 22, 16), ofDate(2022, 8, 26, 16)));
-            communityEventsAppend.push(createDoubleScore(ofDate(2022, 8, 29, 16), ofDate(2022, 9, 3, 16)));
+            communityEventsAppend.push(createDoubleScore(ofDate(2022, 8, 29, 16), ofDate(2022, 9, 4, 16)));
             communityEventsAppend.push(createScripSurplus2(ofDate(2022, 8, 29, 16), ofDate(2022, 9, 3, 16)));
             communityEventsAppend.push(createGoldRush2(ofDate(2022, 8, 29, 16), ofDate(2022, 9, 3, 16)));
             communityEventsAppend.push(createMinerva(ofDate(2022, 8, 29, 16), ofDate(2022, 9, 3, 16), "Big Sale @ Foundation", "P?"));
 
             communityEventsAppend.push(createInvaders(ofDate(2022, 9, 4, 16), ofDate(2022, 9, 18, 16)));
+            addWeekly(challengesWeeklyEra13.options, 21, scoreFixedGainXP10000Rank100);
+            addWeekly(challengesWeeklyEra13.options, 21, scoreLevelUp3);
+            addWeekly(challengesWeeklyEra13.options, 21, scoreCompleteGoldStar);
+            addWeekly(challengesWeeklyEra13.options, 21, scoreCompleteDailyOpsPublicTeam, 5);
+            addWeekly(challengesWeeklyEra13.options, 21, scoreCompleteEvents10);
+            addWeekly(challengesWeeklyEra13.options, 21, scoreCompleteInvadersDaily, 5);
+            addWeekly(challengesWeeklyEra13.options, 21, scoreTakePictureZeta, 1);
+            addWeekly(challengesWeeklyEra13.options, 21, scorePlantCrop, 50);
+            addWeekly(challengesWeeklyEra13.options, 21, scoreCollectPrisonerCollars, 5);
+            addWeekly(challengesWeeklyEra13.options, 21, scoreKillTrog, 50);
+            addDaily(challengesDailyEra13, 21, [
+                    scoreCompleteDailyChallenge, 5,
+                    scoreLevelUp, 1,
+                    scoreCompleteDailyOpsPublicTeam, 1,
+                    scoreCompleteOneEvent, 2,
+                    scoreCompleteInvaders, 1,
+                    scoreDestroyFanaticProtectron, 5,
+                    scoreJoinGroup, 1,
+                    scoreTakePictureAlienEnemy, 1,
+                    scoreGainXP2500, 1,
+                    make1st(scoreKillCreatureWellFed), 20,
+                ], dops(dailyOpsWestTec, dailyOpsEagles, dailyOpsVolatile, true));
+
+
             communityEventsAppend.push(createDoubleMutations(ofDate(2022, 9, 6, 16), ofDate(2022, 9, 10, 16)));
             communityEventsAppend.push(createCapsOPlenty(ofDate(2022, 9, 13, 16), ofDate(2022, 9, 17, 16)));
             communityEventsAppend.push(createHolidayScorched(ofDate(2022, 9, 25, 16), ofDate(2022, 10, 8, 16), "Spooky Scorched"));
