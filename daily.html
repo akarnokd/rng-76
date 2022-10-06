@@ -913,7 +913,7 @@
             }
             function scoreCompleteOneEvent(offset, count) {
                 return {
-                            name: times("Complete an event", count),
+                            name: times("Complete an Event", count),
                             offset: offset,
                             period: 1400,
                         };
@@ -2855,7 +2855,7 @@
             var dailyOpsGhouls = "Ghouls";
             var dailyOpsCultists = "Mothman Cultists";
             var dailyOpsScorched = "Scorched";
-            var dailyOpsMoleminers = "Mole miners";
+            var dailyOpsMoleminers = "Mole Miners";
             var dailyOpsCommunists = "Communists";
 
             var dailyOpsDecryption = "Decryption";
@@ -13748,6 +13748,14 @@
                 };
             }
 
+            function scoreGainXP_1000_Rank_100Plus(offset, count) {
+                return {
+                    name: times("Gain 1000 XP (above rank 100)", count),
+                    offset: offset,
+                    period: 1400,
+                };
+            }
+
             addWeekly(challengesWeeklyEra13.options, 0, scoreFixedGainXP10000Rank100);
             addWeekly(challengesWeeklyEra13.options, 0, scoreLevelUp3);
             addWeekly(challengesWeeklyEra13.options, 0, scoreCompleteDailyOpsDailies, 3);
@@ -14074,6 +14082,7 @@
                     scoreGainXP2500, 1,
                     make1st(scoreTakePictureAlienInvader), 1,
                 ], dops(dailyOpsArktos, dailyOpsMoleminers, dailyOpsVolatile, true));
+            communityEventsAppend.push(createDoubleMutations(ofDate(2022, 9, 6, 16), ofDate(2022, 9, 10, 16)));
             addDaily(challengesDailyEra13, 23, [
                     scoreCompleteDailyChallenge, 5,
                     scoreLevelUp, 1,
@@ -14083,12 +14092,10 @@
                     scoreCollectCaps, 100,
                     scoreHackTerminal, 1,
                     scoreKillCreatureInGroup, 20,
-                    scoreGainXP2500, 1,
+                    scoreGainXP_1000_Rank_100Plus, 1,
                     make1st(scoreEatCookedMeal), 20,
-                ], dops(dailyOpsArktos, dailyOpsMoleminers, dailyOpsVolatile, true));
+                ], dops(dailyOpsUncanny, dailyOpsCommunists, dailyOpsRelentless, false));
 
-
-            communityEventsAppend.push(createDoubleMutations(ofDate(2022, 9, 6, 16), ofDate(2022, 9, 10, 16)));
             communityEventsAppend.push(createCapsOPlenty(ofDate(2022, 9, 13, 16), ofDate(2022, 9, 17, 16)));
             communityEventsAppend.push(createHolidayScorched(ofDate(2022, 9, 25, 16), ofDate(2022, 10, 8, 16), "Spooky Scorched"));
 
