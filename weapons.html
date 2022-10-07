@@ -11809,12 +11809,18 @@
                 document.getElementById("critrate" + index).innerHTML = "<b>(" + (critMultiplier).toFixed(2) + " %)</b>";
 
                 if (isCrit) {
+                    var dmg = baseDamage - additiveBoosts;
+                    var dmgEnergy = baseDamageEnergy - additiveEnergyBoosts;
+                    var dmgFire = baseDamageFire - additiveFireBoosts;
+                    var dmgCold = baseDamageCold - additiveColdBoosts;
+                    var dmgPoison = baseDamagePoison - additivePoisonBoosts;
+
                     var critBonusAdditive = (critMultiplier - 100) / 100;
-                    totalDamage += critBonusAdditive;
-                    totalDamageEnergy += critBonusAdditive;
-                    totalDamageFire += critBonusAdditive;
-                    totalDamageCold += critBonusAdditive;
-                    totalDamagePoison += critBonusAdditive;
+                    totalDamage += dmg * critBonusAdditive;
+                    totalDamageEnergy += dmgEnergy * critBonusAdditive;
+                    totalDamageFire += dmgFire * critBonusAdditive;
+                    totalDamageCold += dmgCold * critBonusAdditive;
+                    totalDamagePoison += dmgPoison * critBonusAdditive;
                 }
 
 
