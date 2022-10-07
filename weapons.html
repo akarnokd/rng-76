@@ -27,7 +27,7 @@
     </head>
     <body style="height: 90%">
         <center>
-            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Weapon Damage Calculator (v3.10.5)</span>
+            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Weapon Damage Calculator (v3.10.6)</span>
             <br/>
             <i>(Patch 38 [The Pitt] update in progress.)</i>
         <br/>
@@ -11491,7 +11491,7 @@
                 var nerdrage = document.getElementById("nerdrage" + index);
                 if (nerdrage.selectedIndex > 0) {
                     var health = parseFloat(document.getElementById("playerhealth" + index).value);
-                    if (health < 20) {
+                    if (health <= 20) {
                         var applyNerdrage = valueOf(nerdrage);
                         totalDamageMultiply.push(applyNerdrage);
                         totalDamageEnergyMultiply.push(applyNerdrage);
@@ -11756,6 +11756,14 @@
                     totalDamageRadiationMultiply.forEach(function(v) {
                         totalDamageRadiation += baseDamageRadiation * v / 100.0;
                     });
+
+                    var sneakBonusAdditive = sneakBonusMultiply - 1;
+                    totalDamage += dmg * sneakBonusAdditive;
+                    totalDamageEnergy += dmgEnergy * sneakBonusAdditive;
+                    totalDamageFire += dmgFire * sneakBonusAdditive;
+                    totalDamageCold += dmgCold * sneakBonusAdditive;
+                    totalDamagePoison += dmgPoison * sneakBonusAdditive;
+
                 } else {
                     totalDamageMultiply.forEach(function(v) {
                         totalDamage *= 1.0 + v / 100.0;
@@ -11769,6 +11777,12 @@
                     totalDamageRadiationMultiply.forEach(function(v) {
                         totalDamageRadiation *= 1.0 + v / 100.0;
                     });
+
+                    totalDamage *= sneakBonusMultiply;
+                    totalDamageEnergy *= sneakBonusMultiply;
+                    totalDamageFire *= sneakBonusMultiply;
+                    totalDamageCold *= sneakBonusMultiply;
+                    totalDamagePoison *= sneakBonusMultiply;
                 }
 
                 totalDamageDebuff.forEach(v => {
@@ -11781,11 +11795,6 @@
                     totalDamagePoison *= 1.0 + v / 100.0;
                 });
 
-                totalDamage *= sneakBonusMultiply;
-                totalDamageEnergy *= sneakBonusMultiply;
-                totalDamageFire *= sneakBonusMultiply;
-                totalDamageCold *= sneakBonusMultiply;
-                totalDamagePoison *= sneakBonusMultiply;
 
                 var critboost = parseFloat(document.getElementById("critboost" + index).value);
                 critMultiplier += critboost;
@@ -11802,11 +11811,27 @@
                 document.getElementById("critrate" + index).innerHTML = "<b>(" + (critMultiplier).toFixed(2) + " %)</b>";
 
                 if (isCrit) {
-                    totalDamage *= critMultiplier / 100;
-                    totalDamageEnergy *= critMultiplier / 100;
-                    totalDamageFire *= critMultiplier / 100;
-                    totalDamageCold *= critMultiplier / 100;
-                    totalDamagePoison *= critMultiplier / 100;
+                    if (isCalcAdd) {
+                        var dmg = baseDamage - additiveBoosts;
+                        var dmgEnergy = baseDamageEnergy - additiveEnergyBoosts;
+                        var dmgFire = baseDamageFire - additiveFireBoosts;
+                        var dmgCold = baseDamageCold - additiveColdBoosts;
+                        var dmgPoison = baseDamagePoison - additivePoisonBoosts;
+
+                        var critBonusAdditive = (critMultiplier - 100) / 100;
+
+                        totalDamage += dmg * critBonusAdditive;
+                        totalDamageEnergy += dmgEnergy * critBonusAdditive;
+                        totalDamageFire += dmgFire * critBonusAdditive;
+                        totalDamageCold += dmgCold * critBonusAdditive;
+                        totalDamagePoison += dmgPoison * critBonusAdditive;
+                    } else {
+                        totalDamage *= critMultiplier / 100;
+                        totalDamageEnergy *= critMultiplier / 100;
+                        totalDamageFire *= critMultiplier / 100;
+                        totalDamageCold *= critMultiplier / 100;
+                        totalDamagePoison *= critMultiplier / 100;
+                    }
                 }
             
 
