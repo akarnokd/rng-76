@@ -11809,13 +11809,14 @@
                 document.getElementById("critrate" + index).innerHTML = "<b>(" + (critMultiplier).toFixed(2) + " %)</b>";
 
                 if (isCrit) {
-                    totalDamage *= critMultiplier / 100;
-                    totalDamageEnergy *= critMultiplier / 100;
-                    totalDamageFire *= critMultiplier / 100;
-                    totalDamageCold *= critMultiplier / 100;
-                    totalDamagePoison *= critMultiplier / 100;
+                    var critBonusAdditive = (critMultiplier - 100) / 100;
+                    totalDamage += critBonusAdditive;
+                    totalDamageEnergy += critBonusAdditive;
+                    totalDamageFire += critBonusAdditive;
+                    totalDamageCold += critBonusAdditive;
+                    totalDamagePoison += critBonusAdditive;
                 }
-            
+
 
                 if (document.getElementById("grounded" + index + "_yes").checked) {
                     if (classFreak == "1") {
