@@ -11758,11 +11758,11 @@
                     });
 
                     var sneakBonusAdditive = sneakBonusMultiply - 1;
-                    totalDamage += sneakBonusAdditive;
-                    totalDamageEnergy += sneakBonusAdditive;
-                    totalDamageFire += sneakBonusAdditive;
-                    totalDamageCold += sneakBonusAdditive;
-                    totalDamagePoison += sneakBonusAdditive;
+                    totalDamage += dmg * sneakBonusAdditive;
+                    totalDamageEnergy += dmgEnergy * sneakBonusAdditive;
+                    totalDamageFire += dmgFire * sneakBonusAdditive;
+                    totalDamageCold += dmgCold * sneakBonusAdditive;
+                    totalDamagePoison += dmgPoison * sneakBonusAdditive;
                 } else {
                     totalDamageMultiply.forEach(function(v) {
                         totalDamage *= 1.0 + v / 100.0;
