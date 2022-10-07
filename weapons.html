@@ -11491,7 +11491,7 @@
                 var nerdrage = document.getElementById("nerdrage" + index);
                 if (nerdrage.selectedIndex > 0) {
                     var health = parseFloat(document.getElementById("playerhealth" + index).value);
-                    if (health < 20) {
+                    if (health <= 20) {
                         var applyNerdrage = valueOf(nerdrage);
                         totalDamageMultiply.push(applyNerdrage);
                         totalDamageEnergyMultiply.push(applyNerdrage);
