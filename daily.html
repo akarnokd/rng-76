@@ -13756,6 +13756,22 @@
                 };
             }
 
+            function scoreEatCakePieCandy(offset, count) {
+                return {
+                    name: times("Eat Cake, Pie or Candy", count),
+                    offset: offset,
+                    period: 1400,
+                };
+            }
+
+            function scoreDestroyRobotAutoAxe(offset, count) {
+                return {
+                    name: times("Destroy a Robot with an Auto Axe", count),
+                    offset: offset,
+                    period: 1400,
+                };
+            }
+
             addWeekly(challengesWeeklyEra13.options, 0, scoreFixedGainXP10000Rank100);
             addWeekly(challengesWeeklyEra13.options, 0, scoreLevelUp3);
             addWeekly(challengesWeeklyEra13.options, 0, scoreCompleteDailyOpsDailies, 3);
@@ -14130,6 +14146,18 @@
                     scoreKillThreestarLegendary, 1,
                     scoreGainXP_1000_Rank_100Plus, 1,
                     make1st(scoreKillCreatureInGroup), 20,
+                ], dops(dailyOpsBurrows, dailyOpsEagles, dailyOpsStingingFrost, true));
+            addDaily(challengesDailyEra13, 27, [
+                    scoreCompleteDailyChallenge, 5,
+                    scoreLevelUp, 1,
+                    scoreCompleteDailyOpsPublicTeam, 1,
+                    scoreCompleteOneEvent, 2,
+                    scoreCompleteInvaders, 1,
+                    scoreConsumeAlcohol, 10,
+                    scoreEatCakePieCandy, 10,
+                    scoreKillDeathclaw, 1,
+                    scoreGainXP_1000_Rank_100Plus, 1,
+                    make1st(scoreDestroyRobotAutoAxe), 10,
                 ], dops(dailyOpsBurrows, dailyOpsEagles, dailyOpsStingingFrost, true));
 
             communityEventsAppend.push(createCapsOPlenty(ofDate(2022, 9, 13, 16), ofDate(2022, 9, 17, 16)));
