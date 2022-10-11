@@ -13771,6 +13771,21 @@
                     period: 1400,
                 };
             }
+            function scoreExpeditionCollectStamps(offset, count) {
+                return {
+                    name: times("&#x1F681; Expeditions - Collect Stamps", count),
+                    offset: offset,
+                    period: 1400,
+                };
+            }
+
+            function scoreExpeditionCompleteAnyMissionPitt(offset, count) {
+                return {
+                    name: times("&#x1F681; Expeditions - Complete Any Mission in The Pitt", count),
+                    offset: offset,
+                    period: 1400,
+                };
+            }
 
             addWeekly(challengesWeeklyEra13.options, 0, scoreFixedGainXP10000Rank100);
             addWeekly(challengesWeeklyEra13.options, 0, scoreLevelUp3);
@@ -14159,6 +14174,28 @@
                     scoreKillDeathclaw, 1,
                     scoreGainXP_1000_Rank_100Plus, 1,
                     make1st(scoreDestroyRobotAutoAxe), 10,
+                ], dops(dailyOpsV96, dailyOpsCommunists, dailyOpsToxic, false));
+            addWeekly(challengesWeeklyEra13.options, 28, scoreFixedGainXP10000Rank100);
+            addWeekly(challengesWeeklyEra13.options, 28, scoreLevelUp3);
+            addWeekly(challengesWeeklyEra13.options, 28, scoreCompleteGoldStar);
+            addWeekly(challengesWeeklyEra13.options, 28, scoreCompleteDailyOpsDailies, 3);
+            addWeekly(challengesWeeklyEra13.options, 28, scoreCompleteEvents10);
+            addWeekly(challengesWeeklyEra13.options, 28, scoreCompleteInvadersDaily, 5);
+            addWeekly(challengesWeeklyEra13.options, 28, scoreCollectScrip, 500);
+            addWeekly(challengesWeeklyEra13.options, 28, scoreScrapJunkAluminium, 25);
+            addWeekly(challengesWeeklyEra13.options, 28, scoreExpeditionCollectStamps, 5);
+            addWeekly(challengesWeeklyEra13.options, 28, scoreExpeditionCompleteAnyMissionPitt, 1);
+            addDaily(challengesDailyEra13, 28, [
+                    scoreCompleteDailyChallenge, 5,
+                    scoreLevelUp, 1,
+                    scoreCompleteDailyOpsPublicTeam, 1,
+                    scoreCompleteOneEvent, 2,
+                    scoreCompleteInvaders, 1,
+                    scoreDrinkNukaCola, 3,
+                    scoreHarvestPlantFungi, 20,
+                    scoreGainXP_1000_Rank_100Plus, 1,
+                    scoreExpeditionsRefugeDaily, 1,
+                    make1st(scoreCraftMineGrenadeThrown), 10,
                 ], dops(dailyOpsV96, dailyOpsCommunists, dailyOpsToxic, false));
 
             communityEventsAppend.push(createCapsOPlenty(ofDate(2022, 9, 13, 16), ofDate(2022, 9, 17, 16)));
