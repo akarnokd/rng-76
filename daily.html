@@ -13786,6 +13786,20 @@
                     period: 1400,
                 };
             }
+            function scoreKillEnemyAutoAxe(offset, count) {
+                return {
+                    name: times("Kill/destroy an enemy with an Auto Axe", count),
+                    offset: offset,
+                    period: 1400,
+                };
+            }
+            function scoreScrapJunkSprings(offset, count) {
+                return {
+                    name: times("Scrap junk to produce Springs", count),
+                    offset: offset,
+                    period: 1400,
+                };
+            }
 
             addWeekly(challengesWeeklyEra13.options, 0, scoreFixedGainXP10000Rank100);
             addWeekly(challengesWeeklyEra13.options, 0, scoreLevelUp3);
@@ -14196,6 +14210,18 @@
                     scoreGainXP_1000_Rank_100Plus, 1,
                     scoreExpeditionsRefugeDaily, 1,
                     make1st(scoreCraftMineGrenadeThrown), 10,
+                ], dops(dailyOpsWatoga, dailyOpsRobots, dailyOpsVolatile, true));
+            addDaily(challengesDailyEra13, 29, [
+                    scoreCompleteDailyChallenge, 5,
+                    scoreLevelUp, 1,
+                    scoreCompleteDailyOpsPublicTeam, 1,
+                    scoreCompleteOneEvent, 2,
+                    scoreCompleteInvaders, 1,
+                    scoreBuildWallDecorShelter, 5,
+                    scoreKillEnemyAutoAxe, 20,
+                    scoreScrapJunkSprings, 5,
+                    scoreGainXP_1000_Rank_100Plus, 1,
+                    make1st(scoreTakePictureAlienEnemy), 1,
                 ], dops(dailyOpsWatoga, dailyOpsRobots, dailyOpsVolatile, true));
 
             communityEventsAppend.push(createCapsOPlenty(ofDate(2022, 9, 13, 16), ofDate(2022, 9, 17, 16)));
