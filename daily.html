@@ -13800,6 +13800,13 @@
                     period: 1400,
                 };
             }
+            function scoreScrapBoardGame(offset, count) {
+                return {
+                    name: times("Scrap a Board Game", count),
+                    offset: offset,
+                    period: 1400,
+                };
+            }
 
             addWeekly(challengesWeeklyEra13.options, 0, scoreFixedGainXP10000Rank100);
             addWeekly(challengesWeeklyEra13.options, 0, scoreLevelUp3);
@@ -14234,6 +14241,18 @@
                     scoreScrapJunkAluminium, 5,
                     scoreGainXP_1000_Rank_100Plus, 1,
                     make1st(scoreCollectAudiotape), 1,
+                ], dops(dailyOpsUncanny, dailyOpsMutants, dailyOpsSwift, true));
+            addDaily(challengesDailyEra13, 31, [
+                    scoreCompleteDailyChallenge, 5,
+                    scoreLevelUp, 1,
+                    scoreCompleteDailyOpsPublicTeam, 1,
+                    scoreCompleteOneEvent, 2,
+                    scoreCompleteInvaders, 1,
+                    scoreKillCryptid1, 1,
+                    scorePickLock, 1,
+                    scoreTakePictureAlienDrone, 1,
+                    scoreGainXP_1000_Rank_100Plus, 1,
+                    make1st(scoreScrapBoardGame), 1,
                 ], dops(dailyOpsUncanny, dailyOpsMutants, dailyOpsSwift, true));
 
             communityEventsAppend.push(createCapsOPlenty(ofDate(2022, 9, 13, 16), ofDate(2022, 9, 17, 16)));
