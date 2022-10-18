@@ -13589,6 +13589,13 @@
                     period: 1400
                 };
             }
+            function scoreKillFanaticAutoAxe(offset, count) {
+                return {
+                    name: times("&#x1F681; Kill a Fanatic with Auto Axe", count),
+                    offset: offset,
+                    period: 1400
+                };
+            }
             function scoreTakeCameraPictureFanaticConqueror(offset, count) {
                 return {
                     name: times("&#x1F681; Take a Camera Picture of a Fanatic Conqueror", count),
@@ -13803,6 +13810,13 @@
             function scoreScrapBoardGame(offset, count) {
                 return {
                     name: times("Scrap a Board Game", count),
+                    offset: offset,
+                    period: 1400,
+                };
+            }
+            function scoreUsePhotomodePitt(offset, count) {
+                return {
+                    name: times("&#x1F681; Use Photo mode to take a picture in The Pitt", count),
                     offset: offset,
                     period: 1400,
                 };
@@ -14291,6 +14305,28 @@
                     scoreScrapJunkScrews, 5,
                     scoreGainXP_1000_Rank_100Plus, 1,
                     make1st(scoreCraftAmmo), 50,
+                ], dops(dailyOpsWestTec, dailyOpsScorched, dailyOpsToxic, true));
+            addWeekly(challengesWeeklyEra13.options, 35, scoreFixedGainXP10000Rank100);
+            addWeekly(challengesWeeklyEra13.options, 35, scoreLevelUp3);
+            addWeekly(challengesWeeklyEra13.options, 35, scoreCompleteGoldStar);
+            addWeekly(challengesWeeklyEra13.options, 35, scoreCompleteDailyOpsPublicTeam, 5);
+            addWeekly(challengesWeeklyEra13.options, 35, scoreCompleteEvents10);
+            addWeekly(challengesWeeklyEra13.options, 35, scoreBuildFloorWallCamp, 25);
+            addWeekly(challengesWeeklyEra13.options, 35, scoreDrinkNukaCola, 25);
+            addWeekly(challengesWeeklyEra13.options, 35, scoreKillGlowing, 10);
+            addWeekly(challengesWeeklyEra13.options, 35, scoreExpeditionCompleteAnyMissionPitt, 1);
+            addWeekly(challengesWeeklyEra13.options, 35, scoreUsePhotomodePitt, 10);
+            addDaily(challengesDailyEra13, 35, [
+                    scoreCompleteDailyChallenge, 5,
+                    scoreLevelUp, 1,
+                    scoreCompleteDailyOpsPublicTeam, 1,
+                    scoreCompleteOneEvent, 1,
+                    scoreCompleteDaily, 1,
+                    scoreChewBubblegum, 1,
+                    scoreCraftScrapArmor, 5,
+                    scoreKillFanaticAutoAxe, 5,
+                    scoreGainXP_1000_Rank_100Plus, 1,
+                    make1st(scoreCollectVertibirdFuel), 100,
                 ], dops(dailyOpsWestTec, dailyOpsScorched, dailyOpsToxic, true));
 
             communityEventsAppend.push(createHolidayScorched(ofDate(2022, 9, 25, 16), ofDate(2022, 10, 8, 16), "Spooky Scorched"));
