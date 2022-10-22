@@ -13821,6 +13821,13 @@
                     period: 1400,
                 };
             }
+            function scoreModAutoAxe(offset, count) {
+                return {
+                    name: times("Mod an Auto Axe", count),
+                    offset: offset,
+                    period: 1400,
+                };
+            }
 
             addWeekly(challengesWeeklyEra13.options, 0, scoreFixedGainXP10000Rank100);
             addWeekly(challengesWeeklyEra13.options, 0, scoreLevelUp3);
@@ -14366,6 +14373,17 @@
                     scoreGainXP_1000_Rank_100Plus, 1,
                     //make1st(scorePickLock), 1,
                 ], dops(dailyOpsValley, dailyOpsRobots, dailyOpsStingingFrost, true));
+            addDaily(challengesDailyEra13, 39, [
+                    scoreCompleteDailyChallenge, 5,
+                    scoreLevelUp, 1,
+                    scoreCompleteDailyOpsPublicTeam, 1,
+                    scoreCompleteOneEvent, 1,
+                    scoreCollectScrip, 50,
+                    scoreEatCookedMeal, 20,
+                    scoreKillCultist, 10,
+                    scoreGainXP_1000_Rank_100Plus, 1,
+                    make1st(scoreModAutoAxe), 1,
+                ], dops(dailyOpsBurning, dailyOpsCommunists, dailyOpsUnstable, false));
 
             communityEventsAppend.push(createHolidayScorched(ofDate(2022, 9, 25, 16), ofDate(2022, 10, 8, 16), "Spooky Scorched"));
 
