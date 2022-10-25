@@ -13828,6 +13828,48 @@
                     period: 1400,
                 };
             }
+            function scoreAnniversaryClaimMysteryItem(offset, count) {
+                return {
+                    name: times("Anniversary: Claim Free Mystery Item from the Atom Shop", count),
+                    offset: offset,
+                    period: 1400,
+                };
+            }
+            function scoreBuildSpookyBowl(offset, count) {
+                return {
+                    name: times("&#x1F383; HALLOWEEN: Build Spooky Bowl and give out candy", count),
+                    offset: offset,
+                    period: 1400,
+                };
+            }
+            function scoreCompleteMysteryItemDailies(offset, count) {
+                return {
+                    name: times("Anniversary: Complete Mystery Item Daily Challenges", count),
+                    offset: offset,
+                    period: 1400,
+                };
+            }
+            function scoreCompleteGiveOutCandyDaily(offset, count) {
+                return {
+                    name: times("&#x1F383; HALLOWEEN: Complete Give out candy Daily Challenges", count),
+                    offset: offset,
+                    period: 1400,
+                };
+            }
+            function scoreKillSpookyScorchedRepeat(offset, count) {
+                return {
+                    name: times("&#x1F383; HALLOWEEN: Kill Spooky Scorched (Repeatable)", count),
+                    offset: offset,
+                    period: 1400,
+                };
+            }
+            function scoreCompleteTrickOrTreatDaily(offset, count) {
+                return {
+                    name: times("&#x1F383; HALLOWEEN: Complete Trick or Treat Daily Challenges", count),
+                    offset: offset,
+                    period: 1400,
+                };
+            }
 
             addWeekly(challengesWeeklyEra13.options, 0, scoreFixedGainXP10000Rank100);
             addWeekly(challengesWeeklyEra13.options, 0, scoreLevelUp3);
@@ -14410,6 +14452,29 @@
                 ], dops(dailyOpsWatoga, dailyOpsScorched, dailyOpsResilient, false));
 
             communityEventsAppend.push(createHolidayScorched(ofDate(2022, 9, 25, 16), ofDate(2022, 10, 8, 16), "Spooky Scorched"));
+            addWeekly(challengesWeeklyEra13.options, 42, scoreFixedGainXP10000Rank100);
+            addWeekly(challengesWeeklyEra13.options, 42, scoreLevelUp3);
+            addWeekly(challengesWeeklyEra13.options, 42, scoreCompleteGoldStar);
+            addWeekly(challengesWeeklyEra13.options, 42, scoreCompleteDailyOpsDailies, 3);
+            addWeekly(challengesWeeklyEra13.options, 42, scoreCompleteEvents10);
+            addWeekly(challengesWeeklyEra13.options, 42, scoreCompleteMysteryItemDailies, 4);
+            addWeekly(challengesWeeklyEra13.options, 42, scoreEatPrewarFood, 25);
+            addWeekly(challengesWeeklyEra13.options, 42, scoreCompleteGiveOutCandyDaily, 5);
+            addWeekly(challengesWeeklyEra13.options, 42, scoreCompleteTrickOrTreatDaily, 5);
+            addWeekly(challengesWeeklyEra13.options, 42, scoreKillSpookyScorchedRepeat, 50);
+            addDaily(challengesDailyEra13, 42, [
+                    scoreCompleteDailyChallenge, 5,
+                    scoreLevelUp, 1,
+                    scoreCompleteDailyOpsPublicTeam, 1,
+                    scoreCompleteOneEvent, 1,
+                    scoreAnniversaryClaimMysteryItem, 1,
+                    scoreJoinGroup, 1,
+                    scoreBuildSpookyBowl, 1,
+                    scoreTrickOrTreat, 5,
+                    scoreKillSpookyScorched, 5,
+                    scoreGainXP_1000_Rank_100Plus, 1,
+                    make1st(scoreCollectVertibirdFuel), 100,
+                ], dops(dailyOpsWatoga, dailyOpsScorched, dailyOpsResilient, false));
 
             communityEventsAppend.push(createDoubleMutations(ofDate(2022, 10, 3, 16), ofDate(2022, 10, 7, 16)));
             communityEventsAppend.push(createGoldRush2(ofDate(2022, 10, 3, 16), ofDate(2022, 10, 7, 16)));
