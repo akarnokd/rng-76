@@ -14546,6 +14546,28 @@
                     scoreGainXP_1000_Rank_100Plus, 1,
                     make1st(scoreCollectBullion), 25,
                 ], dops(dailyOpsBurrows, dailyOpsEagles, dailyOpsFreezing, true));
+            addWeekly(challengesWeeklyEra13.options, 49, scoreFixedGainXP10000Rank100);
+            addWeekly(challengesWeeklyEra13.options, 49, scoreLevelUp3);
+            addWeekly(challengesWeeklyEra13.options, 49, scoreCompleteGoldStar);
+            addWeekly(challengesWeeklyEra13.options, 49, scoreCompleteDailyOpsPublicTeam, 5);
+            addWeekly(challengesWeeklyEra13.options, 49, scoreCompleteEvents10);
+            addWeekly(challengesWeeklyEra13.options, 49, scoreCompleteMysteryItemDailies, 4);
+            addWeekly(challengesWeeklyEra13.options, 49, scoreHarvestPlantFungi, 100);
+            addWeekly(challengesWeeklyEra13.options, 49, scoreCompleteGiveOutCandyDaily, 5);
+            addWeekly(challengesWeeklyEra13.options, 49, scoreCompleteTrickOrTreatDaily, 5);
+            addWeekly(challengesWeeklyEra13.options, 49, scoreKillSpookyScorchedRepeat, 50);
+            addDaily(challengesDailyEra13, 49, [
+                    scoreCompleteDailyChallenge, 5,
+                    scoreLevelUp, 1,
+                    scoreCompleteDailyOpsPublicTeam, 1,
+                    scoreCompleteOneEvent, 1,
+                    scoreAnniversaryClaimMysteryItem, 1,
+                    scoreBuildSpookyBowl, 1,
+                    scoreTrickOrTreat, 5,
+                    scoreKillSpookyScorched, 5,
+                    scoreGainXP_1000_Rank_100Plus, 1,
+                    make1st(scoreExpeditionsRefugeDaily), 1,
+                ], dops(dailyOpsBurrows, dailyOpsEagles, dailyOpsFreezing, true));
 
             communityEventsAppend.push(createDoubleMutations(ofDate(2022, 10, 3, 16), ofDate(2022, 10, 7, 16)));
             communityEventsAppend.push(createGoldRush2(ofDate(2022, 10, 3, 16), ofDate(2022, 10, 7, 16)));
