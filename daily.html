@@ -14641,7 +14641,29 @@
                     scoreTrickOrTreat, 5,
                     scoreKillSpookyScorched, 5,
                     scoreGainXP_1000_Rank_100Plus, 1,
-                    make1st(scoreTakePictureSuperMutant), 20,
+                    make1st(scoreTakePictureSuperMutant), 1,
+                ], dops(dailyOpsWestTec, dailyOpsRobots, dailyOpsSwift, false));
+            addWeekly(challengesWeeklyEra13.options, 56, scoreFixedGainXP10000Rank100);
+            addWeekly(challengesWeeklyEra13.options, 56, scoreLevelUp3);
+            addWeekly(challengesWeeklyEra13.options, 56, scoreCompleteGoldStar);
+            addWeekly(challengesWeeklyEra13.options, 56, scoreCompleteDailyOpsDailies, 3);
+            addWeekly(challengesWeeklyEra13.options, 56, scoreCompleteEvents10);
+            addWeekly(challengesWeeklyEra13.options, 56, scoreCollectPurifiedWater, 25);
+            addWeekly(challengesWeeklyEra13.options, 56, scoreCollectVertibirdFuel, 300);
+            addWeekly(challengesWeeklyEra13.options, 56, scoreCraftAmmo, 250);
+            addWeekly(challengesWeeklyEra13.options, 56, scoreCriticalHit, 25);
+            addWeekly(challengesWeeklyEra13.options, 56, scoreExpeditionCollectStamps, 5);
+            addDaily(challengesDailyEra13, 56, [
+                    scoreCompleteDailyChallenge, 5,
+                    scoreLevelUp, 1,
+                    scoreCompleteDailyOps, 1,
+                    scoreCompleteOneEvent, 1,
+                    scoreCollectCaps, 100,
+                    scoreKillCreatureInGroup, 20,
+                    scoreKillTrog, 10,
+                    scoreGainXP_1000_Rank_100Plus, 1,
+                    scoreExpeditionsRefugeDaily, 1,
+                    make1st(scorePickLock), 1,
                 ], dops(dailyOpsWestTec, dailyOpsRobots, dailyOpsSwift, false));
 
             communityEventsAppend.push(createDoubleXP(ofDate(2022, 10, 10, 17), ofDate(2022, 10, 14, 17)));
