@@ -14677,8 +14677,21 @@
                     scoreGainXP_1000_Rank_100Plus, 1,
                     make1st(scoreCraftAmmo), 50,
                 ], dops(dailyOpsArktos, dailyOpsCommunists, dailyOpsCloaked, false));
+            addDaily(challengesDailyEra13, 58, [
+                    scoreCompleteDailyChallenge, 5,
+                    scoreLevelUp, 1,
+                    scoreCompleteDailyOps, 1,
+                    scoreCompleteOneEvent, 1,
+                    scoreBuildWallDecor, 5,
+                    scoreCollectAudiotape, 1,
+                    scoreConsumeAlcohol, 10,
+                    scoreKillDeathclaw, 1,
+                    scoreGainXP_1000_Rank_100Plus, 1,
+                    make1st(scoreScrapJunkScrews), 5,
+                ], dops(dailyOpsBurning, dailyOpsMutants, dailyOpsResilient, true));
 
             communityEventsAppend.push(createDoubleXP(ofDate(2022, 10, 10, 17), ofDate(2022, 10, 14, 17)));
+            communityEventsAppend.push(createDoubleScore(ofDate(2022, 10, 10, 17), ofDate(2022, 10, 14, 17)));
             communityEventsAppend.push(createCallToAxetion(ofDate(2022, 10, 15, 17), ofDate(2022, 10, 29, 17)));
             communityEventsAppend.push(createDoubleMutations(ofDate(2022, 10, 17, 17), ofDate(2022, 10, 21, 17)));
             communityEventsAppend.push(createPurveyor(ofDate(2022, 10, 24, 17), ofDate(2022, 10, 28, 17), 25, false, 1));
