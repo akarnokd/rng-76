@@ -16408,7 +16408,9 @@
                     season.options.push({
                         name: "Season ends: <b style='color: green;'>"  + season.validEnd.toLocaleDateString() 
                             + " (" + season.validEnd.toLocaleDateString(window.navigator.language, {weekday: 'long'}) + ")"
-                            + " " + season.validEnd.toLocaleTimeString() + "</b>",
+                            + " " + season.validEnd.toLocaleTimeString() + "</b>"
+                            + (!uncertain ? " (confirmed)" : "")
+                            ,
                         offset: i,
                         period: 1400
                     });
