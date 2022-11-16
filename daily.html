@@ -13740,7 +13740,7 @@
 
             function scoreDestroyFanaticProtectron(offset, count) {
                 return {
-                    name: times("Destroy a Fanatic Protectron", count),
+                    name: times("&#x1F681; Destroy a Fanatic Protectron", count),
                     offset: offset,
                     period: 1400
                 };
@@ -14745,7 +14745,7 @@
 
             function scoreAxetionKillTrogs(offset, count) {
                 return {
-                    name: times("&#x1FA93; CALL TO AXE-ION: Kill Trogs with the Redd-Upper", count),
+                    name: times("&#x1F681; &#x1FA93; CALL TO AXE-ION: Kill Trogs with the Redd-Upper", count),
                     offset: offset,
                     period: 1400,
                 };
@@ -14774,10 +14774,10 @@
                     scoreCompleteDailyOpsPublicTeam, 1,
                     scoreCompleteOneEvent, 1,
                     scoreCraftAmmo, 50,
-                    scoreDestroyFanaticProtectron, 5,
                     scorePlantCrop, 10,
                     scoreCollectCaps, 100,
                     scoreGainXP_1000_Rank_100Plus, 1,
+                    scoreDestroyFanaticProtectron, 5,
                     scoreAxetionKillTrogs, 10,
                     make1st(scoreCraftScrapPowerArmor), 1,
                 ], dops(dailyOpsArktos, dailyOpsMutants, dailyOpsVolatile, false));
@@ -15388,12 +15388,32 @@
                 return {
                     validStart: start,
                     validEnd: end,
-                    title: "Call to Axe-tion challenge event",
+                    title: "Call to Axe-ion challenge event",
                     options: [
                         {
-                            name: "Don't know what this event is right now. TBD",
+                            name: "Perform various daily and weekly challenges with the Auto-Axe",
                             offset: 0,
-                            period: 1
+                            period: 1,
+                            subchallenges: [
+                                {
+                                    name: "Get the Free Redd-Upper Skin for the Auto-Axe from the Atom Shop"
+                                },
+                                {
+                                    name: "Apply the skin on any Auto-Axe"
+                                },
+                                {
+                                    name: "Check the daily and weekly challenges for what to do"
+                                },
+                                {
+                                    name: "Challenges include killing or destroying enemies in Appalachia or in the Pitt."
+                                }
+                                
+                            ]
+                        },
+                        {
+                            name: "Rewards: Legendary Modules",
+                            offset: 0,
+                            period: 1,
                         }
                     ]
                 };
