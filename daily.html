@@ -14757,6 +14757,13 @@
                     period: 1400,
                 };
             }
+            function scoreAxetionDestroyRobots(offset, count) {
+                return {
+                    name: times("&#x1FA93; CALL TO AXE-ION: Destroy Robots with the Redd-Upper", count),
+                    offset: offset,
+                    period: 1400,
+                };
+            }
             function scoreAxetionDaily(offset, count) {
                 return {
                     name: times("&#x1FA93; CALL TO AXE-ION: Complete daily challenges of CALL TO AXE-ION", count),
@@ -14800,6 +14807,18 @@
                     scoreAxetionKillFanatics, 5,
                     make1st(scoreCollectBobblehead), 1,
                 ], dops(dailyOpsUncanny, dailyOpsEagles, dailyOpsFreezing, true));
+            addDaily(challengesDailyEra13, 65, [
+                    scoreCompleteDailyChallenge, 5,
+                    scoreLevelUp, 1,
+                    scoreCompleteDailyOpsPublicTeam, 1,
+                    scoreCompleteOneEvent, 2,
+                    scoreCollectCaps, 100,
+                    scoreEatPrewarFood, 10,
+                    scoreKillCreatureInGroup, 20,
+                    scoreGainXP_1000_Rank_100Plus, 1,
+                    scoreAxetionDestroyRobots, 10,
+                    make1st(scoreCompleteEventAshHeapRegion), 1,
+                ], dops(dailyOpsWatoga, dailyOpsScorched, dailyOpsChillingMend, false));
 
             communityEventsAppend.push(createCallToAxetion(ofDate(2022, 10, 15, 17), ofDate(2022, 10, 29, 17)));
             communityEventsAppend.push(createDoubleMutations(ofDate(2022, 10, 17, 17), ofDate(2022, 10, 21, 17)));
