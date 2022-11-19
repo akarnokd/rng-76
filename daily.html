@@ -14771,6 +14771,13 @@
                     period: 1400,
                 };
             }
+            function scoreAxetionKillSuperMutants(offset, count) {
+                return {
+                    name: times("&#x1FA93; CALL TO AXE-ION: Kill Super Mutants with the Redd-Upper", count),
+                    offset: offset,
+                    period: 1400,
+                };
+            }
             function scoreAxetionDaily(offset, count) {
                 return {
                     name: times("&#x1FA93; CALL TO AXE-ION: Complete daily challenges of CALL TO AXE-ION", count),
@@ -14838,6 +14845,18 @@
                     scoreAxetionKillInsects, 10,
                     make1st(scoreKillCreatureMireMoonshine), 1,
                 ], dops(dailyOpsValley, dailyOpsCultists, dailyOpsBlisteringCold, true));
+            addDaily(challengesDailyEra13, 67, [
+                    scoreCompleteDailyChallenge, 5,
+                    scoreLevelUp, 1,
+                    scoreCompleteDailyOpsPublicTeam, 1,
+                    scoreCompleteOneEvent, 1,
+                    scoreBuildAnythingShelter, 10,
+                    scoreKillCreatureWellFed, 20,
+                    scoreScrapMoney, 5,
+                    scoreGainXP_1000_Rank_100Plus, 1,
+                    scoreAxetionKillSuperMutants, 10,
+                    make1st(scoreCookMealPlant), 5,
+                ], dops(dailyOpsBurning, dailyOpsScorched, dailyOpsCloudedToxins, false));
 
             communityEventsAppend.push(createCallToAxetion(ofDate(2022, 10, 15, 17), ofDate(2022, 10, 29, 17)));
             communityEventsAppend.push(createDoubleMutations(ofDate(2022, 10, 17, 17), ofDate(2022, 10, 21, 17)));
