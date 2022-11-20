@@ -2211,7 +2211,7 @@
                 "Decryption": "Locate radios, code carriers then defeat a boss."
             }
 
-            function addDailyOps(options, day, location, enemies, mutations, mode) {
+            function addDailyOps(options, day, location, enemies, mutations, mode, isDouble) {
                 options.push({
                     name: "&nbsp;",
                     offset: day,
@@ -2281,6 +2281,13 @@
                     offset: day,
                     period: 1400
                 });
+                if (isDouble) {
+                    options.push({
+                    name: "&#x26A0; Note that due to a bug with double mutations,<br>the mutation may be different on different servers.",
+                    offset: day,
+                    period: 1400
+                });
+                }
             }
 
             function scoreDoubleDailies(offset) {
@@ -4271,7 +4278,7 @@
                 for (var i = 0; i < scores.length; i += 2) {
                     era.options.push(scores[i](day, scores[i + 1]));
                 }
-                addDailyOps(era.options, day, dailyOps[0], dailyOps[1], dailyOps[2], dailyOps[3]);
+                addDailyOps(era.options, day, dailyOps[0], dailyOps[1], dailyOps[2], dailyOps[3], dailyOps[4]);
             }
 
             addDaily(challengesDailyEra6, 92,
@@ -9161,7 +9168,7 @@
                     scoreGainXP2500, 1,
                 ], [ dailyOpsWatogaHighschool, dailyOpsCultists, [ dailyOpsSavageStrike, dailyOpsResilient ], dailyOpsDecryption]);
 
-            function dops(location, enemy, mutation, mode) {
+            function dops(location, enemy, mutation, mode, isDouble) {
                 return [
                     location, 
                     enemy, 
@@ -9169,7 +9176,8 @@
                         mode ? dailyOpsSavageStrike : dailyOpsPiercingGaze, 
                         mutation
                     ], 
-                    mode ? dailyOpsDecryption : dailyOpsUplink
+                    mode ? dailyOpsDecryption : dailyOpsUplink,
+                    isDouble
                 ];
             }
             
@@ -14857,6 +14865,18 @@
                     scoreAxetionKillSuperMutants, 10,
                     make1st(scoreCookMealPlant), 5,
                 ], dops(dailyOpsBurning, dailyOpsScorched, dailyOpsCloudedToxins, false));
+            addDaily(challengesDailyEra13, 68, [
+                    scoreCompleteDailyChallenge, 5,
+                    scoreLevelUp, 1,
+                    scoreCompleteDailyOpsPublicTeam, 1,
+                    scoreCompleteOneEvent, 1,
+                    scoreCollectMagazine, 1,
+                    scoreCraftMineGrenadeThrown, 5,
+                    scoreKillThreestarLegendary, 1,
+                    scoreGainXP_1000_Rank_100Plus, 1,
+                    scoreAxetionKillTrogs, 10,
+                    make1st(scoreUsePhotomodeOwnCamp), 1,
+                ], dops(dailyOpsBurrows, dailyOpsMoleminers, dailyOpsSwiftStalker, true, true));
 
             communityEventsAppend.push(createCallToAxetion(ofDate(2022, 10, 15, 17), ofDate(2022, 10, 29, 17)));
             communityEventsAppend.push(createDoubleMutations(ofDate(2022, 10, 17, 17), ofDate(2022, 10, 21, 17)));
