@@ -26,7 +26,7 @@
     </head>
     <body>
         <center>
-            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Timed Challenges (0.8.0)</span><br/>
+            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Timed Challenges (0.9.0)</span><br/>
             <br/>
             <br/>
             <table>
@@ -14929,7 +14929,7 @@
             // Season 11
             // oooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo
 
-            var era14Length = 91;
+            var era14Length = 84;
             var challengesDailyEra14 = {
                 validStart: ofDate(2022, 11, 6, 17),
                 validEnd: plusDays(ofDate(2022, 11, 6, 17), era14Length),
@@ -15007,9 +15007,92 @@
             communityEventsAppend.push(createTreasureHunt(ofDate(2023, 0, 26, 17), ofDate(2023, 0, 30, 17)));
             communityEventsAppend.push(createDoubleMutations(ofDate(2023, 0, 26, 17), ofDate(2023, 0, 30, 17)));
 
+            communityEventsAppend.push(createDoubleScore(ofDate(2023, 1, 2, 17), ofDate(2023, 1, 6, 17)));
+            communityEventsAppend.push(createPurveyor(ofDate(2023, 1, 2, 17), ofDate(2023, 1, 6, 17), 0, true, 1));
+
+            communityEventsAppend.push(createDoubleMutations(ofDate(2023, 1, 9, 17), ofDate(2023, 1, 13, 17)));
+            communityEventsAppend.push(createPurveyor(ofDate(2023, 1, 9, 17), ofDate(2023, 1, 13, 17), 25, false, 1));
+
+            communityEventsAppend.push(createFasnacht(ofDate(2023, 1, 14, 17), ofDate(2023, 1, 28, 17)));
+
+            communityEventsAppend.push(createMinerva(ofDate(2023, 1, 16, 17), ofDate(2023, 1, 20, 17), "Big Sale @ TBD", "P?"));
+
+            communityEventsAppend.push(createDoubleXP(ofDate(2023, 1, 23, 17), ofDate(2023, 1, 27, 17)));
+            communityEventsAppend.push(createDoubleMutations(ofDate(2023, 1, 23, 17), ofDate(2023, 1, 27, 17)));
+
+            communityEventsAppend.push(createCapsOPlenty(ofDate(2023, 2, 9, 17), ofDate(2023, 2, 13, 17)));
+            communityEventsAppend.push(createDoubleMutations(ofDate(2023, 2, 9, 17), ofDate(2023, 2, 13, 17)));
+
+            communityEventsAppend.push(createDoubleScore(ofDate(2023, 2, 16, 17), ofDate(2023, 2, 20, 17)));
+
+            communityEventsAppend.push(createTreasureHunt(ofDate(2023, 2, 23, 17), ofDate(2023, 2, 27, 17)));
+            communityEventsAppend.push(createDoubleMutations(ofDate(2023, 2, 23, 17), ofDate(2023, 2, 27, 17)));
+            communityEventsAppend.push(createMinerva(ofDate(2023, 2, 23, 17), ofDate(2023, 2, 27, 17), "Big Sale @ TBD", "P?"));
+
+            communityEventsAppend.push(createNormalWeekend(ofDate(2023, 2, 30, 17), ofDate(2023, 3, 30, 17)));
+
             addPlaceholders(challengesDailyEra14, scoreDailyplaceholder, era14Length);
             addPlaceholders(challengesWeeklyEra14, scoreWeeklyplaceholder, era14Length);
 
+            // oooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo
+            // Season 12
+            // oooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo
+
+            var era15Length = 84;
+            var challengesDailyEra15 = {
+                validStart: ofDate(2023, 1, 28, 17),
+                validEnd: plusDays(ofDate(2023, 1, 28, 17), era15Length),
+                options: []
+            };
+            var challengesWeeklyEra15 = {
+                validStart: ofDate(2023, 1, 28, 17),
+                validEnd: plusDays(ofDate(2023, 1, 28, 17), era15Length),
+                options: []
+            };
+            challenges.push(challengesDailyEra15);
+            challengesWeekly.push(challengesWeeklyEra15);
+
+            var season12 = {
+                validStart: ofDate(2023, 1, 28, 17),
+                validEnd: plusDays(ofDate(2023, 1, 28, 17), era15Length),
+                title: "Season 12: TBD",
+                options: [
+                    
+                ]
+            };
+            fillInSeason(season12, era15Length, "LR12", true);
+            seasonEventsAppend.push(season12);
+
+            addWeekly(challengesWeeklyEra15.options, 0, scoreFixedGainXP10000Rank100);
+            addWeekly(challengesWeeklyEra15.options, 0, scoreLevelUp3);
+            addWeekly(challengesWeeklyEra15.options, 0, scoreCompleteDailyOps, 5);
+            addWeekly(challengesWeeklyEra15.options, 0, scoreCompleteGoldStar);
+            addWeekly(challengesWeeklyEra15.options, 0, scoreCompleteEvents10);
+            /*
+            addWeekly(challengesWeeklyEra15.options, 0, scoreCompleteDailyOpsPublicTeam, 3);
+            addWeekly(challengesWeeklyEra15.options, 0, scoreCompleteMeatCookDaily, 5);
+            addWeekly(challengesWeeklyEra15.options, 0, scoreDrinkNukaCola, 15);
+            addWeekly(challengesWeeklyEra15.options, 0, scoreKillLegendary, 10);
+            addWeekly(challengesWeeklyEra15.options, 0, scoreRepairArmorWeaponPA, 25);
+            */
+            addDaily(challengesDailyEra15, 0, [
+                    scoreCompleteDailyChallenge, 5,
+                    scoreLevelUp, 1,
+                    scoreCompleteDailyOps, 1,
+                    scoreCompleteOneEvent, 1,
+                    /*
+                    scoreBuildWallDecor, 5,
+                    scoreCollectPurifiedWater, 5,
+                    scoreCompleteDailyOpsPublicTeam, 1,
+                    scoreCompleteMeatCook, 1,
+                    scoreCompletePrimalCuts, 1,
+                    */
+                    scoreGainXP2500, 1,
+                    //make1st(scoreJoinGroup), 1,
+                ], dops(dailyOpsUncanny, dailyOpsEagles, dailyOpsSwift, true));
+
+            addPlaceholders(challengesDailyEra15, scoreDailyplaceholder, era15Length);
+            addPlaceholders(challengesWeeklyEra15, scoreWeeklyplaceholder, era15Length);
             // --------------------------------------------------------------------------------------------------------------
             // Community events
 
@@ -15230,6 +15313,21 @@
                                 }
                             ]
                         }
+                    ]
+                };
+            }
+
+            function createNormalWeekend(startDate, endDate) {
+                return {
+                    validStart: startDate,
+                    validEnd: endDate,
+                    title: "Just a weekends",
+                    options: [
+                        {
+                            name: "???",
+                            offset: 0,
+                            period: 1,
+                        },
                     ]
                 };
             }
@@ -15835,6 +15933,44 @@
                 return r;
             }
 
+            function createFasnacht(start, end) {
+                return {
+                    validStart: start,
+                    validEnd: end, 
+                    title: "Fasnacht",
+                    options: [
+                        {
+                            name: "Visit Helvetia every exact hour to start the public event",
+                            offset: 0,
+                            period: 1
+                        },
+                        {
+                            name: "Perform 5 tasks to have the robots in place",
+                            offset: 0,
+                            period: 1,
+                        },
+                        {
+                            name: "Protect the robots at 3 ambush points",
+                            offset: 0,
+                            period: 1,
+                            subchallenges: [
+                                {
+                                    name: "Use Friendly Fire and Shishkebab to heal the robots."
+                                },
+                                {
+                                    name: "Focus on grenade/molotov throwing Super Mutants."
+                                }
+                            ]
+                        },
+                        {
+                            name: "Rewards: <a href='https://docs.google.com/spreadsheets/d/1DVUs-pRpATIpE6HrNoEySblUVnBUm-ry3RG1KTaAyzc/edit#gid=0' target='_blank'>depend on how many robots make it</a>.",
+                            offset: 0,
+                            period: 1
+                        },
+                    ]
+                };
+            }
+
             var communityEvents = [
                 createEra1Part1(ofDate(2020, 7, 4, 16), 0, 0, 4),
                 createEra1Part1(ofDate(2020, 7, 4, 16), 1, 4, 3),
@@ -16063,41 +16199,7 @@
                 },
                 createTreasureHunt(ofDate(2021, 1, 11, 17), ofDate(2021, 1, 15, 17), false),
                 createPurveyor(ofDate(2021, 1, 11, 17), ofDate(2021, 1, 15, 17), 25, false),
-                {
-                    validStart: ofDate(2021, 1, 16, 17),
-                    validEnd: ofDate(2021, 1, 25, 17),
-                    title: "Fasnacht",
-                    options: [
-                        {
-                            name: "Visit Helvetia every exact hour to start the public event",
-                            offset: 0,
-                            period: 1
-                        },
-                        {
-                            name: "Perform 5 tasks to have the robots in place",
-                            offset: 0,
-                            period: 1,
-                        },
-                        {
-                            name: "Protect the robots at 3 ambush points",
-                            offset: 0,
-                            period: 1,
-                            subchallenges: [
-                                {
-                                    name: "Use Friendly Fire and Shishkebab to heal the robots."
-                                },
-                                {
-                                    name: "Focus on grenade/molotov throwing Super Mutants."
-                                }
-                            ]
-                        },
-                        {
-                            name: "Rewards: <a href='https://docs.google.com/spreadsheets/d/1DVUs-pRpATIpE6HrNoEySblUVnBUm-ry3RG1KTaAyzc/edit#gid=0' target='_blank'>depend on how many robots make it</a>.",
-                            offset: 0,
-                            period: 1
-                        },
-                    ]
-                },
+                createFasnacht(ofDate(2021, 1, 16, 17), ofDate(2021, 1, 25, 17)),
                 createGoldRush(ofDate(2021, 1, 25, 17), ofDate(2021, 2, 1, 17)),
                 createCapsOPlenty(ofDate(2021, 2, 4, 17), ofDate(2021, 2, 8, 17)),
                 createScripSurplus(ofDate(2021, 2, 11, 17), ofDate(2021, 2, 15, 16)),
@@ -16946,6 +17048,15 @@
                 }
             }
 
+            function toggleCommunityHidden() {
+                var elem = document.getElementById("communityhidden");
+                if (elem.style.display == "none") {
+                    elem.style.display = "block";
+                } else {
+                    elem.style.display = "none";
+                }
+            }
+
             function updateChallenges() {
                 // normalize date
                 normalizeDate(selectedDate);
@@ -17032,17 +17143,20 @@
                 insertSeparatorRow(tbl)
 
                 var nextCommunityList = [];
+                var nextCommunityHidden = [];
                 var listUniqueDates = 0;
                 var listLastDate = null;
                 for (var evt of communityEvents) {
                     if (evt.validStart >= endDate) {
-                        nextCommunityList.push(evt);
+                        if (listUniqueDates < 6) {
+                            nextCommunityList.push(evt);
+                        }
                         if (listLastDate < evt.validStart) {
                             listUniqueDates++;
                         }
                         listLastDate = evt.validStart;
-                        if (listUniqueDates == 6) {
-                            break;
+                        if (listUniqueDates > 6) {
+                            nextCommunityHidden.push(evt);
                         }
                     }
                 }
@@ -17058,6 +17172,19 @@
                     + "</td><td> - " + evt.title + "</td></tr>";
                 }
                 cll.innerHTML += commListHTML + "</table>";
+
+                nextCommunityHidden.sort((a, b) => a.validStart < b.validStart ? -1 : (a.validStart > b.validStart ? 1 : 0));
+
+                var rw = tbl.insertRow(tbl.rows.length);
+                var cll = rw.insertCell(0);
+                cll.colSpan = 2;
+                var commListHTML = "<a href='#' onclick='toggleCommunityHidden();return false;' style='margin-left: 30px;'>Show more</a><div id='communityhidden' style='display:none;'><table>";
+                for (var evt of nextCommunityHidden) {
+                    commListHTML += "<tr><td>&nbsp;&nbsp;&nbsp;" + evt.validStart.toLocaleDateString() 
+                    + " (" + evt.validStart.toLocaleDateString(window.navigator.language, {weekday: 'long'}) + ")"
+                    + "</td><td> - " + evt.title + "</td></tr>";
+                }
+                cll.innerHTML += commListHTML + "</table></div>";
 
                 // public worlds was released on 2021-09-08
                 if (selectedDate >= ofDate(2021, 8, 8, 16)) {
