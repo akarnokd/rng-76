@@ -13801,6 +13801,13 @@
                     period: 1400,
                 };
             }
+            function scoreExpeditionCompleteAnyMissionPittGroup(offset, count) {
+                return {
+                    name: times("&#x1F681; Expeditions - Complete Any Mission in The Pitt while in a Group", count),
+                    offset: offset,
+                    period: 1400,
+                };
+            }
             function scoreKillEnemyAutoAxe(offset, count) {
                 return {
                     name: times("Kill/destroy an enemy with an Auto Axe", count),
@@ -14992,7 +14999,7 @@
             addWeekly(challengesWeeklyEra13.options, 77, scoreBuildFloorWallCamp, 25);
             addWeekly(challengesWeeklyEra13.options, 77, scoreDrinkNukaCola, 25);
             addWeekly(challengesWeeklyEra13.options, 77, scoreKillGlowing, 10);
-            addWeekly(challengesWeeklyEra13.options, 77, scoreExpeditionCompleteAnyMissionPitt, 1);
+            addWeekly(challengesWeeklyEra13.options, 77, scoreExpeditionCompleteAnyMissionPittGroup, 1);
             addWeekly(challengesWeeklyEra13.options, 77, scoreUsePhotomodePitt, 1);
             addDaily(challengesDailyEra13, 77, [
                     scoreCompleteDailyChallenge, 5,
