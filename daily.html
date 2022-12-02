@@ -15036,7 +15036,19 @@
                     scoreModWeapon, 3,
                     scoreGainXP_1000_Rank_100Plus, 1,
                     make1st(scorePickLock), 1,
-                ], dops(dailyOpsBurrows, dailyOpsEagles, dailyOpsRelentless, false, false));
+                ], dops(dailyOpsBurrows, dailyOpsEagles, dailyOpsRelentless, false, true));
+            addDaily(challengesDailyEra13, 80, [
+                    scoreCompleteDailyChallenge, 5,
+                    scoreLevelUp, 1,
+                    scoreCompleteDailyOpsPublicTeam, 1,
+                    scoreCompleteOneEvent, 1,
+                    scoreCollectScrip, 50,
+                    scoreFermentAlcohol, 10,
+                    scoreKillCreatureWellFed, 20,
+                    scoreKillGlowing, 1,
+                    scoreGainXP_1000_Rank_100Plus, 1,
+                    make1st(scoreClaimWorkshop), 1,
+                ], dops(dailyOpsValley, dailyOpsRobots, dailyOpsRelentless, true, true));
 
             communityEventsAppend.push(createCallToAxetion(ofDate(2022, 10, 15, 17), ofDate(2022, 10, 29, 17)));
             communityEventsAppend.push(createDoubleMutations(ofDate(2022, 10, 17, 17), ofDate(2022, 10, 21, 17)));
