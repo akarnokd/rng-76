@@ -15116,6 +15116,22 @@
             fillInSeason(season11, era14Length, "LR11", true);
             seasonEventsAppend.push(season11);
 
+            function createFreeCam(start, end) {
+                return {
+                    validStart: start,
+                    validEnd: end,
+                    title: "Free Cam C.A.M.P. Challenges",
+                    options: [
+                        {
+                            name: "Perform various daily and weekly challenges with the Free-Cam C.A.M.P. mode",
+                            offset: 0,
+                            period: 1,
+                            subchallenges: []
+                        },
+                    ]
+                };
+            }
+            
             addWeekly(challengesWeeklyEra14.options, 0, scoreFixedGainXP10000Rank100);
             addWeekly(challengesWeeklyEra14.options, 0, scoreLevelUp3);
             addWeekly(challengesWeeklyEra14.options, 0, scoreCompleteDailyOps, 5);
@@ -15144,6 +15160,7 @@
                     //make1st(scoreJoinGroup), 1,
                 ], dops(dailyOpsUncanny, dailyOpsEagles, dailyOpsSwift, true));
 
+            communityEventsAppend.push(createFreeCam(ofDate(2022, 11, 6, 17), ofDate(2022, 11, 15, 17)));
             communityEventsAppend.push(createMinerva(ofDate(2022, 11, 8, 17), ofDate(2022, 11, 12, 17), "Big Sale @ TBD", "P?"));
             communityEventsAppend.push(createDoubleMutations(ofDate(2022, 11, 15, 17), ofDate(2022, 11, 19, 17)));
             communityEventsAppend.push(createGoldRush2(ofDate(2022, 11, 15, 17), ofDate(2022, 11, 19, 17)));
@@ -15255,6 +15272,7 @@
 
             addPlaceholders(challengesDailyEra15, scoreDailyplaceholder, era15Length);
             addPlaceholders(challengesWeeklyEra15, scoreWeeklyplaceholder, era15Length);
+
             // --------------------------------------------------------------------------------------------------------------
             // Community events
 
