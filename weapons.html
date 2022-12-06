@@ -27,9 +27,9 @@
     </head>
     <body style="height: 90%">
         <center>
-            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Weapon Damage Calculator (v3.10.7)</span>
+            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Weapon Damage Calculator (v3.10.8)</span>
             <br/>
-            <i>(Patch 38 [The Pitt] update in progress.)</i>
+            <i>(Patch 40 [Nuka World] update in progress.)</i>
         <br/>
         <br/>
         <table id="parent">
@@ -5958,6 +5958,7 @@
                 { dr: 300, er: 300, rr: 300, fr: 300, cr: 300, pr: 300, name: "SBQ", tip: "ResistanceSBQ", mitigation: 0.3 },
                 { dr: 400, er: 400, rr: 500, fr: 400, cr: 400, pr: 400, name: "Randal", tip: "ResistanceRandal", mitigation: 0.9 },
                 { dr: 400, er: 400, rr: 500, fr: 400, cr: 400, pr: 400, name: "Earle", tip: "ResistanceEarle", mitigation: 0.2 },
+                { dr: 400, er: 400, rr: 500, fr: 350, cr: 400, pr: 400, name: "Ultracite Abomination", tip: "ResistanceUltraciteAbomination", mitigation: 0.3 }, 
             ];
 
             var resistancesSortDefault = function(a, b) {
@@ -6570,6 +6571,11 @@
                     { level: 81, dr: 300, er: 300, rr: 300, fr: 300, cr: 300, pr: 300 }, 
                     { level: 100, dr: 500, er: 500, rr: 500, fr: 500, cr: 500, pr: 500 }, 
                 ],
+                "e09a_moleminer": [
+                    { level: 40, dr: 60, er: 50, rr: 0, fr: 50, cr: 45, pr: 50 }, 
+                    { level: 60, dr: 75, er: 0, rr: 0, fr: 0, cr: 100, pr: 0 }, 
+                    { level: 100, dr: 130, er: 130, rr: 0, fr: 130, cr: 150, pr: 130 }, 
+                ],
                 "eyebot": [
                     { level: 1, dr: 2, er: 2, rr: 2, fr: 2, cr: 2, pr: 1000 }, 
                     { level: 60, dr: 120, er: 120, rr: 120, fr: 120, cr: 120, pr: 1000 }, 
@@ -7180,6 +7186,10 @@
                     { level: 50, dr: 10, er: 10, rr: 10, fr: 0, cr: 0, pr: 0 }, 
                     { level: 60, dr: 10, er: 10, rr: 10, fr: 0, cr: 0, pr: 0 }, 
                 ],
+                "ultraciteabomination": [
+                    { level: 90, dr: 300, er: 300, rr: 400, fr: 300, cr: 300, pr: 300 }, 
+                    { level: 110, dr: 400, er: 400, rr: 500, fr: 350, cr: 400, pr: 400 }, 
+                ],
                 "vertibird": [
                     { level: 20, dr: 135, er: 135, rr: 135, fr: 135, cr: 135, pr: 1000 }, 
                     { level: 30, dr: 135, er: 135, rr: 135, fr: 135, cr: 135, pr: 1000 }, 
@@ -7275,7 +7285,7 @@
                     { level: 75, dr: 110, er: 100, rr: 110, fr: 100, cr: 100, pr: 1000 }, 
                     { level: 100, dr: 110, er: 100, rr: 110, fr: 100, cr: 100, pr: 1000 }, 
                 ],
-            };
+                };
 
             enemyResistancesMap["scorchbeastqueen"] = JSON.parse(JSON.stringify(enemyResistancesMap["scorchbeast"]));
             for (var e of enemyResistancesMap["scorchbeastqueen"]) {
@@ -7285,6 +7295,9 @@
                 e.mitigation = 0.2;
             }
 
+            for (var e of enemyResistancesMap["ultraciteabomination"]) {
+                e.mitigation = 0.3;
+            }
 
             addEnemy("Scorched", ["Scorched"], enemyResistancesMap["scorched"]);
 
@@ -7513,6 +7526,9 @@
             addEnemy("Human Fanatic Miniboss", ["NPC"], enemyResistancesMap["humanfanaticminiboss"]);
             addEnemy("Human Fanatic Lite Miniboss", ["NPC"], enemyResistancesMap["humanfanaticminibosselite"]);
             addEnemy("Human Fanatic Power Armor", ["NPC"], enemyResistancesMap["humanfanaticpowerarmor"]);
+
+            // P40 (Nuka World)
+            addEnemy("Ultracite Titan", [], enemyResistancesMap["ultraciteabomination"]);
 
             // some enemies are immune to radiation or even heal off it
             var enemyRadiationEffect = new Map();
@@ -8924,6 +8940,8 @@
                 + "<br>32000 health, 400 DR, 400 ER, 500 RR, 400 FR, 400 CR, 400 PR<br>"
                 + "ignores 10% of all kinds of incoming damage.<br>"
             );
+            infoMap.set("ResistanceUltraciteAbomination", "Ultracite Abomination<br>Introduced in Nuka World (P40)<br>High resistances, becomes invulnerable through event progress several times<br>ignores 70% of all kinds of incoming damage.");
+            
             infoMap.set("ResistanceEarle", 
                 "Boss enemy of the Event: A Colossal Problem.<br>32000 health, 400 DR, 400 ER, 500 RR, 400 FR, 400 CR, 400 PR<br>"
                 + "ignores 80% of all kinds of incoming damage.<br>"
