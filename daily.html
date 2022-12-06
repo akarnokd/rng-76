@@ -15138,39 +15138,99 @@
                             name: "Perform various daily and weekly challenges with the Free-Cam C.A.M.P. mode",
                             offset: 0,
                             period: 1,
-                            subchallenges: []
+                            subchallenges: [
+                                {
+                                    name: ""
+                                }
+                            ]
                         },
+                        {
+                            name: "&#x1FA93; Free Cam: Complete Free Cam Weekly Challenges (x2)",
+                            offset: 0,
+                            period: 1,
+                            subchallenges: [
+                                {
+                                    name: "<b>Rewards:</b> TBD"
+                                },
+                            ]
+                        }
                     ]
                 };
+            }
+
+            function scoreCollectAnyNukaCola(offset, count) {
+                return {
+                    name: times("Collect any Nuka Cola Flavor", count),
+                    offset: offset,
+                    period: 1400,
+                };
+            }
+            function scoreCompleteEventMostWanted(offset, count) {
+                return {
+                    name: times("Complete Event: Most Wanted", count),
+                    offset: offset,
+                    period: 1400,
+                };
+            }
+            function scoreEatCobbler(offset, count) {
+                return {
+                    name: times("Eat Cobbler (which is not a pie)", count),
+                    offset: offset,
+                    period: 1400,
+                };
+            }
+            function scoreKillSnallygaster(offset, count) {
+                return {
+                    name: times("Kill a Snallygaster", count),
+                    offset: offset,
+                    period: 1400,
+                };
+            }
+
+            function scoreBuildFloorWallCampFree(offset, count) {
+                return {
+                            name: times("Build floors, walls or roofs in your C.A.M.P. or Workshop in Free Cam mode", count),
+                            offset: offset,
+                            period: 1400,
+                        };
+            }
+            function scoreCompleteEventSeismicActivity(offset, count) {
+                return {
+                            name: times("Complete Event: Seismic Activity", count),
+                            offset: offset,
+                            period: 1400,
+                        };
+            }
+            function scoreCompleteFreeCamDaily(offset, count) {
+                return {
+                            name: times("Complete Free Cam Daily Challenges", count),
+                            offset: offset,
+                            period: 1400,
+                        };
             }
             
             addWeekly(challengesWeeklyEra14.options, 0, scoreFixedGainXP10000Rank100);
             addWeekly(challengesWeeklyEra14.options, 0, scoreLevelUp3);
-            addWeekly(challengesWeeklyEra14.options, 0, scoreCompleteDailyOps, 5);
+            addWeekly(challengesWeeklyEra14.options, 0, scoreCompleteDailyOpsDailies, 3);
             addWeekly(challengesWeeklyEra14.options, 0, scoreCompleteGoldStar);
             addWeekly(challengesWeeklyEra14.options, 0, scoreCompleteEvents10);
-            /*
-            addWeekly(challengesWeeklyEra14.options, 0, scoreCompleteDailyOpsPublicTeam, 3);
-            addWeekly(challengesWeeklyEra14.options, 0, scoreCompleteMeatCookDaily, 5);
-            addWeekly(challengesWeeklyEra14.options, 0, scoreDrinkNukaCola, 15);
-            addWeekly(challengesWeeklyEra14.options, 0, scoreKillLegendary, 10);
-            addWeekly(challengesWeeklyEra14.options, 0, scoreRepairArmorWeaponPA, 25);
-            */
+            addWeekly(challengesWeeklyEra14.options, 0, scoreClaimWorkshop, 10);
+            addWeekly(challengesWeeklyEra14.options, 0, scoreCollectBullion, 150);
+            addWeekly(challengesWeeklyEra14.options, 0, scoreCompleteEventAshHeapRegion, 10);
+            addWeekly(challengesWeeklyEra14.options, 0, scoreCompleteEventSeismicActivity, 1);
+            addWeekly(challengesWeeklyEra14.options, 0, scoreCompleteFreeCamDaily, 5);
             addDaily(challengesDailyEra14, 0, [
                     scoreCompleteDailyChallenge, 5,
                     scoreLevelUp, 1,
                     scoreCompleteDailyOps, 1,
-                    scoreCompleteOneEvent, 1,
-                    /*
-                    scoreBuildWallDecor, 5,
-                    scoreCollectPurifiedWater, 5,
-                    scoreCompleteDailyOpsPublicTeam, 1,
-                    scoreCompleteMeatCook, 1,
-                    scoreCompletePrimalCuts, 1,
-                    */
-                    scoreGainXP2500, 1,
-                    //make1st(scoreJoinGroup), 1,
-                ], dops(dailyOpsUncanny, dailyOpsEagles, dailyOpsSwift, true));
+                    scoreCompleteOneEvent, 2,
+                    scoreCompleteEventMostWanted, 1,
+                    scoreEatCobbler, 1,
+                    scoreKillSnallygaster, 3,
+                    scoreBuildFloorWallCampFree, 1,
+                    scoreGainXP_1000_Rank_100Plus, 1,
+                    make1st(scoreCollectAnyNukaCola), 5,
+                ], dops(dailyOpsArktos, dailyOpsMutants, dailyOpsResilient, true, false));
 
             communityEventsAppend.push(createFreeCam(ofDate(2022, 11, 6, 17), ofDate(2022, 11, 15, 17)));
             communityEventsAppend.push(createMinerva(ofDate(2022, 11, 8, 17), ofDate(2022, 11, 12, 17), "Big Sale @ TBD", "P?"));
