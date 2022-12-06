@@ -1178,6 +1178,92 @@
                     ]
                 },
                 {
+                    name: "Molerat Bat",
+                    category: "Two-handed",
+                    speed: speedSlow,
+                    special: true,
+                    //formId: "001C7A69",
+                    info: "WeaponMoleratBat",
+                    level: [1, 5, 15, 25, 35, 45],
+                    damage: [28, 35, 40, 45, 50, 55],
+                    mods: [
+                        {
+                            slot: "Main",
+                            options: [
+                                {
+                                    name: "Standard"
+                                },
+                                {
+                                    name: "Barbed Wire",
+                                    damageMultPercent: 20,
+                                    ignoreDRPercent: 20
+                                },
+                                {
+                                    name: "Nails",
+                                    damageMultPercent: 25,
+                                    ignoreDRPercent: 20
+                                },
+                                {
+                                    name: "Razors",
+                                    damageMultPercent: 25
+                                },
+                                {
+                                    name: "Chains",
+                                    damageMultPercent: 50
+                                },
+                                {
+                                    name: "Saw Blades",
+                                    damageMultPercent: 75
+                                },
+                                {
+                                    name: "Bladed Rocket",
+                                    damageMultPercent: 75
+                                },
+                                {
+                                    name: "Heated Rocket",
+                                    damageMultPercent: 20
+                                },
+                                {
+                                    name: "Spiked Rocket",
+                                    damageMultPercent: 25,
+                                    ignoreDRPercent: 20
+                                },
+                                {
+                                    name: "Puncturing Rocket",
+                                    damageMultPercent: 25,
+                                    ignoreDRPercent: 20
+                                }
+                            ]
+                        },
+                        {
+                            slot: "Material",
+                            options: [
+                                {
+                                    name: "Wood"
+                                },
+                                {
+                                    name: "All Star",
+                                    damageMultPercent: 20
+                                }
+                            ]
+                        },
+                        {
+                            slot: "Special",
+                            options: [
+                                {
+                                    name: "Bonus vs Molerat",
+                                    versusMultPercent: 50,
+                                    versus: ["Molerat"]
+                                }
+                            ]
+                        }
+
+                    ],
+                    legendaryPrefix: "Furious",
+                    legendaryMajor: "Steady",
+                    legendaryMinor: "Strength"
+                },
+                {
                     name: "Drill",
                     category: "One-handed",
                     speed: speedVFast,
@@ -5495,6 +5581,40 @@
                     ]
                 },
                 {
+                    name: "Gunther's Big Iron",
+                    category: "Pistol",
+                    kind: "ballistic",
+                    explosive: false,
+                    silencer: false,
+                    special: true,
+                    speed: 0.8,
+                    clipSize: 6,
+                    reloadTime: 3.000010 / 6 * 0.55,
+                    reloadOneByOne: 0.5,
+                    //formId: "001C7A69",
+                    info: "WeaponGunthersBigIron",
+                    level:  [10,20,30,40,50],
+                    damage: [42,48,52,58,62],
+                    mods: [
+                        {
+                            slot: "Receiver",
+                            options: [
+                                {
+                                    name: "Standard"
+                                },
+                                {
+                                    name: "Fancy",
+                                    speedAddPercent: 30
+                                },
+                                primeMod
+                            ]
+                        }
+                    ],
+                    legendaryPrefix: "Two shot",
+                    legendaryMajor: "25% increased fire rate",
+                    legendaryMinor: "15% faster reload"
+                },
+                {
                     name: "Fancy Single Action Revolver",
                     category: "Pistol",
                     kind: "ballistic",
@@ -7474,9 +7594,9 @@
             addEnemy("Glowing Mole Miner", ["Glowing"], enemyResistancesMap["moleminer"]);
             addEnemy("Scorched Mole Miner", ["Scorched"], enemyResistancesMap["moleminer"]);
 
-            addEnemy("Molerat", ["Animal"], enemyResistancesMap["molerat"]);
-            addEnemy("Glowing Molerat", ["Glowing", "Animal"], enemyResistancesMap["molerat"]);
-            addEnemy("Scorched Molerat", ["Scorched"], enemyResistancesMap["molerat"]);
+            addEnemy("Molerat", ["Animal", "Molerat"], enemyResistancesMap["molerat"]);
+            addEnemy("Glowing Molerat", ["Glowing", "Animal", "Molerat"], enemyResistancesMap["molerat"]);
+            addEnemy("Scorched Molerat", ["Scorched", "Molerat"], enemyResistancesMap["molerat"]);
 
             addEnemy("Turret", ["Robot"], enemyResistancesMap["turret"]);
 
@@ -9000,6 +9120,19 @@
                 "<b>Unique Super Sledge from the public event Eviction Notice</b>" 
                 + "<br>Legendary: <i>Mutant Slayer's, 40% faster swing speed, +1 Strength</i>"
                 + "<br>Form ID: <a href='https://nukacrypt.com/database/json/00646880' target='_blank'>00646880</a>"
+                );
+
+            infoMap.set("WeaponGunthersBigIron",
+                "<b>Unique Single Action Revolver awarded by Nuka World events.</b>" 
+                + "<br>Legendary: <i>Two Shot, 25% faster fire rate, 15% faster reload</i>"
+                + "<br>Bonus properties: 45% faster reload on top"
+                + "<br>Form ID: <a href='https://nukacrypt.com/database/json/' target='_blank'></a>"
+                );
+            infoMap.set("WeaponMoleratBat",
+                "<b>Unique Bat awarded by Nuka World events.</b>" 
+                + "<br>Legendary: <i>Furious, 25% damage while standing still, +1 Strength</i>"
+                + "<br>Bonus properties: 50% more damage to Molerats"
+                + "<br>Form ID: <a href='https://nukacrypt.com/database/json/' target='_blank'></a>"
                 );
 
             // ~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o
