@@ -27,7 +27,7 @@
     </head>
     <body style="height: 90%">
         <center>
-            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Weapon Damage Calculator (v3.10.9)</span>
+            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Weapon Damage Calculator (v3.10.10)</span>
             <br/>
             <i>(Patch 40 [Nuka World] update in progress.)</i>
         <br/>
@@ -3833,6 +3833,81 @@
                             ]
                         }
                     ]
+                },
+                {
+                    name: "Love Tap",
+                    category: "Rifle",
+                    kind: "ballistic",
+                    explosive: false,
+                    silencer: true,
+                    special: true,
+                    info: "WeaponLoveTap",
+                    speed: 7.5,
+                    clipSize: 50,
+                    reloadTime: 3.233343,
+                    automatic: true,
+                    //formId: "0015B043",
+                    level: [15, 25, 35, 45],
+                    damage: [18, 22, 25, 29],
+                    mods: [
+                        {
+                            slot: "Receiver",
+                            options: [
+                                {
+                                    name: "Standard"
+                                },
+                                {
+                                    name: "Armor-piercing",
+                                    ignoreDRPercent: 40
+                                },
+                                {
+                                    name: "Hardened",
+                                    damageMultPercent: 25
+                                },
+                                scorchKillerMod,
+                                primeMod
+                            ]
+                        },
+                        standardMuzzle,
+                        {
+                            slot: "Magazine",
+                            options: [
+                                {
+                                    name: "Standard",
+                                },
+                                {
+                                    name: "Large",
+                                    reloadTime: 20,
+                                    clipSizeAdd: 25,
+                                },
+                                {
+                                    name: "Large Quick Eject",
+                                    reloadTime: -15,
+                                    clipSizeAdd: 12,
+                                },
+                                {
+                                    name: "Medium",
+                                    preinstalled: true
+                                },
+                                {
+                                    name: "Medium Quick Eject",
+                                    reloadTime: -30,
+                                }
+                            ]
+                        },
+                        {
+                            slot: "Special",
+                            options: [
+                                {
+                                    name: "20% more damage",
+                                    damageMultPercent: 20
+                                }
+                            ]
+                        }
+                    ],
+                    //legendaryPrefix: "Vampire's"
+                    legendaryMajor: "25% increased fire rate",
+                    //legendaryMinor: "Breaks 50% slower"
                 },
                 {
                     name: "10mm SMG",
@@ -9132,6 +9207,12 @@
                 "<b>Unique Bat awarded by Nuka World events.</b>" 
                 + "<br>Legendary: <i>Furious, 25% damage while standing still, +1 Strength</i>"
                 + "<br>Bonus properties: 50% more damage to Molerats"
+                + "<br>Form ID: <a href='https://nukacrypt.com/database/json/' target='_blank'></a>"
+                );
+            infoMap.set("WeaponLoveTap",
+                "<b>Unique Submachine Gun awarded by Nuka World events.</b>" 
+                + "<br>Legendary: <i>Vampier's, 25% faster fire rate, Breaks 50% slower</i>"
+                + "<br>Bonus properties: 20% more damage"
                 + "<br>Form ID: <a href='https://nukacrypt.com/database/json/' target='_blank'></a>"
                 );
 
