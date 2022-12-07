@@ -15214,6 +15214,13 @@
                     period: 1400,
                 };
             }
+            function scoreDrinkNukaGrape(offset, count) {
+                return {
+                    name: times("Drink Nuka Grape", count),
+                    offset: offset,
+                    period: 1400,
+                };
+            }
             
             addWeekly(challengesWeeklyEra14.options, 0, scoreFixedGainXP10000Rank100);
             addWeekly(challengesWeeklyEra14.options, 0, scoreLevelUp3);
@@ -15247,7 +15254,7 @@
                     scoreDestroyAssaultron, 1,
                     scoreBuildAnythingCampFree, 25,
                     scoreGainXP_1000_Rank_100Plus, 1,
-                    make1st(scoreCollectAnyNukaCola), 5,
+                    make1st(scoreDrinkNukaGrape), 2,
                 ], dops(dailyOpsWatogaHighschool, dailyOpsScorched, dailyOpsRegenerating, false, false));
 
             communityEventsAppend.push(createFreeCam(ofDate(2022, 11, 6, 17), ofDate(2022, 11, 15, 17)));
