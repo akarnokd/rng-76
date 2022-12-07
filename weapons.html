@@ -27,7 +27,7 @@
     </head>
     <body style="height: 90%">
         <center>
-            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Weapon Damage Calculator (v3.10.11)</span>
+            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Weapon Damage Calculator (v3.10.12)</span>
             <br/>
             <i>(Patch 40 [Nuka World] update in progress.)</i>
         <br/>
@@ -280,6 +280,7 @@
                     speed: speedSlow,
                     special: true,
                     info: "WeaponWhackerSmacker",
+                    formId: "00662761",
                     level: [30, 40, 50],
                     damage: [65, 75, 85],
                     mods: [
@@ -1208,7 +1209,7 @@
                     category: "Two-handed",
                     speed: speedSlow,
                     special: true,
-                    //formId: "001C7A69",
+                    formId: "00668807",
                     info: "WeaponMoleratBat",
                     level: [1, 5, 15, 25, 35, 45],
                     damage: [28, 35, 40, 45, 50, 55],
@@ -3017,6 +3018,72 @@
                     ]
                 },
                 {
+                    name: "Western Spirit",
+                    category: "Rifle",
+                    kind: "ballistic",
+                    explosive: false,
+                    silencer: true,
+                    special: true,
+                    info: "WeaponWesternSpirit",
+                    speed: 0.5,
+                    clipSize: 5,
+                    reloadTime: 1.766677 / 5,
+                    reloadOneByOne: 0.5,
+                    formId: "0066957F",
+                    level: [25, 35, 45],
+                    damage: [65, 70, 75],
+                    mods: [
+                        {
+                            slot: "Receiver",
+                            options: [
+                                {
+                                    name: "Standard"
+                                },
+                                {
+                                    name: "Hardened",
+                                    damageMultPercent: 25
+                                },
+                                {
+                                    name: "Calibrated",
+                                    criticalDamageMultiply: 34,
+                                    patchOverride: {
+                                        "P34": {
+                                            criticalDamageMultiply: 100
+                                        }
+                                    }
+                                },
+                                severeMod,
+                                {
+                                    name: "Fierce",
+                                    criticalDamageMultiply: 17,
+                                    speedAddPercent: 25,
+                                    patchOverride: {
+                                        "P34": {
+                                            criticalDamageMultiply: 50
+                                        }
+                                    }
+                                },
+                                scorchKillerMod,
+                                primeMod,
+                            ]
+                        },
+                        standardMuzzle,
+                        createStandardSights("", true, false),
+                        {
+                            slot: "Special",
+                            options: [
+                                {
+                                    name: "Extra ammo",
+                                    clipSizeAdd: 2
+                                }
+                            ]
+                        }
+                    ],
+                    legendaryPrefix: "Furious",
+                    legendaryMajor: "Aiming",
+                    legendaryMinor: "15% faster reload"
+                },
+                {
                     name: "Black Powder Rifle",
                     category: "Rifle",
                     kind: "ballistic",
@@ -3872,7 +3939,7 @@
                     clipSize: 50,
                     reloadTime: 3.233343,
                     automatic: true,
-                    //formId: "0015B043",
+                    formId: "00663B0C",
                     level: [15, 25, 35, 45],
                     damage: [18, 22, 25, 29],
                     mods: [
@@ -4072,7 +4139,7 @@
                     special: true,
                     info: "WeaponGrandFinale",
                     reloadTime: 3.933343,
-                    //formId: "000FD11B",
+                    formId: "00668991",
                     level: [25, 35, 45],
                     damage: [95, 115, 135],
                     mods: [
@@ -5744,7 +5811,7 @@
                     clipSize: 6,
                     reloadTime: 3.000010 / 6 * 0.55,
                     reloadOneByOne: 0.5,
-                    //formId: "001C7A69",
+                    formId: "00663505",
                     info: "WeaponGunthersBigIron",
                     level:  [10,20,30,40,50],
                     damage: [42,48,52,58,62],
@@ -9279,30 +9346,37 @@
                 "<b>Unique Single Action Revolver awarded by Nuka World events.</b>" 
                 + "<br>Legendary: <i>Two Shot, 25% faster fire rate, 15% faster reload</i>"
                 + "<br>Bonus properties: 45% faster reload on top"
-                + "<br>Form ID: <a href='https://nukacrypt.com/database/json/' target='_blank'></a>"
+                + "<br>Form ID: <a href='https://nukacrypt.com/database/json/00663505' target='_blank'>00663505</a>"
                 );
             infoMap.set("WeaponMoleratBat",
                 "<b>Unique Bat awarded by Nuka World events.</b>" 
                 + "<br>Legendary: <i>Furious, 25% damage while standing still, +1 Strength</i>"
                 + "<br>Bonus properties: 50% more damage to Molerats"
-                + "<br>Form ID: <a href='https://nukacrypt.com/database/json/' target='_blank'></a>"
+                + "<br>Form ID: <a href='https://nukacrypt.com/database/json/00668807' target='_blank'>00668807</a>"
                 );
             infoMap.set("WeaponLoveTap",
                 "<b>Unique Submachine Gun awarded by Nuka World events.</b>" 
                 + "<br>Legendary: <i>Vampier's, 25% faster fire rate, Breaks 50% slower</i>"
                 + "<br>Bonus properties: 20% more damage"
-                + "<br>Form ID: <a href='https://nukacrypt.com/database/json/' target='_blank'></a>"
+                + "<br>Form ID: <a href='https://nukacrypt.com/database/json/00663B0C' target='_blank'>00663B0C</a>"
                 );
             infoMap.set("WeaponGrandFinale",
                 "<b>Unique Broadsider awarded by Nuka World events.</b>" 
                 + "<br>Legendary: <i>Two Shot, +25% damage while aiming, 250 DR while reloading</i>"
                 + "<br>Bonus properties: +10% damage and enemies explode with fireworks"
-                + "<br>Form ID: <a href='https://nukacrypt.com/database/json/' target='_blank'></a>"
+                + "<br>Form ID: <a href='https://nukacrypt.com/database/json/00668991' target='_blank'>00668991</a>"
                 );
             infoMap.set("WeaponWhackerSmacker",
                 "<b>Unique Super Sledge awarded by Nuka World events.</b>" 
                 + "<br>Legendary: <i>Executioner's, +%50 limb damage, +1 Strength</i>"
-                + "<br>Form ID: <a href='https://nukacrypt.com/database/json/' target='_blank'></a>"
+                + "<br>Form ID: <a href='https://nukacrypt.com/database/json/00662761' target='_blank'>00662761</a>"
+                );
+                
+            infoMap.set("WeaponWesternSpirit",
+                "<b>Unique Lever Action Rifle awarded by Nuka World events.</b>" 
+                + "<br>Legendary: <i>Furious, 25% faster fire rate, 15% faster reload</i>"
+                + "<br>Bonus properties: Increased ammo capacity (+2)"
+                + "<br>Form ID: <a href='https://nukacrypt.com/database/json/0066957F' target='_blank'>0066957F</a>"
                 );
             // ~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o
 
