@@ -15193,6 +15193,27 @@
                             period: 1400,
                         };
             }
+            function scoreBuildAnythingCampFree(offset, count) {
+                return {
+                            name: times("Build anything in your C.A.M.P. or Workshop in Free Cam mode", count),
+                            offset: offset,
+                            period: 1400,
+                        };
+            }
+            function scoreCompleteEventSpinWheel(offset, count) {
+                return {
+                    name: times("Complete Event: Spin the Wheel", count),
+                    offset: offset,
+                    period: 1400,
+                };
+            }
+            function scoreDestroyAssaultron(offset, count) {
+                return {
+                    name: times("Destroy an Assaultron", count),
+                    offset: offset,
+                    period: 1400,
+                };
+            }
             
             addWeekly(challengesWeeklyEra14.options, 0, scoreFixedGainXP10000Rank100);
             addWeekly(challengesWeeklyEra14.options, 0, scoreLevelUp3);
@@ -15217,6 +15238,17 @@
                     scoreGainXP_1000_Rank_100Plus, 1,
                     make1st(scoreCollectAnyNukaCola), 5,
                 ], dops(dailyOpsArktos, dailyOpsMutants, dailyOpsResilient, true, false));
+            addDaily(challengesDailyEra14, 1, [
+                    scoreCompleteDailyChallenge, 5,
+                    scoreLevelUp, 1,
+                    scoreCompleteDailyOps, 1,
+                    scoreCompleteOneEvent, 1,
+                    scoreCompleteEventSpinWheel, 1,
+                    scoreDestroyAssaultron, 1,
+                    scoreBuildAnythingCampFree, 25,
+                    scoreGainXP_1000_Rank_100Plus, 1,
+                    make1st(scoreCollectAnyNukaCola), 5,
+                ], dops(dailyOpsWatogaHighschool, dailyOpsScorched, dailyOpsRegenerating, false, false));
 
             communityEventsAppend.push(createFreeCam(ofDate(2022, 11, 6, 17), ofDate(2022, 11, 15, 17)));
             communityEventsAppend.push(createMinerva(ofDate(2022, 11, 8, 17), ofDate(2022, 11, 12, 17), "Big Sale @ TBD", "P?"));
