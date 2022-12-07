@@ -27,7 +27,7 @@
     </head>
     <body style="height: 90%">
         <center>
-            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Weapon Damage Calculator (v3.10.10)</span>
+            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Weapon Damage Calculator (v3.10.11)</span>
             <br/>
             <i>(Patch 40 [Nuka World] update in progress.)</i>
         <br/>
@@ -273,6 +273,32 @@
                             ]
                         }
                     ]
+                },
+                {
+                    name: "Whacker Smacker",
+                    category: "Two-handed",
+                    speed: speedSlow,
+                    special: true,
+                    info: "WeaponWhackerSmacker",
+                    level: [30, 40, 50],
+                    damage: [65, 75, 85],
+                    mods: [
+                        {
+                            slot: "Main",
+                            options: [
+                                {
+                                    name: "Standard"
+                                },
+                                {
+                                    name: "Heating coil",
+                                    addDamageFireLeveled: [5, 7.5, 10]
+                                }
+                            ]
+                        }
+                    ],
+                    legendaryPrefix: "Executioner's",
+                    //legendaryMajor: "50% limb damage",
+                    legendaryMinor: "Strength"
                 },
                 {
                     name: "Tenderizer",
@@ -4035,6 +4061,58 @@
                             ]
                         }
                     ]
+                },
+                {
+                    name: "Grand Finale",
+                    category: "Heavy",
+                    kind: "ballistic",
+                    explosive: true,
+                    speed: 0.3,
+                    clipSize: 4,
+                    special: true,
+                    info: "WeaponGrandFinale",
+                    reloadTime: 3.933343,
+                    //formId: "000FD11B",
+                    level: [25, 35, 45],
+                    damage: [95, 115, 135],
+                    mods: [
+                        {
+                            slot: "Barrel",
+                            options: [
+                                {
+                                    name: "Standard"
+                                },
+                                {
+                                    name: "Light",
+                                    damageMultPercent: -15
+                                }
+                            ]
+                        },
+                        {
+                            slot: "Canister",
+                            options: [
+                                {
+                                    name: "Standard",
+                                },
+                                {
+                                    name: "Multi-shot",
+                                    clipSizeAdd: 2,
+                                }
+                            ]
+                        },
+                        {
+                            slot: "Special",
+                            options: [
+                                {
+                                    name: "10% bonus damage",
+                                    damageMultPercent: 10
+                                }
+                            ]
+                        }
+                    ],
+                    legendaryPrefix: "Two shot",
+                    legendaryMajor: "Aiming",
+                    //legendaryMinor: "250DR while reloading"
                 },
                 {
                     name: "Harpoon Gun",
@@ -9215,7 +9293,17 @@
                 + "<br>Bonus properties: 20% more damage"
                 + "<br>Form ID: <a href='https://nukacrypt.com/database/json/' target='_blank'></a>"
                 );
-
+            infoMap.set("WeaponGrandFinale",
+                "<b>Unique Broadsider awarded by Nuka World events.</b>" 
+                + "<br>Legendary: <i>Two Shot, +25% damage while aiming, 250 DR while reloading</i>"
+                + "<br>Bonus properties: +10% damage and enemies explode with fireworks"
+                + "<br>Form ID: <a href='https://nukacrypt.com/database/json/' target='_blank'></a>"
+                );
+            infoMap.set("WeaponWhackerSmacker",
+                "<b>Unique Super Sledge awarded by Nuka World events.</b>" 
+                + "<br>Legendary: <i>Executioner's, +%50 limb damage, +1 Strength</i>"
+                + "<br>Form ID: <a href='https://nukacrypt.com/database/json/' target='_blank'></a>"
+                );
             // ~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o
 
             infoMap.set("aristocrats", 
