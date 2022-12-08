@@ -15207,6 +15207,13 @@
                     period: 1400,
                 };
             }
+            function scoreCompleteEventTunnelOfLove(offset, count) {
+                return {
+                    name: times("Complete Event: Tunnel of Love", count),
+                    offset: offset,
+                    period: 1400,
+                };
+            }
             function scoreDestroyAssaultron(offset, count) {
                 return {
                     name: times("Destroy an Assaultron", count),
@@ -15217,6 +15224,27 @@
             function scoreDrinkNukaGrape(offset, count) {
                 return {
                     name: times("Drink Nuka Grape", count),
+                    offset: offset,
+                    period: 1400,
+                };
+            }
+            function scoreDrinkNukaColaDark(offset, count) {
+                return {
+                    name: times("Drink Nuka Cola Dark", count),
+                    offset: offset,
+                    period: 1400,
+                };
+            }
+            function scoreKillFloater(offset, count) {
+                return {
+                    name: times("Kill a Floater", count),
+                    offset: offset,
+                    period: 1400,
+                };
+            }
+            function scorePlantCropFree(offset, count) {
+                return {
+                    name: times("Plant crops in your C.A.M.P. or Workshop in Free Cam mode", count),
                     offset: offset,
                     period: 1400,
                 };
@@ -15256,6 +15284,18 @@
                     scoreGainXP_1000_Rank_100Plus, 1,
                     make1st(scoreDrinkNukaGrape), 2,
                 ], dops(dailyOpsWatogaHighschool, dailyOpsScorched, dailyOpsRegenerating, false, false));
+            addDaily(challengesDailyEra14, 2, [
+                    scoreCompleteDailyChallenge, 5,
+                    scoreLevelUp, 1,
+                    scoreCompleteDailyOps, 1,
+                    scoreCompleteOneEvent, 2,
+                    scoreCompleteEventTunnelOfLove, 1,
+                    scoreDrinkNukaColaDark, 2,
+                    scoreKillFloater, 3,
+                    scorePlantCropFree, 15,
+                    scoreGainXP_1000_Rank_100Plus, 1,
+                    make1st(scoreCollectMagazine), 1,
+                ], dops(dailyOpsArktos, dailyOpsCultists, dailyOpsSwift, true, false));
 
             communityEventsAppend.push(createFreeCam(ofDate(2022, 11, 6, 17), ofDate(2022, 11, 15, 17)));
             communityEventsAppend.push(createMinerva(ofDate(2022, 11, 8, 17), ofDate(2022, 11, 12, 17), "Big Sale @ TBD", "P?"));
