@@ -15249,6 +15249,27 @@
                     period: 1400,
                 };
             }
+            function scoreDrinkNukaTwist(offset, count) {
+                return {
+                    name: times("Drink Nuka Cola Twist", count),
+                    offset: offset,
+                    period: 1400,
+                };
+            }
+            function scoreScrapJunkBlackTitanium(offset, count) {
+                return {
+                    name: times("Scrap junk to produce Black Titanium", count),
+                    offset: offset,
+                    period: 1400,
+                };
+            }
+            function scoreKillHoneyBeast(offset, count) {
+                return {
+                    name: times("Kill a Honey Beast", count),
+                    offset: offset,
+                    period: 1400,
+                };
+            }
             
             addWeekly(challengesWeeklyEra14.options, 0, scoreFixedGainXP10000Rank100);
             addWeekly(challengesWeeklyEra14.options, 0, scoreLevelUp3);
@@ -15297,6 +15318,18 @@
                     scoreGainXP_1000_Rank_100Plus, 1,
                     make1st(scoreCollectMagazine), 1,
                 ], dops(dailyOpsArktos, dailyOpsCultists, dailyOpsSwift, true, false));
+            addDaily(challengesDailyEra14, 3, [
+                    scoreCompleteDailyChallenge, 5,
+                    scoreLevelUp, 1,
+                    scoreCompleteDailyOps, 1,
+                    scoreCompleteOneEvent, 2,
+                    scoreCompleteEventMostWanted, 1,
+                    scoreKillHoneyBeast, 3,
+                    scoreScrapJunkBlackTitanium, 3,
+                    scoreBuildFloorWallCampFree, 15,
+                    scoreGainXP_1000_Rank_100Plus, 1,
+                    make1st(scoreDrinkNukaTwist), 2,
+                ], dops(dailyOpsUncanny, dailyOpsMutants, dailyOpsVolatile, false, false));
 
             communityEventsAppend.push(createFreeCam(ofDate(2022, 11, 6, 17), ofDate(2022, 11, 15, 17)));
             communityEventsAppend.push(createMinerva(ofDate(2022, 11, 8, 17), ofDate(2022, 11, 12, 17), "Big Sale @ Fort Atlas", "P?"));
