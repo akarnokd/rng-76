@@ -15256,6 +15256,13 @@
                     period: 1400,
                 };
             }
+            function scoreDrinkNukaColaQuantum(offset, count) {
+                return {
+                    name: times("Drink Nuka Cola Quantum", count),
+                    offset: offset,
+                    period: 1400,
+                };
+            }
             function scoreScrapJunkBlackTitanium(offset, count) {
                 return {
                     name: times("Scrap junk to produce Black Titanium", count),
@@ -15266,6 +15273,20 @@
             function scoreKillHoneyBeast(offset, count) {
                 return {
                     name: times("Kill a Honey Beast", count),
+                    offset: offset,
+                    period: 1400,
+                };
+            }
+            function scoreBuildContainerFreeCam(offset, count) {
+                return {
+                    name: times("Build a Container, Display or Shelf in C.A.M.P. or Workshop in Free Cam mode", count),
+                    offset: offset,
+                    period: 1400,
+                };
+            }
+            function scoreKillCultistBladedWeapon(offset, count) {
+                return {
+                    name: times("Kill Cultists with Bladed Weapon", count),
                     offset: offset,
                     period: 1400,
                 };
@@ -15330,6 +15351,18 @@
                     scoreGainXP_1000_Rank_100Plus, 1,
                     make1st(scoreDrinkNukaTwist), 2,
                 ], dops(dailyOpsUncanny, dailyOpsMutants, dailyOpsVolatile, false, false));
+            addDaily(challengesDailyEra14, 4, [
+                    scoreCompleteDailyChallenge, 5,
+                    scoreLevelUp, 1,
+                    scoreCompleteDailyOps, 1,
+                    scoreCompleteOneEvent, 2,
+                    scoreCompleteEventSpinWheel, 1,
+                    scoreDrinkNukaColaQuantum, 2,
+                    scoreKillCultistBladedWeapon, 5,
+                    scoreBuildContainerFreeCam, 5,
+                    scoreGainXP_1000_Rank_100Plus, 1,
+                    make1st(scoreHackTerminal), 1,
+                ], dops(dailyOpsArktos, dailyOpsMoleminers, dailyOpsFreezing, true, false));
 
             communityEventsAppend.push(createFreeCam(ofDate(2022, 11, 6, 17), ofDate(2022, 11, 15, 17)));
             communityEventsAppend.push(createMinerva(ofDate(2022, 11, 8, 17), ofDate(2022, 11, 12, 17), "Big Sale @ Fort Atlas", "P?"));
