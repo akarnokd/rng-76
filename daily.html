@@ -15429,6 +15429,29 @@
                     scoreGainXP_1000_Rank_100Plus, 1,
                     make1st(scoreClaimWorkshop), 1,
                 ], dops(dailyOpsV94, dailyOpsCommunists, dailyOpsVolatile, true, false));
+            addWeekly(challengesWeeklyEra14.options, 7, scoreFixedGainXP10000Rank100);
+            addWeekly(challengesWeeklyEra14.options, 7, scoreLevelUp3);
+            addWeekly(challengesWeeklyEra14.options, 7, scoreCompleteDailyOpsDailies, 3);
+            addWeekly(challengesWeeklyEra14.options, 7, scoreCompleteGoldStar);
+            addWeekly(challengesWeeklyEra14.options, 7, scoreCompleteEvents10);
+            addWeekly(challengesWeeklyEra14.options, 7, scoreClaimWorkshop, 10);
+            addWeekly(challengesWeeklyEra14.options, 7, scoreCollectBullion, 150);
+            addWeekly(challengesWeeklyEra14.options, 7, scoreCompleteEventAshHeapRegion, 10);
+            addWeekly(challengesWeeklyEra14.options, 7, scoreCompleteEventSeismicActivity, 1);
+            addWeekly(challengesWeeklyEra14.options, 7, scoreCompleteFreeCamDaily, 5);
+            addWeekly(challengesWeeklyEra14.options, 7, scoreKillMoleminer, 50);
+            addDaily(challengesDailyEra14, 7, [
+                    scoreCompleteDailyChallenge, 5,
+                    scoreLevelUp, 1,
+                    scoreCompleteDailyOps, 1,
+                    scoreCompleteOneEvent, 2,
+                    scoreCompleteEventMostWanted, 1,
+                    scoreKillBloodEagle, 10,
+                    scoreTakeCameraPictureNukaWorld, 1,
+                    scoreBuildLightPowerFreeCam, 5,
+                    scoreGainXP_1000_Rank_100Plus, 1,
+                    make1st(scoreClaimWorkshop), 1,
+                ], dops(dailyOpsV94, dailyOpsCommunists, dailyOpsVolatile, false, false));
 
             communityEventsAppend.push(createFreeCam(ofDate(2022, 11, 6, 17), ofDate(2022, 11, 15, 17)));
             communityEventsAppend.push(createMinerva(ofDate(2022, 11, 8, 17), ofDate(2022, 11, 12, 17), "Big Sale @ Fort Atlas", "P?"));

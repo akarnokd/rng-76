@@ -251,14 +251,525 @@
                     id: "P40",
                     patch: "40",
                     date: ofDate(2022, 11, 6),
-                    description: "NUKA-WORLD ON TOUR ",
+                    description: "Nuka-World On Tour",
                     reddit: "https://www.reddit.com/r/fo76/comments/zeaa6e/nukaworld_on_tour_update_notes_december_6_2022/",
                     bethesda: "https://fallout.bethesda.net/en/article/3mPnuNoilkdXossUtGXPVH/fallout-76-nuka-world-on-tour-update-notes-december-6-2022",
                     notes: [
                         {
-                            category: "Other",
-                            name: "TBD",
-                            description: "Later this week."
+                            category: "Season",
+                            name: "Nuka-World On Tour",
+                            description: "The Nuka-World on Tour traveling road show has finished unpacking their tents, stocked the Nuka-Cade with rewards and is ready for visitors! Venture to the fairgrounds West of Lake Reynolds in the Ash Heap to play three brand-new Public Events, earn rewards in the Nuka-Cade, and unleash the largest Region Boss we’ve implemented into Fallout 76 to date: The Ultracite Titan!"
+                        },
+                        {
+                            category: "Event",
+                            name: "Spin the Wheel",
+                            description: "Join Bottle and Cappy in the Big Top Tent to become a contestant during the “Spin the Wheel” gameshow, where anything is possible! The rules are simple: Press the button to spin the giant wheel inside the Big Top Tent and then take on any challenge it selects."
+                        },
+                        {
+                            category: "Event",
+                            name: "Most Wanted",
+                            description: "Mosey on over to Wild West Town, where Gunther is putting on a rootin’, tootin’ good time during his Wild West Show. All he needs to set the stage is a few hotshot gunslingers like you to perform as Outlaws. Once the event begins, fleece the town and its citizens of their belongings and stash any ill-gotten valuables into your Getaway Wagon. Then, prepare to defend your haul against the long, robotic arm of the Law."
+                        },
+                        {
+                            category: "Event",
+                            name: "Tunnel of Love",
+                            description: "This romantic ride is the perfect attraction for lovestruck couples who are looking for a little quality time together amidst the flurry of lights and sounds at the carnival. At least it will be. Once it’s ready. Mr. Lovely just needs a few helping hands to make repairs and to finish decorating the Tunnel of Love before it can whisk swooning sweethearts away to a land of enchantment."
+                        },
+                        {
+                            category: "Event",
+                            name: "Schedule",
+                            description: "For the first four weeks of this Update, Nuka-World on Tour Public Events will have priority when new Public Events appear and will start at the top of the hour."
+                        },
+                        {
+                            category: "Locations",
+                            name: "Nuka-cade",
+                            description: "Grab a fistful of Caps and head to the Nuka-Cade to try your hand at carnival games that are sure to be fun for the whole family! It’s got all your favorites, like “Bandit Roundup,” “Nuka Zapper Race” and “Whack-A-Commie.” We’re also proud to introduce “Bottle Blaster,” which will truly test your might. As you play, you will earn Nuka-Cade points, which you can redeem to get exciting prizes."
+                        },
+                        {
+                            category: "Event",
+                            name: "New region boss: Ultracite Titan",
+                            description: "Pete has been hard at work trying to repair the air filters throughout the carnival, but the parts he needs are scattered deep within the earth in an abandoned mineshaft. He’s also convinced that a massive creature has made its home down there. Pete is hoping that some keen Dwellers can investigate, and then launch an attack that’s powerful enough to blast the fiend to smithereens from afar."
+                        },
+                        {
+                            category: "Season,Items,C.A.M.P.",
+                            name: "Season 11: Nuka-World",
+                            description: "Tour around Nuka-World, visiting iconic locations such as Dry Rock Gulch, Safari Adventure, and more. Complete Daily and Weekly Challenges to earn Score, and unlock new items such as Sheepsquatch Power Armor Paints, C.A.M.P. items, consumables, a new Lite Ally and more!"
+                        },
+                        {
+                            category: "Items",
+                            name: "Scout’s Banner",
+                            description: "a banner you can raise during battle against NPC’s to give you and your team members that extra boost to turn the tides of a tough fight! Scout’s Banner bonuses are:<ul>"
+                                + "<li>Battle Medic: Heal 20% HP</li>"
+                                + "<li>Battle Driven: Restore all AP</li>"
+                                + "<li>Battle Forged: Repair weapon condition by 10%</li>"
+                                + "<li>Battle Hardened: Repair armor condition by 10%</li>"
+                                + "<li>Battle Vision: Highlight enemies for 5 seconds</li>"
+                                + "</ul>"
+                        },
+                        {
+                            category: "Fallout 1st,C.A.M.P.",
+                            name: "Ammo Storage Box",
+                            description: "Fallout 1st members will receive a new membership feature: the Ammo Storage Box! The Ammo Storage Box works similarly to the Scrap Box already included with your Fallout 1st membership, offering unlimited space to store all your excess munitions, with the exception of Plasma Core and Fusion Cores."
+                        },
+                        {
+                            category: "C.A.M.P",
+                            name: "Free Cam Build Mode",
+                            description: "Free cam is a new quality-of-life feature that we're introducing to Fallout 76. When inside build mode, select X on keyboard, or Start on controller to enter Free cam mode. In this mode, the camera detaches from your character, allowing you to freely build at new heights, pan through walls, doors, windows, and floors."
+                        },
+                        {
+                            category: "Items,Exploit",
+                            name: "Weapon Changes",
+                            description: "Players who tried out Nuka-World on Tour while it was on the Public Test Server are aware that we originally planned to release a new system that combats illegal attachment combinations to weapons that violate the EULA. We need a bit more time to implement this than originally projected, and <u><b>as a result we will not be releasing this system with today’s update</b></u>."
+                        },
+                        {
+                            category: "Bugfix,Visual",
+                            name: "Armor Paints",
+                            description: "Applying the Raiderish paint now correctly updates the item name."
+                        },
+                        {
+                            category: "Bugfix,Visual",
+                            name: "Headwear",
+                            description: "Fixed various instances where facial hair would be removed when equipping the Trench Runner Headwear."
+                        },
+                        {
+                            category: "Bugfix,Visual,Items",
+                            name: "Previews",
+                            description: "Various adjustments to item previews in the build menu."
+                        },
+                        {
+                            category: "Bugfix,Visual,Items",
+                            name: "Power Armor",
+                            description: "The Heat Eater Power Armor headlamp now points in the correct direction when applied to Union Power Armor."
+                        },
+                        {
+                            category: "Bugfix,Visual,Items",
+                            name: "Power Armor",
+                            description: "Various fixes to Raider Power Armor helmet skins and Hellcat Power Armor helmet skins to fix headlamp issues."
+                        },
+                        {
+                            category: "Bugfix,Visual,Items",
+                            name: "Power Armor",
+                            description: "The Wasteland Knight Power Armor paint no longer makes the player’s head appear to be floating."
+                        },
+                        {
+                            category: "Bugfix,Visual,Items",
+                            name: "Weapons",
+                            description: "Enclave paints for Plasma Weapons now display correctly when changing and applying weapon mods in all views."
+                        },
+                        {
+                            category: "Bugfix,Items,C.A.M.P.",
+                            name: "Arm Wrestling Machine",
+                            description: "Applied a fix to the animation while in-use."
+                        },
+                        {
+                            category: "Bugfix,Items,C.A.M.P.",
+                            name: "Blueprints",
+                            description: "Fixed an issue causing Blueprints with the Nuka-Cola Billboard to give a false floating error."
+                        },
+                        {
+                            category: "Bugfix,C.A.M.P.",
+                            name: "Build mode",
+                            description: "Atomic Shop items purchased through the workshop menu can now be placed immediately, and no longer require the player to exit and re-enter build mode."
+                        },
+                        {
+                            category: "Bugfix,Items,C.A.M.P.",
+                            name: "Concrete Mausoleum",
+                            description: "Furniture placed inside the Mausoleum now snaps to the structure floor instead of the ground."
+                        },
+                        {
+                            category: "Bugfix,Items,C.A.M.P.",
+                            name: "Molerat Generator",
+                            description: "The Medium Molerat Generator now uses the correct destruction model."
+                        },
+                        {
+                            category: "Bugfix,Items,C.A.M.P.",
+                            name: "Nuka-Cola Thermometer",
+                            description: "Now correctly disappears when destroyed."
+                        },
+                        {
+                            category: "Bugfix,Items,C.A.M.P.",
+                            name: "Pumpkin Racks",
+                            description: "Pumpkin Carvings and Pumpkin Racks are now destructible and can be repaired."
+                        },
+                        {
+                            category: "Bugfix,Items,C.A.M.P.",
+                            name: "Rest In Pieces",
+                            description: "Addressed an issue preventing wallpaper to apply to the Left Top Wall Slant."
+                        },
+                        {
+                            category: "Bugfix,Items,C.A.M.P.",
+                            name: "Standing Sage Torch",
+                            description: "Now requires wood to build, and correctly uses the wood destruction sound effects when destroyed."
+                        },
+                        {
+                            category: "Bugfix,Items,C.A.M.P.,Sound",
+                            name: "Slocum’s Joe Vending Machine",
+                            description: "Fixed an audio issue with the Slocum’s Joe Vending Machine when more than one are placed."
+                        },
+                        {
+                            category: "Bugfix,Items,C.A.M.P.",
+                            name: "Tipsy-Tom Vending Machine",
+                            description: "Fixed an issue causing animations to break when fast traveling away from the Tipsy Tom Vending Machine."
+                        },
+                        {
+                            category: "Bugfix,Items,C.A.M.P.",
+                            name: "Wall Weapon Rack",
+                            description: "Chainsaws now display properly."
+                        },
+                        {
+                            category: "Bugfix,Items,C.A.M.P.",
+                            name: "Wildwood Tavern",
+                            description: "Expanded passive power in the Wildwood Tavern to cover all floors."
+                        },
+                        {
+                            category: "Bugfix,Combat",
+                            name: "Critters",
+                            description: "Squirrel’s now leave meat piles when their corpses despawn instead of loot bags."
+                        },
+                        {
+                            category: "Bugfix,Main Quest",
+                            name: "A Satisfied Conscience",
+                            description: "The intercom scene will no longer trigger again on relog after defeating the waves of robots."
+                        },
+                        {
+                            category: "Bugfix,Main Quest",
+                            name: "A Satisfied Conscience",
+                            description: "The Vault 96 Security keycard can now be locally looted."
+                        },
+                        {
+                            category: "Bugfix,Side Quest",
+                            name: "Baa Baa Blacksheep",
+                            description: "Fixed an issue with objective progress tracking."
+                        },
+                        {
+                            category: "Bugfix,Event",
+                            name: "Battle Bots",
+                            description: "Fixed an issue where the keypads could become unresponsive if the event ran more than one on a server."
+                        },
+                        {
+                            category: "Bugfix,Misc Quest",
+                            name: "Bucket List",
+                            description: "Ansel Abrahams corpse will no longer spawn at the Whitespring."
+                        },
+                        {
+                            category: "Bugfix,Event",
+                            name: "Campfire Tales",
+                            description: "Scout Leader Penny now says appropriate voice lines if interacted with during the boss sequence."
+                        },
+                        {
+                            category: "Bugfix,Main Quest",
+                            name: "Disarming Discovery",
+                            description: "Addressed an issue causing Dagger’s body to occasionally not have the key."
+                        },
+                        {
+                            category: "Bugfix,Main Quest",
+                            name: "Disarming Discovery",
+                            description: "Dagger will no longer appear in her Throne Room until players have agreed to investigate Dagger’s Den."
+                        },
+                        {
+                            category: "Bugfix,Event",
+                            name: "Distinguished Guests",
+                            description: "Robot waiters now have specific quest targets on them when the player gets within reasonable distance."
+                        },
+                        {
+                            category: "Bugfix,Event",
+                            name: "Dogwood Die Off",
+                            description: "Players can now travel to fertilizer locations without exiting the event."
+                        },
+                        {
+                            category: "Bugfix,Main Quest",
+                            name: "Here to Stay",
+                            description: "Players with the Cannibal perk equipped will no longer eat the bodies of the settlers at Aubrie’s Camp before searching them."
+                        },
+                        {
+                            category: "Bugfix,Side Quest",
+                            name: "Hide and Seek and Destroy",
+                            description: "Fixed an issue allowing the player to receive a duplicate keycard."
+                        },
+                        {
+                            category: "Bugfix,Main Quest",
+                            name: "Hunter for Hire",
+                            description: "Liebowitz will no longer take a Deathclaw Egg from the player after being intimidated."
+                        },
+                        {
+                            category: "Bugfix,Misc Quest",
+                            name: "Isolated Cabin",
+                            description: "Players will no longer still be prompted to investigate the corpse at the Isolated Cabin after quest completion."
+                        },
+                        {
+                            category: "Bugfix,Event",
+                            name: "Feed the People",
+                            description: "Food canister quest items will no longer have weight and will be cleaned up properly upon event completion."
+                        },
+                        {
+                            category: "Bugfix,Event",
+                            name: "Moonshine Jamboree",
+                            description: "Enemy Waves 2 and 3 now correctly play their unique combat music."
+                        },
+                        {
+                            category: "Bugfix,Event",
+                            name: "Moonshine Jamboree",
+                            description: "Locally looting Jesus Sunday’s Holotape now correctly progresses the quest."
+                        },
+                        {
+                            category: "Bugfix,Event",
+                            name: "One Violent Night",
+                            description: "Addressed an issue where some melee weapon swings would not count correctly towards the quest objectives."
+                        },
+                        {
+                            category: "Bugfix,Event",
+                            name: "Teatime",
+                            description: "Players who join late will now correctly hear Sweetwater’s announcements throughout the event."
+                        },
+                        {
+                            category: "Bugfix,Expeditions,Sound",
+                            name: "Audio",
+                            description: "Addressed an issue causing the Fanatic Manhunter’s minigun sound effects to continue after death."
+                        },
+                        {
+                            category: "Bugfix,Expeditions",
+                            name: "Dog Ex Machina",
+                            description: "The Rusty Protectron will no longer walk into the Desperate Refugee when returning."
+                        },
+                        {
+                            category: "Bugfix,Expeditions",
+                            name: "From Ashes to Fire",
+                            description: "Optional objective to rescue the helpless survivors will no longer re-appear on re-entering the mission after it’s been failed once."
+                        },
+                        {
+                            category: "Bugfix,Expeditions",
+                            name: "From Ashes to Fire",
+                            description: "Player can no longer kill the Fanatic Foreman outside of his intended combat phase."
+                        },
+                        {
+                            category: "Bugfix,Expeditions",
+                            name: "Gameplay",
+                            description: "Addressed an issue that could cause players to become control locked while joining a teammates Expedition from the map."
+                        },
+                        {
+                            category: "Bugfix,Expeditions",
+                            name: "Teams",
+                            description: "Players will now be kicked out of Expeditions Instances when the leader leaves the team."
+                        },
+                        {
+                            category: "Bugfix,Expeditions",
+                            name: "Worlds",
+                            description: "Fallout Worlds custom Weather settings now correctly apply to Expeditions."
+                        },
+                        {
+                            category: "Bugfix,Expeditions,UI",
+                            name: "UI",
+                            description: "Addressed an issue causing Legendary Rewards Fanfare to occasionally remain on the screen longer than intended."
+                        },
+                        {
+                            category: "Bugfix,Expeditions,UI",
+                            name: "UI",
+                            description: "Addressed an issue causing the rewards screen to not display Legendary Rewards."
+                        },
+                        {
+                            category: "Bugfix,Expeditions,UI",
+                            name: "UI",
+                            description: "Fixed an issue that could cause sludge effects to appear at the Expedition starting point."
+                        },
+                        {
+                            category: "Bugfix,Items",
+                            name: "Legendary Enemy Loot",
+                            description: "Learning plans for certain weapons and armor now allows them to appear in loot."
+                        },
+                        {
+                            category: "Bugfix,Items",
+                            name: "Backpacks",
+                            description: "Fixed the attachment on the Wasteland Wanderer Backpack flair."
+                        },
+                        {
+                            category: "Bugfix,Items",
+                            name: "Consumables",
+                            description: "White Russian, Hard Lemonade, and Sweetwater Special Blend now work with the Quack Surgeon Perk."
+                        },
+                        {
+                            category: "Bugfix,Items",
+                            name: "Headwear",
+                            description: "Lower face coverings can no longer be equipped with the Wasteland Werewolf Headwear."
+                        },
+                        {
+                            category: "Bugfix,Items",
+                            name: "Headwear",
+                            description: "The Following items now can be worn with headbands:Communist Commander Hat, Communist Militant Hat, Hooded Rags, Insurgent Hat, Mummy Mask, Treasure Hunter Outfit Hat, Vault Survivor Hood, Wrapped Cap."
+                        },
+                        {
+                            category: "Bugfix,Items",
+                            name: "Keys",
+                            description: "Players can now drop the Reactor Interlock Keys.<br><br><u><b>Editor's note: it still can't be dropped, but at least it weights 0 now.</b></u>"
+                        },
+                        {
+                            category: "Bugfix,Items,Balance",
+                            name: "Magazines",
+                            description: "Backwoodsman now grants +50% Tomahawk damage instead of +30%."
+                        },
+                        {
+                            category: "Bugfix,Items",
+                            name: "My Personal Terminal",
+                            description: "Miscellaneous quests to repeatable and Daily quests now appear in the Pip-Boy's Daily Quest tab."
+                        },
+                        {
+                            category: "Bugfix,Items",
+                            name: "Power Armor",
+                            description: "The Fanatic Jetpack Power Armor mod can now be applied to all parts of the Hellcat Power Armor."
+                        },
+                        {
+                            category: "Bugfix,Items",
+                            name: "Red Rocket Core",
+                            description: "Red Rocket Core quest items now appear in the Transfer/Nearby Corpses Menu."
+                        },
+                        {
+                            category: "Bugfix,Items,NW",
+                            name: "Skins",
+                            description: "Nuclear Winter Weapon and Armor skins can no longer be traded."
+                        },
+                        {
+                            category: "Bugfix,Items,Fallout 1st",
+                            name: "Survival Tent",
+                            description: "Implemented a fix to the sleeping animation that caused the camera to clip through the Lean-To Survival tent."
+                        },
+                        {
+                            category: "Bugfix,Visual",
+                            name: "Localization",
+                            description: "Various localization fixes."
+                        },
+                        {
+                            category: "Bugfix,NPC",
+                            name: "Blackeye",
+                            description: "Blackeye will now get out of bed before talking to players."
+                        },
+                        {
+                            category: "Bugfix,NPC",
+                            name: "Lite Allies",
+                            description: "Fixed an issue preventing Lite Allies from spawning near new C.A.M.P. locations."
+                        },
+                        {
+                            category: "Bugfix,NPC",
+                            name: "Vendor",
+                            description: "Adjusted Tommy Ten-Toe's standing position at his Whitespring location."
+                        },
+                        {
+                            category: "Bugfix,Perks",
+                            name: "Makeshift Warrior",
+                            description: "The Makeshift Warrior perk now provides the correct amount of condition loss reduction per rank."
+                        },
+                        {
+                            category: "Bugfix,Perks",
+                            name: "Exploding Palm",
+                            description: "Adjusted the Perk card description to clarify it works with all unarmed weapons."
+                        },
+                        {
+                            category: "Bugfix,Main Quest",
+                            name: "Flavors of Mayhem",
+                            description: "Cannibalizing a Glowing One now correctly completes the optional objective to “Cannibalize a Feral Ghoul”."
+                        },
+                        {
+                            category: "Bugfix,Main Quest",
+                            name: "From Russia with Lev",
+                            description: "Fisher and Surge no longer drop non-quest items on death."
+                        },
+                        {
+                            category: "Bugfix,Main Quest",
+                            name: "Recruitment Blues",
+                            description: "The laser grid on the first floor will now properly recognize the player as registered."
+                        },
+                        {
+                            category: "Bugfix,Daily Quest",
+                            name: "Refugee’s Guide",
+                            description: "The objective radius to take a photo of the vending machine at Berkley Springs is now smaller and does not encompass the Red Rocket gas station."
+                        },
+                        {
+                            category: "Bugfix,Main Quest",
+                            name: "Strange Bedfellows",
+                            description: "Picking up the “Note to Self” Holotape without playing it now correctly clears the Holotape’s quest target."
+                        },
+                        {
+                            category: "Bugfix,Main Quest",
+                            name: "Tentative Plans",
+                            description: "The Camp Guide program Holotape now remains in the player’s inventory after relog."
+                        },
+                        {
+                            category: "Bugfix,Event",
+                            name: "The Bell Tolls",
+                            description: "We have disabled The Bell Tolls. Players will no longer hear Melody Larkin asking them to investigate over their radio at odd times."
+                        },
+                        {
+                            category: "Bugfix,Daily Quest",
+                            name: "Vital Equipment",
+                            description: "Addressed an issue that may cause quest items to remain in the players inventory after completion."
+                        },
+                        {
+                            category: "Bugfix,Stability",
+                            name: "Power Armor",
+                            description: "Fixed an issue causing a “Server Not Responding” error when using a Power Armor Station."
+                        },
+                        {
+                            category: "Bugfix,UI",
+                            name: "Ammo Counter",
+                            description: "Fixed an issue where the Ammo counter in the Pip-Boy is not updated properly when picking up additional ammo."
+                        },
+                        {
+                            category: "Bugfix,UI",
+                            name: "Map",
+                            description: "Fixed an issue where the Fast Travel option may appear below workshop details incorrectly."
+                        },
+                        {
+                            category: "Bugfix,UI",
+                            name: "Pip-Boy",
+                            description: "The “New” tab now appears while selling and scrapping."
+                        },
+                        {
+                            category: "Bugfix,UI",
+                            name: "Pip-Boy",
+                            description: "Plans and Recipes now correctly display their value."
+                        },
+                        {
+                            category: "Bugfix,UI",
+                            name: "Workshop",
+                            description: "Item variants now show in the “Recent” tab."
+                        },
+                        {
+                            category: "Bugfix,UI",
+                            name: "Workshop",
+                            description: "Items now retain their placement preview rotation when placing the same object."
+                        },
+                        {
+                            category: "Bugfix,Items",
+                            name: "Chainsaw",
+                            description: "The Chainsaw Bow Bar now adds armor penetration and counts as a bladed weapon. Additionally, the Chainsaw’s name now correctly updates with the Halloween Skin applied."
+                        },
+                        {
+                            category: "Bugfix,Items",
+                            name: "Cryolator",
+                            description: "The Cryolator now uses the correct reload animation."
+                        },
+                        {
+                            category: "Bugfix,Items",
+                            name: "Melee",
+                            description: "All Melee weapons now take the correct amount of condition damage when blocking attacks."
+                        },
+                        {
+                            category: "Bugfix,Items",
+                            name: "Melee",
+                            description: "The Cultist Dagger and Bowie Knife can now be modded."
+                        },
+                        {
+                            category: "Bugfix,Items",
+                            name: "Radium Rifle",
+                            description: "The Radum Rifle is no longer considered an Energy weapon and can now drop with the Explosive Bullets Legendary Effect."
+                        },
+                        {
+                            category: "Bugfix,Locations",
+                            name: "Concrete Deposits",
+                            description: "Fixes to numerous concrete deposit locations in the world that could not be harvested.WhiteSpring: Replaced the Terminal in the Whitespring kitchen."
+                        },
+                        {
+                            category: "Bugfix,Locations",
+                            name: "Vault 76",
+                            description: "Toy cars no longer explode inside Vault 76."
                         },
                     ]
                 },
@@ -1729,7 +2240,7 @@
                             description: "Fixed an issue that prevented the Cryolator from taking condition damage."
                         },
                         {
-                            category: "Bugfix,Items",
+                            category: "Bugfix,Items,NW",
                             name: "Rewards",
                             description: "Corrected an issue in which a number of former Nuclear Winter mode rewards could be traded or built in the C.A.M.P.s of players who did not own them."
                         },
@@ -2045,7 +2556,7 @@
                             description: "To help you more easily identify when creatures are invulnerable, we've added in a new shield icon to better indicate that they won’t take damage."
                         },
                         {
-                            category: "Balance",
+                            category: "Balance,NW",
                             name: "Minerva",
                             description: "We’ve added several holiday-themed item plans to Minerva’s inventory that were previously only available in Nuclear Winter, so that you can purchase them with Gold Bullion."
                         },
