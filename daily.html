@@ -15333,6 +15333,20 @@
                     period: 1400,
                 };
             }
+            function scoreEatCookedMealTeammate(offset, count) {
+                return {
+                            name: times("Eat cooked meal at a teammate's C.A.M.P.", count),
+                            offset: offset,
+                            period: 1400,
+                        };
+            }
+            function scoreCompleteEventsNukaWorld(offset, count) {
+                return {
+                            name: times("Complete Events at Nuka-World On Tour", count),
+                            offset: offset,
+                            period: 1400,
+                        };
+            }
             
             addWeekly(challengesWeeklyEra14.options, 0, scoreFixedGainXP10000Rank100);
             addWeekly(challengesWeeklyEra14.options, 0, scoreLevelUp3);
@@ -15431,27 +15445,26 @@
                 ], dops(dailyOpsV94, dailyOpsCommunists, dailyOpsVolatile, true, false));
             addWeekly(challengesWeeklyEra14.options, 7, scoreFixedGainXP10000Rank100);
             addWeekly(challengesWeeklyEra14.options, 7, scoreLevelUp3);
-            addWeekly(challengesWeeklyEra14.options, 7, scoreCompleteDailyOpsDailies, 3);
+            addWeekly(challengesWeeklyEra14.options, 7, scoreCompleteDailyOpsPublicTeam, 5);
             addWeekly(challengesWeeklyEra14.options, 7, scoreCompleteGoldStar);
             addWeekly(challengesWeeklyEra14.options, 7, scoreCompleteEvents10);
-            addWeekly(challengesWeeklyEra14.options, 7, scoreClaimWorkshop, 10);
-            addWeekly(challengesWeeklyEra14.options, 7, scoreCollectBullion, 150);
-            addWeekly(challengesWeeklyEra14.options, 7, scoreCompleteEventAshHeapRegion, 10);
+            addWeekly(challengesWeeklyEra14.options, 7, scoreKillCreatureWellFed, 50);
+            addWeekly(challengesWeeklyEra14.options, 7, scoreDrinkNukaCola, 25);
             addWeekly(challengesWeeklyEra14.options, 7, scoreCompleteEventSeismicActivity, 1);
-            addWeekly(challengesWeeklyEra14.options, 7, scoreCompleteFreeCamDaily, 5);
-            addWeekly(challengesWeeklyEra14.options, 7, scoreKillMoleminer, 50);
+            addWeekly(challengesWeeklyEra14.options, 7, scoreCompleteEventsNukaWorld, 5);
+            addWeekly(challengesWeeklyEra14.options, 7, scoreExpeditionsUnionsDue, 1);
             addDaily(challengesDailyEra14, 7, [
                     scoreCompleteDailyChallenge, 5,
                     scoreLevelUp, 1,
-                    scoreCompleteDailyOps, 1,
-                    scoreCompleteOneEvent, 2,
-                    scoreCompleteEventMostWanted, 1,
-                    scoreKillBloodEagle, 10,
-                    scoreTakeCameraPictureNukaWorld, 1,
-                    scoreBuildLightPowerFreeCam, 5,
+                    scoreCompleteDailyOpsPublicTeam, 1,
+                    scoreCompleteOneEvent, 1,
+                    scoreCraftMineGrenadeThrown, 5,
+                    scoreEatDogFood, 10,
+                    scoreEatCookedMealTeammate, 5,
                     scoreGainXP_1000_Rank_100Plus, 1,
-                    make1st(scoreClaimWorkshop), 1,
-                ], dops(dailyOpsV94, dailyOpsCommunists, dailyOpsVolatile, false, false));
+                    scoreExpeditionsRefugeDaily, 1,
+                    make1st(scoreKillMirelurk), 10,
+                ], dops(dailyOpsWatoga, dailyOpsRobots, dailyOpsToxic, false, false));
 
             communityEventsAppend.push(createFreeCam(ofDate(2022, 11, 6, 17), ofDate(2022, 11, 15, 17)));
             communityEventsAppend.push(createMinerva(ofDate(2022, 11, 8, 17), ofDate(2022, 11, 12, 17), "Big Sale @ Fort Atlas", "P?"));
