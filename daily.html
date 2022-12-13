@@ -15347,6 +15347,20 @@
                             period: 1400,
                         };
             }
+            function createNukaWorld(start, end) {
+                return {
+                    validStart: start,
+                    validEnd: end,
+                    title: "Nuka-World On Tour Guaranteed Events",
+                    options: [
+                        {
+                            name: "One of the 3 new public events will run at the top of each hour.",
+                            offset: 0,
+                            period: 1,
+                        },
+                    ]
+                };
+            }
             
             addWeekly(challengesWeeklyEra14.options, 0, scoreFixedGainXP10000Rank100);
             addWeekly(challengesWeeklyEra14.options, 0, scoreLevelUp3);
@@ -15466,6 +15480,7 @@
                     make1st(scoreKillMirelurk), 10,
                 ], dops(dailyOpsWatoga, dailyOpsRobots, dailyOpsToxic, false, false));
 
+            communityEventsAppend.push(createNukaWorld(ofDate(2022, 11, 6, 17), ofDate(2023, 0, 3, 17)));
             communityEventsAppend.push(createFreeCam(ofDate(2022, 11, 6, 17), ofDate(2022, 11, 13, 17)));
             communityEventsAppend.push(createMinerva(ofDate(2022, 11, 8, 17), ofDate(2022, 11, 12, 17), "Big Sale @ Fort Atlas", "P?"));
             communityEventsAppend.push(createDoubleMutations(ofDate(2022, 11, 15, 17), ofDate(2022, 11, 19, 17)));
