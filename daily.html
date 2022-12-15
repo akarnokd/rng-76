@@ -15361,6 +15361,27 @@
                     ]
                 };
             }
+            function scoreCompleteQuest(offset, count) {
+                return {
+                            name: times("Complete a Quest", count),
+                            offset: offset,
+                            period: 1400,
+                        };
+            }
+            function scoreKillBloodEagleBluntWeapon(offset, count) {
+                return {
+                            name: times("Kill a Blood Eagle with a Blunt Weapon", count),
+                            offset: offset,
+                            period: 1400,
+                        };
+            }
+            function scoreUsePhotomodeNukaWorld(offset, count) {
+                return {
+                    name: times("Use Photomode in Nuka World On Tour", count),
+                    offset: offset,
+                    period: 1400,
+                };
+            }
             
             addWeekly(challengesWeeklyEra14.options, 0, scoreFixedGainXP10000Rank100);
             addWeekly(challengesWeeklyEra14.options, 0, scoreLevelUp3);
@@ -15491,14 +15512,24 @@
                     scoreGainXP_1000_Rank_100Plus, 1,
                     make1st(scoreCraftAmmo), 50,
                 ], dops(dailyOpsWestTec, dailyOpsScorched, dailyOpsRegenerating, true, false));
+                addDaily(challengesDailyEra14, 9, [
+                    scoreCompleteDailyChallenge, 5,
+                    scoreLevelUp, 1,
+                    scoreCompleteDailyOpsPublicTeam, 1,
+                    scoreCompleteOneEvent, 1,
+                    scoreCompleteQuest, 1,
+                    scoreDrinkNukaTwist, 2,
+                    scoreKillBloodEagleBluntWeapon, 5,
+                    scoreUsePhotomodeNukaWorld, 10,
+                    scoreGainXP_1000_Rank_100Plus, 1,
+                    make1st(scoreKillLegendary), 3,
+                ], dops(dailyOpsV94, dailyOpsEagles, dailyOpsRelentless, false, false));
 
             communityEventsAppend.push(createNukaWorld(ofDate(2022, 11, 6, 17), ofDate(2023, 0, 3, 17)));
             communityEventsAppend.push(createFreeCam(ofDate(2022, 11, 6, 17), ofDate(2022, 11, 13, 17)));
             communityEventsAppend.push(createMinerva(ofDate(2022, 11, 8, 17), ofDate(2022, 11, 12, 17), "Big Sale @ Fort Atlas", "P?"));
             communityEventsAppend.push(createDoubleMutations(ofDate(2022, 11, 15, 17), ofDate(2022, 11, 19, 17)));
             communityEventsAppend.push(createGoldRush2(ofDate(2022, 11, 15, 17), ofDate(2022, 11, 19, 17)));
-
-            communityEventsAppend.push(createScripSurplus2(ofDate(2022, 11, 19, 17), ofDate(2022, 11, 23, 17)));
 
             communityEventsAppend.push(createHolidayScorched(ofDate(2022, 11, 20, 17), ofDate(2023, 0, 3, 17)));
 
