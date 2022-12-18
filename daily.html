@@ -26,7 +26,7 @@
     </head>
     <body>
         <center>
-            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Timed Challenges (0.9.0)</span><br/>
+            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Timed Challenges (0.9.1)</span><br/>
             <br/>
             <br/>
             <table>
@@ -40,6 +40,10 @@
                     <td><button id='nextMonth' title='Go forward a month.'>&gt;&gt;&gt;</button></td>
                 </tr>
             </table>
+            <a href="#weeklies">Weeklies</a> &#8595;&nbsp;&nbsp;
+            <a href="#events">Events</a> &#8595;&nbsp;&nbsp;
+            <a href="#worlds">Worlds</a> &#8595;&nbsp;&nbsp;
+            <a href="#season">Season</a> &#8595;
             <br/>
             <br/>
             <table id='challenges'>
@@ -17577,11 +17581,14 @@
                 }
             }
 
-            function insertSeparatorRow(tbl) {
+            function insertSeparatorRow(tbl, anchor) {
                 var rw = tbl.insertRow(tbl.rows.length);
                 var cll = rw.insertCell(rw.cells.length);
                 cll.colSpan = 2;
                 cll.innerHTML = "&nbsp;";
+                if (anchor) {
+                    cll.innerHTML += "<a name='" + anchor + "'>"
+                }
             }
 
             function addPrevNext(tbl, list, nonOverlapping) {
@@ -17682,7 +17689,7 @@
 
                 renderList(tbl, challenges, endDate);
 
-                insertSeparatorRow(tbl)
+                insertSeparatorRow(tbl, "weeklies")
 
                 var rw = tbl.insertRow(tbl.rows.length);
                 var cll = rw.insertCell(rw.cells.length);
@@ -17695,7 +17702,7 @@
 
                 renderList(tbl, challengesWeekly, endDate);
 
-                insertSeparatorRow(tbl)
+                insertSeparatorRow(tbl, "events")
 
                 if (isActive(communityEvents, endDate)) {
                     var currChallenges = currentChallenges(communityEvents, selectedDate);
@@ -17777,7 +17784,7 @@
 
                 // public worlds was released on 2021-09-08
                 if (selectedDate >= ofDate(2021, 8, 8, 16)) {
-                    insertSeparatorRow(tbl)
+                    insertSeparatorRow(tbl, "worlds")
 
                     if (isActive(publicWorlds, endDate)) {
                         var rw = tbl.insertRow(tbl.rows.length);
@@ -17805,7 +17812,7 @@
                     addPrevNext(tbl, publicWorlds, false);
                 }
 
-                insertSeparatorRow(tbl)
+                insertSeparatorRow(tbl, "season")
 
                 if (isActive(seasonEvents, endDate)) {
                     var rw = tbl.insertRow(tbl.rows.length);
