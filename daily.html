@@ -15384,6 +15384,13 @@
                     period: 1400,
                 };
             }
+            function scoreScrapJunkOil(offset, count) {
+                return {
+                    name: times("Scrap junk to produce Oil", count),
+                    offset: offset,
+                    period: 1400,
+                };
+            }
             
             addWeekly(challengesWeeklyEra14.options, 0, scoreFixedGainXP10000Rank100);
             addWeekly(challengesWeeklyEra14.options, 0, scoreLevelUp3);
@@ -15550,6 +15557,18 @@
                     scoreGainXP_1000_Rank_100Plus, 1,
                     make1st(scoreEatMeat), 10,
                 ], dops(dailyOpsWestTec, dailyOpsCultists, dailyOpsVaporous, false, false));
+            addDaily(challengesDailyEra14, 12, [
+                    scoreCompleteDailyChallenge, 5,
+                    scoreLevelUp, 1,
+                    scoreCompleteDailyOpsPublicTeam, 1,
+                    scoreCompleteOneEvent, 1,
+                    scoreChewBubblegum, 1,
+                    scoreCollectPurifiedWater, 5,
+                    scoreScrapJunkOil, 8,
+                    scoreKillScorched, 10,
+                    scoreGainXP_1000_Rank_100Plus, 1,
+                    make1st(scoreCookMeatFood), 5,
+                ], dops(dailyOpsUncanny, dailyOpsMutants, dailyOpsSwiftStalker, true, false));
 
             communityEventsAppend.push(createNukaWorld(ofDate(2022, 11, 6, 17), ofDate(2023, 0, 3, 17)));
             communityEventsAppend.push(createFreeCam(ofDate(2022, 11, 6, 17), ofDate(2022, 11, 13, 17)));
