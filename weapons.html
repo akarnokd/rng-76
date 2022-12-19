@@ -27,7 +27,7 @@
     </head>
     <body style="height: 90%">
         <center>
-            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Weapon Damage Calculator (v3.10.13)</span>
+            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Weapon Damage Calculator (v3.10.14)</span>
             <br/>
             <i>(Patch 40 [Nuka World] update in progress.)</i>
         <br/>
@@ -5382,6 +5382,45 @@
                     ]
                 },
                 {
+                    name: "Nuka Launcher",
+                    category: "Heavy",
+                    explosive: true,
+                    speed: 3,
+                    clipSize: 12,
+                    reloadTime: 5.000010,
+                    //formId: "00182634",
+                    special: true,
+                    level: [50],
+                    damage: [75],
+                    mods: [
+                        {
+                            slot: "Barrel",
+                            options: [
+                                {
+                                    name: "Standard"
+                                },
+                                {
+                                    name: "Heavy",
+                                    damageMultPercent: 12.5,
+                                }
+                            ]
+                        },
+                        {
+                            slot: "Special",
+                            options: [
+                                {
+                                    name: "Bonus vs Mole Miners",
+                                    versus: ["Mole Miner"],
+                                    versusMultPercent: 50
+                                }
+                            ]
+                        }
+                    ],
+                    legendaryPrefix: "Two shot (explosive heavy)"
+                    // legendaryMajor: "50% limb damage"
+                    // legendaryMinor: "90% reduced weight"
+                },
+                {
                     name: "Alien Blaster",
                     category: "Pistol",
                     kind: "energy",
@@ -6606,8 +6645,13 @@
                         damageMultPercent: 25
                     },
                     {
-                        name: "Two shot (pre nerf)",
+                        name: "Two shot (legacy)",
                         linkId: "TSN",
+                        damageMultPercent: 100
+                    },
+                    {
+                        name: "Two shot (explosive heavy)",
+                        linkId: "TSNH",
                         damageMultPercent: 100
                     },
                     {
@@ -7872,9 +7916,9 @@
             addEnemy("Glowing Megasloth", ["Glowing", "Animal"], enemyResistancesMap["megasloth"]);
             addEnemy("Scorched Megasloth", ["Scorched"], enemyResistancesMap["megasloth"]);
 
-            addEnemy("Mole Miner", [], enemyResistancesMap["moleminer"]);
-            addEnemy("Glowing Mole Miner", ["Glowing"], enemyResistancesMap["moleminer"]);
-            addEnemy("Scorched Mole Miner", ["Scorched"], enemyResistancesMap["moleminer"]);
+            addEnemy("Mole Miner", ["Mole Miner"], enemyResistancesMap["moleminer"]);
+            addEnemy("Glowing Mole Miner", ["Glowing", "Mole Miner"], enemyResistancesMap["moleminer"]);
+            addEnemy("Scorched Mole Miner", ["Scorched", "Mole Miner"], enemyResistancesMap["moleminer"]);
 
             addEnemy("Molerat", ["Animal", "Molerat"], enemyResistancesMap["molerat"]);
             addEnemy("Glowing Molerat", ["Glowing", "Animal", "Molerat"], enemyResistancesMap["molerat"]);
