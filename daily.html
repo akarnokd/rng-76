@@ -15571,8 +15571,20 @@
                     scoreScrapJunkOil, 8,
                     scoreKillScorched, 10,
                     scoreGainXP_1000_Rank_100Plus, 1,
-                    make1st(scoreCookMeatFood), 5,
+                    make1st(scoreCookMealPlant), 5,
                 ], dops(dailyOpsUncanny, dailyOpsMutants, dailyOpsSwiftStalker, true, false));
+            addDaily(challengesDailyEra14, 13, [
+                    scoreCompleteDailyChallenge, 5,
+                    scoreLevelUp, 1,
+                    scoreCompleteDailyOpsPublicTeam, 1,
+                    scoreCompleteOneEvent, 1,
+                    scoreCollectWood, 20,
+                    scoreKillFloater, 3,
+                    scoreScrapJunkOil, 8,
+                    scoreDestroyRobot, 10,
+                    scoreGainXP_1000_Rank_100Plus, 1,
+                    make1st(scoreTakeCameraPictureNukaWorld), 1,
+                ], dops(dailyOpsWatogaHighschool, dailyOpsCommunists, dailyOpsToxic, false, false));
 
             communityEventsAppend.push(createNukaWorld(ofDate(2022, 11, 6, 17), ofDate(2023, 0, 3, 17)));
             communityEventsAppend.push(createFreeCam(ofDate(2022, 11, 6, 17), ofDate(2022, 11, 13, 17)));
