@@ -15593,6 +15593,29 @@
             communityEventsAppend.push(createGoldRush2(ofDate(2022, 11, 15, 17), ofDate(2022, 11, 19, 17)));
             communityEventsAppend.push(createMinerva(ofDate(2022, 11, 19, 17), ofDate(2022, 11, 21, 17), "Emporium @ Foundation", "P?"));
 
+            addWeekly(challengesWeeklyEra14.options, 14, scoreFixedGainXP10000Rank100);
+            addWeekly(challengesWeeklyEra14.options, 14, scoreLevelUp3);
+            addWeekly(challengesWeeklyEra14.options, 14, scoreCompleteDailyOpsDailies, 3);
+            addWeekly(challengesWeeklyEra14.options, 14, scoreCompleteGoldStar);
+            addWeekly(challengesWeeklyEra14.options, 14, scoreCompleteEvents10);
+            addWeekly(challengesWeeklyEra14.options, 14, scoreCriticalHit, 25);
+            addWeekly(challengesWeeklyEra14.options, 14, scoreEatPrewarFood, 40);
+            addWeekly(challengesWeeklyEra14.options, 14, scoreKillFestiveScorched, 50);
+            addWeekly(challengesWeeklyEra14.options, 14, scoreCompleteEventsNukaWorld, 5);
+            addWeekly(challengesWeeklyEra14.options, 14, scoreExpeditionsFromAshes, 1);
+            addDaily(challengesDailyEra14, 14, [
+                    scoreCompleteDailyChallenge, 5,
+                    scoreLevelUp, 1,
+                    scoreCompleteDailyOpsPublicTeam, 1,
+                    scoreCompleteOneEvent, 1,
+                    scoreHarvestPlantFungi, 20,
+                    scoreKillFestiveScorched, 5,
+                    scoreScrapJunkOil, 8,
+                    scorePickLock, 1,
+                    scoreGainXP_1000_Rank_100Plus, 1,
+                    make1st(scoreRepairArmorWeaponPA), 10,
+                ], dops(dailyOpsUncanny, dailyOpsMutants, dailyOpsRegenerating, true, false));
+
             communityEventsAppend.push(createHolidayScorched(ofDate(2022, 11, 20, 17), ofDate(2023, 0, 3, 17)));
 
             communityEventsAppend.push(createDoubleXP(ofDate(2022, 11, 22, 17), ofDate(2022, 11, 26, 17)));
