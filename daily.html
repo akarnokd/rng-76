@@ -9521,6 +9521,13 @@
                             period: 1400,
                         };
             }
+            function scoreKillFestiveScorchedInTeamInCostume(offset, count) {
+                return {
+                            name: times("Kill Festive Scorched in a Team while in Costume", count),
+                            offset: offset,
+                            period: 1400,
+                        };
+            }
             function scoreKillCreatureXerxoGun(offset, count) {
                 return {
                             name: times("Kill a creature with Xerxo's Gamma Ray Gun", count),
@@ -15634,6 +15641,18 @@
                     scoreGainXP_1000_Rank_100Plus, 1,
                     make1st(scoreCraftMineGrenadeThrown), 5,
                 ], dops(dailyOpsArktos, dailyOpsScorched, dailyOpsVolatile, false, false));
+            addDaily(challengesDailyEra14, 16, [
+                    scoreCompleteDailyChallenge, 5,
+                    scoreLevelUp, 1,
+                    scoreCompleteDailyOpsPublicTeam, 1,
+                    scoreCompleteOneEvent, 1,
+                    scoreCollectMagazine, 1,
+                    scoreKillFestiveScorchedInTeamInCostume, 5,
+                    scoreScrapJunkOil, 8,
+                    scoreCraftAmmo, 50,
+                    scoreGainXP_1000_Rank_100Plus, 1,
+                    make1st(scoreHackTerminal), 1,
+                ], dops(dailyOpsV94, dailyOpsMoleminers, dailyOpsSwift, true, false));
 
             communityEventsAppend.push(createHolidayScorched(ofDate(2022, 11, 20, 17), ofDate(2023, 0, 3, 17)));
 
