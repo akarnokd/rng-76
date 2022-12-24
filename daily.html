@@ -13636,6 +13636,13 @@
                     period: 1400
                 };
             }
+            function scoreTakeCameraPictureSuperMutant(offset, count) {
+                return {
+                    name: times("&#x1F681; Take a Camera Picture of a Super Mutant", count),
+                    offset: offset,
+                    period: 1400
+                };
+            }
             function scoreKillMirelurk(offset, count) {
                 return {
                     name: times("Kill a Mirelurk", count),
@@ -15409,6 +15416,14 @@
                     period: 1400,
                 };
             }
+            function scoreConsumeAlcoholOnTeam(offset, count) {
+                return {
+                    name: times("Consume Alcohol while in a Team", count),
+                    offset: offset,
+                    period: 1400
+                };
+            }
+
             
             addWeekly(challengesWeeklyEra14.options, 0, scoreFixedGainXP10000Rank100);
             addWeekly(challengesWeeklyEra14.options, 0, scoreLevelUp3);
@@ -15665,6 +15680,18 @@
                     scoreGainXP_1000_Rank_100Plus, 1,
                     make1st(scoreCraftScrapArmor), 5,
                 ], dops(dailyOpsUncanny, dailyOpsEagles, dailyOpsVolatile, false, false));
+            addDaily(challengesDailyEra14, 18, [
+                    scoreCompleteDailyChallenge, 5,
+                    scoreLevelUp, 1,
+                    scoreCompleteDailyOpsPublicTeam, 1,
+                    scoreCompleteOneEvent, 1,
+                    scoreConsumeAlcoholOnTeam, 10,
+                    scoreCookMeatFood, 5,
+                    scoreScrapJunkOil, 8,
+                    scoreKillFestiveScorched, 5,
+                    scoreGainXP_1000_Rank_100Plus, 1,
+                    make1st(scoreTakeCameraPictureSuperMutant), 1,
+                ], dops(dailyOpsV94, dailyOpsRobots, dailyOpsFreezing, true, false));
 
             communityEventsAppend.push(createHolidayScorched(ofDate(2022, 11, 20, 17), ofDate(2023, 0, 3, 17)));
 
