@@ -15423,6 +15423,27 @@
                     period: 1400
                 };
             }
+            function scoreConsumeAlcoholOnTeamInCostume(offset, count) {
+                return {
+                    name: times("Consume Alcohol while in a Team while in Costume", count),
+                    offset: offset,
+                    period: 1400
+                };
+            }
+            function scoreKillRadstag(offset, count) {
+                return {
+                    name: times("Kill a Radstag", count),
+                    offset: offset,
+                    period: 1400
+                };
+            }
+            function scoreCollectOrScrapCoal(offset, count) {
+                return {
+                    name: times("Collect or Scrap Coal", count),
+                    offset: offset,
+                    period: 1400
+                };
+            }
 
             
             addWeekly(challengesWeeklyEra14.options, 0, scoreFixedGainXP10000Rank100);
@@ -15692,6 +15713,18 @@
                     scoreGainXP_1000_Rank_100Plus, 1,
                     make1st(scoreTakeCameraPictureSuperMutant), 1,
                 ], dops(dailyOpsV94, dailyOpsRobots, dailyOpsFreezing, true, false));
+            addDaily(challengesDailyEra14, 19, [
+                    scoreCompleteDailyChallenge, 5,
+                    scoreLevelUp, 1,
+                    scoreCompleteDailyOpsPublicTeam, 1,
+                    scoreCompleteOneEvent, 1,
+                    scoreConsumeAlcoholOnTeamInCostume, 10,
+                    scoreCollectOrScrapCoal, 5,
+                    scoreKillRadstag, 9,
+                    scoreKillFestiveScorchedInTeamInCostume, 5,
+                    scoreGainXP_1000_Rank_100Plus, 1,
+                    make1st(scoreScrapJunkOil), 8,
+                ], dops(dailyOpsBurrows, dailyOpsMutants, dailyOpsToxic, false, false));
 
             communityEventsAppend.push(createHolidayScorched(ofDate(2022, 11, 20, 17), ofDate(2023, 0, 3, 17)));
 
