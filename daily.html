@@ -15444,6 +15444,20 @@
                     period: 1400
                 };
             }
+            function scoreExpeditionCompleteRecipeForSuccess(offset, count) {
+                return {
+                    name: times("&#x1F681; Expeditions: Complete Recipe For Success", count),
+                    offset: offset,
+                    period: 1400
+                };
+            }
+            function scoreKillGhoulShotgun(offset, count) {
+                return {
+                    name: times("Kill a Feral Ghouls with a Shotgun", count),
+                    offset: offset,
+                    period: 1400
+                };
+            }
 
             
             addWeekly(challengesWeeklyEra14.options, 0, scoreFixedGainXP10000Rank100);
@@ -15743,6 +15757,30 @@
             communityEventsAppend.push(createDoubleXP(ofDate(2022, 11, 22, 17), ofDate(2022, 11, 26, 17)));
             communityEventsAppend.push(createDoubleScore(ofDate(2022, 11, 22, 17), ofDate(2022, 11, 27, 17)));
             communityEventsAppend.push(createMinerva(ofDate(2022, 11, 26, 17), ofDate(2022, 11, 28, 17), "Emporium @ Crater", "P?"));
+
+            addWeekly(challengesWeeklyEra14.options, 21, scoreFixedGainXP10000Rank100);
+            addWeekly(challengesWeeklyEra14.options, 21, scoreLevelUp3);
+            addWeekly(challengesWeeklyEra14.options, 21, scoreCompleteDailyOpsPublicTeam, 5);
+            addWeekly(challengesWeeklyEra14.options, 21, scoreCompleteGoldStar);
+            addWeekly(challengesWeeklyEra14.options, 21, scoreCompleteEvents10);
+            addWeekly(challengesWeeklyEra14.options, 21, scoreClaimWorkshop, 5);
+            addWeekly(challengesWeeklyEra14.options, 21, scoreDestroyAssaultron, 5);
+            addWeekly(challengesWeeklyEra14.options, 21, scoreKillFestiveScorched, 50);
+            addWeekly(challengesWeeklyEra14.options, 21, scoreCompleteEventsNukaWorld, 5);
+            addWeekly(challengesWeeklyEra14.options, 21, scoreExpeditionCollectStamps, 5);
+            addDaily(challengesDailyEra14, 21, [
+                    scoreCompleteDailyChallenge, 5,
+                    scoreLevelUp, 1,
+                    scoreCompleteDailyOpsPublicTeam, 1,
+                    scoreCompleteOneEvent, 1,
+                    scoreKillCreatureMireMoonshine, 5,
+                    scoreScrapJunkSprings, 5,
+                    scoreKillFestiveScorched, 5,
+                    scoreExpeditionCompleteRecipeForSuccess, 1,
+                    scoreGainXP_1000_Rank_100Plus, 1,
+                    make1st(scoreKillGhoulShotgun), 5,
+                ], dops(dailyOpsUncanny, dailyOpsCultists, dailyOpsResilient, false, false));
+
 
             communityEventsAppend.push(createPurveyor(ofDate(2022, 11, 29, 17), ofDate(2023, 0, 2, 17), 25, false, 1));
             communityEventsAppend.push(createScripSurplus2(ofDate(2022, 11, 29, 17), ofDate(2023, 0, 2, 17)));
