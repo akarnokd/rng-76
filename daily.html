@@ -15458,6 +15458,20 @@
                     period: 1400
                 };
             }
+            function scoreKillInsects(offset, count) {
+                return {
+                    name: times("Kill Insects", count),
+                    offset: offset,
+                    period: 1400
+                };
+            }
+            function scoreTakeCameraPictureCamden(offset, count) {
+                return {
+                    name: times("Take Camera Picture in Camden Park", count),
+                    offset: offset,
+                    period: 1400
+                };
+            }
 
             
             addWeekly(challengesWeeklyEra14.options, 0, scoreFixedGainXP10000Rank100);
@@ -15780,6 +15794,18 @@
                     scoreGainXP_1000_Rank_100Plus, 1,
                     make1st(scoreKillGhoulShotgun), 5,
                 ], dops(dailyOpsUncanny, dailyOpsCultists, dailyOpsResilient, false, false));
+            addDaily(challengesDailyEra14, 22, [
+                    scoreCompleteDailyChallenge, 5,
+                    scoreLevelUp, 1,
+                    scoreCompleteDailyOpsPublicTeam, 1,
+                    scoreCompleteOneEvent, 1,
+                    scoreCollectPurifiedWater, 5,
+                    scoreEatCookedMealTeammate, 5,
+                    scoreKillInsects, 10,
+                    scoreTakeCameraPictureCamden, 1,
+                    scoreGainXP_1000_Rank_100Plus, 1,
+                    make1st(scoreKillFestiveScorchedInTeamInCostume), 5,
+                ], dops(dailyOpsWestTec, dailyOpsRobots, dailyOpsVolatile, true, false));
 
 
             communityEventsAppend.push(createPurveyor(ofDate(2022, 11, 29, 17), ofDate(2023, 0, 2, 17), 25, false, 1));
