@@ -15872,6 +15872,31 @@
             communityEventsAppend.push(createScripSurplus2(ofDate(2022, 11, 29, 17), ofDate(2023, 0, 2, 17)));
 
             communityEventsAppend.push(createMinerva(ofDate(2023, 0, 2, 17), ofDate(2023, 0, 4, 17), "Emporium @ Fort Atlas", "P?"));
+
+            addWeekly(challengesWeeklyEra14.options, 28, scoreFixedGainXP10000Rank100);
+            addWeekly(challengesWeeklyEra14.options, 28, scoreLevelUp3);
+            addWeekly(challengesWeeklyEra14.options, 28, scoreCompleteDailyOpsDailies, 5);
+            addWeekly(challengesWeeklyEra14.options, 28, scoreCompleteGoldStar);
+            addWeekly(challengesWeeklyEra14.options, 28, scoreCompleteEvents10);
+            addWeekly(challengesWeeklyEra14.options, 28, scoreBuildAnythingCampFree, 25);
+            addWeekly(challengesWeeklyEra14.options, 28, scoreConsumeAlcohol, 25);
+            addWeekly(challengesWeeklyEra14.options, 28, scoreKillCreatureCostume, 50);
+            addWeekly(challengesWeeklyEra14.options, 28, scoreKillHoneyBeast, 10);
+            addWeekly(challengesWeeklyEra14.options, 28, scoreScrapJunkScrews, 15);
+            addDaily(challengesDailyEra14, 28, [
+                    scoreCompleteDailyChallenge, 5,
+                    scoreLevelUp, 1,
+                    scoreCompleteDailyOps, 1,
+                    scoreCompleteOneEvent, 1,
+                    scoreCollectCaps, 100,
+                    scoreCompleteEncounterRefuge, 1,
+                    scoreKillCreatureCostume, 10,
+                    scoreKillTrog, 10,
+                    scoreGainXP_1000_Rank_100Plus, 1,
+                    make1st(scorePickLock), 1,
+                ], dops(dailyOpsWatoga, dailyOpsCultists, dailyOpsRegenerating, true, false));
+
+
             communityEventsAppend.push(createCapsOPlenty(ofDate(2023, 0, 5, 17), ofDate(2023, 0, 9, 17)));
 
             communityEventsAppend.push(createGoldRush2(ofDate(2023, 0, 12, 17), ofDate(2023, 0, 16, 17)));
