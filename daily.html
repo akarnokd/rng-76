@@ -13657,6 +13657,13 @@
                     period: 1400
                 };
             }
+            function scoreScrapJunkFiberglass(offset, count) {
+                return {
+                    name: times("Scrap junk to produce fiberglass", count),
+                    offset: offset,
+                    period: 1400
+                };
+            }
 
             function scoreHarvestCornRazorgrainTato(offset, count) {
                 return {
@@ -15204,6 +15211,13 @@
                             period: 1400,
                         };
             }
+            function scoreBuildWallDecorFree(offset, count) {
+                return {
+                            name: times("Build floor or wall decor in your C.A.M.P. or Workshop in Free Cam mode", count),
+                            offset: offset,
+                            period: 1400,
+                        };
+            }
             function scoreCompleteEventSeismicActivity(offset, count) {
                 return {
                             name: times("Complete Event: Seismic Activity", count),
@@ -15907,6 +15921,18 @@
                     scoreGainXP_1000_Rank_100Plus, 1,
                     make1st(scoreCraftAmmo), 50,
                 ], dops(dailyOpsWestTec, dailyOpsCommunists, dailyOpsCloaked, false, false));
+            addDaily(challengesDailyEra14, 30, [
+                    scoreCompleteDailyChallenge, 5,
+                    scoreLevelUp, 1,
+                    scoreCompleteDailyOps, 1,
+                    scoreCompleteOneEvent, 1,
+                    scoreBuildWallDecorFree, 5,
+                    scoreCollectBobblehead, 1,
+                    scoreDestroyAssaultron, 1,
+                    scoreEatDogFood, 10,
+                    scoreGainXP_1000_Rank_100Plus, 1,
+                    make1st(scoreScrapJunkFiberglass), 5,
+                ], dops(dailyOpsUncanny, dailyOpsScorched, dailyOpsResilient, true, false));
 
 
             communityEventsAppend.push(createCapsOPlenty(ofDate(2023, 0, 5, 17), ofDate(2023, 0, 9, 17)));
