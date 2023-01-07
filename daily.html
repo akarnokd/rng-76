@@ -13664,7 +13664,13 @@
                     period: 1400
                 };
             }
-
+            function scoreScrapJunkBone(offset, count) {
+                return {
+                    name: times("Scrap junk to produce bone", count),
+                    offset: offset,
+                    period: 1400
+                };
+            }
             function scoreHarvestCornRazorgrainTato(offset, count) {
                 return {
                     name: times("Harvest Corn, Razorgrain or Tato", count),
@@ -15945,6 +15951,18 @@
                     scoreGainXP_1000_Rank_100Plus, 1,
                     make1st(scoreCollectBullion), 25,
                 ], dops(dailyOpsValley, dailyOpsCultists, dailyOpsRegenerating, false, false));
+            addDaily(challengesDailyEra14, 32, [
+                    scoreCompleteDailyChallenge, 5,
+                    scoreLevelUp, 1,
+                    scoreCompleteDailyOps, 1,
+                    scoreCompleteOneEvent, 1,
+                    scoreBuildFloorWallCampFree, 10,
+                    scoreCollectBullion, 25,
+                    scoreKillSupermutant, 5,
+                    scoreScrapJunkBone, 5,
+                    scoreGainXP_1000_Rank_100Plus, 1,
+                    make1st(scoreCollectScrip), 50,
+                ], dops(dailyOpsWestTec, dailyOpsRobots, dailyOpsSwift, true, false));
 
 
             communityEventsAppend.push(createCapsOPlenty(ofDate(2023, 0, 5, 17), ofDate(2023, 0, 9, 17)));
