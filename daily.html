@@ -15492,6 +15492,13 @@
                     period: 1400
                 };
             }
+            function scoreKillAnimalsPipeWeapon(offset, count) {
+                return {
+                    name: times("Kill Animals with a Pipe Weapon", count),
+                    offset: offset,
+                    period: 1400
+                };
+            }
 
             
             addWeekly(challengesWeeklyEra14.options, 0, scoreFixedGainXP10000Rank100);
@@ -15974,7 +15981,19 @@
                     scoreKillGhoulShotgun, 5,
                     scoreGainXP2500, 1,
                     make1st(scoreKillCreatureWellFed), 10,
-                ], dops(dailyOps94, dailyOpsCommunists, dailyOpsFreezing, false, false));
+                ], dops(dailyOpsV94, dailyOpsCommunists, dailyOpsFreezing, false, false));
+            addDaily(challengesDailyEra14, 34, [
+                    scoreCompleteDailyChallenge, 5,
+                    scoreLevelUp, 1,
+                    scoreCompleteDailyOps, 1,
+                    scoreCompleteOneEvent, 1,
+                    scoreClaimWorkshop, 1,
+                    scoreCollectCaps, 100,
+                    scoreKillAnimalsPipeWeapon, 10,
+                    scoreKillLegendary, 3,
+                    scoreGainXP2500, 1,
+                    make1st(scoreFermentAlcohol), 10,
+                ], dops(dailyOpsWatogaHighschool, dailyOpsCultists, dailyOpsRegenerating, true, false));
 
 
             communityEventsAppend.push(createCapsOPlenty(ofDate(2023, 0, 5, 17), ofDate(2023, 0, 9, 17)));
