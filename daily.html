@@ -15499,6 +15499,20 @@
                     period: 1400
                 };
             }
+            function scoreKillInsectEnergyWeapon(offset, count) {
+                return {
+                    name: times("Kill an Insect with an Energy Weapon", count),
+                    offset: offset,
+                    period: 1400
+                };
+            }
+            function scoreScrapJunkWood(offset, count) {
+                return {
+                    name: times("Scrap junk to produce Wood", count),
+                    offset: offset,
+                    period: 1400
+                };
+            }
 
             
             addWeekly(challengesWeeklyEra14.options, 0, scoreFixedGainXP10000Rank100);
@@ -15995,8 +16009,30 @@
                     make1st(scoreFermentAlcohol), 10,
                 ], dops(dailyOpsWatogaHighschool, dailyOpsCultists, dailyOpsRegenerating, true, false));
 
-
             communityEventsAppend.push(createCapsOPlenty(ofDate(2023, 0, 5, 17), ofDate(2023, 0, 9, 17)));
+
+            addWeekly(challengesWeeklyEra14.options, 35, scoreFixedGainXP10000Rank100);
+            addWeekly(challengesWeeklyEra14.options, 35, scoreLevelUp3);
+            addWeekly(challengesWeeklyEra14.options, 35, scoreCompleteDailyOpsPublicTeam, 5);
+            addWeekly(challengesWeeklyEra14.options, 35, scoreCompleteGoldStar);
+            addWeekly(challengesWeeklyEra14.options, 35, scoreCompleteEvents10);
+            addWeekly(challengesWeeklyEra14.options, 35, scoreCollectCaps, 2500);
+            addWeekly(challengesWeeklyEra14.options, 35, scoreCriticalHit, 25);
+            addWeekly(challengesWeeklyEra14.options, 35, scoreKillInsectEnergyWeapon, 40);
+            addWeekly(challengesWeeklyEra14.options, 35, scoreScrapJunkWood, 30);
+            addWeekly(challengesWeeklyEra14.options, 35, scoreKillTrog, 50);
+            addDaily(challengesDailyEra14, 35, [
+                    scoreCompleteDailyChallenge, 5,
+                    scoreLevelUp, 1,
+                    scoreCompleteDailyOpsPublicTeam, 1,
+                    scoreCompleteOneEvent, 1,
+                    scoreChewBubblegum, 1,
+                    scoreCompleteQuest, 1,
+                    scoreCraftScrapArmor, 5,
+                    scoreGainXP2500, 1,
+                    scoreKillFanatic, 10,
+                    make1st(scoreCollectVertibirdFuel), 100,
+                ], dops(dailyOpsWatoga, dailyOpsCommunists, dailyOpsResilient, false, false));
 
             communityEventsAppend.push(createGoldRush2(ofDate(2023, 0, 12, 17), ofDate(2023, 0, 16, 17)));
             communityEventsAppend.push(createDoubleMutations(ofDate(2023, 0, 12, 17), ofDate(2023, 0, 16, 17)));
