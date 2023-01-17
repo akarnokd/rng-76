@@ -13580,6 +13580,13 @@
                     period: 1400
                 };
             }
+            function scoreKillFanaticConqueror(offset, count) {
+                return {
+                    name: times("&#x1F681; Expeditions: Kill a Fanatic Conqueror", count),
+                    offset: offset,
+                    period: 1400
+                };
+            }
             function scoreCollectVertibirdFuel(offset, count) {
                 return {
                     name: times("Collect Vertibird Fuel", count),
@@ -13921,6 +13928,13 @@
                     name: times("&#x1F383; HALLOWEEN: Complete Trick or Treat Daily Challenges", count),
                     offset: offset,
                     period: 1400,
+                };
+            }
+            function scoreKillSuperMutantHeavyGun(offset, count) {
+                return {
+                    name: times("Kill a Super Mutant with a Heavy Gun", count),
+                    offset: offset,
+                    period: 1400
                 };
             }
 
@@ -16112,6 +16126,28 @@
                     scoreGainXP2500, 1,
                     make1st(scoreTakeCameraPictureNukaWorld), 1,
                 ], dops(dailyOpsArktos, dailyOpsMutants, dailyOpsRelentless, false, false));
+            addWeekly(challengesWeeklyEra14.options, 42, scoreFixedGainXP10000Rank100);
+            addWeekly(challengesWeeklyEra14.options, 42, scoreLevelUp3);
+            addWeekly(challengesWeeklyEra14.options, 42, scoreCompleteDailyOpsDailies, 3);
+            addWeekly(challengesWeeklyEra14.options, 42, scoreCompleteGoldStar);
+            addWeekly(challengesWeeklyEra14.options, 42, scoreCompleteEvents10);
+            addWeekly(challengesWeeklyEra14.options, 42, scoreBuildFloorWallCampFree, 25);
+            addWeekly(challengesWeeklyEra14.options, 42, scoreCollectAnyNukaCola, 20);
+            addWeekly(challengesWeeklyEra14.options, 42, scoreHarvestPlantFungi, 50);
+            addWeekly(challengesWeeklyEra14.options, 42, scoreKillSuperMutantHeavyGun, 25);
+            addWeekly(challengesWeeklyEra14.options, 42, scoreExpeditionsPitt, 1);
+            addDaily(challengesDailyEra14, 42, [
+                    scoreCompleteDailyChallenge, 5,
+                    scoreLevelUp, 1,
+                    scoreCompleteDailyOps, 1,
+                    scoreCompleteOneEvent, 1,
+                    scoreChewBubblegum, 1,
+                    scoreClaimWorkshop, 1,
+                    scoreCollectAudiotape, 1,
+                    scoreKillFanaticConqueror, 1,
+                    scoreGainXP2500, 1,
+                    make1st(scoreExpeditionsRefugeDaily), 1,
+                ], dops(dailyOpsV94, dailyOpsScorched, dailyOpsFreezing, true, false));
 
             communityEventsAppend.push(createGoldRush2(ofDate(2023, 0, 12, 17), ofDate(2023, 0, 17, 17)));
             communityEventsAppend.push(createDoubleMutations(ofDate(2023, 0, 12, 17), ofDate(2023, 0, 17, 17)));
