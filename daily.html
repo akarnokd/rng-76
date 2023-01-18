@@ -13937,6 +13937,13 @@
                     period: 1400
                 };
             }
+            function scoreScrapJunkLead(offset, count) {
+                return {
+                    name: times("Scrap junk to produce Lead", count),
+                    offset: offset,
+                    period: 1400
+                };
+            }
 
             addWeekly(challengesWeeklyEra13.options, 0, scoreFixedGainXP10000Rank100);
             addWeekly(challengesWeeklyEra13.options, 0, scoreLevelUp3);
@@ -16148,6 +16155,18 @@
                     scoreGainXP2500, 1,
                     make1st(scoreExpeditionsRefugeDaily), 1,
                 ], dops(dailyOpsV94, dailyOpsScorched, dailyOpsFreezing, true, false));
+            addDaily(challengesDailyEra14, 43, [
+                    scoreCompleteDailyChallenge, 5,
+                    scoreLevelUp, 1,
+                    scoreCompleteDailyOps, 1,
+                    scoreCompleteOneEvent, 1,
+                    scoreCookMealPlant, 5,
+                    scoreCraftMineGrenadeThrown, 5,
+                    scoreEatPrewarFood, 20,
+                    scoreKillInsects, 20,
+                    scoreGainXP2500, 1,
+                    make1st(scoreScrapJunkLead), 1,
+                ], dops(dailyOpsWestTec, dailyOpsMutants, dailyOpsCloaked, false, false));
 
             communityEventsAppend.push(createGoldRush2(ofDate(2023, 0, 12, 17), ofDate(2023, 0, 17, 17)));
             communityEventsAppend.push(createDoubleMutations(ofDate(2023, 0, 12, 17), ofDate(2023, 0, 17, 17)));
