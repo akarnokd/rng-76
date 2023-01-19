@@ -15541,6 +15541,20 @@
                     period: 1400
                 };
             }
+            function scoreScrapJunkAcid(offset, count) {
+                return {
+                    name: times("Scrap junk to produce Acid", count),
+                    offset: offset,
+                    period: 1400
+                };
+            }
+            function scoreBuildAnythingShelterFree(offset, count) {
+                return {
+                    name: times("Build anything in your Shelter Free Cam mode", count),
+                    offset: offset,
+                    period: 1400
+                };
+            }
 
             
             addWeekly(challengesWeeklyEra14.options, 0, scoreFixedGainXP10000Rank100);
@@ -16133,6 +16147,13 @@
                     scoreGainXP2500, 1,
                     make1st(scoreTakeCameraPictureNukaWorld), 1,
                 ], dops(dailyOpsArktos, dailyOpsMutants, dailyOpsRelentless, false, false));
+
+            communityEventsAppend.push(createGoldRush2(ofDate(2023, 0, 12, 17), ofDate(2023, 0, 17, 17)));
+            communityEventsAppend.push(createDoubleMutations(ofDate(2023, 0, 12, 17), ofDate(2023, 0, 17, 17)));
+            communityEventsAppend.push(createPurveyor(ofDate(2023, 0, 12, 17), ofDate(2023, 0, 17, 17), 25, false, 1));
+            communityEventsAppend.push(createDoubleXP(ofDate(2023, 0, 12, 17), ofDate(2023, 0, 17, 17)));
+            communityEventsAppend.push(createMinerva(ofDate(2023, 0, 12, 17), ofDate(2023, 0, 16, 17), "Big Sale @ The Whitespring", "P?"));
+
             addWeekly(challengesWeeklyEra14.options, 42, scoreFixedGainXP10000Rank100);
             addWeekly(challengesWeeklyEra14.options, 42, scoreLevelUp3);
             addWeekly(challengesWeeklyEra14.options, 42, scoreCompleteDailyOpsDailies, 3);
@@ -16167,12 +16188,18 @@
                     scoreGainXP2500, 1,
                     make1st(scoreScrapJunkLead), 1,
                 ], dops(dailyOpsWestTec, dailyOpsMutants, dailyOpsCloaked, false, false));
-
-            communityEventsAppend.push(createGoldRush2(ofDate(2023, 0, 12, 17), ofDate(2023, 0, 17, 17)));
-            communityEventsAppend.push(createDoubleMutations(ofDate(2023, 0, 12, 17), ofDate(2023, 0, 17, 17)));
-            communityEventsAppend.push(createPurveyor(ofDate(2023, 0, 12, 17), ofDate(2023, 0, 17, 17), 25, false, 1));
-            communityEventsAppend.push(createDoubleXP(ofDate(2023, 0, 12, 17), ofDate(2023, 0, 17, 17)));
-            communityEventsAppend.push(createMinerva(ofDate(2023, 0, 12, 17), ofDate(2023, 0, 16, 17), "Big Sale @ The Whitespring", "P?"));
+            addDaily(challengesDailyEra14, 44, [
+                    scoreCompleteDailyChallenge, 5,
+                    scoreLevelUp, 1,
+                    scoreCompleteDailyOps, 1,
+                    scoreCompleteOneEvent, 1,
+                    scoreBuildAnythingShelterFree, 5,
+                    scoreClaimWorkshop, 1,
+                    scoreKillGlowing, 1,
+                    scoreScrapJunkAcid, 5,
+                    scoreGainXP2500, 1,
+                    make1st(scoreUsePhotomodeTeammate), 1,
+                ], dops(dailyOpsV96, dailyOpsRobots, dailyOpsVolatile, true, false));
 
             communityEventsAppend.push(createScripSurplus2(ofDate(2023, 0, 19, 17), ofDate(2023, 0, 23, 17)));
 
