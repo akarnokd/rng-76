@@ -15224,6 +15224,8 @@
                     name: times("Eat Cobbler (which is not a pie)", count),
                     offset: offset,
                     period: 1400,
+                    tipId: "ScoreCobbler",
+                    tip: "Cook and eat a Cranberry Cobbler. Get healthy Cranberry from the Cranberry Bog<br>Sunrise Field south of Watoga has a bunch."
                 };
             }
             function scoreKillSnallygaster(offset, count) {
@@ -15554,6 +15556,13 @@
             function scoreBuildAnythingShelterFree(offset, count) {
                 return {
                     name: times("Build anything in your Shelter Free Cam mode", count),
+                    offset: offset,
+                    period: 1400
+                };
+            }
+            function scoreDestroyRobotRifle(offset, count) {
+                return {
+                    name: times("Destroy Robots with a Rifle", count),
                     offset: offset,
                     period: 1400
                 };
@@ -16227,6 +16236,18 @@
                     scoreGainXP2500, 1,
                     make1st(scoreEatCobbler), 3,
                 ], dops(dailyOpsValley, dailyOpsCommunists, dailyOpsVolatile, true, false));
+            addDaily(challengesDailyEra14, 47, [
+                    scoreCompleteDailyChallenge, 5,
+                    scoreLevelUp, 1,
+                    scoreCompleteDailyOps, 1,
+                    scoreCompleteOneEvent, 1,
+                    scoreCollectCaps, 100,
+                    scoreConsumeVintageAlcohol, 1,
+                    scoreDestroyRobotRifle, 5,
+                    scoreEatCakePieCandy, 10,
+                    scoreGainXP2500, 1,
+                    make1st(scoreHarvestCornRazorgrainTato), 20,
+                ], dops(dailyOpsV94, dailyOpsCultists, dailyOpsResilient, false, false));
 
             communityEventsAppend.push(createScripSurplus2(ofDate(2023, 0, 19, 17), ofDate(2023, 0, 23, 17)));
 
