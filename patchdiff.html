@@ -250,13 +250,13 @@
                     removeOf("rightScript");
                     clearTable(document.getElementById("difftable"), 1);
 
-                    loadScript("leftEdids", versionLeft + "_SeventySix_EDIDs" + postfix + ".js", node => {
+                    loadScript("leftEdids", "data/" + versionLeft + "_SeventySix_EDIDs" + postfix + ".js", node => {
                         leftEdids = edids;
-                        loadScript("leftScript", versionLeft + "_" + fileName, node => {
+                        loadScript("leftScript", "data/" + versionLeft + "_" + fileName, node => {
                             leftData = saveFunc();
-                            loadScript("rightEdids", versionRight + "_SeventySix_EDIDs" + postfix + ".js", node => {
+                            loadScript("rightEdids", "data/" + versionRight + "_SeventySix_EDIDs" + postfix + ".js", node => {
                                 rightEdids = edids;
-                                loadScript("rightScript", versionRight + "_"  + fileName, node => {
+                                loadScript("rightScript", "data/" + versionRight + "_"  + fileName, node => {
                                     rightData = saveFunc();
 
                                     updateDiffTable();

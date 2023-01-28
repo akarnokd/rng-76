@@ -466,22 +466,22 @@
                         // "https://akarnokd.github.com/rng-76/" +
                         versionSelect.options[versionSelect.selectedIndex].value + "_";
 
-                    loadScript(patchPrefix + "SeventySix_EDIDs.js", node => {
+                    loadScript("data/" + patchPrefix + "SeventySix_EDIDs.js", node => {
                         if (--downloadDone == 0) {
                            allDownloaded();
                         }
                     });
-                    loadScript(patchPrefix + "SeventySix_GLOBs.js", node => {
+                    loadScript("data/" + patchPrefix + "SeventySix_GLOBs.js", node => {
                         if (--downloadDone == 0) {
                            allDownloaded();
                         }
                     });
-                    loadScript(patchPrefix + "SeventySix_LVLIs.js", node => {
+                    loadScript("data/" + patchPrefix + "SeventySix_LVLIs.js", node => {
                         if (--downloadDone == 0) {
                            allDownloaded();
                         }
                     });
-                    loadScript(patchPrefix + "SeventySix_CURVs.js", node => {
+                    loadScript("data/" + patchPrefix + "SeventySix_CURVs.js", node => {
                         if (--downloadDone == 0) {
                            allDownloaded();
                         }
