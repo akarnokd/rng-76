@@ -248,6 +248,26 @@
 
             var releaseNotes = [
                 {
+                    id: "P42",
+                    patch: "42",
+                    date: ofDate(2023, 0, 27),
+                    description: "Hotfix release",
+                    //reddit: "",
+                    //bethesda: "",
+                    notes: [
+                        {
+                            category: "Bugfix,Items",
+                            name: "Weight reduction legendary effects",
+                            description: "Fixed an issue that made various weight reduction legendary effects not working.<br><b>Editor's note: However, they broke weight reducing perk card + legendary effect stacking.</b>"
+                        },
+                        {
+                            category: "Bugfix,Items",
+                            name: "Heavy energy weapon ammo usage",
+                            description: "Fixed an issue with heavy weapons not listing and consuming the proper amount of charge.<br><b>Editor's note: However, they broke the Power User perk card, maybe more."
+                        }
+                    ]
+                },
+                {
                     id: "P41",
                     patch: "41",
                     date: ofDate(2023, 0, 24),
@@ -256,9 +276,329 @@
                     bethesda: "https://fallout.bethesda.net/en/article/4LWLfhHt0imV3pj1zunTNU/fallout-76-update-notes-january-24-2023",
                     notes: [
                         {
-                            category: "Other",
-                            name: "TBD",
-                            description: "Later this week"
+                            category: "Balance",
+                            name: "Weapon Changes",
+                            description: "we are implementing a system that will remove illegal mods attached to weapons that cannot be obtained in-game."
+                        },
+                        {
+                            category: "Bugfix,Visual",
+                            name: "Backpack Flairs",
+                            description: "Various adjustments to the view of Backpack flairs in the crafting menu."
+                        },
+                        {
+                            category: "Bugfix,Visual",
+                            name: "Cryolater",
+                            description: "Made adjustments to the frosted texture on the weapon model."
+                        },
+                        {
+                            category: "Bugfix,Visual",
+                            name: "Flairs",
+                            description: "Increased the Zoom out of Backpacks to allow more visibility on the flairs."
+                        },
+                        {
+                            category: "Bugfix,Visual",
+                            name: "Loot Bags",
+                            description: "Various fixes to Loot bag skins that were missing collision."
+                        },
+                        {
+                            category: "Bugfix,Visual",
+                            name: "Power Armor",
+                            description: "Adjustments to the player's 1st person view while wearing the Alien Invader Power Armor Paint and using a Heavy Weapon."
+                        },
+                        {
+                            category: "Bugfix,Visual",
+                            name: "Power Armor",
+                            description: "Fixed an issue where X-01 Prototype paint could not be reapplied after changing paints or skins."
+                        },
+                        {
+                            category: "Bugfix,Visual",
+                            name: "Power Armor",
+                            description: "Fixed an issue that can change the color of the highlighted weapon parts at a weapons workbench after entering and exiting Power Armor."
+                        },
+                        {
+                            category: "Bugfix,Visual",
+                            name: "Rifles",
+                            description: "Applying the Aligned Stock mod to a Laser Rifle or Ultracite Rifle now changes its appearance to reflect the mod."
+                        },
+                        {
+                            category: "Bugfix,Visual",
+                            name: "Vault-Girl Arm Wrestle Machine",
+                            description: "The player character no longer clips through the machine during its animation."
+                        },
+                        {
+                            category: "Bugfix,Visual",
+                            name: "Weapon Paint",
+                            description: "The Nuka-Dark paint for pump action shotguns now displays correctly."
+                        },
+                        {
+                            category: "Bugfix,Sound",
+                            name: "Scout's Banner",
+                            description: "Using a Scout Banner now plays the correct sound effect while being used."
+                        },
+                        {
+                            category: "Bugfix,Sound",
+                            name: "Weapons",
+                            description: "The spinning barrel sound effect from Miniguns, Gatling Plasmas, Gatling Lasers, and Pepper Shakers now stops when entering water."
+                        },
+                        {
+                            category: "Bugfix,C.A.M.P.",
+                            name: "Allies",
+                            description: "The proper name is now displayed for Sam, Katherine, and Xeno when inspecting or placing Allies in the players C.A.M.P."
+                        },
+                        {
+                            category: "Bugfix,C.A.M.P.",
+                            name: "Buffs",
+                            description: "The 9 Ball Table now correctly provides a +2 Charisma buff to players after being used."
+                        },
+                        {
+                            category: "Bugfix,C.A.M.P.",
+                            name: "Buffs",
+                            description: "The Spore Plant Bed now correctly gives the Well Rested Bonus after being used."
+                        },
+                        {
+                            category: "Bugfix,C.A.M.P.",
+                            name: "Displays",
+                            description: "The Thirst Zapper can now be displayed on the full-sized Wall Weapon Rack."
+                        },
+                        {
+                            category: "Bugfix,C.A.M.P.",
+                            name: "FreeCam",
+                            description: "Players can no longer place floor objects on top of their character while in FreeCam mode."
+                        },
+                        {
+                            category: "Bugfix,C.A.M.P.",
+                            name: "Message Board",
+                            description: "Neon Letters can now be applied to the Message Board Kiosk."
+                        },
+                        {
+                            category: "Bugfix,C.A.M.P.",
+                            name: "Roofs",
+                            description: "The Abandoned Mine C.A.M.P. Kit Roof now correctly uses the same amount of budget as other roof corner variants."
+                        },
+                        {
+                            category: "Bugfix,C.A.M.P.",
+                            name: "Trophies",
+                            description: "Fixed an issue that caused Nuclear Winter trophies and statues to not be buildable in C.A.M.P.s and Shelters."
+                        },
+                        {
+                            category: "Bugfix,C.A.M.P.",
+                            name: "Pirate Ship",
+                            description: "Adjustments to the collision and snapping on the Landlubber Pirate Ship and Sea Legs Pirate Ship."
+                        },
+                        {
+                            category: "Bugfix,C.A.M.P.",
+                            name: "Radioactive Holiday Tree",
+                            description: "Fixed an issue where the Radioactive Holiday Tree would leave persistent radiation when stored in a Blueprint."
+                        },
+                        {
+                            category: "Bugfix,C.A.M.P.",
+                            name: "Recipes",
+                            description: "Players who have learned the recipe for Cappy and Bottle's Couple Sign can now correctly build the object."
+                        },
+                        {
+                            category: "Bugfix,C.A.M.P.",
+                            name: "Survival Tent",
+                            description: "Fixed an issue which could prevent players from fast traveling to their team member's APC Survival Tent."
+                        },
+                        {
+                            category: "Bugfix,C.A.M.P.",
+                            name: "Watch post Prefab",
+                            description: "Fixed the collision on the top stair."
+                        },
+                        {
+                            category: "Bugfix,Challenge",
+                            name: "Nuka-World on Tour",
+                            description: "Events completed in Nuka-World on Tour now correctly count towards \"Complete Events in the Ash Heap\" Challenge."
+                        },
+                        {
+                            category: "Bugfix,NPC",
+                            name: "Mad Dog Malone",
+                            description: "When in his downed state, Mad Dog Malone no longer appears in the nearby corpse's menu."
+                        },
+                        {
+                            category: "Bugfix,Locations",
+                            name: "Garrahan Mining HQ",
+                            description: "Addressed an issue that prevented players from entering the Garrahan Mining Headquarters from the Garrahan Mining Lobby."
+                        },
+                        {
+                            category: "Bugfix,Locations",
+                            name: "Nuka-World on Tour",
+                            description: "Lady G's stall is now in its proper place."
+                        },
+                        {
+                            category: "Bugfix,Event",
+                            name: "Distinguished Guests",
+                            description: "layers will now receive proper rewards for each completion stage of this event."
+                        },
+                        {
+                            category: "Bugfix,Event",
+                            name: "Feed the People",
+                            description: "Food canisters will no longer despawn during Feed the People when a player enters the loading dock."
+                        },
+                        {
+                            category: "Bugfix,Event",
+                            name: "Nuka-World on Tour",
+                            description: "All Nuka-World on Tour Public Events now correctly drop Legendary Cores upon event completion."
+                        },
+                        {
+                            category: "Bugfix,Event",
+                            name: "Nuka-World on Tour",
+                            description: "\"What Slept Beneath\" now grants the correct amount of XP."
+                        },
+                        {
+                            category: "Bugfix,Event",
+                            name: "Nuka-World on Tour",
+                            description: "\"Seismic Activity\" now properly grants Ultracite Scrap as an event reward."
+                        },
+                        {
+                            category: "Bugfix,Event",
+                            name: "Nuka-World on Tour",
+                            description: "The \"Deposit Buckaroos\" counter in Most Wanted now displays the number of Buckaroos needed instead of using a progress bar."
+                        },
+                        {
+                            category: "Bugfix,Items",
+                            name: "Junk",
+                            description: "Gold Table Spoons now provide gold instead of silver when scrapped."
+                        },
+                        {
+                            category: "Bugfix,Items",
+                            name: "Gunpowder",
+                            description: "Gunpowder is now classified as a junk/scrap item."
+                        },
+                        {
+                            category: "Bugfix,Items",
+                            name: "Nuka-Cola",
+                            description: "Nuka-Grape now shows the correct value of rads removed after drinking."
+                        },
+                        {
+                            category: "Bugfix,Items",
+                            name: "Power Armor",
+                            description: "The T-65 right arm now correctly requires Aluminum for crafting, to match the left arm."
+                        },
+                        {
+                            category: "Bugfix,Items",
+                            name: "RadAway Diluted",
+                            description: "Reduced the debuff timer from 2 hours to 7 minutes to be more aligned with RadAway, which has a 15-minute debuff timer."
+                        },
+                        {
+                            category: "Bugfix,Items",
+                            name: "Sunshine Oil",
+                            description: "Adjusted the Sunshine Oil to use the correct Damage Resistance effect. The Damage Reduction now also is increased by the Herbivore mutation."
+                        },
+                        {
+                            category: "Bugfix,UI",
+                            name: "Localization",
+                            description: "Various Localization Fixes."
+                        },
+                        {
+                            category: "Bugfix,Perks",
+                            name: "Quack Surgeon",
+                            description: "Mire Magic Moonshine and Vintage Mire Magic Moonshine now work with the Quack Surgeon Perk."
+                        },
+                        {
+                            category: "Perks",
+                            name: "Perk Sharing",
+                            description: "Added a gameplay setting to allow players to reject Shared Perks from Team Members."
+                        },
+                        {
+                            category: "Bugfix,Main Quest",
+                            name: "Disarming Discovery",
+                            description: "Dagger will no longer become hostile to the player prematurely."
+                        },
+                        {
+                            category: "Bugfix,Main Quest",
+                            name: "Flavors of Mayhem",
+                            description: "Players will no longer receive Syringer ammo upon relog."
+                        },
+                        {
+                            category: "Bugfix,Stability",
+                            name: "Client Stability",
+                            description: "Addressed a client crash that could occasionally occur when returning to the Main Menu from an Expedition."
+                        },
+                        {
+                            category: "Bugfix,UI",
+                            name: "Local Looting",
+                            description: "Allies in a Downed state will no longer appear in the nearby corpse's menu."
+                        },
+                        {
+                            category: "Bugfix,UI",
+                            name: "Fanfare",
+                            description: "Adjusted the \"Seismic Activity\" event start banner to not overlap animations."
+                        },
+                        {
+                            category: "Bugfix,UI",
+                            name: "Pip-Boy",
+                            description: "Bobblehead: Big Guns now displays its Buff in the Pip-Boy."
+                        },
+                        {
+                            category: "Bugfix,Items",
+                            name: "Ammunition",
+                            description: "The Explosive prefix on weapons only applies to bullets (Excluding Railway Spikes)."
+                        },
+                        {
+                            category: "Bugfix,Items",
+                            name: "Ammunition",
+                            description: "Recoverable projectiles from the player's weapons are no longer able to be looted by other players."
+                        },
+                        {
+                            category: "Bugfix,Items",
+                            name: "Flamer",
+                            description: "Addressed an issue causing the Flamer to give false positive damage numbers when hitting enemies in VATS. The Flamer will now hit enemies during VATS more efficiently."
+                        },
+                        {
+                            category: "Bugfix,Items",
+                            name: "Mods",
+                            description: "The Auto-Axe and Chainsaw now show the number of mods unlocked at workbenches."
+                        },
+                        {
+                            category: "Bugfix,Items",
+                            name: "Melee",
+                            description: "The Cultist Dagger and Bowie Knife can now be modded."
+                        },
+                        {
+                            category: "Bugfix,Items",
+                            name: "Melee",
+                            description: "The Deathclaw Gauntlet and Meat Hook no longer use One Handed Weapon Perks. They still benefit from Unarmed Perks."
+                        },
+                        {
+                            category: "Bugfix,Items",
+                            name: "Mods",
+                            description: "The Sleek Mod effect now stacks when applied to two pieces of leg armor."
+                        },
+                        {
+                            category: "Bugfix,Items",
+                            name: "Mr. Handy Buzzblade",
+                            description: "Reduced the VATS AP cost for Mr. Handy Buzzblade."
+                        },
+                        {
+                            category: "Bugfix,Items",
+                            name: "Rifles",
+                            description: "Assault Rifles now correctly have the Rifle classification regardless of how it is modded."
+                        },
+                        {
+                            category: "Bugfix,Items",
+                            name: "Rifles",
+                            description: "Radium Rifles now have an increased chance to learn mods when scrapped."
+                        },
+                        {
+                            category: "Bugfix,Items,Exploit",
+                            name: "Thirst Zapper",
+                            description: "Fixed an issue that caused unlimited throwables with a Thirst Zapper equipped."
+                        },
+                        {
+                            category: "Bugfix,Items",
+                            name: "Thirst Zapper",
+                            description: "Fixed a bug where the water ammo for the Thirst Zapper appeared in the Favorites Wheel."
+                        },
+                        {
+                            category: "Bugfix,Worlds",
+                            name: "Private Worlds",
+                            description: "Fixed an issue causing several quest and event related NPC's to not be present on Private Worlds."
+                        },
+                        {
+                            category: "Bugfix,Worlds",
+                            name: "Private Worlds",
+                            description: "Fixed an issue causing Legendary Exchange Stations and the Encryptid Terminal to not appear in Private Worlds."
                         },
                     ]
                 },
