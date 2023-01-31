@@ -13674,6 +13674,13 @@
                     period: 1400
                 };
             }
+            function scoreScrapJunkGlass(offset, count) {
+                return {
+                    name: times("Scrap junk to produce glass", count),
+                    offset: offset,
+                    period: 1400
+                };
+            }
             function scoreScrapJunkBone(offset, count) {
                 return {
                     name: times("Scrap junk to produce bone", count),
@@ -16358,6 +16365,30 @@
             communityEventsAppend.push(createTreasureHunt(ofDate(2023, 0, 26, 17), ofDate(2023, 1, 2, 17)));
             communityEventsAppend.push(createDoubleMutations(ofDate(2023, 0, 26, 17), ofDate(2023, 0, 30, 17)));
             communityEventsAppend.push(createMinerva(ofDate(2023, 0, 30, 17), ofDate(2023, 1, 1, 17), "Emporium @ Crater", "P?"));
+
+            addWeekly(challengesWeeklyEra14.options, 56, scoreFixedGainXP10000Rank100);
+            addWeekly(challengesWeeklyEra14.options, 56, scoreLevelUp3);
+            addWeekly(challengesWeeklyEra14.options, 56, scoreCompleteDailyOpsDailies, 3);
+            addWeekly(challengesWeeklyEra14.options, 56, scoreCompleteGoldStar);
+            addWeekly(challengesWeeklyEra14.options, 56, scoreCompleteEvents10);
+            addWeekly(challengesWeeklyEra14.options, 56, scoreClaimWorkshop, 5);
+            addWeekly(challengesWeeklyEra14.options, 56, scoreCompleteEncounterRefuge, 5);
+            addWeekly(challengesWeeklyEra14.options, 56, scoreCraftAmmo, 250);
+            addWeekly(challengesWeeklyEra14.options, 56, scoreKillTrog, 50);
+            addWeekly(challengesWeeklyEra14.options, 56, scoreScrapJunkGlass, 1);
+            addDaily(challengesDailyEra14, 56, [
+                    scoreCompleteDailyChallenge, 5,
+                    scoreLevelUp, 1,
+                    scoreCompleteDailyOpsPublicTeam, 1,
+                    scoreCompleteOneEvent, 1,
+                    scoreCompleteEventCostume, 1,
+                    scoreEatCookedMeal, 20,
+                    scoreKillCreatureWellFed, 20,
+                    scoreScrapJunkRubber, 10,
+                    scoreGainXP2500, 1,
+                    make1st(scoreChewBubblegum), 1,
+                ], dops(dailyOpsUncanny, dailyOpsMoleminers, dailyOpsResilient, true, false));
+
 
             communityEventsAppend.push(createDoubleScore(ofDate(2023, 1, 2, 17), ofDate(2023, 1, 6, 17)));
             communityEventsAppend.push(createPurveyor(ofDate(2023, 1, 2, 17), ofDate(2023, 1, 6, 17), 0, true, 1));
