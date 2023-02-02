@@ -13730,6 +13730,13 @@
                     period: 1400
                 };
             }
+            function scoreScrapJunkFiberOptics(offset, count) {
+                return {
+                    name: times("Scrap Junk to produce Fiber Optics", count),
+                    offset: offset,
+                    period: 1400
+                };
+            }
             function scoreCraftMineGrenadeThrown(offset, count) {
                 return {
                     name: times("Craft a Mine, Grenade or Thrown weapon", count),
@@ -16400,9 +16407,21 @@
                     scoreGainXP2500, 1,
                     make1st(scoreCraftAmmo), 50,
                 ], dops(dailyOpsBurning, dailyOpsCommunists, dailyOpsFreezing, false, false));
+            addDaily(challengesDailyEra14, 58, [
+                    scoreCompleteDailyChallenge, 5,
+                    scoreLevelUp, 1,
+                    scoreCompleteDailyOps, 1,
+                    scoreCompleteOneEvent, 1,
+                    scoreCollectPurifiedWater, 5,
+                    scoreKillSnallygaster, 3,
+                    scoreScrapJunkFiberOptics, 3,
+                    scoreBuildFloorWallCampFree, 5,
+                    scoreGainXP2500, 1,
+                    make1st(scoreCraftAmmo), 50,
+                ], dops(dailyOpsUncanny, dailyOpsEagles, dailyOpsToxic, true, false));
 
 
-            communityEventsAppend.push(createDoubleScore(ofDate(2023, 1, 2, 17), ofDate(2023, 1, 6, 17)));
+            //communityEventsAppend.push(createDoubleScore(ofDate(2023, 1, 2, 17), ofDate(2023, 1, 6, 17)));
             communityEventsAppend.push(createPurveyor(ofDate(2023, 1, 2, 17), ofDate(2023, 1, 6, 17), 0, true, 1));
 
             communityEventsAppend.push(createDoubleMutations(ofDate(2023, 1, 9, 17), ofDate(2023, 1, 13, 17)));
