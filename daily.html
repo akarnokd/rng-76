@@ -58,6 +58,7 @@
             var shiftDate5 = ofDate(2022, 2, 13, 16);
             var shiftDate6 = ofDate(2022, 10, 6, 16);
             var shiftDate7 = ofDate(2023, 1, 3, 16);
+            var shiftDate8 = ofDate(2023, 1, 5, 16);
 
             function normalizeDate(date) {
                 if (date < oneHourLaterSince) {
@@ -82,8 +83,11 @@
                 if (date < shiftDate7) {
                     date.setUTCHours(17, 0, 0, 0);
                 }
-                else {
+                if (date < shiftDate8) {
                     date.setUTCHours(16, 0, 0, 0);
+                }
+                else {
+                    date.setUTCHours(17, 0, 0, 0);
                 }
             }
 
@@ -1528,7 +1532,7 @@
                             period: 1400,
                             subchallenges: [
                                 {
-                                    name: "If the new challenged aren't posted within 30 minutes after reset,<br>either Github is acting up again, it's a patch day or<br>I have something more important to do first."
+                                    name: "If the new challenged aren't posted within 30 minutes after reset,<br>either Github is acting up again, it's a patch day,<br>Bethesda messed up something or<br>I have something more important to do first."
                                 },
                                 {
                                     name: "Alternatively, check out the <a href='https://www.google.com/search?q=reddit+fo76+Dailies,+Weeklies' target='_blank'>Daily Reset Thread</a>"
@@ -16459,6 +16463,18 @@
                     scoreGainXP2500, 1,
                     make1st(scoreCraftMineGrenadeThrown), 5,
                 ], dops(dailyOpsWatogaHighschool, dailyOpsMoleminers, dailyOpsCloaked, false, false));
+            addDaily(challengesDailyEra14, 62, [
+                    scoreCompleteDailyChallenge, 5,
+                    scoreLevelUp, 1,
+                    scoreCompleteDailyOps, 1,
+                    scoreCompleteOneEvent, 1,
+                    scoreClaimWorkshop, 1,
+                    scoreCollectWood, 20,
+                    scoreDestroyRobotRifle, 5,
+                    scoreModWeapon, 3,
+                    scoreGainXP2500, 1,
+                    make1st(scoreScrapJunkSprings), 5,
+                ], dops(dailyOpsArktos, dailyOpsCultists, dailyOpsFreezing, true, false));
 
 
             communityEventsAppend.push(createDoubleScore(ofDate(2023, 1, 2, 17), ofDate(2023, 1, 7, 17)));
