@@ -16581,6 +16581,46 @@
             communityEventsAppend.push(createPurveyor(ofDate(2023, 1, 9, 17), ofDate(2023, 1, 13, 17), 25, false, 1));
 
             communityEventsAppend.push(createFasnacht(ofDate(2023, 1, 14, 17), ofDate(2023, 1, 28, 17)));
+
+            function scoreCompleteDailySpreadLove(offset, count) {
+                return {
+                    name: times("Complete 5 of the 7 daily Spread The Love Challenges", count),
+                    offset: offset,
+                    period: 1400
+                };
+            }
+
+            function scoreCollectFeverBlossomsInRoseSuit(offset, count) {
+                return {
+                    name: times("Collect Fever Blossoms in The Rose Suit", count),
+                    offset: offset,
+                    period: 1400
+                };
+            }
+
+            addWeekly(challengesWeeklyEra14.options, 70, scoreFixedGainXP10000Rank100);
+            addWeekly(challengesWeeklyEra14.options, 70, scoreLevelUp3);
+            addWeekly(challengesWeeklyEra14.options, 70, scoreCompleteDailyOpsDailies, 3);
+            addWeekly(challengesWeeklyEra14.options, 70, scoreCompleteGoldStar);
+            addWeekly(challengesWeeklyEra14.options, 70, scoreCompleteEvents10);
+            addWeekly(challengesWeeklyEra14.options, 70, scoreDestroyAssaultron, 5);
+            addWeekly(challengesWeeklyEra14.options, 70, scoreCompleteDailySpreadLove, 5);
+            addWeekly(challengesWeeklyEra14.options, 70, scoreKillHoneyBeast, 10);
+            addWeekly(challengesWeeklyEra14.options, 70, scoreKillInsects, 50);
+            addWeekly(challengesWeeklyEra14.options, 70, scoreExpeditionCollectStamps, 5);
+            addDaily(challengesDailyEra14, 70, [
+                    scoreCompleteDailyChallenge, 5,
+                    scoreLevelUp, 1,
+                    scoreCompleteDailyOpsPublicTeam, 1,
+                    scoreCompleteOneEvent, 2,
+                    scoreCompleteFasnacht, 1,
+                    scoreConsumeAlcoholOnTeamInCostume, 10,
+                    scoreKillDeathclaw, 1,
+                    scoreCollectFeverBlossomsInRoseSuit, 15,
+                    scoreGainXP2500, 1,
+                    make1st(scoreEatCobbler), 1,
+                ], dops(dailyOpsWatoga, dailyOpsRobots, dailyOpsVolatile, true, false));
+
             communityEventsAppend.push(createScripSurplus2(ofDate(2023, 1, 16, 17), ofDate(2023, 1, 20, 17)));
 
             communityEventsAppend.push(createMinerva(ofDate(2023, 1, 16, 17), ofDate(2023, 1, 20, 17), "Big Sale @ TBD", "P?"));
