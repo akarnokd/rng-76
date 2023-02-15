@@ -16584,7 +16584,7 @@
 
             function scoreCompleteDailySpreadLove(offset, count) {
                 return {
-                    name: times("Complete 5 of the 7 daily Spread The Love Challenges", count),
+                    name: times("&#x2764;&#xFE0F; Complete 5 of the 7 daily Spread The Love Challenges", count),
                     offset: offset,
                     period: 1400
                 };
@@ -16592,12 +16592,20 @@
 
             function scoreCollectFeverBlossomsInRoseSuit(offset, count) {
                 return {
-                    name: times("Collect Fever Blossoms in The Rose Suit", count),
+                    name: times("&#x2764;&#xFE0F; Collect Fever Blossoms in The Rose Suit", count),
                     offset: offset,
                     period: 1400,
                     tipId: "ScoreFeverBlossomRoseSuit",
                     tip: "The Deep has 24 of them. Green Thumb works towards this challenge."
                 };
+            }
+
+            function scoreVisitTunnelOfLoveInTeamRoseSuit(offset, count) {
+                return {
+                    name: times("&#x2764;&#xFE0F; Visit Tunnel of Love while on a Team in The Rose Suit", count),
+                    offset: offset,
+                    period: 1400,
+                    };
             }
 
             addWeekly(challengesWeeklyEra14.options, 70, scoreFixedGainXP10000Rank100);
@@ -16622,6 +16630,18 @@
                     scoreGainXP2500, 1,
                     make1st(scoreEatCobbler), 1,
                 ], dops(dailyOpsBurning, dailyOpsCultists, dailyOpsCloaked, true, false));
+            addDaily(challengesDailyEra14, 71, [
+                    scoreCompleteDailyChallenge, 5,
+                    scoreLevelUp, 1,
+                    scoreCompleteDailyOpsPublicTeam, 1,
+                    scoreCompleteOneEvent, 2,
+                    scoreCompleteFasnacht, 1,
+                    scoreCollectPurifiedWater, 5,
+                    scoreKillMirelurk, 10,
+                    scoreVisitTunnelOfLoveInTeamRoseSuit, 1,
+                    scoreGainXP2500, 1,
+                    make1st(scoreCollectAudiotape), 1,
+                ], dops(dailyOpsV94, dailyOpsEagles, dailyOpsVolatile, false, false));
 
             communityEventsAppend.push(createScripSurplus2(ofDate(2023, 1, 16, 17), ofDate(2023, 1, 20, 17)));
 
