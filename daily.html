@@ -16607,6 +16607,13 @@
                     period: 1400,
                     };
             }
+            function scoreScrapJunkCeramicRoseSuit(offset, count) {
+                return {
+                    name: times("&#x2764;&#xFE0F; Scrap junk to produce Ceramic in The Rose Suit", count),
+                    offset: offset,
+                    period: 1400,
+                    };
+            }
 
             addWeekly(challengesWeeklyEra14.options, 70, scoreFixedGainXP10000Rank100);
             addWeekly(challengesWeeklyEra14.options, 70, scoreLevelUp3);
@@ -16642,6 +16649,18 @@
                     scoreGainXP2500, 1,
                     make1st(scoreCollectAudiotape), 1,
                 ], dops(dailyOpsV94, dailyOpsEagles, dailyOpsVolatile, false, false));
+            addDaily(challengesDailyEra14, 72, [
+                    scoreCompleteDailyChallenge, 5,
+                    scoreLevelUp, 1,
+                    scoreCompleteDailyOpsPublicTeam, 1,
+                    scoreCompleteOneEvent, 2,
+                    scoreCompleteFasnacht, 1,
+                    scoreBuildAnythingShelter, 10,
+                    scoreKillCreatureWellFed, 20,
+                    scoreScrapJunkCeramicRoseSuit, 25,
+                    scoreGainXP2500, 1,
+                    make1st(scoreScrapMoney), 5,
+                ], dops(dailyOpsBurning, dailyOpsScorched, dailyOpsResilient, true, false));
 
             communityEventsAppend.push(createScripSurplus2(ofDate(2023, 1, 16, 17), ofDate(2023, 1, 20, 17)));
 
