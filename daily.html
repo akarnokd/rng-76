@@ -16681,7 +16681,7 @@
                     make1st(scoreKillSupermutant), 5,
                 ], dops(dailyOpsWatoga, dailyOpsMoleminers, dailyOpsRegenerating, false, false));
 
-            communityEventsAppend.push(createScripSurplus2(ofDate(2023, 1, 16, 17), ofDate(2023, 1, 20, 17)));
+            communityEventsAppend.push(createScripSurplusTriple(ofDate(2023, 1, 16, 17), ofDate(2023, 1, 20, 17)));
 
             communityEventsAppend.push(createMinerva(ofDate(2023, 1, 16, 17), ofDate(2023, 1, 20, 17), "Big Sale @ TBD", "P?"));
 
@@ -17146,6 +17146,28 @@
                     options: [
                         {
                             name: "Scrip Machines have 600 scrip per day",
+                            offset: 0,
+                            period: 1,
+                            subchallenges: [
+                                {
+                                    name: "This is only for the duration of this event"
+                                },
+                                {
+                                    name: "You may need to wait for the 20 hour reset to happen"
+                                }
+                            ]
+                        },
+                    ]
+                };
+            }
+            function createScripSurplusTriple(start, end) {
+                return {
+                    validStart: start,
+                    validEnd: end,
+                    title: "Triple Scrip Surplus Weekend",
+                    options: [
+                        {
+                            name: "Scrip Machines have 900 scrip per day",
                             offset: 0,
                             period: 1,
                             subchallenges: [
