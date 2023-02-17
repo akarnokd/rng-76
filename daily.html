@@ -16614,6 +16614,13 @@
                     period: 1400,
                     };
             }
+            function scoreCollectAshRoseRoseSuit(offset, count) {
+                return {
+                    name: times("&#x2764;&#xFE0F; Collect Ash Rose in The Rose Suit", count),
+                    offset: offset,
+                    period: 1400,
+                    };
+            }
 
             addWeekly(challengesWeeklyEra14.options, 70, scoreFixedGainXP10000Rank100);
             addWeekly(challengesWeeklyEra14.options, 70, scoreLevelUp3);
@@ -16628,7 +16635,7 @@
             addDaily(challengesDailyEra14, 70, [
                     scoreCompleteDailyChallenge, 5,
                     scoreLevelUp, 1,
-                    scoreCompleteDailyOpsPublicTeam, 1,
+                    scoreCompleteDailyOps, 1,
                     scoreCompleteOneEvent, 2,
                     scoreCompleteFasnacht, 1,
                     scoreConsumeAlcoholOnTeamInCostume, 10,
@@ -16640,7 +16647,7 @@
             addDaily(challengesDailyEra14, 71, [
                     scoreCompleteDailyChallenge, 5,
                     scoreLevelUp, 1,
-                    scoreCompleteDailyOpsPublicTeam, 1,
+                    scoreCompleteDailyOps, 1,
                     scoreCompleteOneEvent, 2,
                     scoreCompleteFasnacht, 1,
                     scoreCollectPurifiedWater, 5,
@@ -16652,7 +16659,7 @@
             addDaily(challengesDailyEra14, 72, [
                     scoreCompleteDailyChallenge, 5,
                     scoreLevelUp, 1,
-                    scoreCompleteDailyOpsPublicTeam, 1,
+                    scoreCompleteDailyOps, 1,
                     scoreCompleteOneEvent, 2,
                     scoreCompleteFasnacht, 1,
                     scoreBuildAnythingShelter, 10,
@@ -16661,6 +16668,18 @@
                     scoreGainXP2500, 1,
                     make1st(scoreScrapMoney), 5,
                 ], dops(dailyOpsBurning, dailyOpsScorched, dailyOpsResilient, true, false));
+            addDaily(challengesDailyEra14, 73, [
+                    scoreCompleteDailyChallenge, 5,
+                    scoreLevelUp, 1,
+                    scoreCompleteDailyOps, 1,
+                    scoreCompleteOneEvent, 2,
+                    scoreCompleteFasnacht, 1,
+                    scoreCollectWood, 20,
+                    scoreCollectBobblehead, 1,
+                    scoreCollectAshRoseRoseSuit, 15,
+                    scoreGainXP2500, 1,
+                    make1st(scoreKillSupermutant), 5,
+                ], dops(dailyOpsWatoga, dailyOpsMoleminers, dailyOpsRegenerating, false, false));
 
             communityEventsAppend.push(createScripSurplus2(ofDate(2023, 1, 16, 17), ofDate(2023, 1, 20, 17)));
 
