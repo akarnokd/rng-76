@@ -16629,6 +16629,14 @@
                     };
             }
 
+            function scoreCompleteFasnachtInMask(offset, count) {
+                return {
+                    name: times("Complete the event 'Fasnacht Day' while wearing a Fasnacht Mask", count),
+                    offset: offset,
+                    period: 1400,
+                    };
+            }
+
             addWeekly(challengesWeeklyEra14.options, 70, scoreFixedGainXP10000Rank100);
             addWeekly(challengesWeeklyEra14.options, 70, scoreLevelUp3);
             addWeekly(challengesWeeklyEra14.options, 70, scoreCompleteDailyOpsDailies, 3);
@@ -16727,6 +16735,29 @@
             communityEventsAppend.push(createScripSurplusTriple(ofDate(2023, 1, 16, 17), ofDate(2023, 1, 20, 17)));
 
             communityEventsAppend.push(createMinerva(ofDate(2023, 1, 16, 17), ofDate(2023, 1, 20, 17), "Big Sale @ The Whitespring", "P?"));
+
+            addWeekly(challengesWeeklyEra14.options, 77, scoreFixedGainXP10000Rank100);
+            addWeekly(challengesWeeklyEra14.options, 77, scoreLevelUp3);
+            addWeekly(challengesWeeklyEra14.options, 77, scoreCompleteDailyOpsPublicTeam, 5);
+            addWeekly(challengesWeeklyEra14.options, 77, scoreCompleteGoldStar);
+            addWeekly(challengesWeeklyEra14.options, 77, scoreCompleteEvents10);
+            addWeekly(challengesWeeklyEra14.options, 77, scoreCompleteEventCostume, 10);
+            addWeekly(challengesWeeklyEra14.options, 77, scoreDrinkNukaCola, 25);
+            addWeekly(challengesWeeklyEra14.options, 77, scoreHarvestPlantFungi, 100);
+            addWeekly(challengesWeeklyEra14.options, 77, scoreScrapJunkPlastic, 30);
+            addWeekly(challengesWeeklyEra14.options, 77, scoreTakeCameraPictureTrog, 1);
+            addDaily(challengesDailyEra14, 77, [
+                    scoreCompleteDailyChallenge, 5,
+                    scoreLevelUp, 1,
+                    scoreCompleteDailyOps, 1,
+                    scoreCompleteOneEvent, 2,
+                    scoreCompleteFasnachtInMask, 1,
+                    scoreModWeapon, 3,
+                    scoreScrapMoney, 5,
+                    scoreKillCryptid1, 1,
+                    scoreGainXP2500, 1,
+                    make1st(scoreCollectPurifiedWater), 5,
+                ], dops(dailyOpsWatoga, dailyOpsMoleminers, dailyOpsRegenerating, false, false));
 
             communityEventsAppend.push(createDoubleXP(ofDate(2023, 1, 23, 17), ofDate(2023, 1, 27, 17)));
             communityEventsAppend.push(createDoubleMutations(ofDate(2023, 1, 23, 17), ofDate(2023, 1, 27, 17)));
