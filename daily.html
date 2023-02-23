@@ -57,6 +57,8 @@
             var shiftDate4 = ofDate(2021, 10, 7, 16);
             var shiftDate5 = ofDate(2022, 2, 13, 16);
             var shiftDate6 = ofDate(2022, 10, 6, 16);
+            var shiftDate7 = ofDate(2023, 1, 3, 16);
+            var shiftDate8 = ofDate(2023, 1, 5, 16);
 
             function normalizeDate(date) {
                 if (date < oneHourLaterSince) {
@@ -76,6 +78,12 @@
                     date.setUTCHours(17, 0, 0, 0);
                 } else 
                 if (date < shiftDate6) {
+                    date.setUTCHours(16, 0, 0, 0);
+                }
+                if (date < shiftDate7) {
+                    date.setUTCHours(17, 0, 0, 0);
+                }
+                if (date < shiftDate8) {
                     date.setUTCHours(16, 0, 0, 0);
                 }
                 else {
@@ -1524,7 +1532,7 @@
                             period: 1400,
                             subchallenges: [
                                 {
-                                    name: "If the new challenged aren't posted within 30 minutes after reset,<br>either Github is acting up again, it's a patch day or<br>I have something more important to do first."
+                                    name: "If the new challenged aren't posted within 30 minutes after reset,<br>either Github is acting up again, it's a patch day,<br>Bethesda messed up something or<br>I have something more important to do first."
                                 },
                                 {
                                     name: "Alternatively, check out the <a href='https://www.google.com/search?q=reddit+fo76+Dailies,+Weeklies' target='_blank'>Daily Reset Thread</a>"
@@ -13730,6 +13738,13 @@
                     period: 1400
                 };
             }
+            function scoreScrapJunkFiberOptics(offset, count) {
+                return {
+                    name: times("Scrap Junk to produce Fiber Optics", count),
+                    offset: offset,
+                    period: 1400
+                };
+            }
             function scoreCraftMineGrenadeThrown(offset, count) {
                 return {
                     name: times("Craft a Mine, Grenade or Thrown weapon", count),
@@ -16362,7 +16377,7 @@
                     make1st(scoreConsumeAlcoholOnTeamInCostume), 10,
                 ], dops(dailyOpsArktos, dailyOpsMoleminers, dailyOpsToxic, false, false));
 
-            communityEventsAppend.push(createTreasureHunt(ofDate(2023, 0, 26, 17), ofDate(2023, 1, 2, 17)));
+            communityEventsAppend.push(createTreasureHunt(ofDate(2023, 0, 26, 17), ofDate(2023, 1, 6, 17)));
             communityEventsAppend.push(createDoubleMutations(ofDate(2023, 0, 26, 17), ofDate(2023, 0, 30, 17)));
             communityEventsAppend.push(createMinerva(ofDate(2023, 0, 30, 17), ofDate(2023, 1, 1, 17), "Emporium @ Crater", "P?"));
 
@@ -16400,18 +16415,361 @@
                     scoreGainXP2500, 1,
                     make1st(scoreCraftAmmo), 50,
                 ], dops(dailyOpsBurning, dailyOpsCommunists, dailyOpsFreezing, false, false));
+            addDaily(challengesDailyEra14, 58, [
+                    scoreCompleteDailyChallenge, 5,
+                    scoreLevelUp, 1,
+                    scoreCompleteDailyOps, 1,
+                    scoreCompleteOneEvent, 1,
+                    scoreCollectPurifiedWater, 5,
+                    scoreKillSnallygaster, 3,
+                    scoreScrapJunkFiberOptics, 3,
+                    scoreBuildWallDecorFree, 5,
+                    scoreGainXP2500, 1,
+                    make1st(scoreCraftAmmo), 50,
+                ], dops(dailyOpsUncanny, dailyOpsEagles, dailyOpsToxic, true, false));
+            addDaily(challengesDailyEra14, 59, [
+                    scoreCompleteDailyChallenge, 5,
+                    scoreLevelUp, 1,
+                    scoreCompleteDailyOps, 1,
+                    scoreCompleteOneEvent, 1,
+                    scoreDrinkNukaCola, 3,
+                    scoreKillBloodEagle, 10,
+                    scoreKillGhoul, 10,
+                    scoreModWeapon, 3,
+                    scoreGainXP2500, 1,
+                    make1st(scorePickLock), 1,
+                ], dops(dailyOpsValley, dailyOpsScorched, dailyOpsToxic, false, false));
+            addDaily(challengesDailyEra14, 60, [
+                    scoreCompleteDailyChallenge, 5,
+                    scoreLevelUp, 1,
+                    scoreCompleteDailyOps, 1,
+                    scoreCompleteOneEvent, 1,
+                    scoreCollectCaps, 100,
+                    scoreEatPrewarFood, 10,
+                    scoreKillCreatureInGroup, 20,
+                    scorePlantCrop, 10,
+                    scoreGainXP2500, 1,
+                    make1st(scoreKillCreatureMireMoonshine), 5,
+                ], dops(dailyOpsBurrows, dailyOpsRobots, dailyOpsSwift, true, false));
+            addDaily(challengesDailyEra14, 61, [
+                    scoreCompleteDailyChallenge, 5,
+                    scoreLevelUp, 1,
+                    scoreCompleteDailyOps, 1,
+                    scoreCompleteOneEvent, 1,
+                    scoreConsumeAlcohol, 10,
+                    scoreHackTerminal, 1,
+                    scoreHarvestPlantFungi, 20,
+                    scoreKillSuperMutantHeavyGun, 5,
+                    scoreGainXP2500, 1,
+                    make1st(scoreCraftMineGrenadeThrown), 5,
+                ], dops(dailyOpsWatogaHighschool, dailyOpsMoleminers, dailyOpsCloaked, false, false));
+            addDaily(challengesDailyEra14, 62, [
+                    scoreCompleteDailyChallenge, 5,
+                    scoreLevelUp, 1,
+                    scoreCompleteDailyOps, 1,
+                    scoreCompleteOneEvent, 1,
+                    scoreClaimWorkshop, 1,
+                    scoreCollectWood, 20,
+                    scoreDestroyRobotRifle, 5,
+                    scoreModWeapon, 3,
+                    scoreGainXP2500, 1,
+                    make1st(scoreScrapJunkSprings), 5,
+                ], dops(dailyOpsArktos, dailyOpsCultists, dailyOpsFreezing, true, false));
+            communityEventsAppend.push(createMinerva(ofDate(2023, 1, 6, 17), ofDate(2023, 1, 8, 17), "Emporium @ Fort Atlas", "P?"));
 
+            addWeekly(challengesWeeklyEra14.options, 63, scoreFixedGainXP10000Rank100);
+            addWeekly(challengesWeeklyEra14.options, 63, scoreLevelUp3);
+            addWeekly(challengesWeeklyEra14.options, 63, scoreCompleteDailyOpsPublicTeam, 5);
+            addWeekly(challengesWeeklyEra14.options, 63, scoreCompleteGoldStar);
+            addWeekly(challengesWeeklyEra14.options, 63, scoreCompleteEvents10);
+            addWeekly(challengesWeeklyEra14.options, 63, scoreCollectScrip, 500);
+            addWeekly(challengesWeeklyEra14.options, 63, scoreCompleteColossal, 1);
+            addWeekly(challengesWeeklyEra14.options, 63, scoreExpeditionCompleteAnyMissionPitt, 1);
+            addWeekly(challengesWeeklyEra14.options, 63, scoreKillCultist, 50);
+            addWeekly(challengesWeeklyEra14.options, 63, scoreScrapJunkLead, 30);
+            addDaily(challengesDailyEra14, 63, [
+                    scoreCompleteDailyChallenge, 5,
+                    scoreLevelUp, 1,
+                    scoreCompleteDailyOpsPublicTeam, 1,
+                    scoreCompleteOneEvent, 1,
+                    scoreCollectCaps, 100,
+                    scoreKillCreatureInGroup, 20,
+                    scoreKillTrog, 10,
+                    scoreCompleteEncounterRefuge, 1,
+                    scoreGainXP2500, 1,
+                    make1st(scorePickLock), 1,
+                ], dops(dailyOpsUncanny, dailyOpsRobots, dailyOpsResilient, false, false));
+            addDaily(challengesDailyEra14, 64, [
+                    scoreCompleteDailyChallenge, 5,
+                    scoreLevelUp, 1,
+                    scoreCompleteDailyOpsPublicTeam, 1,
+                    scoreCompleteOneEvent, 1,
+                    scoreCollectScrip, 50,
+                    scoreCompleteDaily, 1,
+                    scoreFermentAlcohol, 10,
+                    scoreKillMirelurk, 10,
+                    scoreGainXP2500, 1,
+                    make1st(scoreBuySellItem), 1,
+                ], dops(dailyOpsArktos, dailyOpsCultists, dailyOpsToxic, true, false));
+            addDaily(challengesDailyEra14, 65, [
+                    scoreCompleteDailyChallenge, 5,
+                    scoreLevelUp, 1,
+                    scoreCompleteDailyOpsPublicTeam, 1,
+                    scoreCompleteOneEvent, 1,
+                    scoreCollectMagazine, 1,
+                    scoreKillLegendary, 3,
+                    scoreScrapJunkFiberglass, 5,
+                    scoreVisitAnotherShelter, 1,
+                    scoreGainXP2500, 1,
+                    make1st(scoreCraftScrapPowerArmor), 1,
+                ], dops(dailyOpsWatogaHighschool, dailyOpsEagles, dailyOpsChillingMend, false, true));
+            addDaily(challengesDailyEra14, 66, [
+                    scoreCompleteDailyChallenge, 5,
+                    scoreLevelUp, 1,
+                    scoreCompleteDailyOpsPublicTeam, 1,
+                    scoreCompleteOneEvent, 1,
+                    //scoreCompleteInvaders, 1,
+                    scoreEatCookedMeal, 10,
+                    scoreKillCreatureWellFed, 20,
+                    scoreScrapJunkLead, 10,
+                    scoreGainXP2500, 1,
+                    make1st(scoreChewBubblegum), 1,
+                ], dops(dailyOpsWestTec, dailyOpsMutants, dailyOpsStingingFrost, true, true));
+            addDaily(challengesDailyEra14, 67, [
+                    scoreCompleteDailyChallenge, 5,
+                    scoreLevelUp, 1,
+                    scoreCompleteDailyOpsPublicTeam, 1,
+                    scoreCompleteOneEvent, 1,
+                    scoreBuildAnythingShelter, 10,
+                    scoreCollectCaps, 100,
+                    scoreCollectAnyNukaCola, 5,
+                    scoreKillGhoul, 10,
+                    scorePickLock, 1,
+                    scoreGainXP2500, 1,
+                    make1st(scoreTakeCameraPictureCamden), 1,
+                ], dops(dailyOpsV96, dailyOpsEagles, dailyOpsUnstable, false, true));
+            addDaily(challengesDailyEra14, 68, [
+                    scoreCompleteDailyChallenge, 5,
+                    scoreLevelUp, 1,
+                    scoreCompleteDailyOpsPublicTeam, 1,
+                    scoreCompleteOneEvent, 1,
+                    scoreClaimWorkshop, 1,
+                    scoreCollectBullion, 25,
+                    scoreKillGlowing, 1,
+                    scoreKillSupermutant, 5,
+                    scoreScrapJunkWood, 10,
+                    scoreGainXP2500, 1,
+                    make1st(scoreDrinkNukaColaQuantum), 2,
+                ], dops(dailyOpsUncanny, dailyOpsMutants, dailyOpsVaporous, true, true));
+            addDaily(challengesDailyEra14, 69, [
+                    scoreCompleteDailyChallenge, 5,
+                    scoreLevelUp, 1,
+                    scoreCompleteDailyOpsPublicTeam, 1,
+                    scoreCompleteOneEvent, 1,
+                    scoreCollectAudiotape, 1,
+                    scoreConsumeVintageAlcohol, 1,
+                    scoreKillHoneyBeast, 3,
+                    scorePlantCrop, 10,
+                    scoreGainXP2500, 1,
+                    make1st(scoreCollectAnyNukaCola), 5,
+                ], dops(dailyOpsWatoga, dailyOpsRobots, dailyOpsVolatile, false, false));
 
-            communityEventsAppend.push(createDoubleScore(ofDate(2023, 1, 2, 17), ofDate(2023, 1, 6, 17)));
+            communityEventsAppend.push(createDoubleScore(ofDate(2023, 1, 2, 17), ofDate(2023, 1, 8, 17)));
             communityEventsAppend.push(createPurveyor(ofDate(2023, 1, 2, 17), ofDate(2023, 1, 6, 17), 0, true, 1));
 
             communityEventsAppend.push(createDoubleMutations(ofDate(2023, 1, 9, 17), ofDate(2023, 1, 13, 17)));
             communityEventsAppend.push(createPurveyor(ofDate(2023, 1, 9, 17), ofDate(2023, 1, 13, 17), 25, false, 1));
 
             communityEventsAppend.push(createFasnacht(ofDate(2023, 1, 14, 17), ofDate(2023, 1, 28, 17)));
-            communityEventsAppend.push(createScripSurplus2(ofDate(2023, 1, 16, 17), ofDate(2023, 1, 20, 17)));
 
-            communityEventsAppend.push(createMinerva(ofDate(2023, 1, 16, 17), ofDate(2023, 1, 20, 17), "Big Sale @ TBD", "P?"));
+            function scoreCompleteDailySpreadLove(offset, count) {
+                return {
+                    name: times("&#x2764;&#xFE0F; Complete 5 of the 7 daily Spread The Love Challenges", count),
+                    offset: offset,
+                    period: 1400
+                };
+            }
+
+            function scoreCollectFeverBlossomsInRoseSuit(offset, count) {
+                return {
+                    name: times("&#x2764;&#xFE0F; Collect Fever Blossoms in The Rose Suit", count),
+                    offset: offset,
+                    period: 1400,
+                    tipId: "ScoreFeverBlossomRoseSuit",
+                    tip: "The Deep has 24 of them. Green Thumb works towards this challenge."
+                };
+            }
+
+            function scoreVisitTunnelOfLoveInTeamRoseSuit(offset, count) {
+                return {
+                    name: times("&#x2764;&#xFE0F; Visit Tunnel of Love while on a Team in The Rose Suit", count),
+                    offset: offset,
+                    period: 1400,
+                    };
+            }
+            function scoreScrapJunkCeramicRoseSuit(offset, count) {
+                return {
+                    name: times("&#x2764;&#xFE0F; Scrap junk to produce Ceramic in The Rose Suit", count),
+                    offset: offset,
+                    period: 1400,
+                    };
+            }
+            function scoreCollectAshRoseRoseSuit(offset, count) {
+                return {
+                    name: times("&#x2764;&#xFE0F; Collect Ash Rose in The Rose Suit", count),
+                    offset: offset,
+                    period: 1400,
+                    };
+            }
+            function scoreVisitAnotherSelterDrinkAlcohol(offset, count) {
+                return {
+                    name: times("&#x2764;&#xFE0F; Visit Another Player's Shelter and Drink Alcohol", count),
+                    offset: offset,
+                    period: 1400,
+                    };
+            }
+
+            function scoreCompleteFasnachtInMask(offset, count) {
+                return {
+                    name: times("Complete the event 'Fasnacht Day' while wearing a Fasnacht Mask", count),
+                    offset: offset,
+                    period: 1400,
+                    };
+            }
+
+            addWeekly(challengesWeeklyEra14.options, 70, scoreFixedGainXP10000Rank100);
+            addWeekly(challengesWeeklyEra14.options, 70, scoreLevelUp3);
+            addWeekly(challengesWeeklyEra14.options, 70, scoreCompleteDailyOpsDailies, 3);
+            addWeekly(challengesWeeklyEra14.options, 70, scoreCompleteGoldStar);
+            addWeekly(challengesWeeklyEra14.options, 70, scoreCompleteEvents10);
+            addWeekly(challengesWeeklyEra14.options, 70, scoreDestroyAssaultron, 5);
+            addWeekly(challengesWeeklyEra14.options, 70, scoreCompleteDailySpreadLove, 5);
+            addWeekly(challengesWeeklyEra14.options, 70, scoreKillHoneyBeast, 10);
+            addWeekly(challengesWeeklyEra14.options, 70, scoreKillInsects, 50);
+            addWeekly(challengesWeeklyEra14.options, 70, scoreExpeditionCollectStamps, 5);
+            addDaily(challengesDailyEra14, 70, [
+                    scoreCompleteDailyChallenge, 5,
+                    scoreLevelUp, 1,
+                    scoreCompleteDailyOps, 1,
+                    scoreCompleteOneEvent, 2,
+                    scoreCompleteFasnacht, 1,
+                    scoreConsumeAlcoholOnTeamInCostume, 10,
+                    scoreKillDeathclaw, 1,
+                    scoreCollectFeverBlossomsInRoseSuit, 15,
+                    scoreGainXP2500, 1,
+                    make1st(scoreEatCobbler), 1,
+                ], dops(dailyOpsBurning, dailyOpsCultists, dailyOpsCloaked, true, false));
+            addDaily(challengesDailyEra14, 71, [
+                    scoreCompleteDailyChallenge, 5,
+                    scoreLevelUp, 1,
+                    scoreCompleteDailyOps, 1,
+                    scoreCompleteOneEvent, 2,
+                    scoreCompleteFasnacht, 1,
+                    scoreCollectPurifiedWater, 5,
+                    scoreKillMirelurk, 10,
+                    scoreVisitTunnelOfLoveInTeamRoseSuit, 1,
+                    scoreGainXP2500, 1,
+                    make1st(scoreCollectAudiotape), 1,
+                ], dops(dailyOpsV94, dailyOpsEagles, dailyOpsVolatile, false, false));
+            addDaily(challengesDailyEra14, 72, [
+                    scoreCompleteDailyChallenge, 5,
+                    scoreLevelUp, 1,
+                    scoreCompleteDailyOps, 1,
+                    scoreCompleteOneEvent, 2,
+                    scoreCompleteFasnacht, 1,
+                    scoreBuildAnythingShelter, 10,
+                    scoreKillCreatureWellFed, 20,
+                    scoreScrapJunkCeramicRoseSuit, 25,
+                    scoreGainXP2500, 1,
+                    make1st(scoreScrapMoney), 5,
+                ], dops(dailyOpsBurning, dailyOpsScorched, dailyOpsResilient, true, false));
+            addDaily(challengesDailyEra14, 73, [
+                    scoreCompleteDailyChallenge, 5,
+                    scoreLevelUp, 1,
+                    scoreCompleteDailyOps, 1,
+                    scoreCompleteOneEvent, 2,
+                    scoreCompleteFasnacht, 1,
+                    scoreCollectWood, 20,
+                    scoreCollectBobblehead, 1,
+                    scoreCollectAshRoseRoseSuit, 15,
+                    scoreGainXP2500, 1,
+                    make1st(scoreKillSupermutant), 5,
+                ], dops(dailyOpsWatoga, dailyOpsMoleminers, dailyOpsRegenerating, false, false));
+            addDaily(challengesDailyEra14, 74, [
+                    scoreCompleteDailyChallenge, 5,
+                    scoreLevelUp, 1,
+                    scoreCompleteDailyOps, 1,
+                    scoreCompleteOneEvent, 2,
+                    scoreCompleteFasnacht, 1,
+                    scoreEatMeat, 20,
+                    scoreKillBloodEagle, 10,
+                    scoreVisitAnotherSelterDrinkAlcohol, 1,
+                    scoreGainXP2500, 1,
+                    make1st(scoreScrapJunkBone), 5,
+                ], dops(dailyOpsBurrows, dailyOpsCultists, dailyOpsCloaked, true, false));
+                addDaily(challengesDailyEra14, 75, [
+                    scoreCompleteDailyChallenge, 5,
+                    scoreLevelUp, 1,
+                    scoreCompleteDailyOps, 1,
+                    scoreCompleteOneEvent, 2,
+                    scoreCompleteFasnacht, 1,
+                    scoreClaimWorkshop, 1,
+                    scoreKillFloater, 3,
+                    scoreScrapJunkCeramicRoseSuit, 25,
+                    scoreGainXP2500, 1,
+                    make1st(scoreCollectCaps), 250,
+                ], dops(dailyOpsBurning, dailyOpsMoleminers, dailyOpsFreezing, false, false));
+                addDaily(challengesDailyEra14, 76, [
+                    scoreCompleteDailyChallenge, 5,
+                    scoreLevelUp, 1,
+                    scoreCompleteDailyOps, 1,
+                    scoreCompleteOneEvent, 2,
+                    scoreCompleteFasnacht, 1,
+                    scoreModArmor, 5,
+                    scoreKillInsects, 10,
+                    scoreVisitTunnelOfLoveInTeamRoseSuit, 1,
+                    scoreGainXP2500, 1,
+                    make1st(scoreDrinkNukaCherry), 1,
+                ], dops(dailyOpsV94, dailyOpsCommunists, dailyOpsToxic, true, false));
+
+            communityEventsAppend.push(createScripSurplusTriple(ofDate(2023, 1, 16, 17), ofDate(2023, 1, 20, 17)));
+
+            communityEventsAppend.push(createMinerva(ofDate(2023, 1, 16, 17), ofDate(2023, 1, 20, 17), "Big Sale @ The Whitespring", "P?"));
+
+            addWeekly(challengesWeeklyEra14.options, 77, scoreFixedGainXP10000Rank100);
+            addWeekly(challengesWeeklyEra14.options, 77, scoreLevelUp3);
+            addWeekly(challengesWeeklyEra14.options, 77, scoreCompleteDailyOpsPublicTeam, 5);
+            addWeekly(challengesWeeklyEra14.options, 77, scoreCompleteGoldStar);
+            addWeekly(challengesWeeklyEra14.options, 77, scoreCompleteEvents10);
+            addWeekly(challengesWeeklyEra14.options, 77, scoreCompleteEventCostume, 10);
+            addWeekly(challengesWeeklyEra14.options, 77, scoreDrinkNukaCola, 25);
+            addWeekly(challengesWeeklyEra14.options, 77, scoreHarvestPlantFungi, 100);
+            addWeekly(challengesWeeklyEra14.options, 77, scoreScrapJunkPlastic, 30);
+            addWeekly(challengesWeeklyEra14.options, 77, scoreTakeCameraPictureTrog, 1);
+            addDaily(challengesDailyEra14, 77, [
+                    scoreCompleteDailyChallenge, 5,
+                    scoreLevelUp, 1,
+                    scoreCompleteDailyOps, 1,
+                    scoreCompleteOneEvent, 2,
+                    scoreCompleteFasnachtInMask, 1,
+                    scoreModWeapon, 3,
+                    scoreScrapMoney, 5,
+                    scoreKillCryptid1, 1,
+                    scoreGainXP2500, 1,
+                    make1st(scoreCollectPurifiedWater), 5,
+                ], dops(dailyOpsWatoga, dailyOpsMoleminers, dailyOpsRegenerating, false, false));
+            addDaily(challengesDailyEra14, 78, [
+                    scoreCompleteDailyChallenge, 5,
+                    scoreLevelUp, 1,
+                    scoreCompleteDailyOps, 1,
+                    scoreCompleteOneEvent, 2,
+                    scoreCompleteFasnachtInMask, 1,
+                    scoreCraftMineGrenadeThrown, 5,
+                    scoreKillCultist, 10,
+                    scoreUsePhotomodeTeammate, 1,
+                    scoreGainXP2500, 1,
+                    make1st(scoreConsumeVintageAlcohol), 1,
+                ], dops(dailyOpsValley, dailyOpsRobots, dailyOpsToxic, true, false));
 
             communityEventsAppend.push(createDoubleXP(ofDate(2023, 1, 23, 17), ofDate(2023, 1, 27, 17)));
             communityEventsAppend.push(createDoubleMutations(ofDate(2023, 1, 23, 17), ofDate(2023, 1, 27, 17)));
@@ -16874,6 +17232,28 @@
                     options: [
                         {
                             name: "Scrip Machines have 600 scrip per day",
+                            offset: 0,
+                            period: 1,
+                            subchallenges: [
+                                {
+                                    name: "This is only for the duration of this event"
+                                },
+                                {
+                                    name: "You may need to wait for the 20 hour reset to happen"
+                                }
+                            ]
+                        },
+                    ]
+                };
+            }
+            function createScripSurplusTriple(start, end) {
+                return {
+                    validStart: start,
+                    validEnd: end,
+                    title: "Triple Scrip Surplus Weekend",
+                    options: [
+                        {
+                            name: "Scrip Machines have 900 scrip per day",
                             offset: 0,
                             period: 1,
                             subchallenges: [
