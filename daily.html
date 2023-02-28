@@ -2815,6 +2815,11 @@
                 tipId: "DailyOpsSwift",
                 tip: "Enemies move faster."
             }
+            var dailyOpsReflective = {
+                name: "Reflective",
+                tipId: "DailyOpsReflective",
+                tip: "Enemies periodically reflect some damage."
+            }
             var dailyOpsReset = {
                 name: "&#x1F6C8; ops will reset 1 hour later",
             }
@@ -16871,7 +16876,7 @@
             addWeekly(challengesWeeklyEra15.options, 0, scoreFixedGainXP10000Rank100);
             addWeekly(challengesWeeklyEra15.options, 0, scoreLevelUp3);
             addWeekly(challengesWeeklyEra15.options, 0, scoreCompleteDailyOps, 5);
-            addWeekly(challengesWeeklyEra15.options, 0, scoreCompleteGoldStar);
+            addWeekly(challengesWeeklyEra15.options, 0, scoreCompleteGoldStarN, 3);
             addWeekly(challengesWeeklyEra15.options, 0, scoreCompleteEvents10);
             /*
             addWeekly(challengesWeeklyEra15.options, 0, scoreCompleteDailyOpsPublicTeam, 3);
@@ -16881,20 +16886,17 @@
             addWeekly(challengesWeeklyEra15.options, 0, scoreRepairArmorWeaponPA, 25);
             */
             addDaily(challengesDailyEra15, 0, [
-                    scoreCompleteDailyChallenge, 5,
+                    scoreCompleteDailyChallenge, 6,
                     scoreLevelUp, 1,
                     scoreCompleteDailyOps, 1,
                     scoreCompleteOneEvent, 1,
-                    /*
-                    scoreBuildWallDecor, 5,
-                    scoreCollectPurifiedWater, 5,
-                    scoreCompleteDailyOpsPublicTeam, 1,
-                    scoreCompleteMeatCook, 1,
-                    scoreCompletePrimalCuts, 1,
-                    */
+                    scoreCraftMineGrenadeThrown, 5,
+                    scoreExpeditionsPitt, 1,
+                    scoreKillCryptid1, 1,
+                    scoreKillTrog, 10,
                     scoreGainXP2500, 1,
-                    //make1st(scoreJoinGroup), 1,
-                ], dops(dailyOpsUncanny, dailyOpsEagles, dailyOpsSwift, true));
+                    make1st(scoreScrapJunkAluminium), 5,
+                ], dops(dailyOpsUncanny, dailyOpsEagles, dailyOpsSwift, true, false));
 
             addPlaceholders(challengesDailyEra15, scoreDailyplaceholder, era15Length);
             addPlaceholders(challengesWeeklyEra15, scoreWeeklyplaceholder, era15Length);
@@ -18800,8 +18802,8 @@
                 createPWButchersDelight(ofDate(2022, 11, 1, 17), ofDate(2023, 0, 1, 17)),
 
                 createPWHappyBuilder(ofDate(2023, 0, 1, 16), ofDate(2023, 1, 1, 16)),
-                createPWHighRisk(ofDate(2023, 1, 1, 16), ofDate(2023, 2, 1, 16)),
-                createPWDwellerMustDie(ofDate(2023, 2, 1, 16), ofDate(2023, 3, 1, 17)),
+                createPWHighRisk(ofDate(2023, 1, 1, 17), ofDate(2023, 2, 1, 17)),
+                createPWDwellerMustDie(ofDate(2023, 2, 1, 17), ofDate(2023, 3, 1, 17)),
                 createPWQuantumWorld(ofDate(2023, 3, 1, 17), ofDate(2023, 4, 1, 17)),
                 createPWButchersDelight(ofDate(2023, 4, 1, 17), ofDate(2023, 5, 1, 17))
             ];
