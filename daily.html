@@ -16873,30 +16873,69 @@
             fillInSeason(season12, era15Length, "LR12", true);
             seasonEventsAppend.push(season12);
 
-            addWeekly(challengesWeeklyEra15.options, 0, scoreFixedGainXP10000Rank100);
-            addWeekly(challengesWeeklyEra15.options, 0, scoreLevelUp3);
+            function scoreBuildLightSources(offset, count) {
+                return {
+                    name: times("Build light sources in your Workshop or C.A.M.P.", count),
+                    offset: offset,
+                    period: 1400,
+                    };
+            }
+            function scoreCriticalHitAutomatic(offset, count) {
+                return {
+                    name: times("Deal a Critical Hit using Automatic Weapons", count),
+                    offset: offset,
+                    period: 1400,
+                    };
+            }
+            function scoreSellMirelurkQueenSteak(offset, count) {
+                return {
+                    name: times("Sell Mirelurk Queen Steak to an NPC vendor", count),
+                    offset: offset,
+                    period: 1400,
+                    };
+            }
+            function scoreTakePictureWendigo(offset, count) {
+                return {
+                    name: times("Take a camera Picture of a Wendigo", count),
+                    offset: offset,
+                    period: 1400,
+                    };
+            }
+            function scoreReroll(offset, count) {
+                return {
+                    name: times("<br>&#x1F6C8; You can reroll challenges now.", count),
+                    offset: offset,
+                    period: 1400,
+                    tipId: "scoreReroll",
+                    tip: "Currently half bugged, half worse than before."
+                };
+            }
+
+            // addWeekly(challengesWeeklyEra15.options, 0, scoreFixedGainXP10000Rank100);
+            //addWeekly(challengesWeeklyEra15.options, 0, scoreLevelUp3);
+            addWeekly(challengesWeeklyEra15.options, 0, scoreBuildLightSources, 10);
             addWeekly(challengesWeeklyEra15.options, 0, scoreCompleteDailyOps, 5);
             addWeekly(challengesWeeklyEra15.options, 0, scoreCompleteGoldStarN, 3);
             addWeekly(challengesWeeklyEra15.options, 0, scoreCompleteEvents10);
-            /*
-            addWeekly(challengesWeeklyEra15.options, 0, scoreCompleteDailyOpsPublicTeam, 3);
-            addWeekly(challengesWeeklyEra15.options, 0, scoreCompleteMeatCookDaily, 5);
-            addWeekly(challengesWeeklyEra15.options, 0, scoreDrinkNukaCola, 15);
-            addWeekly(challengesWeeklyEra15.options, 0, scoreKillLegendary, 10);
-            addWeekly(challengesWeeklyEra15.options, 0, scoreRepairArmorWeaponPA, 25);
-            */
+            addWeekly(challengesWeeklyEra15.options, 0, scoreCollectPurifiedWater, 25);
+            addWeekly(challengesWeeklyEra15.options, 0, scoreCriticalHitAutomatic, 10);
+            addWeekly(challengesWeeklyEra15.options, 0, scoreKillSnallygaster, 10);
+            addWeekly(challengesWeeklyEra15.options, 0, scoreSellMirelurkQueenSteak, 1);
+            addWeekly(challengesWeeklyEra15.options, 0, scoreTakePictureWendigo, 1);
+            addWeekly(challengesWeeklyEra15.options, 0, scoreExpeditionsUnionsDue, 1);
             addDaily(challengesDailyEra15, 0, [
                     scoreCompleteDailyChallenge, 6,
                     scoreLevelUp, 1,
                     scoreCompleteDailyOps, 1,
                     scoreCompleteOneEvent, 1,
                     scoreCraftMineGrenadeThrown, 5,
-                    scoreExpeditionsPitt, 1,
                     scoreKillCryptid1, 1,
-                    scoreKillTrog, 10,
                     scoreGainXP2500, 1,
+                    scoreExpeditionsPitt, 1,
+                    scoreKillTrog, 10,
                     make1st(scoreScrapJunkAluminium), 5,
-                ], dops(dailyOpsUncanny, dailyOpsEagles, dailyOpsSwift, true, false));
+                    scoreReroll, 1,
+                ], dops(dailyOpsV94, dailyOpsCommunists, dailyOpsResilient, false, false));
 
             addPlaceholders(challengesDailyEra15, scoreDailyplaceholder, era15Length);
             addPlaceholders(challengesWeeklyEra15, scoreWeeklyplaceholder, era15Length);
