@@ -16894,6 +16894,13 @@
                     period: 1400,
                     };
             }
+            function scoreSellGlowingFungusNPC(offset, count) {
+                return {
+                    name: times("Sell Glowing Fungus Soup to an NPC vendor", count),
+                    offset: offset,
+                    period: 1400,
+                    };
+            }
             function scoreTakePictureWendigo(offset, count) {
                 return {
                     name: times("Take a camera Picture of a Wendigo", count),
@@ -16937,6 +16944,18 @@
                     make1st(scoreScrapJunkAluminium), 5,
                     scoreReroll, 1,
                 ], dops(dailyOpsV94, dailyOpsCommunists, dailyOpsResilient, false, false));
+            addDaily(challengesDailyEra15, 1, [
+                    scoreCompleteDailyChallenge, 6,
+                    scoreCompleteDailyOps, 1,
+                    scoreCompleteEventToxicRegion, 1,
+                    scoreDestroyRobot, 10,
+                    scoreKillCultist, 10,
+                    scoreSellGlowingFungusNPC, 1,
+                    scoreTakePictureGulper, 1,
+                    scoreGainXP2500, 1,
+                    make1st(scoreHackTerminal), 1,
+                    scoreReroll, 1,
+                ], dops(dailyOpsWatoga, dailyOpsCultists, dailyOpsSwift, true, false));
 
             addPlaceholders(challengesDailyEra15, scoreDailyplaceholder, era15Length);
             addPlaceholders(challengesWeeklyEra15, scoreWeeklyplaceholder, era15Length);
