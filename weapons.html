@@ -27,9 +27,9 @@
     </head>
     <body style="height: 90%">
         <center>
-            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Weapon Damage Calculator (v3.10.15)</span>
+            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Weapon Damage Calculator (v3.10.16)</span>
             <br/>
-            <i>(Patch 40 [Nuka World] update in progress.)</i>
+            <i>(Patch 40..42 update still in progress.)</i>
         <br/>
         <br/>
         <table id="parent">
@@ -4797,7 +4797,12 @@
                         createLaserCapacitors(),
                         createLaserBarrels(),
                         createMuzzleWithBeam([28, 31, 34])
-                    ]
+                    ],
+                    patchOverride: {
+                        "P42": {
+                            damageEnergy: [54, 63, 74],
+                        }
+                    }
                 },
                 {
                     name: "Ultracite Laser Rifle",
@@ -4816,7 +4821,12 @@
                         createLaserCapacitors(),
                         createLaserBarrels(),
                         createMuzzleWithBeam([28, 31, 34])
-                    ]
+                    ],
+                    patchOverride: {
+                        "P42": {
+                            damageEnergy: [54, 63, 74],
+                        }
+                    }
                 },
                 {
                     name: "Gatling Laser",
@@ -6842,7 +6852,8 @@
             var patchChain = {
                 "P27": [ "P27A" ],
                 "P33": [ "P27A", "P27" ],
-                "P34": [ "P27A", "P27" ]
+                "P34": [ "P27A", "P27" ],
+                "P42": [ "P34", "P27A", "P27" ]
             }
 
             // -------------------------------------------------------------------------------------
@@ -11038,6 +11049,13 @@
                 calcmodesel.add(opt);
 
                 opt = document.createElement("option");
+                opt.text = "Patch 42";
+                opt.value = "P42";
+                opt.linkId = "P42";
+                opt.selected = true;
+                calcmodesel.add(opt);
+
+                opt = document.createElement("option");
                 opt.text = "Future";
                 opt.value = "P23";
                 opt.linkId = "P23";
@@ -11172,7 +11190,11 @@
                 if (weapIdx < 0) {
                     return;
                 }
-                var weap = allWeapons.get(type)[weapIdx];
+                var calcMode = valueOf(document.getElementById("calcmode" + index));
+                calcModes[index] = calcMode;
+                var isCalcAdd = calcMode !== "P21";
+
+                var weap = withOverride(allWeapons.get(type)[weapIdx], calcMode);
 
                 var cell2 = document.getElementById("totaldamage" + index);
                 var cell4 = document.getElementById("totalarmorignore" + index);
@@ -11320,10 +11342,6 @@
                 if (weap.meleeFactor !== undefined) {
                     meleeFactor = weap.meleeFactor;
                 }
-
-                var calcMode = valueOf(document.getElementById("calcmode" + index));
-                calcModes[index] = calcMode;
-                var isCalcAdd = calcMode !== "P21";
 
                 // prepare selectable buffs
                 var buffOpts = [];
