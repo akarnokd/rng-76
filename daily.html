@@ -2871,6 +2871,7 @@
             var dailyOpsBurning = "The Burning Mine";
             var dailyOpsV96 = "Vault 96";
             var dailyOpsWatoga = "Watoga Civic Center";
+            var dailyOpsGarrahan = "Garrahan Mining HQ";
             var dailyOpsWestTec = "West Tek Research Center"
             var dailyOpsWatogaHighschool = "Watoga High School";
             var dailyOpsArktos = "Arktos Pharma";
@@ -16917,6 +16918,13 @@
                     tip: "Currently half bugged, half worse than before."
                 };
             }
+            function scoreCrippleGhoulLegs(offset, count) {
+                return {
+                    name: times("Cripple Ghoul Legs.", count),
+                    offset: offset,
+                    period: 1400,
+                };
+            }
 
             addWeekly(challengesWeeklyEra15.options, 0, scoreFixedGainXP10000Rank100);
             //addWeekly(challengesWeeklyEra15.options, 0, scoreLevelUp3);
@@ -16956,6 +16964,18 @@
                     make1st(scoreHackTerminal), 1,
                     scoreReroll, 1,
                 ], dops(dailyOpsWatoga, dailyOpsCultists, dailyOpsSwift, true, false));
+            addDaily(challengesDailyEra15, 2, [
+                    scoreCompleteDailyChallenge, 6,
+                    scoreCompleteDailyOps, 1,
+                    scoreCompleteEventCostume, 1,
+                    scoreCrippleGhoulLegs, 10,
+                    scoreEatPrewarFood, 10,
+                    scoreKillSnallygaster, 3,
+                    scorePlantCrop, 10,
+                    scoreGainXP2500, 1,
+                    make1st(scoreUsePhotomodeOwnCamp), 1,
+                    scoreReroll, 1,
+                ], dops(dailyOpsGarrahan, dailyOpsCommunists, dailyOpsResilient, false, false));
 
             addPlaceholders(challengesDailyEra15, scoreDailyplaceholder, era15Length);
             addPlaceholders(challengesWeeklyEra15, scoreWeeklyplaceholder, era15Length);
