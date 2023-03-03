@@ -16925,6 +16925,13 @@
                     period: 1400,
                 };
             }
+            function scoreScrapJunkSilver(offset, count) {
+                return {
+                    name: times("Scrap junk to produce Silver.", count),
+                    offset: offset,
+                    period: 1400,
+                };
+            }
 
             addWeekly(challengesWeeklyEra15.options, 0, scoreFixedGainXP10000Rank100);
             //addWeekly(challengesWeeklyEra15.options, 0, scoreLevelUp3);
@@ -16976,6 +16983,19 @@
                     make1st(scoreUsePhotomodeOwnCamp), 1,
                     scoreReroll, 1,
                 ], dops(dailyOpsGarrahan, dailyOpsCommunists, dailyOpsResilient, false, false));
+            addDaily(challengesDailyEra15, 3, [
+                    scoreCompleteDailyChallenge, 6,
+                    scoreCompleteDailyOps, 1,
+                    scoreBuildWallDecor, 5,
+                    scoreCompleteDaily, 1,
+                    scoreCompleteEventCranberryRegion, 1,
+                    scoreCriticalHitAutomatic, 8,
+                    scoreKillLegendary, 3,
+                    scoreScrapJunkSilver, 3,
+                    scoreGainXP2500, 1,
+                    make1st(scoreClaimWorkshop), 1,
+                    scoreReroll, 1,
+                ], dops(dailyOpsValley, dailyOpsRobots, dailyOpsSwift, true, false));
 
             addPlaceholders(challengesDailyEra15, scoreDailyplaceholder, era15Length);
             addPlaceholders(challengesWeeklyEra15, scoreWeeklyplaceholder, era15Length);
