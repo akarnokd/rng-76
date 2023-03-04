@@ -16932,6 +16932,20 @@
                     period: 1400,
                 };
             }
+            function scoreCompletePublicMutatedEvent(offset, count) {
+                return {
+                    name: times("Complete a Public Mutated Event.", count),
+                    offset: offset,
+                    period: 1400,
+                };
+            }
+            function scoreSellMothmanEggNPC(offset, count) {
+                return {
+                    name: times("Sell a Mothman Egg Omlette to an NPC vendor.", count),
+                    offset: offset,
+                    period: 1400,
+                };
+            }
 
             addWeekly(challengesWeeklyEra15.options, 0, scoreFixedGainXP10000Rank100);
             //addWeekly(challengesWeeklyEra15.options, 0, scoreLevelUp3);
@@ -16996,6 +17010,18 @@
                     make1st(scoreClaimWorkshop), 1,
                     scoreReroll, 1,
                 ], dops(dailyOpsValley, dailyOpsRobots, dailyOpsSwift, true, false));
+            addDaily(challengesDailyEra15, 4, [
+                    scoreCompleteDailyChallenge, 6,
+                    scoreCompleteDailyOpsPublicTeam, 1,
+                    scoreCollectPurifiedWater, 5,
+                    scoreCompletePublicMutatedEvent, 1,
+                    scoreKillCreatureInGroup, 20,
+                    scoreKillGlowing, 1,
+                    scoreSellMothmanEggNPC, 1,
+                    scoreGainXP2500, 1,
+                    make1st(scoreScrapHeadwear), 3,
+                    scoreReroll, 1,
+                ], dops(dailyOpsWatogaHighschool, dailyOpsScorched, dailyOpsRegenerating, false, false));
 
             addPlaceholders(challengesDailyEra15, scoreDailyplaceholder, era15Length);
             addPlaceholders(challengesWeeklyEra15, scoreWeeklyplaceholder, era15Length);
