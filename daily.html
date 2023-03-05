@@ -16946,6 +16946,21 @@
                     period: 1400,
                 };
             }
+            function scoreDealFireDamage(offset, count) {
+                return {
+                    name: times("Deal Fire Damage to Enemies.", count),
+                    offset: offset,
+                    period: 1400,
+                };
+            }
+
+            function scoreKillMutatedEnemy(offset, count) {
+                return {
+                    name: times("Kill a Mutated Enemy.", count),
+                    offset: offset,
+                    period: 1400,
+                };
+            }
 
             addWeekly(challengesWeeklyEra15.options, 0, scoreFixedGainXP10000Rank100);
             //addWeekly(challengesWeeklyEra15.options, 0, scoreLevelUp3);
@@ -17022,6 +17037,18 @@
                     make1st(scoreScrapHeadwear), 3,
                     scoreReroll, 1,
                 ], dops(dailyOpsWatogaHighschool, dailyOpsScorched, dailyOpsRegenerating, false, false));
+            addDaily(challengesDailyEra15, 5, [
+                    scoreCompleteDailyChallenge, 6,
+                    scoreCompleteDaily, 1,
+                    scoreCompleteOneEvent, 1,
+                    scoreDealFireDamage, 100,
+                    scoreDrinkNukaColaQuantum, 2,
+                    scoreKillMutatedEnemy, 10,
+                    scorePickLock, 1,
+                    scoreGainXP2500, 1,
+                    make1st(scoreCollectWood), 20,
+                    scoreReroll, 1,
+                ], dops(dailyOpsBurning, dailyOpsMoleMiners, dailyOpsSwift, true, false));
 
             addPlaceholders(challengesDailyEra15, scoreDailyplaceholder, era15Length);
             addPlaceholders(challengesWeeklyEra15, scoreWeeklyplaceholder, era15Length);
