@@ -2885,6 +2885,7 @@
             var dailyOpsScorched = "Scorched";
             var dailyOpsMoleminers = "Mole Miners";
             var dailyOpsCommunists = "Communists";
+            var dailyOpsAliens = "Aliens";
 
             var dailyOpsDecryption = "Decryption";
             var dailyOpsUplink = "Uplink";
@@ -17049,6 +17050,18 @@
                     make1st(scoreCollectWood), 20,
                     scoreReroll, 1,
                 ], dops(dailyOpsBurning, dailyOpsMoleminers, dailyOpsSwift, true, false));
+            addDaily(challengesDailyEra15, 6, [
+                    scoreCompleteDailyChallenge, 6,
+                    scoreBuildLightSources, 3,
+                    scoreCompleteDailyOps, 1,
+                    scoreCompletePublicMutatedEvent, 1,
+                    scoreScrapPowerArmor, 1,
+                    scoreKillCreatureWellFed, 20,
+                    scoreKillHoneyBeast, 1,
+                    scoreGainXP2500, 1,
+                    make1st(scoreCookMealPlant), 5,
+                    scoreReroll, 1,
+                ], dops(dailyOpsBurrows, dailyOpsAliens, dailyOpsResilient, false, false));
 
             addPlaceholders(challengesDailyEra15, scoreDailyplaceholder, era15Length);
             addPlaceholders(challengesWeeklyEra15, scoreWeeklyplaceholder, era15Length);
