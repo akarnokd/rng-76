@@ -16962,6 +16962,28 @@
                     period: 1400,
                 };
             }
+            function scoreKillCreaturesColdShoulder(offset, count) {
+                return {
+                    name: times("Kill a creature with the Cold Shoulder", count),
+                    offset: offset,
+                    period: 1400,
+                };
+            }
+            function scoreScrapJunkCork(offset, count) {
+                return {
+                    name: times("Scrap junk to produce Cork", count),
+                    offset: offset,
+                    period: 1400,
+                };
+            }
+            function scoreTakePictureSnallygaster(offset, count) {
+                return {
+                    name: times("Take a picture of a Snallygaster", count),
+                    offset: offset,
+                    period: 1400,
+                };
+            }
+            
 
             addWeekly(challengesWeeklyEra15.options, 0, scoreFixedGainXP10000Rank100);
             //addWeekly(challengesWeeklyEra15.options, 0, scoreLevelUp3);
@@ -17062,6 +17084,60 @@
                     make1st(scoreCookMealPlant), 5,
                     scoreReroll, 1,
                 ], dops(dailyOpsBurrows, dailyOpsAliens, dailyOpsResilient, false, false));
+
+            function scoreBuildTurretsTraps(offset, count) {
+                return {
+                    name: times("Build Turrets or Traps in Workshop or C.A.M.P.", count),
+                    offset: offset,
+                    period: 1400,
+                };
+            }
+            function scoreCollectStimpakChems(offset, count) {
+                return {
+                    name: times("Collect Stimpaks or Chems", count),
+                    offset: offset,
+                    period: 1400,
+                };
+            }
+            function scoreSellScorchbeastSteakNPC(offset, count) {
+                return {
+                    name: times("Sell a Scorchbeast Steak to an NPC vendor", count),
+                    offset: offset,
+                    period: 1400,
+                };
+            }
+            function scoreTakePictureGraftonMonster(offset, count) {
+                return {
+                    name: times("Take a camera picture of a Grafton Monster", count),
+                    offset: offset,
+                    period: 1400,
+                };
+            }
+
+            addWeekly(challengesWeeklyEra15.options, 7, scoreFixedGainXP10000Rank100);
+            //addWeekly(challengesWeeklyEra15.options, 0, scoreLevelUp3);
+            addWeekly(challengesWeeklyEra15.options, 7, scoreCompleteGoldStarN, 3);
+            addWeekly(challengesWeeklyEra15.options, 7, scoreBuildTurretsTraps, 10);
+            addWeekly(challengesWeeklyEra15.options, 7, scoreCollectStimpakChems, 20);
+            addWeekly(challengesWeeklyEra15.options, 7, scoreCompleteDailyOps, 5);
+            addWeekly(challengesWeeklyEra15.options, 7, scoreCompleteEventForestRegion, 10);
+            addWeekly(challengesWeeklyEra15.options, 7, scoreCraftAmmo, 250);
+            addWeekly(challengesWeeklyEra15.options, 7, scoreKillCreaturesColdShoulder, 30);
+            addWeekly(challengesWeeklyEra15.options, 7, scoreKillMutatedEnemy, 30);
+            addWeekly(challengesWeeklyEra15.options, 7, scoreSellScorchbeastSteakNPC, 1);
+            addWeekly(challengesWeeklyEra15.options, 7, scoreTakePictureGraftonMonster, 1);
+            addDaily(challengesDailyEra15, 7, [
+                    scoreCompleteDailyChallenge, 6,
+                    scoreCompleteDailyOpsPublicTeam, 1,
+                    scoreCompletePublicMutatedEvent, 1,
+                    scoreKillCreaturesColdShoulder, 10,
+                    scoreKillCreatureHardLemonade, 5,
+                    scoreScrapJunkCork, 5,
+                    scoreTakePictureSnallygaster, 1,
+                    scoreGainXP2500, 1,
+                    make1st(scoreScrapJunkLead), 10,
+                    scoreReroll, 1,
+                ], dops(dailyOpsV94, dailyOpsEagles, dailyOpsFreezing, true, false));
 
             addPlaceholders(challengesDailyEra15, scoreDailyplaceholder, era15Length);
             addPlaceholders(challengesWeeklyEra15, scoreWeeklyplaceholder, era15Length);
