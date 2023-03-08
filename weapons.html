@@ -3647,6 +3647,59 @@
                     ]
                 },
                 {
+                    name: "Cold Shoulder",
+                    category: "Shotgun",
+                    kind: "ballistic",
+                    explosive: false,
+                    speed: 3.6,
+                    clipSize: 2,
+                    reloadTime: 3.066677,
+                    formId: "00690C7E",
+                    special: true,
+                    info: "WeaponColdShoulder",
+                    level: [15, 25, 35, 45],
+                    damage: [80, 90, 100, 115],
+                    damageCold: [75, 75, 75, 75],
+                    mods: [
+                        {
+                            slot: "Receiver",
+                            options: [
+                                {
+                                    name: "Standard"
+                                },
+                                {
+                                    name: "Powerful",
+                                    damageMultPercent: 15
+                                },
+                                {
+                                    name: "Calibrated",
+                                    criticalDamageMultiply: 34,
+                                    patchOverride: {
+                                        "P34": {
+                                            criticalDamageMultiply: 100
+                                        }
+                                    }
+                                },
+                                fierceMod,
+                                severeMod,
+                                viciousMod,
+                                scorchKillerMod,
+                                primeMod
+                            ],
+                            slot: "Special",
+                            options: 
+                            [
+                                {
+                                    name: "vs Cryptid",
+                                    versusMultPercent: 50,
+                                    versus: ["Cryptid"]
+                                }
+                            ]
+                        }
+                    ],
+                    legendaryPrefix: "Quad"
+                },
+                {
                     name: "Salt of the Earth",
                     category: "Shotgun",
                     kind: "ballistic",
@@ -9507,6 +9560,14 @@
                 + "<br>Legendary: <i>Two Shot, +50% limb damage, 90% reduced weight</i>"
                 + "<br>Bonus properties: +50% damage vs Mole Miners, 87.5% faster fire rate"
                 + "<br>Form ID: <a href='https://nukacrypt.com/database/json/00662760' target='_blank'>00662760</a>"
+                );
+
+            infoMap.set("WeaponColdShoulder",
+                "<b>Unique Double Barrel Shotgun at rank 5 of Season 12.</b>" 
+                + "<br>Legendary: <i>Quad</i>"
+                + "<br>Pre-modded: <i>Stabilized Stock, Long Barrel</i>"
+                + "<br>Special: Cryo damage, Bonus damage vs Cryptids"
+                + "<br>Form ID: <a href='https://nukacrypt.com/database/json/00690C7E' target='_blank'>00690C7E</a>"
                 );
             // ~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o
 
