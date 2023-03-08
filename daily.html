@@ -17113,6 +17113,13 @@
                     period: 1400,
                 };
             }
+            function scoreKillMothman(offset, count) {
+                return {
+                    name: times("Kill a Mothman", count),
+                    offset: offset,
+                    period: 1400,
+                };
+            }
 
             addWeekly(challengesWeeklyEra15.options, 7, scoreFixedGainXP10000Rank100);
             //addWeekly(challengesWeeklyEra15.options, 0, scoreLevelUp3);
@@ -17138,6 +17145,18 @@
                     make1st(scoreScrapJunkLead), 10,
                     scoreReroll, 1,
                 ], dops(dailyOpsV94, dailyOpsEagles, dailyOpsFreezing, true, false));
+            addDaily(challengesDailyEra15, 8, [
+                    scoreCompleteDailyChallenge, 6,
+                    scoreCompleteDaily, 1,
+                    scoreCompleteEventMireRegion, 1,
+                    scoreCraftAmmo, 50,
+                    scoreKillMutatedEnemy, 10,
+                    scoreKillMothman, 1,
+                    scoreModWeapon, 3,
+                    scoreGainXP2500, 1,
+                    make1st(scoreBuildAnythingCampFree), 10,
+                    scoreReroll, 1,
+                ], dops(dailyOpsValley, dailyOpsAliens, dailyOpsToxic, false, false));
 
             addPlaceholders(challengesDailyEra15, scoreDailyplaceholder, era15Length);
             addPlaceholders(challengesWeeklyEra15, scoreWeeklyplaceholder, era15Length);
