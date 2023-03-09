@@ -17120,6 +17120,13 @@
                     period: 1400,
                 };
             }
+            function scoreKillCryptidBow(offset, count) {
+                return {
+                    name: times("Kill a Cryptid with Bow or Crossbow", count),
+                    offset: offset,
+                    period: 1400,
+                };
+            }
 
             addWeekly(challengesWeeklyEra15.options, 7, scoreFixedGainXP10000Rank100);
             //addWeekly(challengesWeeklyEra15.options, 0, scoreLevelUp3);
@@ -17157,6 +17164,18 @@
                     make1st(scoreBuildAnythingCampFree), 10,
                     scoreReroll, 1,
                 ], dops(dailyOpsValley, dailyOpsAliens, dailyOpsToxic, false, false));
+            addDaily(challengesDailyEra15, 9, [
+                    scoreCompleteDailyChallenge, 6,
+                    scoreCollectStimpakChems, 5,
+                    scoreCompleteDailyOpsPublicTeam, 1,
+                    scoreCompleteEventToxicRegion, 1,
+                    scoreConsumeAlcoholOnTeam, 10,
+                    scoreKillCryptidBow, 1,
+                    scoreKillSupermutant, 5,
+                    scoreGainXP2500, 1,
+                    make1st(scoreCollectBullion), 25,
+                    scoreReroll, 1,
+                ], dops(dailyOpsArktos, dailyOpsCommunists, dailyOpsCloudedToxins, true, true));
 
             addPlaceholders(challengesDailyEra15, scoreDailyplaceholder, era15Length);
             addPlaceholders(challengesWeeklyEra15, scoreWeeklyplaceholder, era15Length);
