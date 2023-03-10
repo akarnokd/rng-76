@@ -17127,6 +17127,20 @@
                     period: 1400,
                 };
             }
+            function scoreDestroyRobotEnergy(offset, count) {
+                return {
+                    name: times("Destroy a Robot with Energy Weapon", count),
+                    offset: offset,
+                    period: 1400,
+                };
+            }
+            function scoreTakePictureRadscorpion(offset, count) {
+                return {
+                    name: times("Take a camera picture of a Radscorpion", count),
+                    offset: offset,
+                    period: 1400,
+                };
+            }
 
             addWeekly(challengesWeeklyEra15.options, 7, scoreFixedGainXP10000Rank100);
             //addWeekly(challengesWeeklyEra15.options, 0, scoreLevelUp3);
@@ -17176,6 +17190,18 @@
                     make1st(scoreCollectBullion), 25,
                     scoreReroll, 1,
                 ], dops(dailyOpsArktos, dailyOpsCommunists, dailyOpsCloudedToxins, true, true));
+            addDaily(challengesDailyEra15, 10, [
+                    scoreCompleteDailyChallenge, 6,
+                    scoreCompleteDaily, 1,
+                    scoreCompletePublicMutatedEvent, 1,
+                    scoreHarvestPlantFungi, 20,
+                    scoreDestroyRobotEnergy, 5,
+                    scoreKillSuperMutantHeavyGun, 5,
+                    scoreTakePictureRadscorpion, 1,
+                    scoreGainXP2500, 1,
+                    make1st(scoreKillCreatureWellFed), 20,
+                    scoreReroll, 1,
+                ], dops(dailyOpsV94, dailyOpsMutants, dailyOpsSwiftStalker, false, true));
 
             addPlaceholders(challengesDailyEra15, scoreDailyplaceholder, era15Length);
             addPlaceholders(challengesWeeklyEra15, scoreWeeklyplaceholder, era15Length);
