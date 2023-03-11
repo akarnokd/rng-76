@@ -17141,6 +17141,13 @@
                     period: 1400,
                 };
             }
+            function scoreCrippleProtectronRobobrainArms(offset, count) {
+                return {
+                    name: times("Cripple Protectron or Robobrain Arms", count),
+                    offset: offset,
+                    period: 1400,
+                };
+            }
 
             addWeekly(challengesWeeklyEra15.options, 7, scoreFixedGainXP10000Rank100);
             //addWeekly(challengesWeeklyEra15.options, 0, scoreLevelUp3);
@@ -17202,6 +17209,18 @@
                     make1st(scoreKillCreatureWellFed), 20,
                     scoreReroll, 1,
                 ], dops(dailyOpsV94, dailyOpsMutants, dailyOpsSwiftStalker, false, true));
+            addDaily(challengesDailyEra15, 11, [
+                    scoreCompleteDailyChallenge, 6,
+                    scoreCompleteDailyOps, 1,
+                    scoreCompleteEventForestRegion, 1,
+                    scoreCraftRanged, 5,
+                    scoreCrippleProtectronRobobrainArms, 10,
+                    scoreEatCookedMeal, 10,
+                    scoreKillDeathclaw, 1,
+                    scoreGainXP2500, 1,
+                    make1st(scoreKillCreatureWellFed), 20,
+                    scoreReroll, 1,
+                ], dops(dailyOpsBurning, dailyOpsCommunists, dailyOpsCloudedToxins, true, true));
 
             addPlaceholders(challengesDailyEra15, scoreDailyplaceholder, era15Length);
             addPlaceholders(challengesWeeklyEra15, scoreWeeklyplaceholder, era15Length);
