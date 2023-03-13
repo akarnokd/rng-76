@@ -17148,6 +17148,13 @@
                     period: 1400,
                 };
             }
+            function scoreCrippleHeadDeathclaw(offset, count) {
+                return {
+                    name: times("Cripple the head of a Deathclaw", count),
+                    offset: offset,
+                    period: 1400,
+                };
+            }
 
             addWeekly(challengesWeeklyEra15.options, 7, scoreFixedGainXP10000Rank100);
             //addWeekly(challengesWeeklyEra15.options, 0, scoreLevelUp3);
@@ -17233,6 +17240,18 @@
                     make1st(scoreBuySellItem), 1,
                     scoreReroll, 1,
                 ], dops(dailyOpsWestTec, dailyOpsMutants, dailyOpsChillingMend, false, true));
+            addDaily(challengesDailyEra15, 13, [
+                    scoreCompleteDailyChallenge, 6,
+                    scoreCompleteDailyOpsPublicTeam, 1,
+                    scoreCompleteEventInGroup, 1,
+                    scoreCrippleHeadDeathclaw, 1,
+                    scoreDrinkNukaCola, 3,
+                    scoreHarvestCornRazorgrainTato, 20,
+                    scoreKillGhoul, 10,
+                    scoreGainXP2500, 1,
+                    make1st(scoreKillSuperMutantUnderLeadChampagne), 1,
+                    scoreReroll, 1,
+                ], dops(dailyOpsBurning, dailyOpsEagles, dailyOpsVolatile, true, false));
 
             addPlaceholders(challengesDailyEra15, scoreDailyplaceholder, era15Length);
             addPlaceholders(challengesWeeklyEra15, scoreWeeklyplaceholder, era15Length);
@@ -17244,6 +17263,8 @@
 
             communityEventsAppend.push(createCapsOPlenty(ofDate(2023, 2, 9, 17), ofDate(2023, 2, 13, 17)));
             communityEventsAppend.push(createDoubleMutations(ofDate(2023, 2, 9, 17), ofDate(2023, 2, 13, 17)));
+
+            communityEventsAppend.push(createMinerva(ofDate(2023, 2, 13, 17), ofDate(2023, 2, 15, 17), "Emporium @ Fort Atlas", "P?"));
 
             communityEventsAppend.push(createDoubleScore(ofDate(2023, 2, 16, 17), ofDate(2023, 2, 20, 17)));
 
