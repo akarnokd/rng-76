@@ -17253,9 +17253,6 @@
                     scoreReroll, 1,
                 ], dops(dailyOpsBurning, dailyOpsEagles, dailyOpsVolatile, true, false));
 
-            addPlaceholders(challengesDailyEra15, scoreDailyplaceholder, era15Length);
-            addPlaceholders(challengesWeeklyEra15, scoreWeeklyplaceholder, era15Length);
-
             communityEventsAppend.push(createScripSurplus3(ofDate(2023, 2, 2, 17), ofDate(2023, 2, 6, 17)));
             communityEventsAppend.push(createDoubleScore(ofDate(2023, 2, 4, 17), ofDate(2023, 2, 5, 17)));
 
@@ -17265,6 +17262,89 @@
             communityEventsAppend.push(createDoubleMutations(ofDate(2023, 2, 9, 17), ofDate(2023, 2, 13, 17)));
 
             communityEventsAppend.push(createMinerva(ofDate(2023, 2, 13, 17), ofDate(2023, 2, 15, 17), "Emporium @ Fort Atlas", "P?"));
+
+            function scoreKillCultistShotgun(offset, count) {
+                return {
+                    name: times("Kill a Cultists with a Shotgun", count),
+                    offset: offset,
+                    period: 1400,
+                };
+            }
+            function scoreSellMutantHoundChopsNPC(offset, count) {
+                return {
+                    name: times("Sell Mutant Hound Chops to an NPC vendor", count),
+                    offset: offset,
+                    period: 1400,
+                };
+            }
+            function scoreBuildDefenseApplianceCraftingWorkshop(offset, count) {
+                return {
+                    name: times("Build Defense, Appliance or Crafting items in your C.A.M.P./Workshop", count),
+                    offset: offset,
+                    period: 1400,
+                };
+            }
+            function scoreCollectPrewarFood(offset, count) {
+                return {
+                    name: times("Collect Pre-war Food", count),
+                    offset: offset,
+                    period: 1400,
+                };
+            }
+            function scoreKillCryptidColdShoulder(offset, count) {
+                return {
+                    name: times("Kill a Cryptid with the Cold Shoulder", count),
+                    offset: offset,
+                    period: 1400,
+                };
+            }
+            function scoreScrapJunkGears(offset, count) {
+                return {
+                    name: times("Scrap junk to produce Gears", count),
+                    offset: offset,
+                    period: 1400,
+                };
+            }
+            function scoreSellPumpkinPieNPC(offset, count) {
+                return {
+                    name: times("Sell Pumpkin Pie to an NPC vendor", count),
+                    offset: offset,
+                    period: 1400,
+                };
+            }
+            function scoreTakePictureSheepsquatch(offset, count) {
+                return {
+                    name: times("Take a picture of a Sheepsquatch", count),
+                    offset: offset,
+                    period: 1400,
+                };
+            }
+
+            addWeekly(challengesWeeklyEra15.options, 14, scoreFixedGainXP10000Rank100);
+            //addWeekly(challengesWeeklyEra15.options, 0, scoreLevelUp3);
+            addWeekly(challengesWeeklyEra15.options, 14, scoreCompleteGoldStarN, 3);
+            addWeekly(challengesWeeklyEra15.options, 14, scoreBuildDefenseApplianceCraftingWorkshop, 10);
+            addWeekly(challengesWeeklyEra15.options, 14, scoreCollectPrewarFood, 20);
+            addWeekly(challengesWeeklyEra15.options, 14, scoreCompleteDailyOpsPublicTeam, 5);
+            addWeekly(challengesWeeklyEra15.options, 14, scoreCompletePublicMutatedEvent, 3);
+            addWeekly(challengesWeeklyEra15.options, 14, scoreKillCryptidColdShoulder, 3);
+            addWeekly(challengesWeeklyEra15.options, 14, scoreKillFloater, 10);
+            addWeekly(challengesWeeklyEra15.options, 14, scoreScrapJunkGears, 15);
+            addWeekly(challengesWeeklyEra15.options, 14, scoreSellPumpkinPieNPC, 1);
+            addWeekly(challengesWeeklyEra15.options, 14, scoreTakePictureSheepsquatch, 1);
+            addDaily(challengesDailyEra15, 14, [
+                    scoreCompleteDailyChallenge, 6,
+                    scoreCompleteDailyOps, 1,
+                    scoreCompleteEventAshHeapRegion, 1,
+                    scoreKillCultistShotgun, 10,
+                    scoreKillMoleminer, 10,
+                    scoreSellMutantHoundChopsNPC, 1,
+                    scoreUsePhotomodeTeammate, 1,
+                    scoreGainXP2500, 1,
+                    make1st(scoreKillCreatures), 20,
+                    scoreReroll, 1,
+                ], dops(dailyOpsWatogaHighschool, dailyOpsRobots, dailyOpsSwift, false, false));
+
 
             communityEventsAppend.push(createDoubleScore(ofDate(2023, 2, 16, 17), ofDate(2023, 2, 20, 17)));
 
@@ -17301,6 +17381,9 @@
             communityEventsAppend.push(createDoubleMutations(ofDate(2023, 5, 15, 17), ofDate(2023, 5, 19, 17)));
 
             communityEventsAppend.push(createInvaders(ofDate(2023, 5, 19, 17), ofDate(2023, 6, 4, 17)));
+
+            addPlaceholders(challengesDailyEra15, scoreDailyplaceholder, era15Length);
+            addPlaceholders(challengesWeeklyEra15, scoreWeeklyplaceholder, era15Length);
 
             // --------------------------------------------------------------------------------------------------------------
             // Community events
