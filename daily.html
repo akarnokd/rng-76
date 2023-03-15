@@ -17319,6 +17319,13 @@
                     period: 1400,
                 };
             }
+            function scoreSellRibeyeSteakNPC(offset, count) {
+                return {
+                    name: times("Sell Ribeye Steak to an NPC vendor", count),
+                    offset: offset,
+                    period: 1400,
+                };
+            }
 
             addWeekly(challengesWeeklyEra15.options, 14, scoreFixedGainXP10000Rank100);
             //addWeekly(challengesWeeklyEra15.options, 0, scoreLevelUp3);
@@ -17344,6 +17351,18 @@
                     make1st(scoreKillCreatures), 20,
                     scoreReroll, 1,
                 ], dops(dailyOpsWatogaHighschool, dailyOpsRobots, dailyOpsSwift, false, false));
+            addDaily(challengesDailyEra15, 15, [
+                    scoreCompleteDailyChallenge, 6,
+                    scoreCompleteDailyOps, 1,
+                    scoreCompletePublicMutatedEvent, 1,
+                    scoreKillCryptidColdShoulder, 1,
+                    scoreKillScorched, 10,
+                    scoreScrapJunkBlackTitanium, 3,
+                    scoreSellRibeyeSteakNPC, 1,
+                    scoreGainXP2500, 1,
+                    make1st(scoreChewBubblegum), 1,
+                    scoreReroll, 1,
+                ], dops(dailyOpsValley, dailyOpsMoleminers, dailyOpsVolatile, true, false));
 
 
             communityEventsAppend.push(createDoubleScore(ofDate(2023, 2, 16, 17), ofDate(2023, 2, 20, 17)));
