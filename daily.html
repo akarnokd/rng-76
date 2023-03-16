@@ -17326,6 +17326,20 @@
                     period: 1400,
                 };
             }
+            function scoreEatPlantMeal(offset, count) {
+                return {
+                    name: times("Eat Plant-based Meal", count),
+                    offset: offset,
+                    period: 1400,
+                };
+            }
+            function scoreKillCryptidRifleOrLauncher(offset, count) {
+                return {
+                    name: times("Kill Cryptid with Rifle or Rocket Launcher", count),
+                    offset: offset,
+                    period: 1400,
+                };
+            }
 
             addWeekly(challengesWeeklyEra15.options, 14, scoreFixedGainXP10000Rank100);
             //addWeekly(challengesWeeklyEra15.options, 0, scoreLevelUp3);
@@ -17363,6 +17377,18 @@
                     make1st(scoreChewBubblegum), 1,
                     scoreReroll, 1,
                 ], dops(dailyOpsValley, dailyOpsMoleminers, dailyOpsVolatile, true, false));
+            addDaily(challengesDailyEra15, 16, [
+                    scoreCompleteDailyChallenge, 6,
+                    scoreBuildDefenseApplianceCraftingWorkshop, 3,
+                    scoreCompleteDaily, 1,
+                    scoreCompleteOneEvent, 1,
+                    scoreEatPlantMeal, 10,
+                    scoreKillCryptidRifleOrLauncher, 1,
+                    scoreKillMutatedEnemy, 10,
+                    scoreGainXP2500, 1,
+                    make1st(scoreKillMirelurk), 10,
+                    scoreReroll, 1,
+                ], dops(dailyOpsArktos, dailyOpsAliens, dailyOpsCloaked, false, false));
 
 
             communityEventsAppend.push(createDoubleScore(ofDate(2023, 2, 16, 17), ofDate(2023, 2, 20, 17)));
