@@ -2875,6 +2875,7 @@
             var dailyOpsWestTec = "West Tek Research Center"
             var dailyOpsWatogaHighschool = "Watoga High School";
             var dailyOpsArktos = "Arktos Pharma";
+            var dailyOpsCharleston= "Charleston Capital";
             var dailyOpsUncanny = "Uncanny Caverns";
 
             var dailyOpsRobots = "Robots";
@@ -17340,6 +17341,13 @@
                     period: 1400,
                 };
             }
+            function scoreKillSheepsquatch(offset, count) {
+                return {
+                    name: times("Kill a Sheepsquatch", count),
+                    offset: offset,
+                    period: 1400,
+                };
+            }
 
             addWeekly(challengesWeeklyEra15.options, 14, scoreFixedGainXP10000Rank100);
             //addWeekly(challengesWeeklyEra15.options, 0, scoreLevelUp3);
@@ -17389,6 +17397,18 @@
                     make1st(scoreKillMirelurk), 10,
                     scoreReroll, 1,
                 ], dops(dailyOpsArktos, dailyOpsAliens, dailyOpsCloaked, false, false));
+            addDaily(challengesDailyEra15, 17, [
+                    scoreCompleteDailyChallenge, 6,
+                    scoreCollectAnyNukaCola, 5,
+                    scoreCompleteDailyOpsPublicTeam, 1,
+                    scoreCompletePublicMutatedEvent, 1,
+                    scoreKillBloodEagle, 10,
+                    scoreKillSheepsquatch, 1,
+                    scoreLevelUp, 1,
+                    scoreGainXP2500, 1,
+                    make1st(scoreDrinkNukaGrape), 2,
+                    scoreReroll, 1,
+                ], dops(dailyOpsCharleston, dailyOpsMutants, dailyOpsResilient, true, false));
 
 
             communityEventsAppend.push(createDoubleScore(ofDate(2023, 2, 16, 17), ofDate(2023, 2, 20, 17)));
