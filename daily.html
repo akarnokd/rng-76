@@ -17348,6 +17348,13 @@
                     period: 1400,
                 };
             }
+            function scoreSellWolfRibsNPC(offset, count) {
+                return {
+                    name: times("Sell Wolf Ribs to an NPC vendor", count),
+                    offset: offset,
+                    period: 1400,
+                };
+            }
 
             addWeekly(challengesWeeklyEra15.options, 14, scoreFixedGainXP10000Rank100);
             //addWeekly(challengesWeeklyEra15.options, 0, scoreLevelUp3);
@@ -17409,6 +17416,18 @@
                     make1st(scoreDrinkNukaGrape), 2,
                     scoreReroll, 1,
                 ], dops(dailyOpsCharleston, dailyOpsMutants, dailyOpsResilient, true, false));
+            addDaily(challengesDailyEra15, 18, [
+                    scoreCompleteDailyChallenge, 6,
+                    scoreCompleteDaily, 1,
+                    scoreCompleteEventMireRegion, 1,
+                    scoreKillCreatures, 20,
+                    scoreKillCultist, 10,
+                    scoreScrapJunkGears, 5,
+                    scoreSellWolfRibsNPC, 1,
+                    scoreGainXP2500, 1,
+                    make1st(scoreBuildAnythingShelterFree), 10,
+                    scoreReroll, 1,
+                ], dops(dailyOpsBurrows, dailyOpsEagles, dailyOpsToxic, false, false));
 
 
             communityEventsAppend.push(createDoubleScore(ofDate(2023, 2, 16, 17), ofDate(2023, 2, 20, 17)));
