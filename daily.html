@@ -17469,6 +17469,29 @@
                     make1st(scoreDrinkNukaCola), 5,
                     scoreReroll, 1,
                 ], dops(dailyOpsBurning, dailyOpsRobots, dailyOpsVolatile, false, false, true));
+            addWeekly(challengesWeeklyEra15.options, 21, scoreFixedGainXP10000Rank100);
+            addWeekly(challengesWeeklyEra15.options, 21, scoreCompleteGoldStarN, 3);
+            addWeekly(challengesWeeklyEra15.options, 21, scoreBuildFloorWallCamp, 25);
+            addWeekly(challengesWeeklyEra15.options, 21, scoreCollectAnyNukaCola, 20);
+            addWeekly(challengesWeeklyEra15.options, 21, scoreCompleteDailyOps, 5);
+            addWeekly(challengesWeeklyEra15.options, 21, scoreCompleteEvents10, 10);
+            addWeekly(challengesWeeklyEra15.options, 21, scoreCrippleGhoulLegs, 30);
+            addWeekly(challengesWeeklyEra15.options, 21, scoreEatMeat, 25);
+            addWeekly(challengesWeeklyEra15.options, 21, scoreKillGlowing, 10);
+            addWeekly(challengesWeeklyEra15.options, 21, scorePlantCrop, 25);
+            addWeekly(challengesWeeklyEra15.options, 21, scoreRepairArmorWeaponPA, 10);
+            addDaily(challengesDailyEra15, 21, [
+                    scoreCompleteDailyChallenge, 6,
+                    scoreClaimWorkshop, 1,
+                    scoreCompleteDaily, 1,
+                    scoreCompleteOneEvent, 1,
+                    scoreDestroyRobotEnergy, 5,
+                    scoreKillSupermutant, 5,
+                    scoreScrapJunkPlastic, 10,
+                    scoreGainXP2500, 1,
+                    make1st(scoreModWeapon), 5,
+                    scoreReroll, 1,
+                ], dops(dailyOpsBurning, dailyOpsRobots, dailyOpsVolatile, false, false, true));
 
 
             communityEventsAppend.push(createDoubleScore(ofDate(2023, 2, 16, 17), ofDate(2023, 2, 21, 17)));
