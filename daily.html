@@ -17372,6 +17372,13 @@
                     period: 1400,
                 };
             }
+            function scoreDrinkNukaWild(offset, count) {
+                return {
+                    name: times("Drink Nuka Cola Wild", count),
+                    offset: offset,
+                    period: 1400,
+                };
+            }
 
             addWeekly(challengesWeeklyEra15.options, 14, scoreFixedGainXP10000Rank100);
             //addWeekly(challengesWeeklyEra15.options, 0, scoreLevelUp3);
@@ -17492,6 +17499,18 @@
                     make1st(scoreModWeapon), 5,
                     scoreReroll, 1,
                 ], dops(dailyOpsUncanny, dailyOpsMoleminers, dailyOpsCloaked, true, false, true));
+            addDaily(challengesDailyEra15, 22, [
+                    scoreCompleteDailyChallenge, 6,
+                    scoreBuildFloorWallCamp, 10,
+                    scoreCompleteDailyOpsPublicTeam, 1,
+                    scoreCompleteEventInGroup, 1,
+                    scoreDrinkNukaWild, 2,
+                    scoreKillMoleminer, 10,
+                    scoreKillWendigo, 1,
+                    scoreGainXP2500, 1,
+                    make1st(scoreScrapJunkRubber), 10,
+                    scoreReroll, 1,
+                ], dops(dailyOpsUncanny, dailyOpsMoleminers, dailyOpsCloaked, false, false, true));
 
 
             communityEventsAppend.push(createDoubleScore(ofDate(2023, 2, 16, 17), ofDate(2023, 2, 21, 17)));
