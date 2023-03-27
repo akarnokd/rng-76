@@ -17380,6 +17380,13 @@
                     period: 1400,
                 };
             }
+            function scoreScrapJunkCeramic(offset, count) {
+                return {
+                    name: times("Scrap junk to produce Ceramic", count),
+                    offset: offset,
+                    period: 1400,
+                };
+            }
 
             addWeekly(challengesWeeklyEra15.options, 14, scoreFixedGainXP10000Rank100);
             //addWeekly(challengesWeeklyEra15.options, 0, scoreLevelUp3);
@@ -17564,6 +17571,20 @@
                     scoreUsePhotomodeGroup, 1,
                     scoreGainXP2500, 1,
                     make1st(scoreDealFireDamage), 100,
+                    scoreReroll, 1,
+                ], dops(dailyOpsGarrahan, dailyOpsCommunists, dailyOpsUnstable, false, false, true));
+            addDaily(challengesDailyEra15, 27, [
+                    scoreCompleteDailyChallenge, 6,
+                    scoreCollectMagazine, 1,
+                    scoreCollectAnyNukaCola, 5,
+                    scoreCompleteDailyOpsPublicTeam, 1,
+                    scoreCompleteDaily, 1,
+                    scoreKillCreatureCostume, 20,
+                    scoreKillGhoul, 10,
+                    scoreKillRadstag, 5,
+                    scoreScrapJunkCeramic, 5,
+                    scoreGainXP2500, 1,
+                    make1st(scoreHarvestPlantFungi), 100,
                     scoreReroll, 1,
                 ], dops(dailyOpsGarrahan, dailyOpsCommunists, dailyOpsUnstable, false, false, true));
 
