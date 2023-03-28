@@ -17595,6 +17595,45 @@
             communityEventsAppend.push(createDoubleMutations(ofDate(2023, 2, 23, 16), ofDate(2023, 2, 27, 16)));
             communityEventsAppend.push(createMinerva(ofDate(2023, 2, 23, 16), ofDate(2023, 2, 27, 16), "Big Sale @ The Whitespring", "P?"));
 
+            function scoreScrapJunkLeather(offset, count) {
+                return {
+                    name: times("Scrap junk to produce Leather", count),
+                    offset: offset,
+                    period: 1400,
+                };
+            }
+            function scoreScrapJunkFertilizer(offset, count) {
+                return {
+                    name: times("Scrap junk to produce Fertilizer", count),
+                    offset: offset,
+                    period: 1400,
+                };
+            }
+
+            addWeekly(challengesWeeklyEra15.options, 28, scoreFixedGainXP10000Rank100);
+            addWeekly(challengesWeeklyEra15.options, 28, scoreCompleteGoldStarN, 3);
+            addWeekly(challengesWeeklyEra15.options, 28, scoreBuildFloorWallCampFree, 25);
+            addWeekly(challengesWeeklyEra15.options, 28, scoreBuySellItem, 10);
+            addWeekly(challengesWeeklyEra15.options, 28, scoreCollectBullion, 150);
+            addWeekly(challengesWeeklyEra15.options, 28, scoreCollectScrip, 500);
+            addWeekly(challengesWeeklyEra15.options, 28, scoreCompleteDailyOpsPublicTeam, 5);
+            addWeekly(challengesWeeklyEra15.options, 28, scoreCompletePublicMutatedEvent, 3);
+            addWeekly(challengesWeeklyEra15.options, 28, scoreKillBloodEagle, 25);
+            addWeekly(challengesWeeklyEra15.options, 28, scoreKillCryptidBow, 3);
+            addWeekly(challengesWeeklyEra15.options, 28, scoreScrapJunkFertilizer, 15);
+            addDaily(challengesDailyEra15, 28, [
+                    scoreCompleteDailyChallenge, 6,
+                    scoreBuildFloorWallCampFree, 10,
+                    scoreCompleteDailyOps, 1,
+                    scoreCompleteEventMireRegion, 1,
+                    scoreKillCultist, 10,
+                    scoreKillSnallygaster, 3,
+                    scoreScrapJunkLeather, 10,
+                    scoreGainXP2500, 1,
+                    make1st(scoreConsumeAlcohol), 5,
+                    scoreReroll, 1,
+                ], dops(dailyOpsArktos, dailyOpsAliens, dailyOpsToxic, true, false, true));
+
             communityEventsAppend.push(createSpookyScorched(ofDate(2023, 2, 30, 16), ofDate(2023, 3, 3, 16)));
             communityEventsAppend.push(createScripSurplus3(ofDate(2023, 2, 30, 16), ofDate(2023, 3, 3, 16)));
             communityEventsAppend.push(createGoldRush2(ofDate(2023, 2, 30, 16), ofDate(2023, 3, 3, 16)));
