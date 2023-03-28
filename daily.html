@@ -1119,6 +1119,15 @@
                             tip: "Equip Contractor 2 (INT) to save on material cost."
                         };
             }
+            function scoreBuildFloorWallShelterFree(offset, count) {
+                return {
+                            name: times("Build floors, walls or roofs in your Shelter in Free Cam mode", count),
+                            offset: offset,
+                            period: 1400,
+                            tipId: "ScoreBuildFloorWallShelter",
+                            tip: "Equip Contractor 2 (INT) to save on material cost."
+                        };
+            }
             function scoreVisitOwnShelter(offset, count) {
                 return {
                             name: times("Visit your own Shelter", count),
@@ -17618,12 +17627,12 @@
             addWeekly(challengesWeeklyEra15.options, 28, scoreCollectScrip, 500);
             addWeekly(challengesWeeklyEra15.options, 28, scoreCompleteDailyOpsPublicTeam, 5);
             addWeekly(challengesWeeklyEra15.options, 28, scoreCompletePublicMutatedEvent, 3);
-            addWeekly(challengesWeeklyEra15.options, 28, scoreKillBloodEagle, 25);
+            addWeekly(challengesWeeklyEra15.options, 28, scoreKillBloodEagle, 50);
             addWeekly(challengesWeeklyEra15.options, 28, scoreKillCryptidBow, 3);
             addWeekly(challengesWeeklyEra15.options, 28, scoreScrapJunkFertilizer, 15);
             addDaily(challengesDailyEra15, 28, [
                     scoreCompleteDailyChallenge, 6,
-                    scoreBuildFloorWallCampFree, 10,
+                    scoreBuildFloorWallShelterFree, 10,
                     scoreCompleteDailyOps, 1,
                     scoreCompleteEventMireRegion, 1,
                     scoreKillCultist, 10,
