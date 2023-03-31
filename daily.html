@@ -17618,6 +17618,13 @@
                     period: 1400,
                 };
             }
+            function scoreEatMysteryCandy(offset, count) {
+                return {
+                    name: times("Eat Mystery Candy", count),
+                    offset: offset,
+                    period: 1400,
+                };
+            }
 
             addWeekly(challengesWeeklyEra15.options, 28, scoreFixedGainXP10000Rank100);
             addWeekly(challengesWeeklyEra15.options, 28, scoreCompleteGoldStarN, 3);
@@ -17665,6 +17672,19 @@
                     scoreScrapJunkFertilizer, 5,
                     scoreGainXP2500, 1,
                     make1st(scoreCraftMineGrenadeThrown), 5,
+                    scoreReroll, 1,
+                ], dops(dailyOpsV94, dailyOpsRobots, dailyOpsReflective, false, false, true));
+            addDaily(challengesDailyEra15, 31, [
+                    scoreCompleteDailyChallenge, 6,
+                    scoreCompleteDaily, 1,
+                    scoreCompletePublicMutatedEvent, 1,
+                    scoreDestroyRobotRifle, 5,
+                    scoreEatMysteryCandy, 3,
+                    scoreEatCookedMealTeammate, 5,
+                    scoreKillGhoulShotgun, 5,
+                    scoreKillSpookyScorched, 10,
+                    scoreGainXP2500, 1,
+                    make1st(scoreDrinkNukaGrape), 2,
                     scoreReroll, 1,
                 ], dops(dailyOpsV94, dailyOpsRobots, dailyOpsReflective, false, false, true));
 
