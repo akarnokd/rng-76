@@ -17625,6 +17625,20 @@
                     period: 1400,
                 };
             }
+            function scoreCrippleSpookyScorchedLeg(offset, count) {
+                return {
+                    name: times("Cripple Spooky Scorched Legs", count),
+                    offset: offset,
+                    period: 1400,
+                };
+            }
+            function scoreScrapJunkConcrete(offset, count) {
+                return {
+                    name: times("Scrap junk to produce Concrete", count),
+                    offset: offset,
+                    period: 1400,
+                };
+            }
 
             addWeekly(challengesWeeklyEra15.options, 28, scoreFixedGainXP10000Rank100);
             addWeekly(challengesWeeklyEra15.options, 28, scoreCompleteGoldStarN, 3);
@@ -17685,6 +17699,19 @@
                     scoreKillSpookyScorched, 10,
                     scoreGainXP2500, 1,
                     make1st(scoreDrinkNukaGrape), 2,
+                    scoreReroll, 1,
+                ], dops(dailyOpsValley, dailyOpsAliens, dailyOpsSwift, true, false, true));
+            addDaily(challengesDailyEra15, 32, [
+                    scoreCompleteDailyChallenge, 6,
+                    scoreCollectScrip, 50,
+                    scoreCompleteDailyOpsPublicTeam, 1,
+                    scoreCompletePublicMutatedEvent, 1,
+                    scoreCrippleSpookyScorchedLeg, 5,
+                    scoreEatMysteryCandy, 3,
+                    scoreKillMutatedEnemy, 10,
+                    scoreScrapJunkConcrete, 10,
+                    scoreGainXP2500, 1,
+                    make1st(scoreUsePhotomode), 1,
                     scoreReroll, 1,
                 ], dops(dailyOpsValley, dailyOpsAliens, dailyOpsSwift, true, false, true));
 
