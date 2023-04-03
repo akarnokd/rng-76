@@ -17639,6 +17639,13 @@
                     period: 1400,
                 };
             }
+            function scoreDrinkNukaColaOrange(offset, count) {
+                return {
+                    name: times("Drink Nuka Cola Orange", count),
+                    offset: offset,
+                    period: 1400,
+                };
+            }
 
             addWeekly(challengesWeeklyEra15.options, 28, scoreFixedGainXP10000Rank100);
             addWeekly(challengesWeeklyEra15.options, 28, scoreCompleteGoldStarN, 3);
@@ -17723,6 +17730,19 @@
                     scoreEatMysteryCandy, 3,
                     scoreKillCryptid1, 1,
                     scoreKillSpookyScorched, 10,
+                    scoreGainXP2500, 1,
+                    make1st(scoreScrapBoardGame), 1,
+                    scoreReroll, 1,
+                ], dops(dailyOpsValley, dailyOpsAliens, dailyOpsResilient, true, false, true));
+            addDaily(challengesDailyEra15, 34, [
+                    scoreCompleteDailyChallenge, 6,
+                    scoreCompleteDaily, 1,
+                    scoreDrinkNukaColaOrange, 2,
+                    scoreKillInsects, 20,
+                    scoreKillScorched, 10,
+                    scoreCompletePublicMutatedEvent, 1,
+                    scoreScrapJunkFiberOptics, 3,
+                    scoreUsePhotomodeOwnCamp, 1,
                     scoreGainXP2500, 1,
                     make1st(scoreScrapBoardGame), 1,
                     scoreReroll, 1,
