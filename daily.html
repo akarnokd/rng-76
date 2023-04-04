@@ -17752,6 +17752,45 @@
             communityEventsAppend.push(createScripSurplus3(ofDate(2023, 2, 30, 16), ofDate(2023, 3, 3, 16)));
             communityEventsAppend.push(createGoldRush2(ofDate(2023, 2, 30, 16), ofDate(2023, 3, 3, 16)));
 
+            function scoreCraftScrapClothingWeaponArmor(offset, count) {
+                return {
+                    name: times("Craft or Scrap Clothing, Weapon or Armor", count),
+                    offset: offset,
+                    period: 1400,
+                };
+            }
+            function scoreScrapJunkChrystal(offset, count) {
+                return {
+                    name: times("Scrap junk to produce Chrystal", count),
+                    offset: offset,
+                    period: 1400,
+                };
+            }
+
+            addWeekly(challengesWeeklyEra15.options, 35, scoreFixedGainXP10000Rank100);
+            addWeekly(challengesWeeklyEra15.options, 35, scoreCompleteGoldStarN, 3);
+            addWeekly(challengesWeeklyEra15.options, 35, scoreBuildTurretsTraps, 10);
+            addWeekly(challengesWeeklyEra15.options, 35, scoreClaimWorkshop, 3);
+            addWeekly(challengesWeeklyEra15.options, 35, scoreCollectCaps, 2500);
+            addWeekly(challengesWeeklyEra15.options, 35, scoreCompleteDailyOpsPublicTeam, 5);
+            addWeekly(challengesWeeklyEra15.options, 35, scoreCompleteEventInGroup, 5);
+            addWeekly(challengesWeeklyEra15.options, 35, scoreCraftScrapClothingWeaponArmor, 25);
+            addWeekly(challengesWeeklyEra15.options, 35, scoreCrippleProtectronRobobrainArms, 30);
+            addWeekly(challengesWeeklyEra15.options, 35, scoreKillCryptidRailwayRifleOrLauncher, 3);
+            addWeekly(challengesWeeklyEra15.options, 35, scoreScrapJunkChrystal, 15);
+            addDaily(challengesDailyEra15, 35, [
+                    scoreCompleteDailyChallenge, 6,
+                    scoreCompleteEventCostume, 1,
+                    scoreBuildTurretsTraps, 3,
+                    scoreCompleteDailyOps, 1,
+                    scoreKillFloater, 3,
+                    scoreKillLegendary, 1,
+                    scoreScrapJunkScrews, 5,
+                    scoreGainXP2500, 1,
+                    make1st(scoreEatDogFood), 10,
+                    scoreReroll, 1,
+                ], dops(dailyOpsWatoga, dailyOpsMoleminers, dailyOpsReflective, false, false, true));
+
             communityEventsAppend.push(createPurveyor(ofDate(2023, 3, 6, 16), ofDate(2023, 3, 10, 16), 25, false, 1));
             communityEventsAppend.push(createDoubleMutations(ofDate(2023, 3, 6, 16), ofDate(2023, 3, 10, 16)));
 
