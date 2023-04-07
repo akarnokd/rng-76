@@ -17766,6 +17766,20 @@
                     period: 1400,
                 };
             }
+            function scoreCollectMothmanEggs(offset, count) {
+                return {
+                    name: times("Collect Mothman Eggs", count),
+                    offset: offset,
+                    period: 1400,
+                };
+            }
+            function scoreHuntRabbits(offset, count) {
+                return {
+                    name: times("Hunt Rabbits", count),
+                    offset: offset,
+                    period: 1400,
+                };
+            }
 
             addWeekly(challengesWeeklyEra15.options, 35, scoreFixedGainXP10000Rank100);
             addWeekly(challengesWeeklyEra15.options, 35, scoreCompleteGoldStarN, 3);
@@ -17812,6 +17826,18 @@
                     scoreCriticalHitAutomatic, 8,
                     scoreGainXP2500, 1,
                     make1st(scoreScrapJunkGold), 3,
+                    scoreReroll, 1,
+                ], dops(dailyOpsWatogaHighschool, dailyOpsEagles, dailyOpsBlisteringCold, true, false, true));
+            addDaily(challengesDailyEra15, 38, [
+                    scoreCompleteDailyChallenge, 6,
+                    scoreCollectMothmanEggs, 3,
+                    scoreCompleteDailyOps, 1,
+                    scoreCompleteOneEvent, 1,
+                    scoreHuntRabbits, 2,
+                    scoreKillGlowing, 1,
+                    scoreTakeCameraPictureSuperMutant, 1,
+                    scoreGainXP2500, 1,
+                    make1st(scoreCollectStimpakChems), 3,
                     scoreReroll, 1,
                 ], dops(dailyOpsWatogaHighschool, dailyOpsEagles, dailyOpsBlisteringCold, true, false, true));
 
