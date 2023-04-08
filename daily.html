@@ -17780,6 +17780,13 @@
                     period: 1400,
                 };
             }
+            function scoreCrippleHumanHeads(offset, count) {
+                return {
+                    name: times("Cripple Human Heads", count),
+                    offset: offset,
+                    period: 1400,
+                };
+            }
 
             addWeekly(challengesWeeklyEra15.options, 35, scoreFixedGainXP10000Rank100);
             addWeekly(challengesWeeklyEra15.options, 35, scoreCompleteGoldStarN, 3);
@@ -17838,6 +17845,18 @@
                     scoreTakeCameraPictureSuperMutant, 1,
                     scoreGainXP2500, 1,
                     make1st(scoreCollectStimpakChems), 3,
+                    scoreReroll, 1,
+                ], dops(dailyOpsCharleston, dailyOpsScorched, dailyOpsStingingFrost, false, false, true));
+            addDaily(challengesDailyEra15, 39, [
+                    scoreCompleteDailyChallenge, 6,
+                    scoreCompleteDailyOpsPublicTeam, 1,
+                    scoreCompleteEventSavageRegion, 1,
+                    scoreCrippleHumanHeads, 10,
+                    scoreEatCakePieCandy, 10,
+                    scoreKillCryptidRailwayRifleOrLauncher, 1,
+                    scoreSellMothmanEggNPC, 1,
+                    scoreGainXP2500, 1,
+                    make1st(scoreLevelUp), 3,
                     scoreReroll, 1,
                 ], dops(dailyOpsCharleston, dailyOpsScorched, dailyOpsStingingFrost, false, false, true));
 
