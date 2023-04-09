@@ -17787,6 +17787,20 @@
                     period: 1400,
                 };
             }
+            function scoreCollectDeathclawEgg(offset, count) {
+                return {
+                    name: times("Collect Deathclaw Eggs", count),
+                    offset: offset,
+                    period: 1400,
+                };
+            }
+            function scoreCollectMirelurkEgg(offset, count) {
+                return {
+                    name: times("Collect Mirelurk Eggs", count),
+                    offset: offset,
+                    period: 1400,
+                };
+            }
 
             addWeekly(challengesWeeklyEra15.options, 35, scoreFixedGainXP10000Rank100);
             addWeekly(challengesWeeklyEra15.options, 35, scoreCompleteGoldStarN, 3);
@@ -17857,6 +17871,18 @@
                     scoreSellMothmanEggNPC, 1,
                     scoreGainXP2500, 1,
                     make1st(scoreLevelUp), 3,
+                    scoreReroll, 1,
+                ], dops(dailyOpsV94, dailyOpsAliens, dailyOpsChillingMend, true, false, true));
+            addDaily(challengesDailyEra15, 40, [
+                    scoreCompleteDailyChallenge, 6,
+                    scoreCollectDeathclawEgg, 1,
+                    scoreCollectMirelurkEgg, 3,
+                    scoreCompleteDaily, 1,
+                    scoreCompleteOneEvent, 1,
+                    scoreHuntRabbits, 2,
+                    scoreKillCreatureInGroup, 10,
+                    scoreGainXP2500, 1,
+                    make1st(scoreScrapJunkAluminium), 5,
                     scoreReroll, 1,
                 ], dops(dailyOpsV94, dailyOpsAliens, dailyOpsChillingMend, true, false, true));
 
