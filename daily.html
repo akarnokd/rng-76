@@ -15575,6 +15575,13 @@
                     period: 1400
                 };
             }
+            function scorePhotomodeCamden(offset, count) {
+                return {
+                    name: times("Take a Photomode picture in Camden Park", count),
+                    offset: offset,
+                    period: 1400
+                };
+            }
             function scoreKillAnimalsPipeWeapon(offset, count) {
                 return {
                     name: times("Kill Animals with a Pipe Weapon", count),
@@ -17902,6 +17909,38 @@
             communityEventsAppend.push(createPurveyor(ofDate(2023, 3, 6, 16), ofDate(2023, 3, 10, 16), 25, false, 1));
             communityEventsAppend.push(createDoubleMutations(ofDate(2023, 3, 6, 16), ofDate(2023, 3, 10, 16)));
             communityEventsAppend.push(createMinerva(ofDate(2023, 3, 10, 17), ofDate(2023, 3, 12, 17), "Emporium @ Crater", "P?"));
+
+            function scoreCollectLegendaryModules(offset, count) {
+                return {
+                    name: times("Collect Legendary Modules", count),
+                    offset: offset,
+                    period: 1400,
+                };
+            }
+
+            addWeekly(challengesWeeklyEra15.options, 42, scoreFixedGainXP10000Rank100);
+            addWeekly(challengesWeeklyEra15.options, 42, scoreCompleteGoldStarN, 3);
+            addWeekly(challengesWeeklyEra15.options, 42, scoreBuildAnythingCamp, 25);
+            addWeekly(challengesWeeklyEra15.options, 42, scoreCollectLegendaryModules, 10);
+            addWeekly(challengesWeeklyEra15.options, 42, scoreCompleteDailyOps, 5);
+            addWeekly(challengesWeeklyEra15.options, 42, scoreCompleteEventToxicRegion, 5);
+            addWeekly(challengesWeeklyEra15.options, 42, scoreDrinkNukaGrape, 5);
+            addWeekly(challengesWeeklyEra15.options, 42, scoreEatPrewarFood, 25);
+            addWeekly(challengesWeeklyEra15.options, 42, scoreKillLegendary, 5);
+            addWeekly(challengesWeeklyEra15.options, 42, scoreKillMoleminer, 50);
+            addWeekly(challengesWeeklyEra15.options, 42, scoreScrapJunkAcid, 15);
+            addDaily(challengesDailyEra15, 42, [
+                    scoreCompleteDailyChallenge, 6,
+                    scoreCompleteDailyOps, 1,
+                    scoreCompletePublicMutatedEvent, 1,
+                    scoreDealFireDamage, 100,
+                    scoreKillScorched, 10,
+                    scoreDrinkNukaTwist, 2,
+                    scorePhotomodeCamden, 1,
+                    scoreGainXP2500, 1,
+                    make1st(scoreCollectPurifiedWater), 2,
+                    scoreReroll, 1,
+                ], dops(dailyOpsV96, dailyOpsMoleminers, dailyOpsFreezing, true, false, true));
 
             communityEventsAppend.push(createDoubleMutations(ofDate(2023, 3, 20, 16), ofDate(2023, 3, 24, 16)));
 
