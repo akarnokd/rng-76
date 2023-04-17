@@ -17917,6 +17917,13 @@
                     period: 1400,
                 };
             }
+            function scoreScrapJunkSteel(offset, count) {
+                return {
+                    name: times("Scrap junk to produce Steel", count),
+                    offset: offset,
+                    period: 1400,
+                };
+            }
 
             addWeekly(challengesWeeklyEra15.options, 42, scoreFixedGainXP10000Rank100);
             addWeekly(challengesWeeklyEra15.options, 42, scoreCompleteGoldStarN, 3);
@@ -17996,6 +18003,17 @@
                     scoreKillCreaturesColdShoulder, 10,
                     scoreKillCryptid1, 1,
                     make1st(scoreKillMutatedEnemy), 10,
+                    scoreReroll, 1,
+                ], dops(dailyOpsWatoga, dailyOpsMoleminers, dailyOpsFreezing, true, false, true));
+            addDaily(challengesDailyEra15, 48, [
+                    scoreCompleteDailyChallenge, 6,
+                    scoreCompleteDaily, 1,
+                    scoreCompletePublicMutatedEvent, 1,
+                    scoreCraftScrapArmor, 5,
+                    scoreKillBloodEagleBluntWeapon, 10,
+                    scoreKillGhoul, 10,
+                    scoreScrapJunkSteel, 10,
+                    make1st(scoreDestroyAssaultron), 1,
                     scoreReroll, 1,
                 ], dops(dailyOpsWatoga, dailyOpsMoleminers, dailyOpsFreezing, true, false, true));
 
