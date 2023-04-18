@@ -18020,6 +18020,29 @@
             communityEventsAppend.push(createDoubleMutations(ofDate(2023, 3, 20, 16), ofDate(2023, 3, 24, 16)));
             communityEventsAppend.push(createMinerva(ofDate(2023, 3, 17, 16), ofDate(2023, 3, 19, 16), "Emporium @ TBD", "P?"));
 
+            addWeekly(challengesWeeklyEra15.options, 49, scoreFixedGainXP10000Rank100);
+            addWeekly(challengesWeeklyEra15.options, 49, scoreCompleteGoldStarN, 3);
+            addWeekly(challengesWeeklyEra15.options, 49, scoreBuildAnythingCamp, 25);
+            addWeekly(challengesWeeklyEra15.options, 49, scoreClaimWorkshop, 3);
+            addWeekly(challengesWeeklyEra15.options, 49, scoreCollectLegendaryModules, 10);
+            addWeekly(challengesWeeklyEra15.options, 49, scoreCollectStimpakChems, 20);
+            addWeekly(challengesWeeklyEra15.options, 49, scoreCompleteDailyOpsPublicTeam, 5);
+            addWeekly(challengesWeeklyEra15.options, 49, scoreDrinkNukaColaOrange, 5);
+            addWeekly(challengesWeeklyEra15.options, 49, scoreKillBloodEagle, 50);
+            addWeekly(challengesWeeklyEra15.options, 49, scoreKillHoneyBeast, 5);
+            addWeekly(challengesWeeklyEra15.options, 49, scoreSellMirelurkQueenSteak, 1);
+            addDaily(challengesDailyEra15, 49, [
+                    scoreCompleteDailyChallenge, 6,
+                    scoreCollectMothmanEggs, 3,
+                    scoreCompleteDailyOpsPublicTeam, 1,
+                    scoreDestroyRobot, 10,
+                    scoreKillBloodEagle, 10,
+                    scoreScrapJunkOil, 5,
+                    scoreSellMothmanEggNPC, 1,
+                    make1st(scoreDealFireDamage), 100,
+                    scoreReroll, 1,
+                ], dops(dailyOpsBurrows, dailyOpsRobots, dailyOpsToxic, false, false, true));
+
             communityEventsAppend.push(createMothmanEquinox(ofDate(2023, 3, 25, 16), ofDate(2023, 4, 9, 16)));
 
             communityEventsAppend.push(createMinerva(ofDate(2023, 3, 27, 16), ofDate(2023, 4, 1, 16), "Big Sale @ TBD", "P?"));
