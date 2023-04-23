@@ -17924,6 +17924,13 @@
                     period: 1400,
                 };
             }
+            function scoreScrapJunkCloth(offset, count) {
+                return {
+                    name: times("Scrap junk to produce Cloth", count),
+                    offset: offset,
+                    period: 1400,
+                };
+            }
 
             addWeekly(challengesWeeklyEra15.options, 42, scoreFixedGainXP10000Rank100);
             addWeekly(challengesWeeklyEra15.options, 42, scoreCompleteGoldStarN, 3);
@@ -18084,6 +18091,17 @@
                     scoreScrapJunkFiberglass, 5,
                     scorePhotomodeCamden, 1,
                     make1st(scoreBuildAnythingCamp), 10,
+                    scoreReroll, 1,
+                ], dops(dailyOpsWatoga, dailyOpsRobots, dailyOpsSwiftStalker, true, false, true));
+            addDaily(challengesDailyEra15, 54, [
+                    scoreCompleteDailyChallenge, 6,
+                    scoreBuySellItem, 1,
+                    scoreCollectDeathclawEgg, 1,
+                    scoreCompleteDailyOpsPublicTeam, 1,
+                    scoreCrippleHeadDeathclaw, 1,
+                    scoreDestroyAssaultron, 1,
+                    scoreScrapJunkCloth, 10,
+                    make1st(scoreUsePhotomodeGroup), 1,
                     scoreReroll, 1,
                 ], dops(dailyOpsWatoga, dailyOpsRobots, dailyOpsSwiftStalker, true, false, true));
 
