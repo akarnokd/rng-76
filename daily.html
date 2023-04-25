@@ -18116,6 +18116,38 @@
                     scoreReroll, 1,
                 ], dops(dailyOpsMorgantown, dailyOpsScorched, dailyOpsReflective, true, false, true));
 
+            function scoreConsumeNukashineTeammate(offset, count) {
+                return {
+                    name: times("Consume Nukashine at a teammate's C.A.M.P.", count),
+                    offset: offset,
+                    period: 1400,
+                };
+            }
+
+            addWeekly(challengesWeeklyEra15.options, 56, scoreFixedGainXP10000Rank100);
+            addWeekly(challengesWeeklyEra15.options, 56, scoreCompleteGoldStarN, 3);
+            addWeekly(challengesWeeklyEra15.options, 56, scoreCollectCaps, 2500);
+            addWeekly(challengesWeeklyEra15.options, 56, scoreCompleteDailyOpsPublicTeam, 5);
+            addWeekly(challengesWeeklyEra15.options, 56, scoreCompleteDailyMothman, 5);
+            addWeekly(challengesWeeklyEra15.options, 56, scoreConsumeNukashineTeammate, 3);
+            addWeekly(challengesWeeklyEra15.options, 56, scoreEatPrewarFood, 25);
+            addWeekly(challengesWeeklyEra15.options, 56, scoreKillGlowing, 10);
+            addWeekly(challengesWeeklyEra15.options, 56, scoreKillLegendary, 5);
+            addWeekly(challengesWeeklyEra15.options, 56, scorePlantCrop, 25);
+            addWeekly(challengesWeeklyEra15.options, 56, scoreScrapJunkSilver, 10);
+            addDaily(challengesDailyEra15, 56, [
+                    scoreCompleteDailyChallenge, 6,
+                    scoreCompleteEventMothman, 1,
+                    scoreCompleteDailyOps, 1,
+                    scoreDealFireDamage, 100,
+                    scoreKillSupermutant, 5,
+                    scoreModWeapon, 1,
+                    scoreScrapJunkSprings, 5,
+                    scoreSellRibeyeSteakNPC, 1,
+                    make1st(scoreEatPlantMeal), 10,
+                    scoreReroll, 1,
+                ], dops(dailyOpsMorgantown, dailyOpsScorched, dailyOpsReflective, true, false, true));
+
             communityEventsAppend.push(createMothmanEquinox(ofDate(2023, 3, 25, 16), ofDate(2023, 4, 9, 16)));
 
             communityEventsAppend.push(createMinerva(ofDate(2023, 3, 27, 16), ofDate(2023, 4, 1, 16), "Big Sale @ TBD", "P?"));
