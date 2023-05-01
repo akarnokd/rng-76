@@ -18123,6 +18123,13 @@
                     period: 1400,
                 };
             }
+            function scoreScrapJunkCircuitry(offset, count) {
+                return {
+                    name: times("Scrap junk to produce Circuitry", count),
+                    offset: offset,
+                    period: 1400,
+                };
+            }
 
             addWeekly(challengesWeeklyEra15.options, 56, scoreFixedGainXP10000Rank100);
             addWeekly(challengesWeeklyEra15.options, 56, scoreCompleteGoldStarN, 3);
@@ -18205,6 +18212,18 @@
                     scorePlantCropFree, 5,
                     scoreScrapJunkBone, 5,
                     make1st(scoreKillCultistBladedWeapon), 5,
+                    scoreReroll, 1,
+                ], dops(dailyOpsBurrows, dailyOpsCultists, dailyOpsResilient, true, false, true));
+            addDaily(challengesDailyEra15, 62, [
+                    scoreCompleteDailyChallenge, 6,
+                    scoreCompleteDailyOpsPublicTeam, 1,
+                    scoreCompleteEventMothman, 1,
+                    scoreHuntRabbits, 2,
+                    scoreKillBloodEagleBluntWeapon, 5,
+                    scoreKillGulper, 3,
+                    scoreScrapJunkCircuitry, 5,
+                    scoreTakePictureRadscorpion, 1,
+                    make1st(scoreCollectAudiotape), 1,
                     scoreReroll, 1,
                 ], dops(dailyOpsBurrows, dailyOpsCultists, dailyOpsResilient, true, false, true));
 
