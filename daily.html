@@ -18130,6 +18130,13 @@
                     period: 1400,
                 };
             }
+            function scoreScrapJunkAntiseptic(offset, count) {
+                return {
+                    name: times("Scrap junk to produce Antiseptic", count),
+                    offset: offset,
+                    period: 1400,
+                };
+            }
 
             addWeekly(challengesWeeklyEra15.options, 56, scoreFixedGainXP10000Rank100);
             addWeekly(challengesWeeklyEra15.options, 56, scoreCompleteGoldStarN, 3);
@@ -18277,6 +18284,18 @@
                     scoreKillCryptid1, 1,
                     scoreSellWolfRibsNPC, 1,
                     make1st(scoreDrinkNukaGrape), 2,
+                    scoreReroll, 1,
+                ], dops(dailyOpsUncanny, dailyOpsAliens, dailyOpsBlisteringCold, true, false, true));
+            addDaily(challengesDailyEra15, 66, [
+                    scoreCompleteDailyChallenge, 6,
+                    scoreCompleteDailyOps, 1,
+                    scoreCompleteOneEvent, 2,
+                    scoreCompleteEventMothman, 1,
+                    scoreDestroyAssaultron, 1,
+                    scoreEatDogFood, 3,
+                    scoreKillLegendary, 3,
+                    scoreScrapJunkAntiseptic, 5,
+                    make1st(scoreFermentAlcohol), 3,
                     scoreReroll, 1,
                 ], dops(dailyOpsUncanny, dailyOpsAliens, dailyOpsBlisteringCold, true, false, true));
 
