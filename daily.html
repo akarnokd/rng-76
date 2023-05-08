@@ -18137,6 +18137,13 @@
                     period: 1400,
                 };
             }
+            function scoreScrapJunkCopper(offset, count) {
+                return {
+                    name: times("Scrap junk to produce Copper", count),
+                    offset: offset,
+                    period: 1400,
+                };
+            }
 
             addWeekly(challengesWeeklyEra15.options, 56, scoreFixedGainXP10000Rank100);
             addWeekly(challengesWeeklyEra15.options, 56, scoreCompleteGoldStarN, 3);
@@ -18320,6 +18327,18 @@
                     scoreEatDogFood, 5,
                     scoreKillCreatureWellFed, 10,
                     make1st(scoreScrapJunkRubber), 5,
+                    scoreReroll, 1,
+                ], dops(dailyOpsArktos, dailyOpsMutants, dailyOpsCloudedToxins, false, false, true));
+            addDaily(challengesDailyEra15, 69, [
+                    scoreCompleteDailyChallenge, 6,
+                    scoreCompleteDailyOps, 1,
+                    scoreCompleteEventMothman, 1,
+                    scoreKillCreatures, 15,
+                    scoreKillWendigo, 1,
+                    scoreModWeapon, 3,
+                    scoreScrapJunkCopper, 5,
+                    scoreJoinGroup, 1,
+                    make1st(scoreUsePhotomode), 1,
                     scoreReroll, 1,
                 ], dops(dailyOpsArktos, dailyOpsMutants, dailyOpsCloudedToxins, false, false, true));
 
