@@ -18346,6 +18346,37 @@
             communityEventsAppend.push(createDoubleMutations(ofDate(2023, 4, 4, 16), ofDate(2023, 4, 8, 16)));
             communityEventsAppend.push(createDoubleXP(ofDate(2023, 4, 4, 16), ofDate(2023, 4, 8, 16)));
 
+            function scoreDrinkNukaCranberry(offset, count) {
+                return {
+                    name: times("Drink Nuka Cranberry", count),
+                    offset: offset,
+                    period: 1400,
+                };
+            }
+
+            addWeekly(challengesWeeklyEra15.options, 70, scoreFixedGainXP10000Rank100);
+            addWeekly(challengesWeeklyEra15.options, 70, scoreCompleteGoldStarN, 3);
+            addWeekly(challengesWeeklyEra15.options, 70, scoreBuildWallDecor, 25);
+            addWeekly(challengesWeeklyEra15.options, 70, scoreCollectLegendaryModules, 10);
+            addWeekly(challengesWeeklyEra15.options, 70, scoreCompleteDailyOpsPublicTeam, 5);
+            addWeekly(challengesWeeklyEra15.options, 70, scoreCrippleHeadDeathclaw, 3);
+            addWeekly(challengesWeeklyEra15.options, 70, scoreDrinkNukaCranberry, 5);
+            addWeekly(challengesWeeklyEra15.options, 70, scoreEatCookedMeal, 30);
+            addWeekly(challengesWeeklyEra15.options, 70, scoreKillSnallygaster, 10);
+            addWeekly(challengesWeeklyEra15.options, 70, scoreTakePictureSheepsquatch, 1);
+            addDaily(challengesDailyEra15, 70, [
+                    scoreCompleteDailyChallenge, 6,
+                    scoreCompleteDailyOps, 1,
+                    scoreCompleteOneEvent, 2,
+                    scoreCriticalHitAutomatic, 8,
+                    scoreKillInsects, 5,
+                    scoreLevelUp, 1,
+                    scoreUsePhotomodeGroup, 1,
+                    scoreJoinGroup, 1,
+                    make1st(scoreDrinkNukaCola), 3,
+                    scoreReroll, 1,
+                ], dops(dailyOpsWatoga, dailyOpsCommunists, dailyOpsRegenerating, true, false, true));
+
             communityEventsAppend.push(createCapsOPlenty(ofDate(2023, 4, 11, 16), ofDate(2023, 4, 15, 16)));
 
             communityEventsAppend.push(createTreasureHunt(ofDate(2023, 4, 25, 16), ofDate(2023, 4, 29, 16)));
