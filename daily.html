@@ -18415,6 +18415,70 @@
             communityEventsAppend.push(createTreasureHunt(ofDate(2023, 4, 25, 16), ofDate(2023, 4, 29, 16)));
 
             communityEventsAppend.push(createScripSurplus3(ofDate(2023, 5, 1, 16), ofDate(2023, 5, 5, 16)));
+
+            addPlaceholders(challengesDailyEra15, scoreDailyplaceholder, era15Length);
+            addPlaceholders(challengesWeeklyEra15, scoreWeeklyplaceholder, era15Length);
+
+            // oooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo
+            // Season 13
+            // oooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo
+
+            var era16Start = ofDate(2023, 4, 23, 16); 
+            var era16Length = 84;
+            var era16End = plusDays(new Date(era16Start), era16Length);
+            var challengesDailyEra16 = {
+                validStart: era16Start,
+                validEnd: era16End,
+                options: []
+            };
+            var challengesWeeklyEra16 = {
+                validStart: era16Start,
+                validEnd: era16End,
+                options: []
+            };
+            challenges.push(challengesDailyEra16);
+            challengesWeekly.push(challengesWeeklyEra16);
+
+            var season13 = {
+                validStart: era16Start,
+                validEnd: era16End,
+                title: "Season 13: Shoot For the Stars",
+                options: [
+                    
+                ]
+            };
+            fillInSeason(season13, era16Length, "LR13", true);
+            seasonEventsAppend.push(season13);
+            
+            /*
+            addWeekly(challengesWeeklyEra15.options, 0, scoreFixedGainXP10000Rank100);
+            addWeekly(challengesWeeklyEra15.options, 0, scoreBuildLightSources, 10);
+            addWeekly(challengesWeeklyEra15.options, 0, scoreCompleteDailyOps, 5);
+            addWeekly(challengesWeeklyEra15.options, 0, scoreCompleteGoldStarN, 3);
+            addWeekly(challengesWeeklyEra15.options, 0, scoreCompleteEvents10);
+            addWeekly(challengesWeeklyEra15.options, 0, scoreCollectPurifiedWater, 25);
+            addWeekly(challengesWeeklyEra15.options, 0, scoreCriticalHitAutomatic, 10);
+            addWeekly(challengesWeeklyEra15.options, 0, scoreKillSnallygaster, 10);
+            addWeekly(challengesWeeklyEra15.options, 0, scoreSellMirelurkQueenSteak, 1);
+            addWeekly(challengesWeeklyEra15.options, 0, scoreTakePictureWendigo, 1);
+            addWeekly(challengesWeeklyEra15.options, 0, scoreExpeditionsUnionsDue, 1);
+            addDaily(challengesDailyEra15, 0, [
+                    scoreCompleteDailyChallenge, 6,
+                    // scoreLevelUp, 1,
+                    scoreCompleteDailyOps, 1,
+                    // scoreCompleteOneEvent, 1,
+                    scoreConsumeVintageAlcohol, 1,
+                    scoreCraftMineGrenadeThrown, 5,
+                    scoreKillCryptid1, 1,
+                    scoreGainXP2500, 1,
+                    scoreExpeditionsPitt, 1,
+                    scoreKillTrog, 10,
+                    make1st(scoreScrapJunkAluminium), 5,
+                    scoreReroll, 1,
+                ], dops(dailyOpsV94, dailyOpsCommunists, dailyOpsResilient, false, false));
+                */
+
+            
             communityEventsAppend.push(createDoubleMutations(ofDate(2023, 5, 1, 16), ofDate(2023, 5, 5, 16)));
 
             communityEventsAppend.push(createPurveyor(ofDate(2023, 5, 8, 16), ofDate(2023, 5, 12, 16), 25, false, 1));
@@ -18423,8 +18487,8 @@
 
             communityEventsAppend.push(createInvaders(ofDate(2023, 5, 19, 16), ofDate(2023, 6, 4, 16)));
 
-            addPlaceholders(challengesDailyEra15, scoreDailyplaceholder, era15Length);
-            addPlaceholders(challengesWeeklyEra15, scoreWeeklyplaceholder, era15Length);
+            addPlaceholders(challengesDailyEra16, scoreDailyplaceholder, era16Length);
+            addPlaceholders(challengesWeeklyEra16, scoreWeeklyplaceholder, era16Length);
 
             // --------------------------------------------------------------------------------------------------------------
             // Community events
@@ -20313,7 +20377,13 @@
                 createPWHighRisk(ofDate(2023, 1, 1, 17), ofDate(2023, 2, 1, 17)),
                 createPWDwellerMustDie(ofDate(2023, 2, 1, 17), ofDate(2023, 3, 1, 17)),
                 createPWQuantumWorld(ofDate(2023, 3, 1, 17), ofDate(2023, 4, 1, 16)),
-                createPWButchersDelight(ofDate(2023, 4, 1, 16), ofDate(2023, 5, 1, 16))
+                createPWButchersDelight(ofDate(2023, 4, 1, 16), ofDate(2023, 5, 1, 16)),
+
+                createPWHappyBuilder(ofDate(2023, 5, 1, 16), ofDate(2023, 6, 1, 16)),
+                createPWHighRisk(ofDate(2023, 6, 1, 16), ofDate(2023, 2, 7, 16)),
+                createPWDwellerMustDie(ofDate(2023, 7, 1, 16), ofDate(2023, 8, 1, 16)),
+                createPWQuantumWorld(ofDate(2023, 8, 1, 16), ofDate(2023, 9, 1, 17)),
+                createPWButchersDelight(ofDate(2023, 9, 1, 17), ofDate(2023, 10, 1, 17))
             ];
 
             // --------------------------------------------------------------------------------------------------------------
