@@ -26,7 +26,7 @@
     </head>
     <body>
         <center>
-            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Timed Challenges (0.9.1)</span><br/>
+            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Timed Challenges (0.9.2)</span><br/>
             <br/>
             <br/>
             <table>
@@ -18409,6 +18409,17 @@
                     make1st(scoreDrinkNukaWild), 2,
                     scoreReroll, 1,
                 ], dops(dailyOpsV96, dailyOpsScorched, dailyOpsResilient, true, false, true));
+            addDaily(challengesDailyEra15, 74, [
+                    scoreCompleteDailyChallenge, 6,
+                    scoreCollectAnyNukaCola, 5,
+                    scoreCompleteDailyOpsPublicTeam, 1,
+                    scoreCompleteDaily, 1,
+                    scoreDestroyRobot, 10,
+                    scoreDrinkNukaColaOrange, 2,
+                    scoreKillDeathclaw, 1,
+                    make1st(scoreBuildLightSources), 3,
+                    scoreReroll, 1,
+                ], dops(dailyOpsV96, dailyOpsScorched, dailyOpsResilient, true, false, true));
 
             communityEventsAppend.push(createCapsOPlenty(ofDate(2023, 4, 11, 16), ofDate(2023, 4, 15, 16)));
 
@@ -18485,7 +18496,7 @@
 
             communityEventsAppend.push(createDoubleMutations(ofDate(2023, 5, 15, 16), ofDate(2023, 5, 19, 16)));
 
-            communityEventsAppend.push(createInvaders(ofDate(2023, 5, 19, 16), ofDate(2023, 6, 4, 16)));
+            communityEventsAppend.push(createInvaders(ofDate(2023, 5, 20, 16), ofDate(2023, 6, 4, 16)));
 
             addPlaceholders(challengesDailyEra16, scoreDailyplaceholder, era16Length);
             addPlaceholders(challengesWeeklyEra16, scoreWeeklyplaceholder, era16Length);
@@ -20124,7 +20135,7 @@
                         tip: "If you play so that you earn 220,000 / " + seasonDays + " ~ " + (220000 / seasonDays).toFixed(0) + " S.C.O.R.E. each day on average."
                     });
                     season.options.push({
-                        name: "Season total length: <b style='color: green;'>"  + seasonDays + " days</b>",
+                        name: "Season total length: <b style='color: green;'>"  + seasonDays + " days</b> <i style='font-weight: normal'>(" + (seasonDays / 7).toFixed(0) + " weeks)</i>",
                         offset: i,
                         period: 1400
                     });
@@ -20637,6 +20648,9 @@
                     commListHTML += "<tr><td>&nbsp;&nbsp;&nbsp;" + evt.validStart.toLocaleDateString() 
                     + " (" + evt.validStart.toLocaleDateString(window.navigator.language, {weekday: 'long'}) + ")"
                     + "</td><td> - " + evt.title + "</td></tr>";
+                }
+                if (nextCommunityHidden.length == 0) {
+                    commListHTML += "<tr><td colspan='2'>&nbsp;&nbsp;&nbsp;To be announced</td></tr>";
                 }
                 cll.innerHTML += commListHTML + "</table></div>";
 
