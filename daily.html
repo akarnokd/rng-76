@@ -18447,6 +18447,62 @@
 
             communityEventsAppend.push(createMinerva(ofDate(2023, 4, 15, 16), ofDate(2023, 4, 17, 16), "Emporium @ Crater", "P?"));
 
+            function addWeeklies(era, day, funcCountArray) {
+                for (var i = 0; i < funcCountArray.length; i += 2) {
+                    addWeekly(era.options, day, funcCountArray[i], funcCountArray[i + 1]);
+                }
+            }
+
+            function scoreCryptidHuntGraftonColdShoulder(offset, count) {
+                return {
+                    name: times("&#129415; Cryptid Hunt: Kill a Grafton Monster with the Cold Shoulder", count),
+                    offset: offset,
+                    period: 1400,
+                };
+            }
+            function scoreScrapJunkBallisticFiber(offset, count) {
+                return {
+                    name: times("Scrap junk to produce Ballistic Fiber", count),
+                    offset: offset,
+                    period: 1400,
+                };
+            }
+            function scoreCompleteCryptidHuntWeek1(offset, count) {
+                return {
+                    name: times("&#129415; Complete 5 of 7 daily Cryptid Hunt challenges (Week 1)", count),
+                    offset: offset,
+                    period: 1400,
+                };
+            }
+
+
+            addWeeklies(challengesWeeklyEra15, 77, [
+                scoreFixedGainXP10000Rank100, 1,
+                scoreCompleteGoldStarN, 3,
+                scoreBuildWallDecor, 25,
+                scoreCompleteDailyOpsDailies, 3,
+                scoreCompleteEventsGroup, 5,
+                scoreCraftScrapClothingWeaponArmor, 25,
+                scoreKillSuperMutantHeavyGun, 25,
+                scoreKillFloater, 10,
+                scoreScrapJunkBallisticFiber, 10,
+                scoreSellScorchbeastSteakNPC, 1,
+                scoreVisitAnotherShelter, 3,
+                scoreCompleteCryptidHuntWeek1, 1
+            ]);
+            addDaily(challengesDailyEra15, 77, [
+                    scoreCompleteDailyChallenge, 6,
+                    scoreCompleteDailyOps, 1,
+                    scoreCompleteOneEvent, 1,
+                    scoreCrippleHumanHeads, 10,
+                    scoreKillMirelurk, 5,
+                    scoreModArmor, 5,
+                    scoreUsePhotomodeTeammate, 1,
+                    scoreCryptidHuntGraftonColdShoulder, 1,
+                    make1st(scoreBuildAnythingShelterFree), 10,
+                    scoreReroll, 1,
+                ], dops(dailyOpsGarrahan, dailyOpsScorched, dailyOpsFreezing, false, false, true));
+
             communityEventsAppend.push(createTreasureHunt(ofDate(2023, 4, 25, 16), ofDate(2023, 4, 29, 16)));
 
             communityEventsAppend.push(createScripSurplus3(ofDate(2023, 5, 1, 16), ofDate(2023, 5, 5, 16)));
@@ -18486,31 +18542,30 @@
             seasonEventsAppend.push(season13);
             
             /*
-            addWeekly(challengesWeeklyEra15.options, 0, scoreFixedGainXP10000Rank100);
-            addWeekly(challengesWeeklyEra15.options, 0, scoreBuildLightSources, 10);
-            addWeekly(challengesWeeklyEra15.options, 0, scoreCompleteDailyOps, 5);
-            addWeekly(challengesWeeklyEra15.options, 0, scoreCompleteGoldStarN, 3);
-            addWeekly(challengesWeeklyEra15.options, 0, scoreCompleteEvents10);
-            addWeekly(challengesWeeklyEra15.options, 0, scoreCollectPurifiedWater, 25);
-            addWeekly(challengesWeeklyEra15.options, 0, scoreCriticalHitAutomatic, 10);
-            addWeekly(challengesWeeklyEra15.options, 0, scoreKillSnallygaster, 10);
-            addWeekly(challengesWeeklyEra15.options, 0, scoreSellMirelurkQueenSteak, 1);
-            addWeekly(challengesWeeklyEra15.options, 0, scoreTakePictureWendigo, 1);
-            addWeekly(challengesWeeklyEra15.options, 0, scoreExpeditionsUnionsDue, 1);
+            addWeeklies(challengesWeeklyEra15, 0, [
+                scoreFixedGainXP10000Rank100, 1,
+                scoreCompleteGoldStarN, 3,
+                scoreBuildWallDecor, 25,
+                scoreCollectLegendaryModules, 10,
+                scoreCompleteDailyOpsPublicTeam, 5,
+                scoreCompletePublicMutatedEvent, 3,
+                scoreCrippleHeadDeathclaw, 3,
+                scoreDrinkNukaCranberry, 5,
+                scoreEatCookedMeal, 30,
+                scoreKillSnallygaster, 10,
+                scoreTakePictureSheepsquatch, 1,
+            ]);
             addDaily(challengesDailyEra15, 0, [
                     scoreCompleteDailyChallenge, 6,
-                    // scoreLevelUp, 1,
-                    scoreCompleteDailyOps, 1,
-                    // scoreCompleteOneEvent, 1,
-                    scoreConsumeVintageAlcohol, 1,
-                    scoreCraftMineGrenadeThrown, 5,
-                    scoreKillCryptid1, 1,
-                    scoreGainXP2500, 1,
-                    scoreExpeditionsPitt, 1,
-                    scoreKillTrog, 10,
-                    make1st(scoreScrapJunkAluminium), 5,
+                    scoreCompleteDailyOpsPublicTeam, 1,
+                    scoreHackTerminal, 1,
+                    scoreKillSupermutant, 5,
+                    scoreUsePhotomodeOwnCamp, 1,
+                    scoreCompletePublicMutatedEvent, 1,
+                    scoreKillMutatedEnemy, 10,
+                    make1st(scoreSellMothmanEggNPC), 1,
                     scoreReroll, 1,
-                ], dops(dailyOpsV94, dailyOpsCommunists, dailyOpsResilient, false, false));
+                ], dops(dailyOpsGarrahan, dailyOpsScorched, dailyOpsFreezing, false, false, true));
                 */
 
             
