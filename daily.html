@@ -18503,9 +18503,33 @@
                     scoreReroll, 1,
                 ], dops(dailyOpsWatoga, dailyOpsMoleminers, dailyOpsRegenerating, true, false, true));
 
+            function createCryptidHunt(start, end) {
+                return {
+                    validStart: start,
+                    validEnd: end,
+                    title: "Cryptid Hunt Event",
+                    options: [
+                        {
+                            name: "Kill 25 Cryptids using the Cold Shoulder",
+                            offset: 0,
+                            period: 1,
+                        },
+                        {
+                            name: "Reward: Huntsman Bed",
+                            offset: 0,
+                            period: 1,
+                        }
+                    ]
+                };
+            }
+
+            communityEventsAppend.push(createCryptidHunt(ofDate(2023, 4, 16, 16), ofDate(2023, 4, 30, 16)));
+
             communityEventsAppend.push(createTreasureHunt(ofDate(2023, 4, 25, 16), ofDate(2023, 4, 29, 16)));
 
             communityEventsAppend.push(createScripSurplus3(ofDate(2023, 5, 1, 16), ofDate(2023, 5, 5, 16)));
+
+            
 
             addPlaceholders(challengesDailyEra15, scoreDailyplaceholder, era15Length);
             addPlaceholders(challengesWeeklyEra15, scoreWeeklyplaceholder, era15Length);
