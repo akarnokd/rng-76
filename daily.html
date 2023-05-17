@@ -18474,6 +18474,13 @@
                     period: 1400,
                 };
             }
+            function scoreCryptidHuntMirelurkColdShoulder(offset, count) {
+                return {
+                    name: times("&#129415; Cryptid Hunt: Kill a Mirelurk with the Cold Shoulder", count),
+                    offset: offset,
+                    period: 1400,
+                };
+            }
 
 
             addWeeklies(challengesWeeklyEra15, 77, [
@@ -18500,6 +18507,18 @@
                     scoreUsePhotomodeTeammate, 1,
                     scoreCryptidHuntGraftonColdShoulder, 1,
                     make1st(scoreBuildAnythingShelterFree), 10,
+                    scoreReroll, 1,
+                ], dops(dailyOpsWatoga, dailyOpsMoleminers, dailyOpsRegenerating, true, false, true));
+            addDaily(challengesDailyEra15, 78, [
+                    scoreCompleteDailyChallenge, 6,
+                    scoreCompleteDailyOps, 1,
+                    scoreCompleteOneEvent, 1,
+                    scoreHarvestCornRazorgrainTato, 12,
+                    scoreKillAnimalsPipeWeapon, 5,
+                    scoreKillLegendary, 3,
+                    scoreScrapJunkAluminium, 5,
+                    scoreCryptidHuntMirelurkColdShoulder, 5,
+                    make1st(scoreTakeCameraPictureSuperMutant), 1,
                     scoreReroll, 1,
                 ], dops(dailyOpsWatoga, dailyOpsMoleminers, dailyOpsRegenerating, true, false, true));
 
