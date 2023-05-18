@@ -18481,7 +18481,13 @@
                     period: 1400,
                 };
             }
-
+            function scoreCryptidHuntDeathclawColdShoulder(offset, count) {
+                return {
+                    name: times("&#129415; Cryptid Hunt: Kill a Deathclaw with the Cold Shoulder", count),
+                    offset: offset,
+                    period: 1400,
+                };
+            }
 
             addWeeklies(challengesWeeklyEra15, 77, [
                 scoreFixedGainXP10000Rank100, 1,
@@ -18519,6 +18525,18 @@
                     scoreScrapJunkAluminium, 5,
                     scoreCryptidHuntMirelurkColdShoulder, 5,
                     make1st(scoreTakeCameraPictureSuperMutant), 1,
+                    scoreReroll, 1,
+                ], dops(dailyOpsV96, dailyOpsAliens, dailyOpsVolatile, false, false, true));
+            addDaily(challengesDailyEra15, 78, [
+                    scoreCompleteDailyChallenge, 6,
+                    scoreCompleteDailyOps, 1,
+                    scoreCookMeatFood, 10,
+                    scoreDestroyRobot, 10,
+                    scoreJoinGroup, 1,
+                    scoreKillSnallygaster, 3,
+                    scoreKillWendigo, 1,
+                    scoreCryptidHuntDeathclawColdShoulder, 5,
+                    make1st(scoreModArmor), 5,
                     scoreReroll, 1,
                 ], dops(dailyOpsV96, dailyOpsAliens, dailyOpsVolatile, false, false, true));
 
