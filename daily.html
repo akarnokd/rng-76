@@ -18527,7 +18527,7 @@
                     make1st(scoreTakeCameraPictureSuperMutant), 1,
                     scoreReroll, 1,
                 ], dops(dailyOpsV96, dailyOpsAliens, dailyOpsVolatile, false, false, true));
-            addDaily(challengesDailyEra15, 78, [
+            addDaily(challengesDailyEra15, 79, [
                     scoreCompleteDailyChallenge, 6,
                     scoreCompleteDailyOps, 1,
                     scoreCookMeatFood, 10,
@@ -18538,7 +18538,7 @@
                     scoreCryptidHuntDeathclawColdShoulder, 5,
                     make1st(scoreModArmor), 5,
                     scoreReroll, 1,
-                ], dops(dailyOpsV96, dailyOpsAliens, dailyOpsVolatile, false, false, true));
+                ], dops(dailyOpsWatoga, dailyOpsRobots, dailyOpsUnstable, true, false, true));
 
             function createCryptidHunt(start, end) {
                 return {
@@ -18560,7 +18560,10 @@
                 };
             }
 
+
             communityEventsAppend.push(createCryptidHunt(ofDate(2023, 4, 16, 16), ofDate(2023, 4, 30, 16)));
+
+            communityEventsAppend.push(createDoubleMutations(ofDate(2023, 4, 18, 16), ofDate(2023, 4, 24, 16)));
 
             communityEventsAppend.push(createTreasureHunt(ofDate(2023, 4, 25, 16), ofDate(2023, 4, 29, 16)));
 
