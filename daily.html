@@ -18488,6 +18488,13 @@
                     period: 1400,
                 };
             }
+            function scoreCryptidHuntSuperMutantColdShoulder(offset, count) {
+                return {
+                    name: times("&#129415; Cryptid Hunt: Kill a Super Mutant with the Cold Shoulder", count),
+                    offset: offset,
+                    period: 1400,
+                };
+            }
 
             addWeeklies(challengesWeeklyEra15, 77, [
                 scoreFixedGainXP10000Rank100, 1,
@@ -18537,6 +18544,18 @@
                     scoreKillWendigo, 1,
                     scoreCryptidHuntDeathclawColdShoulder, 5,
                     make1st(scoreModArmor), 5,
+                    scoreReroll, 1,
+                ], dops(dailyOpsWatoga, dailyOpsRobots, dailyOpsUnstable, true, false, true));
+            addDaily(challengesDailyEra15, 80, [
+                    scoreCompleteDailyChallenge, 6,
+                    scoreCompleteDailyOpsPublicTeam, 1,
+                    scoreCompleteDaily, 1,
+                    scoreEatCobbler, 1,
+                    scoreKillCreatureWellFed, 10,
+                    scoreKillGulper, 3,
+                    scoreSellGlowingFungusNPC, 1,
+                    scoreCryptidHuntSuperMutantColdShoulder, 5,
+                    make1st(scoreScrapJunkSprings), 5,
                     scoreReroll, 1,
                 ], dops(dailyOpsWatoga, dailyOpsRobots, dailyOpsUnstable, true, false, true));
 
