@@ -18495,6 +18495,13 @@
                     period: 1400,
                 };
             }
+            function scoreCryptidHuntGlowingColdShoulder(offset, count) {
+                return {
+                    name: times("&#129415; Cryptid Hunt: Kill a Glowing Cryptid with the Cold Shoulder", count),
+                    offset: offset,
+                    period: 1400,
+                };
+            }
 
             addWeeklies(challengesWeeklyEra15, 77, [
                 scoreFixedGainXP10000Rank100, 1,
@@ -18556,6 +18563,18 @@
                     scoreSellGlowingFungusNPC, 1,
                     scoreCryptidHuntSuperMutantColdShoulder, 5,
                     make1st(scoreScrapJunkSprings), 5,
+                    scoreReroll, 1,
+                ], dops(dailyOpsBurrows, dailyOpsAliens, dailyOpsBlisteringCold, false, false, true));
+            addDaily(challengesDailyEra15, 81, [
+                    scoreCompleteDailyChallenge, 6,
+                    scoreBuildTurretsTraps, 3,
+                    scoreCompleteDailyOpsPublicTeam, 1,
+                    scoreCompleteEventWellFed, 1,
+                    scoreCrippleGhoulLegs, 10,
+                    scoreKillThreestarLegendary, 1,
+                    scoreSellMothmanEggNPC, 1,
+                    scoreCryptidHuntGlowingColdShoulder, 1,
+                    make1st(scoreScrapJunkCork), 5,
                     scoreReroll, 1,
                 ], dops(dailyOpsBurrows, dailyOpsAliens, dailyOpsBlisteringCold, false, false, true));
 
