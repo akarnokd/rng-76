@@ -18502,6 +18502,13 @@
                     period: 1400,
                 };
             }
+            function scoreCryptidHuntMegaslothColdShoulder(offset, count) {
+                return {
+                    name: times("&#129415; Cryptid Hunt: Kill a Megasloth with the Cold Shoulder", count),
+                    offset: offset,
+                    period: 1400,
+                };
+            }
 
             addWeeklies(challengesWeeklyEra15, 77, [
                 scoreFixedGainXP10000Rank100, 1,
@@ -18575,6 +18582,18 @@
                     scoreSellMothmanEggNPC, 1,
                     scoreCryptidHuntGlowingColdShoulder, 1,
                     make1st(scoreScrapJunkCork), 5,
+                    scoreReroll, 1,
+                ], dops(dailyOpsValley, dailyOpsMoleminers, dailyOpsCloudedToxins, true, false, true));
+            addDaily(challengesDailyEra15, 82, [
+                    scoreCompleteDailyChallenge, 6,
+                    scoreCollectMagazine, 1,
+                    scoreCompleteDailyOpsPublicTeam, 1,
+                    scoreCompleteDaily, 1,
+                    scoreKillSuperMutantHeavyGun, 5,
+                    scoreKillCreatures, 15,
+                    scoreScrapJunkGears, 5,
+                    scoreCryptidHuntMegaslothColdShoulder, 1,
+                    make1st(scoreCookMealPlant), 5,
                     scoreReroll, 1,
                 ], dops(dailyOpsValley, dailyOpsMoleminers, dailyOpsCloudedToxins, true, false, true));
 
