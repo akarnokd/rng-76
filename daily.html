@@ -18509,6 +18509,13 @@
                     period: 1400,
                 };
             }
+            function scoreCryptidHuntSnallygasterColdShoulder(offset, count) {
+                return {
+                    name: times("&#129415; Cryptid Hunt: Kill a Snallygaster with the Cold Shoulder", count),
+                    offset: offset,
+                    period: 1400,
+                };
+            }
 
             addWeeklies(challengesWeeklyEra15, 77, [
                 scoreFixedGainXP10000Rank100, 1,
@@ -18594,6 +18601,18 @@
                     scoreScrapJunkGears, 5,
                     scoreCryptidHuntMegaslothColdShoulder, 1,
                     make1st(scoreCookMealPlant), 5,
+                    scoreReroll, 1,
+                ], dops(dailyOpsBurning, dailyOpsScorched, dailyOpsRelentless, false, false, true));
+            addDaily(challengesDailyEra15, 83, [
+                    scoreCompleteDailyChallenge, 6,
+                    scoreChewBubblegum, 1,
+                    scoreCompleteDailyOps, 1,
+                    scoreCompleteEventWellFed, 1,
+                    scoreCraftAmmo, 50,
+                    scoreKillGhoul, 10,
+                    scoreKillGulper, 3,
+                    scoreCryptidHuntSnallygasterColdShoulder, 1,
+                    make1st(scoreScrapJunkLeather), 10,
                     scoreReroll, 1,
                 ], dops(dailyOpsBurning, dailyOpsScorched, dailyOpsRelentless, false, false, true));
 
