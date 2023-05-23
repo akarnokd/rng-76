@@ -18641,6 +18641,48 @@
 
             communityEventsAppend.push(createDoubleMutations(ofDate(2023, 4, 18, 16), ofDate(2023, 4, 22, 16)));
 
+            function scoreCryptidHuntScorchbeastColdShoulder(offset, count) {
+                return {
+                    name: times("&#129415; Cryptid Hunt: Kill a Scorchbeast with the Cold Shoulder", count),
+                    offset: offset,
+                    period: 1400,
+                };
+            }
+            function scoreCompleteCryptidHuntWeek2(offset, count) {
+                return {
+                    name: times("&#129415; Complete 5 of 7 daily Cryptid Hunt challenges (Week 2)", count),
+                    offset: offset,
+                    period: 1400,
+                };
+            }
+
+            addWeeklies(challengesWeeklyEra15, 84, [
+                scoreFixedGainXP10000Rank100, 1,
+                scoreCompleteGoldStarN, 3,
+                scoreBuildDefenseApplianceCraftingWorkshop, 10,
+                scoreBuySellItem, 25,
+                scoreCollectStimpakChems, 20,
+                scoreCompleteDailyOpsPublicTeam, 10,
+                scoreCompletePublicMutatedEvent, 3,
+                scoreCriticalHit, 25,
+                scoreDrinkNukaCola, 25,
+                scoreKillLegendary, 5,
+                scorePlantCrop, 25,
+                scoreCompleteCryptidHuntWeek2, 1
+            ]);
+            addDaily(challengesDailyEra15, 84, [
+                    scoreCompleteDailyChallenge, 6,
+                    scoreCollectBullion, 20,
+                    scoreCompleteDailyOps, 1,
+                    scoreCrippleProtectronRobobrainArms, 10,
+                    scoreUsePhotomodeNukaWorld, 1,
+                    scoreCompleteEventCostume, 1,
+                    scoreKillMutatedEnemy, 10,
+                    scoreCryptidHuntScorchbeastColdShoulder, 1,
+                    make1st(scoreCraftMineGrenadeThrown), 5,
+                    scoreReroll, 1,
+                ], dops(dailyOpsWatogaHighschool, dailyOpsMoleminers, dailyOpsReflective, true, false, true));
+
             communityEventsAppend.push(createTreasureHunt(ofDate(2023, 4, 25, 16), ofDate(2023, 4, 29, 16)));
 
             communityEventsAppend.push(createScripSurplus3(ofDate(2023, 5, 1, 16), ofDate(2023, 5, 5, 16)));
