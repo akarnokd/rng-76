@@ -18657,6 +18657,13 @@
                     period: 1400,
                 };
             }
+            function scoreCryptidHuntCryptidColdShoulder(offset, count) {
+                return {
+                    name: times("&#129415; Cryptid Hunt: Kill a Cryptid with the Cold Shoulder", count),
+                    offset: offset,
+                    period: 1400,
+                };
+            }
 
             addWeeklies(challengesWeeklyEra15, 84, [
                 scoreFixedGainXP10000Rank100, 1,
@@ -18682,6 +18689,18 @@
                     scoreKillMutatedEnemy, 10,
                     scoreCryptidHuntScorchbeastColdShoulder, 1,
                     make1st(scoreCraftMineGrenadeThrown), 5,
+                    scoreReroll, 1,
+                ], dops(dailyOpsValley, dailyOpsCultists, dailyOpsToxic, false, false, true));
+            addDaily(challengesDailyEra15, 85, [
+                    scoreCompleteDailyChallenge, 6,
+                    scoreCollectStimpakChems, 5,
+                    scoreCompleteDailyOpsPublicTeam, 1,
+                    scoreCompleteOneEvent, 1,
+                    scoreKillGlowing, 1,
+                    scoreKillScorched, 10,
+                    scoreScrapJunkAcid, 5,
+                    scoreCryptidHuntCryptidColdShoulder, 3,
+                    make1st(scoreScrapJunkAntiseptic), 5,
                     scoreReroll, 1,
                 ], dops(dailyOpsValley, dailyOpsCultists, dailyOpsToxic, false, false, true));
 
