@@ -18664,6 +18664,13 @@
                     period: 1400,
                 };
             }
+            function scoreCryptidHuntWendigoColdShoulder(offset, count) {
+                return {
+                    name: times("&#129415; Cryptid Hunt: Kill a Wendigo with the Cold Shoulder", count),
+                    offset: offset,
+                    period: 1400,
+                };
+            }
 
             addWeeklies(challengesWeeklyEra15, 84, [
                 scoreFixedGainXP10000Rank100, 1,
@@ -18725,6 +18732,18 @@
                     scoreKillMoleminer, 10,
                     scoreCryptidHuntDeathclawColdShoulder, 1,
                     make1st(scoreCollectBobblehead), 1,
+                    scoreReroll, 1,
+                ], dops(dailyOpsBurning, dailyOpsCommunists, dailyOpsRegenerating, true, false, true));
+            addDaily(challengesDailyEra15, 88, [
+                    scoreCompleteDailyChallenge, 6,
+                    scoreCollectPurifiedWater, 5,
+                    scoreCompleteDailyOpsPublicTeam, 1,
+                    scoreCompletePublicMutatedEvent, 1,
+                    scoreDrinkNukaColaOrange, 2,
+                    scoreKillCultistShotgun, 10,
+                    scoreKillMutatedEnemy, 10,
+                    scoreCryptidHuntWendigoColdShoulder, 1,
+                    make1st(scoreScrapJunkCopper), 5,
                     scoreReroll, 1,
                 ], dops(dailyOpsBurning, dailyOpsCommunists, dailyOpsRegenerating, true, false, true));
 
