@@ -16885,7 +16885,7 @@
             // Season 12
             // oooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo
 
-            var era15Length = 91;
+            var era15Length = 105;
             var challengesDailyEra15 = {
                 validStart: ofDate(2023, 1, 28, 17),
                 validEnd: plusDays(ofDate(2023, 1, 28, 17), era15Length),
@@ -18746,6 +18746,18 @@
                     make1st(scoreScrapJunkCopper), 5,
                     scoreReroll, 1,
                 ], dops(dailyOpsUncanny, dailyOpsScorched, dailyOpsResilient, false, false, true));
+            addDaily(challengesDailyEra15, 89, [
+                    scoreCompleteDailyChallenge, 6,
+                    scoreCollectBullion, 20,
+                    scoreCompleteDailyOps, 1,
+                    scoreCompleteDaily, 1,
+                    scoreCrippleProtectronRobobrainArms, 10,
+                    scoreDrinkNukaCranberry, 2,
+                    scoreKillBloodEagle, 10,
+                    scoreCryptidHuntMegaslothColdShoulder, 1,
+                    make1st(scoreTakeCameraPictureCamden), 1,
+                    scoreReroll, 1,
+                ], dops(dailyOpsUncanny, dailyOpsScorched, dailyOpsResilient, false, false, true));
 
             communityEventsAppend.push(createTreasureHunt(ofDate(2023, 4, 25, 16), ofDate(2023, 4, 29, 16)));
 
@@ -18760,7 +18772,7 @@
             // Season 13
             // oooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo
 
-            var era16Start = ofDate(2023, 4, 30, 16); 
+            var era16Start = ofDate(2023, 5, 13, 16); 
             var era16Length = 84;
             var era16End = plusDays(new Date(era16Start), era16Length);
             var challengesDailyEra16 = {
