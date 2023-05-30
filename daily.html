@@ -18775,6 +18775,31 @@
 
             communityEventsAppend.push(createScripSurplus3(ofDate(2023, 5, 1, 16), ofDate(2023, 5, 5, 16)));
 
+            addWeeklies(challengesWeeklyEra15, 91, [
+                scoreFixedGainXP10000Rank100, 1,
+                scoreCompleteGoldStarN, 3,
+                scoreCollectCaps, 2500,
+                scoreCompleteDailyOpsDailies, 3,
+                scoreCompleteEventsGroup, 5,
+                scoreCraftScrapClothingWeaponArmor, 25,
+                scoreCriticalHitAutomatic, 30,
+                scoreDrinkNukaColaDark, 5,
+                scoreEatMeat, 25,
+                scoreKillMoleminer, 30,
+                scoreScrapJunkBlackTitanium, 10,
+            ]);
+            addDaily(challengesDailyEra15, 91, [
+                    scoreCompleteDailyChallenge, 6,
+                    scoreCompleteDailyOps, 1,
+                    scoreCompleteOneEvent, 1,
+                    scoreJoinGroup, 1,
+                    scoreKillGulper, 3,
+                    scoreKillLegendary, 1,
+                    scoreScrapJunkBlackTitanium, 3,
+                    make1st(scoreSellGlowingFungusNPC), 1,
+                    scoreReroll, 1,
+                ], dops(dailyOpsCharleston, dailyOpsScorched, dailyOpsSwift, false, false, true));
+
             
 
             addPlaceholders(challengesDailyEra15, scoreDailyplaceholder, era15Length);
