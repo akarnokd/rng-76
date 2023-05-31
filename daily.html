@@ -18775,6 +18775,15 @@
 
             communityEventsAppend.push(createScripSurplus3(ofDate(2023, 5, 1, 16), ofDate(2023, 5, 5, 16)));
 
+
+            function scoreBuildWallDecorShelterFree(offset, count) {
+                return {
+                    name: times("Build Floor or Wall Decor in a Shelter in Free Cam mode", count),
+                    offset: offset,
+                    period: 1400,
+                };
+            }
+
             addWeeklies(challengesWeeklyEra15, 91, [
                 scoreFixedGainXP10000Rank100, 1,
                 scoreCompleteGoldStarN, 3,
@@ -18797,6 +18806,17 @@
                     scoreKillLegendary, 1,
                     scoreScrapJunkBlackTitanium, 3,
                     make1st(scoreSellGlowingFungusNPC), 1,
+                    scoreReroll, 1,
+                ], dops(dailyOpsWestTec, dailyOpsEagles, dailyOpsFreezing, true, false, true));
+            addDaily(challengesDailyEra15, 92, [
+                    scoreCompleteDailyChallenge, 6,
+                    scoreCompleteDailyOpsPublicTeam, 1,
+                    scoreCompleteEventForestRegion, 1,
+                    scoreCraftAlcohol, 1,
+                    scoreHackTerminal, 1,
+                    scoreDestroyRobotEnergy, 5,
+                    scoreKillSnallygaster, 3,
+                    make1st(scoreBuildWallDecorShelterFree), 1,
                     scoreReroll, 1,
                 ], dops(dailyOpsWestTec, dailyOpsEagles, dailyOpsFreezing, true, false, true));
 
