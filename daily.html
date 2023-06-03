@@ -18784,6 +18784,13 @@
                     period: 1400,
                 };
             }
+            function scoreScrapJunkAdhesive(offset, count) {
+                return {
+                    name: times("Scrap junk to produce Adhesive", count),
+                    offset: offset,
+                    period: 1400,
+                };
+            }
 
             addWeeklies(challengesWeeklyEra15, 91, [
                 scoreFixedGainXP10000Rank100, 1,
@@ -18840,6 +18847,17 @@
                     scoreKillSnallygaster, 3,
                     scoreScrapJunkConcrete, 10,
                     make1st(scoreScrapJunkSteel), 10,
+                    scoreReroll, 1,
+                ], dops(dailyOpsWatogaHighschool, dailyOpsCultists, dailyOpsSwiftStalker, false, false, true));
+            addDaily(challengesDailyEra15, 95, [
+                    scoreCompleteDailyChallenge, 6,
+                    scoreCompleteDailyOps, 1,
+                    scoreCompleteEventSavageRegion, 1,
+                    scoreCrippleHumanHeads, 10,
+                    scoreDrinkNukaColaDark, 2,
+                    scoreEatDogFood, 5,
+                    scoreKillBloodEagleBluntWeapon, 5,
+                    make1st(scoreScrapJunkAdhesive), 5,
                     scoreReroll, 1,
                 ], dops(dailyOpsWatogaHighschool, dailyOpsCultists, dailyOpsSwiftStalker, false, false, true));
 
