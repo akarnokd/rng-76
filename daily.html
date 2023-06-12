@@ -16885,7 +16885,7 @@
             // Season 12
             // oooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo
 
-            var era15Length = 105;
+            var era15Length = 112;
             var challengesDailyEra15 = {
                 validStart: ofDate(2023, 1, 28, 17),
                 validEnd: plusDays(ofDate(2023, 1, 28, 17), era15Length),
@@ -16907,7 +16907,13 @@
                     
                 ]
             };
-            fillInSeason(season12, era15Length, "LR12", true);
+
+            let era15Date1 = ofDate(2023,5,13,16);
+            fillInSeason(season12, era15Length, "LR12", 
+                "Bethesda Discord indicated they will share more info on <b>" + 
+                era15Date1.toLocaleDateString()
+                + " (" + era15Date1.toLocaleDateString(window.navigator.language, {weekday: 'long'}) + ")</b>");
+
             seasonEventsAppend.push(season12);
 
             function scoreBuildLightSources(offset, count) {
@@ -18972,7 +18978,7 @@
                     scoreScrapJunkCircuitry, 5,
                     make1st(scoreModWeapon), 3,
                     scoreReroll, 1,
-                ], dops(dailyOpsValley, dailyOpsMutants, dailyOpsReflective, true, false, true));
+                ], dops(dailyOpsGarrahan, dailyOpsEagles, dailyOpsVolatile, false, false, true));
 
             
 
@@ -18983,7 +18989,7 @@
             // Season 13
             // oooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo
 
-            var era16Start = ofDate(2023, 5, 13, 16); 
+            var era16Start = ofDate(2023, 5, 20, 16); 
             var era16Length = 84;
             var era16End = plusDays(new Date(era16Start), era16Length);
             var challengesDailyEra16 = {
@@ -20698,11 +20704,19 @@
                     });
 
                     if (uncertain) {
-                        season.options.push({
+                        let uncmsg = {
                             name: "&#x1F6C8; Note that the end date is not confirmed yet and may change.",
                             offset: i,
-                            period: 1400
-                        });
+                            period: 1400,
+                        };
+                        if (typeof uncertain === "string") {
+                            uncmsg.subchallenges = [
+                                {
+                                    name: uncertain
+                                }
+                            ];
+                        }
+                        season.options.push(uncmsg);
                     }
                 }
             }
