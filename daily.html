@@ -16909,10 +16909,7 @@
             };
 
             let era15Date1 = ofDate(2023,5,13,16);
-            fillInSeason(season12, era15Length, "LR12", 
-                "Bethesda Discord indicated they will share more info on <b>" + 
-                era15Date1.toLocaleDateString()
-                + " (" + era15Date1.toLocaleDateString(window.navigator.language, {weekday: 'long'}) + ")</b>");
+            fillInSeason(season12, era15Length, "LR12", false);
 
             seasonEventsAppend.push(season12);
 
