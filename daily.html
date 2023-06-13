@@ -18982,6 +18982,30 @@
 
             communityEventsAppend.push(createMinerva(ofDate(2023, 5, 12, 16), ofDate(2023, 5, 14, 16), "Emporium @ Foundation", "P?"));
             
+            addWeeklies(challengesWeeklyEra15, 105, [
+                scoreFixedGainXP10000Rank100, 1,
+                scoreCompleteGoldStarN, 3,
+                scoreBuildWallDecor, 25,
+                scoreCompleteDailyOpsDailies, 3,
+                scoreCompleteEventsGroup, 5,
+                scoreCraftScrapClothingWeaponArmor, 25,
+                scoreKillFloater, 10,
+                scoreKillSnallygaster, 10,
+                scoreScrapJunkBallisticFiber, 10,
+                scoreSellScorchbeastSteakNPC, 1,
+                scoreVisitAnotherShelter, 3,
+            ]);
+            addDaily(challengesDailyEra15, 105, [
+                    scoreCompleteDailyChallenge, 6,
+                    scoreCompleteDailyOps, 1,
+                    scoreCompleteOneEvent, 2,
+                    scoreCrippleHumanHeads, 10,
+                    scoreKillMirelurk, 5,
+                    scoreModArmor, 5,
+                    scoreUsePhotomodeTeammate, 1,
+                    make1st(scoreBuildAnythingShelterFree), 10,
+                    scoreReroll, 1,
+                ], dops(dailyOpsGarrahan, dailyOpsEagles, dailyOpsVolatile, false, false, true));
 
             addPlaceholders(challengesDailyEra15, scoreDailyplaceholder, era15Length);
             addPlaceholders(challengesWeeklyEra15, scoreWeeklyplaceholder, era15Length);
