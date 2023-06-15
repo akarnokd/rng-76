@@ -19014,9 +19014,26 @@
                     make1st(scoreTakeCameraPictureSuperMutant), 1,
                     scoreReroll, 1,
                 ], dops(dailyOpsBurning, dailyOpsAliens, dailyOpsVolatile, false, false, true));
+            addDaily(challengesDailyEra15, 107, [
+                    scoreCompleteDailyChallenge, 6,
+                    scoreCompleteDailyOps, 1,
+                    scoreCookMeatFood, 10,
+                    scoreDestroyRobot, 10,
+                    scoreJoinGroup, 1,
+                    scoreKillSnallygaster, 3,
+                    scoreKillWendigo, 1,
+                    make1st(scoreModArmor), 5,
+                    scoreReroll, 1,
+                ], dops(dailyOpsBurning, dailyOpsAliens, dailyOpsVolatile, false, false, true));
 
             addPlaceholders(challengesDailyEra15, scoreDailyplaceholder, era15Length);
             addPlaceholders(challengesWeeklyEra15, scoreWeeklyplaceholder, era15Length);
+
+            communityEventsAppend.push(createDoubleMutations(ofDate(2023, 5, 1, 16), ofDate(2023, 5, 5, 16)));
+
+            communityEventsAppend.push(createPurveyor(ofDate(2023, 5, 8, 16), ofDate(2023, 5, 12, 16), 25, false, 1));
+
+            communityEventsAppend.push(createDoubleMutations(ofDate(2023, 5, 15, 16), ofDate(2023, 5, 19, 16)));
 
             // oooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo
             // Season 13
@@ -19076,17 +19093,129 @@
                 ], dops(dailyOpsGarrahan, dailyOpsScorched, dailyOpsFreezing, false, false, true));
                 */
 
+            function createSummerCamp(start, end) {
+                return {
+                    validStart: start,
+                    validEnd: end,
+                    title: "Summer C.A.M.P. Challenge",
+                    options: [
+                        {
+                            name: "<i>(Editor's note: we don't know yet what this will entail.)</i>",
+                            offset: 0,
+                            period: 1,
+                        },
+                    ]
+                };
+            }
+            function createQuakeCon(start, end) {
+                return {
+                    validStart: start,
+                    validEnd: end,
+                    title: "QuakeCon",
+                    options: [
+                        {
+                            name: "<i>(Editor's note: we don't know yet what this will entail.)</i>",
+                            offset: 0,
+                            period: 1,
+                        },
+                    ]
+                };
+            }
+
+            communityEventsAppend.push(createInvaders(ofDate(2023, 6, 4, 16), ofDate(2023, 6, 11, 16)));
+            communityEventsAppend.push(createGoldRush2(ofDate(2023, 6, 6, 16), ofDate(2023, 6, 10, 16)));
+            communityEventsAppend.push(createMinerva(ofDate(2023, 6, 6, 16), ofDate(2023, 6, 10, 16), "Big Sale @ TBD", "P?"));
+            communityEventsAppend.push(createScripSurplus3(ofDate(2023, 6, 13, 16), ofDate(2023, 6, 17, 16)));
+            communityEventsAppend.push(createDoubleMutations(ofDate(2023, 6, 13, 16), ofDate(2023, 6, 17, 16)));
+            communityEventsAppend.push(createPurveyor(ofDate(2023, 6, 20, 16), ofDate(2023, 6, 24, 16), 25, false, 1));
+            communityEventsAppend.push(createSummerCamp(ofDate(2023, 6, 25, 16), ofDate(2023, 7, 8, 16)));
+            communityEventsAppend.push(createTreasureHunt(ofDate(2023, 6, 27, 16), ofDate(2023, 6, 31, 16), false));
+            communityEventsAppend.push(createDoubleMutations(ofDate(2023, 6, 27, 16), ofDate(2023, 6, 31, 16)));
+
+            communityEventsAppend.push(createPurveyor(ofDate(2023, 7, 3, 16), ofDate(2023, 7, 7, 16), 25, false, 1));
+            communityEventsAppend.push(createQuakeCon(ofDate(2023, 7, 10, 16), ofDate(2023, 7, 13, 16)));
+            communityEventsAppend.push(createDoubleScore(ofDate(2023, 7, 10, 16), ofDate(2023, 7, 14, 16)));
+            communityEventsAppend.push(createGoldRush2(ofDate(2023, 7, 10, 16), ofDate(2023, 7, 14, 16)));
+            communityEventsAppend.push(createMinerva(ofDate(2023, 7, 10, 16), ofDate(2023, 7, 14, 16), "Big Sale @ TBD", "P?"));
+            communityEventsAppend.push(createDoubleMutations(ofDate(2023, 7, 10, 16), ofDate(2023, 7, 14, 16)));
+            communityEventsAppend.push(createCapsOPlenty(ofDate(2023, 7, 17, 16), ofDate(2023, 7, 21, 16)));
+            communityEventsAppend.push(createDoubleMutations(ofDate(2023, 7, 24, 16), ofDate(2023, 7, 28, 16)));
+            communityEventsAppend.push(createMeatWeek(ofDate(2023, 7, 29, 16), ofDate(2023, 8, 12, 16), "Double Helpings of Meat Week"));
+            communityEventsAppend.push(createScripSurplus3(ofDate(2023, 7, 31, 16), ofDate(2023, 8, 4, 16)));
             
-            communityEventsAppend.push(createDoubleMutations(ofDate(2023, 5, 1, 16), ofDate(2023, 5, 5, 16)));
-
-            communityEventsAppend.push(createPurveyor(ofDate(2023, 5, 8, 16), ofDate(2023, 5, 12, 16), 25, false, 1));
-
-            communityEventsAppend.push(createDoubleMutations(ofDate(2023, 5, 15, 16), ofDate(2023, 5, 19, 16)));
-
-            communityEventsAppend.push(createInvaders(ofDate(2023, 5, 20, 16), ofDate(2023, 6, 4, 16)));
-
             addPlaceholders(challengesDailyEra16, scoreDailyplaceholder, era16Length);
             addPlaceholders(challengesWeeklyEra16, scoreWeeklyplaceholder, era16Length);
+
+            // oooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo
+            // Season 14
+            // oooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo
+
+            var era17Start = ofDate(2023, 8, 12, 16); 
+            var era17Length = 84;
+            var era17End = plusDays(new Date(era17Start), era17Length);
+            var challengesDailyEra17 = {
+                validStart: era17Start,
+                validEnd: era17End,
+                options: []
+            };
+            var challengesWeeklyEra17 = {
+                validStart: era17Start,
+                validEnd: era17End,
+                options: []
+            };
+            challenges.push(challengesDailyEra17);
+            challengesWeekly.push(challengesWeeklyEra17);
+
+            var season14 = {
+                validStart: era17Start,
+                validEnd: era17End,
+                title: "Season 14: United We Stand",
+                options: [
+                    
+                ]
+            };
+            fillInSeason(season14, era17Length, "LR14", true);
+            seasonEventsAppend.push(season14);
+            
+            /*
+            addWeeklies(challengesWeeklyEra15, 0, [
+                scoreFixedGainXP10000Rank100, 1,
+                scoreCompleteGoldStarN, 3,
+                scoreBuildWallDecor, 25,
+                scoreCollectLegendaryModules, 10,
+                scoreCompleteDailyOpsPublicTeam, 5,
+                scoreCompletePublicMutatedEvent, 3,
+                scoreCrippleHeadDeathclaw, 3,
+                scoreDrinkNukaCranberry, 5,
+                scoreEatCookedMeal, 30,
+                scoreKillSnallygaster, 10,
+                scoreTakePictureSheepsquatch, 1,
+            ]);
+            addDaily(challengesDailyEra15, 0, [
+                    scoreCompleteDailyChallenge, 6,
+                    scoreCompleteDailyOpsPublicTeam, 1,
+                    scoreHackTerminal, 1,
+                    scoreKillSupermutant, 5,
+                    scoreUsePhotomodeOwnCamp, 1,
+                    scoreCompletePublicMutatedEvent, 1,
+                    scoreKillMutatedEnemy, 10,
+                    make1st(scoreSellMothmanEggNPC), 1,
+                    scoreReroll, 1,
+                ], dops(dailyOpsGarrahan, dailyOpsScorched, dailyOpsFreezing, false, false, true));
+                */
+
+            addPlaceholders(challengesDailyEra17, scoreDailyplaceholder, era17Length);
+            addPlaceholders(challengesWeeklyEra17, scoreWeeklyplaceholder, era17Length);
+
+            communityEventsAppend.push(createPurveyor(ofDate(2023, 8, 7, 16), ofDate(2023, 8, 11, 16), 25, false, 1));
+            communityEventsAppend.push(createDoubleMutations(ofDate(2023, 8, 7, 16), ofDate(2023, 8, 11, 16)));
+            communityEventsAppend.push(createPurveyor(ofDate(2023, 8, 14, 16), ofDate(2023, 8, 18, 16), 25, false, 1));
+            communityEventsAppend.push(createMinerva(ofDate(2023, 8, 14, 16), ofDate(2023, 8, 18, 16), "Big Sale @ TBD", "P?"));
+            communityEventsAppend.push(createTreasureHunt(ofDate(2023, 8, 21, 16), ofDate(2023, 8, 25, 16), false));
+            communityEventsAppend.push(createDoubleMutations(ofDate(2023, 8, 21, 16), ofDate(2023, 8, 25, 16)));
+            communityEventsAppend.push(createDoubleScore(ofDate(2023, 8, 28, 16), ofDate(2023, 9, 2, 16)));
+            communityEventsAppend.push(createGoldRush2(ofDate(2023, 8, 28, 16), ofDate(2023, 9, 2, 16)));
+            communityEventsAppend.push(createScripSurplus3(ofDate(2023, 8, 28, 16), ofDate(2023, 9, 2, 16)));
 
             // --------------------------------------------------------------------------------------------------------------
             // Community events
