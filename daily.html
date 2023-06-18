@@ -19047,6 +19047,17 @@
                     make1st(scoreScrapJunkCork), 5,
                     scoreReroll, 1,
                 ], dops(dailyOpsV96, dailyOpsCultists, dailyOpsCloudedToxins, true, false, true));
+            addDaily(challengesDailyEra15, 110, [
+                    scoreCompleteDailyChallenge, 6,
+                    scoreCookMealPlant, 5,
+                    scoreCollectMagazine, 1,
+                    scoreCompleteDailyOpsPublicTeam, 1,
+                    scoreCompleteDaily, 1,
+                    scoreKillCreatures, 15,
+                    scoreKillSupermutant, 5,
+                    make1st(scoreScrapJunkGears), 5,
+                    scoreReroll, 1,
+                ], dops(dailyOpsV96, dailyOpsCultists, dailyOpsCloudedToxins, true, false, true));
 
             addPlaceholders(challengesDailyEra15, scoreDailyplaceholder, era15Length);
             addPlaceholders(challengesWeeklyEra15, scoreWeeklyplaceholder, era15Length);
@@ -20827,6 +20838,7 @@
                 return {
                     validStart: start,
                     validEnd: end,
+                    dontNormalize: true,
                     title: "<span style='display: flex; align-items: center; justify-content: center; font-size: 24px;'><img src='Starfield_400x400.png' alt='Starfield Twitter Badge' width='30' height='30'>&nbsp;&nbsp;&nbsp;Starfield</span>",
                     options: [
                         {
@@ -20863,7 +20875,7 @@
                 };
             }
 
-            communityEventsAppend.push(createStarfield(ofDate(2023, 5, 11, 16), ofDate(2023, 8, 6, 16), ofDate(2023, 8, 1, 16)));
+            communityEventsAppend.push(createStarfield(ofDate(2023, 5, 11, 0), ofDate(2023, 8, 6, 0), ofDate(2023, 8, 1, 0)));
 
             communityEventsAppend.forEach(e => communityEvents.push(e));
 
@@ -21530,7 +21542,8 @@
                         && challenge.validEnd > selectedDate) {
                             result.push({
                                 start: challenge.validStart,
-                                end: challenge.validEnd
+                                end: challenge.validEnd,
+                                dontNormalize: challenge.dontNormalize,
                             });
                     }
                 }
@@ -21662,14 +21675,14 @@
                 var communityStartEnds = currentStartEndDate(communityEvents, selectedDate);
                 var i = 1;
                 for (var communityStartEnd of communityStartEnds) {
-                    calcRemainingTime("remainingcommunity" + i, selectedDate, communityStartEnd.start, communityStartEnd.end);
+                    calcRemainingTime("remainingcommunity" + i, selectedDate, communityStartEnd.start, communityStartEnd.end, communityStartEnd.dontNormalize);
                     i++;
                 }
 
-                var seasonStartEnds = currentStartEndDate(publicWorlds, selectedDate);
+                var worldStartEnds = currentStartEndDate(publicWorlds, selectedDate);
                 var i = 1;
-                for (var seasonStartEnd of seasonStartEnds) {
-                    calcRemainingTime("remainingpw" /* + i */, selectedDate, seasonStartEnd.start, seasonStartEnd.end);
+                for (var worldStartEnd of worldStartEnds) {
+                    calcRemainingTime("remainingpw" /* + i */, selectedDate, worldStartEnd.start, worldStartEnd.end);
                     i++;
                 }
 
@@ -21681,10 +21694,12 @@
                 }
             }
 
-            function calcRemainingTime(target, selectedDate, startDate, endDate) {
+            function calcRemainingTime(target, selectedDate, startDate, endDate, dontNormalize) {
                 var now = new Date();
                 endDate = new Date(endDate);
-                normalizeDate(endDate);
+                if (!dontNormalize) {
+                    normalizeDate(endDate);
+                }
                 var targetLabel = document.getElementById(target);
                 if (targetLabel != null) {
                     if (startDate <= now && now < endDate) {
