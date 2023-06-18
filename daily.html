@@ -20823,6 +20823,48 @@
                 createMinerva(ofDate(2022, 8, 12, 16), ofDate(2022, 8, 14, 16), "Emporium @ Crater", "P?"),
             ];
 
+            function createStarfield(start, end, ea) {
+                return {
+                    validStart: start,
+                    validEnd: end,
+                    title: "<span style='display: flex; align-items: center; justify-content: center; font-size: 24px;'><img src='Starfield_400x400.png' alt='Starfield Twitter Badge' width='30' height='30'>&nbsp;&nbsp;&nbsp;Starfield</span>",
+                    options: [
+                        {
+                            name: "Notable links:",
+                            offset: 0,
+                            period: 1,
+                            subchallenges: [
+                                {
+                                    name: "<a href='https://bethesda.net/en/game/starfield' target='_blank'>Official Website</a>"
+                                },
+                                {
+                                    name: "<a href='https://twitter.com/StarfieldGame' target='_blank'>Twitter</a>"
+                                },
+                                {
+                                    name: "<a href='https://discord.com/invite/bethesdastudios' target='_blank'>Discord</a>"
+                                }
+                            ]
+                        },
+                        {
+                            name: "Release date: <b style='color: green;' title='Hour of day not confirmed yet.'>"  + end.toLocaleDateString() 
+                            + " (" + end.toLocaleDateString(window.navigator.language, {weekday: 'long'}) + ")"
+                            + " ~ " + end.toLocaleTimeString() + "</b>",
+                            offset: 0,
+                            period: 1,
+                        },
+                        {
+                            name: "Premium access: <b style='color: green;' title='Hour of day not confirmed yet.'>"  + ea.toLocaleDateString() 
+                            + " (" + ea.toLocaleDateString(window.navigator.language, {weekday: 'long'}) + ")"
+                            + " ~ " + ea.toLocaleTimeString() + "</b>",
+                            offset: 0,
+                            period: 1,
+                        }
+                    ]                
+                };
+            }
+
+            communityEventsAppend.push(createStarfield(ofDate(2023, 5, 11, 16), ofDate(2023, 8, 6, 16), ofDate(2023, 8, 1, 16)));
+
             communityEventsAppend.forEach(e => communityEvents.push(e));
 
             function ofDate(year, month, day, hour) {
