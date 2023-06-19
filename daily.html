@@ -26,7 +26,7 @@
     </head>
     <body>
         <center>
-            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Timed Challenges (0.9.2)</span><br/>
+            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Timed Challenges (0.9.3)</span><br/>
             <br/>
             <br/>
             <table>
@@ -2280,30 +2280,32 @@
                     offset: day,
                     period: 1400
                 });
-                var muts = {
-                    name: "",
-                    offset: day,
-                    period: 1400,
-                    subchallenges: []
-                };
                 let i = 0;
+                let deferPush = [];
                 for (var m of mutations) {
+                    var muts = {
+                        name: "",
+                        offset: day,
+                        period: 1400,
+                        subchallenges: []
+                    };
+
                     if (i == 1) {
-                        muts.name = "<span class='dopsHeader'>Mutations:</span> <i>" + m.name + "</i>";
+                        muts.name = "<span class='dopsHeader'>Mutations:</span> &#129516; <i>" + m.name + "</i>";
                         muts.tipId = m.tipId;
                         muts.tip = m.tip;
+                        options.push(muts);
                     } else {
-                        muts.subchallenges.push({
-                            name: m.name,
-                            tipId: m.tipId,
-                            tip: m.tip
-                        });
+                        muts.name = "<span class='dopsHeader'>&nbsp;</span> &#129516; " + m.name;
+                        muts.tipId = m.tipId;
+                        muts.tip =  m.tip;
+                        deferPush.push(muts);
                     }
                     i++;
                 }
                 
+                deferPush.forEach(v => options.push(v));
 
-                options.push(muts);
                 options.push({
                     name: "Rewards: <a href='https://docs.google.com/spreadsheets/d/1Y7YtULG-9k5u5GD6swiIwBVgxspA3Qg6IzLQpJqeNRQ/edit#gid=0' target='_blank'>depend on player level and completion time</a>.",
                     offset: day,
