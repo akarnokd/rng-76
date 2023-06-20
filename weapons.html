@@ -1719,6 +1719,31 @@
                     ]
                 },
                 {
+                    name: "Luca's Switchblade",
+                    category: "One-handed",
+                    speed: speedFast,
+                    special: true,
+                    info: "WeaponLucasSwitchblade",
+                    formId: "00691B69",
+                    level:  [10, 20, 30, 40, 50],
+                    damage: [14, 18, 22, 26, 30],
+                    mods: [
+                        {
+                            slot: "Blade",
+                            options: [
+                                {
+                                    name: "Standard"
+                                },
+                                {
+                                    name: "Serrated",
+                                    damageMultPercent: 15
+                                }
+                            ]
+                        }
+                    ],
+                    legendaryPrefix: "Assassin's"
+                },
+                {
                     name: "Paddle Ball",
                     category: "One-handed",
                     kind: "ballistic",
@@ -9720,10 +9745,16 @@
                 + "</ul>"
             );
             infoMap.set("WeaponEldersMark",
-                "<b>Unique Submachine Gun awarded bythe Beasts of Burden public event.</b>" 
+                "<b>Unique Submachine Gun awarded by the Beasts of Burden public event.</b>" 
                 + "<br>Legendary: <i>Furious, 25% faster fire rate, 15% faster reload</i>"
                 + "<br>Bonus properties: Medium Magazine"
                 + "<br>Form ID: <a href='https://nukacrypt.com/database/json/00692280' target='_blank'>00692280</a>"
+                );
+            infoMap.set("WeaponLucasSwitchblade",
+                "<b>Unique Switchblade awarded by the Beasts of Burden public event.</b>" 
+                + "<br>Legendary: <i>Assassin's, Replenish 15 AP per kill, -25% AP Cost, +10 AP</i>"
+                + "<br>Bonus properties: Luca's Switchblade unique mod"
+                + "<br>Form ID: <a href='https://nukacrypt.com/database/json/00691B69' target='_blank'>00691B69</a>"
                 );
 
             // add HTML explanation marker
