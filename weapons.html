@@ -450,6 +450,33 @@
                     mods: []
                 },
                 {
+                    name: "Cryptid Jawbone Knife",
+                    category: "One-handed",
+                    kind: "knife",
+                    speed: speedFast,
+                    special: true,
+                    info: "WeaponCryptidJawboneKnife",
+                    formId: "006ABA10",
+                    level: [1, 5, 10, 20, 30, 40, 50],
+                    damage: [9, 13, 17, 21, 25, 29, 33],
+                    mods: [
+                        {
+                        slot: "Special",
+                            options: 
+                            [
+                                {
+                                    name: "vs Cryptid",
+                                    versusMultPercent: 50,
+                                    versus: ["Cryptid"]
+                                }
+                            ]
+                        }
+                    ],
+                    // legendaryPrefix: "Vampire's",
+                    // legendaryMajor: "40% increased swing speed",
+                    // legendaryMinor: "Breaks 50% slower"
+                },
+                {
                     name: "Boxing Glove",
                     category: "Unarmed",
                     kind: "unarmed",
@@ -9810,6 +9837,12 @@
                 + "<br>Legendary: <i>Anti-armor, Explosive, 15% faster reload</i>"
                 + "<br>Bonus properties: 50 poison damage over 10 seconds"
                 + "<br>Form ID: <a href='https://nukacrypt.com/database/json/00691B69' target='_blank'>00691B69</a>"
+                );
+            infoMap.set("WeaponCryptidJawboneKnife",
+                "<b>Unique Knife awarded by the Safe and Sound public event.</b>" 
+                + "<br>Legendary: <i>Vampire's, 40% faster swing speed, Breaks 50% slower</i>"
+                + "<br>Bonus properties: 50% bonus damage to Cryptids"
+                + "<br>Form ID: <a href='https://nukacrypt.com/database/json/006ABA10' target='_blank'>006ABA10</a>"
                 );
 
             // add HTML explanation marker
