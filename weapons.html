@@ -27,9 +27,9 @@
     </head>
     <body style="height: 90%">
         <center>
-            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Weapon Damage Calculator (v3.10.16)</span>
+            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Weapon Damage Calculator (v3.10.17)</span>
             <br/>
-            <i>(Patch 40..42 update still in progress.)</i>
+            <i>(Patch 44 update still in progress.)</i>
         <br/>
         <br/>
         <table id="parent">
@@ -3979,6 +3979,72 @@
                             ]
                         }
                     ]
+                },
+                {
+                    name: "Elder's Mark",
+                    category: "Rifle",
+                    kind: "ballistic",
+                    explosive: false,
+                    silencer: true,
+                    speed: 7.5,
+                    clipSize: 50,
+                    info: "WeaponEldersMark",
+                    special: true,
+                    reloadTime: 3.233343,
+                    automatic: true,
+                    formId: "00692280",
+                    level: [15, 25, 35, 45],
+                    damage: [18, 22, 25, 29],
+                    mods: [
+                        {
+                            slot: "Receiver",
+                            options: [
+                                {
+                                    name: "Standard"
+                                },
+                                {
+                                    name: "Armor-piercing",
+                                    ignoreDRPercent: 40
+                                },
+                                {
+                                    name: "Hardened",
+                                    damageMultPercent: 25
+                                },
+                                scorchKillerMod,
+                                primeMod
+                            ]
+                        },
+                        standardMuzzle,
+                        {
+                            slot: "Magazine",
+                            options: [
+                                {
+                                    name: "Standard",
+                                },
+                                {
+                                    name: "Large",
+                                    reloadTime: 20,
+                                    clipSizeAdd: 25,
+                                },
+                                {
+                                    name: "Large Quick Eject",
+                                    reloadTime: -15,
+                                    clipSizeAdd: 12,
+                                },
+                                {
+                                    name: "Medium",
+                                    preinstalled: true,
+                                },
+                                {
+                                    name: "Medium Quick Eject",
+                                    reloadTime: -30,
+                                }
+                            ]
+                        }
+                    ],
+                    legendaryPrefix: "Furious",
+                    legendaryMajor: "25% increased fire rate",
+                    legendaryMinor: "15% faster reload"
                 },
                 {
                     name: "Love Tap",
@@ -9653,7 +9719,12 @@
                     + "<li><b>Warmonger's</b>: +150% damage after killing an enemy for 15 seconds.</li>"
                 + "</ul>"
             );
-
+            infoMap.set("WeaponEldersMark",
+                "<b>Unique Submachine Gun awarded bythe Beasts of Burden public event.</b>" 
+                + "<br>Legendary: <i>Furious, 25% faster fire rate, 15% faster reload</i>"
+                + "<br>Bonus properties: Medium Magazine"
+                + "<br>Form ID: <a href='https://nukacrypt.com/database/json/00692280' target='_blank'>00692280</a>"
+                );
 
             // add HTML explanation marker
             function info(name) {
