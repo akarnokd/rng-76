@@ -1448,7 +1448,7 @@
             }
             function scoreKillGhoul(offset, count) {
                 return {
-                    name: times("Kill a ghoul", count),
+                    name: times("Kill a Ghoul", count),
                     offset: offset,
                     period: 1400
                 };
@@ -1456,7 +1456,7 @@
 
             function scoreCollectBobblehead(offset) {
                 return {
-                    name: "Collect a bobblehead",
+                    name: "Collect a Bobblehead",
                     offset: offset,
                     period: 1400
                 };
@@ -19111,32 +19111,30 @@
             fillInSeason(season13, era16Length, "LR13", true);
             seasonEventsAppend.push(season13);
             
-            /*
-            addWeeklies(challengesWeeklyEra15, 0, [
+            addWeeklies(challengesWeeklyEra16, 0, [
                 scoreFixedGainXP10000Rank100, 1,
                 scoreCompleteGoldStarN, 3,
-                scoreBuildWallDecor, 25,
-                scoreCollectLegendaryModules, 10,
-                scoreCompleteDailyOpsPublicTeam, 5,
-                scoreCompletePublicMutatedEvent, 3,
-                scoreCrippleHeadDeathclaw, 3,
-                scoreDrinkNukaCranberry, 5,
-                scoreEatCookedMeal, 30,
+                scoreClaimWorkshop, 3,
+                scoreCompleteDailyOps, 3,
+                scoreDrinkNukaColaQuantum, 5,
+                scoreKillCultist, 30,
                 scoreKillSnallygaster, 10,
-                scoreTakePictureSheepsquatch, 1,
+                scoreLevelUp, 3,
+                scorePlantCropFree, 25,
+                scoreSellPumpkinPieNPC, 1,
+                scoreTakePictureGraftonMonster, 1,
             ]);
-            addDaily(challengesDailyEra15, 0, [
+            addDaily(challengesDailyEra16, 0, [
                     scoreCompleteDailyChallenge, 6,
-                    scoreCompleteDailyOpsPublicTeam, 1,
-                    scoreHackTerminal, 1,
-                    scoreKillSupermutant, 5,
-                    scoreUsePhotomodeOwnCamp, 1,
-                    scoreCompletePublicMutatedEvent, 1,
-                    scoreKillMutatedEnemy, 10,
-                    make1st(scoreSellMothmanEggNPC), 1,
+                    scoreCollectDeathclawEgg, 1,
+                    scoreCollectAudiotape, 1,
+                    scoreCompleteDailyOps, 1,
+                    scoreKillDeathclaw, 1,
+                    scoreKillGhoul, 10,
+                    scoreSellGlowingFungusNPC, 1,
+                    make1st(scoreScrapJunkSteel), 10,
                     scoreReroll, 1,
-                ], dops(dailyOpsGarrahan, dailyOpsScorched, dailyOpsFreezing, false, false, true));
-                */
+                ], dops(dailyOpsMorgantown, dailyOpsScorched, dailyOpsToxic, true, false, true));
 
             function createSummerCamp(start, end) {
                 return {
