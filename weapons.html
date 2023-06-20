@@ -27,7 +27,7 @@
     </head>
     <body style="height: 90%">
         <center>
-            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Weapon Damage Calculator (v3.10.17)</span>
+            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Weapon Damage Calculator (v3.10.18)</span>
             <br/>
             <i>(Patch 44 update still in progress.)</i>
         <br/>
@@ -3630,6 +3630,55 @@
                         standardMuzzle
                     ],
                     legendaryPrefix: "Anti-armor"
+                },
+                {
+                    name: "The Kabloom",
+                    category: "Shotgun",
+                    kind: "ballistic",
+                    explosive: false,
+                    silencer: true,
+                    speed: 0.5,
+                    clipSize: 8,
+                    reloadTime: 2.500010 / 8,
+                    reloadOneByOne: 0.5,
+                    formId: "0069255E",
+                    special: true,
+                    info: "WeaponTheKabloom",
+                    level: [5, 15, 25, 35, 45],
+                    damage: [55, 65, 75, 85, 95],
+                    damagePoison: [5, 5, 5, 5, 5],
+                    mods: [
+                        {
+                            slot: "Receiver",
+                            options: [
+                                {
+                                    name: "Standard"
+                                },
+                                {
+                                    name: "Hardened",
+                                    damageMultPercent: 25
+                                },
+                                {
+                                    name: "Calibrated",
+                                    criticalDamageMultiply: 34,
+                                    patchOverride: {
+                                        "P34": {
+                                            criticalDamageMultiply: 100
+                                        }
+                                    }
+                                },
+                                snappyMod,
+                                severeMod,
+                                viciousMod,
+                                scorchKillerMod,
+                                primeMod,
+                            ]
+                        },
+                        standardMuzzle
+                    ],
+                    legendaryPrefix: "Anti-armor",
+                    legendaryMajor: "ExplosiveCustomShotgun",
+                    legendaryMinor: "15% faster reload"
                 },
                 {
                     name: "Double-barrel Shotgun",
@@ -9756,6 +9805,12 @@
                 + "<br>Bonus properties: Luca's Switchblade unique mod"
                 + "<br>Form ID: <a href='https://nukacrypt.com/database/json/00691B69' target='_blank'>00691B69</a>"
                 );
+            infoMap.set("WeaponTheKabloom",
+                "<b>Unique Pump Action Shotgun awarded by the Safe and Sound public event.</b>" 
+                + "<br>Legendary: <i>Anti-armor, Explosive, 15% faster reload</i>"
+                + "<br>Bonus properties: 50 poison damage over 10 seconds"
+                + "<br>Form ID: <a href='https://nukacrypt.com/database/json/00691B69' target='_blank'>00691B69</a>"
+                );
 
             // add HTML explanation marker
             function info(name) {
@@ -11495,7 +11550,7 @@
                 var baseDamageRadiation = weap.damageRadiation !== undefined ? weap.damageRadiation[levelIdx] : 0;
                 var baseDamageFire = weap.damageFire !== undefined ? weap.damageFire[levelIdx] : 0;
                 var baseDamageCold = weap.damageCold !== undefined ? weap.damageCold[levelIdx] : 0;
-                var baseDamagePoison = weap.damagePosion !== undefined ? weap.damagePoison[levelIdx] : 0;
+                var baseDamagePoison = weap.damagePoison !== undefined ? weap.damagePoison[levelIdx] : 0;
 
                 var weaponBaseDamageBallistic = baseDamage;
                 var weaponBaseDamageEnergy = baseDamageEnergy;
