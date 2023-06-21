@@ -27,7 +27,7 @@
     </head>
     <body style="height: 90%">
         <center>
-            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Weapon Damage Calculator (v3.10.18)</span>
+            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Weapon Damage Calculator (v3.10.19)</span>
             <br/>
             <i>(Patch 44 update still in progress.)</i>
         <br/>
@@ -6230,6 +6230,55 @@
                     ]
                 },
                 {
+                    name: "Holy Fire",
+                    category: "Heavy",
+                    kind: "energy",
+                    speed: 10.6,
+                    clipSize: 100,
+                    reloadTime: 3.833344,
+                    formId: "006A983C",
+                    special: true,
+                    info: "WeaponHolyFire",
+                    level: [30, 40, 50],
+                    damage: [0, 0, 0],
+                    damageFire: [35, 38, 43],
+                    mods: [
+                        {
+                            slot: "Tank",
+                            options: [
+                                {
+                                    name: "Standard",
+                                    addDamageFireLeveled: [3, 3, 3]
+                                },
+                                {
+                                    name: "Napalm",
+                                    addDamageFireLeveled: [29 * 0.8, 32 * 0.8, 36 * 0.8]
+                                }
+                            ]
+                        },
+                        {
+                            slot: "Propellant Tank",
+                            options: [
+                                {
+                                    name: "Standard",
+                                },
+                                {
+                                    name: "Large",
+                                    clipSizeAdd: 50,
+                                },
+                                {
+                                    name: "Huge",
+                                    clipSizeAdd: 100,
+                                    reloadTimeMult: 20,
+                                }
+                            ]
+                        }
+                    ],
+                    // legendaryPrefix: "Vampire's",
+                    legendaryMajor: "25% increased fire rate",
+                    // legendaryMinor: "Breaks 50% slower"
+                },
+                {
                     name: "Flare Gun",
                     category: "Pistol",
                     kind: "ballistic",
@@ -9855,6 +9904,12 @@
                 + "<br>Legendary: <i>Vampire's, 40% faster swing speed, Breaks 50% slower</i>"
                 + "<br>Bonus properties: 50% bonus damage to Cryptids"
                 + "<br>Form ID: <a href='https://nukacrypt.com/database/json/006ABA10' target='_blank'>006ABA10</a>"
+                );
+            infoMap.set("WeaponHolyFire",
+                "<b>Unique Flamer awarded by the Beast of Burden public event.</b>" 
+                + "<br>Legendary: <i>Vampire's, 25% faster fire rate, Breaks 50% slower</i>"
+                + "<br>Bonus properties: 10% faster fire rate than a standard Flamer"
+                + "<br>Form ID: <a href='https://nukacrypt.com/database/json/006A983C' target='_blank'>006A983C</a>"
                 );
 
             // add HTML explanation marker
