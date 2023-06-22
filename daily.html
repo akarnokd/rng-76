@@ -19111,6 +19111,14 @@
             fillInSeason(season13, era16Length, "LR13", true);
             seasonEventsAppend.push(season13);
             
+            function scoreBuildGeneratorCamp(offset, count) {
+                return {
+                    name: times("Build a Generator in a C.A.M.P. or Workshop", count),
+                    offset: offset,
+                    period: 1400,
+                };
+            }
+
             addWeeklies(challengesWeeklyEra16, 0, [
                 scoreFixedGainXP10000Rank100, 1,
                 scoreCompleteGoldStarN, 3,
@@ -19144,6 +19152,17 @@
                     scoreModWeapon, 3,
                     scoreScrapJunkOil, 5,
                     make1st(scoreEatCookedMeal), 10,
+                    scoreReroll, 1,
+                ], dops(dailyOpsWestTec, dailyOpsScorched, dailyOpsFreezing, true, false, true));
+            addDaily(challengesDailyEra16, 2, [
+                    scoreCompleteDailyChallenge, 6,
+                    scoreBuildGeneratorCamp, 1,
+                    scoreCompleteDailyOps, 1,
+                    scoreCraftAlcohol, 10,
+                    scoreCrippleProtectronRobobrainArms, 2,
+                    scoreDrinkNukaWild, 2,
+                    scoreKillWendigo, 1,
+                    make1st(scoreCraftMineGrenadeThrown), 5,
                     scoreReroll, 1,
                 ], dops(dailyOpsWestTec, dailyOpsScorched, dailyOpsFreezing, true, false, true));
 
