@@ -256,9 +256,542 @@
                     bethesda: "https://fallout.bethesda.net/en/article/24FfRdpYzz2NUSkhItkcxw/fallout-76-once-in-a-blue-moon-update-notes-june-20-2023",
                     notes: [
                         {
+                            category: "Event",
+                            name: "Beasts of Burden",
+                            description: "After a trade deal goes wrong, Luca Costa finds himself in need of some help. A group of local Cultists has stolen his Brahmin and cargo of makeshift explosives. His Uncle Vinny will not be happy if he catches wind of it. The problem is, he's too injured to get his supplies himself!<br><br>Guided by Luca through a two-way radio, you'll need to infiltrate the Cultist's den, lay down explosives, and reclaim his pack Brahmin! Be extra careful not to disturb the local wildlife, however, as Cultists have recently noticed strange rumblings in the woods nearby."
+                        },
+                        {
+                            category: "Event",
+                            name: "Safe and Sound",
+                            description: "Blue Ridge has renovated the Middle Mountain Cabins to be their latest and greatest Brahmin pitstop, but they just can't seem to keep the local critters at bay. The Repeller Speaker system they use to repel the creatures and keep their Brahmin safe has been damaged. To retake the pitstop and create a safe haven for their Brahmin to rest, they will need your help! Clear out the creatures, defend the Repeller, and the Blue Ridge Caravan will reward you handsomely for your assistance!"
+                        },
+                        {
+                            category: "Daily Quest",
+                            name: "Costa Business Daily Quests",
+                            description: "Resident grouch and taskmaster, Vinny Costa, hasn't been happy with the performance of his employees lately, and he'd be happy to throw some caps at anyone willing to solve the problem. Players can learn all about what has the caravanners' boots stuck in the mud, and collect some unique rewards along the way, in this series of one-off Daily Quests. Unlike other Dailies, players will only be able to complete this series of 7 quests once, but each has a unique Blue Ridge-themed reward, ranging from C.A.M.P. items to outfits."
+                        },
+                        {
+                            category: "Combat,NPC",
+                            name: "New Cryptid: The Blue Devil",
+                            description: "Based on the real-life West Virginian Cryptid, this massive dog-like creature will test your wits! Its terrifying howl will send your character into a panicked mad dash for the Vault!"
+                        },
+                        {
+                            category: "Combat,NPC",
+                            name: "New Cryptid: Ogua",
+                            description: "Also known in real life as the Monongahela River Monster, this reclusive creature will retreat into its shell to shield itself from incoming damage, be sure to time your attacks carefully!"
+                        },
+                        {
+                            category: "Items,C.A.M.P.",
+                            name: "New Cryptid Event Rewards",
+                            description: "Complete these events to collect a host of new items, from Cryptid plushies to outfits, C.A.M.P. items, weapon skins, and more!"
+                        },
+                        {
+                            category: "Season",
+                            name: "13: Shoot for the stars",
+                            description: "This season is packed with Hollywood-themed items to glam up your dwelling! From a Jewelry Stand that displays your backpack flairs, to movie projectors, pyrotechnics, Monster Costume, and everything in between! You'll be a dazzling star in no time!"
+                        },
+                        {
+                            category: "Items,C.A.M.P.",
+                            name: "New C.A.M.P. Items",
+                            description: "Create your own movie set with items like the Western Movie Set Façade, Director's chair, Studio Camera, and more!"
+                        },
+                        {
+                            category: "Items",
+                            name: "New Armor Paints",
+                            description: "Become the daredevil you were meant to be with our various Stuntman Armor paints including the Stuntman Marine, Stuntman Secret Service, and many more!"
+                        },
+                        {
+                            category: "C.A.M.P.,NPC",
+                            name: "New Ally: Joey Bello",
+                            description: "This wise-cracking self-proclaimed \"Funny man\" has lived a life full of laughter and loss and is ready to bring the laughter part to your C.A.M.P! Joey loves a good bubblegum wrapper joke and is quick to diffuse any tense situation with humor. This class act is sure to leave you in stitches… even if the cut is his doing."
+                        },
+                        {
+                            category: "Daily Ops,Combat",
+                            name: "New Mutation: Danger Cloud",
+                            description: "Enemies have seeds embedded in their skin, periodically they will radiate a spore cloud around them that damages the player, reducing their AP regen and max AP. Plan your routes and load-outs carefully to withstand these infested beings."
+                        },
+                        {
+                            category: "Expeditions,Balance",
+                            name: "Removed Ultracite Battery Charge",
+                            description: "Players are no longer required to complete Fuel Quests to launch an Expedition as a Team Leader with a fully charged Ultracite Battery. Instead, players can start an Expedition at any time and still be eligible to receive the maximum Mission Rewards. Ultracite Battery Charge is no longer a currency that is granted or tracked on the player."
+                        },
+                        {
+                            category: "Expeditions,Balance,Daily Quest",
+                            name: "Fuel Quests No Longer Mandatory",
+                            description: "All three Fuel Quests are now Daily Quests. Only one Fuel Daily Quest will be active per day. Rewards have been updated to be more in line with other Dailies."
+                        },
+                        {
+                            category: "Expeditions,Balance,Items",
+                            name: "Reduced Stamp Costs",
+                            description: "We have reduced the Stamp cost from Giuseppe on items."
+                        },
+                        {
+                            category: "Expeditions,Balance,Items",
+                            name: "Ashes to Fire",
+                            description: "Now grants an increased number of Stamps and Legendary Items in its rewards."
+                        },
+                        {
+                            category: "UI",
+                            name: "Weapon and Armor Descriptions",
+                            description: "We have overhauled the way weapon and armor information is displayed both in the inspect menu and the workbench menus. Descriptions of items and their mod properties are now more specific to the numerical changes in stats, making it easier for you to cater your build to your specific playstyle."
+                        },
+                        {
+                            category: "UI",
+                            name: "Gameplay Settings",
+                            description: "We've added the ability to turn Advanced Mod descriptions ON or OFF. By default, this setting is set to OFF."
+                        },
+                        {
+                            category: "UI",
+                            name: "Item View and Inspection",
+                            description: "<ul>"
+                                + "<li>AP cost, Fire Mode (Single/Automatic/Charging), Ammo Capacity, and Damage Over Time effects are now shown.</li>"
+                                + "<li>We've added new icons to replace the + and – indicators when crafting new items.</li>"
+                                + "<li>Changes when modding are now color coded.</li>"
+                                + "<li>Set Bonuses now have an icon indicator next to the effect description.</li>"
+                                + "<li>Legendary effects now have the Legendary Star icon next to the effect description.</li>"
+                                + "<li>Extra effects not normally shown elsewhere are now displayed below the Legendary Effects.</li>"
+                                + "<li>Dynamic values of some effects have been added to show the current bonus.</li>"
+                                + "</ul>"
+                        },
+                        {
+                            category: "Items,Balance",
+                            name: "Bleedout Syringer Barrel",
+                            description: "The Bleedout Syringer Barrel now deals physical damage instead of poison."
+                        },
+                        {
+                            category: "Items,Balance",
+                            name: "Burning mods",
+                            description: "Burning mods for Energy Weapons now deal fire damage."
+                        },
+                        {
+                            category: "Items,Balance",
+                            name: "Two Shot Legendary Mod",
+                            description: "We've adjusted the Two Shot Legendary Mod to deal its bonus damage more similarly to energy weapons. This is to keep the damage more in-line with one another."
+                        },
+                        {
+                            category: "Items,Balance",
+                            name: "Contextual Ammo",
+                            description: " Contextual Ammo has been adjusted to more closely match ammo counts for Daily Ops and Expeditions, better accommodate some weapons which consume a lot of ammo, and provide more ammo for Non-Expeditions/Daily Ops (\"open world\") in certain level ranges where enemies are proportionally hardier and more difficult to kill. This fix also increases the rate of Fusion and Plasma Cores that drop in the Open World."
+                        },
+                        {
+                            category: "UI",
+                            name: "Fanfare",
+                            description: "We have moved the Legendary Item fanfare to no longer be in the center of the screen."
+                        },
+                        {
+                            category: "Playstation",
+                            name: "PlayStation",
+                            description: "We've updated the Default Controller layout for PlayStation users. The Map is now opened with the touch pad and the POV can be changed using the Options button."
+                        },
+                        {
                             category: "Other",
-                            name: "TBD",
-                            description: "Later this week."
+                            name: "Resets",
+                            description: "uring daylight savings, Vendors now update their inventory at the same time as challenges at 11 am CT. (Note: Outside of Daylight savings, the reset will happen at 12 pm CT.)"
+                        },
+                        {
+                            category: "UI,Visual",
+                            name: "Settings",
+                            description: "We've added a setting to enable and disable weapon muzzle flash effects."
+                        },
+                        {
+                            category: "UI,Combat",
+                            name: "Settings",
+                            description: "We've also added a setting for VATS targeting for Grenades and Mines. Players can now choose to target all, just the player's, or none."
+                        },
+                        {
+                            category: "Bugfix,Sound",
+                            name: "Sound Effects",
+                            description: "Nuka-World Speakers now correctly play audio in camps, and properly sync with the speakers at Nuka-World on Tour."
+                        },
+                        {
+                            category: "Bugfix,Sound",
+                            name: "Sound Effects",
+                            description: "Grognak Wax Figure can now be heard by other players when activated."
+                        },
+                        {
+                            category: "Bugfix,Sound",
+                            name: "Sound",
+                            description: "Fixed bug that caused switching voice chat type settings to not always mute or unmute other players appropriately."
+                        },
+                        {
+                            category: "Bugfix,Sound",
+                            name: "Teamspeak",
+                            description: "Fixed bug that caused switching voice chat type settings to not always mute or unmute other players appropriately."
+                        },
+                        {
+                            category: "Bugfix,Sound",
+                            name: "Voiceover",
+                            description: "Fixed various cases of mismatched subtitles to their voiceovers."
+                        },
+                        {
+                            category: "Bugfix,Items,Visual",
+                            name: "Art",
+                            description: "Adjustments made to the Intergalactic Handmade weapon skin."
+                        },
+                        {
+                            category: "Bugfix,Items,Visual",
+                            name: "Art",
+                            description: "Added collision to the Abandoned Mine, Carpeted Ramp, and Medieval Stairs."
+                        },
+                        {
+                            category: "Bugfix,Items,Visual",
+                            name: "Animation",
+                            description: "Fixed a case where aiming a weapon would not animate correctly when exiting Power Armor."
+                        },
+                        {
+                            category: "Bugfix,Items,Visual",
+                            name: "Animation",
+                            description: "Fixed an issue that allowed player to skip certain animations while firing weapons."
+                        },
+                        {
+                            category: "Bugfix,Items,Visual",
+                            name: "Building",
+                            description: "The Brahmin Milk Machine and Popcorn Machine can now both be placed in a C.A.M.P. at the same time."
+                        },
+                        {
+                            category: "Bugfix,Items,Visual",
+                            name: "Building",
+                            description: "Wallpaper can now be placed on the Clean Ranch Kit wall with windows."
+                        },
+                        {
+                            category: "Bugfix,Items,Visual",
+                            name: "Building",
+                            description: "The Flatwoods Monster Tube now has a HUD Notification when learning its plan."
+                        },
+                        {
+                            category: "C.A.M.P.,NPC",
+                            name: "Ally",
+                            description: "Sam Nguyen is now available to be purchased from Samuel for Gold Bullion."
+                        },
+                        {
+                            category: "Bugfix,C.A.M.P.,NPC",
+                            name: "Ally",
+                            description: "The Settler Forager will now give Daily Quests correctly."
+                        },
+                        {
+                            category: "Bugfix,C.A.M.P.,NPC",
+                            name: "Ally",
+                            description: "Allies placed within the Hunters Lodge can now wander around to their hearts content."
+                        },
+                        {
+                            category: "Bugfix,C.A.M.P.",
+                            name: "Building",
+                            description: "Addressed an issue that caused items placed upon the floor of the Helvetia Porch to snap to its roof instead."
+                        },
+                        {
+                            category: "Bugfix,C.A.M.P.,Balance",
+                            name: "Building",
+                            description: "Adjusted the budget cost of the Circus Trailer to be more in-line with other large objects."
+                        },
+                        {
+                            category: "Bugfix,C.A.M.P.",
+                            name: "Building",
+                            description: "The Blue Nuka-Cola Billboard now has a destruction state."
+                        },
+                        {
+                            category: "Bugfix,C.A.M.P.",
+                            name: "Building",
+                            description: "The Medieval Portcullis door now has more consistent health with the rest of its asset."
+                        },
+                        {
+                            category: "Bugfix,C.A.M.P.",
+                            name: "Building",
+                            description: "Slocum's Fat Stack should now be easier to place in some shelters."
+                        },
+                        {
+                            category: "Bugfix,C.A.M.P.",
+                            name: "Building",
+                            description: "The Power Connector C.A.M.P. object now properly can be turned on and off."
+                        },
+                        {
+                            category: "Bugfix,C.A.M.P.",
+                            name: "Displays",
+                            description: "Made adjustments to the Enclave Power Armor Display to make it so all Power Armor is aligned properly."
+                        },
+                        {
+                            category: "Bugfix,C.A.M.P.",
+                            name: "Displays",
+                            description: "The Commendation Misc. item now properly displays when placed in a display case."
+                        },
+                        {
+                            category: "Bugfix,C.A.M.P.",
+                            name: "Displays",
+                            description: "Jetpacks no longer visually disappear from mannequins."
+                        },
+                        {
+                            category: "Bugfix,C.A.M.P.,Items",
+                            name: "Crafting",
+                            description: "Secret Service Armor pieces are now correctly shown during crafting rather than Loot Boxes."
+                        },
+                        {
+                            category: "Bugfix,Items,Visual",
+                            name: "Underarmor",
+                            description: "The Brotherhood of Steel Soldier and Knight Underarmor now have the correct texture applied to them."
+                        },
+                        {
+                            category: "Challenge,Daily Quest",
+                            name: "Dailies",
+                            description: "Added Refuge Daily Quests to the list for \"Complete Daily Quest\" type challenges."
+                        },
+                        {
+                            category: "Bugfix,Challenge",
+                            name: "Epic Challenge",
+                            description: "Players no longer get credit for the Epic challenge \"Take a Photo of a Super Mutant in your workshop\", when taking a picture of a mutant in another player's workshop."
+                        },
+                        {
+                            category: "Bugfix,Season,UI",
+                            name: "Seasons",
+                            description: "Fixed an issue where the Rank Up to Here button would remain grayed out after aborting an Atom purchase."
+                        },
+                        {
+                            category: "Bugfix,Challenge",
+                            name: "Seasons ",
+                            description: "Re-roller consumables can now be purchased in Custom Worlds."
+                        },
+                        {
+                            category: "Bugfix,Challenge,Items",
+                            name: "World Challenges",
+                            description: "The Cold Shoulder weapon now properly counts towards challenge \"Deal cryo damage to enemies\"."
+                        },
+                        {
+                            category: "Bugfix,Daily Ops,Visual,Locations",
+                            name: "Charleston Capitol Building",
+                            description: "Removed exit signs above inaccessible doors."
+                        },
+                        {
+                            category: "Bugfix,Visual,Combat",
+                            name: "Animation",
+                            description: "Fixed issue preventing Enemy Flamer animations from playing correctly."
+                        },
+                        {
+                            category: "Bugfix,Combat",
+                            name: "Combat",
+                            description: "Enemies unable to be damaged by ranged attack no longer display normal damage values when hit by ranged instead of \"0\"."
+                        },
+                        {
+                            category: "Bugfix,Combat",
+                            name: "Creatures",
+                            description: "Molerat Bombs will now be dismembered after exploding."
+                        },
+                        {
+                            category: "Bugfix,Combat,Items",
+                            name: "Creatures",
+                            description: "Super Mutants now properly drop contextual ammo."
+                        },
+                        {
+                            category: "Bugfix,Combat",
+                            name: "Robots",
+                            description: "Fixed an issue that would cause players to take damage from an Assaultron's laser when they hadn't been hit directly."
+                        },
+                        {
+                            category: "Bugfix,Combat,Visual",
+                            name: "Trogs",
+                            description: "When dismembered, Trogs no longer spawn a second bloody head."
+                        },
+                        {
+                            category: "Bugfix,Event,Visual",
+                            name: "Invaders from Beyond",
+                            description: "Fixed an issue that caused the dynamic weather events in Nuclear Blast Zones to be overridden by the Invaders from Beyond event weather."
+                        },
+                        {
+                            category: "Bugfix,Items",
+                            name: "Magazines",
+                            description: "The Backwoodsman 4 magazine now works properly and provides a 50% chance to yield double items from plants."
+                        },
+                        {
+                            category: "Bugfix,Items",
+                            name: "Magazines",
+                            description: "The Backwoodsman 6 magazines \"+50% Health boost\" now correctly applies to all food items, and correctly states its effects in the Pip-Boy."
+                        },
+                        {
+                            category: "Bugfix",
+                            name: "Status Effects",
+                            description: "The Well-Fed buff now persists after logging out and back in."
+                        },
+                        {
+                            category: "Bugfix,Perks",
+                            name: "Status Effects",
+                            description: "Fixed issues related to shared perks being persistent after stopping sharing them."
+                        },
+                        {
+                            category: "Bugfix,Items",
+                            name: "Status Effects",
+                            description: "X-Cell, RadAway, Antibiotics, and Rad-X are now affected by the Chem Fiend Perk."
+                        },
+                        {
+                            category: "Bugfix,Items",
+                            name: "Crafting",
+                            description: "Repairing Strangler Heart Power Armor Helmets no longer requires Vault Steel and Legendary Modules."
+                        },
+                        {
+                            category: "Bugfix,Items",
+                            name: "Crafting",
+                            description: "The Father Winter Helmet paint can no longer be crafted without knowing the recipe and no longer appears in the menu for crafting T-45 Armor."
+                        },
+                        {
+                            category: "Bugfix,Event",
+                            name: "Nuka-World",
+                            description: "The following plans no longer drop from Nuka-World on Tour Events after the player has learned them; Ultracite Backpack Flair, Bottle Backpack Flair, and Cappy Backpack Flair."
+                        },
+                        {
+                            category: "Bugfix,Event",
+                            name: "One Violent Night",
+                            description: "Fixed an issue causing the progress bar to unexpectedly stop."
+                        },
+                        {
+                            category: "Bugfix",
+                            name: "Quests",
+                            description: "Fixed an issue where players weren't receiving the bonus caps when a teammate completed a quest."
+                        },
+                        {
+                            category: "Bugfix,Event",
+                            name: "Spin the Wheel",
+                            description: "Fixed an issue that would cause the \"Keep Moving\" twist would not damage players who are standing still."
+                        },
+                        {
+                            category: "Bugfix,Event,Locations",
+                            name: "Surface to Air",
+                            description: "Completing the event at the Forward Station Alpha location now always count as completing an event in the Cranberry Bog for challenges."
+                        },
+                        {
+                            category: "Bugfix,Items",
+                            name: "Ammo",
+                            description: "Made improvements to Contextual Ammo drops for all weapons."
+                        },
+                        {
+                            category: "Bugfix,Items",
+                            name: "Legendary Mods",
+                            description: "Addressed an issue where the Overeaters Legendary mod would cause players to receive increased damage."
+                        },
+                        {
+                            category: "Bugfix,Items",
+                            name: "Legendary Mods",
+                            description: "Increased the Health regeneration rate to .5 for all Legendary Armor regeneration mods for Armor and Power Armor."
+                        },
+                        {
+                            category: "Bugfix,Items",
+                            name: "Legendary Mods",
+                            description: "The Legendary mod \"Weightless\" now applies to the weight added by other mods attached to the item."
+                        },
+                        {
+                            category: "Bugfix,Items",
+                            name: "Legendary Mods",
+                            description: "Medic's legendary mod tool tip now accurately reflects its effect."
+                        },
+                        {
+                            category: "Bugfix,Items",
+                            name: "Mods ",
+                            description: "The Endangerol Mod for the Syringer now works properly."
+                        },
+                        {
+                            category: "Bugfix,Items",
+                            name: "Weapons",
+                            description: "The Nuka-Launcher can now be changed back to its original paint after changing it to a different paint."
+                        },
+                        {
+                            category: "Bugfix,Items,Balance",
+                            name: "Weapons",
+                            description: "The Long Recon Scope for the Pipe Bolt-Action Pistol now only requires the Gunsmith 2 perk instead of Gunsmith 2 and Science 2."
+                        },
+                        {
+                            category: "Bugfix,Items",
+                            name: "Weapons",
+                            description: "The Fancy Single-Action Revolver can now drop with the following Legendary Effects; Zealot's, Gourmand's, Juggernaut's, and Aristocrat's."
+                        },
+                        {
+                            category: "Bugfix,Items",
+                            name: "Weapons",
+                            description: "We've made adjustments to the Gauss Shotgun's VATS accuracy to be more in line with the Gauss Pistol."
+                        },
+                        {
+                            category: "Bugfix",
+                            name: "Vehicles",
+                            description: "Plasma Grenades now deal damage to vehicles."
+                        },
+                        {
+                            category: "Bugfix,NPC",
+                            name: "Vendors",
+                            description: "The Purveyor and certain loot lists will once again drop copies of plans players already know."
+                        },
+                        {
+                            category: "Bugfix,Locations",
+                            name: "World",
+                            description: "Replaced a missing table in the Whitespring Resort."
+                        },
+                        {
+                            category: "Bugfix",
+                            name: "World",
+                            description: "Upon destruction, Fanatic turrets will no longer change into Ash or Goo piles."
+                        },
+                        {
+                            category: "Bugfix",
+                            name: "World",
+                            description: "Fixed the visual effects of the Fanatic Flamer."
+                        },
+                        {
+                            category: "Bugfix,UI,Items",
+                            name: "Crafting",
+                            description: "Alien Blaster mods will now correctly display the number of mods unlocked."
+                        },
+                        {
+                            category: "Bugfix,UI",
+                            name: "Favorites Wheel",
+                            description: "Nuka Quantum now shows the correct icon in the Favorites Wheel."
+                        },
+                        {
+                            category: "Bugfix,UI",
+                            name: "Help Menu",
+                            description: "\"Fast Travel\" section now mentions The Rusty Pick and The Whitespring Resort as Free/No Cost locations."
+                        },
+                        {
+                            category: "Bugfix,UI",
+                            name: "Help Menu",
+                            description: "\"Stamps\" section now states where players can see their collected Stamps."
+                        },
+                        {
+                            category: "Bugfix,UI",
+                            name: "Help Menu",
+                            description: "\"SPECIAL\" section now mentions SPECIAL Loadouts."
+                        },
+                        {
+                            category: "Bugfix,UI",
+                            name: "Help Menu",
+                            description: "\"Sleeping\" section now has information on different sleeping effects and how they're obtained."
+                        },
+                        {
+                            category: "Bugfix,UI",
+                            name: "Help Menu",
+                            description: "Pacifist description has been updated to match current effects."
+                        },
+                        {
+                            category: "Bugfix,UI",
+                            name: "Help Menu",
+                            description: "\"Death\" section now mentions all Free Respawn locations."
+                        },
+                        {
+                            category: "Bugfix,UI",
+                            name: "Help Menu",
+                            description: "Added up-to-date information about Shelters building restrictions."
+                        },
+                        {
+                            category: "Bugfix,UI",
+                            name: "Help Menu",
+                            description: "\"Aid and Apparel\" information has been adjusted to be up-to-date."
+                        },
+                        {
+                            category: "Bugfix,UI",
+                            name: "Notifications",
+                            description: "Plans for Heavy Robot Arms no longer incorrectly call out that they only teach the right arm."
+                        },
+                        {
+                            category: "Bugfix,UI,Items",
+                            name: "Pip-Boy",
+                            description: "Bunker Buster name now appears correctly for the item in the player's inventory instead of Missile Launcher."
+                        },
+                        {
+                            category: "Bugfix,UI",
+                            name: "Pip-Boy",
+                            description: "The \"You Already Know\" prompt will now show for a number of plans that previously were missing this."
                         },
                     ]
                 },
