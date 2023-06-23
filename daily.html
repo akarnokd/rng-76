@@ -19118,6 +19118,13 @@
                     period: 1400,
                 };
             }
+            function scoreSellShotgun(offset, count) {
+                return {
+                    name: times("Sell a Shotgun", count),
+                    offset: offset,
+                    period: 1400,
+                };
+            }
 
             addWeeklies(challengesWeeklyEra16, 0, [
                 scoreFixedGainXP10000Rank100, 1,
@@ -19163,6 +19170,17 @@
                     scoreDrinkNukaWild, 2,
                     scoreKillWendigo, 1,
                     make1st(scoreCraftMineGrenadeThrown), 5,
+                    scoreReroll, 1,
+                ], dops(dailyOpsValley, dailyOpsMoleminers, dailyOpsReflective, false, false, true));
+            addDaily(challengesDailyEra16, 3, [
+                    scoreCompleteDailyChallenge, 6,
+                    scoreCollectStimpakChems, 5,
+                    scoreCompleteDailyOpsPublicTeam, 1,
+                    scoreHackTerminal, 1,
+                    scoreKillLegendary, 1,
+                    scoreKillSupermutant, 5,
+                    scoreSellShotgun, 1,
+                    make1st(scoreEatDogFood), 5,
                     scoreReroll, 1,
                 ], dops(dailyOpsValley, dailyOpsMoleminers, dailyOpsReflective, false, false, true));
 
