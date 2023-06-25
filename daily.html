@@ -19125,6 +19125,13 @@
                     period: 1400,
                 };
             }
+            function scoreCrippleSuperMutantArm(offset, count) {
+                return {
+                    name: times("Cripple a Super Mutant's Arm", count),
+                    offset: offset,
+                    period: 1400,
+                };
+            }
 
             addWeeklies(challengesWeeklyEra16, 0, [
                 scoreFixedGainXP10000Rank100, 1,
@@ -19192,6 +19199,17 @@
                     scorePickLock, 1,
                     scoreScrapJunkSteel, 10,
                     make1st(scoreKillHoneyBeast), 1,
+                    scoreReroll, 1,
+                ], dops(dailyOpsCharleston, dailyOpsRobots, dailyOpsSwift, false, false, true));
+            addDaily(challengesDailyEra16, 5, [
+                    scoreCompleteDailyChallenge, 6,
+                    scoreCompleteDailyOpsPublicTeam, 1,
+                    scoreCraftMineGrenadeThrown, 5,
+                    scoreCrippleSuperMutantArm, 2,
+                    scoreEatPrewarFood, 10,
+                    scoreKillBloodEagle, 10,
+                    scoreKillCreatures, 12,
+                    make1st(scoreCollectAnyNukaCola), 5,
                     scoreReroll, 1,
                 ], dops(dailyOpsCharleston, dailyOpsRobots, dailyOpsSwift, false, false, true));
 
