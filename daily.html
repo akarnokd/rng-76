@@ -19216,7 +19216,18 @@
                     scoreKillCreatures, 12,
                     make1st(scoreCollectAnyNukaCola), 5,
                     scoreReroll, 1,
-                ], dops(dailyOpsValley, dailyOpsEagles, dailyOpsDanger, false, false, true));
+                ], dops(dailyOpsValley, dailyOpsEagles, dailyOpsDanger, true, false, true));
+            addDaily(challengesDailyEra16, 6, [
+                    scoreCompleteDailyChallenge, 6,
+                    scoreBuildLightSources, 3,
+                    scoreCompleteDailyOps, 1,
+                    scoreKillGulper, 3,
+                    scoreKillSupermutant, 5,
+                    scoreScrapJunkCeramic, 5,
+                    scoreScrapJunkCopper, 5,
+                    make1st(scoreHackTerminal), 1,
+                    scoreReroll, 1,
+                ], dops(dailyOpsValley, dailyOpsEagles, dailyOpsDanger, true, false, true));
 
             function createSummerCamp(start, end) {
                 return {
