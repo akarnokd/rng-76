@@ -19229,6 +19229,46 @@
                     scoreReroll, 1,
                 ], dops(dailyOpsWatoga, dailyOpsRobots, dailyOpsDanger, false, false, true));
 
+            function scoreDealCriticalHitRadtoad(offset, count) {
+                return {
+                    name: times("Deal a critical hit to a Radtoad", count),
+                    offset: offset,
+                    period: 1400,
+                };
+            }
+            function scoreCrippleMirelurkArm(offset, count) {
+                return {
+                    name: times("Cripple a Mirelurk's Arm", count),
+                    offset: offset,
+                    period: 1400,
+                };
+            }
+
+            addWeeklies(challengesWeeklyEra16, 7, [
+                scoreFixedGainXP10000Rank100, 1,
+                scoreCompleteGoldStarN, 3,
+                scoreBuildAnythingCamp, 20,
+                scoreClaimWorkshop, 3,
+                scoreCollectStimpakChems, 20,
+                scoreCollectAnyNukaCola, 20,
+                scoreCompleteDailyOps, 3,
+                scoreCrippleMirelurkArm, 20,
+                scoreDestroyAssaultron, 5,
+                scoreDrinkNukaCherry, 10,
+                scoreScrapJunkSilver, 10,
+            ]);
+            addDaily(challengesDailyEra16, 7, [
+                    scoreCompleteDailyChallenge, 6,
+                    scoreCollectPrewarFood, 5,
+                    scoreCompleteDailyOpsPublicTeam, 1,
+                    scoreDealCriticalHitRadtoad, 1,
+                    scoreKillSupermutant, 5,
+                    scoreSellMutantHoundChopsNPC, 1,
+                    scoreTakeCameraPictureSuperMutant, 1,
+                    make1st(scoreScrapJunkAntiseptic), 5,
+                    scoreReroll, 1,
+                ], dops(dailyOpsWatoga, dailyOpsRobots, dailyOpsDanger, false, false, true));
+
             function createSummerCamp(start, end) {
                 return {
                     validStart: start,
