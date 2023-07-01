@@ -19243,6 +19243,27 @@
                     period: 1400,
                 };
             }
+            function scoreBuildBedTableStairsCAMP(offset, count) {
+                return {
+                    name: times("Build a Bed, Table or Stairs in your C.A.M.P.", count),
+                    offset: offset,
+                    period: 1400,
+                };
+            }
+            function scoreCollectEnergyAmmo(offset, count) {
+                return {
+                    name: times("Collect Energy Ammo", count),
+                    offset: offset,
+                    period: 1400,
+                };
+            }
+            function scoreModEnergyWeapon(offset, count) {
+                return {
+                    name: times("Mod Energy Weapon", count),
+                    offset: offset,
+                    period: 1400,
+                };
+            }
 
             addWeeklies(challengesWeeklyEra16, 7, [
                 scoreFixedGainXP10000Rank100, 1,
@@ -19299,6 +19320,17 @@
                     scoreScrapJunkAluminium, 5,
                     scoreScrapJunkOil, 5,
                     make1st(scoreJoinGroup), 1,
+                    scoreReroll, 1,
+                ], dops(dailyOpsUncanny, dailyOpsCultists, dailyOpsVaporous, false, false, true));
+            addDaily(challengesDailyEra16, 11, [
+                    scoreCompleteDailyChallenge, 6,
+                    scoreBuildBedTableStairsCAMP, 5,
+                    scoreCollectEnergyAmmo, 20,
+                    scoreCompleteDailyOpsPublicTeam, 1,
+                    scoreKillInsects, 5,
+                    scoreKillScorched, 10,
+                    scoreModEnergyWeapon, 1,
+                    make1st(scoreScrapJunkGlass), 10,
                     scoreReroll, 1,
                 ], dops(dailyOpsUncanny, dailyOpsCultists, dailyOpsVaporous, false, false, true));
 
