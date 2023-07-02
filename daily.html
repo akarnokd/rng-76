@@ -19264,6 +19264,20 @@
                     period: 1400,
                 };
             }
+            function scoreScrapSyringer(offset, count) {
+                return {
+                    name: times("Scrap a Syringer", count),
+                    offset: offset,
+                    period: 1400,
+                };
+            }
+            function scoreSellSwampTofu(offset, count) {
+                return {
+                    name: times("Sell Swamp Tofu", count),
+                    offset: offset,
+                    period: 1400,
+                };
+            }
 
             addWeeklies(challengesWeeklyEra16, 7, [
                 scoreFixedGainXP10000Rank100, 1,
@@ -19331,6 +19345,17 @@
                     scoreKillScorched, 10,
                     scoreModEnergyWeapon, 1,
                     make1st(scoreScrapJunkGlass), 10,
+                    scoreReroll, 1,
+                ], dops(dailyOpsArktos, dailyOpsAliens, dailyOpsRelentless, true, false, true));
+            addDaily(challengesDailyEra16, 12, [
+                    scoreCompleteDailyChallenge, 6,
+                    scoreCompleteDailyOpsPublicTeam, 1,
+                    scoreDestroyRobot, 10,
+                    scoreKillGhoul, 10,
+                    scoreScrapSyringer, 1,
+                    scoreScrapJunkCircuitry, 5,
+                    scoreSellSwampTofu, 1,
+                    make1st(scoreBuildGeneratorCamp), 1,
                     scoreReroll, 1,
                 ], dops(dailyOpsArktos, dailyOpsAliens, dailyOpsRelentless, true, false, true));
 
@@ -21403,10 +21428,16 @@
                 createPWButchersDelight(ofDate(2023, 4, 1, 16), ofDate(2023, 5, 1, 16)),
 
                 createPWHappyBuilder(ofDate(2023, 5, 1, 16), ofDate(2023, 6, 1, 16)),
-                createPWHighRisk(ofDate(2023, 6, 1, 16), ofDate(2023, 2, 7, 16)),
+                createPWHighRisk(ofDate(2023, 6, 1, 16), ofDate(2023, 7, 1, 16)),
                 createPWDwellerMustDie(ofDate(2023, 7, 1, 16), ofDate(2023, 8, 1, 16)),
                 createPWQuantumWorld(ofDate(2023, 8, 1, 16), ofDate(2023, 9, 1, 17)),
-                createPWButchersDelight(ofDate(2023, 9, 1, 17), ofDate(2023, 10, 1, 17))
+                createPWButchersDelight(ofDate(2023, 9, 1, 17), ofDate(2023, 10, 1, 17)),
+
+                createPWHappyBuilder(ofDate(2023, 10, 1, 17), ofDate(2023, 10, 1, 17)),
+                createPWHighRisk(ofDate(2023, 11, 1, 17), ofDate(2024, 0, 1, 17)),
+                createPWDwellerMustDie(ofDate(2024, 1, 1, 16), ofDate(2024, 2, 1, 17)),
+                createPWQuantumWorld(ofDate(2024, 2, 1, 16), ofDate(2024, 3, 1, 16)),
+                createPWButchersDelight(ofDate(2024, 3, 1, 16), ofDate(2024, 4, 1, 16))
             ];
 
             // --------------------------------------------------------------------------------------------------------------
