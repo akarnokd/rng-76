@@ -19399,6 +19399,48 @@
                 };
             }
 
+            function scoreDealCriticalHitSentryBot(offset, count) {
+                return {
+                    name: times("Deal a critical hit to a Sentry Bot", count),
+                    offset: offset,
+                    period: 1400,
+                };
+            }
+            function scoreTakeCameraPictureStingwing(offset, count) {
+                return {
+                    name: times("Take camera picture of a Stingwing", count),
+                    offset: offset,
+                    period: 1400,
+                };
+            }
+            
+
+            addWeeklies(challengesWeeklyEra16, 14, [
+                scoreFixedGainXP10000Rank100, 1,
+                scoreCompleteGoldStarN, 3,
+                scoreCompleteDailyOps, 3,
+                scoreCompleteInvadersDaily, 5,
+                scoreEatMeat, 25,
+                scoreKillBloodEagle, 30,
+                scoreKillGulper, 10,
+                scorePlantCrop, 25,
+                scoreRepairArmorWeaponPA, 10,
+                scoreScrapJunkBallisticFiber, 10,
+                scoreVisitAnotherShelter, 5,
+            ]);
+            addDaily(challengesDailyEra16, 14, [
+                    scoreCompleteDailyChallenge, 6,
+                    scoreCompleteOneEvent, 1,
+                    scoreCompleteInvaders, 1,
+                    scoreDealCriticalHitSentryBot, 1,
+                    scoreDrinkNukaColaDark, 2,
+                    scoreKillScorched, 10,
+                    scoreRepairArmorWeaponPA, 5,
+                    scoreScrapJunkLead, 10,
+                    make1st(scoreTakeCameraPictureStingwing), 1,
+                    scoreReroll, 1,
+                ], dops(dailyOpsWatoga, dailyOpsMutants, dailyOpsVaporous, true, false, true));
+
             communityEventsAppend.push(createDoubleScore(ofDate(2023, 5, 22, 16), ofDate(2023, 5, 27, 16)));
             communityEventsAppend.push(createMinerva(ofDate(2023, 5, 26, 16), ofDate(2023, 5, 28, 16), "Emporium @ Fort Atlas", "P?"));
             communityEventsAppend.push(createDoubleMutations(ofDate(2023, 5, 29, 16), ofDate(2023, 6, 3, 16)));
