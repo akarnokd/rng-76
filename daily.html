@@ -19413,6 +19413,21 @@
                     period: 1400,
                 };
             }
+
+            function scoreTakeCameraPictureEyebot(offset, count) {
+                return {
+                    name: times("Take camera picture of an Eye Bot", count),
+                    offset: offset,
+                    period: 1400,
+                };
+            }
+            function scoreSellBlackPowderPistol(offset, count) {
+                return {
+                    name: times("Sell a Black Powder Pistol", count),
+                    offset: offset,
+                    period: 1400,
+                };
+            }
             
 
             addWeeklies(challengesWeeklyEra16, 14, [
@@ -19438,6 +19453,18 @@
                     scoreRepairArmorWeaponPA, 5,
                     scoreScrapJunkLead, 10,
                     make1st(scoreTakeCameraPictureStingwing), 1,
+                    scoreReroll, 1,
+                ], dops(dailyOpsV94, dailyOpsRobots, dailyOpsRegenerating, false, false, true));
+            addDaily(challengesDailyEra16, 15, [
+                    scoreCompleteDailyChallenge, 6,
+                    scoreBuildDefenseApplianceCraftingWorkshop, 3,
+                    scoreCompleteDailyOpsPublicTeam, 1,
+                    scoreCompleteInvaders, 1,
+                    scoreCrippleSuperMutantArm, 2,
+                    scoreHackTerminal, 1,
+                    scoreKillSnallygaster, 3,
+                    scoreTakeCameraPictureEyebot, 1,
+                    make1st(scoreSellBlackPowderPistol), 1,
                     scoreReroll, 1,
                 ], dops(dailyOpsV94, dailyOpsRobots, dailyOpsRegenerating, false, false, true));
 
