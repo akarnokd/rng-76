@@ -19428,6 +19428,13 @@
                     period: 1400,
                 };
             }
+            function scoreTakeCameraPictureMirelurkHunter(offset, count) {
+                return {
+                    name: times("Take a camera picture of a Mirelurk Hunter", count),
+                    offset: offset,
+                    period: 1400,
+                };
+            }
             
 
             addWeeklies(challengesWeeklyEra16, 14, [
@@ -19477,6 +19484,18 @@
                     scoreScrapJunkGold, 3,
                     scoreTakePictureAlienEnemy, 1,
                     make1st(scoreScrapJunkGlass), 10,
+                    scoreReroll, 1,
+                ], dops(dailyOpsMorgantown, dailyOpsAliens, dailyOpsToxic, false, false, true));
+            addDaily(challengesDailyEra16, 17, [
+                    scoreCompleteDailyChallenge, 6,
+                    scoreCompleteDailyOpsPublicTeam, 1,
+                    scoreCompleteInvaders, 1,
+                    scoreKillAnimalsPipeWeapon, 3,
+                    scoreKillBloodEagle, 10,
+                    scoreScrapJunkFertilizer, 5,
+                    scoreSellRibeyeSteakNPC, 1,
+                    scoreTakeCameraPictureMirelurkHunter, 1,
+                    make1st(scoreTakePictureAlienInvader), 1,
                     scoreReroll, 1,
                 ], dops(dailyOpsMorgantown, dailyOpsAliens, dailyOpsToxic, false, false, true));
 
