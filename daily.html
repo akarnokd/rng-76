@@ -19435,6 +19435,13 @@
                     period: 1400,
                 };
             }
+            function scoreScrapPipeWeapon(offset, count) {
+                return {
+                    name: times("Scrap a Pipe Weapon", count),
+                    offset: offset,
+                    period: 1400,
+                };
+            }
             
 
             addWeeklies(challengesWeeklyEra16, 14, [
@@ -19496,6 +19503,18 @@
                     scoreSellRibeyeSteakNPC, 1,
                     scoreTakeCameraPictureMirelurkHunter, 1,
                     make1st(scoreTakePictureAlienInvader), 1,
+                    scoreReroll, 1,
+                ], dops(dailyOpsWatogaHighschool, dailyOpsEagles, dailyOpsDanger, true, false, true));
+            addDaily(challengesDailyEra16, 18, [
+                    scoreCompleteDailyChallenge, 6,
+                    scoreBuildFloorWallCampFree, 10,
+                    scoreCompleteOneEvent, 1,
+                    scoreCompleteInvaders, 1,
+                    scoreCrippleProtectronRobobrainArms, 2,
+                    scoreEatCookedMeal, 10,
+                    scoreKillLegendary, 1,
+                    scoreScrapPipeWeapon, 5,
+                    make1st(scoreCollectPurifiedWater), 5,
                     scoreReroll, 1,
                 ], dops(dailyOpsWatogaHighschool, dailyOpsEagles, dailyOpsDanger, true, false, true));
 
