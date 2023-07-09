@@ -19442,6 +19442,13 @@
                     period: 1400,
                 };
             }
+            function scoreScrapJunkAsbestos(offset, count) {
+                return {
+                    name: times("Scrap junk to produce Asbestos", count),
+                    offset: offset,
+                    period: 1400,
+                };
+            }
             
 
             addWeeklies(challengesWeeklyEra16, 14, [
@@ -19515,6 +19522,18 @@
                     scoreKillLegendary, 1,
                     scoreScrapPipeWeapon, 5,
                     make1st(scoreCollectPurifiedWater), 5,
+                    scoreReroll, 1,
+                ], dops(dailyOpsBurning, dailyOpsMutants, dailyOpsResilient, false, false, true));
+            addDaily(challengesDailyEra16, 19, [
+                    scoreCompleteDailyChallenge, 6,
+                    scoreCompleteDailyOps, 1,
+                    scoreCompleteInvaders, 1,
+                    scoreConsumeVintageAlcohol, 1,
+                    scoreDestroyRobot, 10,
+                    scoreKillWendigo, 1,
+                    scoreScrapJunkAsbestos, 5,
+                    scoreTakePictureAlienInvader, 1,
+                    make1st(scoreDrinkNukaCranberry), 2,
                     scoreReroll, 1,
                 ], dops(dailyOpsBurning, dailyOpsMutants, dailyOpsResilient, false, false, true));
 
