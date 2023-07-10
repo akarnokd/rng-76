@@ -27,9 +27,11 @@
     </head>
     <body style="height: 90%">
         <center>
-            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Weapon Damage Calculator (v3.10.19)</span>
+            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Weapon Damage Calculator (v3.11.0)</span>
             <br/>
+            <!--
             <i>(Patch 44 update still in progress.)</i>
+            -->
         <br/>
         <br/>
         <table id="parent">
@@ -7134,7 +7136,8 @@
                 "P27": [ "P27A" ],
                 "P33": [ "P27A", "P27" ],
                 "P34": [ "P27A", "P27" ],
-                "P42": [ "P34", "P27A", "P27" ]
+                "P42": [ "P34", "P27A", "P27" ],
+                "P44": [ "P42", "P34", "P27A", "P27" ]
             }
 
             // -------------------------------------------------------------------------------------
@@ -9747,6 +9750,7 @@
                 + "<br><br>Patch 28 added more legendary effects and adjusted existing ones."
                 + "<br><br>Patch 33 fixed the damage formula for non-ballistic damage types. Previously, only the weapon's base damage was pitted against the enemy resistance, ignoring any damage buffs."
                 + "<br><br>Patch 34 changed critical bonus calculation to be additive, increased crit bonuses across."
+                + "<br><br>Patch 44 changed how the anti-armor effect of a weapon mod (normal or legendary) is now additive; perks are still multiplicative."
                 + "<br><br>Future patches appear to change the impact of resistances so that"
                 + "<br>there won't be such a sharp drop in damage output for the same level of resistance,"
                 + "<br>resulting in tougher enemies to receive more damage."
@@ -11414,13 +11418,18 @@
                 opt.text = "Patch 34";
                 opt.value = "P34";
                 opt.linkId = "P34";
-                opt.selected = true;
                 calcmodesel.add(opt);
 
                 opt = document.createElement("option");
                 opt.text = "Patch 42";
                 opt.value = "P42";
                 opt.linkId = "P42";
+                calcmodesel.add(opt);
+
+                opt = document.createElement("option");
+                opt.text = "Patch 44";
+                opt.value = "P44";
+                opt.linkId = "P44";
                 opt.selected = true;
                 calcmodesel.add(opt);
 
@@ -11678,6 +11687,7 @@
                 var totalDamageRadiationMultiply = [];
 
                 var totalArmorIgnoreArray = [];
+                var totalArmorModIgnoreArray = [];
                 var totalArmorAddDR = [];
                 var totalSpeedMultiply = [];
                 var totalSpeedAdditive = [];
@@ -12064,7 +12074,7 @@
                         }
 
                         if (modInfo.ignoreDRPercent !== undefined) {
-                            totalArmorIgnoreArray.push(modInfo.ignoreDRPercent);
+                            totalArmorModIgnoreArray.push(modInfo.ignoreDRPercent);
                         }
                         if (modInfo.silencer !== undefined && modInfo.silencer) {
                             isSilenced = true;
@@ -12256,7 +12266,7 @@
                         }
 
                         if (effInfo.ignoreDRPercent !== undefined) {
-                            totalArmorIgnoreArray.push(effInfo.ignoreDRPercent);
+                            totalArmorModIgnoreArray.push(effInfo.ignoreDRPercent);
                         }
                         if (effInfo.silencer !== undefined && effInfo.silencer) {
                             isSilenced = true;
@@ -12782,6 +12792,23 @@
 
                 for (var pd of deferredDamagePoisonAdditive) {
                     totalDamagePoison += pd;
+                }
+
+                if (calcMode == "P44") {
+                    var additiveArmorPen = 0;
+                    for (var e of totalArmorModIgnoreArray) {
+                        additiveArmorPen += e;
+                    }
+                    if (additiveArmorPen > 95) {
+                        additiveArmorPen = 95;
+                    }
+                    totalArmorIgnoreArray.push(additiveArmorPen);
+                }
+                else 
+                {
+                    for (var e of totalArmorModIgnoreArray) {
+                        totalArmorIgnoreArray.push(e);
+                    }
                 }
 
                 var totalArmorIgnore = 0;
