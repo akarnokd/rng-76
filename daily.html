@@ -19449,6 +19449,20 @@
                     period: 1400,
                 };
             }
+            function scoreCollectBrainFungus(offset, count) {
+                return {
+                    name: times("Collect Brain Fungus", count),
+                    offset: offset,
+                    period: 1400,
+                };
+            }
+            function scoreCrippleSuperMutantHead(offset, count) {
+                return {
+                    name: times("Cripple a Super Mutant's Head", count),
+                    offset: offset,
+                    period: 1400,
+                };
+            }
             
 
             addWeeklies(challengesWeeklyEra16, 14, [
@@ -19534,6 +19548,18 @@
                     scoreScrapJunkAsbestos, 5,
                     scoreTakePictureAlienInvader, 1,
                     make1st(scoreDrinkNukaCranberry), 2,
+                    scoreReroll, 1,
+                ], dops(dailyOpsUncanny, dailyOpsCommunists, dailyOpsRegenerating, true, false, true));
+            addDaily(challengesDailyEra16, 20, [
+                    scoreCompleteDailyChallenge, 6,
+                    scoreCollectBrainFungus, 5,
+                    scoreCompleteOneEvent, 1,
+                    scoreCompleteInvaders, 1,
+                    scoreCrippleSuperMutantHead, 2,
+                    scoreDrinkNukaCranberry, 2,
+                    scoreKillInsects, 5,
+                    scoreScrapJunkSprings, 5,
+                    make1st(scoreTakePictureAlienDrone), 1,
                     scoreReroll, 1,
                 ], dops(dailyOpsUncanny, dailyOpsCommunists, dailyOpsRegenerating, true, false, true));
 
