@@ -19570,6 +19570,41 @@
             communityEventsAppend.push(createInvaders(ofDate(2023, 6, 4, 16), ofDate(2023, 6, 11, 16)));
             communityEventsAppend.push(createGoldRush2(ofDate(2023, 6, 6, 16), ofDate(2023, 6, 10, 16)));
             communityEventsAppend.push(createMinerva(ofDate(2023, 6, 6, 16), ofDate(2023, 6, 10, 16), "Big Sale @ The Whitespring", "P?"));
+
+            function scoreCraftThrowable(offset, count) {
+                return {
+                    name: times("Craft a Throwable weapon", count),
+                    offset: offset,
+                    period: 1400,
+                };
+            }
+
+            addWeeklies(challengesWeeklyEra16, 21, [
+                scoreFixedGainXP10000Rank100, 1,
+                scoreCompleteGoldStarN, 3,
+                scoreCollectBrainFungus, 20,
+                scoreCollectLegendaryModules, 10,
+                scoreCompleteDailyOps, 3,
+                scoreConsumeAlcohol, 20,
+                scoreCraftThrowable, 20,
+                scoreDealCriticalHitRadtoad, 5,
+                scoreKillMoleminer, 30,
+                scoreModEnergyWeapon, 5,
+                scorePlantCropFree, 25,
+            ]);
+            addDaily(challengesDailyEra16, 21, [
+                    scoreCompleteDailyChallenge, 6,
+                    scoreCollectDeathclawEgg, 1,
+                    scoreCompleteDailyOps, 1,
+                    scoreKillCultist, 10,
+                    scoreKillDeathclaw, 1,
+                    scoreKillRadstag, 5,
+                    scoreScrapJunkBone, 5,
+                    make1st(scoreEatCookedMealTeammate), 5,
+                    scoreReroll, 1,
+                ], dops(dailyOpsWestTec, dailyOpsAliens, dailyOpsDanger, false, false, true));
+
+
             communityEventsAppend.push(createScripSurplus3(ofDate(2023, 6, 13, 16), ofDate(2023, 6, 17, 16)));
             communityEventsAppend.push(createDoubleMutations(ofDate(2023, 6, 13, 16), ofDate(2023, 6, 17, 16)));
             communityEventsAppend.push(createPurveyor(ofDate(2023, 6, 20, 16), ofDate(2023, 6, 24, 16), 25, false, 1));
