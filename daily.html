@@ -19629,6 +19629,7 @@
 
             communityEventsAppend.push(createScripSurplus3(ofDate(2023, 6, 13, 16), ofDate(2023, 6, 17, 16)));
             communityEventsAppend.push(createDoubleMutations(ofDate(2023, 6, 13, 16), ofDate(2023, 6, 17, 16)));
+            communityEventsAppend.push(createMutationInvasion(ofDate(2023, 6, 18, 16), ofDate(2023, 6, 25, 16)));
             communityEventsAppend.push(createPurveyor(ofDate(2023, 6, 20, 16), ofDate(2023, 6, 24, 16), 25, false, 1));
             communityEventsAppend.push(createSummerCamp(ofDate(2023, 6, 25, 16), ofDate(2023, 7, 8, 16)));
             communityEventsAppend.push(createTreasureHunt(ofDate(2023, 6, 27, 16), ofDate(2023, 6, 31, 16), false));
@@ -20355,6 +20356,25 @@
                         },
                         {
                             name: "Rewards: 2x XP, 2x currency",
+                            offset: 0,
+                            period: 1
+                        }
+                    ]
+                };
+            }
+            function createMutationInvasion(start, end) {
+                return {
+                    validStart: start,
+                    validEnd: end,
+                    title: "Mutation Invasion",
+                    options: [
+                        {
+                            name: "Public events at exact hour have mutated enemies.",
+                            offset: 0,
+                            period: 1
+                        },
+                        {
+                            name: "Rewards: Mutated Party Pack",
                             offset: 0,
                             period: 1
                         }
