@@ -19578,6 +19578,13 @@
                     period: 1400,
                 };
             }
+            function scoreSellTesla(offset, count) {
+                return {
+                    name: times("Sell a Tesla Rifle", count),
+                    offset: offset,
+                    period: 1400,
+                };
+            }
 
             addWeeklies(challengesWeeklyEra16, 21, [
                 scoreFixedGainXP10000Rank100, 1,
@@ -19623,6 +19630,17 @@
                     scoreKillLegendary, 1,
                     scoreScrapJunkCork, 5,
                     make1st(scoreCraftMineGrenadeThrown), 10,
+                    scoreReroll, 1,
+                ], dops(dailyOpsWatoga, dailyOpsEagles, dailyOpsCloudedToxins, true, false, true));
+            addDaily(challengesDailyEra16, 24, [
+                    scoreCompleteDailyChallenge, 6,
+                    scoreBuildAnythingCamp, 5,
+                    scoreCompleteOneEvent, 1,
+                    scoreDrinkNukaWild, 2,
+                    scoreKillBloodEagle, 5,
+                    scoreKillGlowing, 1,
+                    scoreSellTesla, 1,
+                    make1st(scoreConsumeAlcohol), 5,
                     scoreReroll, 1,
                 ], dops(dailyOpsWatoga, dailyOpsEagles, dailyOpsCloudedToxins, true, false, true));
 
