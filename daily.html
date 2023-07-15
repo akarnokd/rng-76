@@ -19585,6 +19585,13 @@
                     period: 1400,
                 };
             }
+            function scoreCollectTeapot(offset, count) {
+                return {
+                    name: times("Collect a Teapot", count),
+                    offset: offset,
+                    period: 1400,
+                };
+            }
 
             addWeeklies(challengesWeeklyEra16, 21, [
                 scoreFixedGainXP10000Rank100, 1,
@@ -19641,6 +19648,17 @@
                     scoreKillGlowing, 1,
                     scoreSellTesla, 1,
                     make1st(scoreConsumeAlcohol), 5,
+                    scoreReroll, 1,
+                ], dops(dailyOpsV96, dailyOpsCultists, dailyOpsCloudedToxins, false, false, true));
+            addDaily(challengesDailyEra16, 25, [
+                    scoreCompleteDailyChallenge, 6,
+                    scoreCollectTeapot, 1,
+                    scoreCompleteDailyOpsPublicTeam, 1,
+                    scoreCrippleProtectronRobobrainArms, 2,
+                    scoreKillScorched, 10,
+                    scoreKillSnallygaster, 3,
+                    scoreModWeapon, 1,
+                    make1st(scoreSellMutantHoundChopsNPC), 1,
                     scoreReroll, 1,
                 ], dops(dailyOpsV96, dailyOpsCultists, dailyOpsCloudedToxins, false, false, true));
 
