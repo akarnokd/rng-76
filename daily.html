@@ -19592,6 +19592,13 @@
                     period: 1400,
                 };
             }
+            function scoreTakePictureFogCrawler(offset, count) {
+                return {
+                    name: times("Take a camera picture of a Fog Crawler", count),
+                    offset: offset,
+                    period: 1400,
+                };
+            }
 
             addWeeklies(challengesWeeklyEra16, 21, [
                 scoreFixedGainXP10000Rank100, 1,
@@ -19659,6 +19666,17 @@
                     scoreKillSnallygaster, 3,
                     scoreModWeapon, 1,
                     make1st(scoreSellMutantHoundChopsNPC), 1,
+                    scoreReroll, 1,
+                ], dops(dailyOpsMorgantown, dailyOpsAliens, dailyOpsStingingFrost, true, false, true));
+            addDaily(challengesDailyEra16, 26, [
+                    scoreCompleteDailyChallenge, 6,
+                    scoreCompleteOneEvent, 1,
+                    scoreDrinkNukaCranberry, 2,
+                    scoreHarvestCornRazorgrainTato, 12,
+                    scoreKillScorched, 10,
+                    scoreKillSupermutant, 5,
+                    scorePlantCrop, 10,
+                    make1st(scoreTakePictureFogCrawler), 1,
                     scoreReroll, 1,
                 ], dops(dailyOpsMorgantown, dailyOpsAliens, dailyOpsStingingFrost, true, false, true));
 
