@@ -19695,6 +19695,32 @@
             communityEventsAppend.push(createScripSurplus3(ofDate(2023, 6, 13, 16), ofDate(2023, 6, 17, 16)));
             communityEventsAppend.push(createMinerva(ofDate(2023, 6, 17, 16), ofDate(2023, 6, 19, 16), "Emporium @ Foundation", "P?"));
             communityEventsAppend.push(createDoubleMutations(ofDate(2023, 6, 13, 16), ofDate(2023, 6, 17, 16)));
+
+            addWeeklies(challengesWeeklyEra16, 28, [
+                scoreFixedGainXP10000Rank100, 1,
+                scoreCompleteGoldStarN, 3,
+                scoreBuildTurretsTraps, 10,
+                scoreClaimWorkshop, 3,
+                scoreCollectPrewarFood, 20,
+                scoreCompletePublicMutatedEvent, 3,
+                scoreDrinkNukaCola, 25,
+                scoreKillBloodEagle, 25,
+                scoreKillMutatedEnemy, 30,
+                scoreLevelUp, 3,
+                scoreRepairArmorWeaponPA, 10,
+            ]);
+            addDaily(challengesDailyEra16, 28, [
+                    scoreCompleteDailyChallenge, 6,
+                    scoreCollectAnyNukaCola, 5,
+                    scoreCompleteDaily, 1,
+                    scoreDrinkNukaCranberry, 2,
+                    scoreHackTerminal, 1,
+                    scoreKillGlowing, 1,
+                    scoreKillMutatedEnemy, 10,
+                    make1st(scoreScrapHeadwear), 1,
+                    scoreReroll, 1,
+                ], dops(dailyOpsBurning, dailyOpsCommunists, dailyOpsReflective, true, false, true));
+
             communityEventsAppend.push(createMutationInvasion(ofDate(2023, 6, 18, 16), ofDate(2023, 6, 25, 16)));
             communityEventsAppend.push(createPurveyor(ofDate(2023, 6, 20, 16), ofDate(2023, 6, 24, 16), 25, false, 1));
             communityEventsAppend.push(createSummerCamp(ofDate(2023, 6, 25, 16), ofDate(2023, 7, 8, 16)));
