@@ -19599,6 +19599,13 @@
                     period: 1400,
                 };
             }
+            function scoreScrapPipeGun(offset, count) {
+                return {
+                    name: times("Scrap a Pipe Gun", count),
+                    offset: offset,
+                    period: 1400,
+                };
+            }
 
             addWeeklies(challengesWeeklyEra16, 21, [
                 scoreFixedGainXP10000Rank100, 1,
@@ -19740,6 +19747,17 @@
                     scoreKillGhoul, 10,
                     scoreScrapJunkSteel, 10,
                     make1st(scoreSellRibeyeSteakNPC), 3,
+                    scoreReroll, 1,
+                ], dops(dailyOpsGarrahan, dailyOpsMoleminers, dailyOpsDanger, false, false, true));
+            addDaily(challengesDailyEra16, 31, [
+                    scoreCompleteDailyChallenge, 6,
+                    scoreCollectAudiotape, 1,
+                    scoreCompleteDailyOpsPublicTeam, 1,
+                    scoreCookMeatFood, 5,
+                    scoreKillAnimalsPipeWeapon, 3,
+                    scoreKillMutatedEnemy, 10,
+                    scoreScrapPipeGun, 3,
+                    make1st(scoreCollectStimpakChems), 5,
                     scoreReroll, 1,
                 ], dops(dailyOpsGarrahan, dailyOpsMoleminers, dailyOpsDanger, false, false, true));
 
