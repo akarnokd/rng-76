@@ -19377,7 +19377,62 @@
                     title: "Summer C.A.M.P. Challenge",
                     options: [
                         {
-                            name: "<i>(Editor's note: we don't know yet what this will entail.)</i>",
+                            name: times("Summer Camp: Cook Steak with Squirrel Backpack Equipped", 10),
+                            offset: 0,
+                            period: 1,
+                        },
+                        {
+                            name: times("Summer Camp: Craft Disease Cure with Squirrel Backpack Equipped", 5),
+                            offset: 0,
+                            period: 1,
+                        },
+                        {
+                            name: times("Summer Camp: Take a Picture of a Blue Devil with Squirrel Backpack Equipped", 1),
+                            offset: 0,
+                            period: 1,
+                        },
+                        {
+                            name: times("Summer Camp: Add a mod to a backpack", 1),
+                            offset: 0,
+                            period: 1,
+                        },
+                        {
+                            name: times("Summer Camp: Collect Mirelurk Queen Meat with Squirrel Backpack Equipped", 1),
+                            offset: 0,
+                            period: 1,
+                        },
+                        {
+                            name: times("Summer Camp: Complete Daily Challenges", 10),
+                            offset: 0,
+                            period: 1,
+                        },
+                        {
+                            name: times("Summer Camp: Complete Summer Camp Challenges", 7),
+                            offset: 0,
+                            period: 1,
+                        },
+                        {
+                            name: times("Summer Camp: Complete All Summer Camp Challenges", 10),
+                            offset: 0,
+                            period: 1,
+                        },
+                        {
+                            name: times("Summer Camp: Craft Healing Salve with Squirrel Backpack Equipped", 5),
+                            offset: 0,
+                            period: 1,
+                        },
+                        {
+                            name: times("Summer Camp: Kill a Radrat or Molerat with Squirrel Backpack Equipped", 10),
+                            offset: 0,
+                            period: 1,
+                        },
+                        {
+                            name: times("Summer Camp: Pick a Lock with Squirrel Backpack Equipped", 5),
+                            offset: 0,
+                            period: 1,
+                        },
+                        {
+                            name: times("Summer Camp: Take a Camera Picture of Jaggy with Squirrel Backpack Equipped", 1),
                             offset: 0,
                             period: 1,
                         },
@@ -19800,6 +19855,39 @@
             communityEventsAppend.push(createTreasureHunt(ofDate(2023, 6, 27, 16), ofDate(2023, 6, 31, 16), false));
             communityEventsAppend.push(createDoubleMutations(ofDate(2023, 6, 27, 16), ofDate(2023, 6, 31, 16)));
             communityEventsAppend.push(createMinerva(ofDate(2023, 6, 24, 16), ofDate(2023, 6, 26, 16), "Emporium @ Crater", "P?"));
+
+            function scoreF(offset, count) {
+                return {
+                    name: times("", count),
+                    offset: offset,
+                    period: 1400,
+                };
+            }
+
+            addWeeklies(challengesWeeklyEra16, 35, [
+                scoreFixedGainXP10000Rank100, 1,
+                scoreCompleteGoldStarN, 3,
+                scoreCollectCaps, 2500,
+                scoreCollectPurifiedWater, 25,
+                scoreCompleteDailyOps, 3,
+                scoreCompleteOneEvent, 3,
+                scoreEatCookedMeal, 30,
+                scoreKillCreatureWellFed, 20,
+                scoreKillMoleminer, 30,
+                scorePlantCrop, 25,
+                scoreScrapJunkBlackTitanium, 10,
+            ]);
+            addDaily(challengesDailyEra16, 35, [
+                    scoreCompleteDailyChallenge, 6,
+                    scoreBuildDefenseApplianceCraftingWorkshop, 3,
+                    scoreCollectMirelurkEgg, 3,
+                    scoreCompleteOneEvent, 1,
+                    scoreCrippleMirelurkArm, 2,
+                    scoreKillMirelurk, 5,
+                    scoreTakeCameraPictureMirelurkHunter, 1,
+                    make1st(scoreScrapJunkCork), 5,
+                    scoreReroll, 1,
+                ], dops(dailyOpsUncanny, dailyOpsAliens, dailyOpsVolatile, false, false, true));
 
             communityEventsAppend.push(createPurveyor(ofDate(2023, 7, 3, 16), ofDate(2023, 7, 7, 16), 25, false, 1));
             communityEventsAppend.push(createQuakeCon(ofDate(2023, 7, 10, 16), ofDate(2023, 7, 13, 16)));
