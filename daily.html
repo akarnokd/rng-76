@@ -19860,9 +19860,9 @@
             communityEventsAppend.push(createDoubleMutations(ofDate(2023, 6, 27, 16), ofDate(2023, 6, 31, 16)));
             communityEventsAppend.push(createMinerva(ofDate(2023, 6, 24, 16), ofDate(2023, 6, 26, 16), "Emporium @ Crater", "P?"));
 
-            function scoreF(offset, count) {
+            function scoreCollectTeddyBear(offset, count) {
                 return {
-                    name: times("", count),
+                    name: times("Collect a Teddy Bear", count),
                     offset: offset,
                     period: 1400,
                 };
@@ -19901,6 +19901,17 @@
                     scoreKillSnallygaster, 3,
                     scoreTakePictureSnallygaster, 1,
                     make1st(scoreScrapJunkCloth), 10,
+                    scoreReroll, 1,
+                ], dops(dailyOpsArktos, dailyOpsMoleminers, dailyOpsCloaked, false, false, true));
+            addDaily(challengesDailyEra16, 37, [
+                    scoreCompleteDailyChallenge, 6,
+                    scoreBuildBedTableStairsCAMP, 3,
+                    scoreCollectTeddyBear, 3,
+                    scoreCompleteOneEvent, 1,
+                    scoreKillMoleminer, 10,
+                    scoreKillSupermutant, 5,
+                    scoreScrapJunkLeather, 10,
+                    make1st(scoreTakePictureRadscorpion), 1,
                     scoreReroll, 1,
                 ], dops(dailyOpsArktos, dailyOpsMoleminers, dailyOpsCloaked, false, false, true));
 
