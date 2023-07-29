@@ -19867,6 +19867,27 @@
                     period: 1400,
                 };
             }
+            function scoreCollectLighterCigarCigarette(offset, count) {
+                return {
+                    name: times("Collect Lighter, Cigar or Cigarette", count),
+                    offset: offset,
+                    period: 1400,
+                };
+            }
+            function scoreCrippleMoleminerHead(offset, count) {
+                return {
+                    name: times("Cripple a Mole Miner's Head", count),
+                    offset: offset,
+                    period: 1400,
+                };
+            }
+            function scoreKillCanine(offset, count) {
+                return {
+                    name: times("Kill a Canine", count),
+                    offset: offset,
+                    period: 1400,
+                };
+            }
 
             addWeeklies(challengesWeeklyEra16, 35, [
                 scoreFixedGainXP10000Rank100, 1,
@@ -19923,6 +19944,17 @@
                     scoreKillCreatureWellFed, 10,
                     scoreScrapJunkAcid, 5,
                     make1st(scoreConsumeVintageAlcohol), 1,
+                    scoreReroll, 1,
+                ], dops(dailyOpsUncanny, dailyOpsCommunists, dailyOpsUnstable, false, false, true));
+            addDaily(challengesDailyEra16, 39, [
+                    scoreCompleteDailyChallenge, 6,
+                    scoreCollectLighterCigarCigarette, 5,
+                    scoreCompleteOneEvent, 1,
+                    scoreCrippleMoleminerHead, 2,
+                    scoreKillCanine, 5,
+                    scoreKillMoleminer, 10,
+                    scoreScrapJunkBlackTitanium, 3,
+                    make1st(scoreSellShotgun), 1,
                     scoreReroll, 1,
                 ], dops(dailyOpsUncanny, dailyOpsCommunists, dailyOpsUnstable, false, false, true));
 
