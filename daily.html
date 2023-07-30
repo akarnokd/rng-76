@@ -19888,6 +19888,13 @@
                     period: 1400,
                 };
             }
+            function scoreEatVegetable(offset, count) {
+                return {
+                    name: times("Eat a Vegetable", count),
+                    offset: offset,
+                    period: 1400,
+                };
+            }
 
             addWeeklies(challengesWeeklyEra16, 35, [
                 scoreFixedGainXP10000Rank100, 1,
@@ -19955,6 +19962,17 @@
                     scoreKillMoleminer, 10,
                     scoreScrapJunkBlackTitanium, 3,
                     make1st(scoreSellShotgun), 1,
+                    scoreReroll, 1,
+                ], dops(dailyOpsWatogaHighschool, dailyOpsMoleminers, dailyOpsBlisteringCold, true, false, true));
+            addDaily(challengesDailyEra16, 40, [
+                    scoreCompleteDailyChallenge, 6,
+                    scoreCompleteDailyOpsPublicTeam, 1,
+                    scoreCrippleProtectronRobobrainArms, 2,
+                    scoreDestroyRobot, 5,
+                    scoreEatVegetable, 10,
+                    scoreHarvestCornRazorgrainTato, 12,
+                    scorePlantCrop, 12,
+                    make1st(scoreDestroyAssaultron), 1,
                     scoreReroll, 1,
                 ], dops(dailyOpsWatogaHighschool, dailyOpsMoleminers, dailyOpsBlisteringCold, true, false, true));
 
