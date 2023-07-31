@@ -19895,6 +19895,27 @@
                     period: 1400,
                 };
             }
+            function scoreCrippleScorchedArm(offset, count) {
+                return {
+                    name: times("Cripple a Scorched's Arm", count),
+                    offset: offset,
+                    period: 1400,
+                };
+            }
+            function scoreCompleteRadawayRadX(offset, count) {
+                return {
+                    name: times("Collect RadAway or RadX", count),
+                    offset: offset,
+                    period: 1400,
+                };
+            }
+            function scoreSellBloatflyMeat(offset, count) {
+                return {
+                    name: times("Sell Bloatfly Meat", count),
+                    offset: offset,
+                    period: 1400,
+                };
+            }
 
             addWeeklies(challengesWeeklyEra16, 35, [
                 scoreFixedGainXP10000Rank100, 1,
@@ -19973,6 +19994,17 @@
                     scoreHarvestCornRazorgrainTato, 12,
                     scorePlantCrop, 10,
                     make1st(scoreDestroyAssaultron), 1,
+                    scoreReroll, 1,
+                ], dops(dailyOpsWestTec, dailyOpsAliens, dailyOpsSwiftStalker, false, false, true));
+            addDaily(challengesDailyEra16, 41, [
+                    scoreCompleteDailyChallenge, 6,
+                    scoreCompleteRadawayRadX, 5,
+                    scoreCompleteOneEvent, 1,
+                    scoreCraftRanged, 5,
+                    scoreKillMoleminer, 10,
+                    scoreKillScorched, 5,
+                    scoreSellBloatflyMeat, 1,
+                    make1st(scoreCrippleScorchedArm), 2,
                     scoreReroll, 1,
                 ], dops(dailyOpsWestTec, dailyOpsAliens, dailyOpsSwiftStalker, false, false, true));
 
