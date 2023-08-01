@@ -20009,6 +20009,40 @@
                 ], dops(dailyOpsWatoga, dailyOpsCommunists, dailyOpsCloaked, true, false, true));
 
             communityEventsAppend.push(createMinerva(ofDate(2023, 6, 31, 16), ofDate(2023, 7, 2, 16), "Emporium @ Fort Atlas", "P?"));
+
+            function scoreSellYaoGuaiRibsNPC(offset, count) {
+                return {
+                    name: times("Sell a Yao Guai Ribs to an NPC vendor", count),
+                    offset: offset,
+                    period: 1400,
+                };
+            }
+
+            addWeeklies(challengesWeeklyEra16, 42, [
+                scoreFixedGainXP10000Rank100, 1,
+                scoreCompleteGoldStarN, 3,
+                scoreBuildAnythingCamp, 25,
+                scoreCompletePublicMutatedEvent, 3,
+                scoreKillCreatures, 20,
+                scoreConsumeAlcohol, 20,
+                scoreKillFloater, 10,
+                scoreKillMutatedEnemy, 30,
+                scoreModEnergyWeapon, 5,
+                scoreSellYaoGuaiRibsNPC, 1,
+                scoreTakePictureGraftonMonster, 1,
+            ]);
+            addDaily(challengesDailyEra16, 42, [
+                    scoreCompleteDailyChallenge, 6,
+                    scoreCollectAnyNukaCola, 5,
+                    scoreCompletePublicMutatedEvent, 1,
+                    scoreDrinkNukaColaOrange, 2,
+                    scoreKillInsects, 5,
+                    scoreKillMutatedEnemy, 10,
+                    scoreModEnergyWeapon, 1,
+                    make1st(scoreDestroyRobot), 5,
+                    scoreReroll, 1,
+                ], dops(dailyOpsWatoga, dailyOpsCommunists, dailyOpsCloaked, true, false, true));
+
             communityEventsAppend.push(createPurveyor(ofDate(2023, 7, 3, 16), ofDate(2023, 7, 7, 16), 25, false, 1));
             communityEventsAppend.push(createQuakeCon(ofDate(2023, 7, 10, 16), ofDate(2023, 7, 13, 16)));
             communityEventsAppend.push(createDoubleScore(ofDate(2023, 7, 10, 16), ofDate(2023, 7, 14, 16)));
