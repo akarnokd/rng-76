@@ -20017,6 +20017,13 @@
                     period: 1400,
                 };
             }
+            function scoreKillYaoGuai(offset, count) {
+                return {
+                    name: times("Kill a Yao Guai", count),
+                    offset: offset,
+                    period: 1400,
+                };
+            }
 
             addWeeklies(challengesWeeklyEra16, 42, [
                 scoreFixedGainXP10000Rank100, 1,
@@ -20073,6 +20080,17 @@
                     scoreKillBloodEagle, 10,
                     scoreScrapJunkChrystal, 5,
                     make1st(scoreKillDeathclaw), 1,
+                    scoreReroll, 1,
+                ], dops(dailyOpsUncanny, dailyOpsEagles, dailyOpsResilient, true, false, true));
+            addDaily(challengesDailyEra16, 46, [
+                    scoreCompleteDailyChallenge, 6,
+                    scoreCollectMothmanEggs, 3,
+                    scoreCompletePublicMutatedEvent, 1,
+                    scoreCriticalHit, 10,
+                    scoreKillYaoGuai, 1,
+                    scoreScrapJunkRubber, 10,
+                    scoreSellMothmanEggNPC, 1,
+                    make1st(scoreScrapJunkScrews), 5,
                     scoreReroll, 1,
                 ], dops(dailyOpsUncanny, dailyOpsEagles, dailyOpsResilient, true, false, true));
 
