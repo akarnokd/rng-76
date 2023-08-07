@@ -20038,6 +20038,20 @@
                     period: 1400,
                 };
             }
+            function scoreCraftChems(offset, count) {
+                return {
+                    name: times("Craft any Chems", count),
+                    offset: offset,
+                    period: 1400,
+                };
+            }
+            function scoreKillAngler(offset, count) {
+                return {
+                    name: times("Kill an Angler", count),
+                    offset: offset,
+                    period: 1400,
+                };
+            }
 
             addWeeklies(challengesWeeklyEra16, 42, [
                 scoreFixedGainXP10000Rank100, 1,
@@ -20116,6 +20130,17 @@
                     scoreKillMutantHound, 3,
                     scoreSellMutantHoundChopsNPC, 1,
                     make1st(scoreCollectBallisticAmmo), 20,
+                    scoreReroll, 1,
+                ], dops(dailyOpsWatoga, dailyOpsMutants, dailyOpsDanger, true, false, true));
+            addDaily(challengesDailyEra16, 48, [
+                    scoreCompleteDailyChallenge, 6,
+                    scoreCompletePublicMutatedEvent, 1,
+                    scoreCraftChems, 2,
+                    scoreKillBloodEagle, 10,
+                    scoreKillFloater, 3,
+                    scoreKillAngler, 5,
+                    scoreScrapJunkOil, 5,
+                    make1st(scoreBuildAnythingCamp), 5,
                     scoreReroll, 1,
                 ], dops(dailyOpsWatoga, dailyOpsMutants, dailyOpsDanger, true, false, true));
 
