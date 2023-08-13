@@ -20146,6 +20146,14 @@
 
             communityEventsAppend.push(createPurveyor(ofDate(2023, 7, 3, 16), ofDate(2023, 7, 7, 16), 25, false, 1));
 
+            function scoreCraftBulkAluminium(offset, count) {
+                return {
+                    name: times("Craft Bulk Aluminium", count),
+                    offset: offset,
+                    period: 1400,
+                };
+            }
+
             addWeeklies(challengesWeeklyEra16, 49, [
                 scoreFixedGainXP10000Rank100, 1,
                 scoreCompleteGoldStarN, 3,
@@ -20212,6 +20220,17 @@
                     scoreScrapJunkGears, 5,
                     scoreScrapJunkSteel, 10,
                     make1st(scoreCollectBrainFungus), 5,
+                    scoreReroll, 1,
+                ], dops(dailyOpsBurning, dailyOpsEagles, dailyOpsUnstable, true, true, true));
+            addDaily(challengesDailyEra16, 54, [
+                    scoreCompleteDailyChallenge, 6,
+                    scoreCompleteOneEvent, 1,
+                    scoreCraftMineGrenadeThrown, 5,
+                    scoreKillGhoul, 5,
+                    scoreKillFloater, 3,
+                    scoreScrapJunkAluminium, 5,
+                    scoreScrapJunkOil, 5,
+                    make1st(scoreCraftBulkAluminium), 1,
                     scoreReroll, 1,
                 ], dops(dailyOpsBurning, dailyOpsEagles, dailyOpsUnstable, true, true, true));
 
