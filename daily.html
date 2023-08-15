@@ -20251,6 +20251,41 @@
             communityEventsAppend.push(createGoldRush2(ofDate(2023, 7, 10, 16), ofDate(2023, 7, 14, 16)));
             communityEventsAppend.push(createMinerva(ofDate(2023, 7, 10, 16), ofDate(2023, 7, 14, 16), "Big Sale @ The Whitespring", "P?"));
             communityEventsAppend.push(createDoubleMutations(ofDate(2023, 7, 10, 16), ofDate(2023, 7, 14, 16)));
+
+            function scoreCrippleBloodEagleLegs(offset, count) {
+                return {
+                    name: times("Cripple Blood Eagle legs", count),
+                    offset: offset,
+                    period: 1400,
+                };
+            }
+
+            addWeeklies(challengesWeeklyEra16, 56, [
+                scoreFixedGainXP10000Rank100, 1,
+                scoreCompleteGoldStarN, 3,
+                scoreBuildAnythingCamp, 25,
+                scoreCollectCaps, 2500,
+                scoreCollectAnyNukaCola, 20,
+                scoreCompleteOneEvent, 3,
+                scoreCrippleBloodEagleLegs, 18,
+                scoreDrinkNukaColaOrange, 5,
+                scoreKillCanine, 30,
+                scoreLevelUp, 3,
+                scoreScrapJunkSteel, 30,
+            ]);
+            addDaily(challengesDailyEra16, 56, [
+                    scoreCompleteDailyChallenge, 6,
+                    scoreCollectAnyNukaCola, 5,
+                    scoreCompleteDailyOps, 1,
+                    scoreCrippleScorchedArm, 2,
+                    scoreDrinkNukaColaOrange, 2,
+                    scoreEatDogFood, 5,
+                    scoreKillMutantHound, 3,
+                    make1st(scoreUsePhotomodeNukaWorld), 1,
+                    scoreReroll, 1,
+                ], dops(dailyOpsV96, dailyOpsMutants, dailyOpsDanger, true, false, true));
+
+
             communityEventsAppend.push(createCapsOPlenty(ofDate(2023, 7, 17, 16), ofDate(2023, 7, 21, 16)));
             communityEventsAppend.push(createDoubleMutations(ofDate(2023, 7, 24, 16), ofDate(2023, 7, 28, 16)));
             communityEventsAppend.push(createMeatWeek(ofDate(2023, 7, 29, 16), ofDate(2023, 8, 12, 16), "Double Helpings of Meat Week"));
