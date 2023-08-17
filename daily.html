@@ -20266,6 +20266,13 @@
                     period: 1400,
                 };
             }
+            function scoreKillHuman(offset, count) {
+                return {
+                    name: times("Kill a Human Enemy", count),
+                    offset: offset,
+                    period: 1400,
+                };
+            }
 
             addWeeklies(challengesWeeklyEra16, 56, [
                 scoreFixedGainXP10000Rank100, 1,
@@ -20300,6 +20307,17 @@
                     scoreKillMolerat, 5,
                     scoreLevelUp, 1,
                     make1st(scoreKillMoleminer), 10,
+                    scoreReroll, 1,
+                ], dops(dailyOpsMorgantown, dailyOpsRobots, dailyOpsResilient, true, false, true));
+            addDaily(challengesDailyEra16, 58, [
+                    scoreCompleteDailyChallenge, 6,
+                    scoreCollectCaps, 250,
+                    scoreCompleteDailyOps, 1,
+                    scoreDrinkNukaColaOrange, 2,
+                    scoreKillCanine, 5,
+                    scoreKillHuman, 10,
+                    scoreScrapJunkCloth, 10,
+                    make1st(scoreScrapMoney), 5,
                     scoreReroll, 1,
                 ], dops(dailyOpsMorgantown, dailyOpsRobots, dailyOpsResilient, true, false, true));
 
