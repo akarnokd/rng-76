@@ -19113,7 +19113,7 @@
                     
                 ]
             };
-            fillInSeason(season13, era16Length, "LR13", true);
+            fillInSeason(season13, era16Length, "LR13", false);
             seasonEventsAppend.push(season13);
             
             function scoreBuildGeneratorCamp(offset, count) {
@@ -20273,6 +20273,13 @@
                     period: 1400,
                 };
             }
+            function scoreDealCriticalHitEnemy(offset, count) {
+                return {
+                    name: times("Deal a critical hit to an enemy", count),
+                    offset: offset,
+                    period: 1400,
+                };
+            }
 
             addWeeklies(challengesWeeklyEra16, 56, [
                 scoreFixedGainXP10000Rank100, 1,
@@ -20318,6 +20325,17 @@
                     scoreKillHuman, 10,
                     scoreScrapJunkCloth, 10,
                     make1st(scoreScrapMoney), 5,
+                    scoreReroll, 1,
+                ], dops(dailyOpsBurning, dailyOpsCultists, dailyOpsFreezing, false, false, true));
+            addDaily(challengesDailyEra16, 59, [
+                    scoreCompleteDailyChallenge, 6,
+                    scoreBuildAnythingCamp, 5,
+                    scoreCompleteDailyOpsPublicTeam, 1,
+                    scoreCrippleBloodEagleLegs, 2,
+                    scoreDealCriticalHitEnemy, 10,
+                    scoreKillBloodEagle, 10,
+                    scoreLevelUp, 1,
+                    make1st(scoreCrippleHumanHeads), 2,
                     scoreReroll, 1,
                 ], dops(dailyOpsBurning, dailyOpsCultists, dailyOpsFreezing, false, false, true));
 
