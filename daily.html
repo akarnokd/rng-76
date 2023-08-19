@@ -20280,6 +20280,13 @@
                     period: 1400,
                 };
             }
+            function scoreCrippleBloodEagleArm(offset, count) {
+                return {
+                    name: times("Cripple a Blood Eagle's Arms", count),
+                    offset: offset,
+                    period: 1400,
+                };
+            }
 
             addWeeklies(challengesWeeklyEra16, 56, [
                 scoreFixedGainXP10000Rank100, 1,
@@ -20336,6 +20343,17 @@
                     scoreKillBloodEagle, 10,
                     scoreLevelUp, 1,
                     make1st(scoreCrippleHumanHeads), 2,
+                    scoreReroll, 1,
+                ], dops(dailyOpsCharleston, dailyOpsMoleminers, dailyOpsReflective, true, false, true));
+            addDaily(challengesDailyEra16, 60, [
+                    scoreCompleteDailyChallenge, 6,
+                    scoreClaimWorkshop, 1,
+                    scoreCollectCaps, 250,
+                    scoreCompleteDailyOps, 1,
+                    scoreCraftScrapArmor, 5,
+                    scoreCrippleBloodEagleArm, 2,
+                    scoreKillAngler, 3,
+                    make1st(scoreBuildDefenseApplianceCraftingWorkshop), 3,
                     scoreReroll, 1,
                 ], dops(dailyOpsCharleston, dailyOpsMoleminers, dailyOpsReflective, true, false, true));
 
