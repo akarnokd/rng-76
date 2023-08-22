@@ -20426,9 +20426,8 @@
             };
             fillInSeason(season14, era17Length, "LR14", true);
             seasonEventsAppend.push(season14);
-            
             /*
-            addWeeklies(challengesWeeklyEra15, 0, [
+            addWeeklies(challengesWeeklyEra17, 0, [
                 scoreFixedGainXP10000Rank100, 1,
                 scoreCompleteGoldStarN, 3,
                 scoreBuildWallDecor, 25,
@@ -20441,7 +20440,7 @@
                 scoreKillSnallygaster, 10,
                 scoreTakePictureSheepsquatch, 1,
             ]);
-            addDaily(challengesDailyEra15, 0, [
+            addDaily(challengesDailyEra17, 0, [
                     scoreCompleteDailyChallenge, 6,
                     scoreCompleteDailyOpsPublicTeam, 1,
                     scoreHackTerminal, 1,
@@ -20451,9 +20450,8 @@
                     scoreKillMutatedEnemy, 10,
                     make1st(scoreSellMothmanEggNPC), 1,
                     scoreReroll, 1,
-                ], dops(dailyOpsGarrahan, dailyOpsScorched, dailyOpsFreezing, false, false, true));
-                */
-
+                ], dops(dailyOpsWestTec, dailyOpsCultists, dailyOpsSwift, false, false, true));
+*/
             addPlaceholders(challengesDailyEra17, scoreDailyplaceholder, era17Length);
             addPlaceholders(challengesWeeklyEra17, scoreWeeklyplaceholder, era17Length);
 
@@ -20466,6 +20464,27 @@
             communityEventsAppend.push(createDoubleScore(ofDate(2023, 8, 28, 16), ofDate(2023, 9, 2, 16)));
             communityEventsAppend.push(createGoldRush2(ofDate(2023, 8, 28, 16), ofDate(2023, 9, 2, 16)));
             communityEventsAppend.push(createScripSurplus3(ofDate(2023, 8, 28, 16), ofDate(2023, 9, 2, 16)));
+
+            communityEventsAppend.push(createDoubleMutations(ofDate(2023, 9, 5, 16), ofDate(2023, 9, 9, 16)));
+            communityEventsAppend.push(createCapsOPlenty(ofDate(2023, 9, 12, 16), ofDate(2023, 9, 16, 16)));
+            communityEventsAppend.push(createMinerva(ofDate(2023, 9, 19, 16), ofDate(2023, 8, 23, 16), "Big Sale @ TBD", "P?"));
+            communityEventsAppend.push(createTreasureHunt(ofDate(2023, 9, 19, 16), ofDate(2023, 9, 23, 16), false));
+            communityEventsAppend.push(createDoubleMutations(ofDate(2023, 9, 19, 16), ofDate(2023, 9, 23, 16)));
+            communityEventsAppend.push(createSpookyScorched(ofDate(2023, 9, 24, 16), ofDate(2023, 10, 7, 16)));
+            communityEventsAppend.push(createScripSurplus3(ofDate(2023, 9, 26, 16), ofDate(2023, 9, 30, 16)));
+
+            communityEventsAppend.push(createGoldRush2(ofDate(2023, 10, 2, 16), ofDate(2023, 10, 6, 16)));
+            communityEventsAppend.push(createDoubleMutations(ofDate(2023, 10, 2, 16), ofDate(2023, 10, 6, 16)));
+            communityEventsAppend.push(createBirthdayChallenges(ofDate(2023, 10, 7, 16), ofDate(2023, 10, 20, 16)));
+            communityEventsAppend.push(createDoubleXP(ofDate(2023, 10, 9, 16), ofDate(2023, 10, 15, 16)));
+            communityEventsAppend.push(createDoubleScore(ofDate(2023, 10, 9, 16), ofDate(2023, 10, 15, 16)));
+            communityEventsAppend.push(createPurveyor(ofDate(2023, 10, 9, 16), ofDate(2023, 10, 15, 16), 25, false, 1));
+            communityEventsAppend.push(createTreasureHunt(ofDate(2023, 10, 16, 16), ofDate(2023, 10, 20, 16), false));
+            communityEventsAppend.push(createDoubleMutations(ofDate(2023, 10, 16, 16), ofDate(2023, 10, 20, 16)));
+            communityEventsAppend.push(createCapsOPlenty(ofDate(2023, 10, 23, 16), ofDate(2023, 10, 27, 16)));
+            communityEventsAppend.push(createScripSurplus3(ofDate(2023, 10, 23, 16), ofDate(2023, 10, 27, 16)));
+            communityEventsAppend.push(createPurveyor(ofDate(2023, 10, 23, 16), ofDate(2023, 10, 27, 16), 25, false, 1));
+            communityEventsAppend.push(createMinerva(ofDate(2023, 10, 23, 16), ofDate(2023, 10, 27, 16), "Big Sale @ TBD", "P?"));
 
             // --------------------------------------------------------------------------------------------------------------
             // Community events
@@ -21103,6 +21122,25 @@
                         },
                         {
                             name: "Rewards: 2x XP, 2x currency",
+                            offset: 0,
+                            period: 1
+                        }
+                    ]
+                };
+            }
+            function createBirthdayChallenges(start, end) {
+                return {
+                    validStart: start,
+                    validEnd: end,
+                    title: "Birthday Challenges Weeks",
+                    options: [
+                        {
+                            name: "Celebrating 5 years of Fallout 76",
+                            offset: 0,
+                            period: 1
+                        },
+                        {
+                            name: "Rewards: TBD",
                             offset: 0,
                             period: 1
                         }
