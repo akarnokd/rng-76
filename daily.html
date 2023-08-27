@@ -22151,7 +22151,7 @@
                 createMinerva(ofDate(2022, 8, 12, 16), ofDate(2022, 8, 14, 16), "Emporium @ Crater", "P?"),
             ];
 
-            function createStarfield(start, end, ea) {
+            function createStarfield(start, end, ea, rev) {
                 return {
                     validStart: start,
                     validEnd: end,
@@ -22175,16 +22175,23 @@
                             ]
                         },
                         {
-                            name: "Release date: <b style='color: green;' title='Hour of day not confirmed yet.'>"  + end.toLocaleDateString() 
+                            name: "Release date: <b style='color: green;'>"  + end.toLocaleDateString() 
                             + " (" + end.toLocaleDateString(window.navigator.language, {weekday: 'long'}) + ")"
                             + " ~ " + end.toLocaleTimeString() + "</b>",
                             offset: 0,
                             period: 1,
                         },
                         {
-                            name: "Premium access: <b style='color: green;' title='Hour of day not confirmed yet.'>"  + ea.toLocaleDateString() 
+                            name: "Premium access: <b style='color: green;'>"  + ea.toLocaleDateString() 
                             + " (" + ea.toLocaleDateString(window.navigator.language, {weekday: 'long'}) + ")"
                             + " ~ " + ea.toLocaleTimeString() + "</b>",
+                            offset: 0,
+                            period: 1,
+                        },
+                        {
+                            name: "Review Embargo Lifts: <b style='color: green;'>"  + rev.toLocaleDateString() 
+                            + " (" + rev.toLocaleDateString(window.navigator.language, {weekday: 'long'}) + ")"
+                            + " ~ " + rev.toLocaleTimeString() + "</b>",
                             offset: 0,
                             period: 1,
                         }
@@ -22192,7 +22199,7 @@
                 };
             }
 
-            communityEventsAppend.push(createStarfield(ofDate(2023, 5, 11, 0), ofDate(2023, 8, 6, 0), ofDate(2023, 8, 1, 0)));
+            communityEventsAppend.push(createStarfield(ofDate(2023, 5, 11, 0), ofDate(2023, 8, 6, 0), ofDate(2023, 8, 1, 0), ofDate(2023, 7, 31, 16)));
 
             communityEventsAppend.forEach(e => communityEvents.push(e));
 
