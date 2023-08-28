@@ -22162,7 +22162,7 @@
                 createMinerva(ofDate(2022, 8, 12, 16), ofDate(2022, 8, 14, 16), "Emporium @ Crater", "P?"),
             ];
 
-            function createStarfield(start, end, ea, rev) {
+            function createStarfield(start, end, ea, rev, prel) {
                 return {
                     validStart: start,
                     validEnd: end,
@@ -22205,12 +22205,19 @@
                             + " ~ " + rev.toLocaleTimeString() + "</b>",
                             offset: 0,
                             period: 1,
+                        },
+                        {
+                            name: "Steam Preload Starts: <b style='color: green;'>"  + prel.toLocaleDateString() 
+                            + " (" + prel.toLocaleDateString(window.navigator.language, {weekday: 'long'}) + ")"
+                            + " ~ " + prel.toLocaleTimeString() + "</b>",
+                            offset: 0,
+                            period: 1,
                         }
                     ]                
                 };
             }
 
-            communityEventsAppend.push(createStarfield(ofDate(2023, 5, 11, 0), ofDate(2023, 8, 6, 0), ofDate(2023, 8, 1, 0), ofDate(2023, 7, 31, 16)));
+            communityEventsAppend.push(createStarfield(ofDate(2023, 5, 11, 0), ofDate(2023, 8, 6, 0), ofDate(2023, 8, 1, 0), ofDate(2023, 7, 31, 16), ofDate(2023, 7, 30, 0)));
 
             communityEventsAppend.forEach(e => communityEvents.push(e));
 
