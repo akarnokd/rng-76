@@ -20389,9 +20389,6 @@
 
             communityEventsAppend.push(createCapsOPlenty(ofDate(2023, 7, 17, 16), ofDate(2023, 7, 21, 16)));
             communityEventsAppend.push(createMinerva(ofDate(2023, 7, 21, 16), ofDate(2023, 7, 23, 16), "Emporium @ Foundation", "P?"));
-            communityEventsAppend.push(createDoubleMutations(ofDate(2023, 7, 24, 16), ofDate(2023, 7, 28, 16)));
-            communityEventsAppend.push(createMeatWeek(ofDate(2023, 7, 29, 16), ofDate(2023, 8, 12, 16), "Double Helpings of Meat Week"));
-            communityEventsAppend.push(createScripSurplus3(ofDate(2023, 7, 31, 16), ofDate(2023, 8, 4, 16)));
             
             addPlaceholders(challengesDailyEra16, scoreDailyplaceholder, era16Length);
             addPlaceholders(challengesWeeklyEra16, scoreWeeklyplaceholder, era16Length);
@@ -20518,10 +20515,69 @@
                     scoreReroll, 1,
                 ], dops(dailyOpsCharleston, dailyOpsCommunists, dailyOpsToxic, false, false, true));
 
+            function scoreCraftPlushie(offset, count) {
+                return {
+                    name: times("Craft any Plushie at Tinker's Workbench", count),
+                    offset: offset,
+                    period: 1400,
+                };
+            }
+            function scoreCrippleEnemyLimbs(offset, count) {
+                return {
+                    name: times("Cripple Enemy Limbs", count),
+                    offset: offset,
+                    period: 1400,
+                };
+            }
+            function scoreCollectFuelGasCanister(offset, count) {
+                return {
+                    name: times("Collect Fuel or Gas Canister", count),
+                    offset: offset,
+                    period: 1400,
+                };
+            }
+            function scoreSellWeapon(offset, count) {
+                return {
+                    name: times("Sell a Weapon", count),
+                    offset: offset,
+                    period: 1400,
+                };
+            }
+
+            addWeeklies(challengesWeeklyEra17, 7, [
+                scoreFixedGainXP10000Rank100, 1,
+                scoreCompleteGoldStarN, 3,
+                scoreBuildAnythingCamp, 25,
+                scoreCollectEnergyAmmo, 40,
+                scoreCollectPrewarFood, 20,
+                scoreCollectFuelGasCanister, 5,
+                scoreCompleteDailyOps, 3,
+                scoreCrippleEnemyLimbs, 30,
+                scoreKillMirelurk, 30,
+                scoreScrapJunkOil, 15,
+                scoreSellWeapon, 15,
+            ]);
+            addDaily(challengesDailyEra17, 7, [
+                    scoreCompleteDailyChallenge, 6,
+                    scoreCollectPrewarFood, 5,
+                    scoreCompleteDaily, 1,
+                    scoreCompleteMeatCook, 1,
+                    scoreCrippleEnemyLimbs, 6,
+                    scoreKillSupermutant, 5,
+                    scoreSellMutantHoundChopsNPC, 1,
+                    scoreTakeCameraPictureSuperMutant, 1,
+                    make1st(scoreCraftPlushie), 1,
+                    scoreReroll, 1,
+                ], dops(dailyOpsCharleston, dailyOpsCommunists, dailyOpsToxic, false, false, true));
+
             addPlaceholders(challengesDailyEra17, scoreDailyplaceholder, era17Length);
             addPlaceholders(challengesWeeklyEra17, scoreWeeklyplaceholder, era17Length);
 
+            communityEventsAppend.push(createDoubleMutations(ofDate(2023, 7, 24, 16), ofDate(2023, 7, 28, 16)));
+            communityEventsAppend.push(createMeatWeek(ofDate(2023, 7, 29, 16), 14, "Double Helpings of Meat Week"));
+            communityEventsAppend.push(createScripSurplus3(ofDate(2023, 7, 31, 16), ofDate(2023, 8, 4, 16)));
             communityEventsAppend.push(createMinerva(ofDate(2023, 7, 28, 16), ofDate(2023, 7, 30, 16), "Emporium @ Crater", "P?"));
+
             communityEventsAppend.push(createPurveyor(ofDate(2023, 8, 7, 16), ofDate(2023, 8, 11, 16), 25, false, 1));
             communityEventsAppend.push(createDoubleMutations(ofDate(2023, 8, 7, 16), ofDate(2023, 8, 11, 16)));
             communityEventsAppend.push(createPurveyor(ofDate(2023, 8, 14, 16), ofDate(2023, 8, 18, 16), 25, false, 1));
