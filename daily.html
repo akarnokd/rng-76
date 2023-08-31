@@ -20543,6 +20543,13 @@
                     period: 1400,
                 };
             }
+            function scoreCrippleMirelurkLimb(offset, count) {
+                return {
+                    name: times("Cripple a Mirelurk's Limbs", count),
+                    offset: offset,
+                    period: 1400,
+                };
+            }
 
             addWeeklies(challengesWeeklyEra17, 7, [
                 scoreFixedGainXP10000Rank100, 1,
@@ -20579,6 +20586,18 @@
                     scoreKillMirelurk, 5,
                     scoreSellWeapon, 5,
                     make1st(scoreChewBubblegum), 1,
+                    scoreReroll, 1,
+                ], dops(dailyOpsCharleston, dailyOpsCommunists, dailyOpsFreezing, true, false, true));
+            addDaily(challengesDailyEra17, 9, [
+                    scoreCompleteDailyChallenge, 6,
+                    scoreCollectPrewarFood, 5,
+                    scoreCompleteDailyOps, 1,
+                    scoreCompleteMeatCook, 1,
+                    scoreCookMealPlant, 5,
+                    scoreCrippleMirelurkLimb, 2,
+                    scoreKillCreatures, 12,
+                    scoreScrapJunkSprings, 5,
+                    make1st(scoreBuildFloorWallCamp), 5,
                     scoreReroll, 1,
                 ], dops(dailyOpsCharleston, dailyOpsCommunists, dailyOpsFreezing, true, false, true));
 
