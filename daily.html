@@ -20550,6 +20550,20 @@
                     period: 1400,
                 };
             }
+            function scoreDrinkTea(offset, count) {
+                return {
+                    name: times("Drink Tea", count),
+                    offset: offset,
+                    period: 1400,
+                };
+            }
+            function scoreKillBrahmin(offset, count) {
+                return {
+                    name: times("Kill a Brahmin", count),
+                    offset: offset,
+                    period: 1400,
+                };
+            }
 
             addWeeklies(challengesWeeklyEra17, 7, [
                 scoreFixedGainXP10000Rank100, 1,
@@ -20622,6 +20636,18 @@
                     scoreKillScorched, 10,
                     scoreModEnergyWeapon, 1,
                     make1st(scoreChewBubblegum), 1,
+                    scoreReroll, 1,
+                ], dops(dailyOpsV96, dailyOpsCultists, dailyOpsResilient, false, false, true));
+            addDaily(challengesDailyEra17, 12, [
+                    scoreCompleteDailyChallenge, 6,
+                    scoreCollectPurifiedWater, 5,
+                    scoreCompleteOneEvent, 1,
+                    scoreCompletePrimalCuts, 1,
+                    scoreCrippleEnemyLimbs, 6,
+                    scoreDestroyRobot, 10,
+                    scoreDrinkTea, 1,
+                    scoreScrapJunkCircuitry, 5,
+                    make1st(scoreKillBrahmin), 2,
                     scoreReroll, 1,
                 ], dops(dailyOpsV96, dailyOpsCultists, dailyOpsResilient, false, false, true));
 
