@@ -23104,7 +23104,7 @@
                 for (var challenge of challenges) {
                     if (challenge.validStart <= selectedDate
                         && (challenge.validEnd === undefined || challenge.validEnd >= endDate
-                        || (challenge.validEnd >= edt2 && challenge.validEnd <= endDate))) {
+                        || (challenge.validEnd > edt2 && challenge.validEnd < endDate))) {
 
                         //var timeSince = selectedDate.getTime() - challenge.validStart.getTime();
                         //var dayDiff = Math.floor(timeSince / 24 / 60 / 60 / 1000);
