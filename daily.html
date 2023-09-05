@@ -20663,6 +20663,40 @@
                     scoreReroll, 1,
                 ], dops(dailyOpsV94, dailyOpsCultists, dailyOpsVolatile, false, false, true));
 
+            function scoreCraftAnyFlair(offset, count) {
+                return {
+                    name: times("Craft any Flair at a Tinker's Workbench", count),
+                    offset: offset,
+                    period: 1400,
+                };
+            }
+
+            addWeeklies(challengesWeeklyEra17, 14, [
+                scoreFixedGainXP10000Rank100, 1,
+                scoreCompleteGoldStarN, 3,
+                scoreClaimWorkshop, 3,
+                scoreCollectAnyNukaCola, 20,
+                scoreCompleteDailyOps, 3,
+                scoreCraftAnyFlair, 3,
+                scoreCrippleScorchedArm, 18,
+                scoreDrinkNukaColaOrange, 5,
+                scoreKillScorched, 30,
+                scoreLevelUp, 3,
+                scoreScrapJunkSteel, 30,
+            ]);
+            addDaily(challengesDailyEra17, 14, [
+                    scoreCompleteDailyChallenge, 6,
+                    scoreCollectAnyNukaCola, 5,
+                    scoreCompleteDailyOps, 1,
+                    scoreCompletePrimalCuts, 1,
+                    scoreCrippleScorchedArm, 2,
+                    scoreDrinkNukaColaOrange, 2,
+                    scoreKillScorched, 10,
+                    scoreScrapJunkSteel, 10,
+                    make1st(scoreBuildWallDecor), 5,
+                    scoreReroll, 1,
+                ], dops(dailyOpsV94, dailyOpsCultists, dailyOpsVolatile, false, false, true));
+
             addPlaceholders(challengesDailyEra17, scoreDailyplaceholder, era17Length);
             addPlaceholders(challengesWeeklyEra17, scoreWeeklyplaceholder, era17Length);
 
@@ -23064,10 +23098,13 @@
             function renderList(tbl, challenges, endDate, titleId) {
                 var found = false;
                 var titles = [];
+                var edt2 = new Date();
+                edt2.setDate(endDate.getDate() - 1);
                 // find a valid challenge among the data
                 for (var challenge of challenges) {
                     if (challenge.validStart <= selectedDate
-                        && (challenge.validEnd === undefined || challenge.validEnd >= endDate)) {
+                        && (challenge.validEnd === undefined || challenge.validEnd >= endDate
+                        || (challenge.validEnd >= edt2 && challenge.validEnd <= endDate))) {
 
                         //var timeSince = selectedDate.getTime() - challenge.validStart.getTime();
                         //var dayDiff = Math.floor(timeSince / 24 / 60 / 60 / 1000);
