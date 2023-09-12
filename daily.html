@@ -20769,9 +20769,6 @@
                     scoreReroll, 1,
                 ], dops(dailyOpsValley, dailyOpsCommunists, dailyOpsVolatile, true, true, true));
 
-            addPlaceholders(challengesDailyEra17, scoreDailyplaceholder, era17Length);
-            addPlaceholders(challengesWeeklyEra17, scoreWeeklyplaceholder, era17Length);
-
             communityEventsAppend.push(createDoubleMutations(ofDate(2023, 7, 24, 16), ofDate(2023, 7, 28, 16)));
             communityEventsAppend.push(createMeatWeek(ofDate(2023, 7, 29, 16), 14, "Double Helpings of Meat Week"));
             communityEventsAppend.push(createScripSurplus3(ofDate(2023, 7, 31, 16), ofDate(2023, 8, 4, 16)));
@@ -20779,6 +20776,33 @@
 
             communityEventsAppend.push(createPurveyor(ofDate(2023, 8, 7, 16), ofDate(2023, 8, 11, 16), 25, false, 1));
             communityEventsAppend.push(createDoubleMutations(ofDate(2023, 8, 7, 16), ofDate(2023, 8, 11, 16)));
+
+            addWeeklies(challengesWeeklyEra17, 21, [
+                scoreFixedGainXP10000Rank100, 1,
+                scoreCompleteGoldStarN, 3,
+                scoreBuildAnythingCamp, 25,
+                scoreCompleteAnyDailyOps, 3,
+                scoreCraftScrapClothingWeaponArmor, 25,
+                scoreCrippleMirelurkLimb, 30,
+                scoreEatCookedMeal, 30,
+                scoreHarvestPlantFungi, 30,
+                scoreKillMirelurk, 30,
+                scorePlantCrop, 25,
+                scoreScrapJunkAluminium, 25,
+            ]);
+            addDaily(challengesDailyEra17, 21, [
+                    scoreCompleteDailyChallenge, 6,
+                    scoreCompleteDaily, 1,
+                    scoreCookMealPlant, 5,
+                    scoreEatCookedMeal, 10,
+                    scoreHarvestPlantFungi, 12,
+                    scoreKillLegendary, 1,
+                    scoreKillScorched, 10,
+                    make1st(scoreHarvestCornRazorgrainTato), 12,
+                    scoreReroll, 1,
+                ], dops(dailyOpsValley, dailyOpsCommunists, dailyOpsVolatile, true, true, true));
+
+
             communityEventsAppend.push(createPurveyor(ofDate(2023, 8, 14, 16), ofDate(2023, 8, 18, 16), 25, false, 1));
             communityEventsAppend.push(createMinerva(ofDate(2023, 8, 14, 16), ofDate(2023, 8, 18, 16), "Big Sale @ TBD", "P?"));
             communityEventsAppend.push(createTreasureHunt(ofDate(2023, 8, 21, 16), ofDate(2023, 8, 25, 16), false));
@@ -20807,6 +20831,9 @@
             communityEventsAppend.push(createScripSurplus3(ofDate(2023, 10, 23, 16), ofDate(2023, 10, 27, 16)));
             communityEventsAppend.push(createPurveyor(ofDate(2023, 10, 23, 16), ofDate(2023, 10, 27, 16), 25, false, 1));
             communityEventsAppend.push(createMinerva(ofDate(2023, 10, 23, 16), ofDate(2023, 10, 27, 16), "Big Sale @ TBD", "P?"));
+
+            addPlaceholders(challengesDailyEra17, scoreDailyplaceholder, era17Length);
+            addPlaceholders(challengesWeeklyEra17, scoreWeeklyplaceholder, era17Length);
 
             // --------------------------------------------------------------------------------------------------------------
             // Community events
