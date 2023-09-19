@@ -20873,6 +20873,33 @@
 
             communityEventsAppend.push(createPurveyor(ofDate(2023, 8, 14, 16), ofDate(2023, 8, 18, 16), 25, false, 1));
             communityEventsAppend.push(createMinerva(ofDate(2023, 8, 14, 16), ofDate(2023, 8, 18, 16), "Big Sale @ The Whitespring", "P?"));
+
+            addWeeklies(challengesWeeklyEra17, 28, [
+                scoreFixedGainXP10000Rank100, 1,
+                scoreCompleteGoldStarN, 3,
+                scoreClaimWorkshop, 3,
+                scoreCompleteDailyOps, 3,
+                scoreCraftAmmo, 250,
+                scoreCraftBulkAluminium, 3,
+                scoreDrinkNukaCola, 30,
+                scoreEatPrewarFood, 25,
+                scoreKillFloater, 10,
+                scoreKillSupermutant, 30,
+                scoreScrapJunkAluminium, 15,
+            ]);
+            addDaily(challengesDailyEra17, 28, [
+                    scoreCompleteDailyChallenge, 6,
+                    scoreClaimWorkshop, 1,
+                    scoreCompleteDailyOps, 1,
+                    scoreCraftBulkAluminium, 1,
+                    scoreKillCryptid1, 1,
+                    scoreKillGulper, 3,
+                    scoreScrapJunkAluminium, 5,
+                    make1st(scoreEatCookedMeal), 10,
+                    scoreReroll, 1,
+                ], dops(dailyOpsArktos, dailyOpsMutants, dailyOpsSwift, false, false, true));
+
+
             communityEventsAppend.push(createTreasureHunt(ofDate(2023, 8, 21, 16), ofDate(2023, 8, 25, 16), false));
             communityEventsAppend.push(createDoubleMutations(ofDate(2023, 8, 21, 16), ofDate(2023, 8, 25, 16)));
             communityEventsAppend.push(createDoubleScore(ofDate(2023, 8, 28, 16), ofDate(2023, 9, 2, 16)));
