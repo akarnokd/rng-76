@@ -20874,6 +20874,14 @@
             communityEventsAppend.push(createPurveyor(ofDate(2023, 8, 14, 16), ofDate(2023, 8, 18, 16), 25, false, 1));
             communityEventsAppend.push(createMinerva(ofDate(2023, 8, 14, 16), ofDate(2023, 8, 18, 16), "Big Sale @ The Whitespring", "P?"));
 
+            function scoreCraftBulkWood(offset, count) {
+                return {
+                    name: times("Craft Bulk Wood", count),
+                    offset: offset,
+                    period: 1400,
+                };
+            }
+
             addWeeklies(challengesWeeklyEra17, 28, [
                 scoreFixedGainXP10000Rank100, 1,
                 scoreCompleteGoldStarN, 3,
@@ -20896,6 +20904,17 @@
                     scoreKillGulper, 3,
                     scoreScrapJunkAluminium, 5,
                     make1st(scoreEatCookedMeal), 10,
+                    scoreReroll, 1,
+                ], dops(dailyOpsV94, dailyOpsEagles, dailyOpsVolatile, true, false, true));
+            addDaily(challengesDailyEra17, 29, [
+                    scoreCompleteDailyChallenge, 6,
+                    scoreBuildAnythingCamp, 5,
+                    scoreCollectPurifiedWater, 5,
+                    scoreCompleteOneEvent, 1,
+                    scoreCraftBulkWood, 1,
+                    scoreKillFloater, 3,
+                    scoreKillSupermutant, 5,
+                    make1st(scoreScrapJunkWood), 10,
                     scoreReroll, 1,
                 ], dops(dailyOpsV94, dailyOpsEagles, dailyOpsVolatile, true, false, true));
 
