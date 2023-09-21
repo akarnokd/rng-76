@@ -20881,6 +20881,13 @@
                     period: 1400,
                 };
             }
+            function scoreKillAnimalsPipeGun(offset, count) {
+                return {
+                    name: times("Kill Animals with Pipe Gun", count),
+                    offset: offset,
+                    period: 1400,
+                };
+            }
 
             addWeeklies(challengesWeeklyEra17, 28, [
                 scoreFixedGainXP10000Rank100, 1,
@@ -20915,6 +20922,17 @@
                     scoreKillFloater, 3,
                     scoreKillSupermutant, 5,
                     make1st(scoreScrapJunkWood), 10,
+                    scoreReroll, 1,
+                ], dops(dailyOpsGarrahan, dailyOpsMoleminers, dailyOpsFreezing, false, false, true));
+            addDaily(challengesDailyEra17, 30, [
+                    scoreCompleteDailyChallenge, 6,
+                    scoreCompleteDaily, 1,
+                    scoreCrippleHumanHeads, 2,
+                    scoreKillAnimalsPipeGun, 2,
+                    scoreKillHuman, 10,
+                    scoreScrapMoney, 5,
+                    scoreSellBloatflyMeat, 1,
+                    make1st(scoreCollectCaps), 250,
                     scoreReroll, 1,
                 ], dops(dailyOpsGarrahan, dailyOpsMoleminers, dailyOpsFreezing, false, false, true));
 
