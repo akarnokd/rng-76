@@ -20984,6 +20984,47 @@
             communityEventsAppend.push(createTreasureHunt(ofDate(2023, 8, 21, 16), ofDate(2023, 8, 25, 16), false));
             communityEventsAppend.push(createDoubleMutations(ofDate(2023, 8, 21, 16), ofDate(2023, 8, 25, 16)));
             communityEventsAppend.push(createMinerva(ofDate(2023, 8, 25, 16), ofDate(2023, 8, 27, 16), "Emporium @ Foundation", "P?"));
+
+            function scoreCollectRadawayRadX(offset, count) {
+                return {
+                    name: times("Collect Radaway or Rad-X", count),
+                    offset: offset,
+                    period: 1400,
+                };
+            }
+            function scoreConsumeChems(offset, count) {
+                return {
+                    name: times("Consume any Chems", count),
+                    offset: offset,
+                    period: 1400,
+                };
+            }
+
+            addWeeklies(challengesWeeklyEra17, 35, [
+                scoreFixedGainXP10000Rank100, 1,
+                scoreCompleteGoldStarN, 3,
+                scoreClaimWorkshop, 3,
+                scoreCollectBallisticAmmo, 60,
+                scoreCollectEnergyAmmo, 40,
+                scoreCollectRadawayRadX, 15,
+                scoreCompletePublicMutatedEvent, 3,
+                scoreConsumeChems, 9,
+                scoreKillCanine, 30,
+                scoreKillMutatedEnemy, 30,
+            ]);
+            addDaily(challengesDailyEra17, 35, [
+                    scoreCompleteDailyChallenge, 6,
+                    scoreCollectBallisticAmmo, 20,
+                    scoreCollectEnergyAmmo, 20,
+                    scoreCompletePublicMutatedEvent, 1,
+                    scoreKillInsects, 5,
+                    scoreKillMutatedEnemy, 10,
+                    scoreModWeapon, 3,
+                    make1st(scoreCraftRanged), 5,
+                    scoreReroll, 1,
+                ], dops(dailyOpsCharleston, dailyOpsEagles, dailyOpsReflective, true, true, true));
+
+
             communityEventsAppend.push(createDoubleScore(ofDate(2023, 8, 28, 16), ofDate(2023, 9, 2, 16)));
             communityEventsAppend.push(createGoldRush2(ofDate(2023, 8, 28, 16), ofDate(2023, 9, 2, 16)));
             communityEventsAppend.push(createScripSurplus3(ofDate(2023, 8, 28, 16), ofDate(2023, 9, 2, 16)));
