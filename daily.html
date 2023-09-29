@@ -26,7 +26,7 @@
     </head>
     <body>
         <center>
-            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Timed Challenges (0.9.4)</span><br/>
+            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Timed Challenges (0.9.5)</span><br/>
             <br/>
             <br/>
             <table>
@@ -46,11 +46,12 @@
             <a href="#season">Season</a> &#8595;
             <br/>
             <br/>
+            <span id="notables"></span>
+            <br/>
             <table id='challenges'>
             </table>
         </center>
         <script>
-
             var oneHourLaterSince = ofDate(2020, 5, 30, 15);
             var shiftDate2 = ofDate(2020, 10, 3, 16);
             var shiftDate3 = ofDate(2021, 2, 14, 16);
@@ -21054,6 +21055,7 @@
             communityEventsAppend.push(createDoubleScore(ofDate(2023, 8, 28, 16), ofDate(2023, 9, 2, 16)));
             communityEventsAppend.push(createGoldRush2(ofDate(2023, 8, 28, 16), ofDate(2023, 9, 2, 16)));
             communityEventsAppend.push(createScripSurplus3(ofDate(2023, 8, 28, 16), ofDate(2023, 9, 2, 16)));
+            communityEventsAppend.push(createMutationInvasion(ofDate(2023, 8, 26, 16), ofDate(2023, 9, 3, 16)));
 
             communityEventsAppend.push(createDoubleMutations(ofDate(2023, 9, 5, 16), ofDate(2023, 9, 9, 16)));
             communityEventsAppend.push(createCapsOPlenty(ofDate(2023, 9, 12, 16), ofDate(2023, 9, 16, 16)));
@@ -21306,6 +21308,7 @@
                     validStart: startDate,
                     validEnd: endDate,
                     title: isWeek ? "Treause Hunter Week" : "Treasure Hunter Weekend",
+                    notable: { icon: "treasure", description: "Treasure Hunter" },
                     options: [
                         {
                             name: "Hunt Treasure Hunter Mole Miners",
@@ -21369,6 +21372,7 @@
                     validStart: start,
                     validEnd: end,
                     title: txt,
+                    notable: { icon: "purveyor", description: "Purveyor Sale" },
                     options: [
                     ]
                 };
@@ -21472,6 +21476,7 @@
                     validStart: start,
                     validEnd: end,
                     title: "Scrip Surplus Weekend",
+                    notable: { icon: "scrip2x", description: "Scrip Surplus" },
                     options: [
                         {
                             name: "Scrip Machines have 300 scrip per day",
@@ -21494,6 +21499,7 @@
                     validStart: start,
                     validEnd: end,
                     title: "Scrip Surplus Weekend",
+                    notable: { icon: "scrip2x", description: "Scrip Surplus" },
                     options: [
                         {
                             name: "Scrip Machines have 600 scrip per day",
@@ -21516,6 +21522,7 @@
                     validStart: start,
                     validEnd: end,
                     title: "Scrip Surplus Weekend",
+                    notable: { icon: "scrip2x", description: "Scrip Surplus" },
                     options: [
                         {
                             name: "Scrip Machines have 1000 scrip per day",
@@ -21582,6 +21589,7 @@
                     validStart: start,
                     validEnd: end,
                     title: "Gold Rush Weekend",
+                    notable: { icon: "bullion2x", description: "Gold Rush" },
                     options: [
                         {
                             name: "Double the daily Gold Bullion limit (400)",
@@ -21610,6 +21618,7 @@
                     validStart: start,
                     validEnd: end,
                     title: "Gold Rush Weekend",
+                    notable: { icon: "bullion2x", description: "Gold Rush" },
                     options: [
                         {
                             name: "Double the daily Gold Bullion limit (800)",
@@ -21638,6 +21647,7 @@
                     validStart: start,
                     validEnd: end,
                     title: "Vendor Caps-a-Plenty Weekend",
+                    notable: { icon: "caps2x", description: "Caps-a-Plenty" },
                     options: [
                         {
                             name: "Vendors have double (2800) caps",
@@ -21663,6 +21673,7 @@
                     validStart: start,
                     validEnd: end,
                     title: "Double S.C.O.R.E. Weekend",
+                    notable: { icon: "score2x", description: "Double S.C.O.R.E." },
                     options: [
                         {
                             name: "Double for Daily Challanges",
@@ -21685,6 +21696,7 @@
                     validStart: start,
                     validEnd: end,
                     title: "Double XP Weekend",
+                    notable: { icon: "xp2x", description: "Double XP" },
                     options: [
                         {
                             name: "Double for all activities",
@@ -21741,6 +21753,7 @@
                     validStart: start,
                     validEnd: end,
                     title: "Double Mutations Weekend",
+                    notable: { icon: "mutation2x", description: "Double Mutations" },
                     options: [
                         {
                             name: "Daily Ops Features two of the secondary mutations",
@@ -21779,6 +21792,7 @@
                     validStart: start,
                     validEnd: end,
                     title: "Mutation Invasion",
+                    notable: { icon: "mutationinvasion", description: "Mutation Invasion" },
                     options: [
                         {
                             name: "Public events at exact hour have mutated enemies.",
@@ -21823,6 +21837,7 @@
                     validStart: start,
                     validEnd: end,
                     title: "Minerva's " + location,
+                    notable: { icon: "minerva", description: "Minerva's Emporium/Big Sale" },
                     options: [
                         {
                             name: "25% off on plans",
@@ -22078,6 +22093,7 @@
                     validStart: start,
                     validEnd: end, 
                     title: "Spooky Scorched Seasonal Event",
+                    notable: { icon: "spookyscorched", description: "Spooky Scorched" },
                     options: [
                         {
                             name: "Complete weekly <i>HALLOWEEN: Complete Give out Candy Daily Challenge</i> (x2)",
@@ -22106,6 +22122,13 @@
                             name: "Rewards: <a href='https://docs.google.com/spreadsheets/u/0/d/1jjC2-s_FBJ8VtQzOWYc6Qm4PjIrdLDDJ5N0a-W3PCA8/htmlview#gid=0' target='_blank'>Plans, Ammo, Consumables</a>",
                             offset: 0,
                             period: 1,
+                        },
+                        {
+                            name: "Ends: <b style='color: green;'>"  + end.toLocaleDateString() 
+                            + " (" + end.toLocaleDateString(window.navigator.language, {weekday: 'long'}) + ")"
+                            + " " + end.toLocaleTimeString() + "</b>", 
+                            offset: 0,
+                            period: 1
                         }
                     ]
                 };
@@ -23243,6 +23266,9 @@
                 }
             }
 
+            // icons at the top
+            var notablesList = [];
+
             function updateChallenges() {
                 // normalize date
                 normalizeDate(selectedDate);
@@ -23261,6 +23287,8 @@
                     + " - " + endDate.toLocaleDateString(window.navigator.language, {weekday: 'long'})
                     + "</span>"
                     ;
+
+                notablesList = [];
 
                 var tbl = document.getElementById("challenges");
 
@@ -23432,6 +23460,23 @@
                 }
 
                 addPrevNext(tbl, seasonEvents, false);
+
+                renderNotablesList();
+            }
+
+            function renderNotablesList() {
+                var nlSpan = document.getElementById("notables");
+                nlSpan.innerHTML = "";
+                for (var n of notablesList) {
+                    var img = document.createElement("img");
+                    img.src = "icons/icon_notables_" + n.icon + ".png";
+                    img.alt = n.description;
+                    img.title = n.description;
+                    img.style.background = "rgba(255, 248, 248, 64)";
+                    img.style.border = "3px solid rgba(255, 224, 224, 64)";
+                    img.style.margin = "3px";
+                    nlSpan.appendChild(img);
+                }
             }
 
             function isActive(challenges, endDate) {
@@ -23532,6 +23577,11 @@
                         }
 
                         found = true;
+                        if (challenge.notable !== undefined) {
+                            if (!notablesList.includes(challenge.notable)) {
+                                notablesList.push(challenge.notable);
+                            }
+                        }
                         //break;
                     }
                 }
