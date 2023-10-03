@@ -21102,6 +21102,46 @@
             communityEventsAppend.push(createMutationInvasion(ofDate(2023, 8, 26, 16), ofDate(2023, 9, 3, 16)));
             communityEventsAppend.push(createMinerva(ofDate(2023, 9, 2, 16), ofDate(2023, 9, 4, 16), "Emporium @ Crater", "P?"));
 
+            function scoreCollectMicroscopeBiometric(offset, count) {
+                return {
+                    name: times("Collect a Microscope or Biometric Scanner", count),
+                    offset: offset,
+                    period: 1400,
+                };
+            }
+            function scoreCollectGardenGnome(offset, count) {
+                return {
+                    name: times("Collect a Garden Gnome", count),
+                    offset: offset,
+                    period: 1400,
+                };
+            }
+
+            addWeeklies(challengesWeeklyEra17, 42, [
+                scoreFixedGainXP10000Rank100, 1,
+                scoreCompleteGoldStarN, 3,
+                scoreCollectFuelGasCanister, 5,
+                scoreCollectGardenGnome, 5,
+                scoreCompleteOneEvent, 3,
+                scoreCraftPlushie, 3,
+                scoreCrippleGhoulLegs, 18,
+                scoreDrinkTea, 5,
+                scoreKillBrahmin, 6,
+                scoreScrapJunkOil, 15,
+                scoreSellWeapon, 15
+            ]);
+            addDaily(challengesDailyEra17, 42, [
+                    scoreCompleteDailyChallenge, 6,
+                    scoreCollectMicroscopeBiometric, 2,
+                    scoreCompleteDailyOps, 1,
+                    scoreCraftPlushie, 1,
+                    scoreCrippleGhoulLegs, 2,
+                    scoreDrinkTea, 1,
+                    scoreKillBrahmin, 2,
+                    make1st(scoreBuildFloorWallCamp), 5,
+                    scoreReroll, 1,
+                ], dops(dailyOpsWatogaHighschool, dailyOpsAliens, dailyOpsSwift, false, false, true));
+
             communityEventsAppend.push(createDoubleMutations(ofDate(2023, 9, 5, 16), ofDate(2023, 9, 9, 16)));
             communityEventsAppend.push(createCapsOPlenty(ofDate(2023, 9, 12, 16), ofDate(2023, 9, 16, 16)));
             communityEventsAppend.push(createMinerva(ofDate(2023, 9, 19, 16), ofDate(2023, 9, 23, 16), "Big Sale @ TBD", "P?"));
