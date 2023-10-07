@@ -21116,6 +21116,13 @@
                     period: 1400,
                 };
             }
+            function scoreModBallisticWeapon(offset, count) {
+                return {
+                    name: times("Mod a Ballistic Weapon", count),
+                    offset: offset,
+                    period: 1400,
+                };
+            }
 
             addWeeklies(challengesWeeklyEra17, 42, [
                 scoreFixedGainXP10000Rank100, 1,
@@ -21172,6 +21179,17 @@
                     scoreKillBrahmin, 2,
                     scoreScrapJunkOil, 5,
                     make1st(scoreScrapJunkAluminium), 5,
+                    scoreReroll, 1,
+                ], dops(dailyOpsArktos, dailyOpsScorched, dailyOpsStingingFrost, false, true, true));
+            addDaily(challengesDailyEra17, 46, [
+                    scoreCompleteDailyChallenge, 6,
+                    scoreCompleteDailyOps, 1,
+                    scoreDestroyRobot, 10,
+                    scoreDestroyAssaultron, 1,
+                    scoreModBallisticWeapon, 1,
+                    scoreScrapJunkSteel, 10,
+                    scoreSellWeapon, 5,
+                    make1st(scoreCollectCaps), 250,
                     scoreReroll, 1,
                 ], dops(dailyOpsArktos, dailyOpsScorched, dailyOpsStingingFrost, false, true, true));
 
