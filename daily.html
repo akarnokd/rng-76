@@ -21309,8 +21309,34 @@
                 ], dops(dailyOpsGarrahan, dailyOpsAliens, dailyOpsCloaked, false, false, true));
 
             communityEventsAppend.push(createMutationInvasion(ofDate(2023, 9, 10, 16), ofDate(2023, 9, 17, 16)));
-
             communityEventsAppend.push(createCapsOPlenty(ofDate(2023, 9, 12, 16), ofDate(2023, 9, 16, 16)));
+
+            addWeeklies(challengesWeeklyEra17, 56, [
+                scoreFixedGainXP10000Rank100, 1,
+                scoreCompleteGoldStarN, 3,
+                scoreBuildAnythingCamp, 25,
+                scoreCollectCaps, 2500,
+                scoreCollectAnyNukaCola, 20,
+                scoreCompleteOneEvent, 3,
+                scoreCrippleBloodEagleLegs, 18,
+                scoreDrinkNukaColaOrange, 5,
+                scoreKillBloodEagle, 30,
+                scoreLevelUp, 3,
+                scoreScrapJunkSteel, 30
+            ]);
+            addDaily(challengesDailyEra17, 56, [
+                    scoreCompleteDailyChallenge, 6,
+                    scoreCollectAnyNukaCola, 5,
+                    scoreCompleteDailyOps, 1,
+                    scoreDrinkNukaCranberry, 2,
+                    scoreHackTerminal, 1,
+                    scoreKillBloodEagle, 10,
+                    scoreKillGlowing, 1,
+                    make1st(scoreScrapHeadwear), 1,
+                    scoreReroll, 1,
+                ], dops(dailyOpsGarrahan, dailyOpsAliens, dailyOpsCloaked, false, false, true));
+
+
             communityEventsAppend.push(createMinerva(ofDate(2023, 9, 19, 16), ofDate(2023, 9, 23, 16), "Big Sale @ TBD", "P?"));
             communityEventsAppend.push(createTreasureHunt(ofDate(2023, 9, 19, 16), ofDate(2023, 9, 23, 16), false));
             communityEventsAppend.push(createDoubleMutations(ofDate(2023, 9, 19, 16), ofDate(2023, 9, 23, 16)));
