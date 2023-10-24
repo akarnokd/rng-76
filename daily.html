@@ -21434,7 +21434,7 @@
                     scoreReroll, 1,
                 ], dops(dailyOpsV96, dailyOpsMoleminers, dailyOpsReflective, true, true, true));
 
-            communityEventsAppend.push(createSpookyScorched(ofDate(2023, 9, 24, 16), ofDate(2023, 10, 7, 16)));
+            communityEventsAppend.push(createSpookyScorched2023(ofDate(2023, 9, 24, 16), ofDate(2023, 10, 7, 16)));
             communityEventsAppend.push(createScripSurplus3(ofDate(2023, 9, 26, 16), ofDate(2023, 9, 30, 16)));
 
             communityEventsAppend.push(createGoldRush2(ofDate(2023, 10, 2, 16), ofDate(2023, 10, 6, 16)));
@@ -22474,6 +22474,71 @@
                             subchallenges: [
                                 {
                                     name: "Reward: Popcorn Machine"
+                                }
+                            ]
+                        },
+                        {
+                            name: "Unique Humanoid Scorched",
+                            offset: 0,
+                            period: 1,
+                            subchallenges: [
+                                {
+                                    name: "Legendary with sound cue"
+                                },
+                                {
+                                    name: "Has Candy and Spooky Treat Bag"
+                                }
+                            ]
+                        },
+                        {
+                            name: "Rewards: <a href='https://docs.google.com/spreadsheets/u/0/d/1jjC2-s_FBJ8VtQzOWYc6Qm4PjIrdLDDJ5N0a-W3PCA8/htmlview#gid=0' target='_blank'>Plans, Ammo, Consumables</a>",
+                            offset: 0,
+                            period: 1,
+                        },
+                        {
+                            name: "Ends: <b style='color: green;'>"  + end.toLocaleDateString() 
+                            + " (" + end.toLocaleDateString(window.navigator.language, {weekday: 'long'}) + ")"
+                            + " " + end.toLocaleTimeString() + "</b>", 
+                            offset: 0,
+                            period: 1
+                        }
+                    ]
+                };
+            }
+            function createSpookyScorched2023(start, end) {
+                return {
+                    validStart: start,
+                    validEnd: end, 
+                    title: "Spooky Scorched Seasonal Event",
+                    notable: { icon: "spookyscorched", description: "Spooky Scorched" },
+                    options: [
+                        {
+                            name: "&#x1F383; HALLOWEEN: Complete <i>Give out Candy</i> weekly challenge",
+                            offset: 0,
+                            period: 1,
+                            subchallenges: [
+                                {
+                                    name: "Reward: Ghost Skeleton Costume"
+                                }
+                            ]
+                        },
+                        {
+                            name: "&#x1F383; HALLOWEEN: Complete <i>Trick or Treat</i> weekly challenge",
+                            offset: 0,
+                            period: 1,
+                            subchallenges: [
+                                {
+                                    name: "Reward: Ghost Skull Hood Mask"
+                                }
+                            ]
+                        },
+                        {
+                            name: "&#x1F383; HALLOWEEN: Complete both <i>Give out Candy and Trick or Treat</i> weekly challenges",
+                            offset: 0,
+                            period: 1,
+                            subchallenges: [
+                                {
+                                    name: "Reward: Mothman Nest (Survival Tent Skin)"
                                 }
                             ]
                         },
