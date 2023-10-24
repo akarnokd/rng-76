@@ -21406,6 +21406,34 @@
             communityEventsAppend.push(createMinerva(ofDate(2023, 9, 19, 16), ofDate(2023, 9, 23, 16), "Big Sale @ Fort Atlas", "P?"));
             communityEventsAppend.push(createTreasureHunt(ofDate(2023, 9, 19, 16), ofDate(2023, 9, 23, 16), false));
             communityEventsAppend.push(createDoubleMutations(ofDate(2023, 9, 19, 16), ofDate(2023, 9, 23, 16)));
+
+            addWeeklies(challengesWeeklyEra17, 63, [
+                scoreFixedGainXP10000Rank100, 1,
+                scoreCompleteGoldStarN, 3,
+                scoreBuildDefenseApplianceCraftingWorkshop, 25,
+                scoreBuildLightSources, 9,
+                scoreCompleteOneEvent, 3,
+                scoreCrippleEnemyLimbs, 30,
+                scoreKillMoleminer, 30,
+                scoreScrapJunkCircuitry, 15,
+                scoreScrapJunkGlass, 15,
+                scoreCompleteGiveOutCandyDaily, 3,
+                scoreCompleteTrickOrTreatDaily, 3,
+                scoreKillSpookyScorchedRepeat, 50,
+            ]);
+            addDaily(challengesDailyEra17, 63, [
+                    scoreCompleteDailyChallenge, 6,
+                    scoreCompleteOneEvent, 1,
+                    scoreCrippleMoleminerHead, 2,
+                    scoreJoinGroup, 1,
+                    scoreKillMoleminer, 10,
+                    scoreSpookyCandyBowl, 1,
+                    scoreTrickOrTreat, 5,
+                    scoreKillSpookyScorched, 5,
+                    make1st(scoreCraftBulkWood), 1,
+                    scoreReroll, 1,
+                ], dops(dailyOpsV96, dailyOpsMoleminers, dailyOpsReflective, true, true, true));
+
             communityEventsAppend.push(createSpookyScorched(ofDate(2023, 9, 24, 16), ofDate(2023, 10, 7, 16)));
             communityEventsAppend.push(createScripSurplus3(ofDate(2023, 9, 26, 16), ofDate(2023, 9, 30, 16)));
 
