@@ -21510,6 +21510,33 @@
             communityEventsAppend.push(createScripSurplus3(ofDate(2023, 9, 26, 16), ofDate(2023, 9, 30, 16)));
             communityEventsAppend.push(createMinerva(ofDate(2023, 9, 30, 16), ofDate(2023, 10, 1, 16), "Emporium @ Foundation", "P?"));
 
+            addWeeklies(challengesWeeklyEra17, 70, [
+                scoreFixedGainXP10000Rank100, 1,
+                scoreCompleteGoldStarN, 3,
+                scoreBuildAnythingCamp, 25,
+                scoreCompleteDailyOps, 3,
+                scoreConsumeAlcohol, 20,
+                scoreCrippleSuperMutantArm, 30,
+                scoreKillSupermutant, 30,
+                scoreScrapMoney, 50,
+                scoreScrapJunkSteel, 30,
+                scoreCompleteGiveOutCandyDaily, 3,
+                scoreCompleteTrickOrTreatDaily, 3,
+                scoreKillSpookyScorchedRepeat, 50,
+            ]);
+            addDaily(challengesDailyEra17, 70, [
+                    scoreCompleteDailyChallenge, 6,
+                    scoreCompleteDailyOps, 1,
+                    scoreConsumeAlcohol, 5,
+                    scoreCrippleSuperMutantArm, 2,
+                    scoreKillSupermutant, 5,
+                    scoreSpookyCandyBowl, 1,
+                    scoreTrickOrTreat, 5,
+                    scoreKillSpookyScorched, 5,
+                    make1st(scoreBuildAnythingCamp), 5,
+                    scoreReroll, 1,
+                ], dops(dailyOpsArktos, dailyOpsAliens, dailyOpsDanger, false, false, true));
+
             communityEventsAppend.push(createGoldRush2(ofDate(2023, 10, 2, 16), ofDate(2023, 10, 6, 16)));
             communityEventsAppend.push(createDoubleMutations(ofDate(2023, 10, 2, 16), ofDate(2023, 10, 6, 16)));
             communityEventsAppend.push(createBirthdayChallenges(ofDate(2023, 10, 7, 16), ofDate(2023, 10, 20, 16)));
