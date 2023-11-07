@@ -21612,7 +21612,35 @@
             communityEventsAppend.push(createF1st(ofDate(2023, 9, 31, 16), ofDate(2023, 10, 7, 16)));
             communityEventsAppend.push(createGoldRush2(ofDate(2023, 10, 2, 16), ofDate(2023, 10, 6, 16)));
             communityEventsAppend.push(createDoubleMutations(ofDate(2023, 10, 2, 16), ofDate(2023, 10, 6, 16)));
+
+            addWeeklies(challengesWeeklyEra17, 77, [
+                scoreFixedGainXP10000Rank100, 1,
+                scoreCompleteGoldStarN, 3,
+                scoreBuildWallDecorShelter, 15,
+                scoreCompleteDailyOps, 3,
+                scoreCraftScrapClothingWeaponArmor, 25,
+                scoreCrippleMirelurkLimb, 30,
+                scoreEatCookedMeal, 30,
+                scoreHarvestPlantFungi, 30,
+                scoreKillMirelurk, 30,
+                scorePlantCrop, 25,
+                scoreScrapJunkAluminium, 15,
+            ]);
+            addDaily(challengesDailyEra17, 77, [
+                    scoreCompleteDailyChallenge, 6,
+                    scoreCompletePublicMutatedEvent, 1,
+                    scoreCookMealPlant, 5,
+                    scoreHarvestPlantFungi, 12,
+                    scoreKillLegendary, 1,
+                    scoreKillMutatedEnemy, 10,
+                    scoreScrapJunkChrystal, 5,
+                    make1st(scoreHarvestCornRazorgrainTato), 12,
+                    scoreReroll, 1,
+                ], dops(dailyOpsValley, dailyOpsAliens, dailyOpsResilient, false, false, false));
+
+
             communityEventsAppend.push(createMinerva(ofDate(2023, 10, 6, 16), ofDate(2023, 10, 8, 16), "Emporium @ Crater", "P?"));
+            communityEventsAppend.push(createMutationInvasion(ofDate(2023, 10, 7, 16), ofDate(2023, 10, 14, 16)));
             communityEventsAppend.push(createBirthdayChallenges(ofDate(2023, 10, 7, 16), ofDate(2023, 10, 20, 16)));
             communityEventsAppend.push(createDoubleXP(ofDate(2023, 10, 9, 16), ofDate(2023, 10, 15, 16)));
             communityEventsAppend.push(createDoubleScore(ofDate(2023, 10, 9, 16), ofDate(2023, 10, 15, 16)));
@@ -22318,18 +22346,99 @@
                 return {
                     validStart: start,
                     validEnd: end,
-                    title: "Birthday Challenges Weeks",
+                    title: "&#127874; Birthday Challenges Weeks",
+                    notable: { icon: "birthday", description: "Birthday of Fallout 76" },
                     options: [
                         {
                             name: "Celebrating 5 years of Fallout 76",
                             offset: 0,
-                            period: 1
+                            period: 1,
+                            subchallenges: [
+                                {
+                                    name: "Claim the free Birthday Suit from the Atomic Shop."
+                                }
+                            ]
                         },
                         {
-                            name: "Rewards: TBD",
+                            name: times("&#127874; Birthday: Collect <i>Oppossum Meat</i> while wearing the Birthday Suit", 5),
                             offset: 0,
-                            period: 1
-                        }
+                            period: 1,
+                            subchallenges: [
+                                {
+                                    name: "Reward: Vault 76 Suit Box"
+                                }
+                            ]
+                        },
+                        {
+                            name: times("&#127874; Birthday: Collect <i>Sugar or Spices</i> while wearing the Birthday Suit", 5),
+                            offset: 0,
+                            period: 1,
+                            subchallenges: [
+                                {
+                                    name: "Reward: Birthday Hat"
+                                }
+                            ]
+                        },
+                        {
+                            name: times("&#127874; Birthday: Collect <i>Cake Pan</i> while wearing the Birthday Suit", 1),
+                            offset: 0,
+                            period: 1,
+                            subchallenges: [
+                                {
+                                    name: "Reward: Vault Shelter Poster"
+                                }
+                            ]
+                        },
+                        {
+                            name: times("&#127874; Birthday: Collect <i>Mothman Egg</i> while wearing the Birthday Suit", 1),
+                            offset: 0,
+                            period: 1,
+                            subchallenges: [
+                                {
+                                    name: "Reward: Fallout Birthday Icon"
+                                }
+                            ]
+                        },
+                        {
+                            name: times("&#127874; Birthday: Cook Meal while wearing the Birthday Suit", 5),
+                            offset: 0,
+                            period: 1,
+                            subchallenges: [
+                                {
+                                    name: "Reward: Birthday Wallpaper"
+                                }
+                            ]
+                        },
+                        {
+                            name: times("&#127874; Birthday: Ferment Alcohol while wearing the Birthday Suit", 5),
+                            offset: 0,
+                            period: 1,
+                            subchallenges: [
+                                {
+                                    name: "Reward: Birthday Rolling Pin Skin"
+                                }
+                            ]
+                        },
+                        {
+                            name:  times("&#127874; Birthday: Gather Milk from Brahmin while wearing the Birthday Suit", 3),
+                            offset: 0,
+                            period: 1,
+                            subchallenges: [
+                                {
+                                    name: "Reward: Brahmin Pant Suit"
+                                }
+                            ]
+                        },
+                        {
+                            name: times("&#127874; Birthday: Complete Week 1 Challenges", 5),
+                            offset: 0,
+                            period: 1,
+                            subchallenges: [
+                                {
+                                    name: "Reward: Birthday Cake"
+                                }
+                            ]
+                        },
                     ]
                 };
             }
