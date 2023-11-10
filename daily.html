@@ -21659,6 +21659,17 @@
                     make1st(scoreCollectWood), 20,
                     scoreReroll, 1,
                 ], dops(dailyOpsValley, dailyOpsScorched, dailyOpsToxic, false, false, false));
+            addDaily(challengesDailyEra17, 80, [
+                    scoreCompleteDailyChallenge, 6,
+                    scoreCollectPurifiedWater, 10,
+                    scoreCompleteDailyOps, 1,
+                    scoreHarvestCornRazorgrainTato, 12,
+                    scoreKillHoneyBeast, 1,
+                    scoreKillMutatedEnemy, 10,
+                    scorePlantCrop, 5,
+                    make1st(scoreEatCookedMeal), 10,
+                    scoreReroll, 1,
+                ], dops(dailyOpsBurning, dailyOpsRobots, dailyOpsFreezing, true, false, false));
 
             communityEventsAppend.push(createMinerva(ofDate(2023, 10, 6, 17), ofDate(2023, 10, 8, 17), "Emporium @ Crater", "P?"));
             communityEventsAppend.push(createMutationInvasion(ofDate(2023, 10, 7, 17), ofDate(2023, 10, 14, 17)));
