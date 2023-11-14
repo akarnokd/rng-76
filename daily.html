@@ -21711,6 +21711,33 @@
             communityEventsAppend.push(createDoubleScore(ofDate(2023, 10, 9, 17), ofDate(2023, 10, 13, 17)));
             communityEventsAppend.push(createPurveyor(ofDate(2023, 10, 9, 17), ofDate(2023, 10, 13, 17), 25, false, 1));
             communityEventsAppend.push(createMinerva(ofDate(2023, 10, 13, 17), ofDate(2023, 10, 15, 17), "Emporium @ Fort Atlas", "P?"));
+
+            addWeeklies(challengesWeeklyEra17, 84, [
+                scoreFixedGainXP10000Rank100, 1,
+                scoreCompleteGoldStarN, 3,
+                scoreClaimWorkshop, 3,
+                scoreCollectAnyNukaCola, 20,
+                scoreCompleteDailyOps, 3,
+                scoreCraftAnyFlair, 3,
+                scoreCrippleScorchedArm, 18,
+                scoreDrinkNukaColaOrange, 5,
+                scoreKillScorched, 30,
+                scoreLevelUp, 3,
+                scoreScrapJunkSteel, 30,
+            ]);
+            addDaily(challengesDailyEra17, 84, [
+                    scoreCompleteDailyChallenge, 6,
+                    scoreCollectAnyNukaCola, 5,
+                    scoreCompleteDailyOps, 1,
+                    scoreCrippleScorchedArm, 2,
+                    scoreDrinkNukaColaOrange, 2,
+                    scoreKillScorched, 10,
+                    scoreScrapJunkSteel, 10,
+                    make1st(scoreBuildWallDecor), 5,
+                    scoreReroll, 1,
+                ], dops(dailyOpsBurning, dailyOpsCommunists, dailyOpsDanger, true, false, false));
+
+
             communityEventsAppend.push(createTreasureHunt(ofDate(2023, 10, 16, 17), ofDate(2023, 10, 20, 17), false));
             communityEventsAppend.push(createDoubleMutations(ofDate(2023, 10, 16, 17), ofDate(2023, 10, 20, 17)));
             communityEventsAppend.push(createMutationInvasion(ofDate(2023, 10, 21, 17), ofDate(2023, 10, 28, 17)));
