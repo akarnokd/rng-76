@@ -22480,6 +22480,8 @@
                             name: "Celebrating 5 years of Fallout 76",
                             offset: 0,
                             period: 1,
+                            begin: 0,
+                            end: 7,
                             subchallenges: [
                                 {
                                     name: "Claim the free Birthday Suit from the Atomic Shop."
@@ -22490,6 +22492,8 @@
                             name: times("&#127874; Birthday: Collect <i>Oppossum Meat</i> while wearing the Birthday Suit", 5),
                             offset: 0,
                             period: 1,
+                            begin: 0,
+                            end: 7,
                             subchallenges: [
                                 {
                                     name: "Reward: Vault 76 Suit Box"
@@ -22500,6 +22504,8 @@
                             name: times("&#127874; Birthday: Collect <i>Sugar or Spices</i> while wearing the Birthday Suit", 5),
                             offset: 0,
                             period: 1,
+                            begin: 0,
+                            end: 7,
                             subchallenges: [
                                 {
                                     name: "Reward: Birthday Hat"
@@ -22510,6 +22516,8 @@
                             name: times("&#127874; Birthday: Collect <i>Cake Pan</i> while wearing the Birthday Suit", 1),
                             offset: 0,
                             period: 1,
+                            begin: 0,
+                            end: 7,
                             subchallenges: [
                                 {
                                     name: "Reward: Vault Shelter Poster"
@@ -22520,6 +22528,8 @@
                             name: times("&#127874; Birthday: Collect <i>Mothman Egg</i> while wearing the Birthday Suit", 1),
                             offset: 0,
                             period: 1,
+                            begin: 0,
+                            end: 7,
                             subchallenges: [
                                 {
                                     name: "Reward: Fallout Birthday Icon"
@@ -22530,6 +22540,8 @@
                             name: times("&#127874; Birthday: Cook Meal while wearing the Birthday Suit", 5),
                             offset: 0,
                             period: 1,
+                            begin: 0,
+                            end: 7,
                             subchallenges: [
                                 {
                                     name: "Reward: Birthday Wallpaper"
@@ -22540,6 +22552,8 @@
                             name: times("&#127874; Birthday: Ferment Alcohol while wearing the Birthday Suit", 5),
                             offset: 0,
                             period: 1,
+                            begin: 0,
+                            end: 7,
                             subchallenges: [
                                 {
                                     name: "Reward: Birthday Rolling Pin Skin"
@@ -22550,6 +22564,8 @@
                             name:  times("&#127874; Birthday: Gather Milk from Brahmin while wearing the Birthday Suit", 3),
                             offset: 0,
                             period: 1,
+                            begin: 0,
+                            end: 7,
                             subchallenges: [
                                 {
                                     name: "Reward: Brahmin Pant Suit"
@@ -22560,6 +22576,8 @@
                             name: times("&#127874; Birthday: Complete Week 1 Challenges", 5),
                             offset: 0,
                             period: 1,
+                            begin: 0,
+                            end: 7,
                             subchallenges: [
                                 {
                                     name: "Reward: Birthday Cake"
@@ -22567,9 +22585,87 @@
                             ]
                         },
                         {
+                            name: times("&#127874; Birthday: Build Floor or Wall Decor while wearing the Birthday Suit", 5),
+                            offset: 0,
+                            period: 1,
+                            begin: 7,
+                            subchallenges: [
+                                {
+                                    name: "Reward: Birthday Photoframe"
+                                }
+                            ]
+                        },
+                        {
+                            name: times("&#127874; Birthday: Drink Alcohol while wearing the Birthday Suit", 1),
+                            offset: 0,
+                            period: 1,
+                            begin: 7,
+                            subchallenges: [
+                                {
+                                    name: "Reward: Mysterious Wooden Crate"
+                                }
+                            ]
+                        },
+                        {
+                            name: times("&#127874; Birthday: Consume a Birthday Cake while wearing the Birthday Suit", 1),
+                            offset: 0,
+                            period: 1,
+                            begin: 7,
+                            subchallenges: [
+                                {
+                                    name: "Reward: Sugar Bombs something"
+                                }
+                            ]
+                        },
+                        {
+                            name: times("&#127874; Birthday: Cook Pie, Cake or Cobbler while wearing the Birthday Suit", 5),
+                            offset: 0,
+                            period: 1,
+                            begin: 7,
+                            subchallenges: [
+                                {
+                                    name: "Reward: Vault Boy Birthday Rug"
+                                }
+                            ]
+                        },
+                        {
+                            name: times("&#127874; Birthday: Set up a Birthday Cake in your C.A.M.P. while wearing the Birthday Suit", 1),
+                            offset: 0,
+                            period: 1,
+                            begin: 7,
+                            subchallenges: [
+                                {
+                                    name: "Reward: Broken G.E.C.K. Machine"
+                                }
+                            ]
+                        },
+                        {
+                            name: times("&#127874; Birthday: Take a camera picture of another player while wearing the Birthday Suit", 1),
+                            offset: 0,
+                            period: 1,
+                            begin: 7,
+                            subchallenges: [
+                                {
+                                    name: "Reward: Sugar Bombs Fridge"
+                                }
+                            ]
+                        },
+                        {
+                            name: times("&#127874; Birthday: Visit Vault 76 while wearing the Birthday Suit", 1),
+                            offset: 0,
+                            period: 1,
+                            begin: 7,
+                            subchallenges: [
+                                {
+                                    name: "Reward: Brahmin Short Suit"
+                                }
+                            ]
+                        },
+                        {
                             name: times("&#127874; Birthday: Complete Week 2 Challenges", 5),
                             offset: 0,
                             period: 1,
+                            begin: 7,
                             subchallenges: [
                                 {
                                     name: "Reward: Nukashine something"
@@ -24406,7 +24502,10 @@
                         for (var opt of challenge.options) {
                             var d = dayDiff - opt.offset;
                             var per = Math.floor(d % opt.period);
-                            if (per === 0) {
+                            if (per === 0 
+                                    && (opt.begin === undefined || d >= opt.begin)
+                                    && (opt.end === undefined || d < opt.end)
+                            ) {
                                 var rw = tbl.insertRow(tbl.rows.length);
                                 
                                 var cll = rw.insertCell(rw.cells.length);
