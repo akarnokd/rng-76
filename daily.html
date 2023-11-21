@@ -19128,6 +19128,13 @@
                     period: 1400,
                 };
             }
+            function scoreBuildGeneratorShelter(offset, count) {
+                return {
+                    name: times("Build a Generator in your Shelter", count),
+                    offset: offset,
+                    period: 1400,
+                };
+            }
             function scoreSellShotgun(offset, count) {
                 return {
                     name: times("Sell a Shotgun", count),
@@ -21806,6 +21813,33 @@
 
             communityEventsAppend.push(createTreasureHunt(ofDate(2023, 10, 16, 17), ofDate(2023, 10, 20, 17), false));
             communityEventsAppend.push(createDoubleMutations(ofDate(2023, 10, 16, 17), ofDate(2023, 10, 20, 17)));
+
+            addWeeklies(challengesWeeklyEra17, 91, [
+                scoreFixedGainXP10000Rank100, 1,
+                scoreCompleteGoldStarN, 3,
+                scoreBuildWallDecorShelter, 15,
+                scoreBuildFloorWallCamp, 25,
+                scoreBuildGeneratorShelter, 3,
+                scoreCraftScrapClothingWeaponArmor, 3,
+                scoreKillMutatedEnemy, 30,
+                scoreScrapJunkOil, 15,
+                scoreVisitOwnShelter, 5,
+                scoreExpeditionCompleteAnyMissionPitt, 3,
+                scoreKillFanatic, 50,
+            ]);
+            addDaily(challengesDailyEra17, 91, [
+                    scoreCompleteDailyChallenge, 6,
+                    scoreBuildWallDecorShelter, 5,
+                    scoreCraftScrapArmor, 5,
+                    scoreKillGhoul, 10,
+                    scoreVisitOwnShelter, 1,
+                    scoreExpeditionCompleteAnyMissionPitt, 1,
+                    scoreKillFanatic, 10,
+                    make1st(scoreScrapJunkPlastic), 10,
+                    scoreReroll, 1,
+                ], dops(dailyOpsWatogaHighschool, dailyOpsRobots, dailyOpsVolatile, false, false, false));
+
+
             communityEventsAppend.push(createMutationInvasion(ofDate(2023, 10, 21, 17), ofDate(2023, 10, 28, 17)));
             communityEventsAppend.push(createCapsOPlenty(ofDate(2023, 10, 23, 17), ofDate(2023, 10, 27, 17)));
             communityEventsAppend.push(createScripSurplus3(ofDate(2023, 10, 23, 17), ofDate(2023, 10, 27, 17)));
