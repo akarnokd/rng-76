@@ -21919,6 +21919,39 @@
             communityEventsAppend.push(createPurveyor(ofDate(2023, 10, 23, 17), ofDate(2023, 10, 27, 17), 25, false, 1));
             communityEventsAppend.push(createMinerva(ofDate(2023, 10, 23, 17), ofDate(2023, 10, 27, 17), "Big Sale @ The Whitespring", "P?"));
 
+            function scoreKillTrogFledgling(offset, count) {
+                return {
+                    name: times("Kill a Trog Fledgling", count),
+                    offset: offset,
+                    period: 1400,
+                };
+            }
+
+            addWeeklies(challengesWeeklyEra17, 98, [
+                scoreFixedGainXP10000Rank100, 1,
+                scoreCompleteGoldStarN, 3,
+                scoreCollectFuelGasCanister, 5,
+                scoreCollectGardenGnome, 5,
+                scoreCraftPlushie, 3,
+                scoreCrippleGhoulLegs, 18,
+                scoreDrinkTea, 5,
+                scoreScrapJunkOil, 15,
+                scoreSellWeapon, 15,
+                scoreExpeditionCompleteAnyMissionPitt, 3,
+                scoreKillTrog, 50,
+            ]);
+            addDaily(challengesDailyEra17, 98, [
+                    scoreCompleteDailyChallenge, 6,
+                    scoreCollectMicroscopeBiometric, 2,
+                    scoreCraftPlushie, 1,
+                    scoreCrippleGhoulLegs, 2,
+                    scoreDrinkTea, 1,
+                    scoreKillBrahmin, 2,
+                    scoreExpeditionCompleteAnyMissionPitt, 1,
+                    make1st(scoreKillTrogFledgling), 6,
+                    scoreReroll, 1,
+                ], dops(dailyOpsArktos, dailyOpsEagles, dailyOpsReflective, true, false, false));
+
             addPlaceholders(challengesDailyEra17, scoreDailyplaceholder, era17Length);
             addPlaceholders(challengesWeeklyEra17, scoreWeeklyplaceholder, era17Length);
 
