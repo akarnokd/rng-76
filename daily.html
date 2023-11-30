@@ -21962,6 +21962,19 @@
                     make1st(scoreCollectAudiotape), 1,
                     scoreReroll, 1,
                 ], dops(dailyOpsUncanny, dailyOpsScorched, dailyOpsSwift, false, false, false));
+            addDaily(challengesDailyEra17, 100, [
+                    scoreCompleteDailyChallenge, 6,
+                    scoreCollectMicroscopeBiometric, 2,
+                    scoreCraftPlushie, 1,
+                    scoreCrippleGhoulLegs, 2,
+                    scoreDrinkTea, 1,
+                    scoreExpeditionCompleteAnyMissionPitt, 1,
+                    scoreKillTrog, 10,
+                    make1st(scoreKillGhoul), 10,
+                    scoreReroll, 1,
+                ], dops(dailyOpsArktos, dailyOpsRobots, dailyOpsVaporous, true, true, false));
+
+            communityEventsAppend.push(createDoubleMutations(ofDate(2023, 10, 30, 17), ofDate(2023, 11, 4, 17)));
 
             addPlaceholders(challengesDailyEra17, scoreDailyplaceholder, era17Length);
             addPlaceholders(challengesWeeklyEra17, scoreWeeklyplaceholder, era17Length);
@@ -21989,7 +22002,7 @@
             var season15 = {
                 validStart: era18Start,
                 validEnd: era18End,
-                title: "Season 15: TBD",
+                title: "Season 15: The Big Score",
                 options: [
                     
                 ]
