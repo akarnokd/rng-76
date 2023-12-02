@@ -21921,7 +21921,14 @@
 
             function scoreKillTrogFledgling(offset, count) {
                 return {
-                    name: times("Kill a Trog Fledgling", count),
+                    name: times("&#x1F681; Kill a Trog Fledgling", count),
+                    offset: offset,
+                    period: 1400,
+                };
+            }
+            function scoreKillTrogSuperiorDevourer(offset, count) {
+                return {
+                    name: times("&#x1F681; Kill a Trog Superior or Trog Devourer", count),
                     offset: offset,
                     period: 1400,
                 };
@@ -21984,6 +21991,17 @@
                     make1st(scoreScrapJunkAluminium), 5,
                     scoreReroll, 1,
                 ], dops(dailyOpsWatogaHighschool, dailyOpsMoleminers, dailyOpsSwiftStalker, false, true, false));
+            addDaily(challengesDailyEra17, 102, [
+                    scoreCompleteDailyChallenge, 6,
+                    scoreDestroyRobot, 10,
+                    scoreDestroyAssaultron, 1,
+                    scoreScrapJunkSteel, 10,
+                    scoreSellWeapon, 5,
+                    scoreExpeditionCompleteAnyMissionPitt, 1,
+                    scoreKillTrogSuperiorDevourer, 1,
+                    make1st(scoreModBallisticWeapon), 1,
+                    scoreReroll, 1,
+                ], dops(dailyOpsWestTec, dailyOpsScorched, dailyOpsUnstable, true, true, false));
 
             communityEventsAppend.push(createDoubleMutations(ofDate(2023, 10, 30, 17), ofDate(2023, 11, 4, 17)));
             communityEventsAppend.push(createPurveyor(ofDate(2023, 10, 30, 17), ofDate(2023, 11, 4, 17), 0, true, 1));
