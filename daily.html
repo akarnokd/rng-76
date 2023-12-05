@@ -22037,7 +22037,7 @@
             // oooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo
 
             var era18Start = ofDate(2023, 11, 5, 17); 
-            var era18Length = 84;
+            var era18Length = 91;
             var era18End = plusDays(new Date(era18Start), era18Length);
             var challengesDailyEra18 = {
                 validStart: era18Start,
@@ -22109,13 +22109,75 @@
                     scoreKillOvergrown, 5,
                     make1st(scoreKillBrahmin), 2,
                     scoreReroll, 1,
-                ], dops(dailyOpsWatogaHighschool, dailyOpsCultists, dailyOpsRelentless, false, false, false));
+                ], dops(dailyOpsBurrows, dailyOpsAliens, dailyOpsSwift, false, false, false));
 
             communityEventsAppend.push(createMutationInvasion(ofDate(2023, 11, 5, 17), ofDate(2023, 11, 12, 17)));
+            communityEventsAppend.push(createGoldRush2(ofDate(2023, 11, 14, 16), ofDate(2023, 11, 18, 17)));
+            communityEventsAppend.push(createDoubleMutations(ofDate(2023, 11, 14, 17), ofDate(2023, 11, 18, 17)));
+            communityEventsAppend.push(createHolidayScorched(ofDate(2023, 11, 19, 17), ofDate(2024, 0, 2, 17)));
+            communityEventsAppend.push(createDoubleXP(ofDate(2023, 11, 21, 17), ofDate(2023, 11, 25, 17)));
+            communityEventsAppend.push(createDoubleScore(ofDate(2023, 11, 21, 17), ofDate(2023, 11, 25, 17)));
+            communityEventsAppend.push(createScripSurplus3(ofDate(2023, 11, 28, 17), ofDate(2024, 0, 2, 17)));
+            communityEventsAppend.push(createPurveyor(ofDate(2023, 11, 28, 17), ofDate(2024, 0, 2, 17), 25, false, 1));
+            communityEventsAppend.push(createDoubleMutations(ofDate(2023, 11, 28, 17), ofDate(2024, 0, 2, 17)));
 
+            communityEventsAppend.push(createCapsOPlenty(ofDate(2024, 0, 4, 17), ofDate(2024, 0, 8, 17)));
+            communityEventsAppend.push(createGoldRush2(ofDate(2024, 0, 11, 16), ofDate(2024, 0, 15, 17)));
+            communityEventsAppend.push(createDoubleMutations(ofDate(2024, 0, 11, 17), ofDate(2024, 0, 15, 17)));
+            communityEventsAppend.push(createTreasureHunt(ofDate(2024, 0, 25, 17), ofDate(2024, 0, 29, 17), false));
+            communityEventsAppend.push(createBurningLoveChallenge(ofDate(2024, 0, 30, 17), ofDate(2024, 1, 13, 17), false));
+
+            communityEventsAppend.push(createDoubleScore(ofDate(2024, 1, 1, 17), ofDate(2024, 1, 5, 17)));
+            communityEventsAppend.push(createPurveyor(ofDate(2024, 1, 8, 17), ofDate(2024, 1, 12, 17), 0, true, 1));
+            communityEventsAppend.push(createDoubleMutations(ofDate(2024, 1, 8, 17), ofDate(2024, 1, 12, 17)));
+            communityEventsAppend.push(createFasnacht(ofDate(2024, 1, 13, 17), ofDate(2024, 1, 27, 17)));
+            communityEventsAppend.push(createDoubleXP(ofDate(2024, 1, 22, 17), ofDate(2024, 1, 26, 17)));
+            communityEventsAppend.push(createDoubleMutations(ofDate(2024, 1, 22, 17), ofDate(2024, 1, 26, 17)));
+            communityEventsAppend.push(createScripSurplus3(ofDate(2024, 1, 29, 17), ofDate(2024, 2, 4, 17)));
+
+            communityEventsAppend.push(createCapsOPlenty(ofDate(2024, 2, 7, 17), ofDate(2024, 2, 11, 17)));
+            communityEventsAppend.push(createDoubleMutations(ofDate(2024, 2, 7, 17), ofDate(2024, 2, 11, 17)));
+            communityEventsAppend.push(createDoubleScore(ofDate(2024, 2, 14, 17), ofDate(2024, 2, 18, 17)));
+            communityEventsAppend.push(createPurveyor(ofDate(2024, 2, 21, 17), ofDate(2024, 2, 25, 17), 0, true, 1));
+            communityEventsAppend.push(createDoubleMutations(ofDate(2024, 2, 21, 17), ofDate(2024, 2, 25, 17)));
 
             addPlaceholders(challengesDailyEra18, scoreDailyplaceholder, era18Length);
             addPlaceholders(challengesWeeklyEra18, scoreWeeklyplaceholder, era18Length);
+
+            // oooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo
+            // Season 16
+            // oooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo
+
+            var era19Start = ofDate(2024, 2, 5, 17); 
+            var era19Length = 91;
+            var era19End = plusDays(new Date(era19Start), era19Length);
+            var challengesDailyEra19 = {
+                validStart: era19Start,
+                validEnd: era19End,
+                options: []
+            };
+            var challengesWeeklyEra19 = {
+                validStart: era19Start,
+                validEnd: era19End,
+                options: []
+            };
+            challenges.push(challengesDailyEra19);
+            challengesWeekly.push(challengesWeeklyEra19);
+
+            var season16 = {
+                validStart: era19Start,
+                validEnd: era19End,
+                title: "Season 16: Atlantic City - America's Playground",
+                options: [
+                    
+                ]
+            };
+
+            fillInSeason(season16, era19Length, "LR16", true);
+            seasonEventsAppend.push(season16);
+
+            addPlaceholders(challengesDailyEra19, scoreDailyplaceholder, era19Length);
+            addPlaceholders(challengesWeeklyEra19, scoreWeeklyplaceholder, era19Length);
 
             // --------------------------------------------------------------------------------------------------------------
             // Community events
@@ -22337,6 +22399,21 @@
                                     name: "&#x1F6C8; <i>Reward chances: <a href='https://docs.google.com/spreadsheets/u/0/d/1SUyxuJJcYIF5lMtMQmqO0oYs6gSv1BRXnXxgTS1545c/htmlview#gid=847483773' target='_blank'>depends on pail rarity</a>.</i>"
                                 }
                             ]
+                        }
+                    ]
+                };
+            }
+
+            function createBurningLoveChallenge(startDate, endDate) {
+                return {
+                    validStart: startDate,
+                    validEnd: endDate,
+                    title: "Burning Live Challenge Event",
+                    options: [
+                        {
+                            name: "TBD",
+                            offset: 0,
+                            period: 1,
                         }
                     ]
                 };
