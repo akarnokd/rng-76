@@ -22036,7 +22036,7 @@
             // Season 15
             // oooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo
 
-            var era18Start = ofDate(2023, 11, 5, 16); 
+            var era18Start = ofDate(2023, 11, 5, 17); 
             var era18Length = 84;
             var era18End = plusDays(new Date(era18Start), era18Length);
             var challengesDailyEra18 = {
@@ -22060,8 +22060,39 @@
                     
                 ]
             };
+
             fillInSeason(season15, era18Length, "LR15", true);
             seasonEventsAppend.push(season15);
+
+
+            addWeeklies(challengesWeeklyEra18, 0, [
+                scoreFixedGainXP10000Rank100, 1,
+                scoreCompleteGoldStarN, 3,
+                /*
+                scoreCollectFuelGasCanister, 5,
+                scoreCollectGardenGnome, 5,
+                scoreCraftPlushie, 3,
+                scoreCrippleGhoulLegs, 18,
+                scoreDrinkTea, 5,
+                scoreScrapJunkOil, 15,
+                scoreSellWeapon, 15,
+                scoreExpeditionCompleteAnyMissionPitt, 3,
+                scoreKillTrog, 50,
+                */
+            ]);
+            addDaily(challengesDailyEra18, 0, [
+                    scoreCompleteDailyChallenge, 6,
+                    /*
+                    scoreCollectMicroscopeBiometric, 2,
+                    scoreCraftPlushie, 1,
+                    scoreCrippleGhoulLegs, 2,
+                    scoreDrinkTea, 1,
+                    scoreKillBrahmin, 2,
+                    scoreExpeditionCompleteAnyMissionPitt, 1,
+                    make1st(scoreKillTrogFledgling), 6,
+                    */
+                    scoreReroll, 1,
+                ], dops(dailyOpsWatogaHighschool, dailyOpsCultists, dailyOpsRelentless, true, false, false));
 
             addPlaceholders(challengesDailyEra18, scoreDailyplaceholder, era18Length);
             addPlaceholders(challengesWeeklyEra18, scoreWeeklyplaceholder, era18Length);
