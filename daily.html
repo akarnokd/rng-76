@@ -22071,6 +22071,13 @@
                     period: 1400,
                 };
             }
+            function scoreCompleteMostSensational(offset, count) {
+                return {
+                    name: times("&#x1F681; Expeditions - Complete Most Sensational Game", count),
+                    offset: offset,
+                    period: 1400,
+                };
+            }
             function scoreKillOvergrown(offset, count) {
                 return {
                     name: times("&#x1F681; Kill an Overgrown", count),
@@ -22085,6 +22092,13 @@
                     period: 1400,
                 };
             }
+            function scoreKillLesserDevil(offset, count) {
+                return {
+                    name: times("&#x1F681; Kill a Lesser Devil", count),
+                    offset: offset,
+                    period: 1400,
+                };
+            }
 
             addWeeklies(challengesWeeklyEra18, 0, [
                 scoreFixedGainXP10000Rank100, 1,
@@ -22095,8 +22109,8 @@
                 scoreCraftAnyFlair, 3,
                 scoreDrinkNukaWild, 5,
                 scoreKillMutatedEnemy, 30,
-                scoreKillOvergrown, 30,
                 scoreScrapJunkPlastic, 30,
+                scoreKillOvergrown, 30,
                 scoreExpeditionCompleteAnyMissionAtlantic, 2,
             ]);
             addDaily(challengesDailyEra18, 0, [
@@ -22121,6 +22135,17 @@
                     make1st(scoreScrapJunkPlastic), 10,
                     scoreReroll, 1,
                 ], dops(dailyOpsWatoga, dailyOpsScorched, dailyOpsReflective, true, false, false));
+            addDaily(challengesDailyEra18, 2, [
+                    scoreCompleteDailyChallenge, 6,
+                    scoreCollectPurifiedWater, 5,
+                    scoreCollectAnyNukaCola, 5,
+                    scoreCrippleEnemyLimbs, 6,
+                    scoreEatDogFood, 5,
+                    scoreCompleteMostSensational, 1,
+                    scoreKillLesserDevil, 1,
+                    make1st(scoreHackTerminal), 1,
+                    scoreReroll, 1,
+                ], dops(dailyOpsCharleston, dailyOpsAliens, dailyOpsVolatile, false, false, false));
 
             communityEventsAppend.push(createMutationInvasion(ofDate(2023, 11, 5, 17), ofDate(2023, 11, 12, 17)));
             communityEventsAppend.push(createGoldRush2(ofDate(2023, 11, 14, 16), ofDate(2023, 11, 18, 17)));
