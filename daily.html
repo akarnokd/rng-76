@@ -22192,8 +22192,33 @@
                 ], dops(dailyOpsWatogaHighschool, dailyOpsMutants, dailyOpsFreezing, false, false, false));
 
             communityEventsAppend.push(createMinerva(ofDate(2023, 11, 11, 17), ofDate(2023, 11, 13, 17), "Emporium @ Crater", "P?"));
-
             communityEventsAppend.push(createMutationInvasion(ofDate(2023, 11, 5, 17), ofDate(2023, 11, 12, 17)));
+
+            addWeeklies(challengesWeeklyEra18, 7, [
+                scoreFixedGainXP10000Rank100, 1,
+                scoreCompleteGoldStarN, 3,
+                scoreBuildWallDecorShelter, 15,
+                scoreBuildFloorWallCamp, 25,
+                scoreCollectPurifiedWater, 25,
+                scoreCompleteDailyOps, 3,
+                scoreCraftBulkWood, 3,
+                scoreCrippleScorchedArm, 18,
+                scoreKillSnallygaster, 10,
+                scoreScrapJunkCloth, 30,
+                scoreScrapJunkConcrete, 30,
+            ]);
+            addDaily(challengesDailyEra18, 7, [
+                    scoreCompleteDailyChallenge, 6,
+                    scoreBuildFloorWallCamp, 5,
+                    scoreCollectWood, 20,
+                    scoreCompleteDailyOps, 1,
+                    scoreCrippleScorchedArm, 2,
+                    scoreKillScorched, 10,
+                    scoreScrapJunkConcrete, 10,
+                    make1st(scoreCollectPurifiedWater), 5,
+                    scoreReroll, 1,
+                ], dops(dailyOpsWatoga, dailyOpsCultists, dailyOpsDanger, true, false, false));
+
             communityEventsAppend.push(createGoldRush2(ofDate(2023, 11, 14, 16), ofDate(2023, 11, 18, 17)));
             communityEventsAppend.push(createDoubleMutations(ofDate(2023, 11, 14, 17), ofDate(2023, 11, 18, 17)));
             communityEventsAppend.push(createHolidayScorched(ofDate(2023, 11, 19, 17), ofDate(2024, 0, 2, 17)));
