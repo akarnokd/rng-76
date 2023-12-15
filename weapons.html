@@ -27,7 +27,7 @@
     </head>
     <body style="height: 90%">
         <center>
-            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Weapon Damage Calculator (v3.11.0)</span>
+            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Weapon Damage Calculator (v3.11.1)</span>
             <br/>
             <!--
             <i>(Patch 44 update still in progress.)</i>
@@ -3972,6 +3972,96 @@
                         createStandardMagazines("Large", 12, 20),
                         standardMuzzle
                     ]
+                },
+                {
+                    name: "Circuit Breaker",
+                    category: "Pistol",
+                    kind: "energy",
+                    explosive: false,
+                    silencer: true,
+                    special: true,
+                    info: "WeaponCircuitBreaker",
+                    speed: 4.3,
+                    clipSize: 8,
+                    reloadTime: 1.966677,
+                    formId: "006D3C69",
+                    level: [10, 20, 30, 40, 50],
+                    damage: [0, 0, 0, 0, 0],
+                    damageEnergy: [24, 28, 32, 36, 40],
+                    mods: [
+                        {
+                            slot: "Special",
+                            options: [
+                                {
+                                    name: "Normal"
+                                },
+                                {
+                                    name: "Last Shot",
+                                    addDamageEnergyLeveled: [5, 7.5, 10, 15, 20]
+                                }
+                            ]
+                        }
+                        /*
+                        {
+                            slot: "Receiver",
+                            options: [
+                                {
+                                    name: "Standard"
+                                },
+                                {
+                                    name: "Automatic",
+                                    damageMultPercent: -10,
+                                    speedAddPercent: 87.5
+                                },
+                                {
+                                    name: "Powerful Automatic",
+                                    damageMultPercent: 11.11,
+                                    speedAddPercent: 87.5
+                                },
+                                {
+                                    name: "Hardened",
+                                    damageMultPercent: 25
+                                },
+                                {
+                                    name: "Calibrated",
+                                    criticalDamageMultiply: 34,
+                                    patchOverride: {
+                                        "P34": {
+                                            criticalDamageMultiply: 100
+                                        }
+                                    }
+                                },
+                                severeMod,
+                                viciousMod,
+                                fierceMod,
+                                {
+                                    name: "Tweaked Automatic",
+                                    speedSet: 7.5,
+                                    criticalDamageMultiply: 17,
+                                    patchOverride: {
+                                        "P34": {
+                                            criticalDamageMultiply: 50
+                                        }
+                                    }
+                                },
+                                scorchKillerMod,
+                                primeMod,
+                                {
+                                    name: "Prime Automatic",
+                                    damageMultPercent: 15,
+                                    speedAddPercent: 87.5,
+                                    versus: ["Scorched", "Scorchbeast", "Scorchbeast Queen"],
+                                    versusMultPercent: 35
+                                }
+                            ]
+                        },
+                        createStandardMagazines("Large", 12, 20),
+                        standardMuzzle
+                        */
+                    ],
+                    legendaryPrefix: "Anti-armor",
+                    legendaryMajor: "25% increased fire rate",
+                    // legendaryMinor: "Last Shot"
                 },
                 {
                     name: "Western Revolver",
@@ -10073,6 +10163,11 @@
                 + "<br>Form ID: <a href='https://nukacrypt.com/database/json/006A983C' target='_blank'>006A983C</a>"
                 );
 
+            infoMap.set("WeaponCircuitBreaker",
+                "<b>Unique 10mm Pistol unlocked at Rank 35 in Season 18 (The Big Score).</b>" 
+                + "<br>Legendary: <i>Anti-armor, 25% faster fire rate, bonus damage on last magazine round.</i>"
+                + "<br>Form ID: <a href='https://nukacrypt.com/database/json/006D3C69' target='_blank'>006D3C69</a>"
+                );
             // add HTML explanation marker
             function info(name) {
                 return "&nbsp;<sup><a href='#' style='font-size: 14; font-weight: bold;' onclick='showinfo(this, \"" + name + "\"); return false;'>?</a></sup>";
