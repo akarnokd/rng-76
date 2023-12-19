@@ -22288,7 +22288,34 @@
             communityEventsAppend.push(createGoldRush2(ofDate(2023, 11, 14, 16), ofDate(2023, 11, 18, 17)));
             communityEventsAppend.push(createDoubleMutations(ofDate(2023, 11, 14, 17), ofDate(2023, 11, 18, 17)));
             communityEventsAppend.push(createMinerva(ofDate(2023, 11, 18, 17), ofDate(2023, 11, 20, 17), "Emporium @ Fort Atlas", "P?"));
+
+            addWeeklies(challengesWeeklyEra18, 14, [
+                scoreFixedGainXP10000Rank100, 1,
+                scoreCompleteGoldStarN, 3,
+                scoreBuildGeneratorShelter, 3,
+                scoreCollectBallisticAmmo, 60,
+                scoreCrippleScorchedLeg, 18,
+                scoreDrinkNukaCola, 25,
+                scoreEatPrewarFood, 25,
+                scoreScrapJunkCircuitry, 15,
+                scoreSellMirelurkQueenSteak, 1,
+                scoreExpeditionCompleteAnyMissionPitt, 1,
+                scoreKillTrog, 50,
+            ]);
+            addDaily(challengesDailyEra18, 14, [
+                    scoreCompleteDailyChallenge, 6,
+                    scoreBuildGeneratorShelter, 1,
+                    scoreCrippleScorchedLeg, 2,
+                    scoreScrapJunkCircuitry, 5,
+                    scoreSellMothmanEggNPC, 1,
+                    scoreExpeditionCompleteAnyMissionPitt, 1,
+                    scoreKillFanatic, 10,
+                    make1st(scoreCollectMothmanEggs), 3,
+                    scoreReroll, 1,
+                ], dops(dailyOpsUncanny, dailyOpsAliens, dailyOpsVolatile, false, false, false));
+
             communityEventsAppend.push(createHolidayScorched(ofDate(2023, 11, 19, 17), ofDate(2024, 0, 2, 17)));
+            communityEventsAppend.push(createMutationInvasion(ofDate(2023, 11, 19, 17), ofDate(2023, 11, 26, 17)));
             communityEventsAppend.push(createDoubleXP(ofDate(2023, 11, 21, 17), ofDate(2023, 11, 25, 17)));
             communityEventsAppend.push(createDoubleScore(ofDate(2023, 11, 21, 17), ofDate(2023, 11, 25, 17)));
             communityEventsAppend.push(createScripSurplus3(ofDate(2023, 11, 28, 17), ofDate(2024, 0, 2, 17)));
