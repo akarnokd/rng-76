@@ -22368,6 +22368,17 @@
                     make1st(scoreEatPrewarFood), 5,
                     scoreReroll, 1,
                 ], dops(dailyOpsBurrows, dailyOpsScorched, dailyOpsRegenerating, true, false, false));
+            addDaily(challengesDailyEra18, 20, [
+                    scoreCompleteDailyChallenge, 6,
+                    scoreBuildGeneratorShelter, 1,
+                    scoreCollectBrainFungus, 5,
+                    scoreCrippleScorchedArm, 2,
+                    scoreScrapJunkCircuitry, 5,
+                    scoreKillTrog, 10,
+                    scoreExpeditionCompleteAnyMissionPitt, 1,
+                    make1st(scoreCollectMothmanEggs), 3,
+                    scoreReroll, 1,
+                ], dops(dailyOpsWatoga, dailyOpsMoleminers, dailyOpsSwift, false, false, false));
 
             communityEventsAppend.push(createHolidayScorched(ofDate(2023, 11, 19, 17), ofDate(2024, 0, 2, 17)));
             communityEventsAppend.push(createMutationInvasion(ofDate(2023, 11, 19, 17), ofDate(2023, 11, 26, 17)));
