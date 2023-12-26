@@ -22384,6 +22384,32 @@
             communityEventsAppend.push(createMutationInvasion(ofDate(2023, 11, 19, 17), ofDate(2023, 11, 26, 17)));
             communityEventsAppend.push(createDoubleXP(ofDate(2023, 11, 21, 17), ofDate(2023, 11, 25, 17)));
             communityEventsAppend.push(createDoubleScore(ofDate(2023, 11, 21, 17), ofDate(2023, 11, 25, 17)));
+
+            addWeeklies(challengesWeeklyEra18, 21, [
+                scoreFixedGainXP10000Rank100, 1,
+                scoreCompleteGoldStarN, 3,
+                scoreCollectGardenGnome, 5,
+                scoreCompleteDailyOpsPublicTeam, 5,
+                scoreCrippleBloodEagleLegs, 10,
+                scoreEatCookedMeal, 30,
+                scoreKillCreatures, 25,
+                scoreKillAngler, 9,
+                scorePlantCrop, 25,
+                scoreScrapJunkAluminium, 15,
+                scoreScrapJunkSteel, 30,
+            ]);
+            addDaily(challengesDailyEra18, 21, [
+                    scoreCompleteDailyChallenge, 6,
+                    scoreCompleteDailyOpsPublicTeam, 1,
+                    scoreCraftMineGrenadeThrown, 5,
+                    scoreCraftScrapPowerArmor, 1,
+                    scoreCrippleBloodEagleLegs, 2,
+                    scoreKillCreatureInGroup, 10,
+                    scoreScrapJunkAluminium, 5,
+                    make1st(scoreScrapJunkSteel), 10,
+                    scoreReroll, 1,
+                ], dops(dailyOpsV94, dailyOpsMutants, dailyOpsReflective, true, false, false));
+
             communityEventsAppend.push(createScripSurplus3(ofDate(2023, 11, 28, 17), ofDate(2024, 0, 2, 17)));
             communityEventsAppend.push(createPurveyor(ofDate(2023, 11, 28, 17), ofDate(2024, 0, 2, 17), 25, false, 1));
             communityEventsAppend.push(createDoubleMutations(ofDate(2023, 11, 28, 17), ofDate(2024, 0, 2, 17)));
