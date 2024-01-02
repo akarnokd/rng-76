@@ -22480,6 +22480,40 @@
             communityEventsAppend.push(createPurveyor(ofDate(2023, 11, 28, 17), ofDate(2024, 0, 2, 17), 25, false, 1));
             communityEventsAppend.push(createDoubleMutations(ofDate(2023, 11, 28, 17), ofDate(2024, 0, 2, 17)));
 
+            function scoreCraftEnergyAmmo(offset, count) {
+                return {
+                    name: times("Craft Energy Ammo", count),
+                    offset: offset,
+                    period: 1400,
+                };
+            }
+
+            addWeeklies(challengesWeeklyEra18, 28, [
+                scoreFixedGainXP10000Rank100, 1,
+                scoreCompleteGoldStarN, 3,
+                scoreClaimWorkshop, 3,
+                scoreCollectCaps, 2500,
+                scoreCollectTeddyBear, 9,
+                scoreCompletePublicMutatedEvent, 3,
+                scoreCraftEnergyAmmo, 40,
+                scoreCrippleProtectronRobobrainArms, 18,
+                scoreEatCookedMeal, 30,
+                scoreKillMutatedEnemy, 30,
+                scoreSellWeapon, 15,
+            ]);
+            addDaily(challengesDailyEra18, 28, [
+                    scoreCompleteDailyChallenge, 6,
+                    scoreClaimWorkshop, 1,
+                    scoreCollectMicroscopeBiometric, 2,
+                    scoreCompletePublicMutatedEvent, 1,
+                    scoreCrippleProtectronRobobrainArms, 2,
+                    scoreKillHoneyBeast, 1,
+                    scoreSellShotgun, 1,
+                    make1st(scoreKillMutatedEnemy), 10,
+                    scoreReroll, 1,
+                ], dops(dailyOpsCharleston, dailyOpsAliens, dailyOpsUnstable, false, false, false));
+
+            communityEventsAppend.push(createMutationInvasion(ofDate(2024, 0, 2, 17), ofDate(2024, 0, 9, 17)));
             communityEventsAppend.push(createCapsOPlenty(ofDate(2024, 0, 4, 17), ofDate(2024, 0, 8, 17)));
             communityEventsAppend.push(createGoldRush2(ofDate(2024, 0, 11, 16), ofDate(2024, 0, 15, 17)));
             communityEventsAppend.push(createDoubleMutations(ofDate(2024, 0, 11, 17), ofDate(2024, 0, 15, 17)));
