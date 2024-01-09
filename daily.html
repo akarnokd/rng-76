@@ -22581,8 +22581,34 @@
 
             communityEventsAppend.push(createMutationInvasion(ofDate(2024, 0, 2, 17), ofDate(2024, 0, 9, 17)));
             communityEventsAppend.push(createCapsOPlenty(ofDate(2024, 0, 4, 17), ofDate(2024, 0, 8, 17)));
-            communityEventsAppend.push(createGoldRush2(ofDate(2024, 0, 11, 16), ofDate(2024, 0, 15, 17)));
             communityEventsAppend.push(createMinerva(ofDate(2024, 0, 8, 17), ofDate(2024, 0, 10, 17), "Emporium @ Foundation", "P?"));
+
+            addWeeklies(challengesWeeklyEra18, 35, [
+                scoreFixedGainXP10000Rank100, 1,
+                scoreCompleteGoldStarN, 3,
+                scoreCollectRadawayRadX, 15,
+                scoreCollectFuelGasCanister, 5,
+                scoreCollectTeapot, 5,
+                scoreCompleteDailyOps, 3,
+                scoreDealCriticalHitEnemy, 25,
+                scoreDrinkTea, 5,
+                scoreKillLegendary, 5,
+                scoreRepairArmorWeaponPA, 10,
+                scoreScrapMoney, 50,
+            ]);
+            addDaily(challengesDailyEra18, 35, [
+                    scoreCompleteDailyChallenge, 6,
+                    scoreCollectRadawayRadX, 5,
+                    scoreCollectTeapot, 2,
+                    scoreCompleteDailyOps, 1,
+                    scoreDealCriticalHitEnemy, 5,
+                    scoreDrinkTea, 1,
+                    scoreKillLegendary, 1,
+                    make1st(scorePickLock), 1,
+                    scoreReroll, 1,
+                ], dops(dailyOpsValley, dailyOpsScorched, dailyOpsReflective, true, false, false));
+
+            communityEventsAppend.push(createGoldRush2(ofDate(2024, 0, 11, 16), ofDate(2024, 0, 15, 17)));
             communityEventsAppend.push(createDoubleMutations(ofDate(2024, 0, 11, 17), ofDate(2024, 0, 15, 17)));
             communityEventsAppend.push(createTreasureHunt(ofDate(2024, 0, 25, 17), ofDate(2024, 0, 29, 17), false));
             communityEventsAppend.push(createBurningLoveChallenge(ofDate(2024, 0, 30, 17), ofDate(2024, 1, 13, 17), false));
