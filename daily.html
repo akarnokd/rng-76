@@ -22677,6 +22677,34 @@
             communityEventsAppend.push(createGoldRush2(ofDate(2024, 0, 11, 16), ofDate(2024, 0, 15, 17)));
             communityEventsAppend.push(createDoubleMutations(ofDate(2024, 0, 11, 17), ofDate(2024, 0, 15, 17)));
             communityEventsAppend.push(createMinerva(ofDate(2024, 0, 15, 17), ofDate(2024, 0, 17, 17), "Emporium @ Crater", "P?"));
+
+            addWeeklies(challengesWeeklyEra18, 42, [
+                scoreFixedGainXP10000Rank100, 1,
+                scoreCompleteGoldStarN, 3,
+                scoreBuildWallDecor, 25,
+                scoreClaimWorkshop, 3,
+                scoreCompletePublicMutatedEvent, 3,
+                scoreConsumeAlcohol, 20,
+                scoreHarvestPlantFungi, 30,
+                scoreKillCreatures, 25,
+                scoreKillMutatedEnemy, 20,
+                scorePlantCrop, 25,
+                scoreScrapJunkGlass, 20,
+            ]);
+            addDaily(challengesDailyEra18, 42, [
+                    scoreCompleteDailyChallenge, 6,
+                    scoreCompletePublicMutatedEvent, 1,
+                    scoreCraftAlcohol, 1,
+                    scoreFermentAlcohol, 3,
+                    scoreKillGlowing, 1,
+                    scoreKillMutatedEnemy, 10,
+                    scoreScrapJunkGlass, 10,
+                    make1st(scoreBuildWallDecor), 5,
+                    scoreReroll, 1,
+                ], dops(dailyOpsWatogaHighschool, dailyOpsCultists, dailyOpsFreezing, false, false, false));
+
+
+            communityEventsAppend.push(createMutationInvasion(ofDate(2024, 0, 16, 17), ofDate(2024, 0, 23, 17)));
             communityEventsAppend.push(createTreasureHunt(ofDate(2024, 0, 25, 17), ofDate(2024, 0, 29, 17), false));
             communityEventsAppend.push(createBurningLoveChallenge(ofDate(2024, 0, 30, 17), ofDate(2024, 1, 13, 17), false));
 
