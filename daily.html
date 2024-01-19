@@ -17322,6 +17322,8 @@
                     name: times("Sell Mutant Hound Chops to an NPC vendor", count),
                     offset: offset,
                     period: 1400,
+                    tipId: "SellMutantHoundChopsNPC",
+                    tip: "You need the Hound Chops with 4 Hound Meat recipe."
                 };
             }
             function scoreBuildDefenseApplianceCraftingWorkshop(offset, count) {
@@ -22724,6 +22726,17 @@
                     make1st(scoreBuildWallDecor), 5,
                     scoreReroll, 1,
                 ], dops(dailyOpsBurning, dailyOpsMoleminers, dailyOpsVolatile, false, false, false));
+            addDaily(challengesDailyEra18, 45, [
+                    scoreCompleteDailyChallenge, 6,
+                    scoreClaimWorkshop, 1,
+                    scoreCompleteDailyOps, 1,
+                    scoreCrippleSuperMutantArm, 2,
+                    scoreKillSupermutant, 5,
+                    scoreSellMutantHoundChopsNPC, 4,
+                    scoreTakeCameraPictureSuperMutant, 1,
+                    make1st(scoreKillCanine), 5,
+                    scoreReroll, 1,
+                ], dops(dailyOpsMorgantown, dailyOpsScorched, dailyOpsRegenerating, true, false, false));
 
 
             communityEventsAppend.push(createMutationInvasion(ofDate(2024, 0, 16, 17), ofDate(2024, 0, 23, 17)));
