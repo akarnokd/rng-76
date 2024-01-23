@@ -22773,6 +22773,33 @@
 
 
             communityEventsAppend.push(createMutationInvasion(ofDate(2024, 0, 16, 17), ofDate(2024, 0, 23, 17)));
+
+            addWeeklies(challengesWeeklyEra18, 49, [
+                scoreFixedGainXP10000Rank100, 1,
+                scoreCompleteGoldStarN, 3,
+                scoreCollectPrewarFood, 20,
+                scoreCollectStimpakChems, 20,
+                scoreCompleteOneEvent, 3,
+                scoreCraftScrapClothingWeaponArmor, 25,
+                scoreCrippleBloodEagleLegs, 18,
+                scoreKillGulper, 10,
+                scoreScrapMoney, 50,
+                scoreScrapJunkAcid, 15,
+                scoreScrapJunkAsbestos, 15,
+            ]);
+            addDaily(challengesDailyEra18, 49, [
+                    scoreCompleteDailyChallenge, 6,
+                    scoreCompleteDailyOps, 1,
+                    scoreCraftScrapMelee, 5,
+                    scoreCrippleBloodEagleLegs, 2,
+                    scoreEatPrewarFood, 5,
+                    scoreKillBloodEagle, 10,
+                    scoreScrapMoney, 5,
+                    make1st(scoreCraftRanged), 5,
+                    scoreReroll, 1,
+                ], dops(dailyOpsWestTec, dailyOpsRobots, dailyOpsSwift, true, false, false));
+
+
             communityEventsAppend.push(createTreasureHunt(ofDate(2024, 0, 25, 17), ofDate(2024, 0, 29, 17), false));
             communityEventsAppend.push(createBurningLoveChallenge(ofDate(2024, 0, 30, 17), ofDate(2024, 1, 13, 17), false));
             communityEventsAppend.push(createMinerva(ofDate(2024, 0, 22, 17), ofDate(2024, 0, 24, 17), "Emporium @ Fort Atlas", "P?"));
