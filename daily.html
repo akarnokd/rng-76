@@ -22039,7 +22039,7 @@
             // oooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo
 
             var era18Start = ofDate(2023, 11, 5, 17); 
-            var era18Length = 91;
+            var era18Length = 112;
             var era18End = plusDays(new Date(era18Start), era18Length);
             var challengesDailyEra18 = {
                 validStart: era18Start,
@@ -22063,7 +22063,7 @@
                 ]
             };
 
-            fillInSeason(season15, era18Length, "LR15", true);
+            fillInSeason(season15, era18Length, "LR15", false);
             seasonEventsAppend.push(season15);
 
             function scoreCompleteTaxEvasion(offset, count) {
@@ -22835,8 +22835,8 @@
 
             communityEventsAppend.push(createTreasureHunt(ofDate(2024, 0, 25, 17), ofDate(2024, 0, 29, 17), false));
             communityEventsAppend.push(createDoubleMutations(ofDate(2024, 0, 25, 17), ofDate(2024, 0, 29, 17)));
-            communityEventsAppend.push(createBurningLoveChallenge(ofDate(2024, 0, 30, 17), ofDate(2024, 1, 13, 17), false));
             communityEventsAppend.push(createMinerva(ofDate(2024, 0, 22, 17), ofDate(2024, 0, 24, 17), "Emporium @ Fort Atlas", "P?"));
+            communityEventsAppend.push(createBurningLoveChallenge(ofDate(2024, 0, 30, 17), ofDate(2024, 1, 13, 17), false));
 
             communityEventsAppend.push(createDoubleScore(ofDate(2024, 1, 1, 17), ofDate(2024, 1, 5, 17)));
             communityEventsAppend.push(createPurveyor(ofDate(2024, 1, 8, 17), ofDate(2024, 1, 12, 17), 0, true, 1));
@@ -22859,7 +22859,7 @@
             // Season 16
             // oooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo
 
-            var era19Start = ofDate(2024, 2, 5, 17); 
+            var era19Start = ofDate(2024, 2, 26, 17); 
             var era19Length = 91;
             var era19End = plusDays(new Date(era19Start), era19Length);
             var challengesDailyEra19 = {
@@ -23119,12 +23119,50 @@
                 return {
                     validStart: startDate,
                     validEnd: endDate,
-                    title: "Burning Live Challenge Event",
+                    title: "Burning Love Challenge Event",
                     options: [
                         {
-                            name: "TBD",
+                            name: "Claim the free Hot Rod Pink Flamer skin in the Atomic Shop",
                             offset: 0,
                             period: 1,
+                            subchallenges: [
+                                {
+                                    name: "Use it to complete Special Burning Love Weekly challenges."
+                                },
+                                {
+                                    name: "Earn in-game rewards such as Legendary Modules, Perk Cards, Repair Kits and more!"
+                                }
+                            ]
+                        },
+                        {
+                            name: times("Week 1: Complete Burning Love challenges", 4),
+                            offset: 0,
+                            period: 1,
+                            subchallenges: [
+                                {
+                                    name: "<b>Reward</b>: Pink Mechanic Jumpsuit"
+                                }
+                            ]
+                        },
+                        {
+                            name: times("Week 2: Complete Burning Love challenges", 4),
+                            offset: 0,
+                            period: 1,
+                            subchallenges: [
+                                {
+                                    name: "<b>Reward</b>: Rose Tinted Glasses"
+                                }
+                            ]
+                        },
+                        {
+                            name: times("Complete at least 4 Burning Love challenges each week", 1),
+                            offset: 0,
+                            period: 1,
+                            subchallenges: [
+                                {
+                                    name: "<b>Reward</b>: Pink Fireplace"
+                                }
+                            ]
                         }
                     ]
                 };
