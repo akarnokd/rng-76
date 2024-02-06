@@ -22973,8 +22973,34 @@
             communityEventsAppend.push(createBurningLoveChallenge(ofDate(2024, 0, 30, 17), ofDate(2024, 1, 13, 17), false));
             communityEventsAppend.push(createMutationInvasion(ofDate(2024, 0, 30, 17), ofDate(2024, 1, 6, 17)));
             communityEventsAppend.push(createMinerva(ofDate(2024, 1, 1, 17), ofDate(2024, 1, 5, 17), "Big Sale @ The Whitespring", "P?"));
-
             communityEventsAppend.push(createDoubleScore(ofDate(2024, 1, 1, 17), ofDate(2024, 1, 5, 17)));
+
+            addWeeklies(challengesWeeklyEra18, 63, [
+                scoreFixedGainXP10000Rank100, 1,
+                scoreCompleteGoldStarN, 3,
+                scoreBuildFloorWallCamp, 25,
+                scoreCollectRadawayRadX, 15,
+                scoreCompleteDailyOps, 3,
+                scoreCraftBulkWood, 3,
+                scoreEatCookedMeal, 30,
+                scoreKillFloater, 10,
+                scoreKillScorched, 30,
+                scoreScrapJunkOil, 15,
+                scoreScrapJunkSteel, 30,
+            ]);
+            addDaily(challengesDailyEra18, 63, [
+                    scoreCompleteDailyChallenge, 6,
+                    scoreBuildWallDecorShelter, 5,
+                    scoreCompleteDaily, 1,
+                    scoreCrippleMirelurkLimb, 2,
+                    scoreKillMirelurk, 5,
+                    scoreScrapBoardGame, 1,
+                    scoreTakeCameraPictureMirelurkHunter, 1,
+                    make1st(scoreChewBubblegum), 1,
+                    scoreReroll, 1,
+                ], dops(dailyOpsWatogaHighschool, dailyOpsScorched, dailyOpsCloaked, true, false, false));
+
+
             communityEventsAppend.push(createPurveyor(ofDate(2024, 1, 8, 17), ofDate(2024, 1, 12, 17), 0, true, 1));
             communityEventsAppend.push(createDoubleMutations(ofDate(2024, 1, 8, 17), ofDate(2024, 1, 12, 17)));
             communityEventsAppend.push(createFasnacht(ofDate(2024, 1, 13, 17), ofDate(2024, 1, 27, 17)));
@@ -23271,32 +23297,37 @@
                             ]
                         },
                         {
-                            name: times("Kill a Gulper while on a team with the Hot Rod Pink Flamer", 10),
+                            name: "&nbsp;",
                             offset: 0,
                             period: 1,
                         },
                         {
-                            name: times("Kill a Fanatic while on a team with the Hot Rod Pink Flamer", 10),
+                            name: times("[Week 1] Kill a Gulper while on a team with the Hot Rod Pink Flamer", 10),
                             offset: 0,
                             period: 1,
                         },
                         {
-                            name: times("Kill a Feral Ghoul while on a team with the Hot Rod Pink Flamer", 30),
+                            name: times("[Week 1] Kill a Fanatic while on a team with the Hot Rod Pink Flamer", 10),
                             offset: 0,
                             period: 1,
                         },
                         {
-                            name: times("Kill a Mirelurk while on a team with the Hot Rod Pink Flamer", 15),
+                            name: times("[Week 1] Kill a Feral Ghoul while on a team with the Hot Rod Pink Flamer", 30),
                             offset: 0,
                             period: 1,
                         },
                         {
-                            name: times("Kill an Overgrown while on a team with the Hot Rod Pink Flamer", 10),
+                            name: times("[Week 1] Kill a Mirelurk while on a team with the Hot Rod Pink Flamer", 15),
                             offset: 0,
                             period: 1,
                         },
                         {
-                            name: times("Week 1: Complete Burning Love challenges", 4),
+                            name: times("[Week 1] Kill an Overgrown while on a team with the Hot Rod Pink Flamer", 10),
+                            offset: 0,
+                            period: 1,
+                        },
+                        {
+                            name: times("[Week 1] Complete Burning Love challenges", 4),
                             offset: 0,
                             period: 1,
                             subchallenges: [
@@ -23306,7 +23337,37 @@
                             ]
                         },
                         {
-                            name: times("Week 2: Complete Burning Love challenges", 4),
+                            name: "&nbsp;",
+                            offset: 0,
+                            period: 1,
+                        },
+                        {
+                            name: times("[Week 2] Kill a Glowing Enemy while on a team with the Hot Rod Pink Flamer", 10),
+                            offset: 0,
+                            period: 1,
+                        },
+                        {
+                            name: times("[Week 2] Kill a Human Enemy while on a team with the Hot Rod Pink Flamer", 30),
+                            offset: 0,
+                            period: 1,
+                        },
+                        {
+                            name: times("[Week 2] Kill a Lesser Devil while on a team with the Hot Rod Pink Flamer", 1),
+                            offset: 0,
+                            period: 1,
+                        },
+                        {
+                            name: times("[Week 2] Kill a Scorched while on a team with the Hot Rod Pink Flamer", 30),
+                            offset: 0,
+                            period: 1,
+                        },
+                        {
+                            name: times("[Week 2] Kill a Trog while on a team with the Hot Rod Pink Flamer", 10),
+                            offset: 0,
+                            period: 1,
+                        },
+                        {
+                            name: times("[Week 2] Complete Burning Love challenges", 4),
                             offset: 0,
                             period: 1,
                             subchallenges: [
@@ -23314,6 +23375,11 @@
                                     name: "<b>Reward</b>: Rose Tinted Glasses"
                                 }
                             ]
+                        },
+                        {
+                            name: "&nbsp;",
+                            offset: 0,
+                            period: 1,
                         },
                         {
                             name: times("Complete at least 4 Burning Love challenges each week", 1),
