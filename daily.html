@@ -23071,6 +23071,30 @@
             communityEventsAppend.push(createDoubleMutations(ofDate(2024, 1, 8, 17), ofDate(2024, 1, 12, 17)));
             communityEventsAppend.push(createMinerva(ofDate(2024, 1, 12, 17), ofDate(2024, 1, 14, 17), "Emporium @ Foundation", "P?"));
 
+            addWeeklies(challengesWeeklyEra18, 70, [
+                scoreFixedGainXP10000Rank100, 1,
+                scoreCompleteGoldStarN, 3,
+                scoreBuildAnythingCamp, 25,
+                scoreCollectCaps, 2500,
+                scoreConsumeAlcohol, 20,
+                scoreCraftAmmo, 250,
+                scoreKillHoneyBeast, 10,
+                scoreKillLesserDevil, 3,
+                scoreScrapJunkGold, 10,
+                scoreScrapJunkSilver, 10,
+                scoreExpeditionCompleteAnyMissionAtlantic, 2,
+            ]);
+            addDaily(challengesDailyEra18, 70, [
+                    scoreCompleteDailyChallenge, 6,
+                    scoreBuildLightSources, 3,
+                    scoreCraftAmmo, 50,
+                    scoreScrapJunkSilver, 3,
+                    scoreKillMoleminer, 10,
+                    scoreKillLesserDevil, 1,
+                    scoreCompleteMostSensational, 1,
+                    make1st(scoreCrippleMoleminerHead), 2,
+                    scoreReroll, 1,
+                ], dops(dailyOpsWatoga, dailyOpsRobots, dailyOpsDanger, false, false, false));
 
             communityEventsAppend.push(createFasnacht(ofDate(2024, 1, 13, 17), ofDate(2024, 1, 27, 17)));
             communityEventsAppend.push(createDoubleXP(ofDate(2024, 1, 22, 17), ofDate(2024, 1, 26, 17)));
