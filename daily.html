@@ -23079,9 +23079,9 @@
                 scoreConsumeAlcohol, 20,
                 scoreCraftAmmo, 250,
                 scoreKillHoneyBeast, 10,
-                scoreKillLesserDevil, 3,
                 scoreScrapJunkGold, 10,
                 scoreScrapJunkSilver, 10,
+                scoreKillLesserDevil, 3,
                 scoreExpeditionCompleteAnyMissionAtlantic, 2,
             ]);
             addDaily(challengesDailyEra18, 70, [
@@ -23095,6 +23095,17 @@
                     make1st(scoreCrippleMoleminerHead), 2,
                     scoreReroll, 1,
                 ], dops(dailyOpsWatoga, dailyOpsRobots, dailyOpsDanger, false, false, false));
+            addDaily(challengesDailyEra18, 71, [
+                    scoreCompleteDailyChallenge, 6,
+                    scoreCompleteDailyOps, 1,
+                    scoreConsumeAlcohol, 5,
+                    scoreCraftScrapPowerArmor, 1,
+                    scoreFermentAlcohol, 3,
+                    scoreKillInsects, 5,
+                    scoreKillBrahmin, 2,
+                    make1st(scoreScrapJunkFertilizer), 5,
+                    scoreReroll, 1,
+                ], dops(dailyOpsUncanny, dailyOpsScorched, dailyOpsCloaked, true, false, false));
 
             communityEventsAppend.push(createFasnacht(ofDate(2024, 1, 13, 17), ofDate(2024, 1, 27, 17)));
             communityEventsAppend.push(createDoubleXP(ofDate(2024, 1, 22, 17), ofDate(2024, 1, 26, 17)));
