@@ -23139,6 +23139,17 @@
                     make1st(scoreCrippleSuperMutantArm), 2,
                     scoreReroll, 1,
                 ], dops(dailyOpsBurrows, dailyOpsCommunists, dailyOpsCloaked, false, false, false));
+            addDaily(challengesDailyEra18, 75, [
+                    scoreCompleteDailyChallenge, 6,
+                    scoreCompleteDaily, 1,
+                    scoreConsumeAlcohol, 5,
+                    scoreCraftScrapPowerArmor, 1,
+                    scoreFermentAlcohol, 3,
+                    scoreKillAnimalsPipeGun, 3,
+                    scoreKillRadstag, 5,
+                    make1st(scoreScrapJunkFertilizer), 5,
+                    scoreReroll, 1,
+                ], dops(dailyOpsValley, dailyOpsRobots, dailyOpsToxic, true, false, false));
 
             communityEventsAppend.push(createFasnacht(ofDate(2024, 1, 13, 17), ofDate(2024, 1, 27, 17)));
             communityEventsAppend.push(createDoubleXP(ofDate(2024, 1, 22, 17), ofDate(2024, 1, 26, 17)));
@@ -24465,7 +24476,7 @@
                             period: 1,
                             subchallenges: [
                                 {
-                                    name: "Use Friendly Fire and Shishkebab to heal the robots."
+                                    name: "Use Friendly Fire and a weapon with fire damage to heal the robots."
                                 },
                                 {
                                     name: "Focus on grenade/molotov throwing Super Mutants."
