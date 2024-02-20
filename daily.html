@@ -23164,6 +23164,33 @@
 
             communityEventsAppend.push(createMinerva(ofDate(2024, 1, 19, 17), ofDate(2024, 1, 21, 17), "Emporium @ Crater", "P?"));
             communityEventsAppend.push(createFasnacht(ofDate(2024, 1, 13, 17), ofDate(2024, 1, 27, 17)));
+
+            addWeeklies(challengesWeeklyEra18, 77, [
+                scoreFixedGainXP10000Rank100, 1,
+                scoreCompleteGoldStarN, 3,
+                scoreBuildFloorWallShelter, 15,
+                scoreCollectTeapot, 5,
+                scoreCollectTeddyBear, 9,
+                scoreCompleteDailyOpsPublicTeam, 5,
+                scoreDrinkTea, 5,
+                scoreKillMolerat, 15,
+                scoreKillSnallygaster, 10,
+                scoreScrapJunkFiberglass, 15,
+                scoreScrapJunkOil, 15,
+            ]);
+            addDaily(challengesDailyEra18, 77, [
+                    scoreCompleteDailyChallenge, 6,
+                    scoreCompleteDailyOps, 1,
+                    scoreCrippleEnemyLimbs, 6,
+                    scoreKillMolerat, 5,
+                    scoreScrapHeadwear, 1,
+                    scoreScrapJunkFiberglass, 5,
+                    scoreSellMothmanEggNPC, 1,
+                    make1st(scoreCollectMothmanEggs), 3,
+                    scoreReroll, 1,
+                ], dops(dailyOpsV96, dailyOpsScorched, dailyOpsFreezing, true, false, false));
+
+
             communityEventsAppend.push(createDoubleXP(ofDate(2024, 1, 22, 17), ofDate(2024, 1, 26, 17)));
             communityEventsAppend.push(createDoubleMutations(ofDate(2024, 1, 22, 17), ofDate(2024, 1, 26, 17)));
             communityEventsAppend.push(createScripSurplus3(ofDate(2024, 1, 29, 17), ofDate(2024, 2, 4, 17)));
