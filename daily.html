@@ -23257,10 +23257,38 @@
                 ], dops(dailyOpsValley, dailyOpsMutants, dailyOpsFreezing, true, false, false));
 
 
-                communityEventsAppend.push(createMinerva(ofDate(2024, 1, 26, 17), ofDate(2024, 1, 28, 17), "Emporium @ Fort Atlas", "P?"));
+            communityEventsAppend.push(createMinerva(ofDate(2024, 1, 26, 17), ofDate(2024, 1, 28, 17), "Emporium @ Fort Atlas", "P?"));
             communityEventsAppend.push(createDoubleXP(ofDate(2024, 1, 22, 17), ofDate(2024, 1, 26, 17)));
             communityEventsAppend.push(createDoubleMutations(ofDate(2024, 1, 22, 17), ofDate(2024, 1, 26, 17)));
+
+            addWeeklies(challengesWeeklyEra18, 84, [
+                scoreFixedGainXP10000Rank100, 1,
+                scoreCompleteGoldStarN, 3,
+                scoreCraftThrowable, 20,
+                scoreCrippleHeadDeathclaw, 3,
+                scoreDrinkNukaColaDark, 5,
+                scoreEatPrewarFood, 25,
+                scoreKillSnallygaster, 10,
+                scoreScrapJunkBlackTitanium, 10,
+                scoreSellPumpkinPieNPC, 1,
+                scoreVisitAnotherShelter, 5,
+                scoreExpeditionCompleteAnyMissionPitt, 2,
+            ]);
+            addDaily(challengesDailyEra18, 84, [
+                    scoreCompleteDailyChallenge, 6,
+                    scoreBuySellItem, 1,
+                    scoreCollectLighterCigarCigarette, 5,
+                    scoreCompleteDailyOpsPublicTeam, 1,
+                    scoreKillLegendary, 1,
+                    scoreKillSupermutant, 5,
+                    scoreSellMothmanEggNPC, 1,
+                    make1st(scorePlantCrop), 5,
+                    scoreReroll, 1,
+                ], dops(dailyOpsGarrahan, dailyOpsEagles, dailyOpsReflective, false, false, false));
+
+
             communityEventsAppend.push(createScripSurplus3(ofDate(2024, 1, 29, 17), ofDate(2024, 2, 4, 17)));
+            communityEventsAppend.push(createMutationInvasion(ofDate(2024, 1, 27, 17), ofDate(2024, 2, 5, 17)));
 
             communityEventsAppend.push(createCapsOPlenty(ofDate(2024, 2, 7, 17), ofDate(2024, 2, 11, 17)));
             communityEventsAppend.push(createDoubleMutations(ofDate(2024, 2, 7, 17), ofDate(2024, 2, 11, 17)));
