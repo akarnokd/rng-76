@@ -23356,6 +23356,14 @@
             communityEventsAppend.push(createScripSurplus3(ofDate(2024, 1, 29, 17), ofDate(2024, 2, 4, 17)));
             communityEventsAppend.push(createMutationInvasion(ofDate(2024, 1, 27, 17), ofDate(2024, 2, 5, 17)));
 
+            function scoreSellSkiSwordNPC(offset, count) {
+                return {
+                    name: times("Sell Ski Sword to an NPC vendor", count),
+                    offset: offset,
+                    period: 1400,
+                };
+            }
+            
             addWeeklies(challengesWeeklyEra18, 91, [
                 scoreFixedGainXP10000Rank100, 1,
                 scoreCompleteGoldStarN, 3,
@@ -23413,6 +23421,17 @@
                     make1st(scoreEatCookedMealTeammate), 5,
                     scoreReroll, 1,
                 ], dops(dailyOpsV94, dailyOpsMutants, dailyOpsVaporous, false, true, false));
+            addDaily(challengesDailyEra18, 95, [
+                    scoreCompleteDailyChallenge, 6,
+                    scoreCompleteEventWellFed, 1,
+                    scoreCrippleSuperMutantHead, 2,
+                    scoreKillSupermutant, 5,
+                    scoreSellMutantHoundChopsNPC, 1,
+                    scoreSellSkiSwordNPC, 1,
+                    scoreTakePictureSuperMutant, 1,
+                    make1st(scoreKillMutantHound), 3,
+                    scoreReroll, 1,
+                ], dops(dailyOpsWatoga, dailyOpsCultists, dailyOpsChillingMend, true, true, false));
 
             communityEventsAppend.push(createMinerva(ofDate(2024, 2, 7, 17), ofDate(2024, 2, 11, 17), "Big Sale @ The Whitespring", "P?"));
             communityEventsAppend.push(createCapsOPlenty(ofDate(2024, 2, 7, 17), ofDate(2024, 2, 11, 17)));
