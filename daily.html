@@ -62,6 +62,7 @@
             var shiftDate8 = ofDate(2023, 1, 5, 16);
             var shiftDate9 = ofDate(2023, 2, 12, 16);
             var shiftDate10 = ofDate(2023, 10, 5, 16);
+            var shiftDate11 = ofDate(2024, 2, 10, 16);
 
             function normalizeDate(date) {
                 if (date < oneHourLaterSince) {
@@ -95,8 +96,11 @@
                 if (date < shiftDate10) {
                     date.setUTCHours(16, 0, 0, 0);
                 }
-                else {
+                if (date < shiftDate11) {
                     date.setUTCHours(17, 0, 0, 0);
+                }
+                else {
+                    date.setUTCHours(16, 0, 0, 0);
                 }
             }
 
@@ -23432,6 +23436,17 @@
                     make1st(scoreKillMutantHound), 3,
                     scoreReroll, 1,
                 ], dops(dailyOpsWatoga, dailyOpsCultists, dailyOpsChillingMend, true, true, false));
+            addDaily(challengesDailyEra18, 96, [
+                    scoreCompleteDailyChallenge, 6,
+                    scoreCollectPurifiedWater, 5,
+                    scoreCompleteDaily, 1,
+                    scoreCrippleProtectronRobobrainArms, 2,
+                    scoreDestroyRobot, 10,
+                    scoreScrapJunkCork, 5,
+                    scoreTakeCameraPictureEyebot, 1,
+                    make1st(scoreBuildDefenseApplianceCraftingWorkshop), 3,
+                    scoreReroll, 1,
+                ], dops(dailyOpsUncanny, dailyOpsMutants, dailyOpsCloudedToxins, false, true, false));
 
             communityEventsAppend.push(createMinerva(ofDate(2024, 2, 7, 17), ofDate(2024, 2, 11, 17), "Big Sale @ The Whitespring", "P?"));
             communityEventsAppend.push(createCapsOPlenty(ofDate(2024, 2, 7, 17), ofDate(2024, 2, 11, 17)));
