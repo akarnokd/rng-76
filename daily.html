@@ -23462,6 +23462,33 @@
             communityEventsAppend.push(createMinerva(ofDate(2024, 2, 7, 17), ofDate(2024, 2, 11, 17), "Big Sale @ The Whitespring", "P?"));
             communityEventsAppend.push(createCapsOPlenty(ofDate(2024, 2, 7, 17), ofDate(2024, 2, 11, 17)));
             communityEventsAppend.push(createDoubleMutations(ofDate(2024, 2, 7, 17), ofDate(2024, 2, 11, 17)));
+
+            addWeeklies(challengesWeeklyEra18, 98, [
+                scoreFixedGainXP10000Rank100, 1,
+                scoreCompleteGoldStarN, 3,
+                scoreBuildWallDecorShelter, 15,
+                scoreBuildFloorWallCamp, 25,
+                scoreCollectPurifiedWater, 25,
+                scoreCompleteDailyOps, 3,
+                scoreCraftBulkWood, 3,
+                scoreCrippleScorchedArm, 18,
+                scoreKillSnallygaster, 10,
+                scoreScrapJunkCloth, 30,
+                scoreScrapJunkConcrete, 30,
+            ]);
+            addDaily(challengesDailyEra18, 98, [
+                    scoreCompleteDailyChallenge, 6,
+                    scoreBuildFloorWallCamp, 5,
+                    scoreCompleteDailyOps, 1,
+                    scoreCrippleScorchedArm, 2,
+                    scoreKillScorched, 10,
+                    scoreScrapJunkConcrete, 10,
+                    scoreSellGlowingFungusNPC, 1,
+                    make1st(scoreCollectPurifiedWater), 5,
+                    scoreReroll, 1,
+                ], dops(dailyOpsArktos, dailyOpsRobots, dailyOpsToxic, true, false, true));
+
+
             communityEventsAppend.push(createDoubleScore(ofDate(2024, 2, 14, 17), ofDate(2024, 2, 18, 17)));
             communityEventsAppend.push(createPurveyor(ofDate(2024, 2, 21, 17), ofDate(2024, 2, 25, 17), 0, true, 1));
             communityEventsAppend.push(createDoubleMutations(ofDate(2024, 2, 21, 17), ofDate(2024, 2, 25, 17)));
