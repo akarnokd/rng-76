@@ -23551,6 +23551,34 @@
             fillInSeason(season16, era19Length, "LR16", true);
             seasonEventsAppend.push(season16);
 
+            communityEventsAppend.push(createMothmanEquinox(ofDate(2024, 3, 2, 16), ofDate(2024, 3, 16, 16)));
+            communityEventsAppend.push(createCapsOPlenty(ofDate(2024, 3, 4, 16), ofDate(2024, 3, 8, 16)));
+            communityEventsAppend.push(createDoubleMutations(ofDate(2024, 3, 4, 16), ofDate(2024, 3, 8, 16)));
+            communityEventsAppend.push(createAmazonFallout(ofDate(2024, 3, 11, 16), ofDate(2024, 3, 12, 16)));
+            communityEventsAppend.push(createDoubleXP(ofDate(2024, 3, 11, 16), ofDate(2024, 3, 15, 16)));
+            communityEventsAppend.push(createGoldRush2(ofDate(2024, 3, 11, 16), ofDate(2024, 3, 15, 16)));
+            communityEventsAppend.push(createPurveyor(ofDate(2024, 3, 18, 16), ofDate(2024, 3, 22, 16), 25, false, 1));
+            communityEventsAppend.push(createDoubleMutations(ofDate(2024, 3, 18, 16), ofDate(2024, 3, 22, 16)));
+            communityEventsAppend.push(createDoubleScore(ofDate(2024, 3, 25, 16), ofDate(2024, 3, 29, 16)));
+
+            communityEventsAppend.push(createInvaders(ofDate(2024, 3, 30, 16), ofDate(2024, 4, 14, 16)));
+            communityEventsAppend.push(createDoubleMutations(ofDate(2024, 4, 2, 16), ofDate(2024, 4, 6, 16)));
+            communityEventsAppend.push(createSpringCleaning(ofDate(2024, 4, 7, 16), ofDate(2024, 4, 21, 16)));
+            communityEventsAppend.push(createScripSurplus3(ofDate(2024, 4, 9, 16), ofDate(2024, 4, 13, 16)));
+            communityEventsAppend.push(createTreasureHunt(ofDate(2024, 4, 16, 16), ofDate(2024, 4, 20, 16)));
+            communityEventsAppend.push(createDoubleMutations(ofDate(2024, 4, 16, 16), ofDate(2024, 4, 20, 16)));
+            communityEventsAppend.push(createMeatWeek(ofDate(2024, 4, 21, 16), ofDate(2024, 5, 4, 16), "Two Helpings of Meat Week"));
+            communityEventsAppend.push(createCapsOPlenty(ofDate(2024, 4, 23, 16), ofDate(2024, 4, 27, 16)));
+            communityEventsAppend.push(createDoubleMutations(ofDate(2024, 4, 30, 16), ofDate(2024, 5, 3, 16)));
+
+            communityEventsAppend.push(createGoldRush2(ofDate(2024, 5, 6, 16), ofDate(2024, 5, 10, 16)));
+            communityEventsAppend.push(createPurveyor(ofDate(2024, 5, 13, 16), ofDate(2024, 5, 17, 16), 25, false, 1));
+            communityEventsAppend.push(createDoubleMutations(ofDate(2024, 5, 13, 16), ofDate(2024, 5, 17, 16)));
+            communityEventsAppend.push(createDoubleScore(ofDate(2024, 5, 20, 16), ofDate(2024, 5, 24, 16)));
+            communityEventsAppend.push(createFasnacht(ofDate(2024, 5, 25, 16), ofDate(2024, 6, 9, 16)));
+            communityEventsAppend.push(createScripSurplus3(ofDate(2024, 5, 27, 16), ofDate(2024, 6, 1, 16)));
+            communityEventsAppend.push(createDoubleMutations(ofDate(2024, 5, 27, 16), ofDate(2024, 6, 1, 16)));
+
             addPlaceholders(challengesDailyEra19, scoreDailyplaceholder, era19Length);
             addPlaceholders(challengesWeeklyEra19, scoreWeeklyplaceholder, era19Length);
 
@@ -24319,6 +24347,39 @@
                         },
                         {
                             name: "Rewards: 2x XP, 2x currency",
+                            offset: 0,
+                            period: 1
+                        }
+                    ]
+                };
+            }
+            function createSpringCleaning(start, end) {
+                return {
+                    validStart: start,
+                    validEnd: end,
+                    title: "Spring Cleaning Challenge",
+                    options: [
+                        {
+                            name: "No details known as of now",
+                            offset: 0,
+                            period: 1
+                        },
+                    ]
+                };
+            }
+            function createAmazonFallout(start, end) {
+                return {
+                    validStart: start,
+                    validEnd: end,
+                    title: "Amazon's Fallout Show Premiere",
+                    options: [
+                        {
+                            name: "New Fallout TV series debut",
+                            offset: 0,
+                            period: 1
+                        },
+                        {
+                            name: "First season all 8 episodes available together",
                             offset: 0,
                             period: 1
                         }
