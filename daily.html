@@ -23558,6 +23558,32 @@
             communityEventsAppend.push(createMutationInvasion(ofDate(2024, 2, 12, 16), ofDate(2024, 2, 19, 16)));
             communityEventsAppend.push(createMinerva(ofDate(2024, 2, 18, 16), ofDate(2024, 2, 20, 16), "Emporium @ Foundation", "P?"));
             communityEventsAppend.push(createDoubleScore(ofDate(2024, 2, 14, 16), ofDate(2024, 2, 18, 16)));
+
+            addWeeklies(challengesWeeklyEra18, 105, [
+                scoreFixedGainXP10000Rank100, 1,
+                scoreCompleteGoldStarN, 3,
+                scoreCollectGardenGnome, 5,
+                scoreCompleteDailyOpsPublicTeam, 5,
+                scoreCrippleBloodEagleLegs, 18,
+                scoreEatCookedMeal, 30,
+                scoreKillCreatures, 20,
+                scoreKillAngler, 9,
+                scorePlantCrop, 20,
+                scoreScrapJunkAluminium, 15,
+                scoreScrapJunkSteel, 30,
+            ]);
+            addDaily(challengesDailyEra18, 105, [
+                    scoreCompleteDailyChallenge, 6,
+                    scoreBuildDefenseApplianceCraftingWorkshop, 3,
+                    scoreCompleteDailyOpsPublicTeam, 1,
+                    scoreCraftMineGrenadeThrown, 5,
+                    scoreScrapPowerArmor, 1,
+                    scoreCrippleBloodEagleLegs, 2,
+                    scoreKillCreatureInGroup, 10,
+                    make1st(scoreScrapJunkSteel), 10,
+                    scoreReroll, 1,
+                ], dops(dailyOpsBurning, dailyOpsRobots, dailyOpsDanger, false, false, true));
+
             communityEventsAppend.push(createPurveyor(ofDate(2024, 2, 21, 16), ofDate(2024, 2, 25, 16), 0, true, 1));
             communityEventsAppend.push(createDoubleMutations(ofDate(2024, 2, 21, 16), ofDate(2024, 2, 25, 16)));
 
