@@ -22045,6 +22045,7 @@
             var era18Start = ofDate(2023, 11, 5, 17); 
             var era18Length = 112;
             var era18End = plusDays(new Date(era18Start), era18Length);
+            era18End.setUTCHours(16);
             var challengesDailyEra18 = {
                 validStart: era18Start,
                 validEnd: era18End,
@@ -23661,7 +23662,7 @@
             // Season 16
             // oooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo
 
-            var era19Start = ofDate(2024, 2, 26, 17); 
+            var era19Start = ofDate(2024, 2, 26, 16); 
             var era19Length = 91;
             var era19End = plusDays(new Date(era19Start), era19Length);
             var challengesDailyEra19 = {
