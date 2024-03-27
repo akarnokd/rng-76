@@ -19664,7 +19664,7 @@
             }
             function scoreSellTesla(offset, count) {
                 return {
-                    name: times("Sell a Tesla Rifle", count),
+                    name: times("Sell a Tesla Rifle to an NPC vendor", count),
                     offset: offset,
                     period: 1400,
                 };
@@ -23709,6 +23709,17 @@
                     scoreCompleteTaxEvasion, 1,
                     scoreKillOvergrown, 3,
                     make1st(scoreConsumeAlcohol), 5,
+                    scoreReroll, 1,
+                ], dops(dailyOpsV96, dailyOpsCommunists, dailyOpsFreezing, false, false, true));
+            addDaily(challengesDailyEra19, 1, [
+                    scoreCompleteDailyChallenge, 6,
+                    scoreCollectFuelGasCanister, 2,
+                    scoreCompleteOneEvent, 1,
+                    scoreKillCryptid1, 1,
+                    scoreKillHoneyBeast, 1,
+                    scoreRepairArmorWeaponPA, 5,
+                    scoreSellTesla, 1,
+                    make1st(scoreScrapJunkPlastic), 10,
                     scoreReroll, 1,
                 ], dops(dailyOpsV96, dailyOpsCommunists, dailyOpsFreezing, false, false, true));
 
