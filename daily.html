@@ -1477,6 +1477,13 @@
                     return v;
                 };
             }
+            function makeEpic(func) {
+                return (offset, count) => {
+                    let v = func(offset, count);
+                    v.name = "<span style='color: red;'>Epic</span> - " + v.name;
+                    return v;
+                };
+            }
             function scoreCollectBobblehead1st(offset) {
                 return {
                     name: "1<sup>st</sup> Collect a bobblehead",
@@ -23720,6 +23727,18 @@
                     scoreRepairArmorWeaponPA, 5,
                     scoreSellTesla, 1,
                     make1st(scoreScrapJunkPlastic), 10,
+                    scoreReroll, 1,
+                ], dops(dailyOpsWatogaHighschool, dailyOpsScorched, dailyOpsToxic, true, false, true));
+            addDaily(challengesDailyEra19, 2, [
+                    scoreCompleteDailyChallenge, 6,
+                    makeEpic(scoreScrapBoardGame), 2,
+                    scoreBuildFloorWallShelter, 10,
+                    scoreCompleteDailyOpsPublicTeam, 1,
+                    scoreCrippleProtectronRobobrainArms, 2,
+                    scoreKillDeathclaw, 1,
+                    scoreKillLegendary, 1,
+                    scoreUsePhotomodeGroup, 1,
+                    make1st(scoreCollectPurifiedWater), 5,
                     scoreReroll, 1,
                 ], dops(dailyOpsWatogaHighschool, dailyOpsScorched, dailyOpsToxic, true, false, true));
 
