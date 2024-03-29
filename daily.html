@@ -23759,6 +23759,7 @@
 
             communityEventsAppend.push(createSupriseWeekend2024(ofDate(2024, 2, 28, 16), ofDate(2024, 3, 1, 16)));
             communityEventsAppend.push(createFasnacht(ofDate(2024, 2, 28, 16), ofDate(2024, 2, 29, 16), "(Surprise Event)"));
+            communityEventsAppend.push(createSpookyScorchedSurprise(ofDate(2024, 2, 29, 16), ofDate(2024, 2, 30, 16)));
 
 
             communityEventsAppend.push(createMothmanEquinox(ofDate(2024, 3, 2, 16), ofDate(2024, 3, 16, 16)));
@@ -25162,6 +25163,41 @@
                     ]
                 };
             }
+            function createSpookyScorchedSurprise(start, end) {
+                return {
+                    validStart: start,
+                    validEnd: end, 
+                    title: "Spooky Scorched (Surprise Event)",
+                    notable: { icon: "spookyscorched", description: "Spooky Scorched" },
+                    options: [
+                        {
+                            name: "Unique Humanoid Scorched",
+                            offset: 0,
+                            period: 1,
+                            subchallenges: [
+                                {
+                                    name: "Legendary with sound cue"
+                                },
+                                {
+                                    name: "Has Candy and Spooky Treat Bag"
+                                }
+                            ]
+                        },
+                        {
+                            name: "Rewards: <a href='https://docs.google.com/spreadsheets/u/0/d/1jjC2-s_FBJ8VtQzOWYc6Qm4PjIrdLDDJ5N0a-W3PCA8/htmlview#gid=0' target='_blank'>Plans, Ammo, Consumables</a>",
+                            offset: 0,
+                            period: 1,
+                        },
+                        {
+                            name: "Ends: <b style='color: green;'>"  + end.toLocaleDateString() 
+                            + " (" + end.toLocaleDateString(window.navigator.language, {weekday: 'long'}) + ")"
+                            + " " + end.toLocaleTimeString() + "</b>", 
+                            offset: 0,
+                            period: 1
+                        }
+                    ]
+                };
+            }
             function createSpookyScorched2023(start, end) {
                 return {
                     validStart: start,
@@ -25242,7 +25278,7 @@
                                     name: "Day 1 - Fasnacht"
                                 },
                                 {
-                                    name: "Day 2 - Spooky Scorched (unconfirmed)"
+                                    name: "Day 2 - Spooky Scorched"
                                 },
                                 {
                                     name: "Day 3 - Meat Week (unconfirmed)"
