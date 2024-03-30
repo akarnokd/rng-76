@@ -23694,6 +23694,14 @@
                 ]
             };
 
+            function scoreKillDeathclawPistol(offset, count) {
+                return {
+                    name: times("Kill a Deathclaw with a Pistol", count),
+                    offset: offset,
+                    period: 1400,
+                };
+            }
+
             addWeeklies(challengesWeeklyEra19, 0, [
                 scoreFixedGainXP10000Rank100, 1,
                 scoreCompleteGoldStarN, 3,
@@ -23751,6 +23759,18 @@
                     scoreModBallisticWeapon, 1,
                     scoreVisitAnotherShelter, 1,
                     make1st(scoreCollectWood), 20,
+                    scoreReroll, 1,
+                ], dops(dailyOpsBurrows, dailyOpsScorched, dailyOpsDanger, true, false, true));
+            addDaily(challengesDailyEra19, 4, [
+                    scoreCompleteDailyChallenge, 6,
+                    makeEpic(scoreKillDeathclawPistol), 2,
+                    scoreCompleteDaily, 1,
+                    scoreCraftChems, 2,
+                    scoreDestroyRobot, 10,
+                    scoreHarvestPlantFungi, 12,
+                    scoreKillWendigo, 1,
+                    scoreScrapBoardGame, 1,
+                    make1st(scoreCraftAmmo), 50,
                     scoreReroll, 1,
                 ], dops(dailyOpsBurrows, dailyOpsScorched, dailyOpsDanger, true, false, true));
 
@@ -25281,7 +25301,7 @@
                                     name: "Day 2 - Spooky Scorched"
                                 },
                                 {
-                                    name: "Day 3 - Meat Week (unconfirmed)"
+                                    name: "Day 3 - Meat Week"
                                 },
                                 {
                                     name: "Day 4 - Alien Invasion (unconfirmed)"
