@@ -23793,6 +23793,7 @@
             communityEventsAppend.push(createFasnacht(ofDate(2024, 2, 28, 16), ofDate(2024, 2, 29, 16), "(Surprise Event)"));
             communityEventsAppend.push(createSpookyScorchedSurprise(ofDate(2024, 2, 29, 16), ofDate(2024, 2, 30, 16)));
             communityEventsAppend.push(createMeatWeek(ofDate(2024, 2, 30, 16), 1, "Meat Week (Surprise Event)"));
+            communityEventsAppend.push(createInvaders(ofDate(2024, 2, 31, 16), ofDate(2024, 3, 1, 16), undefined, "(Surprise Event)"));
 
 
             communityEventsAppend.push(createMothmanEquinox(ofDate(2024, 3, 2, 16), ofDate(2024, 3, 16, 16)));
@@ -25051,11 +25052,11 @@
                 };
             }
 
-            function createInvaders(startDate, endDate, comment) {
+            function createInvaders(startDate, endDate, comment, title) {
                 var r = {
                     validStart: startDate,
                     validEnd: endDate,
-                    title: "Invaders from Beyond",
+                    title: "Invaders from Beyond" + (title !== undefined ? title : ""),
                     options: [
                         {
                             name: "The event begins at the top of the hour (XX:00),<br>but the location for the event differs between servers.",
@@ -25317,7 +25318,7 @@
                                     name: "Day 3 - Meat Week"
                                 },
                                 {
-                                    name: "Day 4 - Alien Invasion (unconfirmed)"
+                                    name: "Day 4 - Invaders from Beyond"
                                 },
                                 {
                                     name: "Day 5 - Holiday Scorched (unconfirmed)"
