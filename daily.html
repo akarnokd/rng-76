@@ -23701,6 +23701,13 @@
                     period: 1400,
                 };
             }
+            function scoreCrippleSentryBotArm(offset, count) {
+                return {
+                    name: times("Cripple Sentry Bot's Arm", count),
+                    offset: offset,
+                    period: 1400,
+                };
+            }
 
             addWeeklies(challengesWeeklyEra19, 0, [
                 scoreFixedGainXP10000Rank100, 1,
@@ -23783,6 +23790,18 @@
                     scoreHuntRabbits, 2,
                     scoreKillCreatureWellFed, 10,
                     make1st(scoreScrapJunkWood), 10,
+                    scoreReroll, 1,
+                ], dops(dailyOpsArktos, dailyOpsAliens, dailyOpsResilient, true, false, true));
+            addDaily(challengesDailyEra19, 6, [
+                    scoreCompleteDailyChallenge, 6,
+                    makeEpic(scoreCrippleSentryBotArm), 4,
+                    scoreBuildTurretsTraps, 3,
+                    scoreCompleteOneEvent, 1,
+                    scoreConsumeChems, 2,
+                    scoreKillCultist, 10,
+                    scoreKillGlowing, 1,
+                    scoreKillMolerat, 5,
+                    make1st(scoreCraftScrapArmor), 5,
                     scoreReroll, 1,
                 ], dops(dailyOpsArktos, dailyOpsAliens, dailyOpsResilient, true, false, true));
 
