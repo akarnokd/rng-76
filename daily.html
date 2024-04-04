@@ -23708,6 +23708,13 @@
                     period: 1400,
                 };
             }
+            function scoreKillCultistsMothmanEquinox(offset, count) {
+                return {
+                    name: times("Kill Cultists during the Mothman Equinox event", count),
+                    offset: offset,
+                    period: 1400,
+                };
+            }
 
             addWeeklies(challengesWeeklyEra19, 0, [
                 scoreFixedGainXP10000Rank100, 1,
@@ -23849,6 +23856,17 @@
                     scoreCrippleScorchedLeg, 2,
                     scoreKillGlowing, 1,
                     make1st(scoreScrapJunkScrews), 5,
+                    scoreReroll, 1,
+                ], dops(dailyOpsWestTec, dailyOpsRobots, dailyOpsSwift, false, false, true));
+            addDaily(challengesDailyEra19, 9, [
+                    scoreCompleteDailyChallenge, 6,
+                    scoreEatDogFood, 5,
+                    scoreFermentAlcohol, 3,
+                    scoreKillCultistsMothmanEquinox, 10,
+                    scoreKillHoneyBeast, 1,
+                    scoreKillHuman, 10,
+                    scoreKillAngler, 3,
+                    make1st(scoreCollectPurifiedWater), 5,
                     scoreReroll, 1,
                 ], dops(dailyOpsWestTec, dailyOpsRobots, dailyOpsSwift, false, false, true));
 
