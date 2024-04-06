@@ -23715,6 +23715,13 @@
                     period: 1400,
                 };
             }
+            function scoreKillRadstagsMothmanEquinox(offset, count) {
+                return {
+                    name: times("Kill Radstags during the Mothman Equinox event", count),
+                    offset: offset,
+                    period: 1400,
+                };
+            }
 
             addWeeklies(challengesWeeklyEra19, 0, [
                 scoreFixedGainXP10000Rank100, 1,
@@ -23878,6 +23885,17 @@
                     scoreDestroyAssaultron, 1,
                     scoreScrapJunkRubber, 5,
                     make1st(scoreScrapJunkAdhesive), 10,
+                    scoreReroll, 1,
+                ], dops(dailyOpsUncanny, dailyOpsCultists, dailyOpsBlisteringCold, false, true, true));
+            addDaily(challengesDailyEra19, 11, [
+                    scoreCompleteDailyChallenge, 6,
+                    scoreBuildGeneratorShelter, 1,
+                    scoreCraftBulkAluminium, 1,
+                    scoreDrinkTea, 1,
+                    scoreKillCultistsMothmanEquinox, 10,
+                    scoreKillRadstagsMothmanEquinox, 5,
+                    scoreKillMoleminer, 10,
+                    make1st(scoreKillBloodEagle), 10,
                     scoreReroll, 1,
                 ], dops(dailyOpsUncanny, dailyOpsCultists, dailyOpsBlisteringCold, false, true, true));
 
