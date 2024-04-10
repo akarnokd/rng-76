@@ -29,10 +29,6 @@
             <span style="font-size: 36px; font-weight: bold;">Fallout 76 Timed Challenges (0.9.5)</span><br/>
             <br/>
             <br/>
-            Updates to daily and weekly challenges will resume on <u>Wednesday, April 10, around reset time</u>.
-            <br/>
-            <br/>
-            <br/>
             <table>
                 <tr>
                     <td><button id='prevMonth' title='Go back a month.'>&lt;&lt;&lt;</button></td>
@@ -23726,6 +23722,13 @@
                     period: 1400,
                 };
             }
+            function scoreUnknown(offset, count) {
+                return {
+                    name: times("Unavailable", count),
+                    offset: offset,
+                    period: 1400,
+                };
+            }
 
             addWeeklies(challengesWeeklyEra19, 0, [
                 scoreFixedGainXP10000Rank100, 1,
@@ -23913,10 +23916,42 @@
                     make1st(scoreScrapBoardGame), 1,
                     scoreReroll, 1,
                 ], dops(dailyOpsCharleston, dailyOpsCultists, dailyOpsChillingMend, false, true, true));
+            addDaily(challengesDailyEra19, 13, [
+                    scoreCompleteDailyChallenge, 6,
+                    scoreUnknown, 1,
+                    scoreReroll, 1,
+                ], dops(dailyOpsBurrows, dailyOpsAliens, dailyOpsRegenerating, false, false, true));
 
             communityEventsAppend.push(createMothmanEquinox(ofDate(2024, 3, 2, 16), ofDate(2024, 3, 16, 16)));
             communityEventsAppend.push(createCapsOPlenty(ofDate(2024, 3, 4, 16), ofDate(2024, 3, 8, 16)));
             communityEventsAppend.push(createDoubleMutations(ofDate(2024, 3, 4, 16), ofDate(2024, 3, 8, 16)));
+
+            addWeeklies(challengesWeeklyEra19, 14, [
+                scoreFixedGainXP10000Rank100, 1,
+                scoreCompleteGoldStarN, 3,
+                scoreCollectBrainFungus, 25,
+                scoreCollectPurifiedWater, 25,
+                scoreCompleteEventMothman, 3,
+                scoreCraftAmmo, 250,
+                scoreDestroyRobot, 30,
+                scoreEatMeat, 25,
+                scoreKillMoleminer, 25,
+                scorePlantCrop, 25,
+                scoreScrapMoney, 50,
+            ]);
+            addDaily(challengesDailyEra19, 14, [
+                    scoreCompleteDailyChallenge, 6,
+                    scoreCollectCaps, 250,
+                    scoreCollectWood, 20,
+                    scoreCrippleSuperMutantArm, 2,
+                    scoreHackTerminal, 1,
+                    scoreKillCreatures, 12,
+                    scoreScrapMoney, 5,
+                    make1st(scoreHarvestPlantFungi), 12,
+                    scoreReroll, 1,
+                ], dops(dailyOpsBurrows, dailyOpsAliens, dailyOpsRegenerating, false, false, true));
+
+
             communityEventsAppend.push(createAmazonFallout(ofDate(2024, 3, 11, 16), ofDate(2024, 3, 12, 16)));
             communityEventsAppend.push(createDoubleXP(ofDate(2024, 3, 11, 16), ofDate(2024, 3, 15, 16)));
             communityEventsAppend.push(createGoldRush2(ofDate(2024, 3, 11, 16), ofDate(2024, 3, 15, 16)));
