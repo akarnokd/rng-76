@@ -23916,11 +23916,6 @@
                     make1st(scoreScrapBoardGame), 1,
                     scoreReroll, 1,
                 ], dops(dailyOpsCharleston, dailyOpsCultists, dailyOpsChillingMend, false, true, true));
-            addDaily(challengesDailyEra19, 13, [
-                    scoreCompleteDailyChallenge, 6,
-                    scoreUnknown, 1,
-                    scoreReroll, 1,
-                ], dops(dailyOpsBurrows, dailyOpsAliens, dailyOpsRegenerating, false, false, true));
 
             communityEventsAppend.push(createMothmanEquinox(ofDate(2024, 3, 2, 16), ofDate(2024, 3, 16, 16)));
             communityEventsAppend.push(createCapsOPlenty(ofDate(2024, 3, 4, 16), ofDate(2024, 3, 8, 16)));
@@ -23935,7 +23930,7 @@
                 scoreCraftAmmo, 250,
                 scoreDestroyRobot, 30,
                 scoreEatMeat, 25,
-                scoreKillMoleminer, 25,
+                scoreKillMoleminer, 30,
                 scorePlantCrop, 25,
                 scoreScrapMoney, 50,
             ]);
@@ -23950,6 +23945,17 @@
                     make1st(scoreHarvestPlantFungi), 12,
                     scoreReroll, 1,
                 ], dops(dailyOpsBurrows, dailyOpsAliens, dailyOpsRegenerating, false, false, true));
+            addDaily(challengesDailyEra19, 15, [
+                    scoreCompleteDailyChallenge, 6,
+                    scoreBuildAnythingCamp, 5,
+                    scoreCollectAnyNukaCola, 5,
+                    scoreCraftScrapArmor, 5,
+                    scoreEatCookedMeal, 10,
+                    scoreKillInsects, 5,
+                    scoreKillGhoul, 10,
+                    make1st(scoreScrapJunkPlastic), 10,
+                    scoreReroll, 1,
+                ], dops(dailyOpsBurning, dailyOpsEagles, dailyOpsSwift, true, false, true));
 
 
             communityEventsAppend.push(createAmazonFallout(ofDate(2024, 3, 11, 16), ofDate(2024, 3, 12, 16)));
