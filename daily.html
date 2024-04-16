@@ -20575,6 +20575,13 @@
                     period: 1400,
                 };
             }
+            function scoreSellWeaponNPC(offset, count) {
+                return {
+                    name: times("Sell a Weapon to an NPC vendor", count),
+                    offset: offset,
+                    period: 1400,
+                };
+            }
             function scoreCrippleMirelurkLimb(offset, count) {
                 return {
                     name: times("Cripple a Mirelurk's Limbs", count),
@@ -24025,6 +24032,42 @@
             communityEventsAppend.push(createDoubleMutations(ofDate(2024, 4, 2, 16), ofDate(2024, 4, 6, 16)));
             communityEventsAppend.push(createSpringCleaning(ofDate(2024, 4, 7, 16), ofDate(2024, 4, 21, 16)));
             communityEventsAppend.push(createScripSurplus3(ofDate(2024, 4, 9, 16), ofDate(2024, 4, 13, 16)));
+
+
+            function scoreSellMissileLauncherNPC(offset, count) {
+                return {
+                    name: times("Sell a Missile Launcher to an NPC vendor", count),
+                    offset: offset,
+                    period: 1400,
+                };
+            }
+
+            addWeeklies(challengesWeeklyEra19, 21, [
+                scoreFixedGainXP10000Rank100, 1,
+                scoreCompleteGoldStarN, 3,
+                scoreBuildAnythingCamp, 25,
+                scoreCollectTeddyBear, 9,
+                scoreCompleteOneEvent, 3,
+                scoreDrinkNukaCola, 25,
+                scoreKillBloodEagle, 30,
+                scoreKillScorched, 30,
+                scoreLevelUp, 3,
+                scoreScrapJunkScrews, 15,
+                scoreSellMissileLauncherNPC, 1,
+            ]);
+            addDaily(challengesDailyEra19, 21, [
+                    scoreCompleteDailyChallenge, 6,
+                    scoreBuildBedTableStairsCAMP, 3,
+                    scoreBuildFloorWallCamp, 5,
+                    scoreCrippleProtectronRobobrainArms, 2,
+                    scoreEatPrewarFood, 5,
+                    scoreKillHuman, 10,
+                    scoreScrapJunkScrews, 5,
+                    make1st(scoreSellWeaponNPC), 5,
+                    scoreReroll, 1,
+                ], dops(dailyOpsArktos, dailyOpsAliens, dailyOpsResilient, false, false, true));
+
+
             communityEventsAppend.push(createTreasureHunt(ofDate(2024, 4, 16, 16), ofDate(2024, 4, 20, 16)));
             communityEventsAppend.push(createDoubleMutations(ofDate(2024, 4, 16, 16), ofDate(2024, 4, 20, 16)));
             communityEventsAppend.push(createMeatWeek(ofDate(2024, 4, 21, 16), ofDate(2024, 5, 4, 16), "Two Helpings of Meat Week"));
