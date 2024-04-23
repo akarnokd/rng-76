@@ -24026,13 +24026,6 @@
             communityEventsAppend.push(createMinerva(ofDate(2024, 3, 11, 16), ofDate(2024, 3, 15, 16), "Big Sale @ The Whitespring", "P?"));
             communityEventsAppend.push(createPurveyor(ofDate(2024, 3, 18, 16), ofDate(2024, 3, 22, 16), 25, false, 1));
             communityEventsAppend.push(createDoubleMutations(ofDate(2024, 3, 18, 16), ofDate(2024, 3, 22, 16)));
-            communityEventsAppend.push(createDoubleScore(ofDate(2024, 3, 25, 16), ofDate(2024, 3, 29, 16)));
-
-            communityEventsAppend.push(createInvaders(ofDate(2024, 3, 30, 16), ofDate(2024, 4, 14, 16)));
-            communityEventsAppend.push(createDoubleMutations(ofDate(2024, 4, 2, 16), ofDate(2024, 4, 6, 16)));
-            communityEventsAppend.push(createSpringCleaning(ofDate(2024, 4, 7, 16), ofDate(2024, 4, 21, 16)));
-            communityEventsAppend.push(createScripSurplus3(ofDate(2024, 4, 9, 16), ofDate(2024, 4, 13, 16)));
-
 
             function scoreSellMissileLauncherNPC(offset, count) {
                 return {
@@ -24142,10 +24135,57 @@
 
 
             communityEventsAppend.push(createMutationInvasion(ofDate(2024, 3, 16, 16), ofDate(2024, 3, 23, 16)));
+            communityEventsAppend.push(createMinerva(ofDate(2024, 3, 22, 16), ofDate(2024, 3, 24, 16), "Emporium @ Foundation", "P?"));
+
+            function scoreEatPumpkin(offset, count) {
+                return {
+                    name: times("Eat Pumpkin", count),
+                    offset: offset,
+                    period: 1400,
+                };
+            }
+            function scoreTakeCameraPictureMegasloth(offset, count) {
+                return {
+                    name: times("Take a camera picture of a Mega Sloth", count),
+                    offset: offset,
+                    period: 1400,
+                };
+            }
+
+            addWeeklies(challengesWeeklyEra19, 28, [
+                scoreFixedGainXP10000Rank100, 1,
+                scoreCompleteGoldStarN, 3,
+                scoreCollectGardenGnome, 5,
+                scoreCollectLighterCigarCigarette, 15,
+                scoreCompleteDailyOpsPublicTeam, 5,
+                scoreDrinkNukaGrape, 5,
+                scoreEatPumpkin, 15,
+                scoreKillAnimalsPipeGun, 25,
+                scoreScrapJunkAsbestos, 15,
+                scoreTakeCameraPictureMegasloth, 1,
+                scoreKillLesserDevil, 3,
+            ]);
+            addDaily(challengesDailyEra19, 28, [
+                    scoreCompleteDailyChallenge, 6,
+                    scoreBuildGeneratorShelter, 1,
+                    scoreCollectEnergyAmmo, 10,
+                    scoreKillSnallygaster, 3,
+                    scoreKillAngler, 3,
+                    scoreCompleteTaxEvasion, 1,
+                    scoreKillLesserDevil, 1,
+                    make1st(scoreGainXP2500NoRank), 1,
+                    scoreReroll, 1,
+                ], dops(dailyOpsWestTec, dailyOpsEagles, dailyOpsSwift, true, false, true));
+
+
+            communityEventsAppend.push(createDoubleScore(ofDate(2024, 3, 25, 16), ofDate(2024, 3, 29, 16)));
+            communityEventsAppend.push(createInvaders(ofDate(2024, 3, 30, 16), ofDate(2024, 4, 14, 16)));
+            communityEventsAppend.push(createDoubleMutations(ofDate(2024, 4, 2, 16), ofDate(2024, 4, 6, 16)));
+            communityEventsAppend.push(createSpringCleaning(ofDate(2024, 4, 7, 16), ofDate(2024, 4, 21, 16)));
+            communityEventsAppend.push(createScripSurplus3(ofDate(2024, 4, 9, 16), ofDate(2024, 4, 13, 16)));
             communityEventsAppend.push(createTreasureHunt(ofDate(2024, 4, 16, 16), ofDate(2024, 4, 20, 16)));
             communityEventsAppend.push(createDoubleMutations(ofDate(2024, 4, 16, 16), ofDate(2024, 4, 20, 16)));
             communityEventsAppend.push(createMeatWeek(ofDate(2024, 4, 21, 16), ofDate(2024, 5, 4, 16), "Two Helpings of Meat Week"));
-            communityEventsAppend.push(createMinerva(ofDate(2024, 3, 22, 16), ofDate(2024, 3, 24, 16), "Emporium @ Foundation", "P?"));
             communityEventsAppend.push(createCapsOPlenty(ofDate(2024, 4, 23, 16), ofDate(2024, 4, 27, 16)));
             communityEventsAppend.push(createDoubleMutations(ofDate(2024, 4, 30, 16), ofDate(2024, 5, 3, 16)));
             communityEventsAppend.push(createF1st(ofDate(2024, 3, 16, 16), ofDate(2024, 3, 23, 16), "Fallout 1st Trial Days"));
