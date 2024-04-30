@@ -24245,6 +24245,34 @@
 
             communityEventsAppend.push(createMinerva(ofDate(2024, 3, 29, 16), ofDate(2024, 4, 1, 16), "Emporium @ Crater", "P?"));
             communityEventsAppend.push(createDoubleScore(ofDate(2024, 3, 25, 16), ofDate(2024, 3, 29, 16)));
+
+            addWeeklies(challengesWeeklyEra19, 35, [
+                scoreFixedGainXP10000Rank100, 1,
+                scoreCompleteGoldStarN, 3,
+                scoreBuildWallDecor, 25,
+                scoreCompleteDailyOpsPublicTeam, 2,
+                scoreCompleteOneEvent, 3,
+                scoreConsumeAlcohol, 20,
+                scoreCrippleSuperMutantArm, 30,
+                scoreEatPrewarFood, 25,
+                scoreKillBloodEagle, 30,
+                scoreKillCultist, 25,
+                scoreModEnergyWeapon, 5,
+            ]);
+            addDaily(challengesDailyEra19, 35, [
+                    scoreCompleteDailyChallenge, 6,
+                    scoreBuildAnythingCamp, 5,
+                    scoreEatPrewarFood, 5,
+                    scoreKillBloodEagle, 10,
+                    scoreKillCryptid1, 1,
+                    scoreTakePictureAlienInvader, 1,
+                    scoreUsePhotomode, 1,
+                    scoreCompleteTaxEvasion, 1,
+                    make1st(scoreCollectCaps), 250,
+                    scoreReroll, 1,
+                ], dops(dailyOpsV94, dailyOpsCommunists, dailyOpsToxic, true, false, true));
+
+
             communityEventsAppend.push(createInvaders(ofDate(2024, 3, 30, 16), ofDate(2024, 4, 14, 16)));
             communityEventsAppend.push(createDoubleMutations(ofDate(2024, 4, 2, 16), ofDate(2024, 4, 6, 16)));
             communityEventsAppend.push(createSpringCleaning(ofDate(2024, 4, 7, 16), ofDate(2024, 4, 21, 16)));
