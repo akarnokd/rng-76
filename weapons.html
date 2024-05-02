@@ -27,7 +27,7 @@
     </head>
     <body style="height: 90%">
         <center>
-            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Weapon Damage Calculator (v3.11.2)</span>
+            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Weapon Damage Calculator (v3.11.3)</span>
             <br/>
             <!--
             <i>(Patch 44 update still in progress.)</i>
@@ -2081,7 +2081,12 @@
                 name: "Prime",
                 damageMultPercent: 25,
                 versus: ["Scorched", "Scorchbeast", "Scorchbeast Queen"],
-                versusMultPercent: 35
+                versusMultPercent: 35,
+                patchOverride: {
+                    "P50": {
+                        versusMultPercent: 65
+                    }
+                }
             };
             var scorchKillerMod = {
                 name: "Scorch killer's",
@@ -7237,7 +7242,8 @@
                 "P33": [ "P27A", "P27" ],
                 "P34": [ "P27A", "P27" ],
                 "P42": [ "P34", "P27A", "P27" ],
-                "P44": [ "P42", "P34", "P27A", "P27" ]
+                "P44": [ "P42", "P34", "P27A", "P27" ],
+                "P50": [ "P44", "P42", "P34", "P27A", "P27" ],
             }
 
             // -------------------------------------------------------------------------------------
@@ -10008,6 +10014,7 @@
                 + "<br><br>Patch 33 fixed the damage formula for non-ballistic damage types. Previously, only the weapon's base damage was pitted against the enemy resistance, ignoring any damage buffs."
                 + "<br><br>Patch 34 changed critical bonus calculation to be additive, increased crit bonuses across."
                 + "<br><br>Patch 44 changed how the anti-armor effect of a weapon mod (normal or legendary) is now additive; perks are still multiplicative."
+                + "<br><br>Patch 50 changed all prime receivers to do 65% damage to scorched enemies."
                 + "<br><br>Future patches appear to change the impact of resistances so that"
                 + "<br>there won't be such a sharp drop in damage output for the same level of resistance,"
                 + "<br>resulting in tougher enemies to receive more damage."
@@ -11693,6 +11700,12 @@
                 opt.value = "P44";
                 opt.linkId = "P44";
                 opt.selected = true;
+                calcmodesel.add(opt);
+
+                opt = document.createElement("option");
+                opt.text = "Patch 50";
+                opt.value = "P50";
+                opt.linkId = "P50";
                 calcmodesel.add(opt);
 
                 opt = document.createElement("option");
