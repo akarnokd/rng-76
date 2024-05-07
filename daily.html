@@ -24346,6 +24346,33 @@
             communityEventsAppend.push(createDoubleMutations(ofDate(2024, 4, 2, 16), ofDate(2024, 4, 6, 16)));
 
             communityEventsAppend.push(createMinerva(ofDate(2024, 4, 6, 16), ofDate(2024, 4, 8, 16), "Emporium @ Fort Atlas", "P?"));
+
+            addWeeklies(challengesWeeklyEra19, 42, [
+                scoreFixedGainXP10000Rank100, 1,
+                scoreCompleteGoldStarN, 3,
+                scoreCollectPrewarFood, 20,
+                scoreCompleteOneEvent, 3,
+                scoreCrippleHumanHeads, 6,
+                scoreDestroyRobot, 30,
+                scoreEatCookedMeal, 30,
+                scoreKillHuman, 30,
+                scorePlantCrop, 25,
+                scoreScrapHeadwear, 15,
+                scoreScrapJunkRubber, 30,
+            ]);
+            addDaily(challengesDailyEra19, 42, [
+                    scoreCompleteDailyChallenge, 6,
+                    scoreBuildWallDecor, 5,
+                    scoreCompleteDaily, 1,
+                    scoreCrippleProtectronRobobrainArms, 2,
+                    scoreDestroyRobot, 10,
+                    scoreKillHuman, 10,
+                    scoreTakePictureSuperMutant, 1,
+                    make1st(scoreScrapJunkSprings), 5,
+                    scoreReroll, 1,
+                ], dops(dailyOpsUncanny, dailyOpsCommunists, dailyOpsRegenerating, true, false, true));
+
+
             communityEventsAppend.push(createSpringCleaning(ofDate(2024, 4, 7, 16), ofDate(2024, 4, 21, 16)));
             communityEventsAppend.push(createScripSurplus3(ofDate(2024, 4, 9, 16), ofDate(2024, 4, 13, 16)));
             communityEventsAppend.push(createTreasureHunt(ofDate(2024, 4, 16, 16), ofDate(2024, 4, 20, 16)));
