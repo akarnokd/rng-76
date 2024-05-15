@@ -24469,7 +24469,7 @@
                     scorePlantCrop, 5,
                     make1st(scoreModArmor), 3,
                     scoreReroll, 1,
-                ], dops(dailyOpsBurning, dailyOpsAliens, dailyOpsResilient, false, false, true));
+                ], dops(dailyOpsBurning, dailyOpsAliens, dailyOpsResilient, true, false, true));
             addDaily(challengesDailyEra19, 50, [
                     scoreCompleteDailyChallenge, 6,
                     scoreCompleteOneEvent, 1,
@@ -24480,12 +24480,13 @@
                     scoreSellWeaponNPC, 5,
                     make1st(scoreChewBubblegum), 1,
                     scoreReroll, 1,
-                ], dops(dailyOpsBurning, dailyOpsAliens, dailyOpsResilient, false, false, true));
+                ], dops(dailyOpsArktos, dailyOpsMoleminers, dailyOpsFreezing, false, false, true));
 
 
             communityEventsAppend.push(createMothmanEquinox(ofDate(2024, 4, 14, 16), ofDate(2024, 4, 21, 16)));
             communityEventsAppend.push(createMinerva(ofDate(2024, 4, 16, 16), ofDate(2024, 4, 20, 16), "Emporium @ The Whitespring", "P?"));
-            communityEventsAppend.push(createTreasureHunt(ofDate(2024, 4, 16, 16), ofDate(2024, 4, 20, 16)));
+            // replaced by mothman equinox
+            // communityEventsAppend.push(createTreasureHunt(ofDate(2024, 4, 16, 16), ofDate(2024, 4, 20, 16)));
             communityEventsAppend.push(createDoubleMutations(ofDate(2024, 4, 16, 16), ofDate(2024, 4, 20, 16)));
             communityEventsAppend.push(createMeatWeek(ofDate(2024, 4, 21, 16), ofDate(2024, 5, 4, 16), "Two Helpings of Meat Week"));
             communityEventsAppend.push(createCapsOPlenty(ofDate(2024, 4, 23, 16), ofDate(2024, 4, 27, 16)));
