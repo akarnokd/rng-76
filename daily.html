@@ -24542,6 +24542,34 @@
             // replaced by mothman equinox
             // communityEventsAppend.push(createTreasureHunt(ofDate(2024, 4, 16, 16), ofDate(2024, 4, 20, 16)));
             communityEventsAppend.push(createDoubleMutations(ofDate(2024, 4, 16, 16), ofDate(2024, 4, 20, 16)));
+
+            addWeeklies(challengesWeeklyEra19, 56, [
+                scoreFixedGainXP10000Rank100, 1,
+                scoreCompleteGoldStarN, 3,
+                scoreBuildWallDecorShelter, 5,
+                scoreClaimWorkshop, 3,
+                scoreCompleteOneEvent, 3,
+                scoreCrippleMirelurkLimb, 30,
+                scoreHarvestPlantFungi, 30,
+                scoreKillHuman, 30,
+                scoreScrapJunkBone, 15,
+                scoreScrapJunkPlastic, 30,
+            ]);
+            addDaily(challengesDailyEra19, 56, [
+                    scoreCompleteDailyChallenge, 6,
+                    scoreBuildAnythingShelter, 10,
+                    scoreCompleteDaily, 1,
+                    scoreCrippleMirelurkLimb, 2,
+                    scoreDrinkNukaCola, 3,
+                    scoreKillHuman, 10,
+                    scoreScrapJunkBone, 5,
+                    scoreTakePictureSuperMutant, 1,
+                    scoreCompleteMeatCook, 1,
+                    make1st(scoreDrinkTea), 1,
+                    scoreReroll, 1,
+                ], dops(dailyOpsBurrows, dailyOpsRobots, dailyOpsSwift, false, false, true));
+
+
             communityEventsAppend.push(createMeatWeek(ofDate(2024, 4, 21, 16), ofDate(2024, 5, 4, 16), "Two Helpings of Meat Week"));
             communityEventsAppend.push(createCapsOPlenty(ofDate(2024, 4, 23, 16), ofDate(2024, 4, 27, 16)));
             communityEventsAppend.push(createDoubleMutations(ofDate(2024, 4, 30, 16), ofDate(2024, 5, 3, 16)));
