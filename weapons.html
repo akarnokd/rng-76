@@ -27,7 +27,7 @@
     </head>
     <body style="height: 90%">
         <center>
-            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Weapon Damage Calculator (v3.11.3)</span>
+            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Weapon Damage Calculator (v3.12.0)</span>
             <br/>
             <!--
             <i>(Patch 44 update still in progress.)</i>
@@ -2135,8 +2135,13 @@
             };
             var hairTriggerReloadMod = {
                 name: "Hair trigger",
-                reloadTime: -35,
-                speedAddPercent: 55,
+                reloadTimeMult: -35,
+                speedAddPercent: 50,
+            };
+
+            var hairTriggerBasicMod = {
+                name: "Hair trigger",
+                speedAddPercent: 50
             };
 
             function createCombatRifleReceivers(isFixer) {
@@ -2547,6 +2552,7 @@
                             }
                         }
                     },
+                    hairTriggerBasicMod,
                     snappyMod,
                     severeMod,
                     viciousMod,
@@ -2586,6 +2592,7 @@
                             }
                         }
                     },
+                    hairTriggerBasicMod,
                     scorchKillerMod,
                     primeMod,
                     {
@@ -2620,6 +2627,7 @@
                     snappyMod,
                     severeMod,
                     viciousMod,
+                    hairTriggerBasicMod,
                     {
                         name: "Hasty .45",
                         speedAddPercent: 25,
@@ -2695,6 +2703,7 @@
                     severeMod,
                     snappyMod,
                     viciousMod,
+                    hairTriggerReloadMod,
                     {
                         name: ".38",
                         speedMultPercent: -10,
@@ -2852,10 +2861,7 @@
                                     name: "Speedy",
                                     speedAddPercent: 25
                                 },
-                                {
-                                    name: "Hair Trigger",
-                                    speedAddPercent: 25
-                                },
+                                hairTriggerBasicMod,
                                 {
                                     name: "Refined",
                                     damageMultPercent: 12.5,
@@ -3028,6 +3034,7 @@
                                 severeMod,
                                 viciousMod,
                                 scorchKillerMod,
+                                hairTriggerReloadMod,
                                 primeMod,
                             ]
                         },
@@ -3080,6 +3087,7 @@
                                         }
                                     }
                                 },
+                                hairTriggerReloadMod,
                                 scorchKillerMod,
                                 primeMod,
                             ]
@@ -3624,6 +3632,7 @@
                                 snappyMod,
                                 severeMod,
                                 viciousMod,
+                                hairTriggerReloadMod,
                                 scorchKillerMod,
                                 primeMod,
                             ]
@@ -3669,6 +3678,54 @@
                                 snappyMod,
                                 severeMod,
                                 viciousMod,
+                                hairTriggerReloadMod,
+                                scorchKillerMod,
+                                primeMod,
+                            ]
+                        },
+                        standardMuzzle
+                    ],
+                    legendaryPrefix: "Anti-armor"
+                },
+                {
+                    name: "Civil Unrest",
+                    category: "Shotgun",
+                    kind: "ballistic",
+                    explosive: false,
+                    silencer: true,
+                    speed: 0.5,
+                    clipSize: 12,
+                    reloadTime: 2.500010 / 8 * 0.7,
+                    reloadOneByOne: 0.3,
+                    formId: "0012DBB3",
+                    special: true,
+                    info: "WeaponCivilUnrest",
+                    level: [5, 15, 25, 35, 45],
+                    damage: [55, 65, 75, 85, 95],
+                    mods: [
+                        {
+                            slot: "Receiver",
+                            options: [
+                                {
+                                    name: "Standard"
+                                },
+                                {
+                                    name: "Hardened",
+                                    damageMultPercent: 25
+                                },
+                                {
+                                    name: "Calibrated",
+                                    criticalDamageMultiply: 34,
+                                    patchOverride: {
+                                        "P34": {
+                                            criticalDamageMultiply: 100
+                                        }
+                                    }
+                                },
+                                snappyMod,
+                                severeMod,
+                                viciousMod,
+                                hairTriggerReloadMod,
                                 scorchKillerMod,
                                 primeMod,
                             ]
@@ -3716,6 +3773,7 @@
                                 snappyMod,
                                 severeMod,
                                 viciousMod,
+                                hairTriggerReloadMod,
                                 scorchKillerMod,
                                 primeMod,
                             ]
@@ -3760,6 +3818,7 @@
                                 fierceMod,
                                 severeMod,
                                 viciousMod,
+                                hairTriggerBasicMod,
                                 scorchKillerMod,
                                 primeMod
                             ]
@@ -3950,6 +4009,7 @@
                                         }
                                     }
                                 },
+                                hairTriggerBasicMod,
                                 severeMod,
                                 viciousMod,
                                 fierceMod,
@@ -5064,6 +5124,7 @@
                                 severeMod,
                                 viciousMod,
                                 snappyMod,
+                                hairTriggerBasicMod,
                                 {
                                     name: "Tweaked Auto",
                                     criticalDamageMultiply: 17,
@@ -6384,6 +6445,72 @@
                     // legendaryPrefix: "Vampire's",
                     legendaryMajor: "25% increased fire rate",
                     // legendaryMinor: "Breaks 50% slower"
+                },
+                {
+                    name: "Cremator",
+                    category: "Heavy",
+                    kind: "energy",
+                    speed: 1.5,
+                    clipSize: 90,
+                    ammoPerShot: 10,
+                    reloadTime: 3.833344,
+                    formId: "00729BFE",
+                    special: false,
+                    level: [30, 40, 50],
+                    damage: [0, 0, 0],
+                    damageFire: [75, 86, 100],
+                    mods: [
+                        {
+                            slot: "Tank",
+                            options: [
+                                {
+                                    name: "Standard",
+                                },
+                                {
+                                    name: "Napalm",
+                                    addDamageFireLeveled: [75 * 0.4, 86 * 0.4, 100 * 0.4]
+                                }
+                            ]
+                        },
+                        {
+                            slot: "Propellant Tank",
+                            options: [
+                                {
+                                    name: "Standard",
+                                },
+                                {
+                                    name: "Fast",
+                                    reloadSpeedMult: -30,
+                                },
+                                {
+                                    name: "Large",
+                                    clipSizeAdd: 45,
+                                },
+                                {
+                                    name: "Huge",
+                                    clipSizeAdd: 90,
+                                    reloadTimeMult: 20,
+                                }
+                            ]
+                        },
+                        {
+                            slot: "Barrel",
+                            options: [
+                                {
+                                    name: "Standard"
+                                },
+                                {
+                                    name: "Double shot",
+                                    addDamageFireLeveled: [40, 40, 40]
+                                },
+                                {
+                                    name: "Heavy",
+                                    addDamageFireLeveled: [100, 100, 100],
+                                    reloadTimeMult: 20
+                                }
+                            ]
+                        }
+                    ]
                 },
                 {
                     name: "Flare Gun",
@@ -9960,6 +10087,11 @@
                 + "<br>Bonus properties: +4 clip size, 30% faster reload"
                 + "<br>Form ID: <a href='https://nukacrypt.com/database/json/005A38DA' target='_blank'>005A38DA</a>"
                 );
+                infoMap.set("WeaponCivilUnrest",
+                "<b>Unique Shotgun reward from the Falsely Accused side-quest</b>" 
+                + "<br>Bonus properties: +10 AP"
+                + "<br>Form ID: <a href='https://nukacrypt.com/database/json/00529a04' target='_blank'>00529a04</a>"
+                );
             infoMap.set("WeaponFancySingleAction",
                 "<b>Unique Single Action Pistol with a 1.5% drop chance from Bellhop in exchange for claim tickets</b>" 
                 + "<br>Legendary: <i>random 1 star</i>"
@@ -11981,6 +12113,7 @@
                 var clipSizeMult = 0;
                 var clipSizeAdd = 0;
                 var clipSizeSet = 0;
+                var ammoPerShot = 1;
                 var reloadTime = weap.reloadTime ? weap.reloadTime : 0;
                 var reloadTimeMult = [];
                 var reloadTimeAdd = [];
@@ -11995,6 +12128,9 @@
                 }
                 if (weap.meleeFactor !== undefined) {
                     meleeFactor = weap.meleeFactor;
+                }
+                if (weap.ammoPerShot !== undefined) {
+                    ammoPerShot = weap.ammoPerShot;
                 }
 
                 // prepare selectable buffs
@@ -13149,7 +13285,7 @@
                     cell10.innerHTML = "/&#8801;/&nbsp;" + (clipSize).toFixed(0)
                     +  "&nbsp;&nbsp;&nbsp;&#x267B;&nbsp;" + reloadTime.toFixed(2) + " s"; 
 
-                    var speedRL = clipSize / (clipSize / speed + reloadTime);
+                    var speedRL = (clipSize / ammoPerShot) / (clipSize / ammoPerShot / speed + reloadTime);
 
                     cell12.innerHTML = createDamageDisplayHTML(totalDamage * speedRL, totalDamageEnergy * speedRL, totalDamageRadiation * speedRL,
                         totalDamageFire * speedRL, totalDamageCold * speedRL, totalDamagePoison * speedRL);
