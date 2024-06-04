@@ -24745,6 +24745,32 @@
                 ], dops(dailyOpsWatogaHighschool, dailyOpsCommunists, dailyOpsDanger, true, false, true));
 
             communityEventsAppend.push(createMinerva(ofDate(2024, 5, 3, 16), ofDate(2024, 5, 5, 16), "Emporium @ Crater", "P?"));
+
+            addWeeklies(challengesWeeklyEra19, 70, [
+                scoreFixedGainXP10000Rank100, 1,
+                scoreCompleteGoldStarN, 3,
+                scoreCollectBrainFungus, 25,
+                scoreCollectCaps, 2500,
+                scoreCompleteOneEvent, 3,
+                scoreCraftScrapClothingWeaponArmor, 25,
+                scoreKillMirelurk, 30,
+                scoreKillMoleminer, 30,
+                scoreKillAngler, 9,
+                scoreScrapJunkCeramic, 15,
+                scoreScrapJunkOil, 15,
+            ]);
+            addDaily(challengesDailyEra19, 70, [
+                    scoreCompleteDailyChallenge, 6,
+                    scoreClaimWorkshop, 1,
+                    scoreCollectCaps, 250,
+                    scoreCompleteOneEvent, 1,
+                    scoreCraftScrapArmor, 5,
+                    scoreKillMirelurk, 5,
+                    scoreKillAngler, 3,
+                    make1st(scoreModArmor), 5,
+                    scoreReroll, 1,
+                ], dops(dailyOpsWatogaHighschool, dailyOpsCommunists, dailyOpsDanger, true, false, true));
+
             communityEventsAppend.push(createGoldRush2(ofDate(2024, 5, 6, 16), ofDate(2024, 5, 10, 16)));
             communityEventsAppend.push(createPurveyor(ofDate(2024, 5, 13, 16), ofDate(2024, 5, 17, 16), 25, false, 1));
             communityEventsAppend.push(createDoubleMutations(ofDate(2024, 5, 13, 16), ofDate(2024, 5, 17, 16)));
