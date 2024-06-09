@@ -23677,8 +23677,8 @@
             // oooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo
 
             var era19Start = ofDate(2024, 2, 26, 16); 
-            var era19Length = 91;
-            var era19End = plusDays(new Date(era19Start), era19Length);
+            var era19Length = 77;
+            var era19End = ofDate(2024, 5, 11, 16);
             var challengesDailyEra19 = {
                 validStart: era19Start,
                 validEnd: era19End,
@@ -23833,7 +23833,7 @@
                     scoreReroll, 1,
                 ], dops(dailyOpsWatogaHighschool, dailyOpsScorched, dailyOpsFreezing, false, false, true));
 
-            fillInSeason(season16, era19Length, "LR16", true);
+            fillInSeason(season16, era19Length, "LR16", false);
             seasonEventsAppend.push(season16);
 
             communityEventsAppend.push(createSupriseWeekend2024(ofDate(2024, 2, 28, 16), ofDate(2024, 3, 2, 16)));
@@ -24836,6 +24836,41 @@
 
             addPlaceholders(challengesDailyEra19, scoreDailyplaceholder, era19Length);
             addPlaceholders(challengesWeeklyEra19, scoreWeeklyplaceholder, era19Length);
+
+            // oooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo
+            // Season 17
+            // oooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo
+
+            var era20Start = ofDate(2024, 5, 12, 16); 
+            var era20Length = 76;
+            var era20End = plusDays(ofDate(2024, 5, 12, 16), era20Length);
+            var challengesDailyEra20 = {
+                validStart: era20Start,
+                validEnd: era20End,
+                options: []
+            };
+            var challengesWeeklyEra20 = {
+                validStart: era20Start,
+                validEnd: era20End,
+                options: []
+            };
+            challenges.push(challengesDailyEra20);
+            challengesWeekly.push(challengesWeeklyEra20);
+
+            var season17 = {
+                validStart: era20Start,
+                validEnd: era20End,
+                title: "Season 17: Skyline Valley",
+                options: [
+                    
+                ]
+            };
+
+            fillInSeason(season17, era20Length, "LR17", true);
+            seasonEventsAppend.push(season17);
+
+            addPlaceholders(challengesDailyEra20, scoreDailyplaceholder, era20Length);
+            addPlaceholders(challengesWeeklyEra20, scoreWeeklyplaceholder, era20Length);
 
             // --------------------------------------------------------------------------------------------------------------
             // Community events
