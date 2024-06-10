@@ -24861,7 +24861,7 @@
                 ]
             };
 
-            fillInSeason(season17, era20Length, "LR17", true);
+            fillInSeasonNew(season17, era20Length, "LR17", true);
             seasonEventsAppend.push(season17);
 
             communityEventsAppend.push(createDoubleMutations(ofDate(2024, 5, 13, 16), ofDate(2024, 5, 17, 16)));
@@ -27188,6 +27188,9 @@
                 if (rank <= 1) {
                     return 0;
                 }
+                if (rank > 100) {
+                    return 3500;
+                }
                 return 1000 + (rank - 2) * 25;
             }
 
@@ -27256,6 +27259,133 @@
                         }
                         season.options.push(uncmsg);
                     }
+                }
+            }
+
+            function fillInSeasonNew(season, seasonDays, seasonId, uncertain) {
+                if (maxscore === undefined) {
+                    maxscore = 0;
+                    for (var i = 2; i <= 100; i++) {
+                        maxscore += scoreAtRank(i);
+                    }
+                }
+                // to reach the bonus tier
+                var maxscoreNew = maxscore + 50 * 3500;
+
+                for (var i = 0; i < seasonDays; i++) {
+                    var rankLinear = (100 * (i + 1) / (seasonDays)).toFixed(0);
+                    var scoreProgress = maxscore * i / seasonDays;
+                    var rankScore = 1;
+                    var scoreSum = 0;
+                    while (scoreSum < scoreProgress) {
+                        scoreSum += scoreAtRank(++rankScore);
+                    }
+
+                    season.options.push({
+                        name: "Season total length: <b style='color: green;'>"  + seasonDays + " days</b> <i style='font-weight: normal'>(" + (seasonDays / 7).toFixed(0) + " weeks)</i>",
+                        offset: i,
+                        period: 1400
+                    });
+                    season.options.push({
+                        name: "Progress: <b style='color: green;'>"  + (100  * (i + 1.0) / seasonDays).toFixed(0) + " %</b>",
+                        offset: i,
+                        period: 1400
+                    });
+                    season.options.push({
+                        name: "Season ends: <b style='color: green;'>"  + season.validEnd.toLocaleDateString() 
+                            + " (" + season.validEnd.toLocaleDateString(window.navigator.language, {weekday: 'long'}) + ")"
+                            + " " + season.validEnd.toLocaleTimeString() + "</b>"
+                            + (!uncertain ? " (confirmed)" : "")
+                            ,
+                        offset: i,
+                        period: 1400
+                    });
+
+                    if (uncertain) {
+                        let uncmsg = {
+                            name: "&#x1F6C8; Note that the end date is not confirmed yet and may change.",
+                            offset: i,
+                            period: 1400,
+                        };
+                        if (typeof uncertain === "string") {
+                            uncmsg.subchallenges = [
+                                {
+                                    name: uncertain
+                                }
+                            ];
+                        }
+                        season.options.push(uncmsg);
+                    }
+                    season.options.push({
+                        name: "&nbsp;",
+                        offset: i,
+                        period: 1400,
+                    });
+
+                    var subchallenge1 = [
+                        {
+                            name: "Expected rank (uniform rank gain): <b style='color: green;'>" + rankLinear + "</b>",
+                            tipId: seasonId + "RankUniform",
+                            tip: "If you play so that you gain 99 / " + seasonDays + " ~ " + (99/seasonDays).toFixed(2) + " ranks each day on average."
+                        },
+                        {
+                            name: "Expected rank (uniform S.C.O.R.E. gain): <b style='color: green;'>" + rankScore + "</b>",
+                            tipId: seasonId + "ScoreUniform",
+                            tip: "If you play so that you earn 220,000 / " + seasonDays + " ~ " + (220000 / seasonDays).toFixed(0) + " S.C.O.R.E. each day on average."
+                        }
+                    ];
+
+                    season.options.push({
+                        name: "Objective: Rank 100 at the end",
+                        offset: i,
+                        period: 1400,
+                        subchallenges: subchallenge1
+                    });
+
+                    var rankLinearNew = (150 * (i + 1) / (seasonDays)).toFixed(0);
+                    var scoreProgressNew = maxscoreNew * (i + 1) / seasonDays;
+                    var rankScoreNew = 1;
+                    var scoreSumNew = 0;
+                    while (scoreSumNew < scoreProgressNew) {
+                        scoreSumNew += scoreAtRank(++rankScoreNew);
+                    }
+
+                    var rankScoreNew100 = 1;
+                    var scoreSumNew100 = 0;
+                    while (scoreSumNew100 < maxscore) {
+                        scoreSumNew100 += scoreAtRank(++rankScoreNew100);
+                    }
+
+                    var untilRank100Date = plusDays(new Date(season.validStart), seasonDays * 100 / 149);
+                    var untilRank100Date2 = plusDays(new Date(season.validStart), seasonDays * scoreSumNew100 / maxscoreNew);
+
+                    var subchallenge2 = [
+                        {
+                            name: "Expected rank (uniform rank gain): <b style='color: green;'>" + rankLinearNew + "</b>",
+                            tipId: seasonId + "RankUniformNew",
+                            tip: "If you play so that you gain 149 / " + seasonDays + " ~ " + (149/seasonDays).toFixed(2) + " ranks each day on average."
+                        },
+                        {
+                            name: "&#x1F6C8;&nbsp;Reach rank 100 until: <b style='color: green;'>" + untilRank100Date.toLocaleDateString() 
+                            + " (" + untilRank100Date.toLocaleDateString(window.navigator.language, {weekday: 'long'}) + ")</b>"
+                        },
+                        {
+                            name: "Expected rank (uniform S.C.O.R.E. gain): <b style='color: green;'>" + rankScoreNew + "</b>",
+                            tipId: seasonId + "ScoreUniformNew",
+                            tip: "If you play so that you earn 391,500 / " + seasonDays + " ~ " + (391500 / seasonDays).toFixed(0) + " S.C.O.R.E. each day on average."
+                        },
+                        {
+                            name: "&#x1F6C8;&nbsp;Reach rank 100 until: <b style='color: green;'>" + untilRank100Date2.toLocaleDateString() 
+                            + " (" + untilRank100Date2.toLocaleDateString(window.navigator.language, {weekday: 'long'}) + ")</b>"
+                        },
+                    ];
+
+                    season.options.push({
+                        name: "Objective: Rank 150 at the end",
+                        offset: i,
+                        period: 1400,
+                        subchallenges: subchallenge2
+                    });                
                 }
             }
 
