@@ -23677,8 +23677,8 @@
             // oooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo
 
             var era19Start = ofDate(2024, 2, 26, 16); 
-            var era19Length = 77;
-            var era19End = ofDate(2024, 5, 11, 16);
+            var era19Length = 78;
+            var era19End = ofDate(2024, 5, 12, 16);
             var challengesDailyEra19 = {
                 validStart: era19Start,
                 validEnd: era19End,
@@ -24840,6 +24840,44 @@
             communityEventsAppend.push(createGoldRush2(ofDate(2024, 5, 6, 16), ofDate(2024, 5, 10, 16)));
             communityEventsAppend.push(createPurveyor(ofDate(2024, 5, 13, 16), ofDate(2024, 5, 17, 16), 25, false, 1));
             communityEventsAppend.push(createMinerva(ofDate(2024, 5, 10, 16), ofDate(2024, 5, 12, 16), "Emporium @ Fort Atlas", "P?"));
+
+            function scoreWeirdWeek(offset) {
+                return {
+                            name: "&#9888;&#65039; Weeklies extended one more day",
+                            offset: offset,
+                            period: 1400,
+                            ignore: true,
+                            subchallenges: [
+                                {
+                                    name: "Season 17 starts on a Wednesday for some reason."
+                                },
+                                {
+                                    name: "This makes this Tuesday weird."
+                                },
+                                {
+                                    name: "&nbsp;"
+                                }
+                            ]
+                            //tipId: "ScoreRepeatableXPRank100",
+                            //tip: "Currently bugged and disappears after reaching rank 99."
+                        };
+            }
+
+            addWeeklies(challengesWeeklyEra19, 77, [
+                scoreWeirdWeek, 1,
+                scoreFixedGainXP10000Rank100, 1,
+                scoreCompleteGoldStarN, 3,
+                scoreCollectBrainFungus, 25,
+                scoreCollectCaps, 2500,
+                scoreCompleteOneEvent, 3,
+                scoreCraftScrapClothingWeaponArmor, 25,
+                scoreKillMirelurk, 30,
+                scoreKillMoleminer, 30,
+                scoreKillAngler, 9,
+                scoreScrapJunkCeramic, 15,
+                scoreScrapJunkOil, 15,
+            ]);
+
 
             addPlaceholders(challengesDailyEra19, scoreDailyplaceholder, era19Length);
             addPlaceholders(challengesWeeklyEra19, scoreWeeklyplaceholder, era19Length);
