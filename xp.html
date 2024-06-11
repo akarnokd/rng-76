@@ -39,7 +39,7 @@
     </head>
     <body>
         <center>
-            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Experience Calculator (0.0.11)</span><br/>
+            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Experience Calculator (0.0.12)</span><br/>
             <br>
             <a href="#" target='_blank' id='thelink'>Link to this setup</a>
             &nbsp;&nbsp;&nbsp;&nbsp;<a href="?">Clear</a>
@@ -245,6 +245,18 @@
                     <td id='infoBobbleheadInt'><label for='bobbleheadInt'>Bobblehead: Intelligence</label></td>
                     <td>
                         <input type='checkbox' id='bobbleheadInt'>
+                    </td>
+                </tr>
+                <tr>
+                    <td id='infoLiveandlove3'>Magazine: Live and Love 3</td>
+                    <td>
+                        <input type='checkbox' id='liveandlove3'>
+                    </td>
+                </tr>
+                <tr>
+                    <td id='infoRaceMachine9'><label for='raceMachine9'>Mechanical Derby C.A.M.P. item</label></td>
+                    <td>
+                        <input type='checkbox' id='raceMachine9'>
                     </td>
                 </tr>
                 <tr>
@@ -985,8 +997,14 @@
             infoMap.set("infoLiveandlove", 
                 "+5% XP while in a team."
             );
+            infoMap.set("infoLiveandlove3", 
+                "Food buffs are +50% stronger."
+            );
             infoMap.set("infoHealingFactor",
                 "Chem effects are reduced by 55%. The Class Freak perk can change this to 41.25, 27.5 or 13.75%."
+            );
+            infoMap.set("infoRaceMachine9", 
+                "+2 Intelligence for 30 minutes. Originally from Season 9. Now Crater Bullion item for 1250 when rep is at least Cooperative."
             );
 
             appendInfo("infoLegendaryInt", "infoLegendaryInt");
@@ -1015,6 +1033,8 @@
             appendInfo("infoChem", "infoChem");
             appendInfo("infoRest", "infoRest");
             appendInfo("infoLiveandlove", "infoLiveandlove");
+            appendInfo("infoLiveandlove3", "infoLiveandlove3");
+            appendInfo("infoRaceMachine9", "infoRaceMachine9");
             appendInfo("infoHealingFactor", "infoHealingFactor");
 
 
@@ -1104,6 +1124,22 @@
                 calculate();
             };
 
+            var cbLiveAndLove3 = document.getElementById("liveandlove3");
+            var cbLiveAndLove8 = document.getElementById("liveandlove");
+
+            cbLiveAndLove3.oninput = function() {
+                if (cbLiveAndLove3.checked) {
+                    cbLiveAndLove8.checked = false;
+                }
+                calculate();
+            };
+            cbLiveAndLove8.oninput = function() {
+                if (cbLiveAndLove8.checked) {
+                    cbLiveAndLove3.checked = false;
+                }
+                calculate();
+            };
+
             function get(id) {
                 return document.getElementById(id);
             }
@@ -1145,6 +1181,7 @@
                 var classFreak = valueOf("classFreak");
                 var colaNut = valueOf("colaNut");
                 var inspire = valueOf("inspirational");
+                var ll3 = valueOf("liveandlove3");
 
                 if (nightperson == "1") {
                     int += 1;
@@ -1226,6 +1263,10 @@
                         herbivoreBuff = 2;
                     }
                 }
+                if (ll3) {
+                    herbivoreBuff *= 1.5;
+                }
+
                 var carnivoreBuff = 1;
                 if (foodMutate == "Carnivore") {
                     if (strange) {
@@ -1301,15 +1342,18 @@
                 if (valueOf("bobbleheadInt")) {
                     int += 2;
                 }
+                if (valueOf("raceMachine9")) {
+                    int += 2;
+                }
 
                 // XP BOOSTERS =============================================
 
                 var foodXP = valueOf("foodXP");
                 if (foodXP == "CranberryCobbler") {
-                    xp.push(herbivoreBuff * 5);
+                    xp.push(herbivoreBuff * 5 * (ll3 ? 1.5 : 1));
                 }
                 if (foodXP == "CranberryRelish") {
-                    xp.push(herbivoreBuff * 10);
+                    xp.push(herbivoreBuff * 10 * (ll3 ? 1.5 : 1));
                 }
                 if (foodXP == "CannedMeatStew") {
                     xp.push(carnivoreBuff * 5);
