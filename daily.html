@@ -13662,6 +13662,13 @@
                     period: 1400
                 };
             }
+            function scoreCollectVertibirdFuel2(offset, count) {
+                return {
+                    name: times("Collect Vertibird Fuel - Beth mistake, reroll it", count),
+                    offset: offset,
+                    period: 1400
+                };
+            }
             function scoreCompleteDailyOpsDailies(offset, count) {
                 return {
                     name: times("Complete Daily Operations Daily Challenge", count),
@@ -25000,7 +25007,7 @@
                 ], dops(dailyOpsWestTec, dailyOpsRobots, dailyOpsVaporous, false, true, true));
             addDaily(challengesDailyEra20, 5, [
                     scoreCompleteDailyChallenge, 6,
-                    scoreCollectVertibirdFuel, 100,
+                    scoreCollectVertibirdFuel2, 100,
                     scoreCompleteDailyOpsPublicTeam, 1,
                     scoreCookMeatFood, 5,
                     scoreFermentAlcohol, 3,
