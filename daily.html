@@ -19333,6 +19333,8 @@
                     name: times("Sell Swamp Tofu", count),
                     offset: offset,
                     period: 1400,
+                    tipId: "ScoreSellSwampTofu",
+                    tip: "Recommend rerolling. The Swamp Plant ingredient only appears if someone on the server<br>is at the right phase of the An Organic Solution sidequest at Dyer Chemical."
                 };
             }
 
@@ -25194,6 +25196,17 @@
                     scoreDrinkNukaTwist, 2,
                     scoreKillLesserDevil, 1,
                     make1st(scoreDrinkTea), 1,
+                    scoreReroll, 1,
+                ], dops(dailyOpsBurrows, dailyOpsMutants, dailyOpsVaporous, true, true, true));
+            addDaily(challengesDailyEra20, 18, [
+                    scoreCompleteDailyChallenge, 6,
+                    scoreBuildAnythingShelterFree, 10,
+                    scoreCompleteDailyOps, 1,
+                    scoreCrippleSuperMutantArm, 2,
+                    scoreKillMolerat, 5,
+                    scoreScrapJunkWood, 10,
+                    scoreSellSwampTofu, 1,
+                    make1st(scoreKillCanine), 5,
                     scoreReroll, 1,
                 ], dops(dailyOpsBurrows, dailyOpsMutants, dailyOpsVaporous, true, true, true));
 
