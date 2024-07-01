@@ -27,7 +27,7 @@
     </head>
     <body style="height: 90%">
         <center>
-            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Weapon Damage Calculator (v3.12.0)</span>
+            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Weapon Damage Calculator (v3.13.0)</span>
             <br/>
             <!--
             <i>(Patch 44 update still in progress.)</i>
@@ -135,6 +135,11 @@
         </table>
         </center>
         <script>
+            const minorFasterReload = "15% faster reload";
+            const prefixAntiArmor = "Anti-armor";
+            const majorDamageWhileAiming = "Aiming";
+            const majorFasterFirerate = "25% increased fire rate";
+
             var allWeapons = new Map();
             var allEffects = new Map();
             var enemyCategories = [];
@@ -275,6 +280,23 @@
                             ]
                         }
                     ]
+                },
+                {
+                    name: "V63 Zweihaender",
+                    category: "Two-handed",
+                    speed: speedSlow,
+                    special: true,
+                    info: "WeaponV63Zweihaender",
+                    formId: "0072DF0B",
+                    level: [30, 40, 50],
+                    damage: [65, 75, 85],
+                    damageEnergy: [45, 45, 45],
+                    strengthScaleEnergy: true,
+                    mods: [
+                    ],
+                    legendaryPrefix: "Executioner's",
+                    legendaryMajor: "40% power attack damage",
+                    // legendaryMinor: "40% less damage taken while power attacking"
                 },
                 {
                     name: "Whacker Smacker",
@@ -2390,8 +2412,8 @@
                 return result;
             }
 
-            function createLaserCapacitors() {
-                return {
+            function createLaserCapacitors(onCreate) {
+                var result = {
                     slot: "Capacitor",
                     options: [
                         {
@@ -2436,10 +2458,14 @@
                         primeMod,
                     ]
                 };
+                if (onCreate !== undefined) {
+                    onCreate(result);
+                }
+                return result;
             }
 
-            function createLaserBarrels() {
-                return {
+            function createLaserBarrels(onCreate) {
+                var result = {
                     slot: "Barrel",
                     options: [
                         {
@@ -2468,18 +2494,25 @@
                             debuffViaMultiply: true,
                             speedSet: 7.5
                         },
+                        {
+                            name: "Aligned Automatic"
+                        }
                     ]
                 };
+                if (onCreate !== undefined) {
+                    onCreate(result);
+                }
+                return result;
             }
 
-            function createMuzzleWithBeam(basedamages) {
+            function createMuzzleWithBeam(basedamages, onCreate) {
                 var splitter = [];
                 var splitterbugged = [];
                 for (var d of basedamages) {
                     splitter.push(d * 0.1);
                     splitterbugged.push(d * 4.4)
                 }
-                return {
+                var result = {
                             slot: "Muzzle",
                             options: [
                                 {
@@ -2500,7 +2533,10 @@
                                 }
                             ]
                         };
-
+                if (onCreate !== undefined) {
+                    onCreate(result);
+                }
+                return result;
             }
 
             function createSMGReceiver(weaponName) {
@@ -2534,6 +2570,16 @@
                         primeMod
                     ]
                 }
+            }
+
+            function fnPreinstall(modName) {
+                return entry => {
+                    for (let e of entry.options) {
+                        if (e.name === modName) {
+                            e.preinstalled = true;
+                        }
+                    }
+                };
             }
 
             var pipeBoltActionReceivers = {
@@ -3177,7 +3223,7 @@
                         }
                     ],
                     legendaryPrefix: "Furious",
-                    legendaryMajor: "Aiming",
+                    legendaryMajor: majorDamageWhileAiming,
                     legendaryMinor: "15% faster reload"
                 },
                 {
@@ -3938,7 +3984,7 @@
                         }
                     ],
                     legendaryPrefix: "Two shot",
-                    legendaryMajor: "Aiming",
+                    legendaryMajor: majorDamageWhileAiming,
                     legendaryMinor: "15% faster reload"
                 },
                 {
@@ -4595,7 +4641,7 @@
                         }
                     ],
                     legendaryPrefix: "Two shot",
-                    legendaryMajor: "Aiming",
+                    legendaryMajor: majorDamageWhileAiming,
                     //legendaryMinor: "250DR while reloading"
                 },
                 {
@@ -5199,6 +5245,30 @@
                     ]
                 },
                 {
+                    name: "V63 OLGA",
+                    category: "Rifle",
+                    kind: "laser",
+                    explosive: false,
+                    silencer: false,
+                    speed: 5,
+                    clipSize: 30,
+                    reloadTime: 3,
+                    formId: "0009983B",
+                    special: true,
+                    info: "WeaponV63Olga",
+                    level: [5, 15, 25, 35, 45],
+                    damage: [0, 0, 0, 0, 0],
+                    damageEnergy: [21, 26, 31, 36, 44],
+                    mods: [
+                        createLaserCapacitors(fnPreinstall("Vicious")),
+                        createLaserBarrels(fnPreinstall("Aligned Automatic")),
+                        createMuzzleWithBeam([21, 26, 31, 36, 44], fnPreinstall("Beam Focuser"))
+                    ],
+                    legendaryPrefix: prefixAntiArmor,
+                    legendaryMajor: majorDamageWhileAiming,
+                    legendaryMinor: minorFasterReload
+                },
+                {
                     name: "Ultracite Laser Pistol",
                     category: "Pistol",
                     kind: "laser",
@@ -5417,7 +5487,7 @@
                         createStandardSights("", true, true)
                     ],
                     legendaryPrefix: "Ghoul slayer's",
-                    legendaryMajor: "Aiming"
+                    legendaryMajor: majorDamageWhileAiming
                 },
                 {
                     name: "Plasma Rifle",
@@ -5602,6 +5672,44 @@
                             ]
                         }
                     ]
+                },
+                {
+                    name: "V63 BERTHA",
+                    category: "Rifle",
+                    kind: "energy",
+                    explosive: false,
+                    silencer: false,
+                    speed: 2,
+                    clipSize: 30,
+                    reloadTime: 4.200010,
+                    formId: "0010F0EC",
+                    special: true,
+                    info: "WeaponV63Bertha",
+                    level: [40, 50],
+                    damage: [0, 0],
+                    damageEnergy: [66, 78],
+                    mods: [
+                        {
+                            slot: "Receiver",
+                            options: [
+                                {
+                                    name: "Standard"
+                                },
+                                {
+                                    name: "Automatic",
+                                    damageMultPercent: -15,
+                                    speedSet: 9.1
+                                },
+                                {
+                                    name: "Charging",
+                                    damageMultPercent: 30
+                                },
+                            ]
+                        }
+                    ],
+                    legendaryPrefix: "Two shot",
+                    legendaryMajor: majorFasterFirerate,
+                    legendaryMinor: minorFasterReload,
                 },
                 {
                     name: "Cryolator",
@@ -7199,7 +7307,7 @@
                         damageMultPercent: 100
                     },
                     {
-                        name: "Anti-armor",
+                        name: prefixAntiArmor,
                         ignoreDRPercent: 50
                     },
                     {
@@ -7324,7 +7432,7 @@
                         damageMultPercent: 100
                     },
                     {
-                        name: "Aiming",
+                        name: majorDamageWhileAiming,
                         linkId: "ADS",
                         text: "+% damage while aiming",
                         damageMultPercent: 10,
@@ -7341,7 +7449,7 @@
                         criticalDamage: 50,
                     },
                     {
-                        name: "25% increased fire rate",
+                        name: majorFasterFirerate,
                         linkId: "FFR",
                         //speedMultPercent: 25
                         speedAddPercent: 25
@@ -7361,7 +7469,7 @@
                 // 3: minor
                 [
                     {
-                        name: "15% faster reload",
+                        name: minorFasterReload,
                         linkId: "FRL",
                         reloadTimeMult: -15
                     }
@@ -10234,12 +10342,28 @@
                 + "<br>Bonus properties: +10% damage and enemies explode with fireworks"
                 + "<br>Form ID: <a href='https://nukacrypt.com/database/json/00668991' target='_blank'>00668991</a>"
                 );
-            infoMap.set("WeaponWhackerSmacker",
-                "<b>Unique Super Sledge awarded by Nuka World events.</b>" 
-                + "<br>Legendary: <i>Executioner's, +%50 limb damage, +1 Strength</i>"
-                + "<br>Form ID: <a href='https://nukacrypt.com/database/json/00662761' target='_blank'>00662761</a>"
+            infoMap.set("WeaponV63Zweihaender",
+                "<b>Unique two handed melee weapon awarded by the main quest of Skyline Valley update.</b>" 
+                + "<br>Legendary: <i>Executioner's, +40% power attack damage, 40% less damage taken while power attacking</i>"
+                + "<br>Form ID: <a href='https://nukacrypt.com/database/json/0072DF0B' target='_blank'>0072DF0B</a>"
+                );
+            infoMap.set("WeaponV63Bertha",
+                "<b>Unique tesla rifle awarded by the public event Dangerous Pasttimes of the Skyline Valley update.</b>" 
+                + "<br>Legendary: <i>Two Shot, 25% faster fire rate, 15% faster reload, double ammo capacity</i>"
+                + "<br>Form ID: <a href='https://nukacrypt.com/database/json/0009983B' target='_blank'>0009983B</a>"
+                );
+            infoMap.set("WeaponV63Olga",
+                "<b>Unique laser weapon awarded by the main quest of Skyline Valley update.</b>" 
+                + "<br>Legendary: <i>Anti-Armor, +25% damage while aiming, 15% faster reload</i>"
+                + "<br>Mods: <i>Vicious capacitor, Aligned automatic barrel, Stabilized Grip, Reflex sight (circle), Beam focuser muzzle</i>"
+                + "<br>Form ID: <a href='https://nukacrypt.com/database/json/0009983B' target='_blank'>0009983B</a>"
                 );
                 
+            infoMap.set("WeaponWhackerSmacker",
+                "<b>Unique Super Sledge awarded by Nuka World events.</b>" 
+                + "<br>Legendary: <i>Executioner's, +50% limb damage, +1 Strength</i>"
+                + "<br>Form ID: <a href='https://nukacrypt.com/database/json/00662761' target='_blank'>00662761</a>"
+                );
             infoMap.set("WeaponWesternSpirit",
                 "<b>Unique Lever Action Rifle awarded by Nuka World events.</b>" 
                 + "<br>Legendary: <i>Furious, 25% faster fire rate, 15% faster reload</i>"
@@ -12300,7 +12424,9 @@
                     if (isCalcAdd) {
                         var strBonus = 100 * (strengthPoints * strengthFactor + meleeFactor);
                         totalDamageMultiply.push(strBonus);
-                        //totalDamageEnergyMultiply.push(strBonus);
+                        if (weap.strengthScaleEnergy) {
+                            totalDamageEnergyMultiply.push(strBonus);
+                        }
                     } else {
                         baseDamage *= (1 + strengthPoints * strengthFactor) * repairFactor;
                     }
