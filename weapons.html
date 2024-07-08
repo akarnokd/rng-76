@@ -27,7 +27,7 @@
     </head>
     <body style="height: 90%">
         <center>
-            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Weapon Damage Calculator (v3.13.0)</span>
+            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Weapon Damage Calculator (v3.13.1)</span>
             <br/>
             <!--
             <i>(Patch 44 update still in progress.)</i>
@@ -2574,9 +2574,12 @@
 
             function fnPreinstall(modName) {
                 return entry => {
-                    for (let e of entry.options) {
+                    for (let i in entry.options) {
+                        let e = entry.options[i];
                         if (e.name === modName) {
+                            e = JSON.parse(JSON.stringify(e))
                             e.preinstalled = true;
+                            entry.options[i] = e;
                         }
                     }
                 };
@@ -11973,13 +11976,13 @@
                 opt.text = "Patch 44";
                 opt.value = "P44";
                 opt.linkId = "P44";
-                opt.selected = true;
                 calcmodesel.add(opt);
 
                 opt = document.createElement("option");
                 opt.text = "Patch 50";
                 opt.value = "P50";
                 opt.linkId = "P50";
+                opt.selected = true;
                 calcmodesel.add(opt);
 
                 opt = document.createElement("option");
@@ -13349,7 +13352,7 @@
                     totalDamagePoison += pd;
                 }
 
-                if (calcMode == "P44") {
+                if (calcMode >= "P44") {
                     var additiveArmorPen = 0;
                     for (var e of totalArmorModIgnoreArray) {
                         additiveArmorPen += e;
