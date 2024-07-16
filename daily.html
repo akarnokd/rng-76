@@ -25418,6 +25418,32 @@
             communityEventsAppend.push(createMutationInvasion(ofDate(2024, 6, 9, 16), ofDate(2024, 6, 16, 16)));
             communityEventsAppend.push(createScripSurplus3(ofDate(2024, 6, 11, 16), ofDate(2024, 6, 15, 16)));
             communityEventsAppend.push(createDoubleMutations(ofDate(2024, 6, 11, 16), ofDate(2024, 6, 15, 16)));
+
+            addWeeklies(challengesWeeklyEra20, 34, [
+                scoreFixedGainXP10000Rank100, 1,
+                scoreCompleteGoldStarN, 3,
+                scoreBuildFloorWallCampFree, 25,
+                scoreCompleteEventForestRegion, 3,
+                scoreCrippleEnemyLimbs, 30,
+                scoreDrinkNukaCherry, 5,
+                scoreKillInsects, 30,
+                scoreKillYaoGuai, 3,
+                scoreScrapJunkGlass, 30,
+                scoreScrapJunkSteel, 30,
+                scoreScrapJunkWood, 30,
+            ]);
+            addDaily(challengesDailyEra20, 34, [
+                    scoreCompleteDailyChallenge, 6,
+                    scoreBuildFloorWallShelter, 10,
+                    scoreCollectMirelurkEgg, 3,
+                    scoreCompleteDailyOps, 1,
+                    scoreCraftScrapArmor, 5,
+                    scoreCrippleEnemyLimbs, 6,
+                    scoreKillMutatedEnemy, 10,
+                    make1st(scoreDrinkNukaColaOrange), 2,
+                    scoreReroll, 1,
+                ], dops(dailyOpsFoundry, dailyOpsFanatics, dailyOpsToxic, true, false, true));
+
             communityEventsAppend.push(createPurveyor(ofDate(2024, 6, 18, 16), ofDate(2024, 6, 22, 16), 25, false, 1));
             communityEventsAppend.push(createDoubleMutations(ofDate(2024, 6, 18, 16), ofDate(2024, 6, 22, 16)));
             communityEventsAppend.push(createCapsOPlenty(ofDate(2024, 6, 25, 16), ofDate(2024, 6, 29, 16)));
