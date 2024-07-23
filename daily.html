@@ -25513,6 +25513,32 @@
             communityEventsAppend.push(createPurveyor(ofDate(2024, 6, 18, 16), ofDate(2024, 6, 22, 16), 25, false, 1));
             communityEventsAppend.push(createDoubleMutations(ofDate(2024, 6, 18, 16), ofDate(2024, 6, 22, 16)));
             communityEventsAppend.push(createCapsOPlenty(ofDate(2024, 6, 25, 16), ofDate(2024, 6, 29, 16)));
+
+            addWeeklies(challengesWeeklyEra20, 41, [
+                scoreFixedGainXP10000Rank100, 1,
+                scoreCompleteGoldStarN, 3,
+                scoreCompleteOneEvent, 3,
+                scoreCraftThrowable, 20,
+                scoreEatPrewarFood, 25,
+                scoreHarvestPlantFungi, 30,
+                scoreKillHuman, 30,
+                scoreKillMirelurk, 30,
+                scoreScrapJunkBone, 15,
+                scoreScrapJunkOil, 15,
+                scoreSellYaoGuaiRibsNPC, 1,
+            ]);
+            addDaily(challengesDailyEra20, 41, [
+                    scoreCompleteDailyChallenge, 6,
+                    scoreCollectCaps, 250,
+                    scoreCompleteDailyOps, 1,
+                    scoreDrinkTea, 1,
+                    scoreKillBloodEagle, 10,
+                    scoreKillFestiveScorched, 10,
+                    scoreScrapJunkAluminium, 5,
+                    make1st(scoreJoinGroup), 1,
+                    scoreReroll, 1,
+                ], dops(dailyOpsValley, dailyOpsMoleminers, dailyOpsDanger, true, false, true));
+
             communityEventsAppend.push(createHolidayScorched(ofDate(2024, 6, 23, 16), ofDate(2024, 7, 6, 16), "Holiday Scorched"));
 
             communityEventsAppend.push(createPurveyor(ofDate(2024, 7, 1, 16), ofDate(2024, 7, 5, 16), 0, true, 1));
