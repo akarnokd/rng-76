@@ -25609,6 +25609,31 @@
             communityEventsAppend.push(createHolidayScorched(ofDate(2024, 6, 23, 16), ofDate(2024, 7, 6, 16), "Holiday Scorched"));
             communityEventsAppend.push(createMinerva(ofDate(2024, 6, 25, 16), ofDate(2024, 6, 29, 16), "Big Sale @ The Whitespring", "P?"));
 
+            addWeeklies(challengesWeeklyEra20, 48, [
+                scoreFixedGainXP10000Rank100, 1,
+                scoreCompleteGoldStarN, 3,
+                scoreClaimWorkshop, 3,
+                scoreCollectBrainFungus, 25,
+                scoreConsumeChems, 9,
+                scoreCrippleSuperMutantArm, 18,
+                scoreDrinkNukaCola, 25,
+                scoreHarvestPlantFungi, 30,
+                scoreKillInsects, 30,
+                scoreKillBloodEagle, 30,
+                scoreScrapJunkCircuitry, 15,
+            ]);
+            addDaily(challengesDailyEra20, 48, [
+                    scoreCompleteDailyChallenge, 6,
+                    scoreBuildAnythingCampFree, 10,
+                    scoreCollectBallisticAmmo, 20,
+                    scoreCollectMothmanEggs, 3,
+                    scoreCrippleBloodEagleArm, 2,
+                    scoreFermentAlcohol, 3,
+                    scoreKillFestiveScorchedInTeam, 10,
+                    make1st(scoreScrapJunkGlass), 10,
+                    scoreReroll, 1,
+                ], dops(dailyOpsBurrows, dailyOpsCultists, dailyOpsResilient, true, false, true));
+
             communityEventsAppend.push(createPurveyor(ofDate(2024, 7, 1, 16), ofDate(2024, 7, 5, 16), 0, true, 1));
             communityEventsAppend.push(createPioneerUncharted(ofDate(2024, 7, 6, 16), ofDate(2024, 7, 19, 16)));
             communityEventsAppend.push(createQuakeCon(ofDate(2024, 7, 8, 16), ofDate(2024, 7, 11, 16)));
