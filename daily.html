@@ -25703,6 +25703,31 @@
             communityEventsAppend.push(createPurveyor(ofDate(2024, 7, 1, 16), ofDate(2024, 7, 5, 16), 0, true, 1));
             communityEventsAppend.push(createMinerva(ofDate(2024, 7, 5, 16), ofDate(2024, 7, 7, 16), "Emporium @ Foundation", "P?"));
 
+            addWeeklies(challengesWeeklyEra20, 55, [
+                scoreFixedGainXP10000Rank100, 1,
+                scoreCompleteGoldStarN, 3,
+                scoreCollectBurntBook, 15,
+                scoreCollectAnyNukaCola, 20,
+                scoreCompleteOneEvent, 3,
+                scoreDrinkTea, 5,
+                scoreKillMoleminer, 30,
+                scoreKillSnallygaster, 10,
+                scoreScrapMoney, 50,
+                scoreScrapJunkFertilizer, 15,
+                scoreSellWeaponNPC, 12,
+            ]);
+            addDaily(challengesDailyEra20, 55, [
+                    scoreCompleteDailyChallenge, 6,
+                    scoreCollectAnyNukaCola, 5,
+                    scoreCompleteOneEvent, 1,
+                    scoreCookMealPlant, 5,
+                    scoreCraftAnyFlair, 1,
+                    scoreKillGhoul, 10,
+                    scoreKillFestiveScorched, 10,
+                    make1st(scoreKillRadstag), 5,
+                    scoreReroll, 1,
+                ], dops(dailyOpsFoundry, dailyOpsFanatics, dailyOpsVolatile, false, false, true));
+
             communityEventsAppend.push(createPioneerUncharted(ofDate(2024, 7, 6, 16), ofDate(2024, 7, 19, 16)));
             communityEventsAppend.push(createQuakeCon(ofDate(2024, 7, 8, 16), ofDate(2024, 7, 11, 16)));
             communityEventsAppend.push(createDoubleScore(ofDate(2024, 7, 8, 16), ofDate(2024, 7, 12, 16)));
@@ -27311,10 +27336,74 @@
                     title: "Pioneer Scout's Uncharted Lands Challenges",
                     options: [
                         {
-                            name: "TBD",
+                            name: times("Uncharted Scouts: Collect Purified Water while wearing<br>the Marshal Mallow T-Shirt and Jeans", 3),
                             offset: 0,
                             period: 1,
-                            subchallenges: []
+                            subchallenges: [
+                                {
+                                    name: "Reward: Nuka Cola Mix pack"
+                                }
+                            ]
+                        },
+                        {
+                            name: times("Uncharted Scouts: Cook at your C.A.M.P. while wearing<br>the Marshal Mallow T-Shirt and Jeans", 3),
+                            offset: 0,
+                            period: 1,
+                            subchallenges: [
+                                {
+                                    name: "Reward: Perk Card Pack (3)"
+                                }
+                            ]
+                        },
+                        {
+                            name: times("Uncharted Scouts: Deploy a C.A.M.P. in Skyline Walley while wearing<br>the Marshal Mallow T-Shirt and Jeans", 1),
+                            offset: 0,
+                            period: 1,
+                            subchallenges: [
+                                {
+                                    name: "Reward: Legendary Module (3)"
+                                }
+                            ]
+                        },
+                        {
+                            name: times("Uncharted Scouts: Take a camera picture of the Slumber Mill Motel<br>while wearing the Marshal Mallow T-Shirt and Jeans", 1),
+                            offset: 0,
+                            period: 1,
+                            subchallenges: [
+                                {
+                                    name: "Reward: Lunchbox (3)"
+                                }
+                            ]
+                        },
+                        {
+                            name: times("Uncharted Scouts: Take a camera picture of a Lost while wearing<br>the Marshal Mallow T-Shirt and Jeans", 1),
+                            offset: 0,
+                            period: 1,
+                            subchallenges: [
+                                {
+                                    name: "Reward: Scout's Banner"
+                                }
+                            ]
+                        },
+                        {
+                            name: times("Uncharted Scouts: Complete Week 1 Challenges", 5),
+                            offset: 0,
+                            period: 1,
+                            subchallenges: [
+                                {
+                                    name: "Reward: I'd rather be camping poster"
+                                }
+                            ]
+                        },
+                        {
+                            name: times("Uncharted Scouts: Complete Week 1 and Week 2 Challenges", 2),
+                            offset: 0,
+                            period: 1,
+                            subchallenges: [
+                                {
+                                    name: "Reward: Marshal Mallow Roasting Sticks"
+                                }
+                            ]
                         },
                     ]
                 };
