@@ -24928,7 +24928,7 @@
             // oooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo
 
             var era20Start = ofDate(2024, 5, 12, 16); 
-            var era20Length = 90;
+            var era20Length = 83;
             var era20End = plusDays(ofDate(2024, 5, 12, 16), era20Length);
             var challengesDailyEra20 = {
                 validStart: era20Start,
@@ -24952,7 +24952,7 @@
                 ]
             };
 
-            fillInSeasonNew(season17, era20Length, "LR17", true);
+            fillInSeasonNew(season17, era20Length, "LR17", false);
             seasonEventsAppend.push(season17);
 
             addWeeklies0(challengesWeeklyEra20, 0, [
@@ -25769,6 +25769,41 @@
 
             addPlaceholders(challengesDailyEra20, scoreDailyplaceholder, era20Length);
             addPlaceholders(challengesWeeklyEra20, scoreWeeklyplaceholder, era20Length);
+
+            // oooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo
+            // Season 18
+            // oooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo
+
+            var era21Start = ofDate(2024, 8, 3, 16); 
+            var era21Length = 84;
+            var era21End = plusDays(ofDate(2024, 8, 3, 16), era21Length);
+            var challengesDailyEra21 = {
+                validStart: era21Start,
+                validEnd: era21End,
+                options: []
+            };
+            var challengesWeeklyEra21 = {
+                validStart: era21Start,
+                validEnd: era21End,
+                options: []
+            };
+            challenges.push(challengesDailyEra21);
+            challengesWeekly.push(challengesWeeklyEra21);
+
+            var season18 = {
+                validStart: era21Start,
+                validEnd: era21End,
+                title: "Season 18: Milepost Zero",
+                options: [
+                    
+                ]
+            };
+
+            fillInSeasonNew(season18, era21Length, "LR18", true);
+            seasonEventsAppend.push(season18);
+
+            addPlaceholders(challengesDailyEra21, scoreDailyplaceholder, era21Length);
+            addPlaceholders(challengesWeeklyEra21, scoreWeeklyplaceholder, era21Length);
 
             // --------------------------------------------------------------------------------------------------------------
             // Community events
