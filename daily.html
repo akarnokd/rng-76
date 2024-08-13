@@ -25800,6 +25800,32 @@
             communityEventsAppend.push(createQuakeCon(ofDate(2024, 7, 8, 16), ofDate(2024, 7, 11, 16)));
             communityEventsAppend.push(createDoubleScore(ofDate(2024, 7, 8, 16), ofDate(2024, 7, 12, 16)));
             communityEventsAppend.push(createGoldRush2(ofDate(2024, 7, 8, 16), ofDate(2024, 7, 12, 16)));
+
+            addWeeklies(challengesWeeklyEra20, 62, [
+                scoreFixedGainXP10000Rank100, 1,
+                scoreCompleteGoldStarN, 3,
+                scoreCollectPrewarFood, 20,
+                scoreCompleteEventMothman, 5,
+                scoreCraftEnergyAmmo, 45,
+                scoreCraftPlushie, 3,
+                scoreCrippleGhoulLegs, 18,
+                scoreEatPrewarFood, 25,
+                scoreKillCultistsMothmanEquinox, 30,
+                scoreKillCanine, 30,
+                scoreScrapJunkRubber, 30,
+            ]);
+            addDaily(challengesDailyEra20, 62, [
+                    scoreCompleteDailyChallenge, 6,
+                    scoreCollectRadawayRadX, 5,
+                    scoreCompleteEventMothman, 1,
+                    scoreKillCanine, 5,
+                    scoreKillWendigo, 1,
+                    scoreScrapJunkAcid, 5,
+                    scoreSellMothmanEggNPC, 1,
+                    make1st(scoreScrapJunkGlass), 5,
+                    scoreReroll, 1,
+                ], dops(dailyOpsV96, dailyOpsMoleminers, dailyOpsDanger, true, false, true));
+
             communityEventsAppend.push(createMothmanEquinox(ofDate(2024, 7, 13, 16), ofDate(2024, 7, 27, 16)));
             communityEventsAppend.push(createTreasureHunt(ofDate(2024, 7, 29, 16), ofDate(2024, 8, 2, 16)));
             communityEventsAppend.push(createDoubleMutations(ofDate(2024, 7, 29, 16), ofDate(2024, 8, 2, 16)));
@@ -27495,6 +27521,66 @@
                             subchallenges: [
                                 {
                                     name: "Reward: I'd rather be camping poster"
+                                }
+                            ]
+                        },
+                        {
+                            name: times("Uncharted Scouts: Collect Radaway while wearing<br>the Marshal Mallow T-Shirt and Jeans", 2),
+                            offset: 0,
+                            period: 1,
+                            subchallenges: [
+                                {
+                                    name: "Reward: Nuka Cola Mix"
+                                }
+                            ]
+                        },
+                        {
+                            name: times("Uncharted Scouts: Eat cooked meal while wearing<br>the Marshal Mallow T-Shirt and Jeans", 5),
+                            offset: 0,
+                            period: 1,
+                            subchallenges: [
+                                {
+                                    name: "Reward: Legendary Module (3)"
+                                }
+                            ]
+                        },
+                        {
+                            name: times("Uncharted Scouts: Kill trasher while wearing<br>the Marshal Mallow T-Shirt and Jeans", 5),
+                            offset: 0,
+                            period: 1,
+                            subchallenges: [
+                                {
+                                    name: "Reward: Basic Repair Kit (3)"
+                                }
+                            ]
+                        },
+                        {
+                            name: times("Uncharted Scouts: Take a camera picture at Johnson's Acre while wearing<br>the Marshal Mallow T-Shirt and Jeans", 5),
+                            offset: 0,
+                            period: 1,
+                            subchallenges: [
+                                {
+                                    name: "Reward: Lunchbox (3)"
+                                }
+                            ]
+                        },
+                        {
+                            name: times("Uncharted Scouts: Take a camera picture an Ant while wearing<br>the Marshal Mallow T-Shirt and Jeans", 5),
+                            offset: 0,
+                            period: 1,
+                            subchallenges: [
+                                {
+                                    name: "Reward: Scout's Banner"
+                                }
+                            ]
+                        },
+                        {
+                            name: times("Uncharted Scouts: Complete Week 2 Challenges", 5),
+                            offset: 0,
+                            period: 1,
+                            subchallenges: [
+                                {
+                                    name: "Reward: Marshall Mallow Roasting Stick"
                                 }
                             ]
                         },
