@@ -25894,6 +25894,32 @@
 
             communityEventsAppend.push(createMothmanEquinox(ofDate(2024, 7, 13, 16), ofDate(2024, 7, 27, 16)));
             communityEventsAppend.push(createMinerva(ofDate(2024, 7, 19, 16), ofDate(2024, 7, 21, 16), "Emporium @ Fort Atlas", "P?"));
+
+            addWeeklies(challengesWeeklyEra20, 69, [
+                scoreFixedGainXP10000Rank100, 1,
+                scoreCompleteGoldStarN, 3,
+                scoreBuildWallDecor, 25,
+                scoreCollectCaps, 2500,
+                scoreCompleteEventMothman, 5,
+                scoreCrippleMirelurkLimb, 30,
+                scoreCrippleScorchedArm, 18,
+                scoreEatMeat, 25,
+                scoreKillScorched, 30,
+                scorePlantCrop, 25,
+                scoreSellWeaponNPC, 15,
+            ]);
+            addDaily(challengesDailyEra20, 69, [
+                    scoreCompleteDailyChallenge, 6,
+                    scoreBuildAnythingShelterFree, 10,
+                    scoreBuildBedTableStairsCAMP, 3,
+                    scoreCompleteEventMothman, 1,
+                    scoreEatCookedMeal, 10,
+                    scoreHackTerminal, 1,
+                    scoreKillHuman, 10,
+                    make1st(scoreBuildDefenseApplianceCraftingWorkshop), 3,
+                    scoreReroll, 1,
+                ], dops(dailyOpsBurning, dailyOpsMoleminers, dailyOpsResilient, false, false, true));
+
             communityEventsAppend.push(createTreasureHunt(ofDate(2024, 7, 29, 16), ofDate(2024, 8, 2, 16)));
             communityEventsAppend.push(createDoubleMutations(ofDate(2024, 7, 29, 16), ofDate(2024, 8, 2, 16)));
 
