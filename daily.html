@@ -25930,10 +25930,22 @@
                     make1st(scoreCollectCaps), 250,
                     scoreReroll, 1,
                 ], dops(dailyOpsWatogaHighschool, dailyOpsRobots, dailyOpsDanger, false, false, true));
+            addDaily(challengesDailyEra20, 71, [
+                    scoreCompleteDailyChallenge, 6,
+                    scoreCompleteEventMothman, 1,
+                    scoreCrippleSuperMutantArm, 2,
+                    scoreEatCookedMealTeammate, 5,
+                    scoreJoinGroup, 1,
+                    scoreKillRadstag, 5,
+                    scoreScrapPipeGun, 3,
+                    make1st(scoreChewBubblegum), 1,
+                    scoreReroll, 1,
+                ], dops(dailyOpsWatogaHighschool, dailyOpsRobots, dailyOpsDanger, false, false, true));
 
+            communityEventsAppend.push(createScripSurplus3(ofDate(2024, 7, 20, 16), ofDate(2024, 8, 3, 16), "Scrip Surplus Days", true));
             communityEventsAppend.push(createTreasureHunt(ofDate(2024, 7, 29, 16), ofDate(2024, 8, 2, 16)));
             communityEventsAppend.push(createDoubleMutations(ofDate(2024, 7, 29, 16), ofDate(2024, 8, 2, 16)));
-
+ 
             communityEventsAppend.push(createPurveyor(ofDate(2024, 8, 5, 16), ofDate(2024, 8, 9, 16), 25, false, 1));
             communityEventsAppend.push(createDoubleMutations(ofDate(2024, 8, 5, 16), ofDate(2024, 8, 9, 16)));
             communityEventsAppend.push(createDoubleXP(ofDate(2024, 8, 12, 16), ofDate(2024, 8, 16, 16)));
@@ -26500,11 +26512,11 @@
                     ]
                 };
             }
-            function createScripSurplus3(start, end) {
-                return {
+            function createScripSurplus3(start, end, title, isEndOfCores) {
+                let r = {
                     validStart: start,
                     validEnd: end,
-                    title: "Scrip Surplus Weekend",
+                    title: title !== undefined ? title : "Scrip Surplus Weekend",
                     notable: { icon: "scrip2x", description: "Scrip Surplus" },
                     options: [
                         {
@@ -26522,6 +26534,34 @@
                         },
                     ]
                 };
+                if (isEndOfCores) {
+                    r.options.push({
+                        name: "Legendary Cores will be removed from the game",
+                        offset: 0,
+                        period: 1,
+                        subchallenges: [
+                            {
+                                name: "with Season 18 - Milepost Zero on September 3, 2024"
+                            },
+                            {
+                                name: "They will be auto-converted to Scrip 1:1"
+                            },
+                            {
+                                name: "Use this time to make room for the conversion."
+                            },
+                            {
+                                name: "Also the Legendary Module cost will go up to 100 Scrip."
+                            },
+                            {
+                                name: "Legendary crafting will now rely on Legendary Modules instead."
+                            },
+                            {
+                                name: "Events will now reward some Legendary Modules instead."
+                            }
+                        ]
+                    })
+                }
+                return r;
             }
             function createScripSurplusTriple(start, end) {
                 return {
