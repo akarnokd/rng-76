@@ -25989,6 +25989,31 @@
             communityEventsAppend.push(createScripSurplus3(ofDate(2024, 7, 20, 16), ofDate(2024, 8, 3, 16), "Scrip Surplus Days", true));
             communityEventsAppend.push(createTreasureHunt(ofDate(2024, 7, 29, 16), ofDate(2024, 8, 2, 16)));
             communityEventsAppend.push(createDoubleMutations(ofDate(2024, 7, 29, 16), ofDate(2024, 8, 2, 16)));
+
+            addWeeklies(challengesWeeklyEra20, 76, [
+                scoreFixedGainXP10000Rank100, 1,
+                scoreCompleteGoldStarN, 3,
+                scoreBuildAnythingCamp, 25,
+                scoreCollectStimpakChems, 20,
+                scoreCompleteOneEvent, 3,
+                scoreCrippleHumanHeads, 12,
+                scoreDrinkNukaCola, 25,
+                scoreKillCanine, 30,
+                scoreKillCultist, 25,
+                scoreKillMirelurk, 30,
+                scoreSellYaoGuaiRibsNPC, 1,
+            ]);
+            addDaily(challengesDailyEra20, 76, [
+                    scoreCompleteDailyChallenge, 6,
+                    scoreCollectBallisticAmmo, 20,
+                    scoreCompleteOneEvent, 1,
+                    scoreCrippleSuperMutantHead, 2,
+                    scoreKillGhoul, 10,
+                    scoreModArmor, 5,
+                    scoreScrapJunkBone, 5,
+                    make1st(scoreDrinkNukaGrape), 2,
+                    scoreReroll, 1,
+                ], dops(dailyOpsFoundry, dailyOpsFanatics, dailyOpsCloaked, true, false, true));
  
             communityEventsAppend.push(createPurveyor(ofDate(2024, 8, 5, 16), ofDate(2024, 8, 9, 16), 25, false, 1));
             communityEventsAppend.push(createDoubleMutations(ofDate(2024, 8, 5, 16), ofDate(2024, 8, 9, 16)));
