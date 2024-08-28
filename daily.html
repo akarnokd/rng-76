@@ -17357,6 +17357,15 @@
                     tip: "You need the Hound Chops with 4 Hound Meat recipe."
                 };
             }
+            function scoreSellSweetRollNPC(offset, count) {
+                return {
+                    name: times("Sell Sweet Roll an NPC vendor", count),
+                    offset: offset,
+                    period: 1400,
+                    tipId: "SellSweetRollNPC",
+                    tip: "Purified Water (2), Spices (2), Sugar (3), Sugar Bombs - Radiated (3), Wood (1)."
+                };
+            }
             function scoreBuildDefenseApplianceCraftingWorkshop(offset, count) {
                 return {
                     name: times("Build Defense, Appliance or Crafting items in your C.A.M.P./Workshop", count),
@@ -26012,6 +26021,17 @@
                     scoreModArmor, 5,
                     scoreScrapJunkBone, 5,
                     make1st(scoreDrinkNukaGrape), 2,
+                    scoreReroll, 1,
+                ], dops(dailyOpsValley, dailyOpsAliens, dailyOpsToxic, false, false, true));
+            addDaily(challengesDailyEra20, 77, [
+                    scoreCompleteDailyChallenge, 6,
+                    scoreCompleteDaily, 1,
+                    scoreCraftAlcohol, 1,
+                    scoreDestroyRobot, 10,
+                    scoreKillSupermutant, 5,
+                    scoreSellMutantHoundChopsNPC, 1,
+                    scoreSellSweetRollNPC, 5,
+                    make1st(scoreEatVegetable), 10,
                     scoreReroll, 1,
                 ], dops(dailyOpsValley, dailyOpsAliens, dailyOpsToxic, false, false, true));
  
