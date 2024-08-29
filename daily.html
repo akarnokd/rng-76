@@ -63,6 +63,7 @@
             var shiftDate9 = ofDate(2023, 2, 12, 16);
             var shiftDate10 = ofDate(2023, 10, 5, 16);
             var shiftDate11 = ofDate(2024, 2, 10, 16);
+            var shiftDate12 = ofDate(2024, 10, 3, 16);
 
             function normalizeDate(date) {
                 if (date < oneHourLaterSince) {
@@ -83,24 +84,27 @@
                 } else 
                 if (date < shiftDate6) {
                     date.setUTCHours(16, 0, 0, 0);
-                }
+                } else
                 if (date < shiftDate7) {
                     date.setUTCHours(17, 0, 0, 0);
-                }
+                } else
                 if (date < shiftDate8) {
                     date.setUTCHours(16, 0, 0, 0);
-                }
+                } else
                 if (date < shiftDate9) {
                     date.setUTCHours(17, 0, 0, 0);
-                }
+                } else
                 if (date < shiftDate10) {
                     date.setUTCHours(16, 0, 0, 0);
-                }
+                } else
                 if (date < shiftDate11) {
                     date.setUTCHours(17, 0, 0, 0);
+                } else
+                if (date < shiftDate12) {
+                    date.setUTCHours(16, 0, 0, 0);
                 }
                 else {
-                    date.setUTCHours(16, 0, 0, 0);
+                    date.setUTCHours(17, 0, 0, 0);
                 }
             }
 
@@ -26042,16 +26046,9 @@
                     scoreScrapJunkSilver, 3,
                     make1st(scoreKillScorched), 10,
                     scoreReroll, 1,
-                ], dops(dailyOpsAquarium, dailyOpsOvergrown, dailyOpsDanger, true, false, true));
+                ], dops(dailyOpsWatogaHighschool, dailyOpsCultists, dailyOpsChillingMend, false, true, true));
  
             communityEventsAppend.push(createMinerva(ofDate(2024, 7, 29, 16), ofDate(2024, 8, 2, 16), "Big Sale @ The Whitespring", "P?"));
-            communityEventsAppend.push(createPurveyor(ofDate(2024, 8, 5, 16), ofDate(2024, 8, 9, 16), 25, false, 1));
-            communityEventsAppend.push(createDoubleMutations(ofDate(2024, 8, 5, 16), ofDate(2024, 8, 9, 16)));
-            communityEventsAppend.push(createDoubleXP(ofDate(2024, 8, 12, 16), ofDate(2024, 8, 16, 16)));
-            communityEventsAppend.push(createPurveyor(ofDate(2024, 8, 19, 16), ofDate(2024, 8, 23, 16), 0, true, 1));
-            communityEventsAppend.push(createScripSurplus3(ofDate(2024, 8, 26, 16), ofDate(2024, 8, 30, 16)));
-            communityEventsAppend.push(createDoubleMutations(ofDate(2024, 8, 26, 16), ofDate(2024, 8, 30, 16)));
-            communityEventsAppend.push(createDoubleScore(ofDate(2024, 8, 26, 16), ofDate(2024, 8, 30, 16)));
 
             addPlaceholders(challengesDailyEra20, scoreDailyplaceholder, era20Length);
             addPlaceholders(challengesWeeklyEra20, scoreWeeklyplaceholder, era20Length);
@@ -26061,7 +26058,7 @@
             // oooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo
 
             var era21Start = ofDate(2024, 8, 3, 16); 
-            var era21Length = 84;
+            var era21Length = 91;
             var era21End = plusDays(ofDate(2024, 8, 3, 16), era21Length);
             var challengesDailyEra21 = {
                 validStart: era21Start,
@@ -26088,8 +26085,83 @@
             fillInSeasonNew(season18, era21Length, "LR18", true);
             seasonEventsAppend.push(season18);
 
+            communityEventsAppend.push(createPurveyor(ofDate(2024, 8, 5, 16), ofDate(2024, 8, 9, 16), 25, false, 1));
+            communityEventsAppend.push(createDoubleMutations(ofDate(2024, 8, 5, 16), ofDate(2024, 8, 9, 16)));
+            communityEventsAppend.push(createMutationInvasion(ofDate(2024, 8, 5, 16), ofDate(2024, 8, 12, 16)));
+            communityEventsAppend.push(createDoubleXP(ofDate(2024, 8, 12, 16), ofDate(2024, 8, 16, 16)));
+            communityEventsAppend.push(createPurveyor(ofDate(2024, 8, 19, 16), ofDate(2024, 8, 23, 16), 0, true, 1));
+            communityEventsAppend.push(createMutationInvasion(ofDate(2024, 8, 19, 16), ofDate(2024, 8, 26, 16)));
+            communityEventsAppend.push(createScripSurplus3(ofDate(2024, 8, 26, 16), ofDate(2024, 8, 30, 16)));
+            communityEventsAppend.push(createDoubleMutations(ofDate(2024, 8, 26, 16), ofDate(2024, 8, 30, 16)));
+            communityEventsAppend.push(createDoubleScore(ofDate(2024, 8, 26, 16), ofDate(2024, 8, 30, 16)));
+
+            communityEventsAppend.push(createSpookyCampCompetition(ofDate(2024, 9, 1, 16), ofDate(2024, 9, 31, 16)));
+            communityEventsAppend.push(createCapsOPlenty(ofDate(2024, 9, 3, 16), ofDate(2024, 9, 7, 16)));
+            communityEventsAppend.push(createDoubleMutations(ofDate(2024, 9, 3, 16), ofDate(2024, 9, 7, 16)));
+            communityEventsAppend.push(createMutationInvasion(ofDate(2024, 9, 15, 16), ofDate(2024, 9, 22, 16)));
+            communityEventsAppend.push(createDoubleMutations(ofDate(2024, 9, 17, 16), ofDate(2024, 9, 21, 16)));
+            communityEventsAppend.push(createGoldRush2(ofDate(2024, 9, 17, 16), ofDate(2024, 9, 21, 16)));
+            communityEventsAppend.push(createSpookyScorched2023(ofDate(2024, 9, 22, 16), ofDate(2024, 10, 5, 16)));
+            communityEventsAppend.push(createFalloutDay(ofDate(2024, 9, 23, 16), ofDate(2024, 9, 24, 16)));
+            communityEventsAppend.push(createDoubleMutations(ofDate(2024, 9, 31, 16), ofDate(2024, 10, 4, 16)));
+            communityEventsAppend.push(createPurveyor(ofDate(2024, 9, 31, 16), ofDate(2024, 10, 4, 16), 25, false, 1));
+
+            communityEventsAppend.push(createMutationInvasion(ofDate(2024, 10, 5, 16), ofDate(2024, 10, 12, 16)));
+            communityEventsAppend.push(createDoubleScore(ofDate(2024, 10, 7, 16), ofDate(2024, 10, 11, 16)));
+            communityEventsAppend.push(createTreasureHunt(ofDate(2024, 10, 7, 16), ofDate(2024, 10, 11, 16)));
+            communityEventsAppend.push(createInvaders(ofDate(2024, 10, 12, 16), ofDate(2024, 10, 26, 16)));
+            communityEventsAppend.push(createHappyBirthdayFallout76(ofDate(2024, 10, 14, 16), ofDate(2024, 10, 15, 16)));
+            communityEventsAppend.push(createScripSurplus3(ofDate(2024, 10, 21, 16), ofDate(2024, 10, 25, 16)));
+            communityEventsAppend.push(createDoubleXP(ofDate(2024, 10, 28, 16), ofDate(2024, 11, 2, 16)));
+            communityEventsAppend.push(createDoubleMutations(ofDate(2024, 10, 28, 16), ofDate(2024, 11, 2, 16)));
+            communityEventsAppend.push(createGoldRush2(ofDate(2024, 10, 28, 16), ofDate(2024, 11, 2, 16)));
+            communityEventsAppend.push(createMutationInvasion(ofDate(2024, 10, 26, 16), ofDate(2024, 11, 3, 16)));
+
             addPlaceholders(challengesDailyEra21, scoreDailyplaceholder, era21Length);
             addPlaceholders(challengesWeeklyEra21, scoreWeeklyplaceholder, era21Length);
+
+            // oooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo
+            // Season 19
+            // oooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo
+
+            var era22Start = ofDate(2024, 11, 3, 16); 
+            var era22Length = 91;
+            var era22End = plusDays(ofDate(2024, 11, 3, 16), era22Length);
+            var challengesDailyEra22 = {
+                validStart: era22Start,
+                validEnd: era22End,
+                options: []
+            };
+            var challengesWeeklyEra22 = {
+                validStart: era22Start,
+                validEnd: era22End,
+                options: []
+            };
+            challenges.push(challengesDailyEra22);
+            challengesWeekly.push(challengesWeeklyEra22);
+
+            var season19 = {
+                validStart: era22Start,
+                validEnd: era22End,
+                title: "Season 19: TBD",
+                options: [
+                    
+                ]
+            };
+
+            fillInSeasonNew(season19, era22Length, "LR19", true);
+            seasonEventsAppend.push(season19);
+
+            communityEventsAppend.push(createTreasureHunt(ofDate(2024, 11, 5, 16), ofDate(2024, 11, 9, 16)));
+            communityEventsAppend.push(createMutationInvasion(ofDate(2024, 11, 10, 16), ofDate(2024, 11, 17, 16)));
+            communityEventsAppend.push(createCapsOPlenty(ofDate(2024, 11, 12, 16), ofDate(2024, 11, 16, 16)));
+            communityEventsAppend.push(createDoubleMutations(ofDate(2024, 11, 12, 16), ofDate(2024, 11, 16, 16)));
+            communityEventsAppend.push(createHolidayScorched(ofDate(2024, 11, 17, 16), ofDate(2025, 1, 2, 16)));
+            communityEventsAppend.push(createDoubleMutations(ofDate(2024, 11, 19, 16), ofDate(2024, 11, 23, 16)));
+            communityEventsAppend.push(createDoubleScore(ofDate(2024, 11, 19, 16), ofDate(2024, 11, 23, 16)));
+
+            addPlaceholders(challengesDailyEra22, scoreDailyplaceholder, era22Length);
+            addPlaceholders(challengesWeeklyEra22, scoreWeeklyplaceholder, era22Length);
 
             // --------------------------------------------------------------------------------------------------------------
             // Community events
@@ -27241,6 +27313,21 @@
                 };
             }
 
+            function createSpookyCampCompetition(start, end) {
+                return {
+                    validStart: start,
+                    validEnd: end,
+                    title: "Spooky C.A.M.P. Competition",
+                    options: [
+                        {
+                            name: "TBD.",
+                            offset: 0,
+                            period: 1
+                        },
+                    ]
+                };
+            }
+
             function createF1st(start, end) {
                 return {
                     validStart: start,
@@ -27605,6 +27692,37 @@
                     ]
                 };
             }
+            function createFalloutDay(start, end) {
+                return {
+                    validStart: start,
+                    validEnd: end, 
+                    title: "Fallout Day",
+                    options: [
+                        {
+                            name: "TBD.",
+                            offset: 0,
+                            period: 1,
+                        }
+                    ]
+                };
+            }
+            function createHappyBirthdayFallout76(start, end) {
+                return {
+                    validStart: start,
+                    validEnd: end, 
+                    title: "Happy Birthday Fallout 76",
+                    options: [
+                        {
+                            name: "TBD.",
+                            offset: 0,
+                            period: 1,
+                        }
+                    ]
+                };
+            }
+
+            
+
             function createSpookyScorched2023(start, end) {
                 return {
                     validStart: start,
