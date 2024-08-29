@@ -16990,11 +16990,9 @@
             }
             function scoreReroll(offset, count) {
                 return {
-                    name: times("<br>&#x1F6C8; You can reroll challenges now.", count),
+                    name: times("<br>&#x1F6C8; You can reroll most challenges now.", count),
                     offset: offset,
                     period: 1400,
-                    tipId: "scoreReroll",
-                    tip: "Currently half bugged, half worse than before."
                 };
             }
             function scoreCrippleGhoulLegs(offset, count) {
@@ -26034,7 +26032,19 @@
                     make1st(scoreEatVegetable), 10,
                     scoreReroll, 1,
                 ], dops(dailyOpsAquarium, dailyOpsOvergrown, dailyOpsDanger, true, false, true));
+            addDaily(challengesDailyEra20, 78, [
+                    scoreCompleteDailyChallenge, 6,
+                    scoreBuildBedTableStairsCAMP, 3,
+                    scoreCompleteEventWellFed, 1,
+                    scoreCraftBulkWood, 1,
+                    scoreCrippleEnemyLimbs, 6,
+                    scoreKillHuman, 10,
+                    scoreScrapJunkSilver, 3,
+                    make1st(scoreKillScorched), 10,
+                    scoreReroll, 1,
+                ], dops(dailyOpsAquarium, dailyOpsOvergrown, dailyOpsDanger, true, false, true));
  
+            communityEventsAppend.push(createMinerva(ofDate(2024, 7, 29, 16), ofDate(2024, 8, 2, 16), "Big Sale @ The Whitespring", "P?"));
             communityEventsAppend.push(createPurveyor(ofDate(2024, 8, 5, 16), ofDate(2024, 8, 9, 16), 25, false, 1));
             communityEventsAppend.push(createDoubleMutations(ofDate(2024, 8, 5, 16), ofDate(2024, 8, 9, 16)));
             communityEventsAppend.push(createDoubleXP(ofDate(2024, 8, 12, 16), ofDate(2024, 8, 16, 16)));
