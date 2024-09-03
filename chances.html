@@ -58,8 +58,9 @@
                 <option value='P49'>Update 49: 30th January, 2024</option>
                 <option value='P50'>Update 50: 26th March, 2024</option>
                 <option value='P51'>Update 51: 30th April, 2024</option>
-                <option value='P52' selected>Update 52: 12th June, 2024</option>
-                <option value='P53' selected>Update 53: 23th July, 2024 (latest)</option>
+                <option value='P52'>Update 52: 12th June, 2024</option>
+                <option value='P53'>Update 53: 23rd July, 2024</option>
+                <option value='P54'>Update 54: 3rd September, 2024</option>
             </select>
             &nbsp;&nbsp;
             <button id='loadversion'>Load</button>
@@ -180,6 +181,11 @@
 
             // if a number > 0 but less than epsilon, it is treated as zero.
             var epsilon = 0.000001;
+
+            var vsel = document.getElementById("versionselect");
+            var vsop = vsel.options[vsel.options.length - 1];
+            vsop.selected = true;
+            vsop.text = vsop.text + " (latest)";
 
             function allDownloaded() {
                 document.getElementById("loadversion").disabled = false;

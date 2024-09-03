@@ -45,22 +45,14 @@
                             <option value='P49'>Update 49: 30th January, 2024</option>
                             <option value='P50'>Update 50: 26th March, 2024</option>
                             <option value='P51'>Update 51: 30th April, 2024</option>
-                            <option value='P52' selected>Update 52: 12th June, 2024</option>
-                            <option value='P53'>Update 53: 23th July, 2024 (latest)</option>
+                            <option value='P52'>Update 52: 12th June, 2024</option>
+                            <option value='P53'>Update 53: 23rd July, 2024</option>
+                            <option value='P54'>Update 54: 3rd September, 2024</option>
                         </select>
                     </td>
                     <td>
                         Patch (right):
                         <select id='versionright'>
-                            <option value='P45'>Update 45: 18th July, 2023</option>
-                            <option value='P46'>Update 46: 22nd August, 2023</option>
-                            <option value='P47'>Update 47: 10th October, 2023</option>
-                            <option value='P48'>Update 48: 5th December, 2023</option>
-                            <option value='P49'>Update 49: 30th January, 2024</option>
-                            <option value='P50'>Update 50: 26th March, 2024</option>
-                            <option value='P51'>Update 51: 30th April, 2024</option>
-                            <option value='P52'>Update 52: 12th June, 2024</option>
-                            <option value='P53' selected>Update 53: 23th July, 2024 (latest)</option>
                         </select>
                     </td>
                     <td>
@@ -133,6 +125,24 @@
 
             // called to render the appropriate difference
             var renderDiffFunc = undefined;
+
+            var vr = document.getElementById("versionright");
+            var vl = document.getElementById("versionleft");
+            for (var vlopt of vl.options) {
+
+                let vropt = document.createElement("option");
+                vropt.value = vlopt.value;
+                vropt.text = vlopt.text;
+                vr.appendChild(vropt);
+            }
+            var vr0 = vr.options[vr.options.length - 1];
+            vr0.selected = true;
+            vr0.text = vr0.text + " (latest)";
+
+            var vl0 = vl.options[vl.options.length - 2];
+            vl0.selected = true;
+            vl0 = vl.options[vl.options.length - 1];
+            vl0.text = vl0.text + " (latest)";
 
             function loadScript(id, src, callback) {
                 var r = false;
