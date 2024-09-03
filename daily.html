@@ -15612,6 +15612,20 @@
                     period: 1400
                 };
             }
+            function scoreKillLost(offset, count) {
+                return {
+                    name: times("Kill Lost", count),
+                    offset: offset,
+                    period: 1400
+                };
+            }
+            function scoreLikeBestBuiltCamp(offset, count) {
+                return {
+                    name: times("Like a Best Build C.A.M.P.", count),
+                    offset: offset,
+                    period: 1400
+                };
+            }
             function scoreTakeCameraPictureCamden(offset, count) {
                 return {
                     name: times("Take Camera Picture in Camden Park", count),
@@ -26090,7 +26104,7 @@
                     scoreKillCultist, 10,
                     make1st(scoreUsePhotomodeOwnCamp), 1,
                     scoreReroll, 1,
-                ], dops(dailyOpsArktos, dailyOpsRobots, dailyOpsReflective, false, true, true));
+                ], dops(dailyOpsArktos, dailyOpsRobots, dailyOpsReflective, false, false, true));
  
             communityEventsAppend.push(createMinerva(ofDate(2024, 7, 29, 16), ofDate(2024, 8, 2, 16), "Big Sale @ The Whitespring", "P?"));
 
@@ -26128,36 +26142,36 @@
 
             fillInSeasonNew(season18, era21Length, "LR18", true);
             seasonEventsAppend.push(season18);
-/*
-            addWeeklies(challengesWeeklyEra20, 0, [
+
+            addWeeklies(challengesWeeklyEra21, 0, [
                 scoreFixedGainXP10000Rank100, 1,
                 scoreCompleteGoldStarN, 3,
-                scoreBuildAnythingCamp, 25,
-                scoreCollectStimpakChems, 20,
-                scoreCompleteOneEvent, 3,
-                scoreCrippleHumanHeads, 12,
-                scoreDrinkNukaCola, 25,
-                scoreKillCanine, 30,
-                scoreKillCultist, 25,
-                scoreKillMirelurk, 30,
-                scoreSellYaoGuaiRibsNPC, 1,
+                scoreCollectCaps, 2500,
+                scoreCollectPrewarFood, 25,
+                scoreCollectPurifiedWater, 25,
+                scoreCollectRadawayRadX, 15,
+                scoreCompletePublicMutatedEvent, 3,
+                scoreCrippleGhoulLegs, 18,
+                scoreKillSupermutant, 30,
+                scoreLikeBestBuiltCamp, 4,
+                scoreScrapJunkBone, 15,
             ]);
-            addDaily(challengesDailyEra20, 0, [
+            addDaily(challengesDailyEra21, 0, [
                     scoreCompleteDailyChallenge, 6,
-                    scoreBuildFloorWallCamp, 5,
-                    scoreChewBubblegum, 1,
-                    scoreCollectWood, 20,
-                    scoreCraftPlushie, 1,
-                    scoreDestroyAssaultron, 1,
-                    scoreKillCultist, 10,
-                    make1st(scoreUsePhotomodeOwnCamp), 1,
+                    scoreCompleteDailyOps, 1,
+                    scoreDestroyRobot, 10,
+                    scoreKillInsects, 5,
+                    scoreKillLost, 5,
+                    scoreLikeBestBuiltCamp, 1,
+                    scoreSellShotgun, 1,
+                    make1st(scoreEatVegetable), 10,
                     scoreReroll, 1,
-                ], dops(dailyOpsArktos, dailyOpsRobots, dailyOpsReflective, false, true, true));
-*/
+                ], dops(dailyOpsWatoga, dailyOpsCommunists, dailyOpsFreezing, true, false, true));
+
 
             communityEventsAppend.push(createPurveyor(ofDate(2024, 8, 5, 16), ofDate(2024, 8, 9, 16), 25, false, 1));
             communityEventsAppend.push(createDoubleMutations(ofDate(2024, 8, 5, 16), ofDate(2024, 8, 9, 16)));
-            communityEventsAppend.push(createMutationInvasion(ofDate(2024, 8, 5, 16), ofDate(2024, 8, 12, 16)));
+            communityEventsAppend.push(createMutationInvasion(ofDate(2024, 8, 3, 16), ofDate(2024, 8, 10, 16)));
             communityEventsAppend.push(createDoubleXP(ofDate(2024, 8, 12, 16), ofDate(2024, 8, 16, 16)));
             communityEventsAppend.push(createPurveyor(ofDate(2024, 8, 19, 16), ofDate(2024, 8, 23, 16), 0, true, 1));
             communityEventsAppend.push(createMutationInvasion(ofDate(2024, 8, 19, 16), ofDate(2024, 8, 26, 16)));
