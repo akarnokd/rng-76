@@ -26140,7 +26140,7 @@
                 ]
             };
 
-            fillInSeasonNew(season18, era21Length, "LR18", true);
+            fillInSeasonNew(season18, era21Length, "LR18", true, 2);
             seasonEventsAppend.push(season18);
 
             addWeeklies(challengesWeeklyEra21, 0, [
@@ -26233,7 +26233,7 @@
                 ]
             };
 
-            fillInSeasonNew(season19, era22Length, "LR19", true);
+            fillInSeasonNew(season19, era22Length, "LR19", true, 1);
             seasonEventsAppend.push(season19);
 
             communityEventsAppend.push(createTreasureHunt(ofDate(2024, 11, 5, 16), ofDate(2024, 11, 9, 16)));
@@ -28809,7 +28809,7 @@
                 }
             }
 
-            function fillInSeasonNew(season, seasonDays, seasonId, uncertain) {
+            function fillInSeasonNew(season, seasonDays, seasonId, uncertain, dblScore) {
                 if (maxscore === undefined) {
                     maxscore = 0;
                     for (var i = 2; i <= 100; i++) {
@@ -28932,7 +28932,61 @@
                         offset: i,
                         period: 1400,
                         subchallenges: subchallenge2
-                    });                
+                    });
+                    
+                    if (dblScore) {
+                        let math = {
+                            name: "Calculations",
+                            offset: i,
+                            period: 1400,
+                            subchallenges: []
+                        };
+                        season.options.push(math);
+
+                        math.subchallenges.push({
+                            name: "Total S.C.O.R.E. required for Rank 150: <b>" + thousands(maxscoreNew) + "</b>"
+                        });
+
+                        let dblBonus1 = (dblScore * 2500 * 4);
+                        let dblBonus2 = (dblScore * 2750 * 4);
+                        let dblBonus3 = (dblScore * 2750 * 4 * 1.25);
+                        let weekly1 = (10500 + 7 * 2500);
+                        let weekly2 = (10500 + 7 * 2750);
+                        let weekly3 = (10500 + 7 * 2750 * 1.25);
+
+                        let grx1 = (maxscoreNew - dblBonus1 - seasonDays * weekly1 / 7);
+                        if (grx1 < 0) {
+                            grx1 = 0;
+                        }
+                        let grx2 = (maxscoreNew - dblBonus2 - seasonDays * weekly2 / 7); 
+                        if (grx2 < 0) {
+                            grx2 = 0;
+                        }
+                        let grx3 = (maxscoreNew - dblBonus3 - seasonDays * weekly3 / 7); 
+                        if (grx3 < 0) {
+                            grx3 = 0;
+                        }
+
+                        math.subchallenges.push({
+                            name: "<table style='border-collapse: collapse;' border=1><tr><td>Name</td><td>No boost, no 1st</td><td>No boost, 1st</td><td>25% boost, 1st</td></tr>" 
+                                + "<tr><td>S.C.O.R.E. per week</td><td align='right'>" 
+                                    + thousands(weekly1.toFixed(0)) + "</td><td align='right'>" 
+                                    + thousands(weekly2.toFixed(0)) + "</td><td align='right'>" 
+                                    + thousands(weekly3.toFixed(0)) + "</td></tr>"
+                                + "<tr><td>Double S.C.O.R.E. bonus</td><td align='right'>" 
+                                    + thousands(dblBonus1.toFixed(0)) + "</td><td align='right'>" 
+                                    + thousands(dblBonus2.toFixed(0)) + "</td><td align='right'>" 
+                                    + thousands(dblBonus3.toFixed(0)) + "</td></tr>"
+                                + "<tr><td>Weeks needed without grind</td><td align='right'>" + ((maxscoreNew - dblBonus1) / weekly1).toFixed(1) + "</td><td align='right'>" 
+                                    + ((maxscoreNew - dblBonus2) / weekly2).toFixed(1) + "</td><td align='right'>" 
+                                        + ((maxscoreNew - dblBonus3) / weekly3).toFixed(1) + "</td></tr>"
+                                + "<tr><td>Repeatable S.C.O.R.E grind needed</td><td align='right'>" 
+                                    + thousands(grx1) + "</td><td align='right'>"
+                                    + thousands(grx2) + "</td><td align='right'>"
+                                    + thousands(grx3) + "</td></tr>"
+                                + "<table>"
+                        });
+                    }
                 }
             }
 
