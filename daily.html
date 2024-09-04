@@ -15626,6 +15626,13 @@
                     period: 1400
                 };
             }
+            function scoreVisitBestBuiltCamp(offset, count) {
+                return {
+                    name: times("Visit a Best Build C.A.M.P.", count),
+                    offset: offset,
+                    period: 1400
+                };
+            }
             function scoreTakeCameraPictureCamden(offset, count) {
                 return {
                     name: times("Take Camera Picture in Camden Park", count),
@@ -26165,6 +26172,17 @@
                     scoreLikeBestBuiltCamp, 1,
                     scoreSellShotgun, 1,
                     make1st(scoreEatVegetable), 10,
+                    scoreReroll, 1,
+                ], dops(dailyOpsWatoga, dailyOpsCommunists, dailyOpsFreezing, true, false, true));
+            addDaily(challengesDailyEra21, 1, [
+                    scoreCompleteDailyChallenge, 6,
+                    scoreCollectEnergyAmmo, 20,
+                    scoreCompleteDaily, 1,
+                    scoreKillCultist, 10,
+                    scoreKillHoneyBeast, 1,
+                    scoreScrapMoney, 5,
+                    scoreVisitBestBuiltCamp, 1,
+                    make1st(scoreScrapJunkAluminium), 5,
                     scoreReroll, 1,
                 ], dops(dailyOpsWatoga, dailyOpsCommunists, dailyOpsFreezing, true, false, true));
 
