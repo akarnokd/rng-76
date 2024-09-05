@@ -19606,6 +19606,14 @@
                     period: 1400,
                 };
             }
+            
+            function scoreCollectSugarBombs(offset, count) {
+                return {
+                    name: times("Collect a box of Sugar Bombs", count),
+                    offset: offset,
+                    period: 1400,
+                };
+            }
             function scoreCrippleSuperMutantHead(offset, count) {
                 return {
                     name: times("Cripple a Super Mutant's Head", count),
@@ -26183,6 +26191,17 @@
                     scoreScrapMoney, 5,
                     scoreVisitBestBuiltCamp, 1,
                     make1st(scoreScrapJunkAluminium), 5,
+                    scoreReroll, 1,
+                ], dops(dailyOpsV96, dailyOpsRobots, dailyOpsToxic, false, false, true));
+            addDaily(challengesDailyEra21, 2, [
+                    scoreCompleteDailyChallenge, 6,
+                    scoreCollectBrainFungus, 5,
+                    scoreCollectSugarBombs, 1,
+                    scoreCompletePublicMutatedEvent, 1,
+                    scoreKillDeathclaw, 1,
+                    scoreKillMutatedEnemy, 10,
+                    scoreVisitOwnShelter, 1,
+                    make1st(scorePlantCrop), 5,
                     scoreReroll, 1,
                 ], dops(dailyOpsV96, dailyOpsRobots, dailyOpsToxic, false, false, true));
 
