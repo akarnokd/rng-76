@@ -5601,6 +5601,16 @@
                             //tip: "Currently bugged and disappears after reaching rank 99."
                         };
             }
+            function scoreFixedComplete3PublicEventRank100(offset) {
+                return {
+                            name: "&#x267B; Repeatable: Complete 3 Public Events (beyond rank 100)",
+                            offset: offset,
+                            period: 1400,
+                            ignore: true,
+                            //tipId: "ScoreRepeatableXPRank100",
+                            //tip: "Currently bugged and disappears after reaching rank 99."
+                        };
+            }
 
             function scoreGainXP2500(offset) {
                 return {
@@ -26160,6 +26170,7 @@
 
             addWeeklies(challengesWeeklyEra21, 0, [
                 scoreFixedGainXP10000Rank100, 1,
+                scoreFixedComplete3PublicEventRank100, 1,
                 scoreCompleteGoldStarN, 3,
                 scoreCollectCaps, 2500,
                 scoreCollectPrewarFood, 25,
@@ -26203,7 +26214,7 @@
                     scoreVisitOwnShelter, 1,
                     make1st(scorePlantCrop), 5,
                     scoreReroll, 1,
-                ], dops(dailyOpsV96, dailyOpsRobots, dailyOpsToxic, false, false, true));
+                ], dops(dailyOpsBurning, dailyOpsCultists, dailyOpsRelentless, true, false, true));
 
 
             communityEventsAppend.push(createPurveyor(ofDate(2024, 8, 5, 16), ofDate(2024, 8, 9, 16), 25, false, 1));
