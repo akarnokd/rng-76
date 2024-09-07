@@ -15643,6 +15643,20 @@
                     period: 1400
                 };
             }
+            function scoreTakeCameraPictureBestBuiltCamp(offset, count) {
+                return {
+                    name: times("Take a camera picture at a Best Build C.A.M.P.", count),
+                    offset: offset,
+                    period: 1400
+                };
+            }
+            function scoreCollectToiletPaper(offset, count) {
+                return {
+                    name: times("Collect Toilet Paper", count),
+                    offset: offset,
+                    period: 1400
+                };
+            }
             function scoreTakeCameraPictureCamden(offset, count) {
                 return {
                     name: times("Take Camera Picture in Camden Park", count),
@@ -26224,6 +26238,17 @@
                     scoreKillMirelurk, 5,
                     scoreSellWeaponNPC, 5,
                     make1st(scoreCollectEnergyAmmo), 20,
+                    scoreReroll, 1,
+                ], dops(dailyOpsValley, dailyOpsMutants, dailyOpsChillingMend, false, false, true));
+            addDaily(challengesDailyEra21, 4, [
+                    scoreCompleteDailyChallenge, 6,
+                    scoreCompletePublicMutatedEvent, 1,
+                    scoreKillMutatedEnemy, 10,
+                    scoreKillScorched, 10,
+                    scoreCollectToiletPaper, 2,
+                    scoreCollectTeddyBear, 3,
+                    scoreTakeCameraPictureBestBuiltCamp, 1,
+                    make1st(scoreCraftBulkWood), 1,
                     scoreReroll, 1,
                 ], dops(dailyOpsValley, dailyOpsMutants, dailyOpsChillingMend, false, false, true));
 
