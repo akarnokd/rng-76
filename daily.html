@@ -15650,6 +15650,13 @@
                     period: 1400
                 };
             }
+            function scorePhotomodeBestBuiltCamp(offset, count) {
+                return {
+                    name: times("Use Photomode at a Best Build C.A.M.P.", count),
+                    offset: offset,
+                    period: 1400
+                };
+            }
             function scoreCollectToiletPaper(offset, count) {
                 return {
                     name: times("Collect Toilet Paper", count),
@@ -26249,6 +26256,17 @@
                     scoreCollectTeddyBear, 3,
                     scoreTakeCameraPictureBestBuiltCamp, 1,
                     make1st(scoreCraftBulkWood), 1,
+                    scoreReroll, 1,
+                ], dops(dailyOpsWatogaHighschool, dailyOpsRobots, dailyOpsRelentless, true, true, true));
+            addDaily(challengesDailyEra21, 5, [
+                    scoreCompleteDailyChallenge, 6,
+                    scoreBuildAnythingCamp, 5,
+                    scoreCompleteDaily, 1,
+                    scoreCrippleSuperMutantArm, 2,
+                    scoreKillDeathclaw, 1,
+                    scoreKillGhoul, 10,
+                    scorePhotomodeBestBuiltCamp, 1,
+                    make1st(scoreScrapJunkFiberOptics), 3,
                     scoreReroll, 1,
                 ], dops(dailyOpsWatogaHighschool, dailyOpsRobots, dailyOpsRelentless, true, true, true));
 
