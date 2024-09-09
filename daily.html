@@ -17072,6 +17072,13 @@
                     period: 1400,
                 };
             }
+            function scoreDrinkPurifiedWater(offset, count) {
+                return {
+                    name: times("Drink Purified Water.", count),
+                    offset: offset,
+                    period: 1400,
+                };
+            }
             function scoreSellMothmanEggNPC(offset, count) {
                 return {
                     name: times("Sell a Mothman Egg Omlette to an NPC vendor.", count),
@@ -26267,6 +26274,17 @@
                     scoreKillGhoul, 10,
                     scorePhotomodeBestBuiltCamp, 1,
                     make1st(scoreScrapJunkFiberOptics), 3,
+                    scoreReroll, 1,
+                ], dops(dailyOpsWestTec, dailyOpsAliens, dailyOpsVaporous, false, true, true));
+            addDaily(challengesDailyEra21, 6, [
+                    scoreCompleteDailyChallenge, 6,
+                    scoreCollectPrewarFood, 5,
+                    scoreCompletePublicMutatedEvent, 1,
+                    scoreDrinkPurifiedWater, 2,
+                    scoreHarvestCornRazorgrainTato, 12,
+                    scoreKillGhoul, 10,
+                    scoreKillSupermutant, 5,
+                    make1st(scoreClaimWorkshop), 1,
                     scoreReroll, 1,
                 ], dops(dailyOpsWestTec, dailyOpsAliens, dailyOpsVaporous, false, true, true));
 
