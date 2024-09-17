@@ -19401,7 +19401,7 @@
             }
             function scoreSellSwampTofu(offset, count) {
                 return {
-                    name: times("Sell Swamp Tofu", count),
+                    name: times("Sell Swamp Tofu to an NPC vendor", count),
                     offset: offset,
                     period: 1400,
                     tipId: "ScoreSellSwampTofu",
@@ -26392,6 +26392,32 @@
             communityEventsAppend.push(createCapsOPlenty(ofDate(2024, 8, 16, 16), ofDate(2024, 8, 19, 16)));
             communityEventsAppend.push(createGoldRush2(ofDate(2024, 8, 16, 16), ofDate(2024, 8, 19, 16)));
             communityEventsAppend.push(createScripSurplus3(ofDate(2024, 8, 16, 16), ofDate(2024, 8, 19, 16)));
+
+            addWeeklies(challengesWeeklyEra21, 14, [
+                scoreFixedGainXP10000Rank100, 1,
+                scoreFixedComplete3PublicEventRank100, 1,
+                scoreCompleteGoldStarN, 3,
+                scoreCollectPrewarFood, 20,
+                scoreCollectLighterCigarCigarette, 15,
+                scoreCompletePublicMutatedEvent, 3,
+                scoreDrinkTea, 5,
+                scoreEatCookedMeal, 30,
+                scoreKillCanine, 30,
+                scoreKillLegendary, 5,
+                scoreScrapPipeGun, 20,
+                scoreScrapJunkLead, 30,
+            ]);
+            addDaily(challengesDailyEra21, 14, [
+                    scoreCompleteDailyChallenge, 6,
+                    scoreCollectWood, 20,
+                    scoreGainXP2500NoRank, 1,
+                    scoreKillGulper, 3,
+                    scoreKillWendigo, 1,
+                    scoreLikeBestBuiltCamp, 1,
+                    scoreSellSwampTofu, 1,
+                    make1st(scoreFermentAlcohol), 3,
+                    scoreReroll, 1,
+                ], dops(dailyOpsValley, dailyOpsCultists, dailyOpsFreezing, false, false, true));
 
             communityEventsAppend.push(createPurveyor(ofDate(2024, 8, 19, 16), ofDate(2024, 8, 23, 16), 0, true, 1));
             communityEventsAppend.push(createMutationInvasion(ofDate(2024, 8, 19, 16), ofDate(2024, 8, 26, 16)));
