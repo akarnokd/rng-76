@@ -19265,6 +19265,13 @@
                     period: 1400,
                 };
             }
+            function scoreCrippleSuperMutantLeg(offset, count) {
+                return {
+                    name: times("Cripple a Super Mutant's Leg", count),
+                    offset: offset,
+                    period: 1400,
+                };
+            }
 
             addWeeklies(challengesWeeklyEra16, 0, [
                 scoreFixedGainXP10000Rank100, 1,
@@ -26416,6 +26423,17 @@
                     scoreLikeBestBuiltCamp, 1,
                     scoreSellSwampTofu, 1,
                     make1st(scoreFermentAlcohol), 3,
+                    scoreReroll, 1,
+                ], dops(dailyOpsBurning, dailyOpsScorched, dailyOpsCloaked, true, false, true));
+            addDaily(challengesDailyEra21, 15, [
+                    scoreCompleteDailyChallenge, 6,
+                    scoreBuildFloorWallShelterFree, 10,
+                    scoreCollectTeapot, 2,
+                    scoreJoinGroup, 1,
+                    scoreCrippleSuperMutantLeg, 2,
+                    scoreKillInsects, 5,
+                    scoreSellMothmanEggNPC, 1,
+                    make1st(scoreConsumeChems), 2,
                     scoreReroll, 1,
                 ], dops(dailyOpsBurning, dailyOpsScorched, dailyOpsCloaked, true, false, true));
 
