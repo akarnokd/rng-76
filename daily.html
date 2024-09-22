@@ -26469,6 +26469,17 @@
                     make1st(scoreSellMutantHoundChopsNPC), 1,
                     scoreReroll, 1,
                 ], dops(dailyOpsUncanny, dailyOpsAliens, dailyOpsRegenerating, true, false, true));
+            addDaily(challengesDailyEra21, 19, [
+                    scoreCompleteDailyChallenge, 6,
+                    scoreCompletePublicMutatedEvent, 1,
+                    scoreCraftAlcohol, 1,
+                    scoreCrippleGhoulLegs, 2,
+                    scoreEatMeat, 1,
+                    scoreKillCryptid1, 1,
+                    scoreSellMothmanEggNPC, 1,
+                    make1st(scoreDrinkTea), 1,
+                    scoreReroll, 1,
+                ], dops(dailyOpsUncanny, dailyOpsAliens, dailyOpsRegenerating, true, false, true));
 
             communityEventsAppend.push(createPurveyor(ofDate(2024, 8, 19, 16), ofDate(2024, 8, 23, 16), 0, true, 1));
             communityEventsAppend.push(createMutationInvasion(ofDate(2024, 8, 19, 16), ofDate(2024, 8, 26, 16)));
@@ -29265,19 +29276,19 @@
                         }
 
                         math.subchallenges.push({
-                            name: "<table style='border-collapse: collapse;' border=1><tr><td>Name</td><td>No boost, no 1st</td><td>No boost, 1st</td><td>25% boost, 1st</td></tr>" 
-                                + "<tr><td>S.C.O.R.E. per week</td><td align='right'>" 
+                            name: "<table style='border-collapse: collapse;' border=1><tr><td>S.C.O.R.E. Name</td><td>No boost, no 1st</td><td>No boost, 1st</td><td>25% boost, 1st</td></tr>" 
+                                + "<tr><td>per week</td><td align='right'>" 
                                     + thousands(weekly1.toFixed(0)) + "</td><td align='right'>" 
                                     + thousands(weekly2.toFixed(0)) + "</td><td align='right'>" 
                                     + thousands(weekly3.toFixed(0)) + "</td></tr>"
-                                + "<tr><td>Double S.C.O.R.E. bonus</td><td align='right'>" 
+                                + "<tr><td>Double bonus</td><td align='right'>" 
                                     + thousands(dblBonus1.toFixed(0)) + "</td><td align='right'>" 
                                     + thousands(dblBonus2.toFixed(0)) + "</td><td align='right'>" 
                                     + thousands(dblBonus3.toFixed(0)) + "</td></tr>"
-                                + "<tr><td>Weeks needed without grind</td><td align='right'>" + ((maxscoreNew - dblBonus1) / weekly1).toFixed(1) + "</td><td align='right'>" 
+                                + "<tr><td>Weeks w/o grind</td><td align='right'>" + ((maxscoreNew - dblBonus1) / weekly1).toFixed(1) + "</td><td align='right'>" 
                                     + ((maxscoreNew - dblBonus2) / weekly2).toFixed(1) + "</td><td align='right'>" 
                                         + ((maxscoreNew - dblBonus3) / weekly3).toFixed(1) + "</td></tr>"
-                                + "<tr><td>Repeatable S.C.O.R.E grind needed</td><td align='right'>" 
+                                + "<tr><td>Grind needed</td><td align='right'>" 
                                     + thousands(grx1) + "</td><td align='right'>"
                                     + thousands(grx2) + "</td><td align='right'>"
                                     + thousands(grx3) + "</td></tr>"
