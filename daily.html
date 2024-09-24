@@ -20298,6 +20298,13 @@
                     period: 1400,
                 };
             }
+            function scoreCrippleSuperMutantLimbs(offset, count) {
+                return {
+                    name: times("Cripple Super Mutant's Limbs", count),
+                    offset: offset,
+                    period: 1400,
+                };
+            }
 
             addWeeklies(challengesWeeklyEra16, 49, [
                 scoreFixedGainXP10000Rank100, 1,
@@ -26495,6 +26502,33 @@
             communityEventsAppend.push(createPurveyor(ofDate(2024, 8, 19, 16), ofDate(2024, 8, 23, 16), 0, true, 1));
             communityEventsAppend.push(createMutationInvasion(ofDate(2024, 8, 19, 16), ofDate(2024, 8, 26, 16)));
             communityEventsAppend.push(createMinerva(ofDate(2024, 8, 23, 16), ofDate(2024, 8, 25, 16), "Emporium @ Fort Atlas", "P?"));
+
+            addWeeklies(challengesWeeklyEra21, 21, [
+                scoreFixedGainXP10000Rank100, 1,
+                scoreFixedComplete3PublicEventRank100, 1,
+                scoreCompleteGoldStarN, 3,
+                scoreCollectScrip, 500,
+                scoreCollectPurifiedWater, 25,
+                scoreCraftAmmo, 250,
+                scoreCraftBulkAluminium, 3,
+                scoreCrippleSuperMutantLimbs, 30,
+                scoreKillCreatures, 25,
+                scoreSellWeaponNPC, 15,
+                scoreTakePictureWendigo, 1,
+                scoreVisitAnotherShelter, 5,
+            ]);
+            addDaily(challengesDailyEra21, 21, [
+                    scoreCompleteDailyChallenge, 6,
+                    scoreCollectBurntBook, 3,
+                    scoreCompletePublicMutatedEvent, 1,
+                    scoreCraftAnyFlair, 1,
+                    scoreCrippleMirelurkLimb, 2,
+                    scoreKillCultist, 10,
+                    scoreSellBloatflyMeat, 1,
+                    make1st(scoreScrapJunkCork), 5,
+                    scoreReroll, 1,
+                ], dops(dailyOpsGarrahan, dailyOpsAliens, dailyOpsResilient, true, false, true));
+
             communityEventsAppend.push(createScripSurplus3(ofDate(2024, 8, 26, 16), ofDate(2024, 8, 30, 16)));
             communityEventsAppend.push(createDoubleMutations(ofDate(2024, 8, 26, 16), ofDate(2024, 8, 30, 16)));
             communityEventsAppend.push(createDoubleScore(ofDate(2024, 8, 26, 16), ofDate(2024, 8, 30, 16)));
