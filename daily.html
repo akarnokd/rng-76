@@ -21151,6 +21151,13 @@
                     period: 1400,
                 };
             }
+            function scoreCollectSoap(offset, count) {
+                return {
+                    name: times("Collect Soap", count),
+                    offset: offset,
+                    period: 1400,
+                };
+            }
             function scoreConsumeChems(offset, count) {
                 return {
                     name: times("Consume any Chems", count),
@@ -26598,6 +26605,32 @@
             communityEventsAppend.push(createScripSurplus3(ofDate(2024, 8, 26, 16), ofDate(2024, 9, 1, 16)));
             communityEventsAppend.push(createDoubleMutations(ofDate(2024, 8, 26, 16), ofDate(2024, 9, 1, 16)));
             communityEventsAppend.push(createDoubleScore(ofDate(2024, 8, 26, 16), ofDate(2024, 9, 1, 16)));
+
+            addWeeklies(challengesWeeklyEra21, 28, [
+                scoreFixedGainXP10000Rank100, 1,
+                scoreFixedComplete3PublicEventRank100, 1,
+                scoreCompleteGoldStarN, 3,
+                scoreBuildFloorWallCamp, 25,
+                scoreCollectEnergyAmmo, 40,
+                scoreCollectRadawayRadX, 15,
+                scoreCollectSoap, 15,
+                scoreCompleteDailyOpsDailies, 3,
+                scoreCrippleSuperMutantHead, 10,
+                scoreDrinkPurifiedWater, 15,
+                scorePlantCrop, 25,
+                scoreVisitAnotherShelter, 5,
+            ]);
+            addDaily(challengesDailyEra21, 28, [
+                    scoreCompleteDailyChallenge, 6,
+                    scoreBuildDefenseApplianceCraftingWorkshop, 3,
+                    scoreCollectWood, 20,
+                    scoreCompleteDailyOpsPublicTeam, 1,
+                    scoreCrippleHumanHeads, 2,
+                    scoreKillCultist, 10,
+                    scoreVisitOwnShelter, 1,
+                    make1st(scoreScrapJunkRubber), 5,
+                    scoreReroll, 1,
+                ], dops(dailyOpsAquarium, dailyOpsOvergrown, dailyOpsVolatile, false, false, true));
 
             communityEventsAppend.push(createSpookyCampCompetition(ofDate(2024, 9, 1, 16), ofDate(2024, 9, 31, 16)));
             communityEventsAppend.push(createCapsOPlenty(ofDate(2024, 9, 3, 16), ofDate(2024, 9, 7, 16)));
