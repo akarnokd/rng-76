@@ -26631,6 +26631,17 @@
                     make1st(scoreScrapJunkRubber), 5,
                     scoreReroll, 1,
                 ], dops(dailyOpsBurrows, dailyOpsMoleminers, dailyOpsResilient, true, false, true));
+            addDaily(challengesDailyEra21, 29, [
+                    scoreCompleteDailyChallenge, 6,
+                    scoreBuySellItem, 1,
+                    scoreCrippleMoleminerHead, 2,
+                    scoreGainXP2500NoRank, 1,
+                    scoreKillDeathclaw, 1,
+                    scoreKillMirelurk, 5,
+                    scoreTakeCameraPictureStingwing, 1,
+                    make1st(scoreScrapPipeGun), 3,
+                    scoreReroll, 1,
+                ], dops(dailyOpsBurrows, dailyOpsMoleminers, dailyOpsResilient, true, false, true));
 
             communityEventsAppend.push(createSpookyCampCompetition(ofDate(2024, 9, 1, 16), ofDate(2024, 9, 31, 16)));
             communityEventsAppend.push(createCapsOPlenty(ofDate(2024, 9, 3, 16), ofDate(2024, 9, 7, 16)));
@@ -27857,10 +27868,23 @@
                     title: "Spooky C.A.M.P. Competition",
                     options: [
                         {
-                            name: "TBD.",
+                            name: "Submit your Spooky C.A.M.P. build to win 10,000 Atoms",
+                            offset: 0,
+                            period: 1,
+                            subchallenges: [
+                                {
+                                    name: "Deadline: 23th October, 2024"
+                                },
+                                {
+                                    name: "Results: 31st October, 2024"
+                                }
+                            ]
+                        },
+                        {
+                            name: "<a href='https://discord.com/channels/784542837596225567/1290428768589975686' target='_blank'>Discord details</a>",
                             offset: 0,
                             period: 1
-                        },
+                        }
                     ]
                 };
             }
