@@ -13989,6 +13989,13 @@
                     period: 1400,
                 };
             }
+            function scoreCollectBoardGame(offset, count) {
+                return {
+                    name: times("Collect a Board Game", count),
+                    offset: offset,
+                    period: 1400,
+                };
+            }
             function scoreUsePhotomodePitt(offset, count) {
                 return {
                     name: times("&#x1F681; Use Photo mode to take a picture in The Pitt", count),
@@ -26640,6 +26647,17 @@
                     scoreKillMirelurk, 5,
                     scoreTakeCameraPictureStingwing, 1,
                     make1st(scoreScrapPipeGun), 3,
+                    scoreReroll, 1,
+                ], dops(dailyOpsValley, dailyOpsCultists, dailyOpsReflective, false, false, true));
+            addDaily(challengesDailyEra21, 30, [
+                    scoreCompleteDailyChallenge, 6,
+                    scoreCollectBoardGame, 1,
+                    scoreCompleteOneEvent, 1,
+                    scoreKillInsects, 5,
+                    scoreKillSnallygaster, 3,
+                    scoreSellMutantHoundChopsNPC, 1,
+                    scoreTakeCameraPictureBestBuiltCamp, 1,
+                    make1st(scoreCookMealPlant), 5,
                     scoreReroll, 1,
                 ], dops(dailyOpsValley, dailyOpsCultists, dailyOpsReflective, false, false, true));
 
