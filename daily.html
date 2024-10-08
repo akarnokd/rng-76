@@ -26709,6 +26709,33 @@
             communityEventsAppend.push(createSpookyCampCompetition(ofDate(2024, 9, 1, 16), ofDate(2024, 9, 31, 16)));
             communityEventsAppend.push(createCapsOPlenty(ofDate(2024, 9, 3, 16), ofDate(2024, 9, 7, 16)));
             communityEventsAppend.push(createDoubleMutations(ofDate(2024, 9, 3, 16), ofDate(2024, 9, 7, 16)));
+
+            addWeeklies(challengesWeeklyEra21, 35, [
+                scoreFixedGainXP10000Rank100, 1,
+                scoreFixedComplete3PublicEventRank100, 1,
+                scoreCompleteGoldStarN, 3,
+                scoreBuildTurretsTraps, 10,
+                scoreCollectBrainFungus, 25,
+                scoreCompleteOneEvent, 3,
+                scoreCrippleSuperMutantLeg, 18,
+                scoreDrinkNukaColaOrange, 5,
+                scoreEatPrewarFood, 25,
+                scoreKillMirelurk, 30,
+                scoreScrapJunkGold, 10,
+                scoreScrapJunkOil, 15,
+            ]);
+            addDaily(challengesDailyEra21, 35, [
+                    scoreCompleteDailyChallenge, 6,
+                    scoreBuildGeneratorShelter, 1,
+                    scoreCollectTeapot, 2,
+                    scoreCompleteOneEvent, 1,
+                    scoreCrippleScorchedLeg, 2,
+                    scoreEatDogFood, 5,
+                    scoreKillFloater, 3,
+                    make1st(scoreScrapMoney), 5,
+                    scoreReroll, 1,
+                ], dops(dailyOpsV94, dailyOpsAliens, dailyOpsDanger, true, true, true));
+
             communityEventsAppend.push(createMinerva(ofDate(2024, 9, 3, 16), ofDate(2024, 9, 7, 16), "Big Sale @ The Whitespring", "P?"));
             communityEventsAppend.push(createMutationInvasion(ofDate(2024, 9, 15, 16), ofDate(2024, 9, 22, 16)));
             communityEventsAppend.push(createDoubleMutations(ofDate(2024, 9, 17, 16), ofDate(2024, 9, 21, 16)));
