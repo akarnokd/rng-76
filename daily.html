@@ -26804,6 +26804,33 @@
                 
             communityEventsAppend.push(createMinerva(ofDate(2024, 9, 3, 16), ofDate(2024, 9, 7, 16), "Big Sale @ The Whitespring", "P?"));
             communityEventsAppend.push(createMinerva(ofDate(2024, 9, 14, 16), ofDate(2024, 9, 16, 16), "Emporium @ Foundation", "P?"));
+
+            addWeeklies(challengesWeeklyEra21, 42, [
+                scoreFixedGainXP10000Rank100, 1,
+                scoreFixedComplete3PublicEventRank100, 1,
+                scoreCompleteGoldStarN, 3,
+                scoreCollectBallisticAmmo, 60,
+                scoreCollectLighterCigarCigarette, 15,
+                scoreCompletePublicMutatedEvent, 3,
+                scoreConsumeAlcohol, 20,
+                scoreCraftBulkAluminium, 3,
+                scoreCraftThrowable, 20,
+                scoreDestroyRobot, 30,
+                scoreKillMutatedEnemy, 30,
+                scoreKillScorched, 30,
+            ]);
+            addDaily(challengesDailyEra21, 42, [
+                    scoreCompleteDailyChallenge, 6,
+                    scoreBuySellItem, 1,
+                    scoreCollectBallisticAmmo, 20,
+                    scoreCompletePublicMutatedEvent, 1,
+                    scoreDestroyRobot, 10,
+                    scoreKillCryptid1, 1,
+                    scoreTakeCameraPictureEyebot, 1,
+                    make1st(scoreCollectPurifiedWater), 5,
+                    scoreReroll, 1,
+                ], dops(dailyOpsWatoga, dailyOpsAliens, dailyOpsSwift, false, false, true));
+
             communityEventsAppend.push(createMutationInvasion(ofDate(2024, 9, 15, 16), ofDate(2024, 9, 22, 16)));
             communityEventsAppend.push(createDoubleMutations(ofDate(2024, 9, 17, 16), ofDate(2024, 9, 21, 16)));
             communityEventsAppend.push(createGoldRush2(ofDate(2024, 9, 17, 16), ofDate(2024, 9, 21, 16)));
