@@ -26885,11 +26885,22 @@
                     make1st(scoreDrinkNukaGrape), 2,
                     scoreReroll, 1,
                 ], dops(dailyOpsFoundry, dailyOpsFanatics, dailyOpsSwiftStalker, false, true, true));
+            addDaily(challengesDailyEra21, 48, [
+                    scoreCompleteDailyChallenge, 6,
+                    scoreCompletePublicMutatedEvent, 1,
+                    scoreCrippleGhoulLegs, 2,
+                    scoreDrinkNukaCola, 3,
+                    scoreFermentAlcohol, 3,
+                    scoreKillCreatureInGroup, 10,
+                    scoreScrapJunkScrews, 5,
+                    make1st(scoreConsumeAlcohol), 5,
+                    scoreReroll, 1,
+                ], dops(dailyOpsFoundry, dailyOpsFanatics, dailyOpsSwiftStalker, false, true, true));
 
             communityEventsAppend.push(createMutationInvasion(ofDate(2024, 9, 15, 16), ofDate(2024, 9, 22, 16)));
             communityEventsAppend.push(createDoubleMutations(ofDate(2024, 9, 17, 16), ofDate(2024, 9, 21, 16)));
             communityEventsAppend.push(createGoldRush2(ofDate(2024, 9, 17, 16), ofDate(2024, 9, 21, 16)));
-            communityEventsAppend.push(createSpookyScorched2023(ofDate(2024, 9, 22, 16), ofDate(2024, 10, 5, 16)));
+            communityEventsAppend.push(createSpookyScorched2024(ofDate(2024, 9, 22, 16), ofDate(2024, 10, 5, 16)));
             communityEventsAppend.push(createFalloutDay(ofDate(2024, 9, 23, 16), ofDate(2024, 9, 24, 16)));
             communityEventsAppend.push(createDoubleMutations(ofDate(2024, 9, 31, 16), ofDate(2024, 10, 4, 16)));
             communityEventsAppend.push(createPurveyor(ofDate(2024, 9, 31, 16), ofDate(2024, 10, 4, 16), 25, false, 1));
@@ -28589,6 +28600,72 @@
                     ]
                 };
             }
+            function createSpookyScorched2024(start, end) {
+                return {
+                    validStart: start,
+                    validEnd: end, 
+                    title: "Spooky Scorched Seasonal Event",
+                    notable: { icon: "spookyscorched", description: "Spooky Scorched" },
+                    options: [
+                        {
+                            name: "&#x1F383; HALLOWEEN: Complete <i>Give out Candy</i> weekly challenge (x2)",
+                            offset: 0,
+                            period: 1,
+                            subchallenges: [
+                                {
+                                    name: "Reward: Jack O'Lantern Dress"
+                                }
+                            ]
+                        },
+                        {
+                            name: "&#x1F383; HALLOWEEN: Complete <i>Trick or Treat</i> weekly challenge (x2)",
+                            offset: 0,
+                            period: 1,
+                            subchallenges: [
+                                {
+                                    name: "Reward: Mothman Eyes Wall Light"
+                                }
+                            ]
+                        },
+                        {
+                            name: "&#x1F383; HALLOWEEN: Complete both <i>Give out Candy</i> and <i>Trick or Treat</i> weekly challenges (x2)",
+                            offset: 0,
+                            period: 1,
+                            subchallenges: [
+                                {
+                                    name: "Reward: Blood Punch Bowl"
+                                }
+                            ]
+                        },
+                        {
+                            name: "Unique Humanoid Scorched",
+                            offset: 0,
+                            period: 1,
+                            subchallenges: [
+                                {
+                                    name: "Legendary with sound cue"
+                                },
+                                {
+                                    name: "Has Candy and Spooky Treat Bag"
+                                }
+                            ]
+                        },
+                        {
+                            name: "Rewards: <a href='https://docs.google.com/spreadsheets/u/0/d/1jjC2-s_FBJ8VtQzOWYc6Qm4PjIrdLDDJ5N0a-W3PCA8/htmlview#gid=0' target='_blank'>Plans, Ammo, Consumables</a>",
+                            offset: 0,
+                            period: 1,
+                        },
+                        {
+                            name: "Ends: <b style='color: green;'>"  + end.toLocaleDateString() 
+                            + " (" + end.toLocaleDateString(window.navigator.language, {weekday: 'long'}) + ")"
+                            + " " + end.toLocaleTimeString() + "</b>", 
+                            offset: 0,
+                            period: 1
+                        }
+                    ]
+                };
+            }
+
             function createSupriseWeekend2024(start, end) {
                 return {
                     validStart: start,
