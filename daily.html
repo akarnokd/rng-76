@@ -26903,6 +26903,39 @@
 
             communityEventsAppend.push(createMinerva(ofDate(2024, 9, 21, 16), ofDate(2024, 9, 23, 16), "Emporium @ Foundation", "P?"));
             communityEventsAppend.push(createSpookyScorched2024(ofDate(2024, 9, 22, 16), ofDate(2024, 10, 5, 16)));
+
+            addWeeklies(challengesWeeklyEra21, 49, [
+                scoreFixedGainXP10000Rank100, 1,
+                scoreFixedComplete3PublicEventRank100, 1,
+                scoreCompleteGoldStarN, 3,
+                scoreBuildAnythingCamp, 25,
+                scoreCollectCaps2500, 1,
+                scoreCollectPurifiedWater, 25,
+                scoreCollectStimpakChems, 20,
+                scoreCompleteOneEvent, 3,
+                scoreDealCriticalHitRadtoad, 5,
+                scoreHarvestPlantFungi, 30,
+                scoreSellWeaponNPC, 15,
+                scoreCompleteGiveOutCandyDaily, 3,
+                scoreCompleteTrickOrTreatDaily, 3,
+                scoreKillSpookyScorchedRepeat, 50
+            ]);
+            addDaily(challengesDailyEra21, 49, [
+                    scoreCompleteDailyChallenge, 6,
+                    scoreBuildAnythingCamp, 5,
+                    scoreCollectBrainFungus, 5,
+                    scoreCollectPurifiedWater, 5,
+                    scoreCompleteDailyOps, 1,
+                    scoreKillFloater, 3,
+                    scoreKillBloodEagle, 5,
+                    scoreSpookyCandyBowl, 1,
+                    scoreTrickOrTreat, 5,
+                    scoreKillSpookyScorched, 5,
+                    make1st(scoreScrapJunkCloth), 10,
+                    scoreReroll, 1,
+                ], dops(dailyOpsAquarium, dailyOpsOvergrown, dailyOpsResilient, false, false, true));
+
+
             communityEventsAppend.push(createFalloutDay(ofDate(2024, 9, 23, 16), ofDate(2024, 9, 24, 16)));
             communityEventsAppend.push(createDoubleMutations(ofDate(2024, 9, 31, 16), ofDate(2024, 10, 4, 16)));
             communityEventsAppend.push(createPurveyor(ofDate(2024, 9, 31, 16), ofDate(2024, 10, 4, 16), 25, false, 1));
@@ -28630,7 +28663,7 @@
                             ]
                         },
                         {
-                            name: "&#x1F383; HALLOWEEN: Complete both <i>Give out Candy</i> and <i>Trick or Treat</i> weekly challenges (x2)",
+                            name: "&#x1F383; HALLOWEEN: Complete both <i>Give out Candy</i><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;and <i>Trick or Treat</i> weekly challenges (x2)",
                             offset: 0,
                             period: 1,
                             subchallenges: [
